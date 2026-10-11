@@ -50,7 +50,7 @@ fn background(node: Node<'_>) -> bool {
 fn semantic_end(node: Node<'_>) -> usize {
     match node.kind() {
         "background_pipeline" => field(node, "pipeline").end_byte(),
-        "assignment_statement" | "flow_control_statement" => {
+        "assignment_statement" | "return_statement" | "throw_statement" | "exit_statement" => {
             let value = node.child_by_field_name(if node.kind() == "assignment_statement" {
                 "right"
             } else {
@@ -176,19 +176,21 @@ fn collect(node: Node<'_>, source: &str, records: &mut Records) {
                 "operator": assignment_operator(node, source),
             }),
         )),
-        "flow_control_statement" => {
-            let kind = match field(node, "keyword").kind() {
-                "return" => "ReturnStatementAst",
-                "throw" => "ThrowStatementAst",
-                "exit" => "ExitStatementAst",
-                "break" => "BreakStatementAst",
-                "continue" => "ContinueStatementAst",
-                keyword => panic!("Unexpected flow keyword {keyword:?}"),
+        "return_statement" | "throw_statement" | "exit_statement" | "break_statement"
+        | "continue_statement" => {
+            let (kind, role) = match node.kind() {
+                "return_statement" => ("ReturnStatementAst", "value"),
+                "throw_statement" => ("ThrowStatementAst", "value"),
+                "exit_statement" => ("ExitStatementAst", "value"),
+                "break_statement" => ("BreakStatementAst", "label"),
+                "continue_statement" => ("ContinueStatementAst", "label"),
+                _ => unreachable!(),
             };
-            Some((
-                kind,
-                json!({"value": optional_extent(node, "value", source)}),
-            ))
+            assert_eq!(
+                field(node, "keyword").kind(),
+                node.kind().strip_suffix("_statement").unwrap()
+            );
+            Some((kind, json!({role: optional_extent(node, role, source)})))
         }
         _ => None,
     };
@@ -236,12 +238,11 @@ fn expected_records(result: &Value) -> Records {
                 "left": node["fields"]["left"], "right": node["fields"]["right"],
                 "operator": node["operator"],
             }),
-            "ReturnStatementAst"
-            | "ThrowStatementAst"
-            | "ExitStatementAst"
-            | "BreakStatementAst"
-            | "ContinueStatementAst" => {
+            "ReturnStatementAst" | "ThrowStatementAst" | "ExitStatementAst" => {
                 json!({"value": node["fields"]["value"]})
+            }
+            "BreakStatementAst" | "ContinueStatementAst" => {
+                json!({"label": node["fields"]["label"]})
             }
             _ => continue,
         };

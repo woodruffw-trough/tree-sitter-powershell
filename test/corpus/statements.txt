@@ -14,7 +14,7 @@ IF ($X -GT 1) { RETURN $X } ELSEIF ($X -eQ 1) { THROW 'one' } ELSE { EXIT 2 }
             left: (variable)
             right: (integer_literal)))))
     body: (statement_block
-      (flow_control_statement
+      (return_statement
         value: (pipeline
           elements: (command_expression
             expression: (variable)))))
@@ -26,13 +26,13 @@ IF ($X -GT 1) { RETURN $X } ELSEIF ($X -eQ 1) { THROW 'one' } ELSE { EXIT 2 }
               left: (variable)
               right: (integer_literal)))))
       body: (statement_block
-        (flow_control_statement
+        (throw_statement
           value: (pipeline
             elements: (command_expression
               expression: (single_quoted_string))))))
     else: (else_clause
       body: (statement_block
-        (flow_control_statement
+        (exit_statement
           value: (pipeline
             elements: (command_expression
               expression: (integer_literal))))))))
@@ -47,7 +47,7 @@ for () { break }; for ($i=0) { break }; for ($i=0;$i -lt 3;$i++) { continue }
 (source_file
   (for_statement
     body: (statement_block
-      (flow_control_statement)))
+      (break_statement)))
   (for_statement
     initializer: (assignment_statement
       left: (variable)
@@ -55,7 +55,7 @@ for () { break }; for ($i=0) { break }; for ($i=0;$i -lt 3;$i++) { continue }
         elements: (command_expression
           expression: (integer_literal))))
     body: (statement_block
-      (flow_control_statement)))
+      (break_statement)))
   (for_statement
     initializer: (assignment_statement
       left: (variable)
@@ -72,7 +72,7 @@ for () { break }; for ($i=0) { break }; for ($i=0;$i -lt 3;$i++) { continue }
         expression: (unary_expression
           argument: (variable))))
     body: (statement_block
-      (flow_control_statement))))
+      (continue_statement))))
 
 ==================
 Loop labels and foreach
@@ -98,8 +98,8 @@ Loop labels and foreach
             elements: (command_expression
               expression: (variable))))
         body: (statement_block
-          (flow_control_statement
-            value: (identifier)))))))
+          (break_statement
+            label: (identifier)))))))
 
 ==================
 Do until loop
@@ -173,7 +173,7 @@ try { throw 'error' } catch [System.Exception] { $_ } finally { Write-Output don
 (source_file
   (try_statement
     body: (statement_block
-      (flow_control_statement
+      (throw_statement
         value: (pipeline
           elements: (command_expression
             expression: (single_quoted_string)))))
@@ -207,8 +207,8 @@ trap [System.Exception] { continue }; return $result
       (type_name
         name: (type_identifier)))
     body: (statement_block
-      (flow_control_statement)))
-  (flow_control_statement
+      (continue_statement)))
+  (return_statement
     value: (pipeline
       elements: (command_expression
         expression: (variable)))))
@@ -385,5 +385,5 @@ Labeled loop permits the lines label
       elements: (command_expression
         expression: (integer_literal)))
     body: (statement_block
-      (flow_control_statement
-        value: (identifier)))))
+      (break_statement
+        label: (identifier)))))

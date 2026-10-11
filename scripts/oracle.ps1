@@ -230,7 +230,7 @@ function Get-AstRecord($Node) {
             Add-AstField $fields 'value' $Node.Pipeline
         }
         { $_ -in 'BreakStatementAst', 'ContinueStatementAst' } {
-            Add-AstField $fields 'value' $Node.Label
+            Add-AstField $fields 'label' $Node.Label
         }
         'VariableExpressionAst' {
             $record.name = $Node.VariablePath.UserPath

@@ -96,3 +96,55 @@ class Empty {}; enum Mode {}
   (enum_definition
     name: (identifier)
     body: (enum_body)))
+
+================================================================================
+Flow statements preserve distinct values and labels
+================================================================================
+
+return $value; throw 'failure'; exit 1; break outer; continue $label
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (return_statement
+    value: (pipeline
+      elements: (command_expression
+        expression: (variable))))
+  (throw_statement
+    value: (pipeline
+      elements: (command_expression
+        expression: (single_quoted_string))))
+  (exit_statement
+    value: (pipeline
+      elements: (command_expression
+        expression: (integer_literal))))
+  (break_statement
+    label: (identifier))
+  (continue_statement
+    label: (variable)))
+
+================================================================================
+Every command parameter includes its complete name and end marker
+================================================================================
+
+cmd --long -na`me —Flag -Some$Name -- arg
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_parameter
+        name: (command_parameter_name))
+      (command_parameter
+        name: (command_parameter_name))
+      (command_parameter
+        name: (command_parameter_name))
+      (command_parameter
+        name: (command_parameter_name))
+      (command_argument
+        (bare_word)))))

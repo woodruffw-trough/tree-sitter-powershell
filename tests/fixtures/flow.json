@@ -1,0 +1,524 @@
+[
+  {
+    "name": "bare return",
+    "source": "return",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": null
+      }
+    ]
+  },
+  {
+    "name": "bare throw",
+    "source": "throw",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "throw_statement",
+        "keyword": "throw",
+        "value": null
+      }
+    ]
+  },
+  {
+    "name": "bare exit",
+    "source": "exit",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "exit_statement",
+        "keyword": "exit",
+        "value": null
+      }
+    ]
+  },
+  {
+    "name": "bare break",
+    "source": "break",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": null
+      }
+    ]
+  },
+  {
+    "name": "bare continue",
+    "source": "continue",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "continue",
+        "label": null
+      }
+    ]
+  },
+  {
+    "name": "return literal",
+    "source": "return 1",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "1"
+      }
+    ]
+  },
+  {
+    "name": "return Unicode string",
+    "source": "ReTuRn \"café\"",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "ReTuRn",
+        "value": "\"café\""
+      }
+    ]
+  },
+  {
+    "name": "return variable",
+    "source": "RETURN $value",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "RETURN",
+        "value": "$value"
+      }
+    ]
+  },
+  {
+    "name": "return invocation",
+    "source": "return Get-Item .",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "Get-Item ."
+      }
+    ]
+  },
+  {
+    "name": "throw literal",
+    "source": "throw \"failure\"",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "throw_statement",
+        "keyword": "throw",
+        "value": "\"failure\""
+      }
+    ]
+  },
+  {
+    "name": "throw variable",
+    "source": "THROW $error",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "throw_statement",
+        "keyword": "THROW",
+        "value": "$error"
+      }
+    ]
+  },
+  {
+    "name": "exit literal",
+    "source": "exit 3",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "exit_statement",
+        "keyword": "exit",
+        "value": "3"
+      }
+    ]
+  },
+  {
+    "name": "exit expression",
+    "source": "EXIT (1 + 2)",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "exit_statement",
+        "keyword": "EXIT",
+        "value": "(1 + 2)"
+      }
+    ]
+  },
+  {
+    "name": "break literal label",
+    "source": "break outer",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": "outer"
+      }
+    ]
+  },
+  {
+    "name": "continue literal label",
+    "source": "continue outer",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "continue",
+        "label": "outer"
+      }
+    ]
+  },
+  {
+    "name": "break string label",
+    "source": "break 'café'",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": "'café'"
+      }
+    ]
+  },
+  {
+    "name": "continue string label",
+    "source": "continue 'outer'",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "continue",
+        "label": "'outer'"
+      }
+    ]
+  },
+  {
+    "name": "break variable label",
+    "source": "BREAK $label",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "BREAK",
+        "label": "$label"
+      }
+    ]
+  },
+  {
+    "name": "continue variable label",
+    "source": "CoNtInUe $label",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "CoNtInUe",
+        "label": "$label"
+      }
+    ]
+  },
+  {
+    "name": "break expression label",
+    "source": "break (1+2)",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": "(1+2)"
+      }
+    ]
+  },
+  {
+    "name": "continue expression label",
+    "source": "continue (1+2)",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "continue",
+        "label": "(1+2)"
+      }
+    ]
+  },
+  {
+    "name": "break truncated adjacent label",
+    "source": "break outer-loop",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": "outer"
+      }
+    ]
+  },
+  {
+    "name": "continue truncated adjacent label",
+    "source": "continue outer.loop",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "continue",
+        "label": "outer"
+      }
+    ]
+  },
+  {
+    "name": "return background value",
+    "source": "return Get-Item . &",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "Get-Item . &"
+      }
+    ]
+  },
+  {
+    "name": "throw background value",
+    "source": "throw Write-Output failure &",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "throw_statement",
+        "keyword": "throw",
+        "value": "Write-Output failure &"
+      }
+    ]
+  },
+  {
+    "name": "exit background value",
+    "source": "exit Write-Output 3 &",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "exit_statement",
+        "keyword": "exit",
+        "value": "Write-Output 3 &"
+      }
+    ]
+  },
+  {
+    "name": "return adjacent command after background",
+    "source": "return a&b",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "a&"
+      }
+    ]
+  },
+  {
+    "name": "return assignment value",
+    "source": "return $x = Get-Item .",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "$x = Get-Item ."
+      }
+    ]
+  },
+  {
+    "name": "throw assignment value",
+    "source": "throw $error = 'failure'",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "throw_statement",
+        "keyword": "throw",
+        "value": "$error = 'failure'"
+      }
+    ]
+  },
+  {
+    "name": "exit assignment value",
+    "source": "exit $code = 2",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "exit_statement",
+        "keyword": "exit",
+        "value": "$code = 2"
+      }
+    ]
+  },
+  {
+    "name": "assignment right return",
+    "source": "$value = return 'café'",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "'café'"
+      }
+    ]
+  },
+  {
+    "name": "assignment right break",
+    "source": "$value = break outer",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": "outer"
+      }
+    ]
+  },
+  {
+    "name": "nested assignment return background",
+    "source": "return $x = $y = Write-Output café &",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "$x = $y = Write-Output café &"
+      }
+    ]
+  },
+  {
+    "name": "return newline before invocation",
+    "source": "return\n& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": null
+      }
+    ]
+  },
+  {
+    "name": "throw newline before invocation",
+    "source": "throw\n& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "throw_statement",
+        "keyword": "throw",
+        "value": null
+      }
+    ]
+  },
+  {
+    "name": "exit newline before invocation",
+    "source": "exit\n& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "exit_statement",
+        "keyword": "exit",
+        "value": null
+      }
+    ]
+  },
+  {
+    "name": "break newline before invocation",
+    "source": "break\n& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": null
+      }
+    ]
+  },
+  {
+    "name": "continue newline before invocation",
+    "source": "continue\n& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "continue",
+        "label": null
+      }
+    ]
+  },
+  {
+    "name": "break adjacent invocation",
+    "source": "break& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "break_statement",
+        "keyword": "break",
+        "label": null
+      }
+    ]
+  },
+  {
+    "name": "continue prefix remains command",
+    "source": "continue. $script",
+    "valid": true,
+    "flows": []
+  },
+  {
+    "name": "return adjacent call operator",
+    "source": "return& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "return_statement",
+        "keyword": "return",
+        "value": "& $command"
+      }
+    ]
+  },
+  {
+    "name": "throw adjacent call operator",
+    "source": "throw& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "throw_statement",
+        "keyword": "throw",
+        "value": "& $command"
+      }
+    ]
+  },
+  {
+    "name": "exit adjacent call operator",
+    "source": "exit& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "exit_statement",
+        "keyword": "exit",
+        "value": "& $command"
+      }
+    ]
+  },
+  {
+    "name": "continue adjacent call operator",
+    "source": "continue& $command",
+    "valid": true,
+    "flows": [
+      {
+        "kind": "continue_statement",
+        "keyword": "continue",
+        "label": null
+      }
+    ]
+  }
+]

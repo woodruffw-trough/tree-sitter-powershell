@@ -56,9 +56,17 @@ const assignmentStatement = ($, right) => prec.right(seq(
   field('right', right),
 ));
 
-const flowControlStatement = (value, required = false) => prec.right(seq(
-  field('keyword', choice(keyword('return'), keyword('throw'), keyword('exit'))),
+const flowControlStatement = (word, value, required = false) => prec.right(seq(
+  field('keyword', keyword(word)),
   required ? field('value', value) : optional(field('value', value)),
+));
+
+const breakContinueStatement = ($, word) => prec.right(seq(
+  field('keyword', keyword(word)),
+  optional(field('label', choice(
+    $._unary_expression,
+    alias($._flow_label, $.identifier),
+  ))),
 ));
 
 const ci = word => new RegExp(
@@ -214,7 +222,6 @@ module.exports = grammar({
   ],
 
   word: $ => $.identifier,
-  supertypes: $ => [$._statement, $._expression, $._primary_expression],
 
   conflicts: $ => [
     [$._value_primary_expression, $.invocation_expression],
@@ -276,15 +283,20 @@ module.exports = grammar({
       $.enum_definition,
       $.data_statement,
       $.configuration_definition,
-      alias($._break_continue_statement, $.flow_control_statement),
+      $.break_statement,
+      $.continue_statement,
       $.background_pipeline,
       alias($._completed_assignment_statement, $.assignment_statement),
-      alias($._completed_flow_control_statement, $.flow_control_statement),
+      alias($._completed_return_statement, $.return_statement),
+      alias($._completed_throw_statement, $.throw_statement),
+      alias($._completed_exit_statement, $.exit_statement),
     ),
 
     _simple_statement: $ => choice(
       $.do_statement,
-      $.flow_control_statement,
+      $.return_statement,
+      $.throw_statement,
+      $.exit_statement,
       $.assignment_statement,
       $.pipeline,
       $.pipeline_chain,
@@ -446,17 +458,24 @@ module.exports = grammar({
       field('body', $.statement_block),
     ),
 
-    _break_continue_statement: $ => prec.right(
-      seq(
-        field('keyword', choice(keyword('break'), keyword('continue'))),
-        optional(field('value', choice($._unary_expression, alias($._flow_label, $.identifier)))),
-      ),
-    ),
+    break_statement: $ => breakContinueStatement($, 'break'),
 
-    flow_control_statement: $ => flowControlStatement($._pipeline_entry),
+    continue_statement: $ => breakContinueStatement($, 'continue'),
 
-    _completed_flow_control_statement: $ => prec.dynamic(1,
-      flowControlStatement($._completed_pipeline_entry, true)),
+    return_statement: $ => flowControlStatement('return', $._pipeline_entry),
+
+    throw_statement: $ => flowControlStatement('throw', $._pipeline_entry),
+
+    exit_statement: $ => flowControlStatement('exit', $._pipeline_entry),
+
+    _completed_return_statement: $ => prec.dynamic(1,
+      flowControlStatement('return', $._completed_pipeline_entry, true)),
+
+    _completed_throw_statement: $ => prec.dynamic(1,
+      flowControlStatement('throw', $._completed_pipeline_entry, true)),
+
+    _completed_exit_statement: $ => prec.dynamic(1,
+      flowControlStatement('exit', $._completed_pipeline_entry, true)),
 
     function_definition: $ => seq(
       field('keyword', choice(keyword('function'), keyword('filter'), keyword('workflow'))),
@@ -708,11 +727,16 @@ module.exports = grammar({
       repeat(choice($.command_argument, $.command_parameter, $.redirection)),
       optional(
         seq(
-          alias(token(prec(3, '--')), $.command_parameter),
+          alias($._end_of_parameters, $.command_parameter),
           repeat(choice($.command_argument, $.redirection)),
         ),
       ),
       optional($.stop_parsing),
+    ),
+
+    // The end marker is a parameter too, with the same complete name field.
+    _end_of_parameters: $ => seq(
+      field('name', alias(token(prec(3, '--')), $.command_parameter_name)),
     ),
 
     // Keywords remain literal command names outside their statement context.

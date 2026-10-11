@@ -4,7 +4,7 @@ mod common;
 mod cst;
 
 use serde_json::{Value, json};
-use tree_sitter::{Query, QueryCursor, StreamingIterator};
+use tree_sitter::{Point, Query, QueryCursor, StreamingIterator};
 
 fn cases() -> Vec<Value> {
     serde_json::from_str(include_str!("fixtures/schema.json")).unwrap()
@@ -61,9 +61,56 @@ fn consumer_field_queries_capture_complete_values_and_lists() {
 }
 
 #[test]
+fn concrete_expression_queries_cover_calls_and_unary_and_cast_operands() {
+    let source = "1+2; [Math]::Abs(3+4); -(5+6); [int](7+8)";
+    let mut parser = common::parser();
+    let tree = parser.parse(source, None).unwrap();
+    assert!(!tree.root_node().has_error());
+    let query = Query::new(
+        &tree_sitter_powershell::LANGUAGE.into(),
+        "(binary_expression) @binary\n(integer_literal) @integer",
+    )
+    .unwrap();
+    let mut cursor = QueryCursor::new();
+    let mut matches = cursor.matches(&query, tree.root_node(), source.as_bytes());
+    let mut actual = Vec::new();
+    while let Some(matched) = matches.next() {
+        for capture in matched.captures() {
+            let node = capture.node;
+            assert_eq!(node.start_position(), Point::new(0, node.start_byte()));
+            assert_eq!(node.end_position(), Point::new(0, node.end_byte()));
+            actual.push((node.kind(), node.start_byte(), node.end_byte()));
+        }
+    }
+    let mut expected = Vec::new();
+    for (kind, spellings) in [
+        ("binary_expression", vec!["1+2", "3+4", "5+6", "7+8"]),
+        (
+            "integer_literal",
+            vec!["1", "2", "3", "4", "5", "6", "7", "8"],
+        ),
+    ] {
+        for spelling in spellings {
+            let start = source.find(spelling).unwrap();
+            expected.push((kind, start, start + spelling.len()));
+        }
+    }
+    actual.sort_unstable();
+    expected.sort_unstable();
+    assert_eq!(actual, expected);
+}
+
+#[test]
 fn public_node_types_distinguish_scalar_roles_from_repeated_lists() {
     let nodes: Vec<Value> = serde_json::from_str(tree_sitter_powershell::NODE_TYPES).unwrap();
     for (kind, field, required, multiple, types) in [
+        (
+            "command_parameter",
+            "name",
+            true,
+            false,
+            vec!["command_parameter_name"],
+        ),
         (
             "command_parameter",
             "value",
@@ -253,7 +300,30 @@ fn public_node_types_distinguish_scalar_roles_from_repeated_lists() {
             "expression",
             true,
             false,
-            vec!["_expression"],
+            vec![
+                "array_expression",
+                "array_literal_expression",
+                "attributed_expression",
+                "binary_expression",
+                "cast_expression",
+                "element_access",
+                "expandable_here_string",
+                "expandable_string",
+                "hashtable_expression",
+                "integer_literal",
+                "invocation_expression",
+                "member_access",
+                "parenthesized_expression",
+                "real_literal",
+                "script_block",
+                "single_quoted_here_string",
+                "single_quoted_string",
+                "sub_expression",
+                "ternary_expression",
+                "type_literal",
+                "unary_expression",
+                "variable",
+            ],
         ),
         (
             "command_expression",
@@ -319,5 +389,31 @@ fn public_node_types_distinguish_scalar_roles_from_repeated_lists() {
             .map(|entry| entry["type"].as_str().unwrap())
             .collect();
         assert_eq!(actual_types, types, "{kind}.{field}");
+    }
+    for kind in [
+        "return_statement",
+        "throw_statement",
+        "exit_statement",
+        "break_statement",
+        "continue_statement",
+    ] {
+        let node = nodes
+            .iter()
+            .find(|node| node["named"] == true && node["type"] == kind)
+            .unwrap();
+        let keyword = &node["fields"]["keyword"];
+        assert_eq!(keyword["multiple"], false, "{kind}.keyword");
+        assert_eq!(keyword["required"], true, "{kind}.keyword");
+        assert_eq!(
+            keyword["types"],
+            json!([{ "type": kind.strip_suffix("_statement").unwrap(), "named": false }])
+        );
+        let role = if matches!(kind, "break_statement" | "continue_statement") {
+            "label"
+        } else {
+            "value"
+        };
+        assert_eq!(node["fields"][role]["multiple"], false, "{kind}.{role}");
+        assert_eq!(node["fields"][role]["required"], false, "{kind}.{role}");
     }
 }

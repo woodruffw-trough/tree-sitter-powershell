@@ -152,7 +152,7 @@ class Item { hidden [string]$Name = 'x'; static [int]$Count = 0; Item([string]$n
         name: (identifier)
         parameters: (parameter_list)
         body: (statement_block
-          (flow_control_statement
+          (return_statement
             value: (pipeline
               elements: (command_expression
                 expression: (member_access
@@ -364,7 +364,7 @@ class Example { [int] 日本語() { return 1 } }
         name: (identifier)
         parameters: (parameter_list)
         body: (statement_block
-          (flow_control_statement
+          (return_statement
             value: (pipeline
               elements: (command_expression
                 expression: (integer_literal)))))))))

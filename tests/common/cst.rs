@@ -85,7 +85,7 @@ fn semantic_end_byte(node: Node<'_>) -> usize {
     }
     let field = match node.kind() {
         "assignment_statement" => "right",
-        "flow_control_statement" => "value",
+        "return_statement" | "throw_statement" | "exit_statement" => "value",
         _ => return node.end_byte(),
     };
     // Parser.cs computes assignment/flow extents from the semantic RHS, whose
@@ -305,14 +305,11 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         "catch_clause" => "CatchClauseAst",
         "trap_statement" => "TrapStatementAst",
         "data_statement" => "DataStatementAst",
-        "flow_control_statement" => match node.child_by_field_name("keyword")?.kind() {
-            "return" => "ReturnStatementAst",
-            "throw" => "ThrowStatementAst",
-            "exit" => "ExitStatementAst",
-            "break" => "BreakStatementAst",
-            "continue" => "ContinueStatementAst",
-            _ => return None,
-        },
+        "return_statement" => "ReturnStatementAst",
+        "throw_statement" => "ThrowStatementAst",
+        "exit_statement" => "ExitStatementAst",
+        "break_statement" => "BreakStatementAst",
+        "continue_statement" => "ContinueStatementAst",
         _ => return None,
     })
 }
@@ -576,11 +573,8 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "CatchClauseAst" => &["body", "types"],
         "TrapStatementAst" => &["body", "type"],
         "DataStatementAst" => &["body", "supportedCommands"],
-        "ReturnStatementAst"
-        | "ThrowStatementAst"
-        | "ExitStatementAst"
-        | "BreakStatementAst"
-        | "ContinueStatementAst" => &["value"],
+        "ReturnStatementAst" | "ThrowStatementAst" | "ExitStatementAst" => &["value"],
+        "BreakStatementAst" | "ContinueStatementAst" => &["label"],
         "QuotedStringAst" | "CompositeStringAst" => &["expressions"],
         _ => &[],
     }
@@ -773,16 +767,11 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
             .child_by_field_name("name")
             .map(|name| source.text(name))
             .unwrap_or_else(|| source.text(node));
-        let name = name.trim_start_matches(['-', '–', '—', '―']);
-        // The -- marker is itself a CommandParameterAst named "-".
-        result.insert(
-            "name",
-            json!(if source.text(node) == "--" {
-                "-".to_owned()
-            } else {
-                decode_backticks(name)
-            }),
-        );
+        let dash = name.chars().next().unwrap();
+        assert!(matches!(dash, '-' | '–' | '—' | '―'));
+        // ScanParameter consumes exactly the initial dash and keeps subsequent
+        // characters literally, including dollars, backticks, and another dash.
+        result.insert("name", json!(&name[dash.len_utf8()..]));
     }
     if matches!(category, "FileRedirectionAst" | "MergingRedirectionAst") {
         let operator = source.text(node.child_by_field_name("operator").unwrap());

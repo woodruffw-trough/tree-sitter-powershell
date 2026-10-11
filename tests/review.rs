@@ -14,8 +14,7 @@ fn fixture_syntax() {
     common::assert_syntax(&fixtures());
 }
 
-// Compare concrete statement/expression boundaries while omitting PowerShell's
-// implicit script-block/command-expression AST wrappers. This catches a switch
+// Compare selected statement and expression boundaries. This catches a switch
 // clause such as `1+2` being parsed as arithmetic instead of a bare string, and
 // verifies statements captured by an assignment remain complete statements.
 fn reviewed_extents(node: Node<'_>, source: &str, result: &mut BTreeSet<(String, common::Extent)>) {
@@ -43,16 +42,11 @@ fn reviewed_extents(node: Node<'_>, source: &str, result: &mut BTreeSet<(String,
         "data_statement" => Some("DataStatementAst"),
         "trap_statement" => Some("TrapStatementAst"),
         "try_statement" => Some("TryStatementAst"),
-        "flow_control_statement" => node.child_by_field_name("keyword").and_then(|keyword| {
-            match source[keyword.byte_range()].to_ascii_lowercase().as_str() {
-                "break" => Some("BreakStatementAst"),
-                "continue" => Some("ContinueStatementAst"),
-                "return" => Some("ReturnStatementAst"),
-                "throw" => Some("ThrowStatementAst"),
-                "exit" => Some("ExitStatementAst"),
-                _ => None,
-            }
-        }),
+        "break_statement" => Some("BreakStatementAst"),
+        "continue_statement" => Some("ContinueStatementAst"),
+        "return_statement" => Some("ReturnStatementAst"),
+        "throw_statement" => Some("ThrowStatementAst"),
+        "exit_statement" => Some("ExitStatementAst"),
         _ => None,
     };
     if let Some(kind) = ast_kind {

@@ -38,11 +38,17 @@ relationships. [`src/node-types.json`](../src/node-types.json) lists the node sc
 The node design follows tree-sitter's guidance on
 [recognizable constructs](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html),
 [fields](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#using-fields),
-and [hidden supertypes](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#using-supertypes).
-Names use `snake_case`. Abstract expression and statement categories are hidden;
+and [hidden rules](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#hiding-rules).
+Names use `snake_case`. Abstract expression and statement rules are internal;
 operators and punctuation are anonymous children. PowerShell-specific names such
 as `invocation_expression`, `member_access`, and `element_access` follow the
 language specification's expression productions.
+
+Queries use the concrete node names and fields in `node-types.json`. The grammar
+does not expose abstract query supertypes: PowerShell's statement delimiters and
+argument-expression contexts use different internal productions. For example,
+`[(return_statement) (throw_statement)] @flow` selects both statement kinds
+consistently in script bodies, nested blocks, and assignment values.
 
 Calls expose `function`, optional `type_arguments`, and `arguments`. Parenthesized
 arguments form an `argument_list`; the shorthand `$items.Where{ $_.Enabled }`
@@ -75,6 +81,13 @@ statement. In `$result = a && b & next`, the assignment's right side is a
 assignment includes `&`, while PowerShell's assignment and pipeline-chain AST
 ranges end before that marker. The oracle comparison accounts for this source
 boundary explicitly.
+
+Flow control uses distinct `return_statement`, `throw_statement`, `exit_statement`,
+`break_statement`, and `continue_statement` nodes. The first three expose an
+optional `value`; `break` and `continue` expose an optional `label`. Queries can
+select each statement's operand by role.
+Command parameters consistently expose their complete spelling in `name`,
+including the `--` marker that ends parameter recognition.
 
 For example, `Write-Output prefix"$name"` has one command argument containing a
 literal fragment and an expandable string. Its named tree is:

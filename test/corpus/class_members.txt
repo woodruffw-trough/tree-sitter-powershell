@@ -47,7 +47,7 @@ class C {
         name: (identifier)
         parameters: (parameter_list)
         body: (statement_block
-          (flow_control_statement
+          (return_statement
             value: (pipeline
               elements: (command_expression
                 expression: (integer_literal)))))))))

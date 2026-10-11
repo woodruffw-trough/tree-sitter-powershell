@@ -20,6 +20,8 @@
 - Use Microsoft's documentation, the pinned parser source, and PowerShell 7.5.4 `Parser::ParseInput` as syntax authorities. See `docs/grammar-sources.md` for links.
 - Parse fixture code without executing it. Distinguish syntax from name resolution and compiler checks when choosing oracle cases.
 - Add regression coverage for grammar or scanner changes. Assert relevant nodes, fields, and grouping, or compare corresponding source extents with PowerShell's AST. A successful parse alone does not establish a correct tree.
+- Keep public nodes aligned with recognizable syntax constructs and use fields for their roles. A scalar field must identify one complete node, including composite arguments. Keep implementation helpers hidden; preserve meaningful argument lists, declaration bodies, pipeline boundaries, and distinct statement kinds. Update node-schema queries, oracle comparisons, corpus trees, and human tree-design documentation together.
+- Verify public queries with `QueryCursor`, including nested and argument contexts. Declare a supertype only when runtime queries capture its promised members; `node-types.json` membership alone is insufficient.
 - Derive corpus expectations independently from PowerShell. Inspect every snapshot update; retain intended precedence, argument boundaries, interpolation, and declaration structure. Update expected trees only when the new representation agrees with the oracle.
 - Keep imported project files unmodified. Record the source repository, immutable revision, license, original path, and SHA-256 hash with their fixture collection.
 - Exercise incomplete input and incremental edits when scanner or recovery behavior changes.

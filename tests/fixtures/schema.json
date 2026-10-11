@@ -692,5 +692,64 @@
         ]
       }
     ]
+  },
+  {
+    "name": "command parameter names retain literal spelling and marker",
+    "source": "cmd --long -na`me —Flag -Some$Name -- arg",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command_parameter",
+        "field": "name",
+        "texts": [
+          "-na`me",
+          "—Flag",
+          "-Some$Name",
+          "--"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "typed flow roles distinguish labels and values",
+    "source": "function f { return 1; throw 'error'; exit 2; :outer while($true){ break outer; continue outer } }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "return_statement",
+        "field": "value",
+        "texts": [
+          "1"
+        ]
+      },
+      {
+        "node": "throw_statement",
+        "field": "value",
+        "texts": [
+          "'error'"
+        ]
+      },
+      {
+        "node": "exit_statement",
+        "field": "value",
+        "texts": [
+          "2"
+        ]
+      },
+      {
+        "node": "break_statement",
+        "field": "label",
+        "texts": [
+          "outer"
+        ]
+      },
+      {
+        "node": "continue_statement",
+        "field": "label",
+        "texts": [
+          "outer"
+        ]
+      }
+    ]
   }
 ]

@@ -162,7 +162,7 @@ break & "cmd"
 ---
 
 (source_file
-  (flow_control_statement)
+  (break_statement)
   (pipeline
     elements: (command
       name: (invocation_operator_command

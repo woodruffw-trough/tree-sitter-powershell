@@ -34,8 +34,10 @@
 ["|" "&&" "||" "&"] @operator
 (ternary_expression ["?" ":"] @operator)
 (function_definition keyword: _ @keyword.function)
-(flow_control_statement keyword: ["return" "exit"] @keyword.return)
-(flow_control_statement keyword: ["break" "continue"] @keyword.repeat)
+(return_statement keyword: _ @keyword.return)
+(exit_statement keyword: _ @keyword.return)
+(break_statement keyword: _ @keyword.repeat)
+(continue_statement keyword: _ @keyword.repeat)
 (named_block name: _ @keyword)
 ["if" "elseif" "else" "switch" "default"] @keyword.conditional
 ["foreach" "for" "while" "do" "until" "in"] @keyword.repeat
