@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  TREE_SITTER_JS_RUNTIME: native
+
+jobs:
+  check:
+    name: Lint and test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+
+      - name: Install Rust toolchain
+        run: rustup toolchain install 1.90.0 --profile minimal --component rustfmt --component clippy
+
+      - name: Install tree-sitter with QuickJS only
+        run: cargo install tree-sitter-cli --version 0.27.1 --locked --no-default-features --features qjs-rt
+
+      - name: Install pinned PowerShell oracle
+        run: |
+          archive="$RUNNER_TEMP/powershell-7.5.4-linux-x64.tar.gz"
+          oracle="$RUNNER_TEMP/powershell-7.5.4"
+          curl --fail --location --silent --show-error \
+            https://github.com/PowerShell/PowerShell/releases/download/v7.5.4/powershell-7.5.4-linux-x64.tar.gz \
+            --output "$archive"
+          printf '%s  %s\n' \
+            1fd7983fe56ca9e6233f126925edb24bf6b6b33e356b69996d925c4db94e2fef \
+            "$archive" | sha256sum --check --strict
+          mkdir "$oracle"
+          tar -xzf "$archive" -C "$oracle"
+          chmod +x "$oracle/pwsh"
+          printf '%s\n' "$oracle" >> "$GITHUB_PATH"
+          printf 'PWSH_BIN=%s\n' "$oracle/pwsh" >> "$GITHUB_ENV"
+
+      - name: Install pinned CI security linter
+        run: |
+          python3 -m venv "$RUNNER_TEMP/ci-tools"
+          "$RUNNER_TEMP/ci-tools/bin/pip" install --require-hashes -r scripts/requirements-ci.txt
+          printf '%s\n' "$RUNNER_TEMP/ci-tools/bin" >> "$GITHUB_PATH"
+
+      - name: Lint source and workflow security
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: scripts/lint.sh
+
+      - name: Verify generated parser and Rust-only bindings
+        run: scripts/check-generated.sh
+
+      - name: Verify generated PowerShell oracle fixtures
+        run: |
+          python3 scripts/generate-fixtures.py
+          python3 scripts/generate-fixtures.py --variables
+
+      - name: Test grammar corpus and queries
+        run: tree-sitter test --rebuild
+
+      - name: Test Rust bindings and PowerShell oracle
+        run: cargo test --locked
