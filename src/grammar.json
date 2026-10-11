@@ -8130,6 +8130,10 @@
         {
           "type": "SYMBOL",
           "name": "cast_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attributed_expression"
         }
       ]
     },
@@ -8290,7 +8294,7 @@
                 "name": "argument",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_assignable_expression"
+                  "name": "_prefix_assignable_expression"
                 }
               }
             ]
@@ -8512,7 +8516,7 @@
                 "name": "argument",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_assignable_expression"
+                  "name": "_prefix_assignable_expression"
                 }
               }
             ]
@@ -8602,6 +8606,28 @@
         }
       ]
     },
+    "_prefix_assignable_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_assignable_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attributed_expression"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_attributed_variable_cast"
+          },
+          "named": true,
+          "value": "cast_expression"
+        }
+      ]
+    },
     "cast_expression": {
       "type": "PREC",
       "value": 11,
@@ -8627,6 +8653,77 @@
         ]
       }
     },
+    "attributed_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "attribute",
+          "content": {
+            "type": "SYMBOL",
+            "name": "attribute"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\r\\n|\\r|\\n"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_attributed_variable"
+          }
+        }
+      ]
+    },
+    "_attributed_variable": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attributed_expression"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_attributed_variable_cast"
+          },
+          "named": true,
+          "value": "cast_expression"
+        }
+      ]
+    },
+    "_attributed_variable_cast": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_literal"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_attributed_variable"
+          }
+        }
+      ]
+    },
     "_cast_value": {
       "type": "CHOICE",
       "members": [
@@ -8637,6 +8734,10 @@
         {
           "type": "SYMBOL",
           "name": "cast_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attributed_expression"
         },
         {
           "type": "ALIAS",
@@ -9764,6 +9865,17 @@
     ],
     [
       "try_statement"
+    ],
+    [
+      "param_block",
+      "class_definition",
+      "enum_definition",
+      "attributed_expression"
+    ],
+    [
+      "class_definition",
+      "enum_definition",
+      "attributed_expression"
     ]
   ],
   "precedences": [],

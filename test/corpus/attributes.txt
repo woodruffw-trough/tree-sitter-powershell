@@ -1,0 +1,65 @@
+================================================================================
+Validation attribute decorates an assigned variable
+================================================================================
+[ValidateNotNull()]$x = 1
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (assignment_statement
+      (attributed_expression
+        (attribute
+          (type_name (type_identifier)))
+        (variable))
+      (pipeline
+        (integer_literal)))))
+
+================================================================================
+Validation attribute permits a newline before its variable
+================================================================================
+[ValidateNotNull()]
+$x = 1
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (assignment_statement
+      (attributed_expression
+        (attribute
+          (type_name (type_identifier)))
+        (variable))
+      (pipeline
+        (integer_literal)))))
+
+================================================================================
+Attributes and type conversions retain nested expression boundaries
+================================================================================
+[A()][string][B()]$x
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (attributed_expression
+      (attribute
+        (type_name (type_identifier)))
+      (cast_expression
+        (type_literal
+          (type_name (type_identifier)))
+        (attributed_expression
+          (attribute
+            (type_name (type_identifier)))
+          (variable))))))
+
+================================================================================
+Prefix increment accepts an attributed variable
+================================================================================
+++[A()]$x
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (unary_expression
+      (attributed_expression
+        (attribute
+          (type_name (type_identifier)))
+        (variable)))))

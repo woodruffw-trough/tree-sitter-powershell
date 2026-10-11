@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "attributed_expression",
+        "named": true
+      },
+      {
         "type": "binary_expression",
         "named": true
       },
@@ -253,6 +257,10 @@
           "named": true
         },
         {
+          "type": "attributed_expression",
+          "named": true
+        },
+        {
           "type": "bare_word",
           "named": true
         },
@@ -389,6 +397,10 @@
             "named": true
           },
           {
+            "type": "attributed_expression",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },
@@ -416,6 +428,10 @@
           "named": true
         },
         {
+          "type": "attributed_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -435,6 +451,40 @@
     }
   },
   {
+    "type": "attributed_expression",
+    "named": true,
+    "fields": {
+      "attribute": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "attribute",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "attributed_expression",
+            "named": true
+          },
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "base_constructor_call",
     "named": true,
     "fields": {},
@@ -444,6 +494,10 @@
       "types": [
         {
           "type": "_primary_expression",
+          "named": true
+        },
+        {
+          "type": "attributed_expression",
           "named": true
         },
         {
@@ -792,6 +846,10 @@
             "named": true
           },
           {
+            "type": "attributed_expression",
+            "named": true
+          },
+          {
             "type": "cast_expression",
             "named": true
           },
@@ -1018,6 +1076,10 @@
           "named": true
         },
         {
+          "type": "attributed_expression",
+          "named": true
+        },
+        {
           "type": "bare_word",
           "named": true
         },
@@ -1083,6 +1145,10 @@
           },
           {
             "type": "array_literal_expression",
+            "named": true
+          },
+          {
+            "type": "attributed_expression",
             "named": true
           },
           {
@@ -1514,6 +1580,10 @@
             "named": true
           },
           {
+            "type": "attributed_expression",
+            "named": true
+          },
+          {
             "type": "cast_expression",
             "named": true
           },
@@ -1700,6 +1770,10 @@
             "named": true
           },
           {
+            "type": "attributed_expression",
+            "named": true
+          },
+          {
             "type": "cast_expression",
             "named": true
           },
@@ -1801,6 +1875,10 @@
       "types": [
         {
           "type": "_primary_expression",
+          "named": true
+        },
+        {
+          "type": "attributed_expression",
           "named": true
         },
         {
@@ -2017,6 +2095,10 @@
             "named": true
           },
           {
+            "type": "attributed_expression",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },
@@ -2150,6 +2232,10 @@
           },
           {
             "type": "argument_fragment",
+            "named": true
+          },
+          {
+            "type": "attributed_expression",
             "named": true
           },
           {
@@ -2527,6 +2613,10 @@
             "named": true
           },
           {
+            "type": "attributed_expression",
+            "named": true
+          },
+          {
             "type": "bare_word",
             "named": true
           },
@@ -2573,6 +2663,10 @@
           },
           {
             "type": "argument_fragment",
+            "named": true
+          },
+          {
+            "type": "attributed_expression",
             "named": true
           },
           {
@@ -2772,6 +2866,10 @@
         "types": [
           {
             "type": "_primary_expression",
+            "named": true
+          },
+          {
+            "type": "attributed_expression",
             "named": true
           },
           {

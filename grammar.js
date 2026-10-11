@@ -104,7 +104,10 @@ const unaryExpression = ($, allowComma) => {
   }
   return prec(PREC.unary, choice(
     seq(field('operator', choice(...operators)), field('argument', $._unary_expression)),
-    seq(field('operator', choice('++', op('--'))), field('argument', $._assignable_expression)),
+    seq(
+      field('operator', choice('++', op('--'))),
+      field('argument', $._prefix_assignable_expression),
+    ),
     seq(
       field('argument', $._assignable_expression),
       optional($._postfix_context),
@@ -196,6 +199,10 @@ module.exports = grammar({
     [$._simple_statement, $._background_pipeline],
     [$.if_statement],
     [$.try_statement],
+    // Attribute lists prefix declarations and variable expressions. Preserve
+    // both interpretations until a keyword or variable selects their context.
+    [$.param_block, $.class_definition, $.enum_definition, $.attributed_expression],
+    [$.class_definition, $.enum_definition, $.attributed_expression],
   ],
 
   rules: {
@@ -806,7 +813,12 @@ module.exports = grammar({
       ),
     ),
 
-    _unary_expression: $ => choice($._primary_expression, $.unary_expression, $.cast_expression),
+    _unary_expression: $ => choice(
+      $._primary_expression,
+      $.unary_expression,
+      $.cast_expression,
+      $.attributed_expression,
+    ),
 
     unary_expression: $ => unaryExpression($, true),
 
@@ -819,9 +831,34 @@ module.exports = grammar({
       $.parenthesized_expression,
     ),
 
+    _prefix_assignable_expression: $ => choice(
+      $._assignable_expression,
+      $.attributed_expression,
+      alias($._attributed_variable_cast, $.cast_expression),
+    ),
+
     cast_expression: $ => prec(
       PREC.unary,
       seq(field('type', $.type_literal), field('value', $._cast_value)),
+    ),
+
+    // Validation attributes can wrap a variable, including intervening type
+    // conversions and attributes. Other expression targets are rejected.
+    attributed_expression: $ => seq(
+      field('attribute', $.attribute),
+      repeat(NEWLINE),
+      field('value', $._attributed_variable),
+    ),
+
+    _attributed_variable: $ => choice(
+      $.variable,
+      $.attributed_expression,
+      alias($._attributed_variable_cast, $.cast_expression),
+    ),
+
+    _attributed_variable_cast: $ => seq(
+      field('type', $.type_literal),
+      field('value', $._attributed_variable),
     ),
 
     // A comma following a type ends a type expression, rather than becoming a
@@ -829,6 +866,7 @@ module.exports = grammar({
     _cast_value: $ => choice(
       $._primary_expression,
       $.cast_expression,
+      $.attributed_expression,
       alias($._cast_unary_expression, $.unary_expression),
     ),
 

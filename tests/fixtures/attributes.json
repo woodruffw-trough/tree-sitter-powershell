@@ -1,0 +1,147 @@
+[
+  {
+    "name": "validation attribute assignment",
+    "source": "[ValidateNotNull()]$x = 1",
+    "valid": true
+  },
+  {
+    "name": "validation attribute typed assignment",
+    "source": "[ValidateSet('a','b')][string]$x = 'a'",
+    "valid": true
+  },
+  {
+    "name": "attribute newline before variable",
+    "source": "[ValidateNotNull()]\n$x = 1",
+    "valid": true
+  },
+  {
+    "name": "interleaved attributes and cast",
+    "source": "[A()][string][B()]$x",
+    "valid": true
+  },
+  {
+    "name": "outer cast around attributed variable",
+    "source": "[string][A()]$x",
+    "valid": true
+  },
+  {
+    "name": "multiple attributes",
+    "source": "[A()][B()]$x",
+    "valid": true
+  },
+  {
+    "name": "attribute-only variable expression",
+    "source": "[A()]$x",
+    "valid": true
+  },
+  {
+    "name": "attributed method argument",
+    "source": "[T]::M([A()]$x, $y)",
+    "valid": true
+  },
+  {
+    "name": "attributed variable command argument",
+    "source": "Write-Output ([A()]$x)",
+    "valid": true
+  },
+  {
+    "name": "attribute increment",
+    "source": "[A()]$x++",
+    "valid": false
+  },
+  {
+    "name": "prefix attributed increment",
+    "source": "++[A()]$x",
+    "valid": true
+  },
+  {
+    "name": "cast attributed increment",
+    "source": "[int][A()]$x++",
+    "valid": false
+  },
+  {
+    "name": "attribute ending scope variable",
+    "source": "[A()]$env:PATH",
+    "valid": true
+  },
+  {
+    "name": "type newline terminates attributed expression",
+    "source": "[A()][int]\n$x",
+    "valid": false
+  },
+  {
+    "name": "attribute multiline before cast",
+    "source": "[A()]\n[int]$x",
+    "valid": true
+  },
+  {
+    "name": "attribute standalone",
+    "source": "[ValidateNotNull()]",
+    "valid": false
+  },
+  {
+    "name": "attribute before standalone type",
+    "source": "[ValidateNotNull()][string]",
+    "valid": false
+  },
+  {
+    "name": "attribute before number",
+    "source": "[A()]1",
+    "valid": false
+  },
+  {
+    "name": "attribute before member",
+    "source": "[A()]$x.P",
+    "valid": false
+  },
+  {
+    "name": "attribute before index",
+    "source": "[A()]$x[0]",
+    "valid": false
+  },
+  {
+    "name": "attribute before parenthesized variable",
+    "source": "[A()]($x)",
+    "valid": false
+  },
+  {
+    "name": "attribute before array",
+    "source": "[A()]@(1)",
+    "valid": false
+  },
+  {
+    "name": "attribute before cast number",
+    "source": "[A()][int]1",
+    "valid": false
+  },
+  {
+    "name": "attribute before prefix increment",
+    "source": "[A()]++$x",
+    "valid": false
+  },
+  {
+    "name": "attribute before cast parentheses",
+    "source": "[A()][int]($x)",
+    "valid": false
+  },
+  {
+    "name": "prefix typed variable",
+    "source": "++[int]$x",
+    "valid": true
+  },
+  {
+    "name": "prefix typed attributed variable",
+    "source": "++[int][A()]$x",
+    "valid": true
+  },
+  {
+    "name": "prefix attributed typed variable",
+    "source": "++[A()][int]$x",
+    "valid": true
+  },
+  {
+    "name": "prefix cast of nonvariable",
+    "source": "++[int]1",
+    "valid": false
+  }
+]
