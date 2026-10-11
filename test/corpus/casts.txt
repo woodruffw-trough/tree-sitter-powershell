@@ -1,0 +1,60 @@
+================================================================================
+Type literal remains a distinct method argument
+================================================================================
+[T]::M([string], $x)
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (invocation_expression
+      (member_access
+        (type_literal
+          (type_name (type_identifier)))
+        (identifier))
+      (type_literal
+        (type_name (type_identifier)))
+      (variable))))
+
+================================================================================
+Type literal remains a distinct array element
+================================================================================
+(1, [string], $x)
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (parenthesized_expression
+      (pipeline
+        (array_literal_expression
+          (integer_literal)
+          (type_literal
+            (type_name (type_identifier)))
+          (variable))))))
+
+================================================================================
+Comma after a standalone type is an array separator
+================================================================================
+[int],1
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (array_literal_expression
+      (type_literal
+        (type_name (type_identifier)))
+      (integer_literal))))
+
+================================================================================
+Cast unary minus may contain unary comma
+================================================================================
+[int]-,1
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (cast_expression
+      (type_literal
+        (type_name (type_identifier)))
+      (unary_expression
+        (unary_expression
+          (integer_literal))))))

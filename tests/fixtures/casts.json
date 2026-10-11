@@ -1,0 +1,47 @@
+[
+  {
+    "name": "type literal is a distinct method argument",
+    "source": "[T]::M([string], $x)",
+    "valid": true
+  },
+  {
+    "name": "type literal is a distinct array element",
+    "source": "(1, [string], $x)",
+    "valid": true
+  },
+  {
+    "name": "standalone type followed by comma",
+    "source": "[int],1",
+    "valid": true
+  },
+  {
+    "name": "cast minus contains unary comma",
+    "source": "[int]-,1",
+    "valid": true
+  },
+  {
+    "name": "cast plus contains unary comma",
+    "source": "[int]+,1",
+    "valid": true
+  },
+  {
+    "name": "cast parenthesized unary comma",
+    "source": "[int](,1)",
+    "valid": true
+  },
+  {
+    "name": "cast value precedes array separator",
+    "source": "[int]-$x, $y",
+    "valid": true
+  },
+  {
+    "name": "newline ends standalone type expression",
+    "source": "[int]\n1",
+    "valid": true
+  },
+  {
+    "name": "method trailing comma lacks argument",
+    "source": "[T]::M([string],)",
+    "valid": false
+  }
+]

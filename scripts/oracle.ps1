@@ -16,6 +16,160 @@ $results = [Collections.Generic.List[object]]::new()
 $names = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
 $fixtureDirectory = Split-Path -Parent (Resolve-Path -LiteralPath $Fixtures).Path
 
+function Get-AstExtent($Node) {
+    return [ordered]@{
+        start = $Node.Extent.StartOffset
+        end = $Node.Extent.EndOffset
+    }
+}
+
+function Add-AstField($Fields, [string] $Name, $Value) {
+    if ($Value -is [Management.Automation.Language.Ast]) {
+        $Fields[$Name] = Get-AstExtent $Value
+    } elseif ($Value -is [Collections.IEnumerable]) {
+        $Fields[$Name] = @($Value | ForEach-Object {
+            if ($_ -is [Management.Automation.Language.Ast]) {
+                Get-AstExtent $_
+            }
+        })
+    }
+}
+
+function Get-AstRecord($Node) {
+    $record = [ordered]@{
+        type = $Node.GetType().Name
+        start = $Node.Extent.StartOffset
+        end = $Node.Extent.EndOffset
+    }
+    $fields = [ordered]@{}
+    switch ($record.type) {
+        'BinaryExpressionAst' {
+            Add-AstField $fields 'left' $Node.Left
+            Add-AstField $fields 'right' $Node.Right
+            $record.operator = $Node.Operator.ToString()
+        }
+        'AssignmentStatementAst' {
+            Add-AstField $fields 'left' $Node.Left
+            Add-AstField $fields 'right' $Node.Right
+            $record.operator = $Node.Operator.ToString()
+        }
+        'UnaryExpressionAst' {
+            Add-AstField $fields 'argument' $Node.Child
+            $record.operator = $Node.TokenKind.ToString()
+        }
+        'TernaryExpressionAst' {
+            Add-AstField $fields 'condition' $Node.Condition
+            Add-AstField $fields 'consequence' $Node.IfTrue
+            Add-AstField $fields 'alternative' $Node.IfFalse
+        }
+        'IndexExpressionAst' {
+            Add-AstField $fields 'object' $Node.Target
+            Add-AstField $fields 'index' $Node.Index
+            $record.nullConditional = $Node.NullConditional
+        }
+        { $_ -in 'MemberExpressionAst', 'InvokeMemberExpressionAst' } {
+            Add-AstField $fields 'object' $Node.Expression
+            Add-AstField $fields 'member' $Node.Member
+            $record.static = $Node.Static
+            $record.nullConditional = $Node.NullConditional
+            if ($record.type -eq 'InvokeMemberExpressionAst') {
+                Add-AstField $fields 'arguments' $Node.Arguments
+            }
+        }
+        'ConvertExpressionAst' {
+            Add-AstField $fields 'type' $Node.Type
+            Add-AstField $fields 'value' $Node.Child
+        }
+        'AttributedExpressionAst' {
+            Add-AstField $fields 'attribute' $Node.Attribute
+            Add-AstField $fields 'value' $Node.Child
+        }
+        'ArrayLiteralAst' {
+            Add-AstField $fields 'elements' $Node.Elements
+        }
+        'ParameterAst' {
+            Add-AstField $fields 'name' $Node.Name
+            Add-AstField $fields 'default' $Node.DefaultValue
+        }
+        'FunctionDefinitionAst' {
+            Add-AstField $fields 'body' $Node.Body
+            Add-AstField $fields 'parameters' $Node.Parameters
+            $record.name = $Node.Name
+        }
+        'FunctionMemberAst' {
+            Add-AstField $fields 'body' $Node.Body
+            Add-AstField $fields 'parameters' $Node.Parameters
+            $record.name = $Node.Name
+        }
+        'TypeDefinitionAst' {
+            Add-AstField $fields 'members' $Node.Members
+            $record.name = $Node.Name
+        }
+        'PropertyMemberAst' {
+            Add-AstField $fields 'value' $Node.InitialValue
+            $record.name = $Node.Name
+        }
+        'IfStatementAst' {
+            $fields.clauses = @($Node.Clauses | ForEach-Object {
+                [ordered]@{
+                    condition = Get-AstExtent $_.Item1
+                    body = Get-AstExtent $_.Item2
+                }
+            })
+            Add-AstField $fields 'else' $Node.ElseClause
+        }
+        { $_ -in 'ForEachStatementAst', 'ForStatementAst', 'WhileStatementAst',
+            'DoWhileStatementAst', 'DoUntilStatementAst' } {
+            Add-AstField $fields 'condition' $Node.Condition
+            Add-AstField $fields 'body' $Node.Body
+            if ($record.type -eq 'ForEachStatementAst') {
+                Add-AstField $fields 'variable' $Node.Variable
+            } elseif ($record.type -eq 'ForStatementAst') {
+                Add-AstField $fields 'initializer' $Node.Initializer
+                Add-AstField $fields 'iterator' $Node.Iterator
+            }
+        }
+        'SwitchStatementAst' {
+            Add-AstField $fields 'condition' $Node.Condition
+            Add-AstField $fields 'default' $Node.Default
+            $fields.clauses = @($Node.Clauses | ForEach-Object {
+                [ordered]@{
+                    condition = Get-AstExtent $_.Item1
+                    body = Get-AstExtent $_.Item2
+                }
+            })
+        }
+        { $_ -in 'TryStatementAst', 'TrapStatementAst', 'CatchClauseAst', 'DataStatementAst' } {
+            Add-AstField $fields 'body' $Node.Body
+            if ($record.type -eq 'TryStatementAst') {
+                Add-AstField $fields 'catches' $Node.CatchClauses
+                Add-AstField $fields 'finally' $Node.Finally
+            }
+        }
+        { $_ -in 'ReturnStatementAst', 'ThrowStatementAst', 'ExitStatementAst' } {
+            Add-AstField $fields 'value' $Node.Pipeline
+        }
+        { $_ -in 'BreakStatementAst', 'ContinueStatementAst' } {
+            Add-AstField $fields 'value' $Node.Label
+        }
+        'VariableExpressionAst' {
+            $record.name = $Node.VariablePath.UserPath
+            $record.splatted = $Node.Splatted
+        }
+        'StringConstantExpressionAst' {
+            $record.stringKind = $Node.StringConstantType.ToString()
+        }
+        'ExpandableStringExpressionAst' {
+            Add-AstField $fields 'expressions' $Node.NestedExpressions
+            $record.stringKind = $Node.StringConstantType.ToString()
+        }
+    }
+    if ($fields.Count -ne 0) {
+        $record.fields = $fields
+    }
+    return $record
+}
+
 foreach ($case in $cases) {
     # Large upstream fixtures refer to unmodified, attributed source files.
     if (-not $case.ContainsKey('source') -and $case.ContainsKey('path')) {
@@ -51,11 +205,7 @@ foreach ($case in $cases) {
         }
     })
     $nodes = @($ast.FindAll({ param($node) $true }, $true) | ForEach-Object {
-        [ordered]@{
-            type = $_.GetType().Name
-            start = $_.Extent.StartOffset
-            end = $_.Extent.EndOffset
-        }
+        Get-AstRecord $_
     })
     $tokenExtents = @($tokens | ForEach-Object {
         [ordered]@{

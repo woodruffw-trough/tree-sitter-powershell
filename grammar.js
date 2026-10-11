@@ -97,11 +97,34 @@ const BINARY_OPERATORS = [
   [PREC.range, ['..']],
 ];
 
+const unaryExpression = ($, allowComma) => {
+  const operators = ['+', op('-'), '!', op('-not'), op('-bnot'), op('-split'), op('-join')];
+  if (allowComma) {
+    operators.splice(3, 0, ',');
+  }
+  return prec(PREC.unary, choice(
+    seq(field('operator', choice(...operators)), field('argument', $._unary_expression)),
+    seq(field('operator', choice('++', op('--'))), field('argument', $._assignable_expression)),
+    seq(
+      field('argument', $._assignable_expression),
+      optional($._postfix_context),
+      field('operator', choice(
+        token.immediate(prec(5, '++')),
+        alias(token.immediate(prec(5, /[-–—―][-–—―]/)), '--'),
+      )),
+    ),
+  ));
+};
+
 const binaryExpression = (expression, newlines) => choice(
   ...BINARY_OPERATORS.map(([precedence, operators]) => {
     const alternatives = operators.map(operator => {
-      if (operator.startsWith('-')) return op(operator);
-      if (operator === '..') return token(prec(5, operator));
+      if (operator.startsWith('-')) {
+        return op(operator);
+      }
+      if (operator === '..') {
+        return token(prec(5, operator));
+      }
       return operator;
     });
     const operator = alternatives.length === 1 ? alternatives[0] : choice(...alternatives);
@@ -779,30 +802,9 @@ module.exports = grammar({
 
     _unary_expression: $ => choice($._primary_expression, $.unary_expression, $.cast_expression),
 
-    unary_expression: $ => prec(
-      PREC.unary,
-      choice(
-        seq(
-          field(
-            'operator',
-            choice('+', op('-'), '!', ',', op('-not'), op('-bnot'), op('-split'), op('-join')),
-          ),
-          field('argument', $._unary_expression),
-        ),
-        seq(field('operator', choice('++', op('--'))), field('argument', $._assignable_expression)),
-        seq(
-          field('argument', $._assignable_expression),
-          optional($._postfix_context),
-          field(
-            'operator',
-            choice(
-              token.immediate(prec(5, '++')),
-              alias(token.immediate(prec(5, /[-–—―][-–—―]/)), '--'),
-            ),
-          ),
-        ),
-      ),
-    ),
+    unary_expression: $ => unaryExpression($, true),
+
+    _cast_unary_expression: $ => unaryExpression($, false),
 
     _assignable_expression: $ => choice(
       $.variable,
@@ -813,7 +815,15 @@ module.exports = grammar({
 
     cast_expression: $ => prec(
       PREC.unary,
-      seq(field('type', $.type_literal), field('value', $._unary_expression)),
+      seq(field('type', $.type_literal), field('value', $._cast_value)),
+    ),
+
+    // A comma following a type ends a type expression, rather than becoming a
+    // unary-comma cast value. Nested unary operators may still contain comma.
+    _cast_value: $ => choice(
+      $._primary_expression,
+      $.cast_expression,
+      alias($._cast_unary_expression, $.unary_expression),
     ),
 
     _primary_expression: $ => choice($._value_primary_expression, $.type_literal),
@@ -974,7 +984,6 @@ module.exports = grammar({
     type_identifier: _ => token(new RegExp(IDENTIFIER_START + TYPE_IDENTIFIER_CONTINUE + '*')),
 
     identifier: _ => new RegExp(IDENTIFIER_START + IDENTIFIER_CONTINUE + '*'),
-
 
     single_quoted_string: _ => token(/['‘’‚‛](?:[^'‘’‚‛]|['‘’‚‛]['‘’‚‛])*['‘’‚‛]/),
 
