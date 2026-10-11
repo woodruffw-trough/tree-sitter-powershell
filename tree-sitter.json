@@ -1,0 +1,29 @@
+{
+  "grammars": [
+    {
+      "name": "powershell",
+      "camelcase": "PowerShell",
+      "scope": "source.powershell",
+      "path": ".",
+      "file-types": ["ps1", "psm1", "psd1"],
+      "highlights": "queries/highlights.scm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A tree-sitter grammar for PowerShell",
+    "authors": [{"name": "tree-sitter-powershell contributors"}],
+    "links": {"repository": "https://github.com/woodruffw-trough/tree-sitter-powershell"}
+  },
+  "bindings": {
+    "c": false,
+    "go": false,
+    "java": false,
+    "node": false,
+    "python": false,
+    "rust": true,
+    "swift": false,
+    "zig": false
+  }
+}
