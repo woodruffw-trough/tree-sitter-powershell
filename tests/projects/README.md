@@ -26,7 +26,8 @@ and trailing whitespace. The Rust reader consumes one leading UTF-8 BOM to match
 The shared structural comparison in `../common/cst.rs` checks mapped node kinds and UTF-16 source
 extents in both directions, then checks child fields and operator metadata. This
 covers binary, unary, assignment and ternary grouping; member, method and index
-access; casts; arrays, hashtables and subexpressions; function, parameter, class
+access; generic method type arguments; casts and attributed variables; arrays,
+hashtables and subexpressions; function, parameter, class
 and enum declarations; branch and loop conditions and bodies; exception handling;
 flow control; quoted and composite strings; variables and splatting. The shared
 command comparison separately checks every command and direct command element,
@@ -37,8 +38,13 @@ The matcher accounts for these concrete/semantic representation differences:
 - Tree-sitter retains condition parentheses, the member-access part of a method
   invocation, and quote fragments within composite command arguments. PowerShell
   exposes the condition pipeline, one invocation AST, and one full argument AST.
+  Literal fragments within a bare argument have no independent string AST;
+  interpolated arguments compare their full extent and nested expressions.
 - PowerShell folds signed numeric literals into constants and represents unary
   comma as an array literal. The concrete tree retains the unary operator.
+  A real literal such as `1.5l` can produce an integral value after suffix
+  conversion, so the numeric comparison uses source extents rather than assuming
+  that the semantic value's .NET type determines the lexical node kind.
 - A class method also creates a synthetic function AST, and some constructors
   create a synthetic `$this` variable with the empty extent `(0, 0)`. Property
   declarations contain a concrete variable name but no variable-expression AST.

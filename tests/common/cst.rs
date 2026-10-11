@@ -122,6 +122,16 @@ fn quoted_fragment(node: Node<'_>) -> bool {
     node.parent().is_some_and(composite_string)
 }
 
+fn has_interpolation(node: Node<'_>) -> bool {
+    named_children(node)
+        .into_iter()
+        .any(|child| match child.kind() {
+            "variable" | "sub_expression" => true,
+            "expandable_string" => has_interpolation(child),
+            _ => false,
+        })
+}
+
 fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
     Some(match node.kind() {
         "binary_expression" => "BinaryExpressionAst",
@@ -149,6 +159,7 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         "invocation_expression" => "InvokeMemberExpressionAst",
         "element_access" => "IndexExpressionAst",
         "cast_expression" => "ConvertExpressionAst",
+        "attributed_expression" => "AttributedExpressionAst",
         "array_literal_expression" => "ArrayLiteralAst",
         "array_expression" => "ArrayExpressionAst",
         "sub_expression" => "SubExpressionAst",
@@ -202,7 +213,9 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         {
             "QuotedStringAst"
         }
-        "command_argument" if composite_string(node) => "CompositeStringAst",
+        "command_argument" if composite_string(node) && has_interpolation(node) => {
+            "CompositeStringAst"
+        }
         "if_statement" => "IfStatementAst",
         "foreach_statement" => "ForEachStatementAst",
         "for_statement" => "ForStatementAst",
@@ -248,7 +261,12 @@ fn collect<'a>(node: Node<'a>, source: &Source<'_>, nodes: &mut BTreeMap<Key, No
                 extent.0 = source.extent(keyword).0;
             }
         }
-        nodes.insert((category.to_owned(), extent), node);
+        let duplicate = nodes.insert((category.to_owned(), extent), node);
+        assert!(
+            duplicate.is_none(),
+            "Duplicate concrete {category} at {extent:?}: {:?}",
+            source.excerpt(extent)
+        );
     }
     for child in named_children(node) {
         collect(child, source, nodes);
@@ -340,6 +358,13 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
             }),
             source,
         ),
+        ("InvokeMemberExpressionAst", "genericArguments") => {
+            let arguments = children_of_kind(node, "generic_type_arguments")
+                .first()
+                .map(|arguments| children_of_kind(*arguments, "type_name"))
+                .unwrap_or_default();
+            extents(arguments, source)
+        }
         ("ArrayLiteralAst", "elements") => {
             if node.kind() == "unary_expression" {
                 extents(node.child_by_field_name("argument"), source)
@@ -435,9 +460,10 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "UnaryExpressionAst" => &["argument"],
         "TernaryExpressionAst" => &["condition", "consequence", "alternative"],
         "MemberExpressionAst" => &["object", "member"],
-        "InvokeMemberExpressionAst" => &["object", "member", "arguments"],
+        "InvokeMemberExpressionAst" => &["object", "member", "arguments", "genericArguments"],
         "IndexExpressionAst" => &["object", "index"],
         "ConvertExpressionAst" => &["type", "value"],
+        "AttributedExpressionAst" => &["attribute", "value"],
         "ArrayLiteralAst" => &["elements"],
         "ParameterAst" => &["name", "default"],
         "FunctionDefinitionAst" | "FunctionMemberAst" => &["body", "parameters"],
@@ -637,6 +663,9 @@ pub fn assert_structure(cases: &[Value], results: &[Value]) -> usize {
     let mut failures = Vec::new();
     let mut field_checks = 0;
     for (case, result) in cases.iter().zip(results) {
+        if case["valid"] != true {
+            continue;
+        }
         let text = case["source"].as_str().unwrap();
         let source = Source::new(text);
         let tree = parser.parse(text, None).unwrap();
@@ -648,7 +677,12 @@ pub fn assert_structure(cases: &[Value], results: &[Value]) -> usize {
                 continue;
             };
             let key = (category.to_owned(), ast_extent(ast));
-            expected_keys.insert(key.clone());
+            let unique = expected_keys.insert(key.clone());
+            assert!(
+                unique,
+                "Duplicate oracle {} at {:?} in {}",
+                category, key.1, case["name"]
+            );
             let Some(node) = actual.get(&key).copied() else {
                 failures.push(format!(
                     "{}: missing {} at {:?}: {:?}",

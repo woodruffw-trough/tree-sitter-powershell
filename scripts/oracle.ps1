@@ -24,11 +24,13 @@ function Get-AstExtent($Node) {
 }
 
 function Add-AstField($Fields, [string] $Name, $Value) {
-    if ($Value -is [Management.Automation.Language.Ast]) {
+    if ($Value -is [Management.Automation.Language.Ast] -or
+        $Value -is [Management.Automation.Language.ITypeName]) {
         $Fields[$Name] = Get-AstExtent $Value
     } elseif ($Value -is [Collections.IEnumerable]) {
         $Fields[$Name] = @($Value | ForEach-Object {
-            if ($_ -is [Management.Automation.Language.Ast]) {
+            if ($_ -is [Management.Automation.Language.Ast] -or
+                $_ -is [Management.Automation.Language.ITypeName]) {
                 Get-AstExtent $_
             }
         })
@@ -74,6 +76,7 @@ function Get-AstRecord($Node) {
             $record.nullConditional = $Node.NullConditional
             if ($record.type -eq 'InvokeMemberExpressionAst') {
                 Add-AstField $fields 'arguments' $Node.Arguments
+                Add-AstField $fields 'genericArguments' $Node.GenericTypeArguments
             }
         }
         'ConvertExpressionAst' {

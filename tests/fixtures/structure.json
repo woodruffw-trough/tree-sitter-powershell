@@ -1,0 +1,92 @@
+[
+  {
+    "name": "generic invocation single type",
+    "source": "[array]::Empty[string]()",
+    "valid": true
+  },
+  {
+    "name": "generic invocation multiple types",
+    "source": "[T]::M[int,string](1,2)",
+    "valid": true
+  },
+  {
+    "name": "generic invocation nested array types",
+    "source": "[array]::Empty[System.Tuple[string,int[]]]()",
+    "valid": true
+  },
+  {
+    "name": "generic invocation multiline types",
+    "source": "[T]::M[\nint,\nSystem.Tuple[string,int[]]\n]($a,$b)",
+    "valid": true
+  },
+  {
+    "name": "generic invocation instance",
+    "source": "$instance.Method[int,string]($x)",
+    "valid": true
+  },
+  {
+    "name": "attributed variable structure",
+    "source": "[ValidateNotNull()]$x = 1",
+    "valid": true
+  },
+  {
+    "name": "interleaved attribute and cast structure",
+    "source": "[A()][string][B()]$x",
+    "valid": true
+  },
+  {
+    "name": "prefix increment attributed structure",
+    "source": "++[A()]$x",
+    "valid": true
+  },
+  {
+    "name": "attribute shorthand synthesized constant",
+    "source": "function F { param([Parameter(Mandatory)][int]$x) $x }",
+    "valid": true
+  },
+  {
+    "name": "class synthesized function and receiver",
+    "source": "class C {\n [int]$N\n C([int]$n) { $this.N=$n }\n [int] M([int]$x) { return $x }\n}",
+    "valid": true
+  },
+  {
+    "name": "enum delimiter structure",
+    "source": "enum X { A; B = 1; C }",
+    "valid": true
+  },
+  {
+    "name": "literal double quoted argument fragment",
+    "source": "Write-Output prefix\"literal\"",
+    "valid": true
+  },
+  {
+    "name": "literal single quoted argument fragment",
+    "source": "Write-Output prefix'literal'",
+    "valid": true
+  },
+  {
+    "name": "interpolated quoted argument fragment",
+    "source": "Write-Output prefix\"$x\"",
+    "valid": true
+  },
+  {
+    "name": "quote first argument boundary",
+    "source": "Write-Output \"literal\"suffix",
+    "valid": true
+  },
+  {
+    "name": "escaped cooked symbol names",
+    "source": "function xyzzy`u{2195}($p) { ${fooxyzzy`u{2195}}=$p }",
+    "valid": true
+  },
+  {
+    "name": "fractional spelling integral suffix",
+    "source": "$x = -1.5l",
+    "valid": true
+  },
+  {
+    "name": "decimal semantic type without fraction",
+    "source": "$x = 1d",
+    "valid": true
+  }
+]
