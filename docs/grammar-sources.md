@@ -35,6 +35,30 @@ Fields such as `name`, `left`, `right`, `condition`, `body`, and `value` identif
 relationships. [`src/node-types.json`](../src/node-types.json) lists the node schema;
 [`queries/highlights.scm`](../queries/highlights.scm) supplies highlighting captures.
 
+The node design follows tree-sitter's guidance on
+[recognizable constructs](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html),
+[fields](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#using-fields),
+and [hidden supertypes](https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html#using-supertypes).
+Names use `snake_case`. Abstract expression and statement categories are hidden;
+operators and punctuation are anonymous children. PowerShell-specific names such
+as `invocation_expression`, `member_access`, and `element_access` follow the
+language specification's expression productions.
+
+Calls expose `function`, optional `type_arguments`, and `arguments`. Parenthesized
+arguments form an `argument_list`; the shorthand `$items.Where{ $_.Enabled }`
+instead has one `script_block` as its `arguments`. Functions and methods expose
+`parameters` and `body`. Classes and enums have a `class_body` or `enum_body`, whose
+`members` fields identify the declarations between their braces. These list and
+body nodes preserve source boundaries, including empty lists and bodies.
+The official [C# grammar](https://github.com/tree-sitter/tree-sitter-c-sharp/blob/8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5/grammar.js)
+uses the same argument-list and declaration-body conventions.
+
+`for_statement` exposes optional `initializer`, `condition`, and `update` fields,
+plus `body`. This matches the roles used by the official
+[Bash grammar](https://github.com/tree-sitter/tree-sitter-bash/blob/a06c2e4415e9bc0346c6b86d401879ffb44058f7/grammar.js#L211-L229).
+Declaration names, parameter defaults, class property values, catch types, and
+conditional clauses also have fields, so queries can select their syntactic role.
+
 For example, `Write-Output prefix"$name"` has one command argument containing a
 literal fragment and an expandable string. Its named tree is:
 
@@ -49,6 +73,14 @@ literal fragment and an expandable string. Its named tree is:
         (expandable_string
           (variable))))))
 ```
+
+Composite values stay together when used as a parameter's `value`, a redirection's
+`destination`, or a switch clause's `condition`. For example,
+`Write-Output -Path:prefix"$name".txt` has one `command_argument` spanning
+`prefix"$name".txt` in the parameter's `value` field. In command-mode comma arrays,
+each element is also a complete `command_argument`: `Write-Output pre$x,post$y`
+has two array elements. `node-types.json` records whether each field is scalar or
+repeated; repeated fields can be retrieved with `children_by_field_name`.
 
 In `Write-Output $HOME.Length-more`, the member-access argument ends before the
 `-more` parameter. Expandable here strings expose

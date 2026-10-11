@@ -9,7 +9,9 @@ Validation attribute decorates an assigned variable
     (assignment_statement
       (attributed_expression
         (attribute
-          (type_name (type_identifier)))
+          (type_name
+            (type_identifier))
+          (argument_list))
         (variable))
       (pipeline
         (integer_literal)))))
@@ -26,7 +28,9 @@ $x = 1
     (assignment_statement
       (attributed_expression
         (attribute
-          (type_name (type_identifier)))
+          (type_name
+            (type_identifier))
+          (argument_list))
         (variable))
       (pipeline
         (integer_literal)))))
@@ -41,13 +45,18 @@ Attributes and type conversions retain nested expression boundaries
   (pipeline
     (attributed_expression
       (attribute
-        (type_name (type_identifier)))
+        (type_name
+          (type_identifier))
+        (argument_list))
       (cast_expression
         (type_literal
-          (type_name (type_identifier)))
+          (type_name
+            (type_identifier)))
         (attributed_expression
           (attribute
-            (type_name (type_identifier)))
+            (type_name
+              (type_identifier))
+            (argument_list))
           (variable))))))
 
 ================================================================================
@@ -61,5 +70,7 @@ Prefix increment accepts an attributed variable
     (unary_expression
       (attributed_expression
         (attribute
-          (type_name (type_identifier)))
+          (type_name
+            (type_identifier))
+          (argument_list))
         (variable)))))

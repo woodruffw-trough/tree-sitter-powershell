@@ -15,12 +15,17 @@ type MethodFields = (
 fn methods(node: Node<'_>, source: &str, result: &mut BTreeSet<MethodFields>) {
     if node.kind() == "invocation_expression" {
         let function = node.child_by_field_name("function").unwrap();
+        let arguments = node.child_by_field_name("arguments").unwrap();
         let mut cursor = node.walk();
-        let arguments = node
-            .named_children(&mut cursor)
-            .filter(|child| *child != function && child.kind() != "generic_type_arguments")
-            .map(|child| common::utf16_extent(child, source))
-            .collect();
+        let arguments = if arguments.kind() == "argument_list" {
+            arguments
+                .named_children(&mut cursor)
+                .filter(|child| !matches!(child.kind(), "comment" | "line_continuation"))
+                .map(|child| common::utf16_extent(child, source))
+                .collect()
+        } else {
+            vec![common::utf16_extent(arguments, source)]
+        };
         result.insert((
             common::utf16_extent(node, source),
             common::utf16_extent(function.child_by_field_name("object").unwrap(), source),

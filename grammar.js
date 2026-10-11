@@ -37,6 +37,13 @@ const commaSep1 = rule => seq(
   repeat(seq(repeat(NEWLINE), ',', repeat(NEWLINE), rule)),
 );
 
+const argumentList = (open, argument) => seq(
+  open,
+  repeat(NEWLINE),
+  optional(seq(commaSep1(argument), repeat(NEWLINE))),
+  ')',
+);
+
 const ci = word => new RegExp(
   word.split('').map(character => /[a-z]/i.test(character)
     ? `[${character.toLowerCase()}${character.toUpperCase()}]`
@@ -199,6 +206,8 @@ module.exports = grammar({
     [$._simple_statement, $._background_pipeline],
     [$.if_statement],
     [$.try_statement],
+    // Qualifiers share syntax but have distinct property and method field roles.
+    [$.class_property, $.class_method],
     // Attribute lists prefix declarations and variable expressions. Preserve
     // both interpretations until a keyword or variable selects their context.
     [$.param_block, $.class_definition, $.enum_definition, $.attributed_expression],
@@ -268,8 +277,8 @@ module.exports = grammar({
       field('condition', $.condition),
       repeat(NEWLINE),
       field('body', $.statement_block),
-      repeat(seq(repeat(NEWLINE), $.elseif_clause)),
-      optional(seq(repeat(NEWLINE), $.else_clause)),
+      repeat(seq(repeat(NEWLINE), field('elseif', $.elseif_clause))),
+      optional(seq(repeat(NEWLINE), field('else', $.else_clause))),
     ),
 
     elseif_clause: $ => seq(
@@ -285,28 +294,28 @@ module.exports = grammar({
     condition: $ => seq('(', repeat(NEWLINE), $.pipeline, repeat(NEWLINE), ')'),
 
     switch_statement: $ => seq(
-      optional($.label),
+      optional(field('label', $.label)),
       keyword('switch'),
       repeat(NEWLINE),
       choice(
-        seq(repeat($.switch_parameter), $.condition),
+        seq(repeat(field('parameters', $.switch_parameter)), field('condition', $.condition)),
         seq(
-          repeat($.switch_parameter),
+          repeat(field('parameters', $.switch_parameter)),
           $._switch_file_parameter,
-          repeat(choice($.switch_parameter, $._switch_file_parameter)),
+          repeat(choice(field('parameters', $.switch_parameter), $._switch_file_parameter)),
         ),
       ),
       repeat(NEWLINE),
       '{',
       repeat($._terminator),
-      repeat1(seq($.switch_clause, repeat($._terminator))),
+      repeat1(seq(field('clauses', $.switch_clause), repeat($._terminator))),
       '}',
     ),
 
     _switch_file_parameter: $ => seq(
       flag('-file'),
       repeat(NEWLINE),
-      field('file', $._command_argument_value),
+      field('file', alias($._command_argument_value, $.command_argument)),
     ),
 
     switch_parameter: _ => choice(
@@ -317,18 +326,21 @@ module.exports = grammar({
     ),
 
     switch_clause: $ => seq(
-      field('condition', choice(alias($._switch_default, 'default'), $._command_argument_value)),
+      field('condition', choice(
+        alias($._switch_default, 'default'),
+        alias($._command_argument_value, $.command_argument),
+      )),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
 
-    label: $ => seq($._label_start, ':', $.identifier, repeat(NEWLINE)),
+    label: $ => seq($._label_start, ':', field('name', $.identifier), repeat(NEWLINE)),
 
     foreach_statement: $ => seq(
-      optional($.label),
+      optional(field('label', $.label)),
       keyword('foreach'),
       repeat(NEWLINE),
-      repeat($.foreach_parameter),
+      repeat(field('parameters', $.foreach_parameter)),
       '(',
       repeat(NEWLINE),
       field('variable', $.variable),
@@ -345,19 +357,23 @@ module.exports = grammar({
     foreach_parameter: _ => choice(op('-parallel'), op('-throttlelimit')),
 
     for_statement: $ => seq(
-      optional($.label),
+      optional(field('label', $.label)),
       keyword('for'),
       repeat(NEWLINE),
       '(',
-      optional($.pipeline),
-      optional(seq(';', optional($.pipeline), optional(seq(';', optional($.pipeline))))),
+      optional(field('initializer', $.pipeline)),
+      optional(seq(
+        ';',
+        optional(field('condition', $.pipeline)),
+        optional(seq(';', optional(field('update', $.pipeline)))),
+      )),
       ')',
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
 
     while_statement: $ => seq(
-      optional($.label),
+      optional(field('label', $.label)),
       keyword('while'),
       repeat(NEWLINE),
       field('condition', $.condition),
@@ -366,7 +382,7 @@ module.exports = grammar({
     ),
 
     do_statement: $ => seq(
-      optional($.label),
+      optional(field('label', $.label)),
       keyword('do'),
       repeat(NEWLINE),
       field('body', $.statement_block),
@@ -382,16 +398,16 @@ module.exports = grammar({
       field('body', $.statement_block),
       choice(
         seq(
-          repeat1(seq(repeat(NEWLINE), $.catch_clause)),
-          optional(seq(repeat(NEWLINE), $.finally_clause)),
+          repeat1(seq(repeat(NEWLINE), field('handlers', $.catch_clause))),
+          optional(seq(repeat(NEWLINE), field('finally', $.finally_clause))),
         ),
-        seq(repeat(NEWLINE), $.finally_clause),
+        seq(repeat(NEWLINE), field('finally', $.finally_clause)),
       ),
     ),
 
     catch_clause: $ => seq(
       keyword('catch'),
-      optional(commaSep1($.type_literal)),
+      optional(commaSep1(field('types', $.type_literal))),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
@@ -404,7 +420,7 @@ module.exports = grammar({
 
     trap_statement: $ => seq(
       keyword('trap'),
-      optional($.type_literal),
+      optional(field('type', $.type_literal)),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
@@ -428,7 +444,7 @@ module.exports = grammar({
       repeat(NEWLINE),
       field('name', $.function_name),
       repeat(NEWLINE),
-      optional(seq($.parameter_list, repeat(NEWLINE))),
+      optional(seq(field('parameters', $.parameter_list), repeat(NEWLINE))),
       field('body', $.script_block),
     ),
 
@@ -440,14 +456,17 @@ module.exports = grammar({
     ),
 
     param_block: $ => seq(
-      repeat(seq($.attribute, repeat(NEWLINE))),
+      repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
       keyword('param'),
       repeat(NEWLINE),
-      $.parameter_list,
+      field('parameters', $.parameter_list),
     ),
 
     parameter: $ => seq(
-      repeat(seq(choice($.attribute, $.type_literal), repeat(NEWLINE))),
+      repeat(seq(choice(
+        field('attributes', $.attribute),
+        field('types', $.type_literal),
+      ), repeat(NEWLINE))),
       field('name', $.variable),
       optional(seq('=', repeat(NEWLINE), field('default', $._argument_expression))),
     ),
@@ -455,12 +474,11 @@ module.exports = grammar({
     attribute: $ => seq(
       '[',
       field('name', $.type_name),
-      '(',
-      repeat(NEWLINE),
-      optional(seq(commaSep1($.attribute_argument), repeat(NEWLINE))),
-      ')',
+      field('arguments', alias($._attribute_argument_list, $.argument_list)),
       ']',
     ),
+
+    _attribute_argument_list: $ => argumentList('(', $.attribute_argument),
 
     attribute_argument: $ => choice(
       seq(
@@ -493,28 +511,36 @@ module.exports = grammar({
     // Class methods delimit themselves and allow only newlines before the next
     // member. Properties accept semicolons too, or the final closing brace.
     class_definition: $ => seq(
-      repeat(seq($.attribute, repeat(NEWLINE))),
+      repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
       keyword('class'),
       repeat(NEWLINE),
       field('name', $.identifier),
-      optional(seq(':', repeat(NEWLINE), commaSep1($.type_name))),
+      optional(seq(':', repeat(NEWLINE), commaSep1(field('base_types', $.type_name)))),
       repeat(NEWLINE),
+      field('body', $.class_body),
+    ),
+
+    class_body: $ => seq(
       '{',
       repeat(NEWLINE),
       repeat(
         choice(
-          seq($.class_property, repeat1($._terminator)),
-          seq($.class_method, repeat(NEWLINE)),
+          seq(field('members', $.class_property), repeat1($._terminator)),
+          seq(field('members', $.class_method), repeat(NEWLINE)),
         ),
       ),
-      optional($.class_property),
+      optional(field('members', $.class_property)),
       '}',
     ),
 
     class_property: $ => seq(
       repeat(
         seq(
-          choice($.attribute, $.type_literal, keyword('hidden'), keyword('static')),
+          choice(
+            field('attributes', $.attribute),
+            field('types', $.type_literal),
+            field('modifiers', choice(keyword('hidden'), keyword('static'))),
+          ),
           repeat(NEWLINE),
         ),
       ),
@@ -525,13 +551,17 @@ module.exports = grammar({
     class_method: $ => seq(
       repeat(
         seq(
-          choice($.attribute, $.type_literal, keyword('hidden'), keyword('static')),
+          choice(
+            field('attributes', $.attribute),
+            field('return_type', $.type_literal),
+            field('modifiers', choice(keyword('hidden'), keyword('static'))),
+          ),
           repeat(NEWLINE),
         ),
       ),
       field('name', $.identifier),
-      $.parameter_list,
-      optional($.base_constructor_call),
+      field('parameters', $.parameter_list),
+      optional(field('base_constructor', $.base_constructor_call)),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
@@ -539,22 +569,32 @@ module.exports = grammar({
     base_constructor_call: $ => seq(
       ':',
       keyword('base'),
+      field('arguments', alias($._base_argument_list, $.argument_list)),
+    ),
+
+    // Base constructors retain their existing non-immediate opener and newline
+    // rules while sharing the public argument-list shape with ordinary calls.
+    _base_argument_list: $ => seq(
       '(',
       optional(commaSep1($._argument_expression)),
       ')',
     ),
 
     enum_definition: $ => seq(
-      repeat(seq($.attribute, repeat(NEWLINE))),
+      repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
       keyword('enum'),
       repeat(NEWLINE),
       field('name', $.identifier),
-      optional(seq(':', repeat(NEWLINE), $.type_name)),
+      optional(seq(':', repeat(NEWLINE), field('underlying_type', $.type_name))),
       repeat(NEWLINE),
+      field('body', $.enum_body),
+    ),
+
+    enum_body: $ => seq(
       '{',
       repeat($._terminator),
-      repeat(seq($.enum_member, repeat1($._terminator))),
-      optional($.enum_member),
+      repeat(seq(field('members', $.enum_member), repeat1($._terminator))),
+      optional(field('members', $.enum_member)),
       '}',
     ),
 
@@ -574,22 +614,26 @@ module.exports = grammar({
 
     data_statement: $ => seq(
       keyword('data'),
-      optional($.identifier),
+      optional(field('name', $.identifier)),
       optional(
         seq(
           flag('-supportedcommand'),
-          commaSep1(choice($.bare_word, $.single_quoted_string, $.expandable_string)),
+          commaSep1(field('supported_commands', choice(
+            $.bare_word,
+            $.single_quoted_string,
+            $.expandable_string,
+          ))),
         ),
       ),
       repeat(NEWLINE),
-      $.statement_block,
+      field('body', $.statement_block),
     ),
 
     configuration_definition: $ => seq(
       keyword('configuration'),
       field('name', choice($.identifier, $.variable)),
       repeat(NEWLINE),
-      $.script_block,
+      field('body', $.script_block),
     ),
 
     assignment_statement: $ => prec.right(
@@ -659,16 +703,15 @@ module.exports = grammar({
       optional(
         seq(
           alias(token.immediate(prec(6, ':')), ':'),
-          field(
-            'value',
-            choice(
-              $._command_argument_value,
-              alias($._command_argument_array, $.array_literal_expression),
-              alias(token(prec(4, /[-–—―][^\s;|&()<>{},$'"`]+/)), $.bare_word),
-            ),
-          ),
+          field('value', alias($._command_parameter_value, $.command_argument)),
         ),
       ),
+    ),
+
+    _command_parameter_value: $ => choice(
+      $._command_argument_value,
+      alias($._command_argument_array, $.array_literal_expression),
+      alias(token(prec(4, /[-–—―][^\s;|&()<>{},$'"`]+/)), $.bare_word),
     ),
 
     command_argument: $ => choice(
@@ -679,9 +722,13 @@ module.exports = grammar({
     // In argument mode, a comma following a value joins a single array argument.
     // A leading comma still belongs to the ordinary unary expression grammar.
     _command_argument_array: $ => seq(
-      $._command_argument_value,
+      alias($._command_argument_value, $.command_argument),
       repeat1(
-        seq(alias($._argument_separator, ','), repeat(NEWLINE), $._command_argument_value),
+        seq(
+          alias($._argument_separator, ','),
+          repeat(NEWLINE),
+          alias($._command_argument_value, $.command_argument),
+        ),
       ),
     ),
 
@@ -755,7 +802,7 @@ module.exports = grammar({
       field('operator', $.merging_redirection_operator),
       seq(
         field('operator', $.file_redirection_operator),
-        field('destination', $._command_argument_value),
+        field('destination', alias($._command_argument_value, $.command_argument)),
       ),
     ),
 
@@ -972,19 +1019,16 @@ module.exports = grammar({
       PREC.member,
       seq(
         field('function', $.member_access),
-        optional($.generic_type_arguments),
+        optional(field('type_arguments', $.generic_type_arguments)),
         optional($._method_invocation_context),
         choice(
-          seq(
-            token.immediate('('),
-            repeat(NEWLINE),
-            optional(seq(commaSep1($._argument_expression), repeat(NEWLINE))),
-            ')',
-          ),
-          alias($._method_script_block, $.script_block),
+          field('arguments', $.argument_list),
+          field('arguments', alias($._method_script_block, $.script_block)),
         ),
       ),
     ),
+
+    argument_list: $ => argumentList(token.immediate('('), $._argument_expression),
 
     // Generic argument lists allow physical newlines around their separators;
     // the outer brackets of a type literal and assembly qualification do not.

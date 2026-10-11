@@ -1,0 +1,95 @@
+================================================================================
+Parameter and redirection fields contain complete composite values
+================================================================================
+
+Write-Output -Path:prefix"$name".txt > out"$suffix".log
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_parameter
+        name: (command_parameter_name)
+        value: (command_argument
+          (bare_word)
+          (expandable_string
+            (variable))
+          (argument_fragment)))
+      (redirection
+        operator: (file_redirection_operator)
+        destination: (command_argument
+          (bare_word)
+          (expandable_string
+            (variable))
+          (argument_fragment))))))
+
+================================================================================
+Command-mode array elements retain individual composite boundaries
+================================================================================
+
+Write-Output pre$x,post$y
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (array_literal_expression
+          (command_argument
+            (bare_word)
+            (variable))
+          (command_argument
+            (bare_word)
+            (variable)))))))
+
+================================================================================
+Call arguments preserve parenthesized lists and shorthand script blocks
+================================================================================
+
+[Math]::Max(1,2); $items.Where{ $_.Enabled }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (invocation_expression
+      function: (member_access
+        object: (type_literal
+          (type_name
+            name: (type_identifier)))
+        member: (identifier))
+      arguments: (argument_list
+        (integer_literal)
+        (integer_literal))))
+  (pipeline
+    (invocation_expression
+      function: (member_access
+        object: (variable)
+        member: (identifier))
+      arguments: (script_block
+        (pipeline
+          (member_access
+            object: (variable)
+            member: (identifier)))))))
+
+================================================================================
+Empty class and enum declarations expose their body nodes
+================================================================================
+
+class Empty {}; enum Mode {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    name: (identifier)
+    body: (class_body))
+  (enum_definition
+    name: (identifier)
+    body: (enum_body)))

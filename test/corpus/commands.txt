@@ -90,9 +90,12 @@ Write-Output first,second,$third
         (bare_word))
       (command_argument
         (array_literal_expression
-          (bare_word)
-          (bare_word)
-          (variable))))))
+          (command_argument
+            (bare_word))
+          (command_argument
+            (bare_word))
+          (command_argument
+            (variable)))))))
 
 ==================
 Named parameters and colon value
@@ -112,7 +115,8 @@ Get-Item -LiteralPath . -Force:$false
         (bare_word))
       (command_parameter
         name: (command_parameter_name)
-        value: (variable)))))
+        value: (command_argument
+          (variable))))))
 
 ==================
 Invocation operators and splatting
@@ -178,7 +182,8 @@ Write-Output value 2>&1 *> result.txt
         operator: (merging_redirection_operator))
       (redirection
         operator: (file_redirection_operator)
-        destination: (bare_word)))))
+        destination: (command_argument
+          (bare_word))))))
 
 ==================
 Stop parsing consumes semicolons literally

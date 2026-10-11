@@ -10,25 +10,34 @@
 (string_content) @string
 (escape_sequence) @string.escape
 (type_identifier) @type
-(attribute (type_name) @attribute)
+(attribute name: (type_name) @attribute)
 (function_definition name: (function_name) @function)
 (command_name) @function.call
 (command_parameter name: _ @variable.parameter)
+(parameter name: (variable) @variable.parameter)
 (class_definition name: (identifier) @type.definition)
 (enum_definition name: (identifier) @type.definition)
+(enum_member name: (identifier) @constant)
 (member_access member: (identifier) @property)
-(class_property (variable) @property)
-["(" ")" "[" "]" "{" "}"] @punctuation.bracket
+(class_property name: (variable) @property)
+(class_method name: (identifier) @function.method)
+(invocation_expression
+  function: (member_access member: (identifier) @function.method.call))
+["(" ")" "[" "]" "{" "}" "@{" "@(" "$(" "?["] @punctuation.bracket
 ["," ";"] @punctuation.delimiter
 (binary_expression operator: _ @operator)
 (assignment_statement operator: _ @operator)
 (redirection operator: _ @operator)
 (unary_expression operator: _ @operator)
+(member_access operator: _ @operator)
+(invocation_operator_command operator: _ @operator)
+["|" "&&" "||" "&"] @operator
 (ternary_expression ["?" ":"] @operator)
 (function_definition keyword: _ @keyword.function)
-(flow_control_statement keyword: _ @keyword.return)
+(flow_control_statement keyword: ["return" "exit"] @keyword.return)
+(flow_control_statement keyword: ["break" "continue"] @keyword.repeat)
 (named_block name: _ @keyword)
 ["if" "elseif" "else" "switch" "default"] @keyword.conditional
 ["foreach" "for" "while" "do" "until" "in"] @keyword.repeat
 ["try" "catch" "finally" "trap" "throw"] @keyword.exception
-["class" "enum" "hidden" "static" "param" "data" "configuration" "using" "namespace" "module" "assembly"] @keyword
+["class" "enum" "hidden" "static" "base" "param" "data" "configuration" "using" "namespace" "module" "assembly"] @keyword

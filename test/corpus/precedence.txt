@@ -246,10 +246,11 @@ Method invocation separates arguments before binary operators
           (type_name
             name: (type_identifier)))
         member: (identifier))
-      (integer_literal)
-      (binary_expression
-        left: (integer_literal)
-        right: (integer_literal)))))
+      arguments: (argument_list
+        (integer_literal)
+        (binary_expression
+          left: (integer_literal)
+          right: (integer_literal))))))
 
 ==================
 Parentheses preserve an array as one method argument
@@ -264,12 +265,13 @@ $object.Method((1,2),3)
       function: (member_access
         object: (variable)
         member: (identifier))
-      (parenthesized_expression
-        (pipeline
-          (array_literal_expression
-            (integer_literal)
-            (integer_literal))))
-      (integer_literal))))
+      arguments: (argument_list
+        (parenthesized_expression
+          (pipeline
+            (array_literal_expression
+              (integer_literal)
+              (integer_literal))))
+        (integer_literal)))))
 
 ==================
 Replacement operator takes a comma array on the right

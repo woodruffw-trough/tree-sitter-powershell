@@ -10,10 +10,11 @@ using namespace System
   (using_statement
     value: (bare_word))
   (param_block
-    (attribute
+    attributes: (attribute
       name: (type_name
-        name: (type_identifier)))
-    (parameter_list
+        name: (type_identifier))
+      arguments: (argument_list))
+    parameters: (parameter_list
       (parameter
         name: (variable)))))
 
@@ -31,14 +32,16 @@ $x
 (source_file
   (class_definition
     name: (identifier)
-    (class_property
-      (attribute
-        name: (type_name
-          name: (type_identifier)))
-      (type_literal
-        (type_name
-          name: (type_identifier)))
-      name: (variable))))
+    body: (class_body
+      members: (class_property
+        attributes: (attribute
+          name: (type_name
+            name: (type_identifier))
+          arguments: (argument_list))
+        types: (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (variable)))))
 
 ==================
 Parameter defaults allow newlines after equals
@@ -50,7 +53,7 @@ param($x =
 
 (source_file
   (param_block
-    (parameter_list
+    parameters: (parameter_list
       (parameter
         name: (variable)
         default: (integer_literal)))))
@@ -85,21 +88,24 @@ switch ($x) { foo {1}; bar-baz {2}; a.b {3} }
 
 (source_file
   (switch_statement
-    (condition
+    condition: (condition
       (pipeline
         (variable)))
-    (switch_clause
-      condition: (bare_word)
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word))
       body: (statement_block
         (pipeline
           (integer_literal))))
-    (switch_clause
-      condition: (bare_word)
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word))
       body: (statement_block
         (pipeline
           (integer_literal))))
-    (switch_clause
-      condition: (bare_word)
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word))
       body: (statement_block
         (pipeline
           (integer_literal))))))
@@ -113,11 +119,12 @@ switch ($x) { 1+2 {} }
 
 (source_file
   (switch_statement
-    (condition
+    condition: (condition
       (pipeline
         (variable)))
-    (switch_clause
-      condition: (bare_word)
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word))
       body: (statement_block))))
 
 ==================

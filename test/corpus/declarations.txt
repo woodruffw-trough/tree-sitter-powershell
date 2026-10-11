@@ -8,23 +8,25 @@ $Name
 
 (source_file
   (param_block
-    (attribute
+    attributes: (attribute
       name: (type_name
-        name: (type_identifier)))
-    (parameter_list
+        name: (type_identifier))
+      arguments: (argument_list))
+    parameters: (parameter_list
       (parameter
-        (attribute
+        attributes: (attribute
           name: (type_name
             name: (type_identifier))
-          (attribute_argument
-            name: (identifier)
-            value: (variable)))
-        (type_literal
+          arguments: (argument_list
+            (attribute_argument
+              name: (identifier)
+              value: (variable))))
+        types: (type_literal
           (type_name
             name: (type_identifier)))
         name: (variable))
       (parameter
-        (type_literal
+        types: (type_literal
           (type_name
             name: (type_identifier)))
         name: (variable)
@@ -42,9 +44,9 @@ function Get-Value([string]$Name) { begin { $n=0 } process { $n++; $Name } end {
 (source_file
   (function_definition
     name: (function_name)
-    (parameter_list
+    parameters: (parameter_list
       (parameter
-        (type_literal
+        types: (type_literal
           (type_name
             name: (type_identifier)))
         name: (variable)))
@@ -92,7 +94,7 @@ filter global:Keep-Item { $_ }; function script:Get-Thing { param($Name) $Name }
     name: (function_name)
     body: (script_block
       (param_block
-        (parameter_list
+        parameters: (parameter_list
           (parameter
             name: (variable))))
       (pipeline
@@ -108,46 +110,47 @@ class Item { hidden [string]$Name = 'x'; static [int]$Count = 0; Item([string]$n
 (source_file
   (class_definition
     name: (identifier)
-    (class_property
-      (type_literal
-        (type_name
-          name: (type_identifier)))
-      name: (variable)
-      value: (single_quoted_string))
-    (class_property
-      (type_literal
-        (type_name
-          name: (type_identifier)))
-      name: (variable)
-      value: (integer_literal))
-    (class_method
-      name: (identifier)
-      (parameter_list
-        (parameter
-          (type_literal
-            (type_name
-              name: (type_identifier)))
-          name: (variable)))
-      body: (statement_block
-        (pipeline
-          (assignment_statement
-            left: (member_access
-              object: (variable)
-              member: (identifier))
-            right: (pipeline
-              (variable))))))
-    (class_method
-      (type_literal
-        (type_name
-          name: (type_identifier)))
-      name: (identifier)
-      (parameter_list)
-      body: (statement_block
-        (flow_control_statement
-          value: (pipeline
-            (member_access
-              object: (variable)
-              member: (identifier))))))))
+    body: (class_body
+      members: (class_property
+        types: (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (variable)
+        value: (single_quoted_string))
+      members: (class_property
+        types: (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (variable)
+        value: (integer_literal))
+      members: (class_method
+        name: (identifier)
+        parameters: (parameter_list
+          (parameter
+            types: (type_literal
+              (type_name
+                name: (type_identifier)))
+            name: (variable)))
+        body: (statement_block
+          (pipeline
+            (assignment_statement
+              left: (member_access
+                object: (variable)
+                member: (identifier))
+              right: (pipeline
+                (variable))))))
+      members: (class_method
+        return_type: (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (statement_block
+          (flow_control_statement
+            value: (pipeline
+              (member_access
+                object: (variable)
+                member: (identifier)))))))))
 
 ==================
 Enum underlying type and values
@@ -159,17 +162,18 @@ enum Mode : byte { Off = 0; On = 1; Other = 2 }
 (source_file
   (enum_definition
     name: (identifier)
-    (type_name
+    underlying_type: (type_name
       name: (type_identifier))
-    (enum_member
-      name: (identifier)
-      value: (integer_literal))
-    (enum_member
-      name: (identifier)
-      value: (integer_literal))
-    (enum_member
-      name: (identifier)
-      value: (integer_literal))))
+    body: (enum_body
+      members: (enum_member
+        name: (identifier)
+        value: (integer_literal))
+      members: (enum_member
+        name: (identifier)
+        value: (integer_literal))
+      members: (enum_member
+        name: (identifier)
+        value: (integer_literal)))))
 
 ==================
 Using namespace and data statement
@@ -183,8 +187,8 @@ data Messages { @{ Greeting = 'Hello' } }
   (using_statement
     value: (bare_word))
   (data_statement
-    (identifier)
-    (statement_block
+    name: (identifier)
+    body: (statement_block
       (pipeline
         (hashtable_expression
           (hash_entry
@@ -228,20 +232,22 @@ Generic method invocation
           (type_name
             name: (type_identifier)))
         member: (identifier))
-      (generic_type_arguments
+      type_arguments: (generic_type_arguments
         (type_name
-          name: (type_identifier)))))
+          name: (type_identifier)))
+      arguments: (argument_list)))
   (pipeline
     (invocation_expression
       function: (member_access
         object: (variable)
         member: (identifier))
-      (generic_type_arguments
+      type_arguments: (generic_type_arguments
         (type_name
           name: (type_identifier))
         (type_name
           name: (type_identifier)))
-      (integer_literal))))
+      arguments: (argument_list
+        (integer_literal)))))
 
 ==================
 Null conditional member and element access
@@ -263,7 +269,8 @@ ${object}?.Name; ${items}?[0]; ${object}?.GetValue()
     (invocation_expression
       function: (member_access
         object: (variable)
-        member: (identifier)))))
+        member: (identifier))
+      arguments: (argument_list))))
 
 ==================
 Completed function definitions delimit adjacent declarations
@@ -333,16 +340,17 @@ class Example { [int] 日本語() { return 1 } }
     body: (script_block))
   (class_definition
     name: (identifier)
-    (class_method
-      (type_literal
-        (type_name
-          name: (type_identifier)))
-      name: (identifier)
-      (parameter_list)
-      body: (statement_block
-        (flow_control_statement
-          value: (pipeline
-            (integer_literal)))))))
+    body: (class_body
+      members: (class_method
+        return_type: (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (identifier)
+        parameters: (parameter_list)
+        body: (statement_block
+          (flow_control_statement
+            value: (pipeline
+              (integer_literal))))))))
 
 ==================
 Numeric member names retain nested real and integer names

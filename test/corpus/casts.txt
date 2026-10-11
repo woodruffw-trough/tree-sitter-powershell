@@ -9,11 +9,14 @@ Type literal remains a distinct method argument
     (invocation_expression
       (member_access
         (type_literal
-          (type_name (type_identifier)))
+          (type_name
+            (type_identifier)))
         (identifier))
-      (type_literal
-        (type_name (type_identifier)))
-      (variable))))
+      (argument_list
+        (type_literal
+          (type_name
+            (type_identifier)))
+        (variable)))))
 
 ================================================================================
 Type literal remains a distinct array element
@@ -28,7 +31,8 @@ Type literal remains a distinct array element
         (array_literal_expression
           (integer_literal)
           (type_literal
-            (type_name (type_identifier)))
+            (type_name
+              (type_identifier)))
           (variable))))))
 
 ================================================================================
@@ -41,7 +45,8 @@ Comma after a standalone type is an array separator
   (pipeline
     (array_literal_expression
       (type_literal
-        (type_name (type_identifier)))
+        (type_name
+          (type_identifier)))
       (integer_literal))))
 
 ================================================================================
@@ -54,7 +59,8 @@ Cast unary minus may contain unary comma
   (pipeline
     (cast_expression
       (type_literal
-        (type_name (type_identifier)))
+        (type_name
+          (type_identifier)))
       (unary_expression
         (unary_expression
           (integer_literal))))))

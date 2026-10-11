@@ -1,0 +1,549 @@
+[
+  {
+    "name": "colon parameter and redirect preserve composite values",
+    "source": "Write-Output -Path:prefix\"$name\" -Other:$home\\child >> out$(Get-Date).txt 2> err\"$name\".log",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command_parameter",
+        "field": "value",
+        "texts": [
+          "prefix\"$name\"",
+          "$home\\child"
+        ]
+      },
+      {
+        "node": "redirection",
+        "field": "destination",
+        "texts": [
+          "out$(Get-Date).txt",
+          "err\"$name\".log"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "negative and comma array colon values",
+    "source": "cmd -N:-12 -Words:first\"$x\",$home\\tail,([int]2),\"$y\"",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command_parameter",
+        "field": "value",
+        "texts": [
+          "-12",
+          "first\"$x\",$home\\tail,([int]2),\"$y\""
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mixed command array elements have whole nodes",
+    "source": "cmd pre\"$x\",$home\\tail,$(Get-Item .),42,([int]3),'literal',pre'quoted'",
+    "valid": true,
+    "fields": [
+      {
+        "node": "array_literal_expression",
+        "field": "",
+        "texts": [
+          "pre\"$x\"",
+          "$home\\tail",
+          "$(Get-Item .)",
+          "42",
+          "([int]3)",
+          "'literal'",
+          "pre'quoted'"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "composite switch file and clause",
+    "source": "switch -file prefix\"$path\".txt { pre\"$pattern\" { 1 }; default { 2 } }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "switch_statement",
+        "field": "file",
+        "texts": [
+          "prefix\"$path\".txt"
+        ]
+      },
+      {
+        "node": "switch_clause",
+        "field": "condition",
+        "texts": [
+          "pre\"$pattern\"",
+          "default"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "switch retains every repeated filename",
+    "source": "switch -regex -file first\"$path\" -casesensitive -file last$(Get-Date).txt { x { 1 } default { 2 } }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "switch_statement",
+        "field": "file",
+        "texts": [
+          "first\"$path\"",
+          "last$(Get-Date).txt"
+        ]
+      },
+      {
+        "node": "switch_statement",
+        "field": "parameters",
+        "texts": [
+          "-regex",
+          "-casesensitive"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ordinary switch condition and clause fields",
+    "source": ":outer switch -wildcard ($x) { foo {} bar {} default {} }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "switch_statement",
+        "field": "condition",
+        "texts": [
+          "($x)"
+        ]
+      },
+      {
+        "node": "switch_statement",
+        "field": "clauses",
+        "texts": [
+          "foo {}",
+          "bar {}",
+          "default {}"
+        ]
+      },
+      {
+        "node": "label",
+        "field": "name",
+        "texts": [
+          "outer"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "all for header roles",
+    "source": ":outer for($i=0;$i -lt 3;$i++){ continue outer }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "for_statement",
+        "field": "initializer",
+        "texts": [
+          "$i=0"
+        ]
+      },
+      {
+        "node": "for_statement",
+        "field": "condition",
+        "texts": [
+          "$i -lt 3"
+        ]
+      },
+      {
+        "node": "for_statement",
+        "field": "update",
+        "texts": [
+          "$i++"
+        ]
+      },
+      {
+        "node": "for_statement",
+        "field": "label",
+        "texts": [
+          ":outer"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "empty for roles stay absent",
+    "source": "for (;;) {}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "for_statement",
+        "field": "initializer",
+        "texts": []
+      },
+      {
+        "node": "for_statement",
+        "field": "condition",
+        "texts": []
+      },
+      {
+        "node": "for_statement",
+        "field": "update",
+        "texts": []
+      }
+    ]
+  },
+  {
+    "name": "partial for roles keep their positions",
+    "source": "for ($i=0;;) {}\nfor (; $i -lt 3;) {}\nfor (;; $i++) {}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "for_statement",
+        "field": "initializer",
+        "texts": [
+          "$i=0"
+        ]
+      },
+      {
+        "node": "for_statement",
+        "field": "condition",
+        "texts": [
+          "$i -lt 3"
+        ]
+      },
+      {
+        "node": "for_statement",
+        "field": "update",
+        "texts": [
+          "$i++"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "calls expose delimited argument list",
+    "source": "[Math]::Max(1, $value); $items.Where({$_ -gt 0}, 'First')",
+    "valid": true,
+    "fields": [
+      {
+        "node": "invocation_expression",
+        "field": "arguments",
+        "texts": [
+          "(1, $value)",
+          "({$_ -gt 0}, 'First')"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "script block shorthand is one argument",
+    "source": "$items.Where{param($x) $x -gt 0}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "invocation_expression",
+        "field": "arguments",
+        "texts": [
+          "{param($x) $x -gt 0}"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "generic calls separate type and value arguments",
+    "source": "[array]::Empty[string](); $list.ConvertAll[object]({param($x) $x})",
+    "valid": true,
+    "fields": [
+      {
+        "node": "invocation_expression",
+        "field": "type_arguments",
+        "texts": [
+          "[string]",
+          "[object]"
+        ]
+      },
+      {
+        "node": "invocation_expression",
+        "field": "arguments",
+        "texts": [
+          "()",
+          "({param($x) $x})"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "function and param block have parameter list fields",
+    "source": "[CmdletBinding()] param([Parameter(Mandatory)][int]$Count=1)\nfunction Read-Value([string]$Path, $Fallback=2) { $Path }\nfunction Separate { param($Inner) $Inner }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "param_block",
+        "field": "parameters",
+        "texts": [
+          "([Parameter(Mandatory)][int]$Count=1)",
+          "($Inner)"
+        ]
+      },
+      {
+        "node": "function_definition",
+        "field": "parameters",
+        "texts": [
+          "([string]$Path, $Fallback=2)"
+        ]
+      },
+      {
+        "node": "parameter",
+        "field": "types",
+        "texts": [
+          "[int]",
+          "[string]"
+        ]
+      },
+      {
+        "node": "parameter",
+        "field": "attributes",
+        "texts": [
+          "[Parameter(Mandatory)]"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "class body owns members and declaration roles",
+    "source": "class Base {}\n[Serializable()] class Child : Base {\n hidden [int]$Count=1\n static [string] Name([int]$n) { return \"N$n\" }\n Child() {}\n}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "class_definition",
+        "field": "body",
+        "texts": [
+          "{}",
+          "{\n hidden [int]$Count=1\n static [string] Name([int]$n) { return \"N$n\" }\n Child() {}\n}"
+        ]
+      },
+      {
+        "node": "class_definition",
+        "field": "base_types",
+        "texts": [
+          "Base"
+        ]
+      },
+      {
+        "node": "class_method",
+        "field": "parameters",
+        "texts": [
+          "([int]$n)",
+          "()"
+        ]
+      },
+      {
+        "node": "class_method",
+        "field": "return_type",
+        "texts": [
+          "[string]"
+        ]
+      },
+      {
+        "node": "class_property",
+        "field": "types",
+        "texts": [
+          "[int]"
+        ]
+      },
+      {
+        "node": "class_method",
+        "field": "modifiers",
+        "texts": [
+          "static"
+        ]
+      },
+      {
+        "node": "class_property",
+        "field": "modifiers",
+        "texts": [
+          "hidden"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "enum body and underlying type",
+    "source": "[Flags()] enum Mode : byte { None=0; One=1; Two=2 }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "enum_definition",
+        "field": "underlying_type",
+        "texts": [
+          "byte"
+        ]
+      },
+      {
+        "node": "enum_definition",
+        "field": "body",
+        "texts": [
+          "{ None=0; One=1; Two=2 }"
+        ]
+      },
+      {
+        "node": "enum_body",
+        "field": "members",
+        "texts": [
+          "None=0",
+          "One=1",
+          "Two=2"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "if branch roles",
+    "source": "if($x){1}elseif($y){2}elseif($z){3}else{4}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "if_statement",
+        "field": "elseif",
+        "texts": [
+          "elseif($y){2}",
+          "elseif($z){3}"
+        ]
+      },
+      {
+        "node": "if_statement",
+        "field": "else",
+        "texts": [
+          "else{4}"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "try handler roles and type constraints",
+    "source": "try { Read-Value } catch [IO.IOException], [ArgumentException] { throw } catch { 1 } finally { 2 }; trap [Exception] { continue }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "try_statement",
+        "field": "handlers",
+        "texts": [
+          "catch [IO.IOException], [ArgumentException] { throw }",
+          "catch { 1 }"
+        ]
+      },
+      {
+        "node": "try_statement",
+        "field": "finally",
+        "texts": [
+          "finally { 2 }"
+        ]
+      },
+      {
+        "node": "catch_clause",
+        "field": "types",
+        "texts": [
+          "[IO.IOException]",
+          "[ArgumentException]"
+        ]
+      },
+      {
+        "node": "trap_statement",
+        "field": "type",
+        "texts": [
+          "[Exception]"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "data name body and allowed commands",
+    "source": "data Messages -supportedcommand ConvertFrom-StringData, 'Write-Output' { @{Label='value'} }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "data_statement",
+        "field": "name",
+        "texts": [
+          "Messages"
+        ]
+      },
+      {
+        "node": "data_statement",
+        "field": "supported_commands",
+        "texts": [
+          "ConvertFrom-StringData",
+          "'Write-Output'"
+        ]
+      },
+      {
+        "node": "data_statement",
+        "field": "body",
+        "texts": [
+          "{ @{Label='value'} }"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "attribute arguments share public list",
+    "source": "function f { param([ValidateRange(1,10)][Parameter(Mandatory, Position=0)]$x) }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "attribute",
+        "field": "arguments",
+        "texts": [
+          "(1,10)",
+          "(Mandatory, Position=0)"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "loop labels use a scalar node",
+    "source": ":each foreach($x in 1,2){break each}\n:again while($false){}\n:done do {} until($true)",
+    "valid": true,
+    "fields": [
+      {
+        "node": "label",
+        "field": "name",
+        "texts": [
+          "each",
+          "again",
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "redirection stream and append roles",
+    "source": "cmd > out 2>> err 3>&1 4>&1 5>&1 6>&1 *>&1",
+    "valid": true,
+    "fields": [
+      {
+        "node": "redirection",
+        "field": "destination",
+        "texts": [
+          "out",
+          "err"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "plain colon values preserve their wrappers",
+    "source": "cmd -One:literal -Two:'quoted' -Three:\"$x\" -Four:(1+2) -Five:@(1,2)",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command_parameter",
+        "field": "value",
+        "texts": [
+          "literal",
+          "'quoted'",
+          "\"$x\"",
+          "(1+2)",
+          "@(1,2)"
+        ]
+      }
+    ]
+  }
+]

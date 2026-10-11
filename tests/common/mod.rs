@@ -137,7 +137,24 @@ fn mapped_extent(node: Node<'_>, offsets: &[usize]) -> Extent {
     (offsets[node.start_byte()], offsets[node.end_byte()])
 }
 
+pub fn discarded_switch_file(node: Node<'_>) -> bool {
+    let Some(parent) = node
+        .parent()
+        .filter(|parent| parent.kind() == "switch_statement")
+    else {
+        return false;
+    };
+    let mut cursor = parent.walk();
+    let files: Vec<_> = parent.children_by_field_name("file", &mut cursor).collect();
+    // Microsoft's AST retains only the final -file operand. Field-query tests
+    // separately verify every source operand kept in the concrete tree.
+    files.contains(&node) && files.last().is_some_and(|last| *last != node)
+}
+
 fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<CommandExtents>) {
+    if discarded_switch_file(node) {
+        return;
+    }
     if node.kind() == "command" {
         let mut name = node.child_by_field_name("name").unwrap();
         if name.kind() == "invocation_operator_command" {

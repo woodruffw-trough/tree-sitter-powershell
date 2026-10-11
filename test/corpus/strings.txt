@@ -69,7 +69,7 @@ Nested expandable string subexpression
               (expandable_string
                 (string_content)
                 (variable))))
-          (else_clause
+          else: (else_clause
             body: (statement_block
               (pipeline
                 (single_quoted_string)))))))))

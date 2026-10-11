@@ -92,6 +92,11 @@ fn children_of_kind<'a>(node: Node<'a>, kind: &str) -> Vec<Node<'a>> {
         .collect()
 }
 
+fn field_children<'a>(node: Node<'a>, field: &str) -> Vec<Node<'a>> {
+    let mut cursor = node.walk();
+    node.children_by_field_name(field, &mut cursor).collect()
+}
+
 fn unwrap_condition(node: Node<'_>) -> Node<'_> {
     if node.kind() == "condition" {
         children_of_kind(node, "pipeline")[0]
@@ -185,6 +190,14 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         "class_definition" | "enum_definition" => "TypeDefinitionAst",
         "param_block" => "ParamBlockAst",
         "attribute" => "AttributeAst",
+        "command_parameter" => "CommandParameterAst",
+        "redirection" => {
+            if node.child_by_field_name("operator")?.kind() == "file_redirection_operator" {
+                "FileRedirectionAst"
+            } else {
+                "MergingRedirectionAst"
+            }
+        }
         "attribute_argument" if node.child_by_field_name("name").is_some() => {
             "NamedAttributeArgumentAst"
         }
@@ -224,6 +237,14 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         | "expandable_here_string"
             if !quoted_fragment(node) =>
         {
+            if node.parent().is_some_and(|parent| {
+                parent.kind() == "data_statement"
+                    && field_children(parent, "supported_commands").contains(&node)
+            }) {
+                // Supported-command names are semantic BareWord constants even
+                // when the concrete spelling uses quotes; fields keep ranges.
+                return None;
+            }
             "QuotedStringAst"
         }
         "command_argument" if composite_string(node) && has_interpolation(node) => {
@@ -262,6 +283,9 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
 }
 
 fn collect<'a>(node: Node<'a>, source: &Source<'_>, nodes: &mut BTreeMap<Key, Node<'a>>) {
+    if super::common::discarded_switch_file(node) {
+        return;
+    }
     if let Some(category) = category(node, source) {
         let mut extent = ast_extent(&source.record(node));
         if node.kind() == "param_block" {
@@ -330,11 +354,8 @@ fn expected_category(node: &Value) -> Option<&str> {
             | "PipelineAst"
             | "CommandExpressionAst"
             | "CommandAst"
-            | "CommandParameterAst"
             | "TypeConstraintAst"
             | "UsingExpressionAst"
-            | "FileRedirectionAst"
-            | "MergingRedirectionAst"
     ) {
         return None;
     }
@@ -364,17 +385,21 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
         ("InvokeMemberExpressionAst", "object" | "member") => {
             source.field(node.child_by_field_name("function").unwrap(), field)
         }
-        ("InvokeMemberExpressionAst", "arguments") => extents(
-            named_children(node).into_iter().filter(|child| {
-                Some(*child) != node.child_by_field_name("function")
-                    && child.kind() != "generic_type_arguments"
-            }),
-            source,
-        ),
+        ("InvokeMemberExpressionAst", "arguments") => {
+            let arguments = node.child_by_field_name("arguments").unwrap();
+            extents(
+                if arguments.kind() == "argument_list" {
+                    named_children(arguments)
+                } else {
+                    vec![arguments]
+                },
+                source,
+            )
+        }
         ("InvokeMemberExpressionAst", "genericArguments") => {
-            let arguments = children_of_kind(node, "generic_type_arguments")
-                .first()
-                .map(|arguments| children_of_kind(*arguments, "type_name"))
+            let arguments = node
+                .child_by_field_name("type_arguments")
+                .map(|arguments| children_of_kind(arguments, "type_name"))
                 .unwrap_or_default();
             extents(arguments, source)
         }
@@ -385,79 +410,86 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
                 extents(named_children(node), source)
             }
         }
-        ("FunctionDefinitionAst" | "FunctionMemberAst", "parameters") => {
-            let parameters = children_of_kind(node, "parameter_list")
-                .first()
-                .map(|parameters| children_of_kind(*parameters, "parameter"))
+        ("FunctionDefinitionAst" | "FunctionMemberAst" | "ParamBlockAst", "parameters") => {
+            let parameters = node
+                .child_by_field_name("parameters")
+                .map(|parameters| children_of_kind(parameters, "parameter"))
                 .unwrap_or_default();
             extents(parameters, source)
         }
         ("TypeDefinitionAst", "members") => extents(
-            named_children(node).into_iter().filter(|child| {
-                matches!(
-                    child.kind(),
-                    "class_method" | "class_property" | "enum_member"
-                )
-            }),
+            field_children(node.child_by_field_name("body").unwrap(), "members"),
+            source,
+        ),
+        ("TypeDefinitionAst", "baseTypes") => extents(
+            if node.kind() == "enum_definition" {
+                field_children(node, "underlying_type")
+            } else {
+                field_children(node, "base_types")
+            },
+            source,
+        ),
+        (_, "attributes" | "types") => extents(field_children(node, field), source),
+        ("FunctionMemberAst", "returnType") => source.field(node, "return_type"),
+        ("PropertyMemberAst", "propertyType") => field_children(node, "types")
+            .last()
+            .map(|node| source.record(*node))
+            .unwrap_or(Value::Null),
+        ("AttributeAst", "positionalArguments" | "namedArguments") => extents(
+            named_children(node.child_by_field_name("arguments").unwrap())
+                .into_iter()
+                .filter(|argument| {
+                    argument.child_by_field_name("name").is_some() == (field == "namedArguments")
+                }),
             source,
         ),
         ("ForEachStatementAst", "condition") => source.field(node, "value"),
-        ("ForStatementAst", "initializer" | "condition" | "iterator") => {
-            // The concrete for header retains all three semicolon-delimited
-            // slots, including empty slots, rather than assigning field names.
-            let desired = match field {
-                "initializer" => 0,
-                "condition" => 1,
-                _ => 2,
-            };
-            let mut slot = 0;
-            let mut cursor = node.walk();
-            for child in node.children(&mut cursor) {
-                if child.kind() == ";" {
-                    slot += 1;
-                } else if child.kind() == "pipeline" && slot == desired {
-                    return source.record(child);
-                }
-            }
-            Value::Null
-        }
-        ("TryStatementAst", "catches") => extents(children_of_kind(node, "catch_clause"), source),
-        ("TryStatementAst", "finally") => children_of_kind(node, "finally_clause")
-            .first()
-            .map(|finally| source.field(*finally, "body"))
+        ("ForStatementAst", "iterator") => source.field(node, "update"),
+        ("TryStatementAst", "catches") => extents(field_children(node, "handlers"), source),
+        ("TryStatementAst", "finally") => node
+            .child_by_field_name("finally")
+            .map(|finally| source.field(finally, "body"))
             .unwrap_or(Value::Null),
         ("IfStatementAst", "clauses") => {
             let mut clauses = vec![clause(node, source)];
             clauses.extend(
-                children_of_kind(node, "elseif_clause")
+                field_children(node, "elseif")
                     .into_iter()
                     .map(|node| clause(node, source)),
             );
             Value::Array(clauses)
         }
-        ("IfStatementAst", "else") => children_of_kind(node, "else_clause")
-            .first()
-            .map(|else_clause| source.field(*else_clause, "body"))
+        ("IfStatementAst", "else") => node
+            .child_by_field_name("else")
+            .map(|else_clause| source.field(else_clause, "body"))
             .unwrap_or(Value::Null),
         ("SwitchStatementAst", "condition") => {
-            if let Some(condition) = children_of_kind(node, "condition").first() {
-                source.record(unwrap_condition(*condition))
+            if let Some(condition) = node.child_by_field_name("condition") {
+                source.record(unwrap_condition(condition))
             } else {
-                source.field(node, "file")
+                // The parser preserves only the last repeated -file operand;
+                // the CST keeps every complete filename for source consumers.
+                field_children(node, "file")
+                    .last()
+                    .map(|file| source.record(*file))
+                    .unwrap_or(Value::Null)
             }
         }
         ("SwitchStatementAst", "clauses") => Value::Array(
-            children_of_kind(node, "switch_clause")
+            field_children(node, "clauses")
                 .into_iter()
                 .filter(|node| node.child_by_field_name("condition").unwrap().kind() != "default")
                 .map(|node| clause(node, source))
                 .collect(),
         ),
-        ("SwitchStatementAst", "default") => children_of_kind(node, "switch_clause")
+        ("SwitchStatementAst", "default") => field_children(node, "clauses")
             .into_iter()
             .find(|node| node.child_by_field_name("condition").unwrap().kind() == "default")
             .map(|node| source.field(node, "body"))
             .unwrap_or(Value::Null),
+        ("DataStatementAst", "supportedCommands") => {
+            extents(field_children(node, "supported_commands"), source)
+        }
         ("QuotedStringAst" | "CompositeStringAst", "expressions") => {
             let mut expressions = Vec::new();
             interpolation_expressions(node, source, &mut expressions);
@@ -478,10 +510,15 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "ConvertExpressionAst" => &["type", "value"],
         "AttributedExpressionAst" => &["attribute", "value"],
         "ArrayLiteralAst" => &["elements"],
-        "ParameterAst" => &["name", "default"],
-        "FunctionDefinitionAst" | "FunctionMemberAst" => &["body", "parameters"],
-        "TypeDefinitionAst" => &["members"],
-        "PropertyMemberAst" => &["value"],
+        "ParameterAst" => &["name", "default", "types", "attributes"],
+        "ParamBlockAst" => &["parameters", "attributes"],
+        "AttributeAst" => &["positionalArguments", "namedArguments"],
+        "CommandParameterAst" => &["value"],
+        "FileRedirectionAst" => &["destination"],
+        "FunctionDefinitionAst" => &["body", "parameters"],
+        "FunctionMemberAst" => &["body", "parameters", "returnType", "attributes"],
+        "TypeDefinitionAst" => &["members", "attributes", "baseTypes"],
+        "PropertyMemberAst" => &["value", "propertyType", "attributes"],
         "IfStatementAst" => &["clauses", "else"],
         "ForEachStatementAst" => &["variable", "condition", "body"],
         "ForStatementAst" => &["initializer", "condition", "iterator", "body"],
@@ -490,7 +527,9 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         }
         "SwitchStatementAst" => &["condition", "clauses", "default"],
         "TryStatementAst" => &["body", "catches", "finally"],
-        "CatchClauseAst" | "TrapStatementAst" | "DataStatementAst" => &["body"],
+        "CatchClauseAst" => &["body", "types"],
+        "TrapStatementAst" => &["body", "type"],
+        "DataStatementAst" => &["body", "supportedCommands"],
         "ReturnStatementAst"
         | "ThrowStatementAst"
         | "ExitStatementAst"
@@ -667,6 +706,80 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
     }
     if category == "CompositeStringAst" {
         result.insert("stringKind", json!("BareWord"));
+    }
+    if category == "CommandParameterAst" {
+        let name = node
+            .child_by_field_name("name")
+            .map(|name| source.text(name))
+            .unwrap_or_else(|| source.text(node));
+        let name = name.trim_start_matches(['-', '–', '—', '―']);
+        // The -- marker is itself a CommandParameterAst named "-".
+        result.insert(
+            "name",
+            json!(if source.text(node) == "--" {
+                "-".to_owned()
+            } else {
+                decode_backticks(name)
+            }),
+        );
+    }
+    if matches!(category, "FileRedirectionAst" | "MergingRedirectionAst") {
+        let operator = source.text(node.child_by_field_name("operator").unwrap());
+        let stream = |symbol| match symbol {
+            Some('2') => "Error",
+            Some('3') => "Warning",
+            Some('4') => "Verbose",
+            Some('5') => "Debug",
+            Some('6') => "Information",
+            Some('*') => "All",
+            _ => "Output",
+        };
+        result.insert("fromStream", json!(stream(operator.chars().next())));
+        if category == "FileRedirectionAst" {
+            result.insert("append", json!(operator.contains(">>")));
+        } else {
+            result.insert("toStream", json!(stream(operator.chars().last())));
+        }
+    }
+    if matches!(category, "FunctionMemberAst" | "PropertyMemberAst") {
+        let modifiers = field_children(node, "modifiers");
+        for field in ["static", "hidden"] {
+            result.insert(
+                field,
+                json!(
+                    (field == "static" && node.kind() == "enum_member")
+                        || modifiers
+                            .iter()
+                            .any(|modifier| source.text(*modifier).eq_ignore_ascii_case(field))
+                ),
+            );
+        }
+    }
+    if category == "TypeDefinitionAst" {
+        result.insert("isEnum", json!(node.kind() == "enum_definition"));
+    }
+    if matches!(
+        category,
+        "ForEachStatementAst"
+            | "ForStatementAst"
+            | "WhileStatementAst"
+            | "DoWhileStatementAst"
+            | "DoUntilStatementAst"
+            | "SwitchStatementAst"
+    ) {
+        let label = node
+            .child_by_field_name("label")
+            .map(|label| decode_backticks(source.text(label.child_by_field_name("name").unwrap())));
+        result.insert("label", json!(label));
+    }
+    if category == "DataStatementAst" {
+        result.insert(
+            "name",
+            json!(
+                node.child_by_field_name("name")
+                    .map(|name| decode_backticks(source.text(name)))
+            ),
+        );
     }
     result
 }

@@ -16,7 +16,7 @@ IF ($X -GT 1) { RETURN $X } ELSEIF ($X -eQ 1) { THROW 'one' } ELSE { EXIT 2 }
       (flow_control_statement
         value: (pipeline
           (variable))))
-    (elseif_clause
+    elseif: (elseif_clause
       condition: (condition
         (pipeline
           (binary_expression
@@ -26,7 +26,7 @@ IF ($X -GT 1) { RETURN $X } ELSEIF ($X -eQ 1) { THROW 'one' } ELSE { EXIT 2 }
         (flow_control_statement
           value: (pipeline
             (single_quoted_string)))))
-    (else_clause
+    else: (else_clause
       body: (statement_block
         (flow_control_statement
           value: (pipeline
@@ -44,7 +44,7 @@ for () { break }; for ($i=0) { break }; for ($i=0;$i -lt 3;$i++) { continue }
     body: (statement_block
       (flow_control_statement)))
   (for_statement
-    (pipeline
+    initializer: (pipeline
       (assignment_statement
         left: (variable)
         right: (pipeline
@@ -52,16 +52,16 @@ for () { break }; for ($i=0) { break }; for ($i=0;$i -lt 3;$i++) { continue }
     body: (statement_block
       (flow_control_statement)))
   (for_statement
-    (pipeline
+    initializer: (pipeline
       (assignment_statement
         left: (variable)
         right: (pipeline
           (integer_literal))))
-    (pipeline
+    condition: (pipeline
       (binary_expression
         left: (variable)
         right: (integer_literal)))
-    (pipeline
+    update: (pipeline
       (unary_expression
         argument: (variable)))
     body: (statement_block
@@ -76,8 +76,8 @@ Loop labels and foreach
 
 (source_file
   (foreach_statement
-    (label
-      (identifier))
+    label: (label
+      name: (identifier))
     variable: (variable)
     value: (pipeline
       (binary_expression
@@ -120,27 +120,29 @@ switch -Regex ($text) { '^a' { 1 } { $_.Length -gt 2 } { 2 } default { 3 } }
 
 (source_file
   (switch_statement
-    (switch_parameter)
-    (condition
+    parameters: (switch_parameter)
+    condition: (condition
       (pipeline
         (variable)))
-    (switch_clause
-      condition: (single_quoted_string)
+    clauses: (switch_clause
+      condition: (command_argument
+        (single_quoted_string))
       body: (statement_block
         (pipeline
           (integer_literal))))
-    (switch_clause
-      condition: (script_block
-        (pipeline
-          (binary_expression
-            left: (member_access
-              object: (variable)
-              member: (identifier))
-            right: (integer_literal))))
+    clauses: (switch_clause
+      condition: (command_argument
+        (script_block
+          (pipeline
+            (binary_expression
+              left: (member_access
+                object: (variable)
+                member: (identifier))
+              right: (integer_literal)))))
       body: (statement_block
         (pipeline
           (integer_literal))))
-    (switch_clause
+    clauses: (switch_clause
       body: (statement_block
         (pipeline
           (integer_literal))))))
@@ -158,14 +160,14 @@ try { throw 'error' } catch [System.Exception] { $_ } finally { Write-Output don
       (flow_control_statement
         value: (pipeline
           (single_quoted_string))))
-    (catch_clause
-      (type_literal
+    handlers: (catch_clause
+      types: (type_literal
         (type_name
           name: (type_identifier)))
       body: (statement_block
         (pipeline
           (variable))))
-    (finally_clause
+    finally: (finally_clause
       body: (statement_block
         (pipeline
           (command
@@ -183,7 +185,7 @@ trap [System.Exception] { continue }; return $result
 
 (source_file
   (trap_statement
-    (type_literal
+    type: (type_literal
       (type_name
         name: (type_identifier)))
     body: (statement_block
@@ -211,7 +213,7 @@ Hashtable statement value
           body: (statement_block
             (pipeline
               (integer_literal)))
-          (else_clause
+          else: (else_clause
             body: (statement_block
               (pipeline
                 (integer_literal))))))
@@ -287,22 +289,23 @@ switch -w -c -e (1) { default {} }
 
 (source_file
   (switch_statement
-    (switch_parameter)
-    (switch_parameter)
-    (condition
+    parameters: (switch_parameter)
+    parameters: (switch_parameter)
+    condition: (condition
       (pipeline
         (integer_literal)))
-    (switch_clause
-      condition: (integer_literal)
+    clauses: (switch_clause
+      condition: (command_argument
+        (integer_literal))
       body: (statement_block)))
   (switch_statement
-    (switch_parameter)
-    (switch_parameter)
-    (switch_parameter)
-    (condition
+    parameters: (switch_parameter)
+    parameters: (switch_parameter)
+    parameters: (switch_parameter)
+    condition: (condition
       (pipeline
         (integer_literal)))
-    (switch_clause
+    clauses: (switch_clause
       body: (statement_block))))
 
 ==================
@@ -315,13 +318,14 @@ data Messages -s ConvertFrom-StringData { @{ Greeting = 'Hello' } }
 
 (source_file
   (switch_statement
-    file: (bare_word)
-    (switch_clause
+    file: (command_argument
+      (bare_word))
+    clauses: (switch_clause
       body: (statement_block)))
   (data_statement
-    (identifier)
-    (bare_word)
-    (statement_block
+    name: (identifier)
+    supported_commands: (bare_word)
+    body: (statement_block
       (pipeline
         (hashtable_expression
           (hash_entry
@@ -338,8 +342,8 @@ Labeled loop permits the lines label
 
 (source_file
   (foreach_statement
-    (label
-      (identifier))
+    label: (label
+      name: (identifier))
     variable: (variable)
     value: (pipeline
       (integer_literal))

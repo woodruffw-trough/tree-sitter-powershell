@@ -27,7 +27,8 @@ $x.Where[int]{$_}
         (variable)
         (identifier))
       (generic_type_arguments
-        (type_name (type_identifier)))
+        (type_name
+          (type_identifier)))
       (script_block
         (pipeline
           (variable))))))

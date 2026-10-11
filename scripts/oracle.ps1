@@ -93,6 +93,33 @@ function Get-AstRecord($Node) {
         'ParameterAst' {
             Add-AstField $fields 'name' $Node.Name
             Add-AstField $fields 'default' $Node.DefaultValue
+            Add-AstField $fields 'types' @($Node.Attributes | Where-Object {
+                $_ -is [Management.Automation.Language.TypeConstraintAst]
+            })
+            Add-AstField $fields 'attributes' @($Node.Attributes | Where-Object {
+                $_ -is [Management.Automation.Language.AttributeAst]
+            })
+        }
+        'ParamBlockAst' {
+            Add-AstField $fields 'parameters' $Node.Parameters
+            Add-AstField $fields 'attributes' $Node.Attributes
+        }
+        'AttributeAst' {
+            Add-AstField $fields 'positionalArguments' $Node.PositionalArguments
+            Add-AstField $fields 'namedArguments' $Node.NamedArguments
+        }
+        'CommandParameterAst' {
+            Add-AstField $fields 'value' $Node.Argument
+            $record.name = $Node.ParameterName
+        }
+        'FileRedirectionAst' {
+            Add-AstField $fields 'destination' $Node.Location
+            $record.append = $Node.Append
+            $record.fromStream = $Node.FromStream.ToString()
+        }
+        'MergingRedirectionAst' {
+            $record.fromStream = $Node.FromStream.ToString()
+            $record.toStream = $Node.ToStream.ToString()
         }
         'FunctionDefinitionAst' {
             Add-AstField $fields 'body' $Node.Body
@@ -104,14 +131,25 @@ function Get-AstRecord($Node) {
             Add-AstField $fields 'body' $Node.Body
             Add-AstField $fields 'parameters' $Node.Parameters
             $record.name = $Node.Name
+            Add-AstField $fields 'returnType' $Node.ReturnType
+            Add-AstField $fields 'attributes' $Node.Attributes
+            $record.static = $Node.IsStatic
+            $record.hidden = $Node.IsHidden
         }
         'TypeDefinitionAst' {
             Add-AstField $fields 'members' $Node.Members
             $record.name = $Node.Name
+            Add-AstField $fields 'attributes' $Node.Attributes
+            Add-AstField $fields 'baseTypes' $Node.BaseTypes
+            $record.isEnum = $Node.IsEnum
         }
         'PropertyMemberAst' {
             Add-AstField $fields 'value' $Node.InitialValue
             $record.name = $Node.Name
+            Add-AstField $fields 'propertyType' $Node.PropertyType
+            Add-AstField $fields 'attributes' $Node.Attributes
+            $record.static = $Node.IsStatic
+            $record.hidden = $Node.IsHidden
         }
         'IfStatementAst' {
             $fields.clauses = @($Node.Clauses | ForEach-Object {
@@ -126,6 +164,7 @@ function Get-AstRecord($Node) {
             'DoWhileStatementAst', 'DoUntilStatementAst' } {
             Add-AstField $fields 'condition' $Node.Condition
             Add-AstField $fields 'body' $Node.Body
+            $record.label = $Node.Label
             if ($record.type -eq 'ForEachStatementAst') {
                 Add-AstField $fields 'variable' $Node.Variable
             } elseif ($record.type -eq 'ForStatementAst') {
@@ -134,6 +173,7 @@ function Get-AstRecord($Node) {
             }
         }
         'SwitchStatementAst' {
+            $record.label = $Node.Label
             Add-AstField $fields 'condition' $Node.Condition
             Add-AstField $fields 'default' $Node.Default
             $fields.clauses = @($Node.Clauses | ForEach-Object {
@@ -148,6 +188,13 @@ function Get-AstRecord($Node) {
             if ($record.type -eq 'TryStatementAst') {
                 Add-AstField $fields 'catches' $Node.CatchClauses
                 Add-AstField $fields 'finally' $Node.Finally
+            } elseif ($record.type -eq 'CatchClauseAst') {
+                Add-AstField $fields 'types' $Node.CatchTypes
+            } elseif ($record.type -eq 'TrapStatementAst') {
+                Add-AstField $fields 'type' $Node.TrapType
+            } elseif ($record.type -eq 'DataStatementAst') {
+                Add-AstField $fields 'supportedCommands' $Node.CommandsAllowed
+                $record.name = $Node.Variable
             }
         }
         { $_ -in 'ReturnStatementAst', 'ThrowStatementAst', 'ExitStatementAst' } {
