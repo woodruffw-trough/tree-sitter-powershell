@@ -1,0 +1,77 @@
+[
+  {
+    "name": "where scriptblock argument",
+    "source": "$x.Where{$_}",
+    "valid": true
+  },
+  {
+    "name": "foreach scriptblock argument",
+    "source": "$x.ForEach{$_}",
+    "valid": true
+  },
+  {
+    "name": "arbitrary method scriptblock argument",
+    "source": "$x.Foo{$_}",
+    "valid": true
+  },
+  {
+    "name": "null conditional scriptblock invocation",
+    "source": "${x}?.Where{$_}",
+    "valid": true
+  },
+  {
+    "name": "generic method scriptblock argument",
+    "source": "$x.Where[int]{$_}",
+    "valid": true
+  },
+  {
+    "name": "method scriptblock expression chaining",
+    "source": "$line[0..$cursor].Where{$_ -eq $quote}.Count",
+    "valid": true
+  },
+  {
+    "name": "static scriptblock argument",
+    "source": "[T]::M{}",
+    "valid": true
+  },
+  {
+    "name": "method scriptblock parameters",
+    "source": "$x.Foo{param($item) $item}",
+    "valid": true
+  },
+  {
+    "name": "method scriptblock named blocks",
+    "source": "$x.Foo{begin{1} process{$_}}",
+    "valid": true
+  },
+  {
+    "name": "ordinary method arguments remain unchanged",
+    "source": "$x.Foo([string], $value)",
+    "valid": true
+  },
+  {
+    "name": "newline delimits member and scriptblock",
+    "source": "$x.Where\n{$_}",
+    "valid": true
+  },
+  {
+    "name": "space before method scriptblock",
+    "source": "$x.Where {$_}",
+    "valid": false
+  },
+  {
+    "name": "comment before method scriptblock",
+    "source": "$x.Where<#x#>{$_}",
+    "valid": false
+  },
+  {
+    "name": "continuation before method scriptblock",
+    "source": "$x.Where`\n{$_}",
+    "valid": false
+  },
+  {
+    "name": "space after generic method arguments",
+    "source": "$x.Where[int] {$_}",
+    "valid": false
+  }
+]

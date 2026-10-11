@@ -137,6 +137,14 @@ const binaryExpression = (expression, newlines) => choice(
   }),
 );
 
+const scriptBlock = ($, open) => seq(
+  open,
+  repeat($._terminator),
+  optional(seq($.param_block, repeat($._terminator))),
+  optional($._script_block_body),
+  '}',
+);
+
 module.exports = grammar({
   name: 'powershell',
 
@@ -455,13 +463,10 @@ module.exports = grammar({
       $._argument_expression,
     ),
 
-    script_block: $ => seq(
-      '{',
-      repeat($._terminator),
-      optional(seq($.param_block, repeat($._terminator))),
-      optional($._script_block_body),
-      '}',
-    ),
+    script_block: $ => scriptBlock($, '{'),
+
+    // Method invocation also accepts one adjacent script block argument.
+    _method_script_block: $ => scriptBlock($, token.immediate('{')),
 
     named_block: $ => seq(
       field(
@@ -930,10 +935,15 @@ module.exports = grammar({
         field('function', $.member_access),
         optional($.generic_type_arguments),
         optional($._method_invocation_context),
-        token.immediate('('),
-        repeat(NEWLINE),
-        optional(seq(commaSep1($._argument_expression), repeat(NEWLINE))),
-        ')',
+        choice(
+          seq(
+            token.immediate('('),
+            repeat(NEWLINE),
+            optional(seq(commaSep1($._argument_expression), repeat(NEWLINE))),
+            ')',
+          ),
+          alias($._method_script_block, $.script_block),
+        ),
       ),
     ),
 

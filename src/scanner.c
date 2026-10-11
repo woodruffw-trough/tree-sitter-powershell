@@ -30,7 +30,7 @@ enum TokenType {
   PARAMETER_NAME,
   FUNCTION_NAME,
   COMMENT,
-  METHOD_INVOCATION_CONTEXT, // Reject trivia before a method's opening '('.
+  METHOD_INVOCATION_CONTEXT, // Reject trivia before a method's opening '(' or '{'.
   LINE_CONTINUATION,
   POSTFIX_CONTEXT, // Reject continuations before adjacent member/index access.
   ARGUMENT_SEPARATOR,
@@ -208,7 +208,7 @@ static bool newline(int32_t c) {
 }
 // Comments remain named extras. The method context is a lookahead sentinel
 // that the grammar never needs to consume: a block comment may precede member
-// access, but PowerShell forbids one between a method name and its opening '('.
+// access, but PowerShell forbids one between a method name and its argument opener.
 static bool scan_comment(TSLexer *lexer, const bool *valid) {
   if (lexer->lookahead == '#') {
     do {
@@ -236,7 +236,7 @@ static bool scan_comment(TSLexer *lexer, const bool *valid) {
           while (horizontal(lexer->lookahead)) {
             lexer->advance(lexer, false);
           }
-          if (lexer->lookahead == '(') {
+          if (lexer->lookahead == '(' || lexer->lookahead == '{') {
             return false;
           }
         }
@@ -328,7 +328,7 @@ static bool scan_line_continuation_after_tick(TSLexer *lexer, const bool *valid)
       lexer->advance(lexer, false);
     }
     int32_t c = lexer->lookahead;
-    if (c == '.' || c == '[' || c == '(') {
+    if (c == '.' || c == '[' || c == '(' || (c == '{' && valid[METHOD_INVOCATION_CONTEXT])) {
       return false;
     }
     if (c == '?') {
