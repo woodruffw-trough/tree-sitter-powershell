@@ -1,0 +1,145 @@
+==================
+Binary operator allows newline
+==================
+1 +
+# continued expression
+2 *
+3
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (integer_literal)
+      (comment)
+      right: (binary_expression
+        left: (integer_literal)
+        right: (integer_literal)))))
+
+==================
+Pipeline continuation after pipe
+==================
+Get-Item . |
+# continued pipeline
+Select-Object Name
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    (comment)
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Pipeline continuation before pipe
+==================
+Get-Item .
+# continued pipeline
+| Select-Object Name
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    (comment)
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Backtick command line continuation
+==================
+Get-Item `
+-LiteralPath . `
+-Force
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (line_continuation)
+      (command_parameter
+        name: (command_parameter_name))
+      (command_argument
+        (bare_word))
+      (line_continuation)
+      (command_parameter
+        name: (command_parameter_name)))))
+
+==================
+Array literal comma allows newline
+==================
+1,
+2,
+3
+
+---
+
+(source_file
+  (pipeline
+    (array_literal_expression
+      (integer_literal)
+      (integer_literal)
+      (integer_literal))))
+
+==================
+CRLF statement separators
+==================
+$a=1
+$b=2
+$a+$b
+
+---
+
+(source_file
+  (pipeline
+    (assignment_statement
+      left: (variable)
+      right: (pipeline
+        (integer_literal))))
+  (pipeline
+    (assignment_statement
+      left: (variable)
+      right: (pipeline
+        (integer_literal))))
+  (pipeline
+    (binary_expression
+      left: (variable)
+      right: (variable))))
+
+==================
+Comments do not nest
+==================
+<# outer <# inner #>
+$x=1 # trailing
+
+---
+
+(source_file
+  (comment)
+  (pipeline
+    (assignment_statement
+      left: (variable)
+      right: (pipeline
+        (integer_literal))))
+  (comment))

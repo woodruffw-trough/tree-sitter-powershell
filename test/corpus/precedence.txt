@@ -1,0 +1,330 @@
+==================
+Multiplication binds above addition
+==================
+1 + 2 * 3
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (integer_literal)
+      right: (binary_expression
+        left: (integer_literal)
+        right: (integer_literal)))))
+
+==================
+Arithmetic operators associate left
+==================
+10 - 3 - 2
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (binary_expression
+        left: (integer_literal)
+        right: (integer_literal))
+      right: (integer_literal))))
+
+==================
+Logical operators share precedence
+==================
+$true -or $false -and $false
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (binary_expression
+        left: (variable)
+        right: (variable))
+      right: (variable))))
+
+==================
+Shift operators share comparison precedence
+==================
+1 -eq 2 -shl 3
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (binary_expression
+        left: (integer_literal)
+        right: (integer_literal))
+      right: (integer_literal))))
+
+==================
+Coalescing binds above comparison
+==================
+$null ?? 1 -eq 1
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (binary_expression
+        left: (variable)
+        right: (integer_literal))
+      right: (integer_literal))))
+
+==================
+Coalescing associates left
+==================
+$a ?? $b ?? $c
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (binary_expression
+        left: (variable)
+        right: (variable))
+      right: (variable))))
+
+==================
+Range binds above format and arithmetic
+==================
+1 + 2..4; '{0}' -f 1 + 2
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (integer_literal)
+      right: (binary_expression
+        left: (integer_literal)
+        right: (integer_literal))))
+  (pipeline
+    (binary_expression
+      left: (binary_expression
+        left: (single_quoted_string)
+        right: (integer_literal))
+      right: (integer_literal))))
+
+==================
+Comma array binds above binary operators
+==================
+1,2 + 3,4
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (array_literal_expression
+        (integer_literal)
+        (integer_literal))
+      right: (array_literal_expression
+        (integer_literal)
+        (integer_literal)))))
+
+==================
+Ternary alternatives associate right
+==================
+$a ? 1 : $b ? 2 : 3
+
+---
+
+(source_file
+  (pipeline
+    (ternary_expression
+      condition: (variable)
+      consequence: (integer_literal)
+      alternative: (ternary_expression
+        condition: (variable)
+        consequence: (integer_literal)
+        alternative: (integer_literal)))))
+
+==================
+Ternary nested consequence
+==================
+$a ? $b ? 1 : 2 : 3
+
+---
+
+(source_file
+  (pipeline
+    (ternary_expression
+      condition: (variable)
+      consequence: (ternary_expression
+        condition: (variable)
+        consequence: (integer_literal)
+        alternative: (integer_literal))
+      alternative: (integer_literal))))
+
+==================
+Unary operators and casts
+==================
+-not [bool]$value; ,@(1,2); [int]$item.Value
+
+---
+
+(source_file
+  (pipeline
+    (unary_expression
+      argument: (cast_expression
+        type: (type_literal
+          (type_name
+            name: (type_identifier)))
+        value: (variable))))
+  (pipeline
+    (unary_expression
+      argument: (array_expression
+        (pipeline
+          (array_literal_expression
+            (integer_literal)
+            (integer_literal))))))
+  (pipeline
+    (cast_expression
+      type: (type_literal
+        (type_name
+          name: (type_identifier)))
+      value: (member_access
+        object: (variable)
+        member: (identifier)))))
+
+==================
+Assignment collects the complete pipeline
+==================
+$result = Get-Item . | Select-Object Name
+
+---
+
+(source_file
+  (pipeline
+    (assignment_statement
+      left: (variable)
+      right: (pipeline
+        (command
+          name: (command_name
+            (bare_word))
+          (command_argument
+            (bare_word)))
+        (command
+          name: (command_name
+            (bare_word))
+          (command_argument
+            (bare_word)))))))
+
+==================
+Chained assignment associates right
+==================
+$a = $b = 1
+
+---
+
+(source_file
+  (pipeline
+    (assignment_statement
+      left: (variable)
+      right: (pipeline
+        (assignment_statement
+          left: (variable)
+          right: (pipeline
+            (integer_literal)))))))
+
+==================
+Method invocation separates arguments before binary operators
+==================
+[math]::Pow(2,3+1)
+
+---
+
+(source_file
+  (pipeline
+    (invocation_expression
+      function: (member_access
+        object: (type_literal
+          (type_name
+            name: (type_identifier)))
+        member: (identifier))
+      (integer_literal)
+      (binary_expression
+        left: (integer_literal)
+        right: (integer_literal)))))
+
+==================
+Parentheses preserve an array as one method argument
+==================
+$object.Method((1,2),3)
+
+---
+
+(source_file
+  (pipeline
+    (invocation_expression
+      function: (member_access
+        object: (variable)
+        member: (identifier))
+      (parenthesized_expression
+        (pipeline
+          (array_literal_expression
+            (integer_literal)
+            (integer_literal))))
+      (integer_literal))))
+
+==================
+Replacement operator takes a comma array on the right
+==================
+$text -replace 'old','new'
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (variable)
+      right: (array_literal_expression
+        (single_quoted_string)
+        (single_quoted_string)))))
+
+==================
+Hexadecimal e and d digits remain integer literals
+==================
+0xffe; 0xffd
+
+---
+
+(source_file
+  (pipeline
+    (integer_literal))
+  (pipeline
+    (integer_literal)))
+
+==================
+C hexadecimal float spelling remains a bare PowerShell command
+==================
+0x1p2
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Hexadecimal integer and decimal real allow numeric member names
+==================
+0xff1.2; 1.2.3
+
+---
+
+(source_file
+  (pipeline
+    (member_access
+      object: (integer_literal)
+      member: (integer_literal)))
+  (pipeline
+    (member_access
+      object: (real_literal)
+      member: (integer_literal))))

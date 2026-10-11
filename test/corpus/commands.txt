@@ -1,0 +1,340 @@
+==================
+Command arguments preserve arithmetic text
+==================
+Write-Output 2+2
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Parenthesized argument enters expression mode
+==================
+Write-Output (2+2)
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (parenthesized_expression
+          (pipeline
+            (binary_expression
+              left: (integer_literal)
+              right: (integer_literal))))))))
+
+==================
+Variables followed by argument text
+==================
+Write-Output $HOME-more ${HOME}/path
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable)
+        (argument_fragment))
+      (command_argument
+        (variable)
+        (argument_fragment)))))
+
+==================
+Composite quoted and interpolated arguments
+==================
+Write-Output prefix"$name" a'$name' a$(2)
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (expandable_string
+          (variable)))
+      (command_argument
+        (bare_word)
+        (single_quoted_string))
+      (command_argument
+        (bare_word)
+        (sub_expression
+          (pipeline
+            (integer_literal)))))))
+
+==================
+Command argument comma list
+==================
+Write-Output first,second,$third
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (array_literal_expression
+          (bare_word)
+          (bare_word)
+          (variable))))))
+
+==================
+Named parameters and colon value
+==================
+Get-Item -LiteralPath . -Force:$false
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_parameter
+        name: (command_parameter_name))
+      (command_argument
+        (bare_word))
+      (command_parameter
+        name: (command_parameter_name)
+        value: (variable)))))
+
+==================
+Invocation operators and splatting
+==================
+& $command @arguments; . ./script.ps1
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (invocation_operator_command
+        command: (variable))
+      (command_argument
+        (splat_expression))))
+  (pipeline
+    (command
+      name: (invocation_operator_command
+        command: (bare_word)))))
+
+==================
+Pipeline chains and background invocation
+==================
+Get-Item . && Write-Output success || Write-Output failure &
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Stream redirection
+==================
+Write-Output value 2>&1 *> result.txt
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (redirection
+        operator: (merging_redirection_operator))
+      (redirection
+        operator: (file_redirection_operator)
+        destination: (bare_word)))))
+
+==================
+Stop parsing consumes semicolons literally
+==================
+native --% --flag=(x) ; $text >file
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (stop_parsing))))
+
+==================
+Keyword-like commands
+==================
+hidden; static; default; in
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Unspaced punctuation preserves bare commands and variable names
+==================
+1?2:3; $true?2:3
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    (variable)))
+
+==================
+Bare command names preserve expansion-like text literally
+==================
+a$name; a$(2)
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Argument metacharacters have literal meaning inside bare words
+==================
+Write-Output a#b a>b a<b a@b
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Wildcard bracket and file path arguments remain bare words
+==================
+Get-Item [ab]* C:\folder[1]\file.txt
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Member access terminates an argument before following parameter text
+==================
+Write-Output $HOME.Length-more
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (variable)
+          member: (identifier)))
+      (command_parameter
+        name: (command_parameter_name)))))
+
+==================
+Named block prefixes remain ordinary commands
+==================
+beg {}; proc {}; dyn {}; cle {}
+
+---
+
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (script_block))))
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (script_block))))
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (script_block))))
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (script_block)))))

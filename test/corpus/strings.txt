@@ -1,0 +1,179 @@
+==================
+Literal string escaped quote
+==================
+'it''s $literal'
+
+---
+
+(source_file
+  (pipeline
+    (single_quoted_string)))
+
+==================
+Expandable variables and subexpressions
+==================
+"Hello $name ${env:USER}: $($value + 1)"
+
+---
+
+(source_file
+  (pipeline
+    (expandable_string
+      (string_content)
+      (variable)
+      (string_content)
+      (variable)
+      (string_content)
+      (sub_expression
+        (pipeline
+          (binary_expression
+            left: (variable)
+            right: (integer_literal)))))))
+
+==================
+Expandable escapes
+==================
+"`n`t`" `` `$literal"
+
+---
+
+(source_file
+  (pipeline
+    (expandable_string
+      (escape_sequence)
+      (escape_sequence)
+      (escape_sequence)
+      (string_content)
+      (escape_sequence)
+      (string_content)
+      (escape_sequence)
+      (string_content))))
+
+==================
+Nested expandable string subexpression
+==================
+"$(if ($ok) { "yes $name" } else { 'no' })"
+
+---
+
+(source_file
+  (pipeline
+    (expandable_string
+      (sub_expression
+        (if_statement
+          condition: (condition
+            (pipeline
+              (variable)))
+          body: (statement_block
+            (pipeline
+              (expandable_string
+                (string_content)
+                (variable))))
+          (else_clause
+            body: (statement_block
+              (pipeline
+                (single_quoted_string)))))))))
+
+==================
+Literal here string with suffix
+==================
+@'   
+literal $name
+'@ + 'tail'
+
+---
+
+(source_file
+  (pipeline
+    (binary_expression
+      left: (single_quoted_here_string)
+      right: (single_quoted_string))))
+
+==================
+Expandable here string
+==================
+@"
+hello $name
+$($x + 1)
+"@
+
+---
+
+(source_file
+  (pipeline
+    (expandable_here_string
+      (string_content)
+      (variable)
+      (string_content)
+      (sub_expression
+        (pipeline
+          (binary_expression
+            left: (variable)
+            right: (integer_literal)))))))
+
+==================
+Smart single and double quotes
+==================
+‘single’; “hello $name”
+
+---
+
+(source_file
+  (pipeline
+    (single_quoted_string))
+  (pipeline
+    (expandable_string
+      (string_content)
+      (variable))))
+
+==================
+Empty expandable here string
+==================
+@"
+"@
+
+---
+
+(source_file
+  (pipeline
+    (expandable_here_string)))
+
+==================
+Nested here string subexpression
+==================
+@"
+$( @"
+$name
+"@ )
+"@
+
+---
+
+(source_file
+  (pipeline
+    (expandable_here_string
+      (sub_expression
+        (pipeline
+          (expandable_here_string
+            (variable)))))))
+
+==================
+Here string literal dollars and escaped footer
+==================
+@"
+$😀 $。 `$
+first`
+"@ literal
+"@
+
+---
+
+(source_file
+  (pipeline
+    (expandable_here_string
+      (string_content)
+      (string_content)
+      (escape_sequence)
+      (string_content)
+      (escape_sequence)
+      (string_content))))

@@ -1,0 +1,406 @@
+==================
+Script parameter attributes and defaults
+==================
+[CmdletBinding()] param([Parameter(Mandatory=$true)][string]$Name, [int]$Count=2)
+$Name
+
+---
+
+(source_file
+  (param_block
+    (attribute
+      name: (type_name
+        name: (type_identifier)))
+    (parameter_list
+      (parameter
+        (attribute
+          name: (type_name
+            name: (type_identifier))
+          (attribute_argument
+            name: (identifier)
+            value: (variable)))
+        (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (variable))
+      (parameter
+        (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (variable)
+        default: (integer_literal))))
+  (pipeline
+    (variable)))
+
+==================
+Function parameters and named blocks
+==================
+function Get-Value([string]$Name) { begin { $n=0 } process { $n++; $Name } end { $n } clean { $n=0 } }
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    (parameter_list
+      (parameter
+        (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (variable)))
+    body: (script_block
+      (named_block
+        body: (statement_block
+          (pipeline
+            (assignment_statement
+              left: (variable)
+              right: (pipeline
+                (integer_literal))))))
+      (named_block
+        body: (statement_block
+          (pipeline
+            (unary_expression
+              argument: (variable)))
+          (pipeline
+            (variable))))
+      (named_block
+        body: (statement_block
+          (pipeline
+            (variable))))
+      (named_block
+        body: (statement_block
+          (pipeline
+            (assignment_statement
+              left: (variable)
+              right: (pipeline
+                (integer_literal)))))))))
+
+==================
+Filter and scoped function names
+==================
+filter global:Keep-Item { $_ }; function script:Get-Thing { param($Name) $Name }
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    body: (script_block
+      (pipeline
+        (variable))))
+  (function_definition
+    name: (function_name)
+    body: (script_block
+      (param_block
+        (parameter_list
+          (parameter
+            name: (variable))))
+      (pipeline
+        (variable)))))
+
+==================
+Class typed properties methods and constructor
+==================
+class Item { hidden [string]$Name = 'x'; static [int]$Count = 0; Item([string]$name) { $this.Name=$name } [string] GetName() { return $this.Name } }
+
+---
+
+(source_file
+  (class_definition
+    name: (identifier)
+    (class_property
+      (type_literal
+        (type_name
+          name: (type_identifier)))
+      name: (variable)
+      value: (single_quoted_string))
+    (class_property
+      (type_literal
+        (type_name
+          name: (type_identifier)))
+      name: (variable)
+      value: (integer_literal))
+    (class_method
+      name: (identifier)
+      (parameter_list
+        (parameter
+          (type_literal
+            (type_name
+              name: (type_identifier)))
+          name: (variable)))
+      body: (statement_block
+        (pipeline
+          (assignment_statement
+            left: (member_access
+              object: (variable)
+              member: (identifier))
+            right: (pipeline
+              (variable))))))
+    (class_method
+      (type_literal
+        (type_name
+          name: (type_identifier)))
+      name: (identifier)
+      (parameter_list)
+      body: (statement_block
+        (flow_control_statement
+          value: (pipeline
+            (member_access
+              object: (variable)
+              member: (identifier))))))))
+
+==================
+Enum underlying type and values
+==================
+enum Mode : byte { Off = 0; On = 1; Other = 2 }
+
+---
+
+(source_file
+  (enum_definition
+    name: (identifier)
+    (type_name
+      name: (type_identifier))
+    (enum_member
+      name: (identifier)
+      value: (integer_literal))
+    (enum_member
+      name: (identifier)
+      value: (integer_literal))
+    (enum_member
+      name: (identifier)
+      value: (integer_literal))))
+
+==================
+Using namespace and data statement
+==================
+using namespace System.Text
+data Messages { @{ Greeting = 'Hello' } }
+
+---
+
+(source_file
+  (using_statement
+    value: (bare_word))
+  (data_statement
+    (identifier)
+    (statement_block
+      (pipeline
+        (hashtable_expression
+          (hash_entry
+            key: (identifier)
+            value: (pipeline
+              (single_quoted_string))))))))
+
+==================
+Generic and multidimensional array types
+==================
+[System.Collections.Generic.Dictionary[string,int[]]]; [int[,]]
+
+---
+
+(source_file
+  (pipeline
+    (type_literal
+      (type_name
+        name: (type_identifier)
+        (type_name
+          name: (type_identifier))
+        (type_name
+          name: (type_identifier)))))
+  (pipeline
+    (type_literal
+      (type_name
+        name: (type_identifier)))))
+
+==================
+Generic method invocation
+==================
+[array]::Empty[string](); $object.Convert[string,int](1)
+
+---
+
+(source_file
+  (pipeline
+    (invocation_expression
+      function: (member_access
+        object: (type_literal
+          (type_name
+            name: (type_identifier)))
+        member: (identifier))
+      (generic_type_arguments
+        (type_name
+          name: (type_identifier)))))
+  (pipeline
+    (invocation_expression
+      function: (member_access
+        object: (variable)
+        member: (identifier))
+      (generic_type_arguments
+        (type_name
+          name: (type_identifier))
+        (type_name
+          name: (type_identifier)))
+      (integer_literal))))
+
+==================
+Null conditional member and element access
+==================
+${object}?.Name; ${items}?[0]; ${object}?.GetValue()
+
+---
+
+(source_file
+  (pipeline
+    (member_access
+      object: (variable)
+      member: (identifier)))
+  (pipeline
+    (element_access
+      object: (variable)
+      index: (integer_literal)))
+  (pipeline
+    (invocation_expression
+      function: (member_access
+        object: (variable)
+        member: (identifier)))))
+
+==================
+Completed function definitions delimit adjacent declarations
+==================
+function f {} function g {}
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    body: (script_block)))
+
+==================
+Function names allow generic punctuation and numeric names
+==================
+function foo.bar {} function path\foo {} function 123 {} function 1.2.3 {}
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    body: (script_block)))
+
+==================
+Function names preserve scopes and embedded dollar signs
+==================
+function global:foo {} function foo$bar {}
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    body: (script_block)))
+
+==================
+Unicode function and method names
+==================
+function café {} function 日本語 {}
+class Example { [int] 日本語() { return 1 } }
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (class_definition
+    name: (identifier)
+    (class_method
+      (type_literal
+        (type_name
+          name: (type_identifier)))
+      name: (identifier)
+      (parameter_list)
+      body: (statement_block
+        (flow_control_statement
+          value: (pipeline
+            (integer_literal)))))))
+
+==================
+Numeric member names retain nested real and integer names
+==================
+$object.1.2.3; [string]::1.2.3
+
+---
+
+(source_file
+  (pipeline
+    (member_access
+      object: (member_access
+        object: (variable)
+        member: (real_literal))
+      member: (integer_literal)))
+  (pipeline
+    (member_access
+      object: (member_access
+        object: (type_literal
+          (type_name
+            name: (type_identifier)))
+        member: (real_literal))
+      member: (integer_literal))))
+
+==================
+Bracketed generic arguments preserve assembly metadata
+==================
+[System.Collections.Generic.Dictionary[[System.String, System.Private.CoreLib],[System.Int32, System.Private.CoreLib, Version=4.0.0.0]]]
+
+---
+
+(source_file
+  (pipeline
+    (type_literal
+      (type_name
+        name: (type_identifier)
+        (type_literal
+          (type_name
+            name: (type_identifier))
+          (assembly_name))
+        (type_literal
+          (type_name
+            name: (type_identifier))
+          (assembly_name))))))
+
+==================
+Generic type arrays permit newlines inside arguments
+==================
+[List[
+int[]
+]]
+
+---
+
+(source_file
+  (pipeline
+    (type_literal
+      (type_name
+        name: (type_identifier)
+        (type_name
+          name: (type_identifier))))))
