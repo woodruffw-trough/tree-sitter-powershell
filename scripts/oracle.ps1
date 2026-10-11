@@ -14,8 +14,16 @@ $cases = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText(
 )) -AsHashtable
 $results = [Collections.Generic.List[object]]::new()
 $names = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+$fixtureDirectory = Split-Path -Parent (Resolve-Path -LiteralPath $Fixtures).Path
 
 foreach ($case in $cases) {
+    # Large upstream fixtures refer to unmodified, attributed source files.
+    if (-not $case.ContainsKey('source') -and $case.ContainsKey('path')) {
+        $case.source = [IO.File]::ReadAllText(
+            (Join-Path $fixtureDirectory $case.path),
+            [Text.Encoding]::UTF8
+        )
+    }
     if ($case.name -isnot [string] -or [string]::IsNullOrWhiteSpace($case.name) -or
         $case.source -isnot [string] -or $case.valid -isnot [bool]) {
         throw 'Each fixture must have a nonempty string name, string source, and boolean valid.'

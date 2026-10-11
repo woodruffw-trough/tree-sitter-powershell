@@ -47,7 +47,7 @@ python3 scripts/generate-fixtures.py --variables
 scripts/check-generated.sh
 ```
 
-Corpus tests assert complete trees. Rust tests cover valid and invalid oracle fixtures, command argument grouping, operator precedence, variable and here-string interpolation, type boundaries, Unicode offsets, incremental edits, incomplete input, and query compilation. `scripts/check-generated.sh` verifies committed output matches a fresh QuickJS generation and checks that Rust is the only binding.
+Corpus tests assert complete trees. Rust tests cover valid and invalid oracle fixtures, command argument grouping and parameter classification, operator precedence, variable and here-string interpolation, type boundaries, Unicode offsets and escapes, long tokens, incremental edits, incomplete input, and query compilation. Integration tests also parse six complete, attributed scripts from PowerShell's own repository and compare their command and expression boundaries with the oracle. `scripts/check-generated.sh` verifies committed output matches a fresh QuickJS generation, checks that Rust is the only binding, and verifies upstream fixture hashes.
 
 For linting, install ShellCheck and the pinned security linter, then run:
 

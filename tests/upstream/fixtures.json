@@ -1,0 +1,32 @@
+[
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Parser/LineContinuance.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Parser/LineContinuance.Tests.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Parser/Parser.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Parser/Parser.Tests.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Parser/Parsing.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Parser/Parsing.Tests.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Modules/Microsoft.PowerShell.Core/Get-Command.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Modules/Microsoft.PowerShell.Core/Get-Command.Tests.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 tools/install-powershell.ps1",
+    "path": "powershell-7.5.4/tools/install-powershell.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 tools/packaging/packaging.psm1",
+    "path": "powershell-7.5.4/tools/packaging/packaging.psm1",
+    "valid": true
+  }
+]

@@ -31,3 +31,6 @@ done
 "${PWSH_BIN:-pwsh}" -NoLogo -NoProfile -NonInteractive \
   -File scripts/generate-unicode.ps1 > "$generated/variable_chars.h"
 diff -u -- src/variable_chars.h "$generated/variable_chars.h"
+
+# Integration sources stay identical to the attributed upstream release.
+sha256sum --check --strict tests/upstream/SHA256SUMS

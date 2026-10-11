@@ -5,3 +5,5 @@ src/node-types.json linguist-generated
 src/variable_chars.h linguist-generated
 # Corpus fixtures intentionally include CRLF, lone CR, and trailing spaces.
 test/corpus/*.txt -text whitespace=-trailing-space,cr-at-eol
+# Preserve upstream fixtures byte-for-byte for their recorded hashes.
+tests/upstream/powershell-7.5.4/** -text whitespace=-trailing-space,cr-at-eol
