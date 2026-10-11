@@ -6,7 +6,7 @@ Invocation command field wraps an interpolated relative path
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (invocation_operator_command
         command: (command_argument
           (bare_word)
@@ -24,7 +24,7 @@ Dot sourcing wraps a composite path and its adjacent suffix
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (invocation_operator_command
         command: (command_argument
           (bare_word)

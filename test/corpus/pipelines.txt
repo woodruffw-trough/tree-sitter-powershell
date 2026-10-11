@@ -1,0 +1,118 @@
+================================================================================
+Pipes bind inside equally ranked left-associative background chains
+================================================================================
+
+a | b || c | d && e &
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (background_pipeline
+    pipeline: (pipeline_chain
+      left: (pipeline_chain
+        left: (pipeline
+          elements: (command
+            name: (command_name
+              (bare_word)))
+          elements: (command
+            name: (command_name
+              (bare_word))))
+        right: (pipeline
+          elements: (command
+            name: (command_name
+              (bare_word)))
+          elements: (command
+            name: (command_name
+              (bare_word)))))
+      right: (pipeline
+        elements: (command
+          name: (command_name
+            (bare_word)))))))
+
+================================================================================
+Nested assignments inherit a background value's statement boundary
+================================================================================
+
+$x=$y=a&&b&c
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_statement
+    left: (variable)
+    right: (assignment_statement
+      left: (variable)
+      right: (background_pipeline
+        pipeline: (pipeline_chain
+          left: (pipeline
+            elements: (command
+              name: (command_name
+                (bare_word))))
+          right: (pipeline
+            elements: (command
+              name: (command_name
+                (bare_word))))))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+================================================================================
+Expression pipeline elements include their redirections
+================================================================================
+
+1 > one | b && 2 > two
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline_chain
+    left: (pipeline
+      elements: (command_expression
+        expression: (integer_literal)
+        redirections: (redirection
+          operator: (file_redirection_operator)
+          destination: (command_argument
+            (bare_word))))
+      elements: (command
+        name: (command_name
+          (bare_word))))
+    right: (pipeline
+      elements: (command_expression
+        expression: (integer_literal)
+        redirections: (redirection
+          operator: (file_redirection_operator)
+          destination: (command_argument
+            (bare_word)))))))
+
+================================================================================
+Assignment of a completed block delimits the next statement
+================================================================================
+
+$x=if($true){a}else{b}next
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_statement
+    left: (variable)
+    right: (if_statement
+      condition: (condition
+        (pipeline
+          elements: (command_expression
+            expression: (variable))))
+      body: (statement_block
+        (pipeline
+          elements: (command
+            name: (command_name
+              (bare_word)))))
+      else: (else_clause
+        body: (statement_block
+          (pipeline
+            elements: (command
+              name: (command_name
+                (bare_word))))))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))))

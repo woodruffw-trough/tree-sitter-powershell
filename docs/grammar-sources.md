@@ -59,13 +59,30 @@ plus `body`. This matches the roles used by the official
 Declaration names, parameter defaults, class property values, catch types, and
 conditional clauses also have fields, so queries can select their syntactic role.
 
+A `pipeline` exposes complete `elements`: a `command`, or a `command_expression`
+with `expression` and optional `redirections`. Pipes connect these elements.
+`pipeline_chain` instead exposes `left`, `operator`, and `right`, so
+`a | b || c | d && e` groups as `((a | b) || (c | d)) && e`.
+The chain operators have equal precedence and associate left, as described in
+[Microsoft's pipeline-chain documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators#operator-syntax-and-precedence).
+`background_pipeline` wraps the complete pipeline or chain in its `pipeline`
+field and retains the trailing `&` in `operator`.
+
+An `assignment_statement` is a statement with `left`, `operator`, and `right`;
+its right side can be another assignment, a pipeline chain, or a control
+statement. In `$result = a && b & next`, the assignment's right side is a
+`background_pipeline`, and `next` starts another statement. The concrete
+assignment includes `&`, while PowerShell's assignment and pipeline-chain AST
+ranges end before that marker. The oracle comparison accounts for this source
+boundary explicitly.
+
 For example, `Write-Output prefix"$name"` has one command argument containing a
 literal fragment and an expandable string. Its named tree is:
 
 ```scheme
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument

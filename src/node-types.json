@@ -108,6 +108,14 @@
     "named": true,
     "subtypes": [
       {
+        "type": "assignment_statement",
+        "named": true
+      },
+      {
+        "type": "background_pipeline",
+        "named": true
+      },
+      {
         "type": "class_definition",
         "named": true
       },
@@ -149,6 +157,10 @@
       },
       {
         "type": "pipeline",
+        "named": true
+      },
+      {
+        "type": "pipeline_chain",
         "named": true
       },
       {
@@ -217,6 +229,14 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "background_pipeline",
+          "named": true
+        },
+        {
           "type": "class_definition",
           "named": true
         },
@@ -258,6 +278,10 @@
         },
         {
           "type": "pipeline",
+          "named": true
+        },
+        {
+          "type": "pipeline_chain",
           "named": true
         },
         {
@@ -505,6 +529,36 @@
           },
           {
             "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "background_pipeline",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "&",
+            "named": false
+          }
+        ]
+      },
+      "pipeline": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pipeline",
+            "named": true
+          },
+          {
+            "type": "pipeline_chain",
             "named": true
           }
         ]
@@ -1191,6 +1245,32 @@
     }
   },
   {
+    "type": "command_expression",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "redirections": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "redirection",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "command_name",
     "named": true,
     "fields": {},
@@ -1240,7 +1320,19 @@
       "required": true,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "background_pipeline",
+          "named": true
+        },
+        {
           "type": "pipeline",
+          "named": true
+        },
+        {
+          "type": "pipeline_chain",
           "named": true
         }
       ]
@@ -1677,7 +1769,15 @@
             "named": true
           },
           {
+            "type": "assignment_statement",
+            "named": true
+          },
+          {
             "type": "attributed_expression",
+            "named": true
+          },
+          {
+            "type": "background_pipeline",
             "named": true
           },
           {
@@ -1690,6 +1790,10 @@
           },
           {
             "type": "pipeline",
+            "named": true
+          },
+          {
+            "type": "pipeline_chain",
             "named": true
           },
           {
@@ -1719,7 +1823,19 @@
         "required": false,
         "types": [
           {
+            "type": "assignment_statement",
+            "named": true
+          },
+          {
+            "type": "background_pipeline",
+            "named": true
+          },
+          {
             "type": "pipeline",
+            "named": true
+          },
+          {
+            "type": "pipeline_chain",
             "named": true
           }
         ]
@@ -1729,7 +1845,19 @@
         "required": false,
         "types": [
           {
+            "type": "assignment_statement",
+            "named": true
+          },
+          {
+            "type": "background_pipeline",
+            "named": true
+          },
+          {
             "type": "pipeline",
+            "named": true
+          },
+          {
+            "type": "pipeline_chain",
             "named": true
           }
         ]
@@ -1749,7 +1877,19 @@
         "required": false,
         "types": [
           {
+            "type": "assignment_statement",
+            "named": true
+          },
+          {
+            "type": "background_pipeline",
+            "named": true
+          },
+          {
             "type": "pipeline",
+            "named": true
+          },
+          {
+            "type": "pipeline_chain",
             "named": true
           }
         ]
@@ -1800,7 +1940,19 @@
         "required": true,
         "types": [
           {
+            "type": "assignment_statement",
+            "named": true
+          },
+          {
+            "type": "background_pipeline",
+            "named": true
+          },
+          {
             "type": "pipeline",
+            "named": true
+          },
+          {
+            "type": "pipeline_chain",
             "named": true
           }
         ]
@@ -2305,7 +2457,19 @@
       "required": true,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "background_pipeline",
+          "named": true
+        },
+        {
           "type": "pipeline",
+          "named": true
+        },
+        {
+          "type": "pipeline_chain",
           "named": true
         }
       ]
@@ -2315,9 +2479,53 @@
     "type": "pipeline",
     "named": true,
     "fields": {
-      "operator": {
+      "elements": {
         "multiple": true,
-        "required": false,
+        "required": true,
+        "types": [
+          {
+            "type": "command",
+            "named": true
+          },
+          {
+            "type": "command_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pipeline_chain",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pipeline",
+            "named": true
+          },
+          {
+            "type": "pipeline_chain",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "&&",
@@ -2328,33 +2536,17 @@
             "named": false
           }
         ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pipeline",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_expression",
-          "named": true
-        },
-        {
-          "type": "assignment_statement",
-          "named": true
-        },
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "redirection",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2396,6 +2588,14 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "background_pipeline",
+          "named": true
+        },
+        {
           "type": "class_definition",
           "named": true
         },
@@ -2445,6 +2645,10 @@
         },
         {
           "type": "pipeline",
+          "named": true
+        },
+        {
+          "type": "pipeline_chain",
           "named": true
         },
         {
@@ -2476,6 +2680,14 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "background_pipeline",
+          "named": true
+        },
+        {
           "type": "class_definition",
           "named": true
         },
@@ -2525,6 +2737,10 @@
         },
         {
           "type": "pipeline",
+          "named": true
+        },
+        {
+          "type": "pipeline_chain",
           "named": true
         },
         {
@@ -2559,6 +2775,14 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "background_pipeline",
+          "named": true
+        },
+        {
           "type": "class_definition",
           "named": true
         },
@@ -2600,6 +2824,10 @@
         },
         {
           "type": "pipeline",
+          "named": true
+        },
+        {
+          "type": "pipeline_chain",
           "named": true
         },
         {
@@ -2635,6 +2863,14 @@
       "required": false,
       "types": [
         {
+          "type": "assignment_statement",
+          "named": true
+        },
+        {
+          "type": "background_pipeline",
+          "named": true
+        },
+        {
           "type": "class_definition",
           "named": true
         },
@@ -2676,6 +2912,10 @@
         },
         {
           "type": "pipeline",
+          "named": true
+        },
+        {
+          "type": "pipeline_chain",
           "named": true
         },
         {

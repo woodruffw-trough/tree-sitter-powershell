@@ -5,15 +5,15 @@ Validation attribute decorates an assigned variable
 --------------------------------------------------------------------------------
 
 (source_file
-  (pipeline
-    (assignment_statement
-      (attributed_expression
-        (attribute
-          (type_name
-            (type_identifier))
-          (argument_list))
-        (variable))
-      (pipeline
+  (assignment_statement
+    (attributed_expression
+      (attribute
+        (type_name
+          (type_identifier))
+        (argument_list))
+      (variable))
+    (pipeline
+      (command_expression
         (integer_literal)))))
 
 ================================================================================
@@ -24,15 +24,15 @@ $x = 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (pipeline
-    (assignment_statement
-      (attributed_expression
-        (attribute
-          (type_name
-            (type_identifier))
-          (argument_list))
-        (variable))
-      (pipeline
+  (assignment_statement
+    (attributed_expression
+      (attribute
+        (type_name
+          (type_identifier))
+        (argument_list))
+      (variable))
+    (pipeline
+      (command_expression
         (integer_literal)))))
 
 ================================================================================
@@ -43,21 +43,22 @@ Attributes and type conversions retain nested expression boundaries
 
 (source_file
   (pipeline
-    (attributed_expression
-      (attribute
-        (type_name
-          (type_identifier))
-        (argument_list))
-      (cast_expression
-        (type_literal
+    (command_expression
+      (attributed_expression
+        (attribute
           (type_name
-            (type_identifier)))
-        (attributed_expression
-          (attribute
+            (type_identifier))
+          (argument_list))
+        (cast_expression
+          (type_literal
             (type_name
-              (type_identifier))
-            (argument_list))
-          (variable))))))
+              (type_identifier)))
+          (attributed_expression
+            (attribute
+              (type_name
+                (type_identifier))
+              (argument_list))
+            (variable)))))))
 
 ================================================================================
 Prefix increment accepts an attributed variable
@@ -67,10 +68,11 @@ Prefix increment accepts an attributed variable
 
 (source_file
   (pipeline
-    (unary_expression
-      (attributed_expression
-        (attribute
-          (type_name
-            (type_identifier))
-          (argument_list))
-        (variable)))))
+    (command_expression
+      (unary_expression
+        (attributed_expression
+          (attribute
+            (type_name
+              (type_identifier))
+            (argument_list))
+          (variable))))))

@@ -31,7 +31,8 @@ impl<'a> Source<'a> {
     }
 
     fn record(&self, node: Node<'_>) -> Value {
-        let (start, mut end) = self.extent(node);
+        let (start, _) = self.extent(node);
+        let mut end = self.offsets[semantic_end_byte(node)];
         if matches!(node.kind(), "class_property" | "enum_member") {
             // PowerShell includes an immediately following semicolon in a
             // property declaration; the CST keeps that token as a delimiter.
@@ -78,6 +79,23 @@ impl<'a> Source<'a> {
     }
 }
 
+fn semantic_end_byte(node: Node<'_>) -> usize {
+    if node.kind() == "background_pipeline" {
+        return semantic_end_byte(node.child_by_field_name("pipeline").unwrap());
+    }
+    let field = match node.kind() {
+        "assignment_statement" => "right",
+        "flow_control_statement" => "value",
+        _ => return node.end_byte(),
+    };
+    // Parser.cs computes assignment/flow extents from the semantic RHS, whose
+    // background extent excludes '&'. Preserve enclosing ')' and '}' tokens.
+    node.child_by_field_name(field)
+        .filter(|child| child.end_byte() == node.end_byte())
+        .map(semantic_end_byte)
+        .unwrap_or_else(|| node.end_byte())
+}
+
 fn named_children(node: Node<'_>) -> Vec<Node<'_>> {
     let mut cursor = node.walk();
     node.named_children(&mut cursor)
@@ -99,7 +117,7 @@ fn field_children<'a>(node: Node<'a>, field: &str) -> Vec<Node<'a>> {
 
 fn unwrap_condition(node: Node<'_>) -> Node<'_> {
     if node.kind() == "condition" {
-        children_of_kind(node, "pipeline")[0]
+        named_children(node)[0]
     } else {
         node
     }
@@ -152,6 +170,23 @@ fn has_interpolation(node: Node<'_>) -> bool {
 
 fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
     Some(match node.kind() {
+        "pipeline" => {
+            // AssignmentStatementAst's constructor removes only a non-background
+            // pipeline containing one CommandExpressionAst from its direct RHS.
+            let elements = field_children(node, "elements");
+            if elements.len() == 1
+                && elements[0].kind() == "command_expression"
+                && node.parent().is_some_and(|parent| {
+                    parent.kind() == "assignment_statement"
+                        && parent.child_by_field_name("right") == Some(node)
+                })
+            {
+                return None;
+            }
+            "PipelineAst"
+        }
+        "pipeline_chain" => "PipelineChainAst",
+        "command_expression" => "CommandExpressionAst",
         "binary_expression" => "BinaryExpressionAst",
         "assignment_statement" => "AssignmentStatementAst",
         "unary_expression" if folded_numeric(node, source) => "ConstantExpressionAst",
@@ -320,6 +355,12 @@ fn ast_extent(node: &Value) -> Extent {
 fn expected_category(node: &Value) -> Option<&str> {
     let category = node["type"].as_str().unwrap();
     let extent = ast_extent(node);
+    if matches!(category, "PipelineAst" | "CommandExpressionAst") && node["synthetic"] == true {
+        // The oracle identifies -file condition wrappers and implicit constructor
+        // base calls by exact runtime predicates. Explicit source is still checked;
+        // filename arguments are independently verified by field queries.
+        return None;
+    }
     if category == "ConstantExpressionAst" && node["synthetic"] == true {
         // Microsoft's ExpressionOmitted flag identifies the true constant
         // synthesized by a shorthand argument such as [Parameter(Mandatory)].
@@ -351,8 +392,6 @@ fn expected_category(node: &Value) -> Option<&str> {
             | "StatementBlockAst"
             | "NamedBlockAst"
             | "ScriptBlockExpressionAst"
-            | "PipelineAst"
-            | "CommandExpressionAst"
             | "CommandAst"
             | "TypeConstraintAst"
             | "UsingExpressionAst"
@@ -382,6 +421,10 @@ fn interpolation_expressions(node: Node<'_>, source: &Source<'_>, expressions: &
 
 fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>) -> Value {
     match (category, field) {
+        ("PipelineAst", "elements") => extents(field_children(node, "elements"), source),
+        ("CommandExpressionAst", "redirections") => {
+            extents(field_children(node, "redirections"), source)
+        }
         ("InvokeMemberExpressionAst", "object" | "member") => {
             source.field(node.child_by_field_name("function").unwrap(), field)
         }
@@ -501,6 +544,9 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
 
 fn mapped_fields(category: &str) -> &'static [&'static str] {
     match category {
+        "PipelineAst" => &["elements"],
+        "PipelineChainAst" => &["left", "right"],
+        "CommandExpressionAst" => &["expression", "redirections"],
         "BinaryExpressionAst" | "AssignmentStatementAst" => &["left", "right"],
         "UnaryExpressionAst" => &["argument"],
         "TernaryExpressionAst" => &["condition", "consequence", "alternative"],
@@ -561,6 +607,8 @@ fn operator(node: Node<'_>, source: &Source<'_>) -> String {
         "/=" => "DivideEquals",
         "%=" => "RemainderEquals",
         "??=" => "QuestionQuestionEquals",
+        "&&" => "AndAnd",
+        "||" => "OrOr",
         "!" => "Exclaim",
         "-f" => "Format",
         "-eq" => "Ieq",
@@ -642,9 +690,22 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
     let mut result = BTreeMap::new();
     if matches!(
         category,
-        "BinaryExpressionAst" | "AssignmentStatementAst" | "UnaryExpressionAst"
+        "BinaryExpressionAst"
+            | "AssignmentStatementAst"
+            | "UnaryExpressionAst"
+            | "PipelineChainAst"
     ) {
         result.insert("operator", json!(operator(node, source).to_lowercase()));
+    }
+    if matches!(category, "PipelineAst" | "PipelineChainAst") {
+        result.insert(
+            "background",
+            json!(
+                node.parent()
+                    .is_some_and(|parent| parent.kind() == "background_pipeline"
+                        && parent.child_by_field_name("pipeline") == Some(node))
+            ),
+        );
     }
     if matches!(
         category,
@@ -821,14 +882,25 @@ pub fn assert_structure(cases: &[Value], results: &[Value]) -> usize {
             };
             for field in mapped_fields(category) {
                 field_checks += 1;
-                let expected = &ast["fields"][field];
+                let mut expected = ast["fields"][field].clone();
                 let mut actual = mapped_field(node, category, field, &source);
+                if category == "CommandExpressionAst" && *field == "redirections" {
+                    // Parser.cs stores redirections in FromStream-indexed slots
+                    // and filters that array when constructing the AST. Compare
+                    // full source extents in source order; consumer-query tests
+                    // independently require the CST's original source ordering.
+                    for value in [&mut expected, &mut actual] {
+                        if let Some(redirections) = value.as_array_mut() {
+                            redirections.sort_by_key(ast_extent);
+                        }
+                    }
+                }
                 // Omitted null collections correspond to empty concrete
                 // lists; unexpected children are still compared explicitly.
                 if expected.is_null() && actual.as_array().is_some_and(Vec::is_empty) {
                     actual = Value::Null;
                 }
-                if actual != *expected {
+                if actual != expected {
                     failures.push(format!(
                         "{}: {}.{} at {:?}: expected {}, got {}: {:?}",
                         case["name"],

@@ -66,7 +66,7 @@ fn escaped_keywords_and_numbers_remain_command_names() {
             tree.root_node().to_sexp()
         );
         let pipeline = tree.root_node().named_child(0).unwrap();
-        let command = pipeline.named_child(0).unwrap();
+        let command = pipeline.child_by_field_name("elements").unwrap();
         assert_eq!(command.kind(), "command", "{source}");
         let name = command.child_by_field_name("name").unwrap();
         assert_eq!(

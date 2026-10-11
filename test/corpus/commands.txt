@@ -7,7 +7,7 @@ Write-Output 2+2
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -22,15 +22,16 @@ Write-Output (2+2)
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
         (parenthesized_expression
           (pipeline
-            (binary_expression
-              left: (integer_literal)
-              right: (integer_literal))))))))
+            elements: (command_expression
+              expression: (binary_expression
+                left: (integer_literal)
+                right: (integer_literal)))))))))
 
 ==================
 Variables followed by argument text
@@ -41,7 +42,7 @@ Write-Output $HOME-more ${HOME}/path
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -60,7 +61,7 @@ Write-Output prefix"$name" a'$name' a$(2)
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -74,7 +75,8 @@ Write-Output prefix"$name" a'$name' a$(2)
         (bare_word)
         (sub_expression
           (pipeline
-            (integer_literal)))))))
+            elements: (command_expression
+              expression: (integer_literal))))))))
 
 ==================
 Command argument comma list
@@ -85,7 +87,7 @@ Write-Output first,second,$third
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -106,7 +108,7 @@ Get-Item -LiteralPath . -Force:$false
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_parameter
@@ -127,14 +129,14 @@ Invocation operators and splatting
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (invocation_operator_command
         command: (command_argument
           (variable)))
       (command_argument
         (splat_expression))))
   (pipeline
-    (command
+    elements: (command
       name: (invocation_operator_command
         command: (command_argument
           (bare_word))))))
@@ -147,22 +149,27 @@ Get-Item . && Write-Output success || Write-Output failure &
 ---
 
 (source_file
-  (pipeline
-    (command
-      name: (command_name
-        (bare_word))
-      (command_argument
-        (bare_word)))
-    (command
-      name: (command_name
-        (bare_word))
-      (command_argument
-        (bare_word)))
-    (command
-      name: (command_name
-        (bare_word))
-      (command_argument
-        (bare_word)))))
+  (background_pipeline
+    pipeline: (pipeline_chain
+      left: (pipeline_chain
+        left: (pipeline
+          elements: (command
+            name: (command_name
+              (bare_word))
+            (command_argument
+              (bare_word))))
+        right: (pipeline
+          elements: (command
+            name: (command_name
+              (bare_word))
+            (command_argument
+              (bare_word)))))
+      right: (pipeline
+        elements: (command
+          name: (command_name
+            (bare_word))
+          (command_argument
+            (bare_word)))))))
 
 ==================
 Stream redirection
@@ -173,7 +180,7 @@ Write-Output value 2>&1 *> result.txt
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -194,7 +201,7 @@ native --% --flag=(x) ; $text >file
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (stop_parsing))))
@@ -208,19 +215,19 @@ hidden; static; default; in
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))))
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))))
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))))
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word)))))
 
@@ -233,11 +240,12 @@ Unspaced punctuation preserves bare commands and variable names
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))))
   (pipeline
-    (variable)))
+    elements: (command_expression
+      expression: (variable))))
 
 ==================
 Bare command names preserve expansion-like text literally
@@ -248,11 +256,11 @@ a$name; a$(2)
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))))
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word)))))
 
@@ -265,7 +273,7 @@ Write-Output a#b a>b a<b a@b
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -286,7 +294,7 @@ Get-Item [ab]* C:\folder[1]\file.txt
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -303,7 +311,7 @@ Write-Output $HOME.Length-more
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -322,25 +330,25 @@ beg {}; proc {}; dyn {}; cle {}
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
         (script_block))))
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
         (script_block))))
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
         (script_block))))
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument

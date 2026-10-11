@@ -37,6 +37,15 @@ function Add-AstField($Fields, [string] $Name, $Value) {
     }
 }
 
+function Test-SwitchFilePipeline($Node) {
+    return (
+        $Node -is [Management.Automation.Language.PipelineAst] -and
+        $Node.Parent -is [Management.Automation.Language.SwitchStatementAst] -and
+        ($Node.Parent.Flags -band [Management.Automation.Language.SwitchFlags]::File) -ne 0 -and
+        [object]::ReferenceEquals($Node.Parent.Condition, $Node)
+    )
+}
+
 function Get-AstRecord($Node) {
     $record = [ordered]@{
         type = $Node.GetType().Name
@@ -45,6 +54,26 @@ function Get-AstRecord($Node) {
     }
     $fields = [ordered]@{}
     switch ($record.type) {
+        'PipelineAst' {
+            Add-AstField $fields 'elements' $Node.PipelineElements
+            $record.background = $Node.Background
+            $record.synthetic = Test-SwitchFilePipeline $Node
+        }
+        'PipelineChainAst' {
+            Add-AstField $fields 'left' $Node.LhsPipelineChain
+            Add-AstField $fields 'right' $Node.RhsPipeline
+            $record.operator = $Node.Operator.ToString()
+            $record.background = $Node.Background
+        }
+        'CommandExpressionAst' {
+            Add-AstField $fields 'expression' $Node.Expression
+            Add-AstField $fields 'redirections' $Node.Redirections
+            $record.synthetic = (
+                (Test-SwitchFilePipeline $Node.Parent) -or
+                ($Node.Extent.StartOffset -eq 0 -and $Node.Extent.EndOffset -eq 0 -and
+                    $Node.Expression.GetType().Name -eq 'BaseCtorInvokeMemberExpressionAst')
+            )
+        }
         'BinaryExpressionAst' {
             Add-AstField $fields 'left' $Node.Left
             Add-AstField $fields 'right' $Node.Right

@@ -44,6 +44,23 @@ const argumentList = (open, argument) => seq(
   ')',
 );
 
+// Assignment and flow-control values may end in a background pipeline. Reuse
+// their syntax when recording a statement that already delimits its successor.
+const assignmentStatement = ($, right) => prec.right(seq(
+  field('left', $._expression),
+  field('operator', choice(
+    ...['=', '+=', '-=', '*=', '/=', '%=', '??='].map(operator =>
+      alias(token(prec(3, operator)), operator)),
+  )),
+  repeat(NEWLINE),
+  field('right', right),
+));
+
+const flowControlStatement = (value, required = false) => prec.right(seq(
+  field('keyword', choice(keyword('return'), keyword('throw'), keyword('exit'))),
+  required ? field('value', value) : optional(field('value', value)),
+));
+
 const ci = word => new RegExp(
   word.split('').map(character => /[a-z]/i.test(character)
     ? `[${character.toLowerCase()}${character.toUpperCase()}]`
@@ -201,9 +218,9 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._value_primary_expression, $.invocation_expression],
-    [$._pipeline],
-    [$.pipeline, $._background_pipeline],
-    [$._simple_statement, $._background_pipeline],
+    [$.pipeline],
+    [$._pipeline_entry, $._completed_pipeline_entry],
+    [$._statement, $._completed_assignment_statement],
     [$.if_statement],
     [$.try_statement],
     // Qualifiers share syntax but have distinct property and method field roles.
@@ -260,13 +277,17 @@ module.exports = grammar({
       $.data_statement,
       $.configuration_definition,
       alias($._break_continue_statement, $.flow_control_statement),
-      alias($._background_pipeline, $.pipeline),
+      $.background_pipeline,
+      alias($._completed_assignment_statement, $.assignment_statement),
+      alias($._completed_flow_control_statement, $.flow_control_statement),
     ),
 
     _simple_statement: $ => choice(
       $.do_statement,
       $.flow_control_statement,
-      alias($._pipeline, $.pipeline),
+      $.assignment_statement,
+      $.pipeline,
+      $.pipeline_chain,
     ),
 
     statement_block: $ => seq('{', repeat($._terminator), optional($._statement_list), '}'),
@@ -291,7 +312,7 @@ module.exports = grammar({
 
     else_clause: $ => seq(keyword('else'), repeat(NEWLINE), field('body', $.statement_block)),
 
-    condition: $ => seq('(', repeat(NEWLINE), $.pipeline, repeat(NEWLINE), ')'),
+    condition: $ => seq('(', repeat(NEWLINE), $._pipeline_entry, repeat(NEWLINE), ')'),
 
     switch_statement: $ => seq(
       optional(field('label', $.label)),
@@ -347,7 +368,7 @@ module.exports = grammar({
       repeat(NEWLINE),
       keyword('in'),
       repeat(NEWLINE),
-      field('value', $.pipeline),
+      field('value', $._pipeline_entry),
       repeat(NEWLINE),
       ')',
       repeat(NEWLINE),
@@ -361,11 +382,11 @@ module.exports = grammar({
       keyword('for'),
       repeat(NEWLINE),
       '(',
-      optional(field('initializer', $.pipeline)),
+      optional(field('initializer', $._pipeline_entry)),
       optional(seq(
         ';',
-        optional(field('condition', $.pipeline)),
-        optional(seq(';', optional(field('update', $.pipeline)))),
+        optional(field('condition', $._pipeline_entry)),
+        optional(seq(';', optional(field('update', $._pipeline_entry)))),
       )),
       ')',
       repeat(NEWLINE),
@@ -432,12 +453,10 @@ module.exports = grammar({
       ),
     ),
 
-    flow_control_statement: $ => prec.right(
-      seq(
-        field('keyword', choice(keyword('return'), keyword('throw'), keyword('exit'))),
-        optional(field('value', $.pipeline)),
-      ),
-    ),
+    flow_control_statement: $ => flowControlStatement($._pipeline_entry),
+
+    _completed_flow_control_statement: $ => prec.dynamic(1,
+      flowControlStatement($._completed_pipeline_entry, true)),
 
     function_definition: $ => seq(
       field('keyword', choice(keyword('function'), keyword('filter'), keyword('workflow'))),
@@ -636,40 +655,53 @@ module.exports = grammar({
       field('body', $.script_block),
     ),
 
-    assignment_statement: $ => prec.right(
-      seq(
-        field('left', $._expression),
-        field(
-          'operator',
-          choice(
-            ...['=', '+=', '-=', '*=', '/=', '%=', '??='].map(o => alias(token(prec(3, o)), o)),
-          ),
-        ),
-        repeat(NEWLINE),
-        field('right', $._statement),
-      ),
+    assignment_statement: $ => assignmentStatement($, $._statement),
+
+    _completed_assignment_statement: $ => prec.dynamic(1,
+      assignmentStatement($, $._block_statement)),
+
+    // Assignments are recognized before pipeline chaining by PowerShell. They
+    // are available at the start of a statement or pipeline-value context, but
+    // a chain's right operand is always an ordinary pipeline.
+    _pipeline_entry: $ => choice(
+      $.assignment_statement,
+      $.pipeline,
+      $.pipeline_chain,
+      $.background_pipeline,
     ),
 
-    pipeline: $ => choice($._pipeline, $._background_pipeline),
+    _completed_pipeline_entry: $ => choice(
+      $.background_pipeline,
+      alias($._completed_assignment_statement, $.assignment_statement),
+    ),
 
-    _background_pipeline: $ => seq($._pipeline, '&'),
+    pipeline: $ => seq(
+      field('elements', choice($.command, $.command_expression)),
+      repeat(seq(
+        choice('|', $._leading_pipe),
+        repeat(NEWLINE),
+        field('elements', $.command),
+      )),
+    ),
 
-    _pipeline: $ => seq(
-      choice($._pipeline_element, $.assignment_statement),
-      repeat(seq(choice('|', $._leading_pipe), repeat(NEWLINE), $._pipeline_element)),
-      repeat(
-        seq(
-          field('operator', choice('&&', '||')),
-          repeat(NEWLINE),
-          choice($._pipeline_element, $.assignment_statement),
-          repeat(seq('|', $._pipeline_element)),
-        ),
-      ),
+    pipeline_chain: $ => prec.left(seq(
+      field('left', choice($.pipeline, $.pipeline_chain)),
+      field('operator', choice('&&', '||')),
+      repeat(NEWLINE),
+      field('right', $.pipeline),
+    )),
+
+    background_pipeline: $ => seq(
+      field('pipeline', choice($.pipeline, $.pipeline_chain)),
+      field('operator', '&'),
     ),
 
     _leading_pipe: $ => seq(NEWLINE, repeat(seq($.comment, NEWLINE)), '|'),
 
-    _pipeline_element: $ => choice($.command, seq($._expression, repeat($.redirection))),
+    command_expression: $ => seq(
+      field('expression', $._expression),
+      repeat(field('redirections', $.redirection)),
+    ),
 
     command: $ => seq(
       field('name', choice($.command_name, $.invocation_operator_command)),
@@ -943,7 +975,7 @@ module.exports = grammar({
     parenthesized_expression: $ => seq(
       '(',
       repeat($._terminator),
-      $.pipeline,
+      $._pipeline_entry,
       repeat($._terminator),
       ')',
     ),

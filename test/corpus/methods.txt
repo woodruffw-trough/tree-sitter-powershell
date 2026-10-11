@@ -6,13 +6,15 @@ $x.Where{$_}
 
 (source_file
   (pipeline
-    (invocation_expression
-      (member_access
-        (variable)
-        (identifier))
-      (script_block
-        (pipeline
-          (variable))))))
+    (command_expression
+      (invocation_expression
+        (member_access
+          (variable)
+          (identifier))
+        (script_block
+          (pipeline
+            (command_expression
+              (variable))))))))
 
 ================================================================================
 Generic method invocation accepts an adjacent script block
@@ -22,16 +24,18 @@ $x.Where[int]{$_}
 
 (source_file
   (pipeline
-    (invocation_expression
-      (member_access
-        (variable)
-        (identifier))
-      (generic_type_arguments
-        (type_name
-          (type_identifier)))
-      (script_block
-        (pipeline
-          (variable))))))
+    (command_expression
+      (invocation_expression
+        (member_access
+          (variable)
+          (identifier))
+        (generic_type_arguments
+          (type_name
+            (type_identifier)))
+        (script_block
+          (pipeline
+            (command_expression
+              (variable))))))))
 
 ================================================================================
 Script block method invocation chains after indexing and before members
@@ -41,18 +45,20 @@ $line[0..$cursor].Where{$_ -eq $quote}.Count
 
 (source_file
   (pipeline
-    (member_access
-      (invocation_expression
-        (member_access
-          (element_access
-            (variable)
-            (binary_expression
-              (integer_literal)
-              (variable)))
-          (identifier))
-        (script_block
-          (pipeline
-            (binary_expression
+    (command_expression
+      (member_access
+        (invocation_expression
+          (member_access
+            (element_access
               (variable)
-              (variable)))))
-      (identifier))))
+              (binary_expression
+                (integer_literal)
+                (variable)))
+            (identifier))
+          (script_block
+            (pipeline
+              (command_expression
+                (binary_expression
+                  (variable)
+                  (variable))))))
+        (identifier)))))

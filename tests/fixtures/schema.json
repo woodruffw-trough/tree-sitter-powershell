@@ -545,5 +545,152 @@
         ]
       }
     ]
+  },
+  {
+    "name": "pipeline elements preserve expression redirections",
+    "source": "(1 + 2) > out | Write-Output",
+    "valid": true,
+    "fields": [
+      {
+        "node": "pipeline",
+        "field": "elements",
+        "texts": [
+          "(1 + 2) > out",
+          "1 + 2",
+          "Write-Output"
+        ]
+      },
+      {
+        "node": "command_expression",
+        "field": "expression",
+        "texts": [
+          "(1 + 2)",
+          "1 + 2"
+        ]
+      },
+      {
+        "node": "command_expression",
+        "field": "redirections",
+        "texts": [
+          "> out"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "pipeline chains expose separate scalar operands",
+    "source": "a | b && c",
+    "valid": true,
+    "fields": [
+      {
+        "node": "pipeline_chain",
+        "field": "left",
+        "texts": [
+          "a | b"
+        ]
+      },
+      {
+        "node": "pipeline_chain",
+        "field": "right",
+        "texts": [
+          "c"
+        ]
+      },
+      {
+        "node": "pipeline_chain",
+        "field": "operator",
+        "texts": [
+          "&&"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "background wrapper keeps marker outside semantic RHS",
+    "source": "$x = 1 & Write-Output done",
+    "valid": true,
+    "fields": [
+      {
+        "node": "background_pipeline",
+        "field": "pipeline",
+        "texts": [
+          "1"
+        ]
+      },
+      {
+        "node": "background_pipeline",
+        "field": "operator",
+        "texts": [
+          "&"
+        ]
+      },
+      {
+        "node": "assignment_statement",
+        "field": "right",
+        "texts": [
+          "1 &"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "assignment headers stay direct nodes",
+    "source": "for($i=0; $continue = $true; $i+=1){}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "for_statement",
+        "field": "initializer",
+        "texts": [
+          "$i=0"
+        ]
+      },
+      {
+        "node": "for_statement",
+        "field": "condition",
+        "texts": [
+          "$continue = $true"
+        ]
+      },
+      {
+        "node": "for_statement",
+        "field": "update",
+        "texts": [
+          "$i+=1"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "expression redirections retain source order",
+    "source": "1 6> info 2> err > out",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command_expression",
+        "field": "redirections",
+        "texts": [
+          "6> info",
+          "2> err",
+          "> out"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "assignment expression redirections retain source order",
+    "source": "$x = 1 6> info 2> err > out",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command_expression",
+        "field": "redirections",
+        "texts": [
+          "6> info",
+          "2> err",
+          "> out"
+        ]
+      }
+    ]
   }
 ]

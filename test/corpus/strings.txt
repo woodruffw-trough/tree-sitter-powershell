@@ -7,7 +7,8 @@ Literal string escaped quote
 
 (source_file
   (pipeline
-    (single_quoted_string)))
+    (command_expression
+      (single_quoted_string))))
 
 ==================
 Expandable variables and subexpressions
@@ -18,17 +19,19 @@ Expandable variables and subexpressions
 
 (source_file
   (pipeline
-    (expandable_string
-      (string_content)
-      (variable)
-      (string_content)
-      (variable)
-      (string_content)
-      (sub_expression
-        (pipeline
-          (binary_expression
-            left: (variable)
-            right: (integer_literal)))))))
+    elements: (command_expression
+      expression: (expandable_string
+        (string_content)
+        (variable)
+        (string_content)
+        (variable)
+        (string_content)
+        (sub_expression
+          (pipeline
+            elements: (command_expression
+              expression: (binary_expression
+                left: (variable)
+                right: (integer_literal)))))))))
 
 ==================
 Expandable escapes
@@ -39,15 +42,16 @@ Expandable escapes
 
 (source_file
   (pipeline
-    (expandable_string
-      (escape_sequence)
-      (escape_sequence)
-      (escape_sequence)
-      (string_content)
-      (escape_sequence)
-      (string_content)
-      (escape_sequence)
-      (string_content))))
+    (command_expression
+      (expandable_string
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (string_content)
+        (escape_sequence)
+        (string_content)
+        (escape_sequence)
+        (string_content)))))
 
 ==================
 Nested expandable string subexpression
@@ -58,21 +62,25 @@ Nested expandable string subexpression
 
 (source_file
   (pipeline
-    (expandable_string
-      (sub_expression
-        (if_statement
-          condition: (condition
-            (pipeline
-              (variable)))
-          body: (statement_block
-            (pipeline
-              (expandable_string
-                (string_content)
-                (variable))))
-          else: (else_clause
+    elements: (command_expression
+      expression: (expandable_string
+        (sub_expression
+          (if_statement
+            condition: (condition
+              (pipeline
+                elements: (command_expression
+                  expression: (variable))))
             body: (statement_block
               (pipeline
-                (single_quoted_string)))))))))
+                elements: (command_expression
+                  expression: (expandable_string
+                    (string_content)
+                    (variable)))))
+            else: (else_clause
+              body: (statement_block
+                (pipeline
+                  elements: (command_expression
+                    expression: (single_quoted_string)))))))))))
 
 ==================
 Literal here string with suffix
@@ -85,9 +93,10 @@ literal $name
 
 (source_file
   (pipeline
-    (binary_expression
-      left: (single_quoted_here_string)
-      right: (single_quoted_string))))
+    elements: (command_expression
+      expression: (binary_expression
+        left: (single_quoted_here_string)
+        right: (single_quoted_string)))))
 
 ==================
 Expandable here string
@@ -101,15 +110,17 @@ $($x + 1)
 
 (source_file
   (pipeline
-    (expandable_here_string
-      (string_content)
-      (variable)
-      (string_content)
-      (sub_expression
-        (pipeline
-          (binary_expression
-            left: (variable)
-            right: (integer_literal)))))))
+    elements: (command_expression
+      expression: (expandable_here_string
+        (string_content)
+        (variable)
+        (string_content)
+        (sub_expression
+          (pipeline
+            elements: (command_expression
+              expression: (binary_expression
+                left: (variable)
+                right: (integer_literal)))))))))
 
 ==================
 Smart single and double quotes
@@ -120,11 +131,13 @@ Smart single and double quotes
 
 (source_file
   (pipeline
-    (single_quoted_string))
+    (command_expression
+      (single_quoted_string)))
   (pipeline
-    (expandable_string
-      (string_content)
-      (variable))))
+    (command_expression
+      (expandable_string
+        (string_content)
+        (variable)))))
 
 ==================
 Empty expandable here string
@@ -136,7 +149,8 @@ Empty expandable here string
 
 (source_file
   (pipeline
-    (expandable_here_string)))
+    (command_expression
+      (expandable_here_string))))
 
 ==================
 Nested here string subexpression
@@ -151,11 +165,13 @@ $name
 
 (source_file
   (pipeline
-    (expandable_here_string
-      (sub_expression
-        (pipeline
-          (expandable_here_string
-            (variable)))))))
+    (command_expression
+      (expandable_here_string
+        (sub_expression
+          (pipeline
+            (command_expression
+              (expandable_here_string
+                (variable)))))))))
 
 ==================
 Here string literal dollars and escaped footer
@@ -170,10 +186,11 @@ first`
 
 (source_file
   (pipeline
-    (expandable_here_string
-      (string_content)
-      (string_content)
-      (escape_sequence)
-      (string_content)
-      (escape_sequence)
-      (string_content))))
+    (command_expression
+      (expandable_here_string
+        (string_content)
+        (string_content)
+        (escape_sequence)
+        (string_content)
+        (escape_sequence)
+        (string_content)))))

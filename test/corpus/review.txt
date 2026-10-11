@@ -66,18 +66,19 @@ $x = foreach ($i in 1..3) { $i }
 ---
 
 (source_file
-  (pipeline
-    (assignment_statement
-      left: (variable)
-      right: (foreach_statement
-        variable: (variable)
-        value: (pipeline
-          (binary_expression
+  (assignment_statement
+    left: (variable)
+    right: (foreach_statement
+      variable: (variable)
+      value: (pipeline
+        elements: (command_expression
+          expression: (binary_expression
             left: (integer_literal)
-            right: (integer_literal)))
-        body: (statement_block
-          (pipeline
-            (variable)))))))
+            right: (integer_literal))))
+      body: (statement_block
+        (pipeline
+          elements: (command_expression
+            expression: (variable)))))))
 
 ==================
 Switch clauses use bare command argument spelling
@@ -90,25 +91,29 @@ switch ($x) { foo {1}; bar-baz {2}; a.b {3} }
   (switch_statement
     condition: (condition
       (pipeline
-        (variable)))
+        elements: (command_expression
+          expression: (variable))))
     clauses: (switch_clause
       condition: (command_argument
         (bare_word))
       body: (statement_block
         (pipeline
-          (integer_literal))))
+          elements: (command_expression
+            expression: (integer_literal)))))
     clauses: (switch_clause
       condition: (command_argument
         (bare_word))
       body: (statement_block
         (pipeline
-          (integer_literal))))
+          elements: (command_expression
+            expression: (integer_literal)))))
     clauses: (switch_clause
       condition: (command_argument
         (bare_word))
       body: (statement_block
         (pipeline
-          (integer_literal))))))
+          elements: (command_expression
+            expression: (integer_literal)))))))
 
 ==================
 Joined numeric switch text remains a bare string
@@ -121,7 +126,8 @@ switch ($x) { 1+2 {} }
   (switch_statement
     condition: (condition
       (pipeline
-        (variable)))
+        elements: (command_expression
+          expression: (variable))))
     clauses: (switch_clause
       condition: (command_argument
         (bare_word))
@@ -138,10 +144,11 @@ if ($true) { begin {} }
   (if_statement
     condition: (condition
       (pipeline
-        (variable)))
+        elements: (command_expression
+          expression: (variable))))
     body: (statement_block
       (pipeline
-        (command
+        elements: (command
           name: (command_name
             (bare_word))
           (command_argument
@@ -157,7 +164,7 @@ break & "cmd"
 (source_file
   (flow_control_statement)
   (pipeline
-    (command
+    elements: (command
       name: (invocation_operator_command
         command: (command_argument
           (expandable_string
@@ -172,7 +179,7 @@ Invocation target preserves adjacent member access
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (invocation_operator_command
         command: (command_argument
           (member_access
@@ -189,9 +196,11 @@ Expandable strings retain space-only and trailing bodies
 
 (source_file
   (pipeline
-    (expandable_string
-      (string_content)))
+    (command_expression
+      (expandable_string
+        (string_content))))
   (pipeline
-    (expandable_string
-      (variable)
-      (string_content))))
+    (command_expression
+      (expandable_string
+        (variable)
+        (string_content)))))

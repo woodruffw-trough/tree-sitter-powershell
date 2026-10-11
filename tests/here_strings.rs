@@ -117,7 +117,9 @@ fn here_string_body_preserves_whitespace_and_escapes() {
         .root_node()
         .named_child(0)
         .unwrap()
-        .named_child(0)
+        .child_by_field_name("elements")
+        .unwrap()
+        .child_by_field_name("expression")
         .unwrap();
     assert_eq!(here.kind(), "expandable_here_string");
     let mut cursor = here.walk();

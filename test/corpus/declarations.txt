@@ -32,7 +32,8 @@ $Name
         name: (variable)
         default: (integer_literal))))
   (pipeline
-    (variable)))
+    elements: (command_expression
+      expression: (variable))))
 
 ==================
 Function parameters and named blocks
@@ -53,29 +54,32 @@ function Get-Value([string]$Name) { begin { $n=0 } process { $n++; $Name } end {
     body: (script_block
       (named_block
         body: (statement_block
-          (pipeline
-            (assignment_statement
-              left: (variable)
-              right: (pipeline
-                (integer_literal))))))
+          (assignment_statement
+            left: (variable)
+            right: (pipeline
+              elements: (command_expression
+                expression: (integer_literal))))))
       (named_block
         body: (statement_block
           (pipeline
-            (unary_expression
-              argument: (variable)))
+            elements: (command_expression
+              expression: (unary_expression
+                argument: (variable))))
           (pipeline
-            (variable))))
+            elements: (command_expression
+              expression: (variable)))))
       (named_block
         body: (statement_block
           (pipeline
-            (variable))))
+            elements: (command_expression
+              expression: (variable)))))
       (named_block
         body: (statement_block
-          (pipeline
-            (assignment_statement
-              left: (variable)
-              right: (pipeline
-                (integer_literal)))))))))
+          (assignment_statement
+            left: (variable)
+            right: (pipeline
+              elements: (command_expression
+                expression: (integer_literal)))))))))
 
 ==================
 Filter and scoped function names
@@ -89,7 +93,8 @@ filter global:Keep-Item { $_ }; function script:Get-Thing { param($Name) $Name }
     name: (function_name)
     body: (script_block
       (pipeline
-        (variable))))
+        elements: (command_expression
+          expression: (variable)))))
   (function_definition
     name: (function_name)
     body: (script_block
@@ -98,7 +103,8 @@ filter global:Keep-Item { $_ }; function script:Get-Thing { param($Name) $Name }
           (parameter
             name: (variable))))
       (pipeline
-        (variable)))))
+        elements: (command_expression
+          expression: (variable))))))
 
 ==================
 Class typed properties methods and constructor
@@ -132,13 +138,13 @@ class Item { hidden [string]$Name = 'x'; static [int]$Count = 0; Item([string]$n
                 name: (type_identifier)))
             name: (variable)))
         body: (statement_block
-          (pipeline
-            (assignment_statement
-              left: (member_access
-                object: (variable)
-                member: (identifier))
-              right: (pipeline
-                (variable))))))
+          (assignment_statement
+            left: (member_access
+              object: (variable)
+              member: (identifier))
+            right: (pipeline
+              elements: (command_expression
+                expression: (variable))))))
       members: (class_method
         return_type: (type_literal
           (type_name
@@ -148,9 +154,10 @@ class Item { hidden [string]$Name = 'x'; static [int]$Count = 0; Item([string]$n
         body: (statement_block
           (flow_control_statement
             value: (pipeline
-              (member_access
-                object: (variable)
-                member: (identifier)))))))))
+              elements: (command_expression
+                expression: (member_access
+                  object: (variable)
+                  member: (identifier))))))))))
 
 ==================
 Enum underlying type and values
@@ -190,11 +197,13 @@ data Messages { @{ Greeting = 'Hello' } }
     name: (identifier)
     body: (statement_block
       (pipeline
-        (hashtable_expression
-          (hash_entry
-            key: (identifier)
-            value: (pipeline
-              (single_quoted_string))))))))
+        elements: (command_expression
+          expression: (hashtable_expression
+            (hash_entry
+              key: (identifier)
+              value: (pipeline
+                elements: (command_expression
+                  expression: (single_quoted_string))))))))))
 
 ==================
 Generic and multidimensional array types
@@ -205,17 +214,19 @@ Generic and multidimensional array types
 
 (source_file
   (pipeline
-    (type_literal
-      (type_name
-        name: (type_identifier)
+    elements: (command_expression
+      expression: (type_literal
         (type_name
-          name: (type_identifier))
-        (type_name
-          name: (type_identifier)))))
+          name: (type_identifier)
+          (type_name
+            name: (type_identifier))
+          (type_name
+            name: (type_identifier))))))
   (pipeline
-    (type_literal
-      (type_name
-        name: (type_identifier)))))
+    elements: (command_expression
+      expression: (type_literal
+        (type_name
+          name: (type_identifier))))))
 
 ==================
 Generic method invocation
@@ -226,28 +237,30 @@ Generic method invocation
 
 (source_file
   (pipeline
-    (invocation_expression
-      function: (member_access
-        object: (type_literal
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (type_literal
+            (type_name
+              name: (type_identifier)))
+          member: (identifier))
+        type_arguments: (generic_type_arguments
           (type_name
             name: (type_identifier)))
-        member: (identifier))
-      type_arguments: (generic_type_arguments
-        (type_name
-          name: (type_identifier)))
-      arguments: (argument_list)))
+        arguments: (argument_list))))
   (pipeline
-    (invocation_expression
-      function: (member_access
-        object: (variable)
-        member: (identifier))
-      type_arguments: (generic_type_arguments
-        (type_name
-          name: (type_identifier))
-        (type_name
-          name: (type_identifier)))
-      arguments: (argument_list
-        (integer_literal)))))
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        type_arguments: (generic_type_arguments
+          (type_name
+            name: (type_identifier))
+          (type_name
+            name: (type_identifier)))
+        arguments: (argument_list
+          (integer_literal))))))
 
 ==================
 Null conditional member and element access
@@ -258,19 +271,22 @@ ${object}?.Name; ${items}?[0]; ${object}?.GetValue()
 
 (source_file
   (pipeline
-    (member_access
-      object: (variable)
-      member: (identifier)))
-  (pipeline
-    (element_access
-      object: (variable)
-      index: (integer_literal)))
-  (pipeline
-    (invocation_expression
-      function: (member_access
+    elements: (command_expression
+      expression: (member_access
         object: (variable)
-        member: (identifier))
-      arguments: (argument_list))))
+        member: (identifier))))
+  (pipeline
+    elements: (command_expression
+      expression: (element_access
+        object: (variable)
+        index: (integer_literal))))
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        arguments: (argument_list)))))
 
 ==================
 Completed function definitions delimit adjacent declarations
@@ -350,7 +366,8 @@ class Example { [int] 日本語() { return 1 } }
         body: (statement_block
           (flow_control_statement
             value: (pipeline
-              (integer_literal))))))))
+              elements: (command_expression
+                expression: (integer_literal)))))))))
 
 ==================
 Numeric member names retain nested real and integer names
@@ -361,19 +378,21 @@ $object.1.2.3; [string]::1.2.3
 
 (source_file
   (pipeline
-    (member_access
-      object: (member_access
-        object: (variable)
-        member: (real_literal))
-      member: (integer_literal)))
+    elements: (command_expression
+      expression: (member_access
+        object: (member_access
+          object: (variable)
+          member: (real_literal))
+        member: (integer_literal))))
   (pipeline
-    (member_access
-      object: (member_access
-        object: (type_literal
-          (type_name
-            name: (type_identifier)))
-        member: (real_literal))
-      member: (integer_literal))))
+    elements: (command_expression
+      expression: (member_access
+        object: (member_access
+          object: (type_literal
+            (type_name
+              name: (type_identifier)))
+          member: (real_literal))
+        member: (integer_literal)))))
 
 ==================
 Bracketed generic arguments preserve assembly metadata
@@ -384,17 +403,18 @@ Bracketed generic arguments preserve assembly metadata
 
 (source_file
   (pipeline
-    (type_literal
-      (type_name
-        name: (type_identifier)
-        (type_literal
-          (type_name
-            name: (type_identifier))
-          (assembly_name))
-        (type_literal
-          (type_name
-            name: (type_identifier))
-          (assembly_name))))))
+    elements: (command_expression
+      expression: (type_literal
+        (type_name
+          name: (type_identifier)
+          (type_literal
+            (type_name
+              name: (type_identifier))
+            (assembly_name))
+          (type_literal
+            (type_name
+              name: (type_identifier))
+            (assembly_name)))))))
 
 ==================
 Generic type arrays permit newlines inside arguments
@@ -407,8 +427,9 @@ int[]
 
 (source_file
   (pipeline
-    (type_literal
-      (type_name
-        name: (type_identifier)
+    elements: (command_expression
+      expression: (type_literal
         (type_name
-          name: (type_identifier))))))
+          name: (type_identifier)
+          (type_name
+            name: (type_identifier)))))))

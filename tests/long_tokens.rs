@@ -26,7 +26,9 @@ fn generic_token_boundaries_match_powershell() {
                 .root_node()
                 .named_child(0)
                 .unwrap()
-                .named_child(0)
+                .child_by_field_name("elements")
+                .unwrap()
+                .child_by_field_name("expression")
                 .unwrap();
             assert_eq!(expression.kind(), kind, "{}", case["name"]);
             assert_eq!(expression.byte_range(), 0..source.len());
@@ -49,7 +51,7 @@ fn huge_numeric_looking_words_keep_their_command_extents() {
             .root_node()
             .named_child(0)
             .unwrap()
-            .named_child(0)
+            .child_by_field_name("elements")
             .unwrap();
         assert_eq!(command.kind(), "command");
         assert_eq!(

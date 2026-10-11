@@ -9,28 +9,33 @@ IF ($X -GT 1) { RETURN $X } ELSEIF ($X -eQ 1) { THROW 'one' } ELSE { EXIT 2 }
   (if_statement
     condition: (condition
       (pipeline
-        (binary_expression
-          left: (variable)
-          right: (integer_literal))))
+        elements: (command_expression
+          expression: (binary_expression
+            left: (variable)
+            right: (integer_literal)))))
     body: (statement_block
       (flow_control_statement
         value: (pipeline
-          (variable))))
+          elements: (command_expression
+            expression: (variable)))))
     elseif: (elseif_clause
       condition: (condition
         (pipeline
-          (binary_expression
-            left: (variable)
-            right: (integer_literal))))
+          elements: (command_expression
+            expression: (binary_expression
+              left: (variable)
+              right: (integer_literal)))))
       body: (statement_block
         (flow_control_statement
           value: (pipeline
-            (single_quoted_string)))))
+            elements: (command_expression
+              expression: (single_quoted_string))))))
     else: (else_clause
       body: (statement_block
         (flow_control_statement
           value: (pipeline
-            (integer_literal)))))))
+            elements: (command_expression
+              expression: (integer_literal))))))))
 
 ==================
 Short and complete for headers
@@ -44,26 +49,28 @@ for () { break }; for ($i=0) { break }; for ($i=0;$i -lt 3;$i++) { continue }
     body: (statement_block
       (flow_control_statement)))
   (for_statement
-    initializer: (pipeline
-      (assignment_statement
-        left: (variable)
-        right: (pipeline
-          (integer_literal))))
+    initializer: (assignment_statement
+      left: (variable)
+      right: (pipeline
+        elements: (command_expression
+          expression: (integer_literal))))
     body: (statement_block
       (flow_control_statement)))
   (for_statement
-    initializer: (pipeline
-      (assignment_statement
-        left: (variable)
-        right: (pipeline
-          (integer_literal))))
+    initializer: (assignment_statement
+      left: (variable)
+      right: (pipeline
+        elements: (command_expression
+          expression: (integer_literal))))
     condition: (pipeline
-      (binary_expression
-        left: (variable)
-        right: (integer_literal)))
+      elements: (command_expression
+        expression: (binary_expression
+          left: (variable)
+          right: (integer_literal))))
     update: (pipeline
-      (unary_expression
-        argument: (variable)))
+      elements: (command_expression
+        expression: (unary_expression
+          argument: (variable))))
     body: (statement_block
       (flow_control_statement))))
 
@@ -80,14 +87,16 @@ Loop labels and foreach
       name: (identifier))
     variable: (variable)
     value: (pipeline
-      (binary_expression
-        left: (integer_literal)
-        right: (integer_literal)))
+      elements: (command_expression
+        expression: (binary_expression
+          left: (integer_literal)
+          right: (integer_literal))))
     body: (statement_block
       (while_statement
         condition: (condition
           (pipeline
-            (variable)))
+            elements: (command_expression
+              expression: (variable))))
         body: (statement_block
           (flow_control_statement
             value: (identifier)))))))
@@ -103,13 +112,15 @@ do { $i++ } until ($i -ge 3)
   (do_statement
     body: (statement_block
       (pipeline
-        (unary_expression
-          argument: (variable))))
+        elements: (command_expression
+          expression: (unary_expression
+            argument: (variable)))))
     condition: (condition
       (pipeline
-        (binary_expression
-          left: (variable)
-          right: (integer_literal))))))
+        elements: (command_expression
+          expression: (binary_expression
+            left: (variable)
+            right: (integer_literal)))))))
 
 ==================
 Switch conditions and default
@@ -123,29 +134,34 @@ switch -Regex ($text) { '^a' { 1 } { $_.Length -gt 2 } { 2 } default { 3 } }
     parameters: (switch_parameter)
     condition: (condition
       (pipeline
-        (variable)))
+        elements: (command_expression
+          expression: (variable))))
     clauses: (switch_clause
       condition: (command_argument
         (single_quoted_string))
       body: (statement_block
         (pipeline
-          (integer_literal))))
+          elements: (command_expression
+            expression: (integer_literal)))))
     clauses: (switch_clause
       condition: (command_argument
         (script_block
           (pipeline
-            (binary_expression
-              left: (member_access
-                object: (variable)
-                member: (identifier))
-              right: (integer_literal)))))
+            elements: (command_expression
+              expression: (binary_expression
+                left: (member_access
+                  object: (variable)
+                  member: (identifier))
+                right: (integer_literal))))))
       body: (statement_block
         (pipeline
-          (integer_literal))))
+          elements: (command_expression
+            expression: (integer_literal)))))
     clauses: (switch_clause
       body: (statement_block
         (pipeline
-          (integer_literal))))))
+          elements: (command_expression
+            expression: (integer_literal)))))))
 
 ==================
 Typed catch and finally
@@ -159,18 +175,20 @@ try { throw 'error' } catch [System.Exception] { $_ } finally { Write-Output don
     body: (statement_block
       (flow_control_statement
         value: (pipeline
-          (single_quoted_string))))
+          elements: (command_expression
+            expression: (single_quoted_string)))))
     handlers: (catch_clause
       types: (type_literal
         (type_name
           name: (type_identifier)))
       body: (statement_block
         (pipeline
-          (variable))))
+          elements: (command_expression
+            expression: (variable)))))
     finally: (finally_clause
       body: (statement_block
         (pipeline
-          (command
+          elements: (command
             name: (command_name
               (bare_word))
             (command_argument
@@ -192,7 +210,8 @@ trap [System.Exception] { continue }; return $result
       (flow_control_statement)))
   (flow_control_statement
     value: (pipeline
-      (variable))))
+      elements: (command_expression
+        expression: (variable)))))
 
 ==================
 Hashtable statement value
@@ -203,26 +222,32 @@ Hashtable statement value
 
 (source_file
   (pipeline
-    (hashtable_expression
-      (hash_entry
-        key: (identifier)
-        value: (if_statement
-          condition: (condition
-            (pipeline
-              (variable)))
-          body: (statement_block
-            (pipeline
-              (integer_literal)))
-          else: (else_clause
+    elements: (command_expression
+      expression: (hashtable_expression
+        (hash_entry
+          key: (identifier)
+          value: (if_statement
+            condition: (condition
+              (pipeline
+                elements: (command_expression
+                  expression: (variable))))
             body: (statement_block
               (pipeline
-                (integer_literal))))))
-      (hash_entry
-        key: (parenthesized_expression
-          (pipeline
-            (variable)))
-        value: (pipeline
-          (integer_literal))))))
+                elements: (command_expression
+                  expression: (integer_literal))))
+            else: (else_clause
+              body: (statement_block
+                (pipeline
+                  elements: (command_expression
+                    expression: (integer_literal)))))))
+        (hash_entry
+          key: (parenthesized_expression
+            (pipeline
+              elements: (command_expression
+                expression: (variable))))
+          value: (pipeline
+            elements: (command_expression
+              expression: (integer_literal))))))))
 
 ==================
 Array and subexpression statement lists
@@ -233,27 +258,32 @@ Array and subexpression statement lists
 
 (source_file
   (pipeline
-    (array_expression
-      (pipeline
-        (integer_literal))
-      (pipeline
-        (integer_literal))
-      (pipeline
-        (command
-          name: (command_name
-            (bare_word))
-          (command_argument
-            (bare_word))))))
+    elements: (command_expression
+      expression: (array_expression
+        (pipeline
+          elements: (command_expression
+            expression: (integer_literal)))
+        (pipeline
+          elements: (command_expression
+            expression: (integer_literal)))
+        (pipeline
+          elements: (command
+            name: (command_name
+              (bare_word))
+            (command_argument
+              (bare_word)))))))
   (pipeline
-    (sub_expression
-      (pipeline
-        (command
-          name: (command_name
-            (bare_word))
-          (command_argument
-            (bare_word))))
-      (pipeline
-        (variable)))))
+    elements: (command_expression
+      expression: (sub_expression
+        (pipeline
+          elements: (command
+            name: (command_name
+              (bare_word))
+            (command_argument
+              (bare_word))))
+        (pipeline
+          elements: (command_expression
+            expression: (variable)))))))
 
 ==================
 Completed statement blocks delimit adjacent statements
@@ -266,18 +296,20 @@ if (1) {} if (2) {} $x=1
   (if_statement
     condition: (condition
       (pipeline
-        (integer_literal)))
+        elements: (command_expression
+          expression: (integer_literal))))
     body: (statement_block))
   (if_statement
     condition: (condition
       (pipeline
-        (integer_literal)))
+        elements: (command_expression
+          expression: (integer_literal))))
     body: (statement_block))
-  (pipeline
-    (assignment_statement
-      left: (variable)
-      right: (pipeline
-        (integer_literal)))))
+  (assignment_statement
+    left: (variable)
+    right: (pipeline
+      elements: (command_expression
+        expression: (integer_literal)))))
 
 ==================
 Switch flags allow case-insensitive abbreviated names
@@ -293,7 +325,8 @@ switch -w -c -e (1) { default {} }
     parameters: (switch_parameter)
     condition: (condition
       (pipeline
-        (integer_literal)))
+        elements: (command_expression
+          expression: (integer_literal))))
     clauses: (switch_clause
       condition: (command_argument
         (integer_literal))
@@ -304,7 +337,8 @@ switch -w -c -e (1) { default {} }
     parameters: (switch_parameter)
     condition: (condition
       (pipeline
-        (integer_literal)))
+        elements: (command_expression
+          expression: (integer_literal))))
     clauses: (switch_clause
       body: (statement_block))))
 
@@ -327,11 +361,13 @@ data Messages -s ConvertFrom-StringData { @{ Greeting = 'Hello' } }
     supported_commands: (bare_word)
     body: (statement_block
       (pipeline
-        (hashtable_expression
-          (hash_entry
-            key: (identifier)
-            value: (pipeline
-              (single_quoted_string))))))))
+        elements: (command_expression
+          expression: (hashtable_expression
+            (hash_entry
+              key: (identifier)
+              value: (pipeline
+                elements: (command_expression
+                  expression: (single_quoted_string))))))))))
 
 ==================
 Labeled loop permits the lines label
@@ -346,7 +382,8 @@ Labeled loop permits the lines label
       name: (identifier))
     variable: (variable)
     value: (pipeline
-      (integer_literal))
+      elements: (command_expression
+        expression: (integer_literal)))
     body: (statement_block
       (flow_control_statement
         value: (identifier)))))

@@ -49,4 +49,5 @@ class C {
         body: (statement_block
           (flow_control_statement
             value: (pipeline
-              (integer_literal))))))))
+              elements: (command_expression
+                expression: (integer_literal)))))))))

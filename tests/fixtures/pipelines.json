@@ -1,0 +1,592 @@
+[
+  {
+    "name": "and-two-commands",
+    "source": "a && b",
+    "valid": true
+  },
+  {
+    "name": "and-two-pipes",
+    "source": "a | b && c | d",
+    "valid": true
+  },
+  {
+    "name": "and-two-expressions",
+    "source": "1 && 2",
+    "valid": true
+  },
+  {
+    "name": "and-expression-redirection-pipe",
+    "source": "1 > one | b && c > two",
+    "valid": true
+  },
+  {
+    "name": "and-command-redirection-pipe",
+    "source": "a > one && b > two | c",
+    "valid": true
+  },
+  {
+    "name": "or-two-commands",
+    "source": "a || b",
+    "valid": true
+  },
+  {
+    "name": "or-two-pipes",
+    "source": "a | b || c | d",
+    "valid": true
+  },
+  {
+    "name": "or-two-expressions",
+    "source": "1 || 2",
+    "valid": true
+  },
+  {
+    "name": "or-expression-redirection-pipe",
+    "source": "1 > one | b || c > two",
+    "valid": true
+  },
+  {
+    "name": "or-command-redirection-pipe",
+    "source": "a > one || b > two | c",
+    "valid": true
+  },
+  {
+    "name": "left-assoc-&&-&&",
+    "source": "a | b && c | d && e",
+    "valid": true
+  },
+  {
+    "name": "left-assoc-&&-||",
+    "source": "a | b && c | d || e",
+    "valid": true
+  },
+  {
+    "name": "left-assoc-||-&&",
+    "source": "a | b || c | d && e",
+    "valid": true
+  },
+  {
+    "name": "left-assoc-||-||",
+    "source": "a | b || c | d || e",
+    "valid": true
+  },
+  {
+    "name": "background-command",
+    "source": "a &",
+    "valid": true
+  },
+  {
+    "name": "background-pipe",
+    "source": "a | b &",
+    "valid": true
+  },
+  {
+    "name": "background-chain",
+    "source": "a && b &",
+    "valid": true
+  },
+  {
+    "name": "background-tight",
+    "source": "a&&b&",
+    "valid": true
+  },
+  {
+    "name": "background-follow-command",
+    "source": "a&&b&c",
+    "valid": true
+  },
+  {
+    "name": "background-separate",
+    "source": "a & b",
+    "valid": true
+  },
+  {
+    "name": "background-before-chain-invalid",
+    "source": "a & && b",
+    "valid": false
+  },
+  {
+    "name": "background-midchain-invalid",
+    "source": "a && b & || c",
+    "valid": false
+  },
+  {
+    "name": "background-chain-nextline-invalid",
+    "source": "a &\n&& b",
+    "valid": false
+  },
+  {
+    "name": "background-newline-invocation",
+    "source": "a\n& b",
+    "valid": true
+  },
+  {
+    "name": "rhs-invocation-tight",
+    "source": "a&&&$b",
+    "valid": true
+  },
+  {
+    "name": "rhs-dot-invocation",
+    "source": "a && . $b",
+    "valid": true
+  },
+  {
+    "name": "rhs-parenthesized-command",
+    "source": "a && (b)",
+    "valid": true
+  },
+  {
+    "name": "chain-before-newline-invalid",
+    "source": "a\n&& b",
+    "valid": false
+  },
+  {
+    "name": "chain-after-newline",
+    "source": "a &&\nb",
+    "valid": true
+  },
+  {
+    "name": "chain-after-blankline",
+    "source": "a ||\n\nb",
+    "valid": true
+  },
+  {
+    "name": "chain-after-comment",
+    "source": "a && # comment\nb",
+    "valid": true
+  },
+  {
+    "name": "chain-before-backtick-newline",
+    "source": "a `\n&& b",
+    "valid": true
+  },
+  {
+    "name": "chain-crlf",
+    "source": "a ||\r\nb",
+    "valid": true
+  },
+  {
+    "name": "pipe-after-newline",
+    "source": "a |\nb && c",
+    "valid": true
+  },
+  {
+    "name": "leading-pipe-left",
+    "source": "a\n| b && c",
+    "valid": true
+  },
+  {
+    "name": "leading-pipe-right",
+    "source": "a && b\n| c",
+    "valid": true
+  },
+  {
+    "name": "leading-pipe-comment",
+    "source": "a\n# comment\n| b && c",
+    "valid": true
+  },
+  {
+    "name": "leading-pipe-blankline",
+    "source": "a\n\n| b && c",
+    "valid": false
+  },
+  {
+    "name": "chain-after-leading-pipe",
+    "source": "a\n| b ||\nc\n| d",
+    "valid": true
+  },
+  {
+    "name": "leading-chain-after-pipe-invalid",
+    "source": "a\n| b\n&& c",
+    "valid": false
+  },
+  {
+    "name": "rhs-leading-pipe-invalid",
+    "source": "a &&\n| b",
+    "valid": false
+  },
+  {
+    "name": "chain-parenthesized-left",
+    "source": "(a && b) || c",
+    "valid": true
+  },
+  {
+    "name": "pipe-parenthesized-left",
+    "source": "(a | b) && c",
+    "valid": true
+  },
+  {
+    "name": "chain-parenthesized-right",
+    "source": "a && (b || c)",
+    "valid": true
+  },
+  {
+    "name": "parenthesized-background",
+    "source": "(a && b) &",
+    "valid": true
+  },
+  {
+    "name": "parenthesized-inner-background",
+    "source": "(a && b &) || c",
+    "valid": true
+  },
+  {
+    "name": "subexpression-inner-chain",
+    "source": "a && $(b || c)",
+    "valid": true
+  },
+  {
+    "name": "subexpression-inner-background",
+    "source": "a && $(b || c &)",
+    "valid": true
+  },
+  {
+    "name": "redirection-chain",
+    "source": "a > one && b > two",
+    "valid": true
+  },
+  {
+    "name": "redirection-pipe-chain-background",
+    "source": "a && b > two | c 2>&1 &",
+    "valid": true
+  },
+  {
+    "name": "expression-redirection-chain",
+    "source": "1 > one && 2 > two",
+    "valid": true
+  },
+  {
+    "name": "expression-pipe-left",
+    "source": "1 | a && 2 | b",
+    "valid": true
+  },
+  {
+    "name": "command-expression-tail-invalid",
+    "source": "a | 1",
+    "valid": false
+  },
+  {
+    "name": "variable-tail-invalid",
+    "source": "a | $x",
+    "valid": false
+  },
+  {
+    "name": "parenthesized-tail-invalid",
+    "source": "a | (b)",
+    "valid": false
+  },
+  {
+    "name": "invocation-tail",
+    "source": "a | & $b",
+    "valid": true
+  },
+  {
+    "name": "flow-return-chain",
+    "source": "return a | b && c",
+    "valid": true
+  },
+  {
+    "name": "flow-throw-chain",
+    "source": "throw a && b",
+    "valid": true
+  },
+  {
+    "name": "flow-exit-chain",
+    "source": "exit a || b",
+    "valid": true
+  },
+  {
+    "name": "if-condition-chain",
+    "source": "if (a && b) { c }",
+    "valid": true
+  },
+  {
+    "name": "while-condition-chain",
+    "source": "while (a || b) { c }",
+    "valid": true
+  },
+  {
+    "name": "switch-condition-chain",
+    "source": "switch (a && b) { default {} }",
+    "valid": true
+  },
+  {
+    "name": "for-header-chain",
+    "source": "for ($i=0; a && b; $i++) { c }",
+    "valid": true
+  },
+  {
+    "name": "if-body-chain",
+    "source": "if ($x) { a | b && c | d & e }",
+    "valid": true
+  },
+  {
+    "name": "chain-missing-rhs",
+    "source": "a &&",
+    "valid": false
+  },
+  {
+    "name": "chain-missing-rhs-newline",
+    "source": "a ||\n",
+    "valid": false
+  },
+  {
+    "name": "pipe-missing-rhs",
+    "source": "a |",
+    "valid": false
+  },
+  {
+    "name": "chain-pipe-missing-rhs",
+    "source": "a && b |",
+    "valid": false
+  },
+  {
+    "name": "chain-double-operator-invalid",
+    "source": "a && || b",
+    "valid": false
+  },
+  {
+    "name": "chain-no-left-invalid",
+    "source": "&& b",
+    "valid": false
+  },
+  {
+    "name": "chain-rhs-missing-invocation",
+    "source": "a && &",
+    "valid": false
+  },
+  {
+    "name": "chain-rhs-missing-dot",
+    "source": "a && .",
+    "valid": false
+  },
+  {
+    "name": "chain-rhs-scriptblock-expression",
+    "source": "a && { b }",
+    "valid": true
+  },
+  {
+    "name": "chain-rhs-contextual-if-command",
+    "source": "a && if ($x) { b }",
+    "valid": true
+  },
+  {
+    "name": "chain-rhs-incomplete-paren",
+    "source": "a && (b ||",
+    "valid": false
+  },
+  {
+    "name": "chain-rhs-incomplete-string",
+    "source": "a && \"b",
+    "valid": false
+  },
+  {
+    "name": "chain-after-semicolon-invalid",
+    "source": "a; && b",
+    "valid": false
+  },
+  {
+    "name": "pipe-before-chain-invalid",
+    "source": "a | && b",
+    "valid": false
+  },
+  {
+    "name": "redirection-missing-destination",
+    "source": "a && b >",
+    "valid": false
+  },
+  {
+    "name": "chain-open-condition",
+    "source": "if (a &&",
+    "valid": false
+  },
+  {
+    "name": "background-then-pipe-invalid",
+    "source": "a & | b",
+    "valid": false
+  },
+  {
+    "name": "chain-rhs-call-operator",
+    "source": "a && b && & c",
+    "valid": true
+  },
+  {
+    "name": "assignment-background-follow-command",
+    "source": "$x=a&b",
+    "valid": true
+  },
+  {
+    "name": "assignment-background-chain-follow-command",
+    "source": "$x=a&&b&c",
+    "valid": true
+  },
+  {
+    "name": "return-background-follow-command",
+    "source": "return a&b",
+    "valid": true
+  },
+  {
+    "name": "throw-background-chain-follow-command",
+    "source": "throw a&&b&c",
+    "valid": true
+  },
+  {
+    "name": "assignment-nested-background-follow-command",
+    "source": "$x=$y=a&&b&c",
+    "valid": true
+  },
+  {
+    "name": "assignment-rhs-pipe-chain",
+    "source": "$x = a | b && c",
+    "valid": true
+  },
+  {
+    "name": "compound-assignment-rhs-chain",
+    "source": "$x += a && b",
+    "valid": true
+  },
+  {
+    "name": "chain-rhs-assignment-invalid",
+    "source": "a && $x = 1",
+    "valid": false
+  },
+  {
+    "name": "or-rhs-compound-assignment-invalid",
+    "source": "a || $x += b",
+    "valid": false
+  },
+  {
+    "name": "chain-rhs-assignment-followed-chain-invalid",
+    "source": "a && $x = a && b",
+    "valid": false
+  },
+  {
+    "name": "control-assignment-followed-pipe-invalid",
+    "source": "$x = if($true){a}else{b} | c",
+    "valid": false
+  },
+  {
+    "name": "control-assignment-followed-chain-invalid",
+    "source": "$x = if($true){a}else{b} && c",
+    "valid": false
+  },
+  {
+    "name": "parenthesized-control-assignment-pipe",
+    "source": "($x = if($true){a}else{b}) | c",
+    "valid": true
+  },
+  {
+    "name": "assignment-parenthesized-contextual-if-command",
+    "source": "$x = (if($true){a}else{b}) | c",
+    "valid": true
+  },
+  {
+    "name": "assignment-subexpression-if-pipe",
+    "source": "$x = $(if($true){a}else{b}) | c",
+    "valid": true
+  },
+  {
+    "name": "assignment-rhs-return-chain",
+    "source": "$x = return a && b",
+    "valid": true
+  },
+  {
+    "name": "assignment-rhs-return-pipe",
+    "source": "$x = return a | b",
+    "valid": true
+  },
+  {
+    "name": "return-assignment-chain",
+    "source": "return $x = a && b",
+    "valid": true
+  },
+  {
+    "name": "nested-assignment-rhs-chain",
+    "source": "$x = $y = a && b",
+    "valid": true
+  },
+  {
+    "name": "chain-rhs-parenthesized-assignment",
+    "source": "a && ($x = 1)",
+    "valid": true
+  },
+  {
+    "name": "chain-lhs-parenthesized-assignment-pipe",
+    "source": "($x = a | b) && c",
+    "valid": true
+  },
+  {
+    "name": "nested-parenthesized-chain-left",
+    "source": "(a && b) && c",
+    "valid": true
+  },
+  {
+    "name": "assignment-nested-parenthesized-chain-right",
+    "source": "$x = a && (b || c)",
+    "valid": true
+  },
+  {
+    "name": "chain-rhs-contextual-if-else-command",
+    "source": "a && if($true){b}else{c}",
+    "valid": true
+  },
+  {
+    "name": "chain-rhs-contextual-return-command",
+    "source": "a && return b",
+    "valid": true
+  },
+  {
+    "name": "pipe-tail-assignment-invalid",
+    "source": "a | $x = 1",
+    "valid": false
+  },
+  {
+    "name": "assignment-rhs-background-chain",
+    "source": "$x = a && b &",
+    "valid": true
+  },
+  {
+    "name": "compound-assignment-rhs-background-chain",
+    "source": "$x += a && b &",
+    "valid": true
+  },
+  {
+    "name": "return-background-chain",
+    "source": "return a && b &",
+    "valid": true
+  },
+  {
+    "name": "parenthesized-chain-pipe",
+    "source": "(a && b) | c",
+    "valid": true
+  },
+  {
+    "name": "parenthesized-chain-and-assignment",
+    "source": "(a && b) && ($x = c)",
+    "valid": true
+  },
+  {
+    "name": "assignment-rhs-throw-chain",
+    "source": "$x = throw a && b",
+    "valid": true
+  },
+  {
+    "name": "assignment-rhs-break-label",
+    "source": "$x = break outer",
+    "valid": true
+  },
+  {
+    "name": "assignment-chain-rhs-assignment-invalid",
+    "source": "$x = a && $y = b",
+    "valid": false
+  },
+  {
+    "name": "assignment-rhs-parenthesized-assignment-chain",
+    "source": "$x = ($y = a) && b",
+    "valid": true
+  },
+  {
+    "name": "chain-rhs-subexpression-assignment",
+    "source": "a && $( $x = 1 )",
+    "valid": true
+  }
+]

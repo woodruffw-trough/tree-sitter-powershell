@@ -8,7 +8,7 @@ Write-Output -Path:prefix"$name".txt > out"$suffix".log
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_parameter
@@ -36,7 +36,7 @@ Write-Output pre$x,post$y
 
 (source_file
   (pipeline
-    (command
+    elements: (command
       name: (command_name
         (bare_word))
       (command_argument
@@ -58,25 +58,28 @@ Call arguments preserve parenthesized lists and shorthand script blocks
 
 (source_file
   (pipeline
-    (invocation_expression
-      function: (member_access
-        object: (type_literal
-          (type_name
-            name: (type_identifier)))
-        member: (identifier))
-      arguments: (argument_list
-        (integer_literal)
-        (integer_literal))))
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (type_literal
+            (type_name
+              name: (type_identifier)))
+          member: (identifier))
+        arguments: (argument_list
+          (integer_literal)
+          (integer_literal)))))
   (pipeline
-    (invocation_expression
-      function: (member_access
-        object: (variable)
-        member: (identifier))
-      arguments: (script_block
-        (pipeline
-          (member_access
-            object: (variable)
-            member: (identifier)))))))
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        arguments: (script_block
+          (pipeline
+            elements: (command_expression
+              expression: (member_access
+                object: (variable)
+                member: (identifier)))))))))
 
 ================================================================================
 Empty class and enum declarations expose their body nodes
