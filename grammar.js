@@ -490,8 +490,8 @@ module.exports = grammar({
       field('body', $.statement_block),
     ),
 
-    // Class methods delimit themselves, while properties need a terminator
-    // unless they are the final member before the closing brace.
+    // Class methods delimit themselves and allow only newlines before the next
+    // member. Properties accept semicolons too, or the final closing brace.
     class_definition: $ => seq(
       repeat(seq($.attribute, repeat(NEWLINE))),
       keyword('class'),
@@ -500,11 +500,11 @@ module.exports = grammar({
       optional(seq(':', repeat(NEWLINE), commaSep1($.type_name))),
       repeat(NEWLINE),
       '{',
-      repeat($._terminator),
+      repeat(NEWLINE),
       repeat(
         choice(
           seq($.class_property, repeat1($._terminator)),
-          seq($.class_method, repeat($._terminator)),
+          seq($.class_method, repeat(NEWLINE)),
         ),
       ),
       optional($.class_property),

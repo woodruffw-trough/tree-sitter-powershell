@@ -48,7 +48,8 @@ The matcher accounts for these concrete/semantic representation differences:
 - A class method also creates a synthetic function AST, and some constructors
   create a synthetic `$this` variable with the empty extent `(0, 0)`. Property
   declarations contain a concrete variable name but no variable-expression AST.
-- PowerShell's enum member extent includes an optional terminating semicolon.
+- PowerShell's class property and enum member extents include an optional
+  terminating semicolon; the CST keeps it as a separate delimiter.
   Its parameter-block extent begins at `param`, excluding preceding attributes.
 - A shorthand named attribute argument such as `[Parameter(Mandatory)]` creates
   an implicit true constant at the name's extent. The oracle's

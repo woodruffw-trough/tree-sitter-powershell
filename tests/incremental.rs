@@ -33,7 +33,8 @@ fn fingerprint(node: Node<'_>, output: &mut String) {
     )
     .unwrap();
     let mut cursor = node.walk();
-    for child in node.children(&mut cursor) {
+    for (index, child) in node.children(&mut cursor).enumerate() {
+        write!(output, "{:?}", node.field_name_for_child(index as u32)).unwrap();
         fingerprint(child, output);
     }
     output.push(')');
@@ -90,6 +91,11 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "$x = @\"\n世界 $name $(1 + 2)\n\"@\n",
         "Write-Output \"$($obj.Name):`n$name\"\n",
         "<# multiline\ncomment #>\n$x = 1..3 | ForEach-Object { $_ + 1 }\n",
+        "$items.Where{$_ -gt 0}\n",
+        "& .\\$installScript -Force\n",
+        "[T]::M([string], $value)\n",
+        "[ValidateNotNull()]$x = 1\n",
+        "class C {$x=1;;C(){}M(){}$y=2;}\n",
     ] {
         let mut parser = parser();
         let original = parser.parse(source, None).unwrap();
@@ -103,7 +109,13 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
                 .chars()
                 .next()
                 .map_or(start, |ch| start + ch.len_utf8());
-            for (end, inserted) in [(start, "\n"), (start, "$"), (char_end, "")] {
+            for (end, inserted) in [
+                (start, "\n"),
+                (start, "$"),
+                (start, "`"),
+                (start, "<#comment#>"),
+                (char_end, ""),
+            ] {
                 let edited = format!("{}{}{}", &source[..start], inserted, &source[end..]);
                 let mut old_tree = original.clone();
                 old_tree.edit(&InputEdit {

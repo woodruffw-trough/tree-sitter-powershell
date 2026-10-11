@@ -1,0 +1,49 @@
+================================================================================
+Adjacent class methods and properties preserve their distinct delimiters
+================================================================================
+class C {$x=1;;C(){}M(){}$y=2;}
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    name: (identifier)
+    (class_property
+      name: (variable)
+      value: (integer_literal))
+    (class_method
+      name: (identifier)
+      (parameter_list)
+      body: (statement_block))
+    (class_method
+      name: (identifier)
+      (parameter_list)
+      body: (statement_block))
+    (class_property
+      name: (variable)
+      value: (integer_literal))))
+
+================================================================================
+Class methods permit newline separators
+================================================================================
+class C {
+  C(){}
+  [int] M(){return 1}
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    name: (identifier)
+    (class_method
+      name: (identifier)
+      (parameter_list)
+      body: (statement_block))
+    (class_method
+      (type_literal
+        (type_name name: (type_identifier)))
+      name: (identifier)
+      (parameter_list)
+      body: (statement_block
+        (flow_control_statement
+          value: (pipeline
+            (integer_literal)))))))

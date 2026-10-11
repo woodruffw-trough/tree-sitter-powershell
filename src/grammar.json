@@ -3074,8 +3074,8 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "_terminator"
+            "type": "PATTERN",
+            "value": "\\r\\n|\\r|\\n"
           }
         },
         {
@@ -3109,8 +3109,8 @@
                   {
                     "type": "REPEAT",
                     "content": {
-                      "type": "SYMBOL",
-                      "name": "_terminator"
+                      "type": "PATTERN",
+                      "value": "\\r\\n|\\r|\\n"
                     }
                   }
                 ]

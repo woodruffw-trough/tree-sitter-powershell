@@ -1,0 +1,132 @@
+[
+  {
+    "name": "constructor followed by semicolon",
+    "source": "class C { C(){}; }",
+    "valid": false
+  },
+  {
+    "name": "constructor followed by semicolon and method",
+    "source": "class C { C(){}; [int] M(){return 1} }",
+    "valid": false
+  },
+  {
+    "name": "method followed by semicolon and constructor",
+    "source": "class C { [int] M(){return 1}; C(){} }",
+    "valid": false
+  },
+  {
+    "name": "constructor and method separated by newline",
+    "source": "class C { C(){}\n [int] M(){return 1} }",
+    "valid": true
+  },
+  {
+    "name": "directly adjacent constructor and method",
+    "source": "class C { C(){} [int] M(){return 1} }",
+    "valid": true
+  },
+  {
+    "name": "method newline then semicolon",
+    "source": "class C { C(){}\n; }",
+    "valid": false
+  },
+  {
+    "name": "empty class leading semicolon",
+    "source": "class C {;}",
+    "valid": false
+  },
+  {
+    "name": "empty class leading double semicolon",
+    "source": "class C {;;}",
+    "valid": false
+  },
+  {
+    "name": "leading semicolon before property",
+    "source": "class C {;$x}",
+    "valid": false
+  },
+  {
+    "name": "properties separated by double semicolon",
+    "source": "class C {$x=1;;$y=2;}",
+    "valid": true
+  },
+  {
+    "name": "default properties require separator",
+    "source": "class C {$x=1 $y=2}",
+    "valid": false
+  },
+  {
+    "name": "default properties separated by newline",
+    "source": "class C {$x=1\n$y=2}",
+    "valid": true
+  },
+  {
+    "name": "property semicolon before constructor",
+    "source": "class C {$x=1;C(){}}",
+    "valid": true
+  },
+  {
+    "name": "constructor directly before property",
+    "source": "class C {C(){}$x=1;}",
+    "valid": true
+  },
+  {
+    "name": "last property may precede closing brace",
+    "source": "class C {$x=1}",
+    "valid": true
+  },
+  {
+    "name": "method block comment before next method",
+    "source": "class C {C(){}<#method#>M(){}}",
+    "valid": true
+  },
+  {
+    "name": "uninitialized properties require separator",
+    "source": "class C { $x $y }",
+    "valid": false
+  },
+  {
+    "name": "typed properties require separator",
+    "source": "class C { [int]$x [int]$y }",
+    "valid": false
+  },
+  {
+    "name": "uninitialized property before method requires separator",
+    "source": "class C { $x C(){} }",
+    "valid": false
+  },
+  {
+    "name": "block comment before property semicolon",
+    "source": "class C {$x=1 <#comment#> ; $y=2}",
+    "valid": true
+  },
+  {
+    "name": "newline after block comment before property semicolon",
+    "source": "class C {$x=1<#comment#>\n; $y=2}",
+    "valid": true
+  },
+  {
+    "name": "line comment before newline property separator",
+    "source": "class C {$x=1 #comment\n; $y=2}",
+    "valid": true
+  },
+  {
+    "name": "uninitialized property comment before semicolon",
+    "source": "class C {$x <#comment#>; $y}",
+    "valid": true
+  },
+  {
+    "name": "multiline block comment before property semicolon",
+    "source": "class C {$x=1 <#line\ncomment#>; $y=2}",
+    "valid": true
+  },
+  {
+    "name": "property continuation before semicolon",
+    "source": "class C {$x=1 `\n; $y=2}",
+    "valid": true
+  },
+  {
+    "name": "property CRLF continuation before semicolon",
+    "source": "class C {$x=1 `\r\n; $y=2}",
+    "valid": true
+  }
+]

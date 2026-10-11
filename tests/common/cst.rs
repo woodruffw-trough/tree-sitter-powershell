@@ -32,13 +32,26 @@ impl<'a> Source<'a> {
 
     fn record(&self, node: Node<'_>) -> Value {
         let (start, mut end) = self.extent(node);
-        if node.kind() == "enum_member" {
-            // PowerShell includes the optional semicolon in an enum member's
-            // declaration extent; the CST keeps it as a separate terminator.
-            let suffix = &self.text[node.end_byte()..];
-            let whitespace = suffix.len() - suffix.trim_start_matches([' ', '\t']).len();
-            if suffix[whitespace..].starts_with(';') {
-                end = self.offsets[node.end_byte() + whitespace + 1];
+        if matches!(node.kind(), "class_property" | "enum_member") {
+            // PowerShell includes an immediately following semicolon in a
+            // property declaration; the CST keeps that token as a delimiter.
+            // Concrete siblings preserve comments and distinguish a newline
+            // before a semicolon, which ends the declaration without the ';'.
+            let mut next = node.next_sibling();
+            let mut previous_end = node.end_byte();
+            while let Some(sibling) = next {
+                if self.text[previous_end..sibling.start_byte()].contains(['\r', '\n']) {
+                    break;
+                }
+                if sibling.is_extra() {
+                    previous_end = sibling.end_byte();
+                    next = sibling.next_sibling();
+                } else {
+                    if sibling.kind() == ";" {
+                        end = self.offsets[sibling.end_byte()];
+                    }
+                    break;
+                }
             }
         }
         json!({"start": start, "end": end})
