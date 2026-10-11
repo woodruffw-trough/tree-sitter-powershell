@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <string.h>
 
-enum TokenType { SINGLE_QUOTED_HERE_STRING, EXPANDABLE_HERE_STRING_START, COMMAND_NAME, BARE_WORD, INTEGER_LITERAL, REAL_LITERAL, HERE_STRING_CONTENT, HERE_STRING_END, EMPTY_EXPANDABLE_HERE_STRING, STRING_ESCAPE, VARIABLE, ADJACENT_VARIABLE, LITERAL_DOLLAR, ARGUMENT_END };
+enum TokenType { SINGLE_QUOTED_HERE_STRING, EXPANDABLE_HERE_STRING_START, COMMAND_NAME, BARE_WORD, INTEGER_LITERAL, REAL_LITERAL, HERE_STRING_CONTENT, HERE_STRING_END, EMPTY_EXPANDABLE_HERE_STRING, STRING_ESCAPE, VARIABLE, ADJACENT_VARIABLE, LITERAL_DOLLAR, ARGUMENT_END, FLOW_LABEL, SWITCH_DEFAULT, LABEL_START, EXPRESSION_ARGUMENT_END, MEMBER_ARGUMENT_END, PARAMETER_NAME, FUNCTION_NAME, COMMENT, METHOD_INVOCATION_CONTEXT, LINE_CONTINUATION, POSTFIX_CONTEXT, ARGUMENT_SEPARATOR };
 
 void *tree_sitter_powershell_external_scanner_create(void) { return NULL; }
 void tree_sitter_powershell_external_scanner_destroy(void *payload) { (void)payload; }
@@ -16,11 +16,16 @@ void tree_sitter_powershell_external_scanner_deserialize(void *payload, const ch
   (void)payload; (void)buffer; (void)length;
 }
 
-static bool horizontal(int32_t c) { return c == ' ' || c == '\t' || c == '\f' || c == '\v' || c == 0xfeff; }
+static bool horizontal(int32_t c) {
+  return c == ' ' || c == '\t' || c == '\f' || c == '\v' || c == 0x85 ||
+    c == 0xa0 || c == 0x1680 || (c >= 0x2000 && c <= 0x200a) ||
+    c == 0x2028 || c == 0x2029 || c == 0x202f || c == 0x205f ||
+    c == 0x3000;
+}
 static bool ascii_digit(int32_t c) { return c >= '0' && c <= '9'; }
 static int32_t ascii_lower(int32_t c) { return c >= 'A' && c <= 'Z' ? c + 32 : c; }
 static bool ascii_hex(int32_t c) { c = ascii_lower(c); return ascii_digit(c) || (c >= 'a' && c <= 'f'); }
-static bool quote(int32_t c) { return c == '\'' || c == '"' || (c >= 0x2018 && c <= 0x201f); }
+static bool quote(int32_t c) { return c == '\'' || c == '"' || (c >= 0x2018 && c <= 0x201e); }
 static bool generic_end(int32_t c) {
   return c == 0 || horizontal(c) || c == '\r' || c == '\n' || c == ';' || c == '|' || c == '&' || c == '(' || c == ')' || c == '{' || c == '}' || c == ',' || c == '<' || c == '>' || quote(c);
 }
@@ -90,6 +95,39 @@ static bool here_header_space(int32_t c) {
     c == 0x2028 || c == 0x2029 || c == 0x202f || c == 0x205f || c == 0x3000;
 }
 static bool newline(int32_t c) { return c == '\n' || c == '\r'; }
+// Comments remain named extras. The method context is a lookahead sentinel
+// that the grammar never needs to consume: a block comment may precede member
+// access, but PowerShell forbids one between a method name and its opening '('.
+static bool scan_comment(TSLexer *lexer, const bool *valid) {
+  if (lexer->lookahead == '#') {
+    do lexer->advance(lexer, false);
+    while (!lexer->eof(lexer) && !newline(lexer->lookahead));
+    lexer->mark_end(lexer);
+    lexer->result_symbol = COMMENT;
+    return true;
+  }
+  if (lexer->lookahead != '<') return false;
+  lexer->advance(lexer, false);
+  if (lexer->lookahead != '#') return false;
+  lexer->advance(lexer, false);
+  while (!lexer->eof(lexer)) {
+    if (lexer->lookahead == '#') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '>') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        if (valid[METHOD_INVOCATION_CONTEXT]) {
+          while (horizontal(lexer->lookahead)) lexer->advance(lexer, false);
+          if (lexer->lookahead == '(') return false;
+        }
+        lexer->result_symbol = COMMENT;
+        return true;
+      }
+    } else lexer->advance(lexer, false);
+  }
+  return false;
+}
+
 static void consume_newline(TSLexer *lexer) {
   bool carriage_return = lexer->lookahead == '\r';
   lexer->advance(lexer, false);
@@ -145,6 +183,26 @@ static bool scan_here_string(TSLexer *lexer, const bool *valid) {
   return false;
 }
 
+// The caller consumed the backtick. Named external extras cause tree-sitter
+// to rerun the external lexer after a continuation, which is necessary for
+// argument-mode words. A continuation cannot separate a postfix operator.
+static bool scan_line_continuation_after_tick(TSLexer *lexer, const bool *valid) {
+  if (!valid[LINE_CONTINUATION] || !newline(lexer->lookahead)) return false;
+  consume_newline(lexer);
+  lexer->mark_end(lexer);
+  if (valid[POSTFIX_CONTEXT] || valid[METHOD_INVOCATION_CONTEXT]) {
+    while (horizontal(lexer->lookahead)) lexer->advance(lexer, false);
+    int32_t c = lexer->lookahead;
+    if (c == '.' || c == '[' || c == '(') return false;
+    if (c == '?') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '.' || lexer->lookahead == '[') return false;
+    }
+  }
+  lexer->result_symbol = LINE_CONTINUATION;
+  return true;
+}
+
 static bool variable_character(int32_t c) {
   if (c == '_' || c == '?') return true;
   if (c < 0 || c > 0xffff) return false;
@@ -158,16 +216,77 @@ static bool variable_character(int32_t c) {
   return false;
 }
 
+// .NET's identifier start uses letters and underscore, while subsequent
+// characters may also be decimal digits. Keep the BMP digit blocks distinct
+// from the shared letter-or-digit table used for variables.
+static bool decimal_character(int32_t c) {
+  static const uint16_t starts[] = {
+    0x0030, 0x0660, 0x06f0, 0x07c0, 0x0966, 0x09e6, 0x0a66, 0x0ae6,
+    0x0b66, 0x0be6, 0x0c66, 0x0ce6, 0x0d66, 0x0de6, 0x0e50, 0x0ed0,
+    0x0f20, 0x1040, 0x1090, 0x17e0, 0x1810, 0x1946, 0x19d0, 0x1a80,
+    0x1a90, 0x1b50, 0x1bb0, 0x1c40, 0x1c50, 0xa620, 0xa8d0, 0xa900,
+    0xa9d0, 0xa9f0, 0xaa50, 0xabf0, 0xff10,
+  };
+  for (unsigned i = 0; i < sizeof(starts) / sizeof(starts[0]); ++i) {
+    if (c >= starts[i] && c < starts[i] + 10) return true;
+  }
+  return false;
+}
+
+static bool scan_flow_label(TSLexer *lexer) {
+  int32_t c = lexer->lookahead;
+  if (!variable_character(c) || c == '?' || decimal_character(c)) return false;
+  do {
+    lexer->advance(lexer, false);
+    c = lexer->lookahead;
+  } while (variable_character(c) && c != '?');
+  lexer->mark_end(lexer);
+  lexer->result_symbol = FLOW_LABEL;
+  return true;
+}
+
+static bool scan_label_start(TSLexer *lexer) {
+  lexer->mark_end(lexer);
+  lexer->advance(lexer, false); // Colon, followed by an entire simple name.
+  int32_t c = lexer->lookahead;
+  if (!variable_character(c) || c == '?' || decimal_character(c)) return false;
+  do {
+    lexer->advance(lexer, false);
+    c = lexer->lookahead;
+  } while (variable_character(c) && c != '?');
+  if (!generic_end(c)) return false;
+  lexer->result_symbol = LABEL_START;
+  return true;
+}
+
 static bool variable_start(int32_t c) {
   return variable_character(c) || c == '{' || c == '$' || c == '^' || c == ':';
 }
 
-static bool variable_escape(TSLexer *lexer, int32_t *decoded) {
-  lexer->advance(lexer, false); // Backtick.
+// Called immediately after a backtick. This mirrors tokenizer.cs
+// Backtick/ScanUnicodeEscape: lowercase `u requires 1..6 hexadecimal digits
+// and a value <= U+10FFFF.
+static bool scan_backtick_escape_after_tick(TSLexer *lexer, int32_t *decoded, bool *physical_newline) {
+  if (physical_newline) *physical_newline = false;
   if (lexer->eof(lexer)) return false;
   int32_t c = lexer->lookahead;
+  if (physical_newline) *physical_newline = c == '\r' || c == '\n';
   lexer->advance(lexer, false);
-  if (c != 'u') { *decoded = c; return true; }
+  if (c != 'u') {
+    switch (c) {
+      case '0': c = 0; break;
+      case 'a': c = '\a'; break;
+      case 'b': c = '\b'; break;
+      case 'e': c = 0x1b; break;
+      case 'f': c = '\f'; break;
+      case 'n': c = '\n'; break;
+      case 'r': c = '\r'; break;
+      case 't': c = '\t'; break;
+      case 'v': c = '\v'; break;
+    }
+    *decoded = c;
+    return true;
+  }
   if (lexer->lookahead != '{') return false;
   lexer->advance(lexer, false);
   uint32_t value = 0;
@@ -182,6 +301,12 @@ static bool variable_escape(TSLexer *lexer, int32_t *decoded) {
   lexer->advance(lexer, false);
   *decoded = (int32_t)value;
   return true;
+}
+
+static bool scan_backtick_escape(TSLexer *lexer, int32_t *decoded, bool *physical_newline) {
+  if (lexer->lookahead != '`') return false;
+  lexer->advance(lexer, false);
+  return scan_backtick_escape_after_tick(lexer, decoded, physical_newline);
 }
 
 // The caller has consumed '$'. Scope/drive qualification requires a name
@@ -199,7 +324,7 @@ static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum T
       int32_t c = lexer->lookahead;
       if (c == '{') return false;
       if (c == '`') {
-        if (!variable_escape(lexer, &c)) return false;
+        if (!scan_backtick_escape(lexer, &c, NULL)) return false;
       } else lexer->advance(lexer, false);
       ++length;
       if (c == ':' && !qualified) { qualified = true; colon = length; }
@@ -243,13 +368,75 @@ static bool scan_string_dollar(TSLexer *lexer, const bool *valid) {
   return true;
 }
 
+// Function names are literal generic tokens. Quoted pieces and escaped
+// characters can occur after an unquoted prefix, and embedded dollar
+// subexpressions remain part of the name rather than evaluated children.
+static bool scan_function_name(TSLexer *lexer) {
+  int32_t c = lexer->lookahead;
+  if (generic_end(c) || c == '$' || c == '@' || c == '#') return false;
+  bool previous_dollar = false;
+  while (!lexer->eof(lexer)) {
+    c = lexer->lookahead;
+    if (c == '`') {
+      int32_t decoded;
+      bool physical_newline;
+      if (!scan_backtick_escape(lexer, &decoded, &physical_newline)) {
+        if (!lexer->eof(lexer)) return false;
+      }
+      previous_dollar = false;
+      continue;
+    }
+    if (single_quote(c) || double_quote(c)) {
+      bool single = single_quote(c);
+      lexer->advance(lexer, false);
+      bool closed = false;
+      while (!lexer->eof(lexer)) {
+        c = lexer->lookahead;
+        if (single ? single_quote(c) : double_quote(c)) {
+          lexer->advance(lexer, false);
+          if (single ? single_quote(lexer->lookahead) : double_quote(lexer->lookahead)) {
+            lexer->advance(lexer, false);
+            continue;
+          }
+          closed = true;
+          break;
+        }
+        if (!single && c == '`') {
+          int32_t decoded;
+          if (!scan_backtick_escape(lexer, &decoded, NULL)) return false;
+        } else lexer->advance(lexer, false);
+      }
+      if (!closed) return false;
+      previous_dollar = false;
+      continue;
+    }
+    if (c == '(' && previous_dollar) {
+      unsigned depth = 0;
+      do {
+        c = lexer->lookahead;
+        if (c == '(') ++depth;
+        else if (c == ')') --depth;
+        lexer->advance(lexer, false);
+      } while (depth != 0 && !lexer->eof(lexer));
+      if (depth != 0) return false;
+      previous_dollar = false;
+      continue;
+    }
+    if (generic_end(c) && c != '<' && c != '>') break;
+    previous_dollar = c == '$';
+    lexer->advance(lexer, false);
+  }
+  lexer->mark_end(lexer);
+  lexer->result_symbol = FUNCTION_NAME;
+  return true;
+}
+
 static bool scan_string_escape(TSLexer *lexer) {
   if (lexer->lookahead != '`') return false;
-  lexer->advance(lexer, false);
-  if (lexer->eof(lexer)) return false;
   // PowerShell escapes one character. For a CRLF pair this consumes only CR;
   // the remaining LF may start a here-string footer.
-  lexer->advance(lexer, false);
+  int32_t decoded;
+  if (!scan_backtick_escape(lexer, &decoded, NULL)) return false;
   lexer->mark_end(lexer);
   lexer->result_symbol = STRING_ESCAPE;
   return true;
@@ -307,7 +494,64 @@ static bool scan_here_string_content(TSLexer *lexer, const bool *valid) {
 // PowerShell's tokenizer switches to argument mode after the command name.
 // This token preserves punctuation in arguments (2+2 is text, not arithmetic)
 // while stopping at interpolation and quoted pieces, represented by grammar rules.
-static bool scan_generic(TSLexer *lexer, const bool *valid, bool immediate) {
+typedef struct {
+  char *data;
+  size_t length;
+  size_t capacity;
+  char inline_data[128];
+} GenericWord;
+
+static bool generic_word_append(GenericWord *word, int32_t c) {
+  if (word->length + 1 >= word->capacity) {
+    if (word->capacity > SIZE_MAX / 2) return false;
+    size_t capacity = word->capacity * 2;
+    char *data;
+    if (word->data == word->inline_data) {
+      data = malloc(capacity);
+      if (data != NULL) memcpy(data, word->data, word->length + 1);
+    } else data = realloc(word->data, capacity);
+    if (data == NULL) return false;
+    word->data = data;
+    word->capacity = capacity;
+  }
+  // Classification only needs folded ASCII. Keep non-ASCII and cooked NUL
+  // visibly nonnumeric without inserting an embedded C-string terminator.
+  word->data[word->length++] = c > 0 && c < 128 ? (char)ascii_lower(c) : '?';
+  word->data[word->length] = 0;
+  return true;
+}
+
+static bool generic_numeric_pending(GenericWord *word) {
+  size_t n = word->length;
+  if ((n == 1 && word->data[0] == '.') ||
+      (n == 2 && word->data[0] == '0' && word->data[1] == 'b')) return true;
+  size_t pending = 0;
+  char last = word->data[n - 1];
+  if (last == 'e' || strchr("kmgtp", last) != NULL) pending = 1;
+  else if (n > 1 && (last == '+' || last == '-') && word->data[n - 2] == 'e') pending = 2;
+  if (pending == 0 || pending >= n) return false;
+  char saved = word->data[n - pending];
+  word->data[n - pending] = 0;
+  bool possible = numeric_word(word->data);
+  word->data[n - pending] = saved;
+  return possible;
+}
+
+static bool generic_numeric_boundary(int32_t c) {
+  return c > 0 && c < 128 && strchr("+-*/%.<>", (char)c) != NULL;
+}
+
+static bool generic_dash(int32_t c) {
+  return c == '-' || c == 0x2013 || c == 0x2014 || c == 0x2015;
+}
+
+static bool generic_unary_operator(const char *word) {
+  return strcmp(word, "-") == 0 || strcmp(word, "--") == 0 ||
+    strcmp(word, "-not") == 0 || strcmp(word, "-bnot") == 0 ||
+    strcmp(word, "-split") == 0 || strcmp(word, "-join") == 0;
+}
+
+static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate, GenericWord *buffer) {
   bool name = valid[COMMAND_NAME] && !immediate;
   enum TokenType kind = name ? COMMAND_NAME : BARE_WORD;
   int32_t first = lexer->lookahead;
@@ -320,16 +564,45 @@ static bool scan_generic(TSLexer *lexer, const bool *valid, bool immediate) {
     if (lexer->lookahead == '(') return false;
     dollar_prefix = true;
   }
-  if (!immediate && (first == '-' || first == 0x2013 || first == 0x2014 || first == 0x2015)) return false;
-  char word[512]; unsigned n = 0; bool escape = false;
-  if (dollar_prefix) word[n++] = '$';
-  word[n] = 0;
+  bool leading_dash = !immediate && generic_dash(first);
+  if (leading_dash) {
+    if (!generic_word_append(buffer, '-')) return false;
+    lexer->advance(lexer, false);
+    int32_t next = lexer->lookahead;
+    if (name && !((next >= 'a' && next <= 'z') || (next >= 'A' && next <= 'Z') ||
+                  decimal_character(next) || next == '.')) return false;
+    if (valid[PARAMETER_NAME] && variable_character(next) && !decimal_character(next)) {
+      // Parameter names are raw text: dollars, backticks, and comment markers
+      // are literal. A quote changes the whole argument to a generic token.
+      while (!lexer->eof(lexer)) {
+        int32_t c = lexer->lookahead;
+        if (quote(c)) {
+          lexer->mark_end(lexer); lexer->result_symbol = BARE_WORD;
+          return valid[BARE_WORD];
+        }
+        if (c == '.' || c == '[' || c == ':' || generic_end(c)) break;
+        if (!generic_word_append(buffer, c)) return false;
+        lexer->advance(lexer, false);
+      }
+      if (buffer->length <= 1) return false;
+      lexer->mark_end(lexer); lexer->result_symbol = PARAMETER_NAME;
+      return true;
+    }
+  }
+  if (dollar_prefix && !generic_word_append(buffer, '$')) return false;
+  char *word = buffer->data;
+  size_t n = buffer->length;
+  bool any_escape = false;
   enum TokenType numeric_kind = INTEGER_LITERAL;
-  bool numeric_start = ascii_digit(first) || first == '.';
-  unsigned numeric_prefix = 0;
-  bool continuation = false;
+  bool numeric_start = ascii_digit(first) || first == '.' ||
+    (leading_dash && (ascii_digit(lexer->lookahead) || lexer->lookahead == '.'));
+  bool numeric_live = numeric_start;
+  size_t numeric_prefix = 0;
   while (!lexer->eof(lexer)) {
     int32_t c = lexer->lookahead;
+    if (name && leading_dash && n > 1 && !any_escape &&
+        generic_unary_operator(word) &&
+        !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) return false;
     if (name && n == 1 && word[0] == '.' && c == '$') return false;
     if (name && c == '(' && n > 0 && word[n - 1] == '$') {
       unsigned depth = 0;
@@ -337,61 +610,107 @@ static bool scan_generic(TSLexer *lexer, const bool *valid, bool immediate) {
         c = lexer->lookahead;
         if (c == '(') ++depth;
         else if (c == ')') --depth;
-        if (n + 1 < sizeof(word)) word[n++] = c < 128 ? (char)ascii_lower(c) : '?';
+        if (!generic_word_append(buffer, c)) return false;
+        word = buffer->data; n = buffer->length;
         lexer->advance(lexer, false);
       } while (depth > 0 && !lexer->eof(lexer));
-      word[n] = 0;
       continue;
     }
-    if (!escape && ((generic_end(c) && c != '<' && c != '>') || (!name && c == '$'))) break;
+    if ((generic_end(c) && c != '<' && c != '>') || (!name && c == '$')) break;
     if (c == '<' || c == '>') {
-      if (name && n > 0 && numeric_word(word) && c == '>') {
+      enum TokenType candidate_kind = numeric_kind;
+      bool numeric = !any_escape && numeric_live && numeric_token(word, &candidate_kind);
+      if (name && n > 0 && numeric && c == '>') {
+        numeric_kind = candidate_kind;
+        lexer->mark_end(lexer);
         lexer->advance(lexer, false);
         if (lexer->lookahead != '&') {
           lexer->result_symbol = numeric_kind;
           return valid[numeric_kind];
         }
-        if (n + 2 < sizeof(word)) { word[n++] = '>'; word[n++] = '&'; }
+        if (!generic_word_append(buffer, '>') || !generic_word_append(buffer, '&')) return false;
+        word = buffer->data; n = buffer->length;
         lexer->advance(lexer, false);
         numeric_start = false;
+        numeric_live = false;
         numeric_prefix = 0;
-        word[n] = 0;
         continue;
       }
-      if (n == 0 || numeric_word(word) || word[0] == '*') break;
+      if (n == 0 || numeric || word[0] == '*') break;
     }
-    if (c == '`' && !escape) {
-      lexer->mark_end(lexer); lexer->advance(lexer, false);
-      if (lexer->lookahead == '\r' || lexer->lookahead == '\n') { continuation = true; break; }
-      escape = true; continue;
+    if (c == '`') {
+      lexer->advance(lexer, false);
+      if (lexer->eof(lexer)) {
+        // A trailing backtick belongs to a nonempty generic token; a lone
+        // backtick is incomplete input.
+        if (n == 0 || !generic_word_append(buffer, '`')) return false;
+        word = buffer->data; n = buffer->length;
+        any_escape = true;
+        break;
+      }
+      bool physical_newline = false;
+      if (n == 0 && newline(lexer->lookahead)) return scan_line_continuation_after_tick(lexer, valid);
+      if (!scan_backtick_escape_after_tick(lexer, &c, &physical_newline)) return false;
+      any_escape = true;
+      numeric_live = false;
+      // Backtick escapes one physical character. For CRLF only CR is joined;
+      // the LF remains a statement terminator. Cooked `n is token content.
+      if (physical_newline) continue;
+    } else {
+      lexer->advance(lexer, false);
     }
-    if (n + 1 < sizeof(word)) word[n++] = c < 128 ? (char)tolower((unsigned char)c) : '?';
-    lexer->advance(lexer, false); escape = false;
-    word[n] = 0;
-    if (numeric_start && !(c == '.' && lexer->lookahead == '.') && numeric_token(word, &numeric_kind)) {
-      numeric_prefix = n;
-      lexer->mark_end(lexer);
+    if (!generic_word_append(buffer, c)) return false;
+    word = buffer->data; n = buffer->length;
+    if (numeric_live && !(c == '.' && lexer->lookahead == '.') &&
+        (generic_numeric_boundary(c) || generic_numeric_boundary(lexer->lookahead))) {
+      // Probe only at boundaries where a number may end. Once a prefix cannot
+      // become numeric, stop probing: large malformed words stay linear too.
+      enum TokenType candidate_kind = numeric_kind;
+      if (numeric_token(word, &candidate_kind)) {
+        numeric_kind = candidate_kind;
+        numeric_prefix = n;
+        lexer->mark_end(lexer);
+      } else numeric_live = generic_numeric_pending(buffer);
     }
   }
   if (n == 0) return false;
-  word[n] = 0;
   if (word[0] == '*' && (lexer->lookahead == '>' || lexer->lookahead == '<')) return false;
+  if (!immediate && !any_escape &&
+      (strcmp(word, "--%") == 0 ||
+       (valid[PARAMETER_NAME] && strcmp(word, "--") == 0))) return false;
+  if (!any_escape && valid[SWITCH_DEFAULT] && strcmp(word, "default") == 0) {
+    lexer->mark_end(lexer); lexer->result_symbol = SWITCH_DEFAULT; return true;
+  }
   if (!immediate) {
-    if (numeric_word(word)) {
+    enum TokenType full_kind = numeric_kind;
+    if (!any_escape && numeric_token(word, &full_kind)) {
+      // Signed numbers retain the grammar's unary-expression structure.
+      if (leading_dash) return false;
       if (valid[BARE_WORD] && (lexer->lookahead == '>' || lexer->lookahead == '<')) return false;
-      if (!valid[numeric_kind]) return false;
-      lexer->mark_end(lexer); lexer->result_symbol = numeric_kind; return true;
+      if (!valid[full_kind]) return false;
+      lexer->mark_end(lexer); lexer->result_symbol = full_kind; return true;
     }
-    if (name && (reserved(word) || strcmp(word, ".") == 0)) return false;
-    if (name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
+    if (name && !any_escape && (reserved(word) || strcmp(word, ".") == 0 ||
+                               generic_unary_operator(word))) return false;
+    if (name && !any_escape && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
         strchr("+-*/%.", word[numeric_prefix]) != NULL) {
+      if (leading_dash) return false;
       if (!valid[numeric_kind]) return false;
       lexer->result_symbol = numeric_kind; return true;
     }
   }
-  if (!continuation) lexer->mark_end(lexer);
+  lexer->mark_end(lexer);
   lexer->result_symbol = kind;
   return true;
+}
+
+static bool scan_generic(TSLexer *lexer, const bool *valid, bool immediate) {
+  GenericWord word = {0};
+  word.data = word.inline_data;
+  word.capacity = sizeof(word.inline_data);
+  bool result = scan_generic_word(lexer, valid, immediate, &word);
+  if (word.data != word.inline_data) free(word.data);
+  return result;
 }
 
 static bool scan_number(TSLexer *lexer, const bool *valid) {
@@ -456,6 +775,19 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     return scan_here_string_content(lexer, valid);
   }
   if (valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START]) return false;
+  if ((valid[MEMBER_ARGUMENT_END] ||
+       (valid[EXPRESSION_ARGUMENT_END] && !valid[ARGUMENT_END])) &&
+      !valid[HERE_STRING_CONTENT]) {
+    lexer->mark_end(lexer);
+    int32_t c = lexer->lookahead;
+    if (c == '.' || c == '[' || (valid[MEMBER_ARGUMENT_END] && c == '(')) return false;
+    if (c == '?') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '.' || lexer->lookahead == '[') return false;
+    }
+    lexer->result_symbol = valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END : EXPRESSION_ARGUMENT_END;
+    return true;
+  }
   if (valid[ARGUMENT_END] && !valid[HERE_STRING_CONTENT]) {
     lexer->mark_end(lexer);
     if (generic_end(lexer->lookahead) && !quote(lexer->lookahead)) {
@@ -464,10 +796,6 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     }
     if (lexer->lookahead == '`') {
       lexer->advance(lexer, false);
-      if (newline(lexer->lookahead)) {
-        lexer->result_symbol = ARGUMENT_END;
-        return true;
-      }
       return false;
     }
     if (lexer->lookahead == ':') {
@@ -491,6 +819,22 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
   // over those tokens merely because the external scanner runs first.
   if (valid[ARGUMENT_END] && !valid[HERE_STRING_CONTENT]) return false;
   while (horizontal(lexer->lookahead)) lexer->advance(lexer, true);
+  if (valid[ARGUMENT_SEPARATOR] && lexer->lookahead == ',') {
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = ARGUMENT_SEPARATOR;
+    return true;
+  }
+  if (valid[LINE_CONTINUATION] && !valid[COMMAND_NAME] && !valid[BARE_WORD] && lexer->lookahead == '`') {
+    lexer->advance(lexer, false);
+    return scan_line_continuation_after_tick(lexer, valid);
+  }
+  if (valid[COMMENT] && (lexer->lookahead == '#' || lexer->lookahead == '<')) return scan_comment(lexer, valid);
+  if (valid[FUNCTION_NAME] && !valid[COMMAND_NAME]) return scan_function_name(lexer);
+  if (valid[LABEL_START] && !valid[HERE_STRING_CONTENT] && lexer->lookahead == ':') return scan_label_start(lexer);
+  if (valid[FLOW_LABEL] && !valid[HERE_STRING_CONTENT] &&
+      variable_character(lexer->lookahead) && lexer->lookahead != '?' &&
+      !decimal_character(lexer->lookahead)) return scan_flow_label(lexer);
   if (valid[VARIABLE] && !valid[COMMAND_NAME] && !valid[BARE_WORD] && lexer->lookahead == '$') {
     lexer->advance(lexer, false);
     return scan_variable_after_dollar(lexer, valid, VARIABLE);

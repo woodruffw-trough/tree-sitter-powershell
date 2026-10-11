@@ -1,0 +1,477 @@
+[
+  {
+    "name": "review foreach keyword newline",
+    "source": "foreach\n($x in $xs) {}",
+    "valid": true
+  },
+  {
+    "name": "review foreach multiline clause",
+    "source": "foreach (\n$x\nin\n$xs\n) {}",
+    "valid": true
+  },
+  {
+    "name": "review while keyword newline",
+    "source": "while\n($true) {}",
+    "valid": true
+  },
+  {
+    "name": "review for keyword newline",
+    "source": "for\n(;;) {}",
+    "valid": true
+  },
+  {
+    "name": "review elseif keyword newline",
+    "source": "if ($true) {} elseif\n($false) {}",
+    "valid": true
+  },
+  {
+    "name": "review switch keyword newline",
+    "source": "switch\n($x) {}",
+    "valid": false
+  },
+  {
+    "name": "review switch flags multiline",
+    "source": "switch -r\n-c ($x) { default {} }",
+    "valid": false
+  },
+  {
+    "name": "review param keyword newline",
+    "source": "param\n($x)",
+    "valid": true
+  },
+  {
+    "name": "review class property attribute newline",
+    "source": "class C {\n[ValidateNotNull()]\n[string]\n$x\n}",
+    "valid": true
+  },
+  {
+    "name": "review class property modifier newline",
+    "source": "class C { static\n[int]\n$x }",
+    "valid": true
+  },
+  {
+    "name": "review class method modifier newline",
+    "source": "class C { static\n[int]\nM() { return 1 } }",
+    "valid": true
+  },
+  {
+    "name": "review class method name newline",
+    "source": "class C { [int] M\n() { return 1 } }",
+    "valid": false
+  },
+  {
+    "name": "review class base newline",
+    "source": "class C :\nSystem.Object {}",
+    "valid": true
+  },
+  {
+    "name": "review attribute multiline arg",
+    "source": "[CmdletBinding(\nSupportsShouldProcess =\n$true\n)]param($x)",
+    "valid": true
+  },
+  {
+    "name": "review parameter multiline default",
+    "source": "param($x =\n1)",
+    "valid": true
+  },
+  {
+    "name": "review parameter array default",
+    "source": "param($x = 1,2)",
+    "valid": false
+  },
+  {
+    "name": "review function params newline",
+    "source": "function f\n($x) { $x }",
+    "valid": true
+  },
+  {
+    "name": "review hash hyphen key",
+    "source": "@{ foo-bar=1 }",
+    "valid": false
+  },
+  {
+    "name": "review hash dot key",
+    "source": "@{ foo.bar=1 }",
+    "valid": false
+  },
+  {
+    "name": "review hash numeric key",
+    "source": "@{ 1.2=1 }",
+    "valid": true
+  },
+  {
+    "name": "review hash colon key",
+    "source": "@{ a:b=1 }",
+    "valid": false
+  },
+  {
+    "name": "review hash escaped space key",
+    "source": "@{ foo` bar=1 }",
+    "valid": false
+  },
+  {
+    "name": "review hash key newline equals",
+    "source": "@{ foo\n=1 }",
+    "valid": false
+  },
+  {
+    "name": "review switch unquoted clause",
+    "source": "switch ($x) { foo {1}; bar-baz {2}; a.b {3} }",
+    "valid": true
+  },
+  {
+    "name": "review switch numeric unquoted clause",
+    "source": "switch ($x) { 1foo {1} }",
+    "valid": true
+  },
+  {
+    "name": "review switch clause multiline body",
+    "source": "switch ($x) { foo\n{1} }",
+    "valid": true
+  },
+  {
+    "name": "review colon command name containing hyphen",
+    "source": " :outer-loop while($false) { break outer-loop }",
+    "valid": true
+  },
+  {
+    "name": "review colon command name containing dot",
+    "source": " :outer.loop while($false) { continue outer.loop }",
+    "valid": true
+  },
+  {
+    "name": "review colon command name containing digits",
+    "source": " :123 while($false) { break 123 }",
+    "valid": true
+  },
+  {
+    "name": "review break string",
+    "source": "while($false) { break \"name\" }",
+    "valid": true
+  },
+  {
+    "name": "review break label followed by adjacent hyphen command",
+    "source": "while($false) { break outer-loop }",
+    "valid": true
+  },
+  {
+    "name": "review break label followed by adjacent identifier command",
+    "source": "while($false) { break foo bar }",
+    "valid": true
+  },
+  {
+    "name": "review assign foreach",
+    "source": "$x = foreach ($i in 1..3) { $i }",
+    "valid": true
+  },
+  {
+    "name": "review assign for",
+    "source": "$x = for ($i=0;$i -lt 3;$i++) { $i }",
+    "valid": true
+  },
+  {
+    "name": "review assign while",
+    "source": "$x = while($false) { 1 }",
+    "valid": true
+  },
+  {
+    "name": "review assign do",
+    "source": "$x = do { 1 } while($false)",
+    "valid": true
+  },
+  {
+    "name": "review assign trap",
+    "source": "$x = trap { 1 }",
+    "valid": true
+  },
+  {
+    "name": "review assign function",
+    "source": "$x = function f {}",
+    "valid": true
+  },
+  {
+    "name": "review assign multiple variables",
+    "source": "$x,$y = 1,2",
+    "valid": true
+  },
+  {
+    "name": "review assignment statement newline",
+    "source": "$x =\nforeach ($i in 1..3) { $i }",
+    "valid": true
+  },
+  {
+    "name": "review switch file composite arg",
+    "source": "switch -file ./path\"name\" { default {} }",
+    "valid": true
+  },
+  {
+    "name": "review invocation quoted followed fragments",
+    "source": "& \"Write-Output\"\"a\" b",
+    "valid": true
+  },
+  {
+    "name": "review dot quoted followed fragments",
+    "source": ". \"file\".ps1",
+    "valid": true
+  },
+  {
+    "name": "review typename assembly literal generic",
+    "source": "[List[[string],[int]]]",
+    "valid": true
+  },
+  {
+    "name": "review splat scoped numeric",
+    "source": "Write-Output @global:1",
+    "valid": true
+  },
+  {
+    "name": "review using attribute after using",
+    "source": "using namespace System\n[CmdletBinding()]param($x)",
+    "valid": true
+  },
+  {
+    "name": "review param after using",
+    "source": "using namespace System\nparam($x)",
+    "valid": true
+  },
+  {
+    "name": "review script using then param",
+    "source": "{ using namespace System\nparam($x) }",
+    "valid": false
+  },
+  {
+    "name": "review script attribute no param",
+    "source": "{ [CmdletBinding()] 1 }",
+    "valid": false
+  },
+  {
+    "name": "review begin adjacent command",
+    "source": "{ begin {} 1 }",
+    "valid": false
+  },
+  {
+    "name": "review named block statement at top",
+    "source": "begin {} process {}",
+    "valid": true
+  },
+  {
+    "name": "review switch keyword newline nonempty",
+    "source": "switch\n($x) { default {} }",
+    "valid": true
+  },
+  {
+    "name": "review switch empty body",
+    "source": "switch ($x) {}",
+    "valid": false
+  },
+  {
+    "name": "review switch clause binary variables",
+    "source": "switch ($x) { $a + $b {} }",
+    "valid": false
+  },
+  {
+    "name": "review switch clause joined numeric text",
+    "source": "switch ($x) { 1+2 {} }",
+    "valid": true
+  },
+  {
+    "name": "review switch clause bare expansion",
+    "source": "switch ($x) { prefix$x {} }",
+    "valid": true
+  },
+  {
+    "name": "review switch file expression operators",
+    "source": "switch -file $x + $y { default {} }",
+    "valid": false
+  },
+  {
+    "name": "review switch file prefix expansion",
+    "source": "switch -file prefix$x { default {} }",
+    "valid": true
+  },
+  {
+    "name": "review switch file multiline filename",
+    "source": "switch -file\n./input.txt { default {} }",
+    "valid": true
+  },
+  {
+    "name": "review switch file last flags",
+    "source": "switch -file ./input.txt -regex { default {} }",
+    "valid": true
+  },
+  {
+    "name": "review switch newline before body",
+    "source": "switch ($x)\n{ default {} }",
+    "valid": true
+  },
+  {
+    "name": "review named-block keyword after ordinary script statement",
+    "source": "{ 1; begin {} }",
+    "valid": true
+  },
+  {
+    "name": "review named block mixed suffix",
+    "source": "{ begin {}; 1 }",
+    "valid": false
+  },
+  {
+    "name": "review begin command inside if body",
+    "source": "if ($true) { begin {} }",
+    "valid": true
+  },
+  {
+    "name": "review process command inside loop body",
+    "source": "while($false) { process {} }",
+    "valid": true
+  },
+  {
+    "name": "review using after regular statement",
+    "source": "1; using namespace System",
+    "valid": false
+  },
+  {
+    "name": "review param after regular statement",
+    "source": "1; param($x)",
+    "valid": true
+  },
+  {
+    "name": "review foreach newline pipeline",
+    "source": "foreach ($x in\nGet-Item .\n) {}",
+    "valid": true
+  },
+  {
+    "name": "review foreach newline keyword in",
+    "source": "foreach ($x\nin $xs) {}",
+    "valid": true
+  },
+  {
+    "name": "review for multiline clauses",
+    "source": "for (\n$i=0\n;\n$i -lt 3\n;\n$i++\n) {}",
+    "valid": false
+  },
+  {
+    "name": "review while inner multiline",
+    "source": "while (\n$false\n) {}",
+    "valid": true
+  },
+  {
+    "name": "review do tail keyword newline",
+    "source": "do {} while\n($false)",
+    "valid": true
+  },
+  {
+    "name": "review param comma before newline",
+    "source": "param($x\n,\n$y)",
+    "valid": true
+  },
+  {
+    "name": "review method args comma before newline",
+    "source": "$o.F(1\n,\n2)",
+    "valid": true
+  },
+  {
+    "name": "review attribute name newlineparen",
+    "source": "[CmdletBinding\n()]param($x)",
+    "valid": false
+  },
+  {
+    "name": "review attribute arg newline before comma",
+    "source": "[Parameter(Mandatory\n,Position=0)]param($x)",
+    "valid": true
+  },
+  {
+    "name": "review function attrib parameter newline",
+    "source": "function f(\n[Parameter()]\n[string]\n$x=\n\"x\"\n) {}",
+    "valid": true
+  },
+  {
+    "name": "review if empty pipeline condition",
+    "source": "if (\n) {}",
+    "valid": false
+  },
+  {
+    "name": "review return keyword-shaped command name",
+    "source": "return if ($true) {1}",
+    "valid": true
+  },
+  {
+    "name": "review return standalone following statement",
+    "source": "return 1 $x",
+    "valid": false
+  },
+  {
+    "name": "review break no label adjacent operator",
+    "source": "break & \"cmd\"",
+    "valid": true
+  },
+  {
+    "name": "review continue no label adjacent operator",
+    "source": "continue & \"cmd\"",
+    "valid": true
+  },
+  {
+    "name": "review assign class",
+    "source": "$x = class C {}",
+    "valid": true
+  },
+  {
+    "name": "review assign enum",
+    "source": "$x = enum E {A}",
+    "valid": true
+  },
+  {
+    "name": "review assign data",
+    "source": "$x = data d {\"x\"}",
+    "valid": true
+  },
+  {
+    "name": "review assign return",
+    "source": "$x = return 1",
+    "valid": true
+  },
+  {
+    "name": "review assignment captures begin command",
+    "source": "$x = begin {}",
+    "valid": true
+  },
+  {
+    "name": "review label unicode simple",
+    "source": ":é while($false) { break é }",
+    "valid": true
+  },
+  {
+    "name": "review label underscore",
+    "source": ":_ while($false) { break _ }",
+    "valid": true
+  },
+  {
+    "name": "review colon command name containing question mark",
+    "source": ":a? while($false) {}",
+    "valid": true
+  },
+  {
+    "name": "review interpolated logging directive string",
+    "source": "\"##vso[var=$x]$y\"",
+    "valid": true
+  },
+  {
+    "name": "review shebang and escaped newline inside string",
+    "source": "\"#!/bin/sh`necho \"\"Hello\"\"\"",
+    "valid": true
+  },
+  {
+    "name": "review space-only expandable string",
+    "source": "\" \"",
+    "valid": true
+  },
+  {
+    "name": "review trailing space after string interpolation",
+    "source": "\"$x \"",
+    "valid": true
+  },
+  {
+    "name": "review block comment spelling inside string",
+    "source": "\"<#x#>$x\"",
+    "valid": true
+  }
+]

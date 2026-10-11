@@ -143,5 +143,70 @@
     "name": "repeated generic parameter list rejected",
     "source": "[List[int][string]]",
     "valid": false
+  },
+  {
+    "name": "type tokenizer [int string]",
+    "source": "[int string]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [int string]",
+    "source": "[int string]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [字 字]",
+    "source": "[字 字]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [ ]",
+    "source": "[ ]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [int []]",
+    "source": "[int []]",
+    "valid": true
+  },
+  {
+    "name": "type tokenizer [☃]",
+    "source": "[☃]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [💡]",
+    "source": "[💡]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [A#B]",
+    "source": "[A#B]",
+    "valid": true
+  },
+  {
+    "name": "type tokenizer [A\\B]",
+    "source": "[A\\B]",
+    "valid": true
+  },
+  {
+    "name": "type tokenizer [\\foo]",
+    "source": "[\\foo]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [字+Б]",
+    "source": "[字+Б]",
+    "valid": true
+  },
+  {
+    "name": "type tokenizer [१A]",
+    "source": "[१A]",
+    "valid": false
+  },
+  {
+    "name": "type tokenizer [A१]",
+    "source": "[A१]",
+    "valid": true
   }
 ]

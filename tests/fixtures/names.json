@@ -1,0 +1,497 @@
+[
+  {
+    "name": "function lexical 00",
+    "source": "function foo { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 01",
+    "source": "function foo.bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 02",
+    "source": "function 123 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 03",
+    "source": "function foo$bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 04",
+    "source": "function foo$(1) { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 05",
+    "source": "function foo'bar' { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 06",
+    "source": "function foo\"bar\" { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 07",
+    "source": "function foo“bar” { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 08",
+    "source": "function foo` bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 09",
+    "source": "function foo@bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 10",
+    "source": "function foo[bar] { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 11",
+    "source": "function foo<bar> { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 12",
+    "source": "function foo#bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 13",
+    "source": "function foo,bar { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 14",
+    "source": "function foo=bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 15",
+    "source": "function foo:bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 16",
+    "source": "function foo`\nbar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 17",
+    "source": "function foo`\n bar { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 18",
+    "source": "function 𐐀 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 19",
+    "source": "function 😀 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 20",
+    "source": "function 𝒙 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 21",
+    "source": "function \"foo\"bar { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 22",
+    "source": "function 'foo'bar { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 23",
+    "source": "function $foo { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 24",
+    "source": "function @foo { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 25",
+    "source": "function “foo”bar { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 26",
+    "source": "function foo\"a b\" { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 27",
+    "source": "function foo'a b' { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 28",
+    "source": "function foo`(bar { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 29",
+    "source": "function foo$(1 + 2) { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 30",
+    "source": "function foo$(Write-Output x) { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 31",
+    "source": "function foo$(\"(\") { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 32",
+    "source": "function foo\"$(1)\" { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 33",
+    "source": "function foo\"`\"\" { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 34",
+    "source": "function foo”bar“ { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 35",
+    "source": "function foo‘bar’ { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 36",
+    "source": "function foo` { 1 }",
+    "valid": true
+  },
+  {
+    "name": "function lexical 37",
+    "source": "function foo\"unterminated { 1 }",
+    "valid": false
+  },
+  {
+    "name": "function lexical 38",
+    "source": "function foo$(1 { 1 }",
+    "valid": false
+  },
+  {
+    "name": "prefix 0",
+    "source": "function #foo {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 1",
+    "source": "function <foo {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 2",
+    "source": "function >foo {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 3",
+    "source": "function &foo {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 4",
+    "source": "function .foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 5",
+    "source": "function -foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 6",
+    "source": "function +foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 7",
+    "source": "function ?foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 8",
+    "source": "function !foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 9",
+    "source": "function %foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 10",
+    "source": "function *foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 11",
+    "source": "function :foo {}",
+    "valid": true
+  },
+  {
+    "name": "prefix 12",
+    "source": "function foo;bar {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 13",
+    "source": "function foo|bar {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 14",
+    "source": "function foo&bar {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 15",
+    "source": "function foo)bar {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 16",
+    "source": "function foo}bar {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 17",
+    "source": "function foo{bar {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 18",
+    "source": "function foo\tbar {}",
+    "valid": false
+  },
+  {
+    "name": "prefix 19",
+    "source": "function foo bar {}",
+    "valid": false
+  },
+  {
+    "name": "horizontal whitespace U+0085 case 59",
+    "source": "Write-Outputfirstsecond",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+0085 case 60",
+    "source": "$a=1+2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+00A0 case 61",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+00A0 case 62",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+1680 case 63",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+1680 case 64",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2000 case 65",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2000 case 66",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2001 case 67",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2001 case 68",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2002 case 69",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2002 case 70",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2003 case 71",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2003 case 72",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2004 case 73",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2004 case 74",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2005 case 75",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2005 case 76",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2006 case 77",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2006 case 78",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2007 case 79",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2007 case 80",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2008 case 81",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2008 case 82",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2009 case 83",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2009 case 84",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+200A case 85",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+200A case 86",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2028 case 87",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2028 case 88",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2029 case 89",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+2029 case 90",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+202F case 91",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+202F case 92",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+205F case 93",
+    "source": "Write-Output first second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+205F case 94",
+    "source": "$a = 1 + 2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+3000 case 95",
+    "source": "Write-Output　first　second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+3000 case 96",
+    "source": "$a　=　1　+　2",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+FEFF case 97",
+    "source": "Write-Output﻿first﻿second",
+    "valid": true
+  },
+  {
+    "name": "horizontal whitespace U+FEFF case 98",
+    "source": "$a﻿=﻿1﻿+﻿2",
+    "valid": false
+  }
+]

@@ -1,0 +1,327 @@
+[
+  {
+    "name": "parameter help",
+    "source": "Get-Item -?\n",
+    "valid": true
+  },
+  {
+    "name": "parameter arbitrary punctuation",
+    "source": "cmd -foo/bar -foo\\bar -foo$bar -foo#bar -foo!bar -foo? -foo]bar\n",
+    "valid": true
+  },
+  {
+    "name": "parameter equals path",
+    "source": "docker --volume=/source:/target --label=example.test/key=value\n",
+    "valid": true
+  },
+  {
+    "name": "parameter quote suffix",
+    "source": "cmd -foo\"bar\" -foo'bar'\n",
+    "valid": true
+  },
+  {
+    "name": "parameter embedded backtick",
+    "source": "cmd -foo` bar\n",
+    "valid": true
+  },
+  {
+    "name": "parameter literal dollar colon value",
+    "source": "cmd -foo:$ $bar\n",
+    "valid": true
+  },
+  {
+    "name": "parameter number prefix",
+    "source": "cmd -1foo -1.2foo -123abc\n",
+    "valid": true
+  },
+  {
+    "name": "composite redirection variable",
+    "source": "Write-Output a > $HOME/result.txt\n",
+    "valid": true
+  },
+  {
+    "name": "composite redirection quotes",
+    "source": "Write-Output a > \"file\".txt\n",
+    "valid": true
+  },
+  {
+    "name": "composite redirection subexpression",
+    "source": "Write-Output a > prefix$(1).txt\n",
+    "valid": true
+  },
+  {
+    "name": "redirection filename after newline",
+    "source": "Write-Output a >\n result.txt\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape missing braces",
+    "source": "\"`uX\"\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape empty",
+    "source": "\"`u{}\"\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape out of range",
+    "source": "\"`u{110000}\"\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape too many digits",
+    "source": "\"`u{0000000}\"\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape missing terminator",
+    "source": "\"`u{41\"\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape bare argument",
+    "source": "Write-Output a`u{}\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape command name",
+    "source": "cmd`u{} value\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape uppercase is literal",
+    "source": "\"`U{110000}\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escape surrogate",
+    "source": "\"`u{D800}\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escape here string",
+    "source": "@\"\n`u{}\n\"@\n",
+    "valid": false
+  },
+  {
+    "name": "splat expression context",
+    "source": "$x = @args\n",
+    "valid": false
+  },
+  {
+    "name": "splat foreach variable",
+    "source": "foreach (@item in $items) { $item }\n",
+    "valid": false
+  },
+  {
+    "name": "splat scoped symbol",
+    "source": "cmd @env:foo.bar\n",
+    "valid": false
+  },
+  {
+    "name": "splat dollar automatic",
+    "source": "cmd @? @^ @1\n",
+    "valid": true
+  },
+  {
+    "name": "empty double quote escape",
+    "source": "\"\"\"\"\n",
+    "valid": true
+  },
+  {
+    "name": "mixed quote doubling",
+    "source": "\"“\"\n",
+    "valid": false
+  },
+  {
+    "name": "single escaped newline string",
+    "source": "'a`\nb'\n",
+    "valid": true
+  },
+  {
+    "name": "block comment adjacent hashes",
+    "source": "<###>\n",
+    "valid": true
+  },
+  {
+    "name": "block comment hash run",
+    "source": "<######>\n",
+    "valid": true
+  },
+  {
+    "name": "block comment no nesting",
+    "source": "<# a<# b #> c#>\n",
+    "valid": true
+  },
+  {
+    "name": "enum keywords as member names",
+    "source": "enum E { if; function; hidden; class; default }\n",
+    "valid": true
+  },
+  {
+    "name": "enum numeric initializer newline",
+    "source": "enum E { A =\n 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "enum underlying type newline",
+    "source": "enum E :\nbyte { A }\n",
+    "valid": true
+  },
+  {
+    "name": "class names after newline",
+    "source": "class\nC {}\n",
+    "valid": true
+  },
+  {
+    "name": "enum names after newline",
+    "source": "enum\nE { A }\n",
+    "valid": true
+  },
+  {
+    "name": "anonymous attribute script without param",
+    "source": "[CmdletBinding()]\n1\n",
+    "valid": false
+  },
+  {
+    "name": "anonymous block attribute before begin",
+    "source": "{ [CmdletBinding()]\nbegin { 1 } }\n",
+    "valid": false
+  },
+  {
+    "name": "named block after ordinary statement",
+    "source": "{ 1; begin { 2 } }\n",
+    "valid": true
+  },
+  {
+    "name": "named block then ordinary statement",
+    "source": "{ begin { 1 }; 2 }\n",
+    "valid": false
+  },
+  {
+    "name": "filter newline before name",
+    "source": "filter\nf {}\n",
+    "valid": true
+  },
+  {
+    "name": "dot member after continuation",
+    "source": "$o`\n.Name\n",
+    "valid": false
+  },
+  {
+    "name": "member comments before method arguments",
+    "source": "$o.Method<#comment#>(1)\n",
+    "valid": false
+  },
+  {
+    "name": "unicode minimum escape",
+    "source": "\"`u{0}\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode BMP maximum escape",
+    "source": "\"`u{FFFF}\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode supplementary minimum escape",
+    "source": "\"`u{10000}\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode maximum escape",
+    "source": "\"`u{10FFFF}\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode six digit zero escape",
+    "source": "\"`u{000000}\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode six digit out of range",
+    "source": "\"`u{FFFFFF}\"\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape variable argument suffix",
+    "source": "Write-Output $x`u{}\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape interpolated argument suffix",
+    "source": "Write-Output prefix$x`u{}\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape quoted argument suffix",
+    "source": "Write-Output \"$x\"`u{}\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape function name",
+    "source": "function foo`u{} {}\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape quoted composite function name",
+    "source": "function foo\"`u{}\" {}\n",
+    "valid": false
+  },
+  {
+    "name": "unicode escape literal composite function name",
+    "source": "function foo'`u{}' {}\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escaped keyword command",
+    "source": "i`u{66} arg\n",
+    "valid": true
+  },
+  {
+    "name": "escaped keyword command",
+    "source": "i`f arg\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escaped numeric command",
+    "source": "1`u{32}\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escaped numeric argument",
+    "source": "Write-Output 1`u{32}\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escape composite parameter quoting",
+    "source": "Write-Output -foo\"`u{}\"\n",
+    "valid": false
+  },
+  {
+    "name": "uppercase unicode escape bare command",
+    "source": "cmd foo`U{}\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escaped tab argument",
+    "source": "Write-Output a`u{9}b\n",
+    "valid": true
+  },
+  {
+    "name": "cooked newline command token",
+    "source": "begi`n arg\n",
+    "valid": true
+  },
+  {
+    "name": "unicode sequence is literal inside single dash parameter",
+    "source": "cmd -foo`u{}\n",
+    "valid": true
+  },
+  {
+    "name": "unicode sequence is decoded inside double dash argument",
+    "source": "cmd --volume=abc`u{}\n",
+    "valid": false
+  }
+]
