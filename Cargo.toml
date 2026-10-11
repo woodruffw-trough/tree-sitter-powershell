@@ -11,7 +11,17 @@ readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "powershell"]
 categories = ["parsing", "text-editors"]
 build = "bindings/rust/build.rs"
-include = ["bindings/rust/*", "docs/*", "grammar.js", "queries/*", "src/**", "tree-sitter.json", "LICENSE", "README.md"]
+include = [
+    "bindings/rust/*",
+    "docs/*",
+    "grammar.js",
+    "queries/*",
+    "src/**",
+    "tree-sitter.json",
+    "LICENSE",
+    "README.md",
+    "CONTRIBUTING.md",
+]
 
 [lib]
 path = "bindings/rust/lib.rs"

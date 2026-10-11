@@ -1,41 +1,84 @@
-# Grammar sources and design
+# Sources and tree design
 
-## Normative references
+## Syntax references
 
-Microsoft's [PowerShell language specification](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-15) defines the historical grammar. The specification says it describes PowerShell 3.0, was published in 2012, and is not updated for current releases. Consequently, it cannot by itself specify a current PowerShell grammar.
+Microsoft's [PowerShell language specification](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-15)
+describes PowerShell 3.0 and has not been updated for later releases. It provides the
+historical grammar. PowerShell 7 syntax is checked against the documentation and
+implementation below.
 
-| Grammar area | Microsoft specification | Current documentation |
+| Area | Specification | Current Microsoft documentation |
 | --- | --- | --- |
-| Tokens, comments, literals, variables | [Chapter 2](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-02) | [Quoting rules](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules), [numeric literals](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_numeric_literals) |
-| Expressions, operators, precedence | [Chapter 7](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-07) | [Operators](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_operators), [operator precedence](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_operator_precedence) |
-| Pipelines, statements, control flow | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Parsing](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing), [pipeline chains](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators), [redirection](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection) |
-| Functions, parameters, attributes | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions), [advanced functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced), [named blocks](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_methods) |
-| Classes, enums, generics | Absent from the PowerShell 3.0 specification | [Classes](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes), [enums](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_enum), [generic method calls](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_calling_generic_methods) |
+| Tokens, variables, strings, numbers | [Chapter 2](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-02) | [Quoting rules](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules), [numeric literals](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_numeric_literals) |
+| Expressions and precedence | [Chapter 7](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-07) | [Operators](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_operators), [operator precedence](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_operator_precedence) |
+| Commands, pipelines, statements | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Parsing](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing), [pipeline chains](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators), [redirection](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection) |
+| Functions and parameters | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions), [advanced functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced), [named blocks](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_methods) |
+| Classes, enums, generics | Added after PowerShell 3.0 | [Classes](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes), [enums](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_enum), [generic method calls](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_calling_generic_methods) |
 
-## Runtime oracle
+The implementation reference is PowerShell 7.5.4:
 
-PowerShell 7.5.4 is the reproducible reference implementation used in CI. Its [Parser.cs](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs), [tokenizer.cs](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs), and [token.cs](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/token.cs) provide the implementation-level definitions for current syntax. Useful upstream regression suites include [Parsing.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/Parsing.Tests.ps1), [Parser.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/Parser.Tests.ps1), and [LineContinuance.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/LineContinuance.Tests.ps1).
+- [Parser.cs](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs) defines expressions, statements, and parser contexts.
+- [tokenizer.cs](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs) defines token boundaries, quoting, escapes, and character classes.
+- [token.cs](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/token.cs) defines token kinds and operator precedence.
 
-`scripts/oracle.ps1` calls `System.Management.Automation.Language.Parser.ParseInput`. It does **not** execute fixture code. It records errors, token extents, and AST node extents. Rust tests compare validity with the checked-in fixtures, direct command element extents and parameter classification, and binary-expression and statement extents. This verifies grouping and associativity, not just whether text parses. PowerShell reports UTF-16 offsets; the Rust harness converts tree-sitter's byte offsets before comparing them.
-
-Six complete scripts and modules from the pinned upstream release are checked in under [`tests/upstream`](../tests/upstream/README.md), with their original copyright notices, license, paths, and SHA-256 hashes. Their integration tests compare every command and binary expression against PowerShell. This exercises interactions between constructs across large, realistic files, in addition to focused corpus and combinatorial fixtures.
-
-When prose documentation disagrees with the implementation, the pinned parser and runtime oracle determine the expected syntax. For example, current `token.cs` gives the logical operators one shared left-associative level and places shifts at comparison precedence. Null coalescing binds above comparisons and below addition. These relationships have explicit oracle and corpus tests.
-
-Lexical details also come from the runtime. For example, supplementary Unicode characters are permitted inside braced variables such as `${𐐀}`; the unbraced `$𐐀` is a command token rather than a variable. Numeric-looking text can likewise be a command name instead of a numeric expression. The combinatorial fixtures in `tests/fixtures/generated.json` cover these distinctions, with a reproducible generator in `scripts/generate-fixtures.py`.
+The upstream [Parsing.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/Parsing.Tests.ps1),
+[Parser.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/Parser.Tests.ps1),
+and [LineContinuance.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/LineContinuance.Tests.ps1)
+provide regression examples. When historical prose and the pinned implementation
+differ, tests follow the pinned parser.
 
 ## Concrete syntax tree
 
-The tree retains source-level constructs useful to editors: commands and command arguments, expressions, statements, parameters, type names, comments, and string interpolation. It is a concrete syntax tree, so its nodes are not a one-to-one copy of PowerShell's semantic AST. Fields such as `left`, `operator`, `right`, `condition`, `body`, `name`, and `value` identify important relationships without requiring child-position assumptions.
+Named nodes preserve constructs useful to editors: commands, individual arguments
+and parameters, expressions, statements, declarations, and string interpolation.
+Fields such as `name`, `left`, `right`, `condition`, `body`, and `value` identify their
+relationships. [`src/node-types.json`](../src/node-types.json) lists the node schema;
+[`queries/highlights.scm`](../queries/highlights.scm) supplies highlighting captures.
 
-The external scanner handles context-sensitive token boundaries that regular expressions cannot express faithfully, including line-sensitive here-string delimiters. Generated C files are committed so Rust consumers do not need a JavaScript runtime or the tree-sitter CLI to build the crate.
+For example, `Write-Output prefix"$name"` has one command argument containing a
+literal fragment and an expandable string. Its named tree is:
 
-Command arguments can combine adjacent literal, quoted, and interpolated fragments. Scanner boundary tokens preserve this grouping while allowing member expressions and comma-separated arrays inside arguments. Optional method and postfix context markers tell the scanner which adjacency rules apply; those markers are never emitted. The scanner retains no state between calls, so incremental parsing and error recovery use the same lexical decisions as a fresh parse.
+```scheme
+(source_file
+  (pipeline
+    (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (expandable_string
+          (variable))))))
+```
 
-Expandable here strings expose interpolation as ordinary `variable` and `sub_expression` nodes. Their footer must follow an unescaped physical line break at column zero. The scanner uses stateless delimiter tokens so nested here strings and incremental recovery do not retain stale delimiter state. Here-string backtick escapes consume one UTF-16 character: escaping the CR in CRLF still leaves LF as a line break. Tests check this behavior against the runtime.
+In `Write-Output $HOME.Length-more`, the member-access argument ends before the
+`-more` parameter. Expandable here strings expose
+`variable`, `sub_expression`, `string_content`, and `escape_sequence` children in the
+same way as ordinary expandable strings, including literal whitespace.
 
-`src/variable_chars.h` records the pinned runtime's BMP `Char.IsLetterOrDigit` ranges. `src/identifier_chars.js` records its `Char.IsLetter` and `Char.IsLetterOrDigit` classes for identifiers and type names. Regenerate them with `scripts/generate-unicode.ps1` (passing `-JavaScript` for the latter); `scripts/check-generated.sh` verifies both alongside tree-sitter's generated files. This keeps recognition aligned with PowerShell's UTF-16 tokenizer, including characters classified differently by newer Unicode databases in regex engines.
+Operator grouping follows the pinned parser. For example,
+`$true -or $false -and $false` groups as `($true -or $false) -and $false`, and
+`1 -eq 2 -shl 3` groups as `(1 -eq 2) -shl 3`. Null coalescing binds above comparison
+and below addition. Braced variables can contain supplementary Unicode characters:
+`${𐐀}` is a variable, while `$𐐀` is a command token.
 
-Backtick Unicode escapes follow `ScanUnicodeEscape` in the pinned tokenizer: they require one to six hexadecimal digits enclosed in braces and a value at most `0x10FFFF`. The scanner validates the entire escape and exposes its complete source extent. Parameter tokens have their own lexical rules, so an escape-looking sequence in a parameter name is checked against that token mode rather than interpreted as a generic string escape.
+PowerShell's semantic AST includes implicit wrappers and combines some source
+fragments. The CST preserves the original spelling and punctuation. PowerShell
+performs name resolution and execution; tree-sitter provides syntax and recovery
+for incomplete editor input.
 
-This is a syntax parser. Name resolution, available commands/types, execution policy, duplicate declarations, and runtime behavior remain PowerShell's responsibility. Error recovery supports incomplete editor input; it is not a substitute for PowerShell's diagnostics.
+## Checking the tree
+
+[`scripts/oracle.ps1`](../scripts/oracle.ps1) calls
+`System.Management.Automation.Language.Parser.ParseInput` and records diagnostics,
+tokens, and AST ranges without running fixture scripts. Tests compare syntax
+acceptance, command elements and parameter classification, expression grouping,
+and corresponding declaration or control-flow ranges. PowerShell reports UTF-16
+code-unit offsets; the Rust harness converts tree-sitter's UTF-8 byte offsets before
+comparing them.
+
+Corpus tests assert explicit trees. Focused fixtures and generated token matrices
+cover context-dependent syntax, and complete project files exercise interactions
+across larger scripts. Imported sources carry their provenance and hashes with the
+fixture collection; see the [PowerShell fixtures](../tests/upstream/README.md) and
+[external project fixtures](../tests/projects/README.md).
+Contributor commands are in [CONTRIBUTING.md](../CONTRIBUTING.md).
