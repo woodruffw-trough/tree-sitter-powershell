@@ -54,7 +54,7 @@ jobs:
           printf '%s\n' "$oracle" >> "$GITHUB_PATH"
           printf 'PWSH_BIN=%s\n' "$oracle/pwsh" >> "$GITHUB_ENV"
 
-      - name: Install pinned CI security linter
+      - name: Install pinned formatters and security linter
         run: |
           python3 -m venv "$RUNNER_TEMP/ci-tools"
           "$RUNNER_TEMP/ci-tools/bin/pip" install --require-hashes -r scripts/requirements-ci.txt
