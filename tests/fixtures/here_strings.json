@@ -1,0 +1,177 @@
+[
+  {
+    "name": "interpolated body",
+    "source": "@\"\nhello $name ${env:USER}: $($x + 1)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "empty expandable body",
+    "source": "@\"\n\"@",
+    "valid": true
+  },
+  {
+    "name": "blank expandable body",
+    "source": "@\"\n\n\"@",
+    "valid": true
+  },
+  {
+    "name": "empty literal body",
+    "source": "@'\n'@",
+    "valid": true
+  },
+  {
+    "name": "smart expandable delimiters",
+    "source": "@“\nhello $name\n”@",
+    "valid": true
+  },
+  {
+    "name": "mixed expandable delimiters",
+    "source": "@„\nhello $name\n\"@",
+    "valid": true
+  },
+  {
+    "name": "smart literal delimiters",
+    "source": "@‘\n$name remains literal\n‛@",
+    "valid": true
+  },
+  {
+    "name": "header horizontal whitespace",
+    "source": "@\" \t\f\u000b  \n$name\n\"@",
+    "valid": true
+  },
+  {
+    "name": "carriage return line endings",
+    "source": "@\"\rfirst $name\rlast\r\"@",
+    "valid": true
+  },
+  {
+    "name": "crlf line endings",
+    "source": "@\"\r\nfirst $name\r\nlast\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "literal carriage return line endings",
+    "source": "@'\r$name\r'@",
+    "valid": true
+  },
+  {
+    "name": "body punctuation and comments",
+    "source": "@\"\n# literal comment\n<# literal block #>\nquote \" and ' and @ tokens\n\"@",
+    "valid": true
+  },
+  {
+    "name": "inline footer text",
+    "source": "@\"\ninline \"@ text\n\"@",
+    "valid": true
+  },
+  {
+    "name": "footer suffix expression",
+    "source": "@\"\nbody $name\n\"@ + 'suffix'",
+    "valid": true
+  },
+  {
+    "name": "escapes and interpolation",
+    "source": "@\"\n`n`t`\"`` `$literal ${name} $($x)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escaped physical newline suppresses footer",
+    "source": "@\"\nfirst`\n\"@ remains literal\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escaped crlf suppresses footer",
+    "source": "@\"\r\nfirst`\r\n\"@ remains literal\r\n\"@",
+    "valid": false
+  },
+  {
+    "name": "nested expandable here string",
+    "source": "@\"\n$( @\"\nhello $name\n\"@ )\n\"@",
+    "valid": true
+  },
+  {
+    "name": "nested literal here string",
+    "source": "@\"\n$( @'\n$name stays literal\n'@ )\n\"@",
+    "valid": true
+  },
+  {
+    "name": "nested regular expandable string",
+    "source": "@\"\n$(\"hello $name\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "literal dollars before punctuation",
+    "source": "@\"\n$ $- $. $😀 $。 $́ $ \n\"@",
+    "valid": true
+  },
+  {
+    "name": "unicode variable",
+    "source": "@\"\n$é ${😀} $变量 $١\n\"@",
+    "valid": true
+  },
+  {
+    "name": "empty subexpression",
+    "source": "@\"\n$()\n\"@",
+    "valid": true
+  },
+  {
+    "name": "special variables",
+    "source": "@\"\n$$ $^ $? $_ $5\n\"@",
+    "valid": true
+  },
+  {
+    "name": "unterminated expandable",
+    "source": "@\"\nbody",
+    "valid": false
+  },
+  {
+    "name": "unterminated literal",
+    "source": "@'\nbody",
+    "valid": false
+  },
+  {
+    "name": "header inline text",
+    "source": "@\" text\nbody\n\"@",
+    "valid": false
+  },
+  {
+    "name": "header bom",
+    "source": "@\"﻿\nbody\n\"@",
+    "valid": false
+  },
+  {
+    "name": "indented expandable footer",
+    "source": "@\"\nbody\n \"@",
+    "valid": false
+  },
+  {
+    "name": "tab indented expandable footer",
+    "source": "@\"\nbody\n\t\"@",
+    "valid": false
+  },
+  {
+    "name": "indented literal footer",
+    "source": "@'\nbody\n '@",
+    "valid": false
+  },
+  {
+    "name": "escaped newline only footer",
+    "source": "@\"\nfirst`\n\"@",
+    "valid": false
+  },
+  {
+    "name": "invalid braced variable",
+    "source": "@\"\n${}\n\"@",
+    "valid": false
+  },
+  {
+    "name": "invalid scope variable",
+    "source": "@\"\n$:\n\"@",
+    "valid": false
+  },
+  {
+    "name": "missing interpolation close",
+    "source": "@\"\n$(1\n\"@",
+    "valid": false
+  }
+]

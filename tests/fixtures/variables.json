@@ -1,0 +1,1422 @@
+[
+  {
+    "name": "variable lexical 001-1",
+    "source": "$a",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 001-2",
+    "source": "Write-Output $a",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 001-3",
+    "source": "\"prefix $a suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 001-4",
+    "source": "@\"\nprefix $a suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 002-1",
+    "source": "$1",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 002-2",
+    "source": "Write-Output $1",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 002-3",
+    "source": "\"prefix $1 suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 002-4",
+    "source": "@\"\nprefix $1 suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 003-1",
+    "source": "$_",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 003-2",
+    "source": "Write-Output $_",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 003-3",
+    "source": "\"prefix $_ suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 003-4",
+    "source": "@\"\nprefix $_ suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 004-1",
+    "source": "$?",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 004-2",
+    "source": "Write-Output $?",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 004-3",
+    "source": "\"prefix $? suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 004-4",
+    "source": "@\"\nprefix $? suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 005-1",
+    "source": "$?foo",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 005-2",
+    "source": "Write-Output $?foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 005-3",
+    "source": "\"prefix $?foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 005-4",
+    "source": "@\"\nprefix $?foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 006-1",
+    "source": "$??",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 006-2",
+    "source": "Write-Output $??",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 006-3",
+    "source": "\"prefix $?? suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 006-4",
+    "source": "@\"\nprefix $?? suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 007-1",
+    "source": "$a?b",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 007-2",
+    "source": "Write-Output $a?b",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 007-3",
+    "source": "\"prefix $a?b suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 007-4",
+    "source": "@\"\nprefix $a?b suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 008-1",
+    "source": "$a?",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 008-2",
+    "source": "Write-Output $a?",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 008-3",
+    "source": "\"prefix $a? suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 008-4",
+    "source": "@\"\nprefix $a? suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 009-1",
+    "source": "$env:?foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 009-2",
+    "source": "Write-Output $env:?foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 009-3",
+    "source": "\"prefix $env:?foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 009-4",
+    "source": "@\"\nprefix $env:?foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 010-1",
+    "source": "$env:?",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 010-2",
+    "source": "Write-Output $env:?",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 010-3",
+    "source": "\"prefix $env:? suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 010-4",
+    "source": "@\"\nprefix $env:? suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 011-1",
+    "source": "$env:PATH:x",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 011-2",
+    "source": "Write-Output $env:PATH:x",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 011-3",
+    "source": "\"prefix $env:PATH:x suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 011-4",
+    "source": "@\"\nprefix $env:PATH:x suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 012-1",
+    "source": "$foo::bar",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 012-2",
+    "source": "Write-Output $foo::bar",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 012-3",
+    "source": "\"prefix $foo::bar suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 012-4",
+    "source": "@\"\nprefix $foo::bar suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 013-1",
+    "source": "$foo:bar:baz",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 013-2",
+    "source": "Write-Output $foo:bar:baz",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 013-3",
+    "source": "\"prefix $foo:bar:baz suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 013-4",
+    "source": "@\"\nprefix $foo:bar:baz suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 014-1",
+    "source": "$foo:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 014-2",
+    "source": "Write-Output $foo:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 014-3",
+    "source": "\"prefix $foo: suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 014-4",
+    "source": "@\"\nprefix $foo: suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 015-1",
+    "source": "$:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 015-2",
+    "source": "Write-Output $:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 015-3",
+    "source": "\"prefix $: suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 015-4",
+    "source": "@\"\nprefix $: suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 016-1",
+    "source": "$:foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 016-2",
+    "source": "Write-Output $:foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 016-3",
+    "source": "\"prefix $:foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 016-4",
+    "source": "@\"\nprefix $:foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 017-1",
+    "source": "$::",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 017-2",
+    "source": "Write-Output $::",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 017-3",
+    "source": "\"prefix $:: suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 017-4",
+    "source": "@\"\nprefix $:: suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 018-1",
+    "source": "$::foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 018-2",
+    "source": "Write-Output $::foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 018-3",
+    "source": "\"prefix $::foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 018-4",
+    "source": "@\"\nprefix $::foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 019-1",
+    "source": "$global:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 019-2",
+    "source": "Write-Output $global:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 019-3",
+    "source": "\"prefix $global: suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 019-4",
+    "source": "@\"\nprefix $global: suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 020-1",
+    "source": "$local:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 020-2",
+    "source": "Write-Output $local:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 020-3",
+    "source": "\"prefix $local: suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 020-4",
+    "source": "@\"\nprefix $local: suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 021-1",
+    "source": "$private:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 021-2",
+    "source": "Write-Output $private:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 021-3",
+    "source": "\"prefix $private: suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 021-4",
+    "source": "@\"\nprefix $private: suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 022-1",
+    "source": "$script:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 022-2",
+    "source": "Write-Output $script:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 022-3",
+    "source": "\"prefix $script: suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 022-4",
+    "source": "@\"\nprefix $script: suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 023-1",
+    "source": "${name with spaces}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 023-2",
+    "source": "Write-Output ${name with spaces}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 023-3",
+    "source": "\"prefix ${name with spaces} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 023-4",
+    "source": "@\"\nprefix ${name with spaces} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 024-1",
+    "source": "${日本語}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 024-2",
+    "source": "Write-Output ${日本語}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 024-3",
+    "source": "\"prefix ${日本語} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 024-4",
+    "source": "@\"\nprefix ${日本語} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 025-1",
+    "source": "${𐐀}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 025-2",
+    "source": "Write-Output ${𐐀}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 025-3",
+    "source": "\"prefix ${𐐀} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 025-4",
+    "source": "@\"\nprefix ${𐐀} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 026-1",
+    "source": "${}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 026-2",
+    "source": "Write-Output ${}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 026-3",
+    "source": "\"prefix ${} suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 026-4",
+    "source": "@\"\nprefix ${} suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 027-1",
+    "source": "${env:}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 027-2",
+    "source": "Write-Output ${env:}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 027-3",
+    "source": "\"prefix ${env:} suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 027-4",
+    "source": "@\"\nprefix ${env:} suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 028-1",
+    "source": "${global:}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 028-2",
+    "source": "Write-Output ${global:}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 028-3",
+    "source": "\"prefix ${global:} suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 028-4",
+    "source": "@\"\nprefix ${global:} suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 029-1",
+    "source": "${:}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 029-2",
+    "source": "Write-Output ${:}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 029-3",
+    "source": "\"prefix ${:} suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 029-4",
+    "source": "@\"\nprefix ${:} suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 030-1",
+    "source": "${::}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 030-2",
+    "source": "Write-Output ${::}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 030-3",
+    "source": "\"prefix ${::} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 030-4",
+    "source": "@\"\nprefix ${::} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 031-1",
+    "source": "${foo::}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 031-2",
+    "source": "Write-Output ${foo::}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 031-3",
+    "source": "\"prefix ${foo::} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 031-4",
+    "source": "@\"\nprefix ${foo::} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 032-1",
+    "source": "${foo:bar:baz}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 032-2",
+    "source": "Write-Output ${foo:bar:baz}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 032-3",
+    "source": "\"prefix ${foo:bar:baz} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 032-4",
+    "source": "@\"\nprefix ${foo:bar:baz} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 033-1",
+    "source": "${foo`}:bar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 033-2",
+    "source": "Write-Output ${foo`}:bar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 033-3",
+    "source": "\"prefix ${foo`}:bar} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 033-4",
+    "source": "@\"\nprefix ${foo`}:bar} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 034-1",
+    "source": "${foo`nbar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 034-2",
+    "source": "Write-Output ${foo`nbar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 034-3",
+    "source": "\"prefix ${foo`nbar} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 034-4",
+    "source": "@\"\nprefix ${foo`nbar} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 035-1",
+    "source": "${foo`rbar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 035-2",
+    "source": "Write-Output ${foo`rbar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 035-3",
+    "source": "\"prefix ${foo`rbar} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 035-4",
+    "source": "@\"\nprefix ${foo`rbar} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 036-1",
+    "source": "${foo`\nbar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 036-2",
+    "source": "Write-Output ${foo`\nbar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 036-3",
+    "source": "\"prefix ${foo`\nbar} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 036-4",
+    "source": "@\"\nprefix ${foo`\nbar} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 037-1",
+    "source": "${foo`$bar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 037-2",
+    "source": "Write-Output ${foo`$bar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 037-3",
+    "source": "\"prefix ${foo`$bar} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 037-4",
+    "source": "@\"\nprefix ${foo`$bar} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 038-1",
+    "source": "${foo``bar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 038-2",
+    "source": "Write-Output ${foo``bar}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 038-3",
+    "source": "\"prefix ${foo``bar} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 038-4",
+    "source": "@\"\nprefix ${foo``bar} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 039-1",
+    "source": "${foo`}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 039-2",
+    "source": "Write-Output ${foo`}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 039-3",
+    "source": "\"prefix ${foo`} suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 039-4",
+    "source": "@\"\nprefix ${foo`} suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 040-1",
+    "source": "${unclosed",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 040-2",
+    "source": "Write-Output ${unclosed",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 040-3",
+    "source": "\"prefix ${unclosed suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 040-4",
+    "source": "@\"\nprefix ${unclosed suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 041-1",
+    "source": "$𐐀",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 041-2",
+    "source": "Write-Output $𐐀",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 041-3",
+    "source": "\"prefix $𐐀 suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 041-4",
+    "source": "@\"\nprefix $𐐀 suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 042-1",
+    "source": "$😀",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 042-2",
+    "source": "Write-Output $😀",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 042-3",
+    "source": "\"prefix $😀 suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 042-4",
+    "source": "@\"\nprefix $😀 suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 043-1",
+    "source": "$²",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 043-2",
+    "source": "Write-Output $²",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 043-3",
+    "source": "\"prefix $² suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 043-4",
+    "source": "@\"\nprefix $² suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 044-1",
+    "source": "$Ⅳ",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 044-2",
+    "source": "Write-Output $Ⅳ",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 044-3",
+    "source": "\"prefix $Ⅳ suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 044-4",
+    "source": "@\"\nprefix $Ⅳ suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 045-1",
+    "source": "$☃",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 045-2",
+    "source": "Write-Output $☃",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 045-3",
+    "source": "\"prefix $☃ suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 045-4",
+    "source": "@\"\nprefix $☃ suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 046-1",
+    "source": "$©",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 046-2",
+    "source": "Write-Output $©",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 046-3",
+    "source": "\"prefix $© suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 046-4",
+    "source": "@\"\nprefix $© suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 047-1",
+    "source": "$𐐀foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 047-2",
+    "source": "Write-Output $𐐀foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 047-3",
+    "source": "\"prefix $𐐀foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 047-4",
+    "source": "@\"\nprefix $𐐀foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 048-1",
+    "source": "$a𐐀",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 048-2",
+    "source": "Write-Output $a𐐀",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 048-3",
+    "source": "\"prefix $a𐐀 suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 048-4",
+    "source": "@\"\nprefix $a𐐀 suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 049-1",
+    "source": "$é",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 049-2",
+    "source": "Write-Output $é",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 049-3",
+    "source": "\"prefix $é suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 049-4",
+    "source": "@\"\nprefix $é suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 050-1",
+    "source": "$０",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 050-2",
+    "source": "Write-Output $０",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 050-3",
+    "source": "\"prefix $０ suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 050-4",
+    "source": "@\"\nprefix $０ suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 051-1",
+    "source": "$é",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 051-2",
+    "source": "Write-Output $é",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 051-3",
+    "source": "\"prefix $é suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 051-4",
+    "source": "@\"\nprefix $é suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 052-1",
+    "source": "$`a",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 052-2",
+    "source": "Write-Output $`a",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 052-3",
+    "source": "\"prefix $`a suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 052-4",
+    "source": "@\"\nprefix $`a suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 053-1",
+    "source": "$a`b",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 053-2",
+    "source": "Write-Output $a`b",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 053-3",
+    "source": "\"prefix $a`b suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 053-4",
+    "source": "@\"\nprefix $a`b suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 054-1",
+    "source": "$name`:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 054-2",
+    "source": "Write-Output $name`:",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 054-3",
+    "source": "\"prefix $name`: suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 054-4",
+    "source": "@\"\nprefix $name`: suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 055-1",
+    "source": "$name:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 055-2",
+    "source": "Write-Output $name:",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 055-3",
+    "source": "\"prefix $name: suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 055-4",
+    "source": "@\"\nprefix $name: suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 056-1",
+    "source": "$name::",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 056-2",
+    "source": "Write-Output $name::",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 056-3",
+    "source": "\"prefix $name:: suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 056-4",
+    "source": "@\"\nprefix $name:: suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 057-1",
+    "source": "$name::foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 057-2",
+    "source": "Write-Output $name::foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 057-3",
+    "source": "\"prefix $name::foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 057-4",
+    "source": "@\"\nprefix $name::foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 058-1",
+    "source": "$name:?foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 058-2",
+    "source": "Write-Output $name:?foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 058-3",
+    "source": "\"prefix $name:?foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 058-4",
+    "source": "@\"\nprefix $name:?foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 059-1",
+    "source": "$foo?bar",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 059-2",
+    "source": "Write-Output $foo?bar",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 059-3",
+    "source": "\"prefix $foo?bar suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 059-4",
+    "source": "@\"\nprefix $foo?bar suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 060-1",
+    "source": "$$",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 060-2",
+    "source": "Write-Output $$",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 060-3",
+    "source": "\"prefix $$ suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 060-4",
+    "source": "@\"\nprefix $$ suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 061-1",
+    "source": "$$foo",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 061-2",
+    "source": "Write-Output $$foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 061-3",
+    "source": "\"prefix $$foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 061-4",
+    "source": "@\"\nprefix $$foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 062-1",
+    "source": "$^",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 062-2",
+    "source": "Write-Output $^",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 062-3",
+    "source": "\"prefix $^ suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 062-4",
+    "source": "@\"\nprefix $^ suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 063-1",
+    "source": "$^foo",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 063-2",
+    "source": "Write-Output $^foo",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 063-3",
+    "source": "\"prefix $^foo suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 063-4",
+    "source": "@\"\nprefix $^foo suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 064-1",
+    "source": "$(",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 064-2",
+    "source": "Write-Output $(",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 064-3",
+    "source": "\"prefix $( suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 064-4",
+    "source": "@\"\nprefix $( suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 065-1",
+    "source": "`$name:",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 065-2",
+    "source": "Write-Output `$name:",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 065-3",
+    "source": "\"prefix `$name: suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 065-4",
+    "source": "@\"\nprefix `$name: suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 066-1",
+    "source": "$!",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 066-2",
+    "source": "Write-Output $!",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 066-3",
+    "source": "\"prefix $! suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 066-4",
+    "source": "@\"\nprefix $! suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 067-1",
+    "source": "${a{b}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 067-2",
+    "source": "Write-Output ${a{b}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 067-3",
+    "source": "\"prefix ${a{b} suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 067-4",
+    "source": "@\"\nprefix ${a{b} suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 068-1",
+    "source": "${a\nb}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 068-2",
+    "source": "Write-Output ${a\nb}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 068-3",
+    "source": "\"prefix ${a\nb} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 068-4",
+    "source": "@\"\nprefix ${a\nb} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 069-1",
+    "source": "${foo`u{3a}}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 069-2",
+    "source": "Write-Output ${foo`u{3a}}",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 069-3",
+    "source": "\"prefix ${foo`u{3a}} suffix\"",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 069-4",
+    "source": "@\"\nprefix ${foo`u{3a}} suffix\n\"@",
+    "valid": false
+  },
+  {
+    "name": "variable lexical 070-1",
+    "source": "${foo`u{7d}}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 070-2",
+    "source": "Write-Output ${foo`u{7d}}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 070-3",
+    "source": "\"prefix ${foo`u{7d}} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 070-4",
+    "source": "@\"\nprefix ${foo`u{7d}} suffix\n\"@",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 071-1",
+    "source": "${`u{61}}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 071-2",
+    "source": "Write-Output ${`u{61}}",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 071-3",
+    "source": "\"prefix ${`u{61}} suffix\"",
+    "valid": true
+  },
+  {
+    "name": "variable lexical 071-4",
+    "source": "@\"\nprefix ${`u{61}} suffix\n\"@",
+    "valid": true
+  }
+]

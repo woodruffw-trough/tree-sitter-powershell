@@ -1,0 +1,147 @@
+[
+  {
+    "name": "assembly identity metadata",
+    "source": "[int, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]",
+    "valid": true
+  },
+  {
+    "name": "assembly hyphenated name",
+    "source": "[int, my-assembly]",
+    "valid": true
+  },
+  {
+    "name": "assembly quoted text",
+    "source": "[int, \"mscorlib\"]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace around commas",
+    "source": "[int, mscorlib , Version=4.0.0.0]",
+    "valid": true
+  },
+  {
+    "name": "assembly repeated metadata commas",
+    "source": "[int, mscorlib,,, X=2]",
+    "valid": true
+  },
+  {
+    "name": "assembly trailing metadata comma",
+    "source": "[int, mscorlib, ]",
+    "valid": true
+  },
+  {
+    "name": "assembly leading metadata comma",
+    "source": "[int, , x]",
+    "valid": true
+  },
+  {
+    "name": "missing assembly name",
+    "source": "[int, ]",
+    "valid": false
+  },
+  {
+    "name": "assembly word separator rejected",
+    "source": "[int, x y]",
+    "valid": false
+  },
+  {
+    "name": "assembly opening newline rejected",
+    "source": "[int,\nmscorlib]",
+    "valid": false
+  },
+  {
+    "name": "assembly closing newline rejected",
+    "source": "[int, mscorlib\n]",
+    "valid": false
+  },
+  {
+    "name": "bracketed assembly metadata argument",
+    "source": "[List[[int, mscorlib, Version=4.0.0.0]]]",
+    "valid": true
+  },
+  {
+    "name": "bracketed argument opening newline rejected",
+    "source": "[List[[\nint]]]",
+    "valid": false
+  },
+  {
+    "name": "bracketed argument closing newline rejected",
+    "source": "[List[[int\n]]]",
+    "valid": false
+  },
+  {
+    "name": "multiline bracketed assembly argument",
+    "source": "[List[\n[int, mscorlib]\n]]",
+    "valid": true
+  },
+  {
+    "name": "newlines before and after argument separators",
+    "source": "[List[int\n,\nstring\n]]",
+    "valid": true
+  },
+  {
+    "name": "array opening newline",
+    "source": "[int[\n]]",
+    "valid": true
+  },
+  {
+    "name": "multidimensional array opening newline",
+    "source": "[int[\n,]]",
+    "valid": true
+  },
+  {
+    "name": "multidimensional array closing newline rejected",
+    "source": "[int[,\n]]",
+    "valid": false
+  },
+  {
+    "name": "array multiple opening newlines",
+    "source": "[int[\n\n]]",
+    "valid": true
+  },
+  {
+    "name": "array suffix separator newline rejected",
+    "source": "[List[int]\n[]]",
+    "valid": false
+  },
+  {
+    "name": "generic array argument separator newline rejected",
+    "source": "[List[int\n[]]]",
+    "valid": false
+  },
+  {
+    "name": "multiline generic array argument",
+    "source": "[List[\nint[]\n]]",
+    "valid": true
+  },
+  {
+    "name": "bracketed argument array suffix outside bracket rejected",
+    "source": "[List[[int][]]]",
+    "valid": false
+  },
+  {
+    "name": "bracketed array argument",
+    "source": "[List[[int[]]]]",
+    "valid": true
+  },
+  {
+    "name": "bracketed explicit method type argument rejected",
+    "source": "[array]::Empty[[string]]()",
+    "valid": false
+  },
+  {
+    "name": "method type argument newline before comma",
+    "source": "[array]::Empty[int\n,string]()",
+    "valid": true
+  },
+  {
+    "name": "nullable array postfix rejected",
+    "source": "[int[]?]",
+    "valid": false
+  },
+  {
+    "name": "repeated generic parameter list rejected",
+    "source": "[List[int][string]]",
+    "valid": false
+  }
+]

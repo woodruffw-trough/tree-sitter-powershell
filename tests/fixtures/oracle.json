@@ -1,0 +1,1460 @@
+[
+  {
+    "name": "empty script",
+    "source": "",
+    "valid": true
+  },
+  {
+    "name": "statement separators",
+    "source": "$a = 1; $b = 2\n$a + $b\n",
+    "valid": true
+  },
+  {
+    "name": "comments and shebang",
+    "source": "#!/usr/bin/env pwsh\n# line\n<# block\ncomment #>\n$x = 1 # trailing\n",
+    "valid": true
+  },
+  {
+    "name": "comment contents do not nest",
+    "source": "<# outer <# inner #>\n$x = 1\n",
+    "valid": true
+  },
+  {
+    "name": "requires directives",
+    "source": "#requires -Version 7.4\n#requires -Modules Microsoft.PowerShell.Management\nGet-Item .\n",
+    "valid": true
+  },
+  {
+    "name": "script scope and automatic variables",
+    "source": "$global:x = $script:y\n$local:x = $private:y\n$env:PATH; $PSItem; $_; $args; $?; $$; $^\n",
+    "valid": true
+  },
+  {
+    "name": "braced and unicode variables",
+    "source": "${name with spaces} = 1\n${env:ProgramFiles}\n$über = ${日本語}\n",
+    "valid": true
+  },
+  {
+    "name": "splatting",
+    "source": "$arguments = @{ Path = \".\"; Force = $true }\nGet-ChildItem @arguments\n& $command @args\n",
+    "valid": true
+  },
+  {
+    "name": "numbers",
+    "source": "$a = 0, 42, 0xFF, 0b1010, 1.5, .5, 1e3, 1.5e-2, 12L, 42u, 42ul, 1.25d, 4kb, 2mb, 1gb, 1tb, 1pb\n",
+    "valid": true
+  },
+  {
+    "name": "numeric unary",
+    "source": "-42; +42; -0xFF; -1.5e-2\n",
+    "valid": true
+  },
+  {
+    "name": "single quoted strings",
+    "source": "'plain'; 'it''s literal'; 'a\nb'\n",
+    "valid": true
+  },
+  {
+    "name": "smart quotes",
+    "source": "“double”; ‘single’\n",
+    "valid": true
+  },
+  {
+    "name": "expandable string escapes",
+    "source": "\"hello $name ${env:USER} $($items.Count) `n`t`\" `` `$literal\"\n",
+    "valid": true
+  },
+  {
+    "name": "expandable string nested expressions",
+    "source": "\"result: $(if ($ok) { \"yes $name\" } else { 'no' })\"\n",
+    "valid": true
+  },
+  {
+    "name": "unicode escape",
+    "source": "\"`u{1F600}\"\n",
+    "valid": true
+  },
+  {
+    "name": "literal here string",
+    "source": "@'\nliteral $name\n'@\n",
+    "valid": true
+  },
+  {
+    "name": "expandable here string",
+    "source": "@\"\nhello $name\n$($x + 1)\n\"@\n",
+    "valid": true
+  },
+  {
+    "name": "here string header spaces and suffix",
+    "source": "@'   \ntext\n'@ + 'tail'\n",
+    "valid": true
+  },
+  {
+    "name": "arithmetic precedence",
+    "source": "$result = 1 + 2 * 3 - 4 / 2 % 2\n",
+    "valid": true
+  },
+  {
+    "name": "logical precedence",
+    "source": "$true -or $false -and $false -xor $true\n",
+    "valid": true
+  },
+  {
+    "name": "bitwise and shift operators",
+    "source": "1 -bor 2 -band 3 -bxor 4; 2 -shl 3 -eq 16; -bnot 0\n",
+    "valid": true
+  },
+  {
+    "name": "comparison operators",
+    "source": "$a -eq $b; $a -ne $b; $a -gt $b; $a -ge $b; $a -lt $b; $a -le $b\n",
+    "valid": true
+  },
+  {
+    "name": "case specific comparisons",
+    "source": "$a -ceq $b; $a -ieq $b; $a -cne $b; $a -ine $b; $a -cgt $b; $a -ige $b; $a -clt $b; $a -ile $b\n",
+    "valid": true
+  },
+  {
+    "name": "matching and replacement",
+    "source": "$a -like \"*\"; $a -notlike \"*\"; $a -clike \"*\"; $a -inotlike \"*\"\n$a -match \"x\"; $a -notmatch \"x\"; $a -cmatch \"x\"; $a -inotmatch \"x\"\n$a -replace \"x\", \"y\"; $a -creplace \"x\", \"y\"; $a -ireplace \"x\", \"y\"\n",
+    "valid": true
+  },
+  {
+    "name": "containment operators",
+    "source": "$a -contains $b; $a -notcontains $b; $a -ccontains $b; $a -inotcontains $b\n$a -in $b; $a -notin $b; $a -cin $b; $a -inotin $b\n",
+    "valid": true
+  },
+  {
+    "name": "type operators",
+    "source": "$x -is [string]; $x -isnot [int]; $x -as [double]\n",
+    "valid": true
+  },
+  {
+    "name": "split join and format",
+    "source": "-join $values; -split \"a b\"; $values -join \",\"\n\"a,b\" -split \",\", 2; \"a,b\" -csplit \",\"; \"a,b\" -isplit \",\"\n\"{0}: {1}\" -f $name, $value\n",
+    "valid": true
+  },
+  {
+    "name": "range and array expressions",
+    "source": "$a = 1..10\n$b = @(1; 2; Get-Item .)\n$c = ,42\n$d = @()\n",
+    "valid": true
+  },
+  {
+    "name": "assignment operators",
+    "source": "$x = 1; $x += 2; $x -= 3; $x *= 4; $x /= 5; $x %= 6\n",
+    "valid": true
+  },
+  {
+    "name": "prefix postfix and negation",
+    "source": "++$x; --$x; $x++; $x--; !$true; -not $false\n",
+    "valid": true
+  },
+  {
+    "name": "multiple assignment",
+    "source": "$first, $second, $rest = 1, 2, 3, 4\n",
+    "valid": true
+  },
+  {
+    "name": "typed assignment and casts",
+    "source": "[int]$n = 42\n[string[]]$names = \"a\", \"b\"\n[double]($x + 1)\n",
+    "valid": true
+  },
+  {
+    "name": "type literals",
+    "source": "[System.String]; [int[]]; [int[,]]; [System.Collections.Generic.Dictionary[string,int]]\n",
+    "valid": true
+  },
+  {
+    "name": "generic type array arguments",
+    "source": "[System.Tuple[System.String[],System.Int32[]]]\n",
+    "valid": true
+  },
+  {
+    "name": "assembly qualified type",
+    "source": "[System.Collections.Generic.List[string], System.Private.CoreLib]\n",
+    "valid": true
+  },
+  {
+    "name": "member access and invocation",
+    "source": "$object.Name; $object.Length; $object.Method(1, 2)\n[math]::PI; [math]::Max(1, 2)\n",
+    "valid": true
+  },
+  {
+    "name": "explicit generic method arguments",
+    "source": "[array]::Empty[string]()\n",
+    "valid": true
+  },
+  {
+    "name": "dynamic member names",
+    "source": "$object.$property; $object.(\"Na\" + \"me\"); $object.\"Display Name\"\n[System.String]::$member\n",
+    "valid": true
+  },
+  {
+    "name": "comment adjacent member",
+    "source": "$a<# comment #>.b\n",
+    "valid": true
+  },
+  {
+    "name": "index expressions",
+    "source": "$a[0]; $a[1,2]; $a[1..3]; $a[$i + 1]; $a[0][1]\n",
+    "valid": true
+  },
+  {
+    "name": "parentheses and subexpressions",
+    "source": "(Get-Item .).FullName\n$(1; 2; $x + 3)\n",
+    "valid": true
+  },
+  {
+    "name": "hash table",
+    "source": "$map = @{ Name = \"sample\"; Count = 2; \"with space\" = 3 }\n",
+    "valid": true
+  },
+  {
+    "name": "ordered hash table",
+    "source": "$map = [ordered]@{ First = 1; Second = 2 }\n",
+    "valid": true
+  },
+  {
+    "name": "hash table expression keys",
+    "source": "$map = @{ ($x + \"key\") = 1; 2 = \"two\"; $name = @(1, 2) }\n",
+    "valid": true
+  },
+  {
+    "name": "hash table statement values",
+    "source": "$map = @{ a = if ($x) { 1 } else { 2 }; b = Get-Item . }\n",
+    "valid": true
+  },
+  {
+    "name": "script block expression",
+    "source": "$callback = { param($x) $x + 1 }\n& $callback 1\n",
+    "valid": true
+  },
+  {
+    "name": "ternary",
+    "source": "$result = $ok ? \"yes\" : \"no\"\n",
+    "valid": true
+  },
+  {
+    "name": "nested ternary",
+    "source": "$true ? 1 : $false ? 2 : 3\n",
+    "valid": true
+  },
+  {
+    "name": "null coalescing and assignment",
+    "source": "$value = $candidate ?? \"default\"\n$value ??= \"fallback\"\n$null ?? 1 -eq 1\n",
+    "valid": true
+  },
+  {
+    "name": "null conditional member and index",
+    "source": "${value}?.Name; ${value}?[0]; ${value}?.Method(1)\n",
+    "valid": true
+  },
+  {
+    "name": "pipeline and chain",
+    "source": "Get-Item . | Select-Object Name | Sort-Object Name\nGet-Item . && Write-Output ok || Write-Output fail\n",
+    "valid": true
+  },
+  {
+    "name": "background pipeline",
+    "source": "Get-Item . &\n",
+    "valid": true
+  },
+  {
+    "name": "pipeline line breaks",
+    "source": "Get-Item . |\n    Select-Object Name\nGet-Item .\n    | Select-Object Name\n",
+    "valid": true
+  },
+  {
+    "name": "operator line breaks",
+    "source": "$a = 1 +\n 2\n$a = $true -and\n $false\n",
+    "valid": true
+  },
+  {
+    "name": "explicit line continuation",
+    "source": "Get-ChildItem `\n -Path . `\n -Force\n",
+    "valid": true
+  },
+  {
+    "name": "command arguments",
+    "source": "Write-Output hello world -Verbose -ErrorAction Stop\nGet-Item -Path:\".\" -Force:$true\n",
+    "valid": true
+  },
+  {
+    "name": "command argument punctuation",
+    "source": "Write-Output https://example.test/a?b=c C:\\Windows\\System32 ./relative/file.txt *.ps1 foo=bar a:b\n",
+    "valid": true
+  },
+  {
+    "name": "command concatenation and interpolation",
+    "source": "Write-Output prefix${name}suffix \"quoted $name\"plain $HOME/file.txt\n",
+    "valid": true
+  },
+  {
+    "name": "command commas",
+    "source": "Write-Output a,b,c\nWrite-Output (1 + 2),3\n",
+    "valid": true
+  },
+  {
+    "name": "call and dot operators",
+    "source": "& \"Get-Item\" -Path .\n. ./setup.ps1\n& { param($x) $x } 1\n",
+    "valid": true
+  },
+  {
+    "name": "stop parsing token",
+    "source": "native.exe --% /c echo %PATH% (literal) > result.txt\n",
+    "valid": true
+  },
+  {
+    "name": "redirection",
+    "source": "Get-Item . > out.txt\nGet-Item . >> out.txt\nGet-Item . 2> errors.txt\nGet-Item . 3>> warnings.txt\nGet-Item . 4> verbose.txt 5> debug.txt 6> info.txt\n",
+    "valid": true
+  },
+  {
+    "name": "expression redirection",
+    "source": "2>file.txt\n",
+    "valid": true
+  },
+  {
+    "name": "merged and all stream redirection",
+    "source": "Get-Item . 2>&1\nGet-Item . 3>&1 4>&1 5>&1 6>&1\nGet-Item . *> all.txt\nGet-Item . *>> all.txt\nGet-Item . *>&1\n",
+    "valid": true
+  },
+  {
+    "name": "if elseif else",
+    "source": "if ($x -gt 0) { \"positive\" } elseif ($x -lt 0) { \"negative\" } else { \"zero\" }\n",
+    "valid": true
+  },
+  {
+    "name": "if newline blocks",
+    "source": "if\n($ok)\n{\n  1\n}\nelse\n{\n  0\n}\n",
+    "valid": true
+  },
+  {
+    "name": "switch expression",
+    "source": "switch ($value) { 1 { \"one\" }; 2 { \"two\" }; default { \"other\" } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch flags and predicates",
+    "source": "switch -Regex -CaseSensitive ($text) { \"^a\" { 1 }; { $_.Length -gt 2 } { 2 }; default { 3 } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch file input",
+    "source": "switch -Wildcard -File ./input.txt { \"a*\" { continue }; default { break } }\n",
+    "valid": true
+  },
+  {
+    "name": "while and do loops",
+    "source": "while ($i -lt 3) { $i++ }\ndo { $i-- } while ($i -gt 0)\ndo { $i++ } until ($i -ge 3)\n",
+    "valid": true
+  },
+  {
+    "name": "for loop",
+    "source": "for ($i = 0; $i -lt 10; $i++) { $i }\n",
+    "valid": true
+  },
+  {
+    "name": "for omitted clauses",
+    "source": "for (;;) { break }\nfor () { break }\nfor ($i = 0) { break }\nfor ($i = 0; $i -lt 3) { break }\n",
+    "valid": true
+  },
+  {
+    "name": "foreach loop",
+    "source": "foreach ($item in $items) { $item.Name }\n",
+    "valid": true
+  },
+  {
+    "name": "labeled loops and control",
+    "source": ":outer foreach ($item in $items) { foreach ($other in $others) { if ($item -eq $other) { continue outer }; break outer } }\n",
+    "valid": true
+  },
+  {
+    "name": "return throw exit",
+    "source": "function Test-Control { if ($x) { return 1 }; throw \"failed\" }\nexit 0\n",
+    "valid": true
+  },
+  {
+    "name": "try catch finally",
+    "source": "try { Get-Item . -ErrorAction Stop } catch [IO.IOException], [UnauthorizedAccessException] { $_ } catch { throw } finally { \"done\" }\n",
+    "valid": true
+  },
+  {
+    "name": "trap",
+    "source": "trap [System.Exception] { Write-Error $_; continue }\nGet-Item .\n",
+    "valid": true
+  },
+  {
+    "name": "data section",
+    "source": "data Values { ConvertFrom-StringData @'\nname=value\n'@ }\n",
+    "valid": true
+  },
+  {
+    "name": "data supported commands",
+    "source": "data -SupportedCommand ConvertFrom-StringData { ConvertFrom-StringData \"name=value\" }\n",
+    "valid": true
+  },
+  {
+    "name": "function parameters",
+    "source": "function Add-Numbers([int]$a, [int]$b = 1) { return $a + $b }\n",
+    "valid": true
+  },
+  {
+    "name": "filter and scoped function",
+    "source": "filter Select-Positive { if ($_ -gt 0) { $_ } }\nfunction global:Get-Value { 42 }\n",
+    "valid": true
+  },
+  {
+    "name": "advanced function",
+    "source": "function Get-Greeting {\n [CmdletBinding(SupportsShouldProcess=$true)]\n param([Parameter(Mandatory,Position=0)][ValidateNotNullOrEmpty()][string]$Name, [switch]$Loud)\n begin { $prefix = \"Hello\" }\n process { \"$prefix $Name\" }\n end { \"done\" }\n clean { \"cleanup\" }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "script attributes and param block",
+    "source": "[CmdletBinding()]\nparam([Parameter(ValueFromPipeline=$true)][string]$Name = \"world\")\nprocess { \"Hello $Name\" }\n",
+    "valid": true
+  },
+  {
+    "name": "attribute arguments",
+    "source": "param([ValidateRange(0, 100)][int]$Count, [Alias(\"n\", \"Name\")][string]$Label)\n$Count\n",
+    "valid": true
+  },
+  {
+    "name": "dynamic parameter block",
+    "source": "function Test-Dynamic { dynamicparam { $null }; begin { 1 }; process { 2 }; end { 3 } }\n",
+    "valid": true
+  },
+  {
+    "name": "using namespace",
+    "source": "using namespace System.Collections.Generic\n[List[string]]::new()\n",
+    "valid": true
+  },
+  {
+    "name": "enum",
+    "source": "enum Color { Red; Green = 2; Blue = 4 }\n[Color]::Green\n",
+    "valid": true
+  },
+  {
+    "name": "enum underlying type",
+    "source": "enum Mode : byte { Off = 0; On = 1 }\n",
+    "valid": true
+  },
+  {
+    "name": "class properties constructors and methods",
+    "source": "class Person {\n [string]$Name\n hidden [int]$Age = 0\n static [int]$Count = 0\n Person([string]$name) { $this.Name = $name }\n [string] ToString() { return $this.Name }\n static [Person] Create([string]$name) { return [Person]::new($name) }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "class inheritance and base constructor",
+    "source": "class BaseItem { BaseItem([string]$name) {} }\nclass ChildItem : BaseItem { ChildItem() : base(\"child\") {} [int] Value() { return 1 } }\n",
+    "valid": true
+  },
+  {
+    "name": "class property attributes",
+    "source": "class Settings { [ValidateRange(0,100)][int]$Count = 10; [ValidateNotNullOrEmpty()][string]$Name = \"name\" }\n",
+    "valid": true
+  },
+  {
+    "name": "mixed case keywords and operators",
+    "source": "IF ($TRUE -EQ $true) { WRITE-OUTPUT ok } ELSE { Write-Output fail }\n",
+    "valid": true
+  },
+  {
+    "name": "unicode operator and parameter dashes",
+    "source": "$x –eq 1; $x —ne 2; $x ―gt 3\nGet-Item –Path . —Force\n",
+    "valid": true
+  },
+  {
+    "name": "keywords as command names",
+    "source": "default x\nhidden x\nstatic x\nin x\n",
+    "valid": true
+  },
+  {
+    "name": "bare tokens that resemble ternary",
+    "source": "1?2:3\n2?3:4\n$true?2:3\n",
+    "valid": true
+  },
+  {
+    "name": "command named with numeric prefix",
+    "source": "123abc argument\n",
+    "valid": true
+  },
+  {
+    "name": "unicode and supplementary strings",
+    "source": "$é = \"😀\"\nWrite-Output \"日本語 $é\"\n",
+    "valid": true
+  },
+  {
+    "name": "carriage return line endings",
+    "source": "$x = 1\r\n$x + 2\r\n",
+    "valid": true
+  },
+  {
+    "name": "realistic pipeline script",
+    "source": "param([string]$Path = \".\")\n$ErrorActionPreference = \"Stop\"\nGet-ChildItem -LiteralPath $Path -Recurse -File |\n Where-Object { $_.Extension -eq \".ps1\" } |\n ForEach-Object { [pscustomobject]@{ Name = $_.Name; Bytes = $_.Length } } |\n Sort-Object Bytes -Descending\n",
+    "valid": true
+  },
+  {
+    "name": "realistic error handling function",
+    "source": "function Read-Config {\n [CmdletBinding()] param([Parameter(Mandatory)][string]$Path)\n try { Get-Content -LiteralPath $Path -Raw -ErrorAction Stop | ConvertFrom-Json }\n catch { throw \"Could not read ${Path}: $($_.Exception.Message)\" }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "AST addition and multiplication",
+    "source": "$x = 1 + 2 * 3\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST subtraction is left associative",
+    "source": "$x = 9 - 3 - 1\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST multiplication and division are left associative",
+    "source": "$x = 12 / 3 * 2 % 5\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST parentheses override precedence",
+    "source": "$x = (1 + 2) * 3\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST logical operators have equal precedence",
+    "source": "$true -or $false -and $false -xor $true\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST bitwise operators",
+    "source": "1 -bor 2 -band 3 -bxor 4\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST comparison and arithmetic",
+    "source": "$a + 1 -eq $b * 2\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST shifts share comparison precedence",
+    "source": "1 -eq 2 -shl 3 -ne 4\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST comparison is left associative",
+    "source": "$a -eq $b -ne $c\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST null coalescing precedes comparison",
+    "source": "$null ?? 1 -eq 1\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST chained null coalescing",
+    "source": "$a ?? $b ?? $c\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST ternary is right associative",
+    "source": "$true ? 1 : $false ? 2 : 3\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST ternary true branch",
+    "source": "$a ? $b ? 1 : 2 : 3\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST ternary condition comparison",
+    "source": "$a -eq $b ? 1 + 2 : 3 * 4\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST assignment from assignment",
+    "source": "$a = $b = 1 + 2\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST compound assignment",
+    "source": "$a += 1 + 2 * 3\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST null coalescing assignment",
+    "source": "$a ??= $b ?? 42\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST range and addition",
+    "source": "1 + 2..3 + 4\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST format and addition",
+    "source": "\"{0}\" -f (1 + 2) + \"tail\"\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST join and replace",
+    "source": "$a -join \",\" -replace \"x\", \"y\"\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST case insensitive operators",
+    "source": "$A -EQ $B -AND $C -NE $D\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "AST unary operators and binary expression",
+    "source": "-1 + 2 * -3\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "unterminated single quote",
+    "source": "'unterminated\n",
+    "valid": false
+  },
+  {
+    "name": "unterminated double quote",
+    "source": "\"unterminated\n",
+    "valid": false
+  },
+  {
+    "name": "unterminated block comment",
+    "source": "<# unterminated\n",
+    "valid": false
+  },
+  {
+    "name": "unterminated here string",
+    "source": "@'\nunterminated\n",
+    "valid": false
+  },
+  {
+    "name": "here string header text",
+    "source": "@\" text\nvalue\n\"@\n",
+    "valid": false
+  },
+  {
+    "name": "indented here string terminator",
+    "source": "@'\nvalue\n  '@\n",
+    "valid": false
+  },
+  {
+    "name": "unterminated braced variable",
+    "source": "${name\n",
+    "valid": false
+  },
+  {
+    "name": "missing expression after assignment",
+    "source": "$x =\n",
+    "valid": false
+  },
+  {
+    "name": "missing right operand",
+    "source": "$x = 1 +\n",
+    "valid": false
+  },
+  {
+    "name": "missing comparison operand",
+    "source": "$x -eq\n",
+    "valid": false
+  },
+  {
+    "name": "missing ternary true operand",
+    "source": "$x ? : 1\n",
+    "valid": false
+  },
+  {
+    "name": "missing ternary colon",
+    "source": "$x ? 1\n",
+    "valid": false
+  },
+  {
+    "name": "missing ternary false operand",
+    "source": "$x ? 1 :\n",
+    "valid": false
+  },
+  {
+    "name": "missing null coalescing operand",
+    "source": "$x ??\n",
+    "valid": false
+  },
+  {
+    "name": "missing closing parenthesis",
+    "source": "(1 + 2\n",
+    "valid": false
+  },
+  {
+    "name": "unexpected closing parenthesis",
+    "source": "$x = 1)\n",
+    "valid": false
+  },
+  {
+    "name": "missing closing array bracket",
+    "source": "$x[1\n",
+    "valid": false
+  },
+  {
+    "name": "empty index",
+    "source": "$x[]\n",
+    "valid": false
+  },
+  {
+    "name": "missing member name",
+    "source": "$x.\n",
+    "valid": false
+  },
+  {
+    "name": "missing static member name",
+    "source": "[math]::\n",
+    "valid": false
+  },
+  {
+    "name": "missing invocation closing parenthesis",
+    "source": "$x.Method(1, 2\n",
+    "valid": false
+  },
+  {
+    "name": "missing script block brace",
+    "source": "{ $x = 1\n",
+    "valid": false
+  },
+  {
+    "name": "unexpected script block brace",
+    "source": "$x = 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "missing hash value",
+    "source": "@{ key = }\n",
+    "valid": false
+  },
+  {
+    "name": "missing hash equals",
+    "source": "@{ key 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "missing hash closing brace",
+    "source": "@{ key = 1\n",
+    "valid": false
+  },
+  {
+    "name": "missing array expression closing parenthesis",
+    "source": "@(1, 2\n",
+    "valid": false
+  },
+  {
+    "name": "missing pipeline command",
+    "source": "Get-Item . |\n",
+    "valid": false
+  },
+  {
+    "name": "leading pipeline",
+    "source": "| Get-Item .\n",
+    "valid": false
+  },
+  {
+    "name": "missing chain command",
+    "source": "Get-Item . &&\n",
+    "valid": false
+  },
+  {
+    "name": "missing redirection file",
+    "source": "Get-Item . >\n",
+    "valid": false
+  },
+  {
+    "name": "unsupported input redirection",
+    "source": "Get-Item . < input.txt\n",
+    "valid": false
+  },
+  {
+    "name": "if missing condition",
+    "source": "if { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "if empty condition",
+    "source": "if () { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "if missing body",
+    "source": "if ($x)\n",
+    "valid": false
+  },
+  {
+    "name": "else missing body",
+    "source": "if ($x) { 1 } else\n",
+    "valid": false
+  },
+  {
+    "name": "while missing condition",
+    "source": "while { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "while empty condition",
+    "source": "while () { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "do missing while or until",
+    "source": "do { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "for missing closing parenthesis",
+    "source": "for ($i = 0; $i -lt 3; $i++ { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "foreach missing in",
+    "source": "foreach ($item $items) { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "foreach missing variable",
+    "source": "foreach (in $items) { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "switch missing body",
+    "source": "switch ($x)\n",
+    "valid": false
+  },
+  {
+    "name": "switch clause missing body",
+    "source": "switch ($x) { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "try missing catch or finally",
+    "source": "try { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "catch missing body",
+    "source": "try { 1 } catch\n",
+    "valid": false
+  },
+  {
+    "name": "finally missing body",
+    "source": "try { 1 } finally\n",
+    "valid": false
+  },
+  {
+    "name": "function missing name",
+    "source": "function { 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "function missing body",
+    "source": "function Get-Value\n",
+    "valid": false
+  },
+  {
+    "name": "parameter missing variable",
+    "source": "param([int])\n",
+    "valid": false
+  },
+  {
+    "name": "parameter missing closing parenthesis",
+    "source": "param($x\n",
+    "valid": false
+  },
+  {
+    "name": "attribute missing closing bracket",
+    "source": "param([Parameter()$x)\n",
+    "valid": false
+  },
+  {
+    "name": "type missing closing bracket",
+    "source": "[System.String\n",
+    "valid": false
+  },
+  {
+    "name": "class missing name",
+    "source": "class { }\n",
+    "valid": false
+  },
+  {
+    "name": "class missing body",
+    "source": "class Person\n",
+    "valid": false
+  },
+  {
+    "name": "class method missing body",
+    "source": "class Person { [void] Work() }\n",
+    "valid": false
+  },
+  {
+    "name": "enum missing body",
+    "source": "enum Color\n",
+    "valid": false
+  },
+  {
+    "name": "enum member missing value",
+    "source": "enum Color { Red = }\n",
+    "valid": false
+  },
+  {
+    "name": "real script module manifest psd1",
+    "source": "@{\n    RootModule = 'Example.psm1'\n    ModuleVersion = '1.2.3'\n    GUID = '89bc59a9-9999-4444-8888-e4b6b5c832d0'\n    Author = 'Example Author'\n    Description = 'Utilities for configuration files'\n    PowerShellVersion = '7.4'\n    CompatiblePSEditions = @('Core')\n    RequiredModules = @(@{ ModuleName = 'Microsoft.PowerShell.Utility'; ModuleVersion = '7.0.0' })\n    FunctionsToExport = @('Get-Example', 'Set-Example')\n    CmdletsToExport = @()\n    VariablesToExport = '*'\n    AliasesToExport = @()\n    PrivateData = @{\n        PSData = @{\n            Tags = @('Configuration', 'Tools')\n            LicenseUri = 'https://example.test/license'\n            ProjectUri = 'https://example.test/project'\n            ReleaseNotes = @'\nFix handling of empty files.\n'@\n        }\n    }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script localized string data psd1",
+    "source": "ConvertFrom-StringData @'\nMissingPath = The requested path does not exist.\nComplete = Completed processing {0} items.\nInvalidValue = A configuration value is invalid.\n'@\n",
+    "valid": true
+  },
+  {
+    "name": "real script configuration data psd1",
+    "source": "@{\n    AllNodes = @(\n        @{ NodeName = '*'; PSDscAllowPlainTextPassword = $false }\n        @{ NodeName = 'server01'; Role = 'Web'; Ports = @(80, 443) }\n        @{ NodeName = 'server02'; Role = 'Worker'; Ports = @(9000) }\n    )\n    NonNodeData = @{\n        Retry = @{ Attempts = 3; Delay = [timespan]::FromSeconds(5) }\n        Enabled = $true\n        Labels = 'primary', 'secondary'\n    }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script profile prompt",
+    "source": "Set-StrictMode -Version Latest\n$ErrorActionPreference = 'Stop'\nfunction global:prompt {\n    $location = (Get-Location).Path\n    $status = if ($?) { '+' } else { '!' }\n    \"${status} ${location}> \"\n}\nSet-Alias -Name ll -Value Get-ChildItem\nif (Test-Path -LiteralPath \"$HOME/.config/example/profile.ps1\") {\n    . \"$HOME/.config/example/profile.ps1\"\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script advanced function should process",
+    "source": "function Remove-Example {\n    [CmdletBinding(SupportsShouldProcess, ConfirmImpact='High', DefaultParameterSetName='Path')]\n    param(\n        [Parameter(Mandatory, ValueFromPipeline, ParameterSetName='Path')]\n        [ValidateNotNullOrEmpty()]\n        [string[]] $Path,\n        [Parameter(Mandatory, ParameterSetName='Id')]\n        [guid] $Id,\n        [switch] $Force\n    )\n    begin { $removed = 0 }\n    process {\n        foreach ($item in $Path) {\n            if ($PSCmdlet.ShouldProcess($item, 'Remove example')) {\n                Remove-Item -LiteralPath $item -Force:$Force -ErrorAction Stop\n                $removed++\n            }\n        }\n    }\n    end { Write-Verbose (\"Removed {0} items\" -f $removed) }\n    clean { Write-Debug 'cleanup' }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script advanced pipeline conversion",
+    "source": "function ConvertTo-ExampleRecord {\n    [CmdletBinding()]\n    [OutputType([pscustomobject])]\n    param(\n        [Parameter(Mandatory, ValueFromPipelineByPropertyName)]\n        [Alias('FullName')]\n        [string] $Path,\n        [ValidateSet('Small', 'Large')]\n        [string] $Size = 'Small'\n    )\n    process {\n        $file = Get-Item -LiteralPath $Path\n        [pscustomobject]@{\n            Name = $file.Name\n            Path = $file.FullName\n            Bytes = $file.Length\n            Size = $Size\n            Modified = $file.LastWriteTimeUtc.ToString('o')\n        }\n    }\n}\nGet-ChildItem . -File | ConvertTo-ExampleRecord -Size Large\n",
+    "valid": true
+  },
+  {
+    "name": "real script REST request with splatting",
+    "source": "[CmdletBinding()]\nparam([uri] $Endpoint, [securestring] $Token)\n$request = @{\n    Uri = [uri]::new($Endpoint, 'api/items')\n    Method = 'Post'\n    Authentication = 'Bearer'\n    Token = $Token\n    ContentType = 'application/json'\n    Body = @{ Name = 'example'; Values = @(1, 2, 3) } | ConvertTo-Json -Depth 5\n    ErrorAction = 'Stop'\n}\ntry {\n    $response = Invoke-RestMethod @request\n    $response.items | Where-Object { $_.enabled } | Select-Object id, name\n} catch {\n    Write-Error -ErrorRecord $_\n    throw\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script native argument array",
+    "source": "param([string] $Executable = 'example', [string] $Path = '.')\n$arguments = @(\n    '--input'\n    (Resolve-Path -LiteralPath $Path).Path\n    '--label'\n    \"user:${env:USER}\"\n    '--format=json'\n)\n& $Executable @arguments 2>&1 | ForEach-Object { Write-Verbose \"native: $_\" }\nif ($LASTEXITCODE -ne 0) {\n    throw \"Native command failed with exit code $LASTEXITCODE\"\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script quoting and argument construction",
+    "source": "$directory = 'directory with spaces'\n$name = 'report'\nWrite-Output prefix${name}suffix \"$directory/$name.txt\" -- --option=value\n& './native tool' \"--name=$name\" '--literal=$value' \"a`\"b\" \"`$escaped\"\nWrite-Output before` after escaped`;semicolon escaped`#hash\nWrite-Output 'single''quote' \"double`\"quote\" \"${name}:$(1 + 2)\"\n",
+    "valid": true
+  },
+  {
+    "name": "real script PowerShell parser ref arguments",
+    "source": "param([string] $Source)\n$tokens = $null\n$errors = $null\n$ast = [System.Management.Automation.Language.Parser]::ParseInput(\n    $Source,\n    [ref] $tokens,\n    [ref] $errors\n)\nforeach ($error in $errors) {\n    [pscustomobject]@{\n        Id = $error.ErrorId\n        Message = $error.Message\n        Start = $error.Extent.StartOffset\n        End = $error.Extent.EndOffset\n    }\n}\n$ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.CommandAst] }, $true)\n",
+    "valid": true
+  },
+  {
+    "name": "real script TryParse ref arguments",
+    "source": "function ConvertTo-Port {\n    param([Parameter(Mandatory)][string] $Text)\n    [int] $value = 0\n    if (-not [int]::TryParse($Text, [ref] $value)) {\n        throw [ArgumentException]::new(\"Invalid port: $Text\")\n    }\n    if ($value -notin 1..65535) { throw 'Port is out of range' }\n    return $value\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script filesystem report with continuations",
+    "source": "[CmdletBinding()]\nparam([string] $Root = '.', [string] $Output = 'report.csv')\n$records = Get-ChildItem `\n    -LiteralPath $Root `\n    -Recurse `\n    -File |\n    Where-Object {\n        $_.Extension -in '.ps1', '.psm1', '.psd1'\n    } |\n    Select-Object Name, Length, @{ Name = 'Directory'; Expression = { $_.DirectoryName } }\n$records |\n    Sort-Object Directory, Name |\n    Export-Csv -LiteralPath $Output -NoTypeInformation\n",
+    "valid": true
+  },
+  {
+    "name": "real script parallel file hashing",
+    "source": "param([string] $Root = '.', [string] $Algorithm = 'SHA256')\nGet-ChildItem -LiteralPath $Root -File -Recurse |\n    ForEach-Object -Parallel {\n        $hash = Get-FileHash -LiteralPath $_.FullName -Algorithm $using:Algorithm\n        [pscustomobject]@{ Path = $_.FullName; Hash = $hash.Hash }\n    } -ThrottleLimit 4 |\n    Sort-Object Path\n",
+    "valid": true
+  },
+  {
+    "name": "real script Pester style tests",
+    "source": "BeforeAll { . \"$PSScriptRoot/Example.ps1\" }\nDescribe 'ConvertTo-Port' {\n    It 'converts a valid port' {\n        ConvertTo-Port '443' | Should -Be 443\n    }\n    It 'rejects invalid text' {\n        { ConvertTo-Port 'nope' } | Should -Throw\n    }\n    It 'accepts <Value>' -TestCases @(@{ Value = '80' }, @{ Value = '443' }) {\n        param($Value)\n        ConvertTo-Port $Value | Should -BeGreaterThan 0\n    }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script class IDisposable and generic collection",
+    "source": "using namespace System.Collections.Generic\nclass Buffer : System.IDisposable {\n    hidden [List[string]] $Items = [List[string]]::new()\n    [bool] $Disposed = $false\n    Buffer([string[]] $values) { $this.Items.AddRange($values) }\n    [void] Add([string] $value) {\n        if ($this.Disposed) { throw [ObjectDisposedException]::new('Buffer') }\n        $this.Items.Add($value)\n    }\n    [string[]] ToArray() { return $this.Items.ToArray() }\n    [void] Dispose() { $this.Items.Clear(); $this.Disposed = $true }\n}\n$buffer = [Buffer]::new(@('one', 'two'))\ntry { $buffer.Add('three'); $buffer.ToArray() } finally { $buffer.Dispose() }\n",
+    "valid": true
+  },
+  {
+    "name": "real script class inheritance and interface",
+    "source": "class Entity {\n    [int] $Id\n    Entity([int] $id) { $this.Id = $id }\n    [string] ToString() { return \"Entity $($this.Id)\" }\n}\nclass NamedEntity : Entity, System.IComparable {\n    [string] $Name\n    NamedEntity([int] $id, [string] $name) : base($id) { $this.Name = $name }\n    [int] CompareTo([object] $other) { return $this.Id.CompareTo($other.Id) }\n    [string] ToString() { return \"$($this.Id): $($this.Name)\" }\n}\n[NamedEntity]::new(1, 'first').ToString()\n",
+    "valid": true
+  },
+  {
+    "name": "real script flags enum",
+    "source": "[Flags()]\nenum Access : byte {\n    None = 0\n    Read = 1\n    Write = 2\n    Execute = 4\n    All = 7\n}\nfunction Test-Access {\n    param([Access] $Requested, [Access] $Granted)\n    return ($Granted -band $Requested) -eq $Requested\n}\nTest-Access -Requested ([Access]::Read -bor [Access]::Write) -Granted ([Access]::All)\n",
+    "valid": true
+  },
+  {
+    "name": "real script class validated settings",
+    "source": "class Settings {\n    [ValidateNotNullOrEmpty()][string] $Name = 'default'\n    [ValidateRange(1, 65535)][int] $Port = 443\n    static [string] $DefaultHost = 'localhost'\n    Settings() {}\n    Settings([string] $name, [int] $port) { $this.Name = $name; $this.Port = $port }\n    static [Settings] Load([hashtable] $values) {\n        return [Settings]::new($values.Name, $values.Port)\n    }\n    [uri] GetUri() {\n        return [uri]::new(\"https://$([Settings]::DefaultHost):$($this.Port)/$($this.Name)\")\n    }\n}\n[Settings]::Load(@{ Name = 'example'; Port = 8443 }).GetUri()\n",
+    "valid": true
+  },
+  {
+    "name": "real script regex matching and here string",
+    "source": "$pattern = @'\n^(?<name>[^:]+):(?<value>.*)$\n'@\n$inputText = @\"\nname:$env:USER\ncount:$(1 + 2)\n\"@\nforeach ($line in ($inputText -split \"`r?`n\")) {\n    if ($line -match $pattern.Trim()) {\n        [pscustomobject]@{ Name = $Matches.name; Value = $Matches['value'] }\n    }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script StringBuilder and generic dictionary",
+    "source": "using namespace System.Text\nusing namespace System.Collections.Generic\n$lookup = [Dictionary[string,int]]::new([StringComparer]::OrdinalIgnoreCase)\n$lookup.Add('one', 1)\n$lookup['two'] = 2\n$builder = [StringBuilder]::new()\nforeach ($entry in $lookup.GetEnumerator()) {\n    [void] $builder.AppendFormat('{0}={1}{2}', $entry.Key, $entry.Value, [Environment]::NewLine)\n}\n$builder.ToString()\n",
+    "valid": true
+  },
+  {
+    "name": "real script try catch nested cleanup",
+    "source": "param([string] $Path)\n$stream = $null\ntry {\n    $stream = [IO.File]::OpenRead($Path)\n    $reader = [IO.StreamReader]::new($stream)\n    try { $reader.ReadToEnd() } finally { $reader.Dispose() }\n} catch [IO.FileNotFoundException], [IO.DirectoryNotFoundException] {\n    Write-Warning \"Missing file: $Path\"\n} catch [UnauthorizedAccessException] {\n    Write-Error \"Access denied: $Path\"\n    throw\n} finally {\n    if ($null -ne $stream) { $stream.Dispose() }\n}\n",
+    "valid": true
+  },
+  {
+    "name": "real script switch parser with labeled loops",
+    "source": "param([string[]] $Lines)\n$result = [ordered]@{}\n:lines foreach ($line in $Lines) {\n    switch -Regex -CaseSensitive ($line) {\n        '^#' { continue lines }\n        '^(?<key>[^=]+)=(?<value>.*)$' {\n            $result[$Matches.key.Trim()] = $Matches.value.Trim()\n            continue lines\n        }\n        default { throw \"Invalid line: $line\" }\n    }\n}\n[pscustomobject] $result\n",
+    "valid": true
+  },
+  {
+    "name": "real script module with exported function and alias",
+    "source": "$script:Cache = @{}\nfunction Get-CachedValue {\n    [CmdletBinding()]\n    param([Parameter(Mandatory)][string] $Name, [switch] $Refresh)\n    if ($Refresh -or -not $script:Cache.ContainsKey($Name)) {\n        $script:Cache[$Name] = [pscustomobject]@{ Name = $Name; Created = [datetime]::UtcNow }\n    }\n    $script:Cache[$Name]\n}\nNew-Alias -Name gcv -Value Get-CachedValue\nExport-ModuleMember -Function Get-CachedValue -Alias gcv\n",
+    "valid": true
+  },
+  {
+    "name": "real script pipeline chains and null fallbacks",
+    "source": "param([string] $Name, [hashtable] $Options)\n$name ??= 'default'\n$timeout = $Options.Timeout ?? 30\n$label = $timeout -gt 60 ? 'slow' : 'fast'\nGet-Item -LiteralPath $Name -ErrorAction SilentlyContinue &&\n    Write-Output \"found: $Name\" ||\n    Write-Warning \"missing: $Name\"\n${Options}?.Nested?.Value ?? 'unset'\n${Options}?[0]\n",
+    "valid": true
+  },
+  {
+    "name": "escaped command names",
+    "source": "Get`-Item .\nWrite`-Output hello\n",
+    "valid": true
+  },
+  {
+    "name": "escaped bare command arguments",
+    "source": "Write-Output a` b c`;d e`#f x`|y x`&y x`(y`)\n",
+    "valid": true
+  },
+  {
+    "name": "standalone parameter terminator",
+    "source": "Write-Output -- -literal value\n",
+    "valid": true
+  },
+  {
+    "name": "dollar as literal command argument",
+    "source": "Write-Output $ $$\n",
+    "valid": true
+  },
+  {
+    "name": "escaped braced variable name",
+    "source": "${a`}} = 1\n${a`}}\n",
+    "valid": true
+  },
+  {
+    "name": "attributes without arguments",
+    "source": "param([Parameter][string]$Value)\n$Value\n",
+    "valid": true
+  },
+  {
+    "name": "bare parameter attribute argument",
+    "source": "param([Parameter(Mandatory,ValueFromPipeline)][string]$Value)\n$Value\n",
+    "valid": true
+  },
+  {
+    "name": "parameter default script block",
+    "source": "param([scriptblock]$Action = { param($x) $x + 1 })\n& $Action 1\n",
+    "valid": true
+  },
+  {
+    "name": "newlines inside array literal and calls",
+    "source": "$x = 1,\n2,\n3\n[math]::Max(\n 1,\n 2\n)\n",
+    "valid": true
+  },
+  {
+    "name": "pipeline assignment and statement results",
+    "source": "$x = if ($ok) { 1 } else { 2 }\n$x = try { 1 } catch { 2 }\n$x = switch ($v) { 1 { 2 } default { 3 } }\n",
+    "valid": true
+  },
+  {
+    "name": "AST unicode UTF-16 extent offsets",
+    "source": "$é = \"😀\" + \"日本語\"\n",
+    "valid": true,
+    "checkAst": true
+  },
+  {
+    "name": "permissive function name foo.bar",
+    "source": "function foo.bar {}\n",
+    "valid": true
+  },
+  {
+    "name": "permissive function name global:foo",
+    "source": "function global:foo {}\n",
+    "valid": true
+  },
+  {
+    "name": "permissive function name 123",
+    "source": "function 123 {}\n",
+    "valid": true
+  },
+  {
+    "name": "permissive function name foo$bar",
+    "source": "function foo$bar {}\n",
+    "valid": true
+  },
+  {
+    "name": "permissive function name path\\foo",
+    "source": "function path\\foo {}\n",
+    "valid": true
+  },
+  {
+    "name": "permissive function name café",
+    "source": "function café {}\n",
+    "valid": true
+  },
+  {
+    "name": "permissive function name 日本語",
+    "source": "function 日本語 {}\n",
+    "valid": true
+  },
+  {
+    "name": "permissive function name 1.2.3",
+    "source": "function 1.2.3 {}\n",
+    "valid": true
+  },
+  {
+    "name": "invalid function name \"foo\"",
+    "source": "function \"foo\" {}\n",
+    "valid": false
+  },
+  {
+    "name": "invalid function name “日本語”",
+    "source": "function “日本語” {}\n",
+    "valid": false
+  },
+  {
+    "name": "invalid function name $name",
+    "source": "function $name {}\n",
+    "valid": false
+  },
+  {
+    "name": "invalid function name @name",
+    "source": "function @name {}\n",
+    "valid": false
+  },
+  {
+    "name": "unicode class method name",
+    "source": "class Unicode { [void] 日本語() {} }\n",
+    "valid": true
+  },
+  {
+    "name": "invalid class method name 123",
+    "source": "class Example { [void] 123() {} }\n",
+    "valid": false
+  },
+  {
+    "name": "invalid class method name foo.bar",
+    "source": "class Example { [void] foo.bar() {} }\n",
+    "valid": false
+  },
+  {
+    "name": "numeric member names",
+    "source": "$object.1.2.3\n[string]::1.2.3\n",
+    "valid": true
+  },
+  {
+    "name": "switch abbreviated flag r",
+    "source": "switch -r (1) { 1 { 1 } default { 0 } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch abbreviated flag w",
+    "source": "switch -w (1) { 1 { 1 } default { 0 } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch abbreviated flag c",
+    "source": "switch -c (1) { 1 { 1 } default { 0 } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch abbreviated flag e",
+    "source": "switch -e (1) { 1 { 1 } default { 0 } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch abbreviated flag Re",
+    "source": "switch -Re (1) { 1 { 1 } default { 0 } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch abbreviated flag ca",
+    "source": "switch -ca (1) { 1 { 1 } default { 0 } }\n",
+    "valid": true
+  },
+  {
+    "name": "switch abbreviated file flag",
+    "source": "switch -f ./input.txt { default { 1 } }\n",
+    "valid": true
+  },
+  {
+    "name": "reserved switch parallel flag",
+    "source": "switch -p (1) { default { 1 } }\n",
+    "valid": false
+  },
+  {
+    "name": "reserved foreach parallel flag",
+    "source": "foreach -p ($item in $items) { $item }\n",
+    "valid": false
+  },
+  {
+    "name": "data supported command abbreviated flag",
+    "source": "data D -s ConvertFrom-StringData { @{ X = 1 } }\n",
+    "valid": true
+  },
+  {
+    "name": "invalid using directive abbreviation n",
+    "source": "using n System.Text\n",
+    "valid": false
+  },
+  {
+    "name": "invalid using directive abbreviation nam",
+    "source": "using nam System.Text\n",
+    "valid": false
+  },
+  {
+    "name": "invalid using directive abbreviation m",
+    "source": "using m System.Text\n",
+    "valid": false
+  },
+  {
+    "name": "invalid using directive abbreviation a",
+    "source": "using a System.Text\n",
+    "valid": false
+  },
+  {
+    "name": "named block abbreviation is command beg",
+    "source": "beg {}\n",
+    "valid": true
+  },
+  {
+    "name": "named block abbreviation is command proc",
+    "source": "proc {}\n",
+    "valid": true
+  },
+  {
+    "name": "named block abbreviation is command dyn",
+    "source": "dyn {}\n",
+    "valid": true
+  },
+  {
+    "name": "named block abbreviation is command cle",
+    "source": "cle {}\n",
+    "valid": true
+  },
+  {
+    "name": "double bracket generic argument",
+    "source": "[System.Collections.Generic.List[[string]]]\n",
+    "valid": true
+  },
+  {
+    "name": "bracketed nested generic argument",
+    "source": "[System.Collections.Generic.Dictionary[string,[System.Collections.Generic.List[int]]]]\n",
+    "valid": true
+  },
+  {
+    "name": "nested generic argument",
+    "source": "[System.Collections.Generic.Dictionary[string,System.Collections.Generic.List[int]]]\n",
+    "valid": true
+  },
+  {
+    "name": "array of generic type",
+    "source": "[System.Collections.Generic.List[string][]]\n",
+    "valid": true
+  },
+  {
+    "name": "assembly qualified generic argument",
+    "source": "[System.Collections.Generic.List[[System.String, System.Private.CoreLib]]]\n",
+    "valid": true
+  },
+  {
+    "name": "assembly qualified nested generic type",
+    "source": "[System.Collections.Generic.Dictionary[string,System.Collections.Generic.List[int]], System.Private.CoreLib]\n",
+    "valid": true
+  },
+  {
+    "name": "assembly qualified double bracket generic arguments",
+    "source": "[System.Collections.Generic.Dictionary[[System.String, System.Private.CoreLib],[System.Int32, System.Private.CoreLib]]]\n",
+    "valid": true
+  },
+  {
+    "name": "multidimensional array followed by jagged array",
+    "source": "[int[,][]]\n",
+    "valid": true
+  },
+  {
+    "name": "multiple array ranks",
+    "source": "[int[,][,,][]]\n",
+    "valid": true
+  },
+  {
+    "name": "nullable generic type",
+    "source": "[nullable[int]]\n",
+    "valid": true
+  },
+  {
+    "name": "invalid nullable question mark type",
+    "source": "[int?]\n",
+    "valid": false
+  },
+  {
+    "name": "bare positional attribute identifiers",
+    "source": "param([ValidateSet(a, b)][string]$x)\n",
+    "valid": true
+  },
+  {
+    "name": "quoted positional attribute argument",
+    "source": "param([Parameter(\"x\")][string]$x)\n",
+    "valid": true
+  },
+  {
+    "name": "mixed quoted and bare positional attribute arguments",
+    "source": "param([ValidateSet(\"a\", b)][string]$x)\n",
+    "valid": true
+  },
+  {
+    "name": "invalid bare named attribute value",
+    "source": "param([Parameter(HelpMessage=help)][string]$x)\n",
+    "valid": false
+  },
+  {
+    "name": "CR-only statement endings",
+    "source": "$a=1\r$b=2\r",
+    "valid": true
+  },
+  {
+    "name": "leading pipe after one newline",
+    "source": "Get-Item .\n| Select-Object Name\n",
+    "valid": true
+  },
+  {
+    "name": "leading pipe after blank line",
+    "source": "Get-Item .\n\n| Select-Object Name\n",
+    "valid": false
+  },
+  {
+    "name": "leading pipe after line comment",
+    "source": "Get-Item .\n# comment\n| Select-Object Name\n",
+    "valid": true
+  },
+  {
+    "name": "leading pipe after block comment line",
+    "source": "Get-Item .\n<# block #>\n| Select-Object Name\n",
+    "valid": true
+  },
+  {
+    "name": "leading pipe after comment and blank line",
+    "source": "Get-Item .\n# comment\n\n| Select-Object Name\n",
+    "valid": false
+  },
+  {
+    "name": "leading pipe after semicolon",
+    "source": "Get-Item .;\n| Select-Object Name\n",
+    "valid": false
+  },
+  {
+    "name": "newline inside type literal",
+    "source": "[\nint\n]\n",
+    "valid": false
+  },
+  {
+    "name": "newline inside generic argument list",
+    "source": "[System.Collections.Generic.List[\nstring\n]]\n",
+    "valid": true
+  },
+  {
+    "name": "newline after generic argument comma",
+    "source": "[System.Collections.Generic.Dictionary[string,\nint]]\n",
+    "valid": true
+  },
+  {
+    "name": "hash value after newline",
+    "source": "$x = @{ key =\n 1 }\n",
+    "valid": true
+  },
+  {
+    "name": "hash key and equals across newline",
+    "source": "$x = @{ key\n = 1 }\n",
+    "valid": false
+  },
+  {
+    "name": "label before newline",
+    "source": ":outer\nwhile ($true) { break outer }\n",
+    "valid": true
+  },
+  {
+    "name": "label before blank line",
+    "source": ":outer\n\nwhile ($true) { break outer }\n",
+    "valid": true
+  },
+  {
+    "name": "label before comment line",
+    "source": ":outer\n# comment\nwhile ($true) { break outer }\n",
+    "valid": true
+  },
+  {
+    "name": "class separator 0",
+    "source": "class C { $a $b }",
+    "valid": false
+  },
+  {
+    "name": "class separator 1",
+    "source": "class C { [int]$a [int]$b }",
+    "valid": false
+  },
+  {
+    "name": "class separator 2",
+    "source": "class C { $a = 1 $b = 2 }",
+    "valid": false
+  },
+  {
+    "name": "class separator 3",
+    "source": "class C { $a; $b }",
+    "valid": true
+  },
+  {
+    "name": "class separator 4",
+    "source": "class C { C() {} [int] M() { return 1 } }",
+    "valid": true
+  },
+  {
+    "name": "class separator 5",
+    "source": "class C { $a C() {} }",
+    "valid": false
+  },
+  {
+    "name": "class separator 6",
+    "source": "class C { $a\nC() {} }",
+    "valid": true
+  },
+  {
+    "name": "class separator 7",
+    "source": "enum E { A B }",
+    "valid": false
+  }
+]

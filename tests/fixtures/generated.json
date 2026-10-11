@@ -1,0 +1,7732 @@
+[
+  {
+    "name": "numeric forms 001",
+    "source": "0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 002",
+    "source": "(0)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 003",
+    "source": "$n = 0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 004",
+    "source": "0..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 005",
+    "source": "Write-Output 0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 006",
+    "source": "[double]0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 007",
+    "source": "1",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 008",
+    "source": "(1)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 009",
+    "source": "$n = 1",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 010",
+    "source": "1..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 011",
+    "source": "Write-Output 1",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 012",
+    "source": "[double]1",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 013",
+    "source": "12",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 014",
+    "source": "(12)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 015",
+    "source": "$n = 12",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 016",
+    "source": "12..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 017",
+    "source": "Write-Output 12",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 018",
+    "source": "[double]12",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 019",
+    "source": "0x1f",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 020",
+    "source": "(0x1f)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 021",
+    "source": "$n = 0x1f",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 022",
+    "source": "0x1f..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 023",
+    "source": "Write-Output 0x1f",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 024",
+    "source": "[double]0x1f",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 025",
+    "source": "0XFF",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 026",
+    "source": "(0XFF)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 027",
+    "source": "$n = 0XFF",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 028",
+    "source": "0XFF..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 029",
+    "source": "Write-Output 0XFF",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 030",
+    "source": "[double]0XFF",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 031",
+    "source": "0b101",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 032",
+    "source": "(0b101)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 033",
+    "source": "$n = 0b101",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 034",
+    "source": "0b101..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 035",
+    "source": "Write-Output 0b101",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 036",
+    "source": "[double]0b101",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 037",
+    "source": "0B10",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 038",
+    "source": "(0B10)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 039",
+    "source": "$n = 0B10",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 040",
+    "source": "0B10..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 041",
+    "source": "Write-Output 0B10",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 042",
+    "source": "[double]0B10",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 043",
+    "source": "1L",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 044",
+    "source": "(1L)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 045",
+    "source": "$n = 1L",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 046",
+    "source": "1L..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 047",
+    "source": "Write-Output 1L",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 048",
+    "source": "[double]1L",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 049",
+    "source": "1l",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 050",
+    "source": "(1l)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 051",
+    "source": "$n = 1l",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 052",
+    "source": "1l..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 053",
+    "source": "Write-Output 1l",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 054",
+    "source": "[double]1l",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 055",
+    "source": "1u",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 056",
+    "source": "(1u)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 057",
+    "source": "$n = 1u",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 058",
+    "source": "1u..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 059",
+    "source": "Write-Output 1u",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 060",
+    "source": "[double]1u",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 061",
+    "source": "1ul",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 062",
+    "source": "(1ul)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 063",
+    "source": "$n = 1ul",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 064",
+    "source": "1ul..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 065",
+    "source": "Write-Output 1ul",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 066",
+    "source": "[double]1ul",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 067",
+    "source": "1UL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 068",
+    "source": "(1UL)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 069",
+    "source": "$n = 1UL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 070",
+    "source": "1UL..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 071",
+    "source": "Write-Output 1UL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 072",
+    "source": "[double]1UL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 073",
+    "source": "1s",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 074",
+    "source": "(1s)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 075",
+    "source": "$n = 1s",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 076",
+    "source": "1s..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 077",
+    "source": "Write-Output 1s",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 078",
+    "source": "[double]1s",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 079",
+    "source": "1us",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 080",
+    "source": "(1us)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 081",
+    "source": "$n = 1us",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 082",
+    "source": "1us..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 083",
+    "source": "Write-Output 1us",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 084",
+    "source": "[double]1us",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 085",
+    "source": "1y",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 086",
+    "source": "(1y)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 087",
+    "source": "$n = 1y",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 088",
+    "source": "1y..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 089",
+    "source": "Write-Output 1y",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 090",
+    "source": "[double]1y",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 091",
+    "source": "1uy",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 092",
+    "source": "(1uy)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 093",
+    "source": "$n = 1uy",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 094",
+    "source": "1uy..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 095",
+    "source": "Write-Output 1uy",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 096",
+    "source": "[double]1uy",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 097",
+    "source": "1n",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 098",
+    "source": "(1n)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 099",
+    "source": "$n = 1n",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 100",
+    "source": "1n..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 101",
+    "source": "Write-Output 1n",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 102",
+    "source": "[double]1n",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 103",
+    "source": "1d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 104",
+    "source": "(1d)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 105",
+    "source": "$n = 1d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 106",
+    "source": "1d..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 107",
+    "source": "Write-Output 1d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 108",
+    "source": "[double]1d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 109",
+    "source": "1D",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 110",
+    "source": "(1D)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 111",
+    "source": "$n = 1D",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 112",
+    "source": "1D..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 113",
+    "source": "Write-Output 1D",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 114",
+    "source": "[double]1D",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 115",
+    "source": "1kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 116",
+    "source": "(1kb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 117",
+    "source": "$n = 1kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 118",
+    "source": "1kb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 119",
+    "source": "Write-Output 1kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 120",
+    "source": "[double]1kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 121",
+    "source": "1MB",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 122",
+    "source": "(1MB)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 123",
+    "source": "$n = 1MB",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 124",
+    "source": "1MB..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 125",
+    "source": "Write-Output 1MB",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 126",
+    "source": "[double]1MB",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 127",
+    "source": "1gb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 128",
+    "source": "(1gb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 129",
+    "source": "$n = 1gb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 130",
+    "source": "1gb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 131",
+    "source": "Write-Output 1gb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 132",
+    "source": "[double]1gb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 133",
+    "source": "1tb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 134",
+    "source": "(1tb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 135",
+    "source": "$n = 1tb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 136",
+    "source": "1tb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 137",
+    "source": "Write-Output 1tb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 138",
+    "source": "[double]1tb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 139",
+    "source": "1pb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 140",
+    "source": "(1pb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 141",
+    "source": "$n = 1pb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 142",
+    "source": "1pb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 143",
+    "source": "Write-Output 1pb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 144",
+    "source": "[double]1pb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 145",
+    "source": "1.0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 146",
+    "source": "(1.0)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 147",
+    "source": "$n = 1.0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 148",
+    "source": "1.0..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 149",
+    "source": "Write-Output 1.0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 150",
+    "source": "[double]1.0",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 151",
+    "source": "1.",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 152",
+    "source": "(1.)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 153",
+    "source": "$n = 1.",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 154",
+    "source": "1...3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 155",
+    "source": "Write-Output 1.",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 156",
+    "source": "[double]1.",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 157",
+    "source": ".5",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 158",
+    "source": "(.5)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 159",
+    "source": "$n = .5",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 160",
+    "source": ".5..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 161",
+    "source": "Write-Output .5",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 162",
+    "source": "[double].5",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 163",
+    "source": "1e2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 164",
+    "source": "(1e2)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 165",
+    "source": "$n = 1e2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 166",
+    "source": "1e2..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 167",
+    "source": "Write-Output 1e2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 168",
+    "source": "[double]1e2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 169",
+    "source": "1E+2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 170",
+    "source": "(1E+2)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 171",
+    "source": "$n = 1E+2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 172",
+    "source": "1E+2..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 173",
+    "source": "Write-Output 1E+2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 174",
+    "source": "[double]1E+2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 175",
+    "source": "1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 176",
+    "source": "(1e-2)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 177",
+    "source": "$n = 1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 178",
+    "source": "1e-2..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 179",
+    "source": "Write-Output 1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 180",
+    "source": "[double]1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 181",
+    "source": "1.5d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 182",
+    "source": "(1.5d)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 183",
+    "source": "$n = 1.5d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 184",
+    "source": "1.5d..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 185",
+    "source": "Write-Output 1.5d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 186",
+    "source": "[double]1.5d",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 187",
+    "source": "1.5kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 188",
+    "source": "(1.5kb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 189",
+    "source": "$n = 1.5kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 190",
+    "source": "1.5kb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 191",
+    "source": "Write-Output 1.5kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 192",
+    "source": "[double]1.5kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 193",
+    "source": "1e2kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 194",
+    "source": "(1e2kb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 195",
+    "source": "$n = 1e2kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 196",
+    "source": "1e2kb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 197",
+    "source": "Write-Output 1e2kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 198",
+    "source": "[double]1e2kb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 199",
+    "source": "1dkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 200",
+    "source": "(1dkb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 201",
+    "source": "$n = 1dkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 202",
+    "source": "1dkb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 203",
+    "source": "Write-Output 1dkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 204",
+    "source": "[double]1dkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 205",
+    "source": "1lkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 206",
+    "source": "(1lkb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 207",
+    "source": "$n = 1lkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 208",
+    "source": "1lkb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 209",
+    "source": "Write-Output 1lkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 210",
+    "source": "[double]1lkb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 211",
+    "source": "1ulmb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 212",
+    "source": "(1ulmb)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 213",
+    "source": "$n = 1ulmb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 214",
+    "source": "1ulmb..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 215",
+    "source": "Write-Output 1ulmb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 216",
+    "source": "[double]1ulmb",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 217",
+    "source": "0xffL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 218",
+    "source": "(0xffL)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 219",
+    "source": "$n = 0xffL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 220",
+    "source": "0xffL..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 221",
+    "source": "Write-Output 0xffL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 222",
+    "source": "[double]0xffL",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 223",
+    "source": "0b101uy",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 224",
+    "source": "(0b101uy)",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 225",
+    "source": "$n = 0b101uy",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 226",
+    "source": "0b101uy..3",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 227",
+    "source": "Write-Output 0b101uy",
+    "valid": true
+  },
+  {
+    "name": "numeric forms 228",
+    "source": "[double]0b101uy",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 001",
+    "source": "(1uL)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 002",
+    "source": "$n = 1uL",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 003",
+    "source": "Write-Output 1uL",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 004",
+    "source": "(1Lu)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 005",
+    "source": "$n = 1Lu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 006",
+    "source": "Write-Output 1Lu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 007",
+    "source": "(1dd)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 008",
+    "source": "$n = 1dd",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 009",
+    "source": "Write-Output 1dd",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 010",
+    "source": "(1e)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 011",
+    "source": "$n = 1e",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 012",
+    "source": "Write-Output 1e",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 013",
+    "source": "(1e+)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 014",
+    "source": "$n = 1e+",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 015",
+    "source": "Write-Output 1e+",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 016",
+    "source": "(0x)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 017",
+    "source": "$n = 0x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 018",
+    "source": "Write-Output 0x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 019",
+    "source": "(0b2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 020",
+    "source": "$n = 0b2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 021",
+    "source": "Write-Output 0b2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 022",
+    "source": "(1.2.3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 023",
+    "source": "$n = 1.2.3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 024",
+    "source": "Write-Output 1.2.3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 025",
+    "source": "(01)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 026",
+    "source": "$n = 01",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 027",
+    "source": "Write-Output 01",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 028",
+    "source": "(1_000)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 029",
+    "source": "$n = 1_000",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 030",
+    "source": "Write-Output 1_000",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 031",
+    "source": "(0x1_0)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 032",
+    "source": "$n = 0x1_0",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 033",
+    "source": "Write-Output 0x1_0",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 034",
+    "source": "(0b1_0)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 035",
+    "source": "$n = 0b1_0",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 036",
+    "source": "Write-Output 0b1_0",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 037",
+    "source": "(1k)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 038",
+    "source": "$n = 1k",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 039",
+    "source": "Write-Output 1k",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 040",
+    "source": "(1m)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 041",
+    "source": "$n = 1m",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 042",
+    "source": "Write-Output 1m",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 043",
+    "source": "(1.5u)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 044",
+    "source": "$n = 1.5u",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 045",
+    "source": "Write-Output 1.5u",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 046",
+    "source": "(1.5l)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 047",
+    "source": "$n = 1.5l",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 048",
+    "source": "Write-Output 1.5l",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 049",
+    "source": "(1.5n)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 050",
+    "source": "$n = 1.5n",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 051",
+    "source": "Write-Output 1.5n",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 052",
+    "source": "(1..2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 053",
+    "source": "$n = 1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 054",
+    "source": "Write-Output 1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 055",
+    "source": "(1...2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 056",
+    "source": "$n = 1...2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 057",
+    "source": "Write-Output 1...2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 058",
+    "source": "(1..-2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 059",
+    "source": "$n = 1..-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundaries 060",
+    "source": "Write-Output 1..-2",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 001",
+    "source": "($a + $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 002",
+    "source": "($a +\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 003",
+    "source": "(1 + 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 004",
+    "source": "(1 +\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 005",
+    "source": "(\"x\" + \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 006",
+    "source": "(\"x\" +\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 007",
+    "source": "((1) + (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 008",
+    "source": "((1) +\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 009",
+    "source": "(@(1,2) + @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 010",
+    "source": "(@(1,2) +\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 011",
+    "source": "([int]1 + [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 012",
+    "source": "([int]1 +\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 013",
+    "source": "($(Get-Item .) + $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 014",
+    "source": "($(Get-Item .) +\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 015",
+    "source": "($a - 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 016",
+    "source": "($a -\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 017",
+    "source": "(1 - \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 018",
+    "source": "(1 -\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 019",
+    "source": "(\"x\" - (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 020",
+    "source": "(\"x\" -\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 021",
+    "source": "((1) - @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 022",
+    "source": "((1) -\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 023",
+    "source": "(@(1,2) - [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 024",
+    "source": "(@(1,2) -\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 025",
+    "source": "([int]1 - $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 026",
+    "source": "([int]1 -\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 027",
+    "source": "($(Get-Item .) - $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 028",
+    "source": "($(Get-Item .) -\n$a)",
+    "valid": true
+  },
+  {
+    "name": "operator case 001",
+    "source": "($a - $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 029",
+    "source": "($a * \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 030",
+    "source": "($a *\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 031",
+    "source": "(1 * (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 032",
+    "source": "(1 *\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 033",
+    "source": "(\"x\" * @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 034",
+    "source": "(\"x\" *\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 035",
+    "source": "((1) * [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 036",
+    "source": "((1) *\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 037",
+    "source": "(@(1,2) * $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 038",
+    "source": "(@(1,2) *\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 039",
+    "source": "([int]1 * $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 040",
+    "source": "([int]1 *\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 041",
+    "source": "($(Get-Item .) * 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 042",
+    "source": "($(Get-Item .) *\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 043",
+    "source": "($a / (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 044",
+    "source": "($a /\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 045",
+    "source": "(1 / @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 046",
+    "source": "(1 /\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 047",
+    "source": "(\"x\" / [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 048",
+    "source": "(\"x\" /\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 049",
+    "source": "((1) / $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 050",
+    "source": "((1) /\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 051",
+    "source": "(@(1,2) / $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 052",
+    "source": "(@(1,2) /\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 053",
+    "source": "([int]1 / 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 054",
+    "source": "([int]1 /\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 055",
+    "source": "($(Get-Item .) / \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 056",
+    "source": "($(Get-Item .) /\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 057",
+    "source": "($a % @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 058",
+    "source": "($a %\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 059",
+    "source": "(1 % [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 060",
+    "source": "(1 %\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 061",
+    "source": "(\"x\" % $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 062",
+    "source": "(\"x\" %\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 063",
+    "source": "((1) % $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 064",
+    "source": "((1) %\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 065",
+    "source": "(@(1,2) % 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 066",
+    "source": "(@(1,2) %\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 067",
+    "source": "([int]1 % \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 068",
+    "source": "([int]1 %\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 069",
+    "source": "($(Get-Item .) % (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 070",
+    "source": "($(Get-Item .) %\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 071",
+    "source": "($a .. [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 072",
+    "source": "($a ..\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 073",
+    "source": "(1 .. $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 074",
+    "source": "(1 ..\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 075",
+    "source": "(\"x\" .. $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 076",
+    "source": "(\"x\" ..\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 077",
+    "source": "((1) .. 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 078",
+    "source": "((1) ..\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 079",
+    "source": "(@(1,2) .. \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 080",
+    "source": "(@(1,2) ..\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 081",
+    "source": "([int]1 .. (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 082",
+    "source": "([int]1 ..\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 083",
+    "source": "($(Get-Item .) .. @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 084",
+    "source": "($(Get-Item .) ..\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 085",
+    "source": "($a -eq $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 086",
+    "source": "($a -eq\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 087",
+    "source": "(1 -eq $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 088",
+    "source": "(1 -eq\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 089",
+    "source": "(\"x\" -eq 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 090",
+    "source": "(\"x\" -eq\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 091",
+    "source": "((1) -eq \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 092",
+    "source": "((1) -eq\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 093",
+    "source": "(@(1,2) -eq (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 094",
+    "source": "(@(1,2) -eq\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 095",
+    "source": "([int]1 -eq @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 096",
+    "source": "([int]1 -eq\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 097",
+    "source": "($(Get-Item .) -eq [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 098",
+    "source": "($(Get-Item .) -eq\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "operator case 002",
+    "source": "($a -EQ $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 003",
+    "source": "($a -Eq $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 099",
+    "source": "($a -ceq $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 100",
+    "source": "($a -ceq\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 101",
+    "source": "(1 -ceq 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 102",
+    "source": "(1 -ceq\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 103",
+    "source": "(\"x\" -ceq \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 104",
+    "source": "(\"x\" -ceq\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 105",
+    "source": "((1) -ceq (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 106",
+    "source": "((1) -ceq\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 107",
+    "source": "(@(1,2) -ceq @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 108",
+    "source": "(@(1,2) -ceq\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 109",
+    "source": "([int]1 -ceq [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 110",
+    "source": "([int]1 -ceq\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 111",
+    "source": "($(Get-Item .) -ceq $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 112",
+    "source": "($(Get-Item .) -ceq\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "operator case 004",
+    "source": "($a -CEQ $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 005",
+    "source": "($a -Ceq $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 113",
+    "source": "($a -ilike 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 114",
+    "source": "($a -ilike\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 115",
+    "source": "(1 -ilike \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 116",
+    "source": "(1 -ilike\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 117",
+    "source": "(\"x\" -ilike (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 118",
+    "source": "(\"x\" -ilike\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 119",
+    "source": "((1) -ilike @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 120",
+    "source": "((1) -ilike\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 121",
+    "source": "(@(1,2) -ilike [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 122",
+    "source": "(@(1,2) -ilike\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 123",
+    "source": "([int]1 -ilike $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 124",
+    "source": "([int]1 -ilike\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 125",
+    "source": "($(Get-Item .) -ilike $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 126",
+    "source": "($(Get-Item .) -ilike\n$a)",
+    "valid": true
+  },
+  {
+    "name": "operator case 006",
+    "source": "($a -ILIKE $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 007",
+    "source": "($a -Ilike $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 127",
+    "source": "($a -notmatch \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 128",
+    "source": "($a -notmatch\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 129",
+    "source": "(1 -notmatch (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 130",
+    "source": "(1 -notmatch\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 131",
+    "source": "(\"x\" -notmatch @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 132",
+    "source": "(\"x\" -notmatch\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 133",
+    "source": "((1) -notmatch [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 134",
+    "source": "((1) -notmatch\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 135",
+    "source": "(@(1,2) -notmatch $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 136",
+    "source": "(@(1,2) -notmatch\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 137",
+    "source": "([int]1 -notmatch $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 138",
+    "source": "([int]1 -notmatch\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 139",
+    "source": "($(Get-Item .) -notmatch 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 140",
+    "source": "($(Get-Item .) -notmatch\n1)",
+    "valid": true
+  },
+  {
+    "name": "operator case 008",
+    "source": "($a -NOTMATCH $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 009",
+    "source": "($a -Notmatch $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 141",
+    "source": "($a -contains (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 142",
+    "source": "($a -contains\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 143",
+    "source": "(1 -contains @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 144",
+    "source": "(1 -contains\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 145",
+    "source": "(\"x\" -contains [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 146",
+    "source": "(\"x\" -contains\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 147",
+    "source": "((1) -contains $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 148",
+    "source": "((1) -contains\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 149",
+    "source": "(@(1,2) -contains $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 150",
+    "source": "(@(1,2) -contains\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 151",
+    "source": "([int]1 -contains 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 152",
+    "source": "([int]1 -contains\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 153",
+    "source": "($(Get-Item .) -contains \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 154",
+    "source": "($(Get-Item .) -contains\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "operator case 010",
+    "source": "($a -CONTAINS $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 011",
+    "source": "($a -Contains $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 155",
+    "source": "($a -notin @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 156",
+    "source": "($a -notin\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 157",
+    "source": "(1 -notin [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 158",
+    "source": "(1 -notin\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 159",
+    "source": "(\"x\" -notin $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 160",
+    "source": "(\"x\" -notin\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 161",
+    "source": "((1) -notin $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 162",
+    "source": "((1) -notin\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 163",
+    "source": "(@(1,2) -notin 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 164",
+    "source": "(@(1,2) -notin\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 165",
+    "source": "([int]1 -notin \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 166",
+    "source": "([int]1 -notin\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 167",
+    "source": "($(Get-Item .) -notin (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 168",
+    "source": "($(Get-Item .) -notin\n(1))",
+    "valid": true
+  },
+  {
+    "name": "operator case 012",
+    "source": "($a -NOTIN $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 013",
+    "source": "($a -Notin $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 169",
+    "source": "($a -replace [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 170",
+    "source": "($a -replace\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 171",
+    "source": "(1 -replace $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 172",
+    "source": "(1 -replace\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 173",
+    "source": "(\"x\" -replace $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 174",
+    "source": "(\"x\" -replace\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 175",
+    "source": "((1) -replace 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 176",
+    "source": "((1) -replace\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 177",
+    "source": "(@(1,2) -replace \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 178",
+    "source": "(@(1,2) -replace\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 179",
+    "source": "([int]1 -replace (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 180",
+    "source": "([int]1 -replace\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 181",
+    "source": "($(Get-Item .) -replace @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 182",
+    "source": "($(Get-Item .) -replace\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "operator case 014",
+    "source": "($a -REPLACE $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 015",
+    "source": "($a -Replace $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 183",
+    "source": "($a -split $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 184",
+    "source": "($a -split\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 185",
+    "source": "(1 -split $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 186",
+    "source": "(1 -split\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 187",
+    "source": "(\"x\" -split 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 188",
+    "source": "(\"x\" -split\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 189",
+    "source": "((1) -split \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 190",
+    "source": "((1) -split\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 191",
+    "source": "(@(1,2) -split (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 192",
+    "source": "(@(1,2) -split\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 193",
+    "source": "([int]1 -split @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 194",
+    "source": "([int]1 -split\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 195",
+    "source": "($(Get-Item .) -split [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 196",
+    "source": "($(Get-Item .) -split\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "operator case 016",
+    "source": "($a -SPLIT $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 017",
+    "source": "($a -Split $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 197",
+    "source": "($a -join $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 198",
+    "source": "($a -join\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 199",
+    "source": "(1 -join 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 200",
+    "source": "(1 -join\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 201",
+    "source": "(\"x\" -join \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 202",
+    "source": "(\"x\" -join\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 203",
+    "source": "((1) -join (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 204",
+    "source": "((1) -join\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 205",
+    "source": "(@(1,2) -join @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 206",
+    "source": "(@(1,2) -join\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 207",
+    "source": "([int]1 -join [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 208",
+    "source": "([int]1 -join\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 209",
+    "source": "($(Get-Item .) -join $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 210",
+    "source": "($(Get-Item .) -join\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "operator case 018",
+    "source": "($a -JOIN $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 019",
+    "source": "($a -Join $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 211",
+    "source": "($a -and 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 212",
+    "source": "($a -and\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 213",
+    "source": "(1 -and \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 214",
+    "source": "(1 -and\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 215",
+    "source": "(\"x\" -and (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 216",
+    "source": "(\"x\" -and\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 217",
+    "source": "((1) -and @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 218",
+    "source": "((1) -and\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 219",
+    "source": "(@(1,2) -and [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 220",
+    "source": "(@(1,2) -and\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 221",
+    "source": "([int]1 -and $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 222",
+    "source": "([int]1 -and\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 223",
+    "source": "($(Get-Item .) -and $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 224",
+    "source": "($(Get-Item .) -and\n$a)",
+    "valid": true
+  },
+  {
+    "name": "operator case 020",
+    "source": "($a -AND $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 021",
+    "source": "($a -And $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 225",
+    "source": "($a -xor \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 226",
+    "source": "($a -xor\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 227",
+    "source": "(1 -xor (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 228",
+    "source": "(1 -xor\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 229",
+    "source": "(\"x\" -xor @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 230",
+    "source": "(\"x\" -xor\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 231",
+    "source": "((1) -xor [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 232",
+    "source": "((1) -xor\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 233",
+    "source": "(@(1,2) -xor $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 234",
+    "source": "(@(1,2) -xor\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 235",
+    "source": "([int]1 -xor $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 236",
+    "source": "([int]1 -xor\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 237",
+    "source": "($(Get-Item .) -xor 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 238",
+    "source": "($(Get-Item .) -xor\n1)",
+    "valid": true
+  },
+  {
+    "name": "operator case 022",
+    "source": "($a -XOR $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 023",
+    "source": "($a -Xor $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 239",
+    "source": "($a -band (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 240",
+    "source": "($a -band\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 241",
+    "source": "(1 -band @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 242",
+    "source": "(1 -band\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 243",
+    "source": "(\"x\" -band [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 244",
+    "source": "(\"x\" -band\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 245",
+    "source": "((1) -band $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 246",
+    "source": "((1) -band\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 247",
+    "source": "(@(1,2) -band $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 248",
+    "source": "(@(1,2) -band\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 249",
+    "source": "([int]1 -band 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 250",
+    "source": "([int]1 -band\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 251",
+    "source": "($(Get-Item .) -band \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 252",
+    "source": "($(Get-Item .) -band\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "operator case 024",
+    "source": "($a -BAND $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 025",
+    "source": "($a -Band $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 253",
+    "source": "($a -bor @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 254",
+    "source": "($a -bor\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 255",
+    "source": "(1 -bor [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 256",
+    "source": "(1 -bor\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 257",
+    "source": "(\"x\" -bor $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 258",
+    "source": "(\"x\" -bor\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 259",
+    "source": "((1) -bor $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 260",
+    "source": "((1) -bor\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 261",
+    "source": "(@(1,2) -bor 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 262",
+    "source": "(@(1,2) -bor\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 263",
+    "source": "([int]1 -bor \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 264",
+    "source": "([int]1 -bor\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 265",
+    "source": "($(Get-Item .) -bor (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 266",
+    "source": "($(Get-Item .) -bor\n(1))",
+    "valid": true
+  },
+  {
+    "name": "operator case 026",
+    "source": "($a -BOR $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 027",
+    "source": "($a -Bor $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 267",
+    "source": "($a -shl [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 268",
+    "source": "($a -shl\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 269",
+    "source": "(1 -shl $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 270",
+    "source": "(1 -shl\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 271",
+    "source": "(\"x\" -shl $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 272",
+    "source": "(\"x\" -shl\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 273",
+    "source": "((1) -shl 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 274",
+    "source": "((1) -shl\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 275",
+    "source": "(@(1,2) -shl \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 276",
+    "source": "(@(1,2) -shl\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 277",
+    "source": "([int]1 -shl (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 278",
+    "source": "([int]1 -shl\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 279",
+    "source": "($(Get-Item .) -shl @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 280",
+    "source": "($(Get-Item .) -shl\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "operator case 028",
+    "source": "($a -SHL $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 029",
+    "source": "($a -Shl $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 281",
+    "source": "($a -shr $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 282",
+    "source": "($a -shr\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 283",
+    "source": "(1 -shr $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 284",
+    "source": "(1 -shr\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 285",
+    "source": "(\"x\" -shr 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 286",
+    "source": "(\"x\" -shr\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 287",
+    "source": "((1) -shr \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 288",
+    "source": "((1) -shr\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 289",
+    "source": "(@(1,2) -shr (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 290",
+    "source": "(@(1,2) -shr\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 291",
+    "source": "([int]1 -shr @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 292",
+    "source": "([int]1 -shr\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 293",
+    "source": "($(Get-Item .) -shr [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 294",
+    "source": "($(Get-Item .) -shr\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "operator case 030",
+    "source": "($a -SHR $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 031",
+    "source": "($a -Shr $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 295",
+    "source": "($a -as $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 296",
+    "source": "($a -as\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 297",
+    "source": "(1 -as 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 298",
+    "source": "(1 -as\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 299",
+    "source": "(\"x\" -as \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 300",
+    "source": "(\"x\" -as\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 301",
+    "source": "((1) -as (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 302",
+    "source": "((1) -as\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 303",
+    "source": "(@(1,2) -as @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 304",
+    "source": "(@(1,2) -as\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 305",
+    "source": "([int]1 -as [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 306",
+    "source": "([int]1 -as\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 307",
+    "source": "($(Get-Item .) -as $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 308",
+    "source": "($(Get-Item .) -as\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "operator case 032",
+    "source": "($a -AS $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 033",
+    "source": "($a -As $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 309",
+    "source": "($a -isnot 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 310",
+    "source": "($a -isnot\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 311",
+    "source": "(1 -isnot \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 312",
+    "source": "(1 -isnot\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 313",
+    "source": "(\"x\" -isnot (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 314",
+    "source": "(\"x\" -isnot\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 315",
+    "source": "((1) -isnot @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 316",
+    "source": "((1) -isnot\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 317",
+    "source": "(@(1,2) -isnot [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 318",
+    "source": "(@(1,2) -isnot\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 319",
+    "source": "([int]1 -isnot $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 320",
+    "source": "([int]1 -isnot\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 321",
+    "source": "($(Get-Item .) -isnot $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 322",
+    "source": "($(Get-Item .) -isnot\n$a)",
+    "valid": true
+  },
+  {
+    "name": "operator case 034",
+    "source": "($a -ISNOT $b)",
+    "valid": true
+  },
+  {
+    "name": "operator case 035",
+    "source": "($a -Isnot $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 323",
+    "source": "($a -f \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 324",
+    "source": "($a -f\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 325",
+    "source": "(1 -f (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 326",
+    "source": "(1 -f\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 327",
+    "source": "(\"x\" -f @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 328",
+    "source": "(\"x\" -f\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 329",
+    "source": "((1) -f [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 330",
+    "source": "((1) -f\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 331",
+    "source": "(@(1,2) -f $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 332",
+    "source": "(@(1,2) -f\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 333",
+    "source": "([int]1 -f $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 334",
+    "source": "([int]1 -f\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 335",
+    "source": "($(Get-Item .) -f 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 336",
+    "source": "($(Get-Item .) -f\n1)",
+    "valid": true
+  },
+  {
+    "name": "operator case 036",
+    "source": "($a -F $b)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 337",
+    "source": "($a ?? (1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 338",
+    "source": "($a ??\n(1))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 339",
+    "source": "(1 ?? @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 340",
+    "source": "(1 ??\n@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 341",
+    "source": "(\"x\" ?? [int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 342",
+    "source": "(\"x\" ??\n[int]1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 343",
+    "source": "((1) ?? $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 344",
+    "source": "((1) ??\n$(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 345",
+    "source": "(@(1,2) ?? $a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 346",
+    "source": "(@(1,2) ??\n$a)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 347",
+    "source": "([int]1 ?? 1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 348",
+    "source": "([int]1 ??\n1)",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 349",
+    "source": "($(Get-Item .) ?? \"x\")",
+    "valid": true
+  },
+  {
+    "name": "binary contexts 350",
+    "source": "($(Get-Item .) ??\n\"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 001",
+    "source": "(+ $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 002",
+    "source": "(+ 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 003",
+    "source": "(+ \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 004",
+    "source": "(+ (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 005",
+    "source": "(+ @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 006",
+    "source": "(+ [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 007",
+    "source": "(+ $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 008",
+    "source": "(- $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 009",
+    "source": "(- 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 010",
+    "source": "(- \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 011",
+    "source": "(- (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 012",
+    "source": "(- @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 013",
+    "source": "(- [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 014",
+    "source": "(- $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 015",
+    "source": "(! $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 016",
+    "source": "(! 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 017",
+    "source": "(! \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 018",
+    "source": "(! (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 019",
+    "source": "(! @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 020",
+    "source": "(! [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 021",
+    "source": "(! $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 022",
+    "source": "(-not $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 023",
+    "source": "(-not 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 024",
+    "source": "(-not \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 025",
+    "source": "(-not (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 026",
+    "source": "(-not @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 027",
+    "source": "(-not [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 028",
+    "source": "(-not $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 029",
+    "source": "(-bnot $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 030",
+    "source": "(-bnot 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 031",
+    "source": "(-bnot \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 032",
+    "source": "(-bnot (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 033",
+    "source": "(-bnot @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 034",
+    "source": "(-bnot [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 035",
+    "source": "(-bnot $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 036",
+    "source": "(, $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 037",
+    "source": "(, 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 038",
+    "source": "(, \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 039",
+    "source": "(, (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 040",
+    "source": "(, @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 041",
+    "source": "(, [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 042",
+    "source": "(, $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 043",
+    "source": "(-split $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 044",
+    "source": "(-split 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 045",
+    "source": "(-split \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 046",
+    "source": "(-split (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 047",
+    "source": "(-split @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 048",
+    "source": "(-split [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 049",
+    "source": "(-split $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 050",
+    "source": "(-join $a)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 051",
+    "source": "(-join 1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 052",
+    "source": "(-join \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unary forms 053",
+    "source": "(-join (1))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 054",
+    "source": "(-join @(1,2))",
+    "valid": true
+  },
+  {
+    "name": "unary forms 055",
+    "source": "(-join [int]1)",
+    "valid": true
+  },
+  {
+    "name": "unary forms 056",
+    "source": "(-join $(Get-Item .))",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 001",
+    "source": "$a.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 002",
+    "source": "$a .Length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 003",
+    "source": "$a\n.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 004",
+    "source": "$a.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 005",
+    "source": "$a .length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 006",
+    "source": "$a\n.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 007",
+    "source": "$a.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 008",
+    "source": "$a .\"Length\"",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 009",
+    "source": "$a\n.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 010",
+    "source": "$a.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 011",
+    "source": "$a .'Length'",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 012",
+    "source": "$a\n.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 013",
+    "source": "$a.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 014",
+    "source": "$a .$name",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 015",
+    "source": "$a\n.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 016",
+    "source": "$a.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 017",
+    "source": "$a .($name)",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 018",
+    "source": "$a\n.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 019",
+    "source": "$a.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 020",
+    "source": "$a .$(\"Length\")",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 021",
+    "source": "$a\n.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 001",
+    "source": "$a[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 002",
+    "source": "$a[0,1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 003",
+    "source": "$a[-1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 004",
+    "source": "$a[1..2]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 005",
+    "source": "$a?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 006",
+    "source": "$a?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 007",
+    "source": "$a.ToString()",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 008",
+    "source": "$a.ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 009",
+    "source": "$a.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 010",
+    "source": "$a.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 011",
+    "source": "$a.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 012",
+    "source": "$a [0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 013",
+    "source": "$a [0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 014",
+    "source": "$a [-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 015",
+    "source": "$a [1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 016",
+    "source": "$a ?.Length",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 017",
+    "source": "$a ?[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 018",
+    "source": "$a .ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 019",
+    "source": "$a .ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 020",
+    "source": "$a .ToString(1,2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 021",
+    "source": "$a .ToString(1 + 2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 022",
+    "source": "$a .ToString[int](1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 023",
+    "source": "$a\n[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 024",
+    "source": "$a\n[0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 025",
+    "source": "$a\n[-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 026",
+    "source": "$a\n[1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 027",
+    "source": "$a\n?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 028",
+    "source": "$a\n?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 029",
+    "source": "$a\n.ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 030",
+    "source": "$a\n.ToString (1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 031",
+    "source": "$a\n.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 032",
+    "source": "$a\n.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 033",
+    "source": "$a\n.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 022",
+    "source": "${a}.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 023",
+    "source": "${a} .Length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 024",
+    "source": "${a}\n.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 025",
+    "source": "${a}.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 026",
+    "source": "${a} .length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 027",
+    "source": "${a}\n.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 028",
+    "source": "${a}.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 029",
+    "source": "${a} .\"Length\"",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 030",
+    "source": "${a}\n.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 031",
+    "source": "${a}.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 032",
+    "source": "${a} .'Length'",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 033",
+    "source": "${a}\n.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 034",
+    "source": "${a}.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 035",
+    "source": "${a} .$name",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 036",
+    "source": "${a}\n.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 037",
+    "source": "${a}.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 038",
+    "source": "${a} .($name)",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 039",
+    "source": "${a}\n.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 040",
+    "source": "${a}.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 041",
+    "source": "${a} .$(\"Length\")",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 042",
+    "source": "${a}\n.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 034",
+    "source": "${a}[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 035",
+    "source": "${a}[0,1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 036",
+    "source": "${a}[-1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 037",
+    "source": "${a}[1..2]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 038",
+    "source": "${a}?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 039",
+    "source": "${a}?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 040",
+    "source": "${a}.ToString()",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 041",
+    "source": "${a}.ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 042",
+    "source": "${a}.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 043",
+    "source": "${a}.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 044",
+    "source": "${a}.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 045",
+    "source": "${a} [0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 046",
+    "source": "${a} [0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 047",
+    "source": "${a} [-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 048",
+    "source": "${a} [1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 049",
+    "source": "${a} ?.Length",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 050",
+    "source": "${a} ?[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 051",
+    "source": "${a} .ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 052",
+    "source": "${a} .ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 053",
+    "source": "${a} .ToString(1,2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 054",
+    "source": "${a} .ToString(1 + 2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 055",
+    "source": "${a} .ToString[int](1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 056",
+    "source": "${a}\n[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 057",
+    "source": "${a}\n[0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 058",
+    "source": "${a}\n[-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 059",
+    "source": "${a}\n[1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 060",
+    "source": "${a}\n?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 061",
+    "source": "${a}\n?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 062",
+    "source": "${a}\n.ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 063",
+    "source": "${a}\n.ToString (1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 064",
+    "source": "${a}\n.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 065",
+    "source": "${a}\n.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 066",
+    "source": "${a}\n.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 043",
+    "source": "(1).Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 044",
+    "source": "(1) .Length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 045",
+    "source": "(1)\n.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 046",
+    "source": "(1).length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 047",
+    "source": "(1) .length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 048",
+    "source": "(1)\n.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 049",
+    "source": "(1).\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 050",
+    "source": "(1) .\"Length\"",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 051",
+    "source": "(1)\n.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 052",
+    "source": "(1).'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 053",
+    "source": "(1) .'Length'",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 054",
+    "source": "(1)\n.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 055",
+    "source": "(1).$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 056",
+    "source": "(1) .$name",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 057",
+    "source": "(1)\n.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 058",
+    "source": "(1).($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 059",
+    "source": "(1) .($name)",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 060",
+    "source": "(1)\n.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 061",
+    "source": "(1).$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 062",
+    "source": "(1) .$(\"Length\")",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 063",
+    "source": "(1)\n.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 067",
+    "source": "(1)[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 068",
+    "source": "(1)[0,1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 069",
+    "source": "(1)[-1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 070",
+    "source": "(1)[1..2]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 071",
+    "source": "(1)?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 072",
+    "source": "(1)?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 073",
+    "source": "(1).ToString()",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 074",
+    "source": "(1).ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 075",
+    "source": "(1).ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 076",
+    "source": "(1).ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 077",
+    "source": "(1).ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 078",
+    "source": "(1) [0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 079",
+    "source": "(1) [0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 080",
+    "source": "(1) [-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 081",
+    "source": "(1) [1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 082",
+    "source": "(1) ?.Length",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 083",
+    "source": "(1) ?[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 084",
+    "source": "(1) .ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 085",
+    "source": "(1) .ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 086",
+    "source": "(1) .ToString(1,2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 087",
+    "source": "(1) .ToString(1 + 2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 088",
+    "source": "(1) .ToString[int](1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 089",
+    "source": "(1)\n[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 090",
+    "source": "(1)\n[0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 091",
+    "source": "(1)\n[-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 092",
+    "source": "(1)\n[1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 093",
+    "source": "(1)\n?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 094",
+    "source": "(1)\n?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 095",
+    "source": "(1)\n.ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 096",
+    "source": "(1)\n.ToString (1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 097",
+    "source": "(1)\n.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 098",
+    "source": "(1)\n.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 099",
+    "source": "(1)\n.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 064",
+    "source": "[int].Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 065",
+    "source": "[int] .Length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 066",
+    "source": "[int]\n.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 067",
+    "source": "[int].length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 068",
+    "source": "[int] .length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 069",
+    "source": "[int]\n.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 070",
+    "source": "[int].\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 071",
+    "source": "[int] .\"Length\"",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 072",
+    "source": "[int]\n.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 073",
+    "source": "[int].'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 074",
+    "source": "[int] .'Length'",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 075",
+    "source": "[int]\n.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 076",
+    "source": "[int].$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 077",
+    "source": "[int] .$name",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 078",
+    "source": "[int]\n.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 079",
+    "source": "[int].($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 080",
+    "source": "[int] .($name)",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 081",
+    "source": "[int]\n.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 082",
+    "source": "[int].$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 083",
+    "source": "[int] .$(\"Length\")",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 084",
+    "source": "[int]\n.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 100",
+    "source": "[int][0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 101",
+    "source": "[int][0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 102",
+    "source": "[int][-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 103",
+    "source": "[int][1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 104",
+    "source": "[int]?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 105",
+    "source": "[int]?[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 106",
+    "source": "[int].ToString()",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 107",
+    "source": "[int].ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 108",
+    "source": "[int].ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 109",
+    "source": "[int].ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 110",
+    "source": "[int].ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 111",
+    "source": "[int] [0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 112",
+    "source": "[int] [0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 113",
+    "source": "[int] [-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 114",
+    "source": "[int] [1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 115",
+    "source": "[int] ?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 116",
+    "source": "[int] ?[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 117",
+    "source": "[int] .ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 118",
+    "source": "[int] .ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 119",
+    "source": "[int] .ToString(1,2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 120",
+    "source": "[int] .ToString(1 + 2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 121",
+    "source": "[int] .ToString[int](1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 122",
+    "source": "[int]\n[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 123",
+    "source": "[int]\n[0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 124",
+    "source": "[int]\n[-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 125",
+    "source": "[int]\n[1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 126",
+    "source": "[int]\n?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 127",
+    "source": "[int]\n?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 128",
+    "source": "[int]\n.ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 129",
+    "source": "[int]\n.ToString (1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 130",
+    "source": "[int]\n.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 131",
+    "source": "[int]\n.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 132",
+    "source": "[int]\n.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 085",
+    "source": "\"text\".Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 086",
+    "source": "\"text\" .Length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 087",
+    "source": "\"text\"\n.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 088",
+    "source": "\"text\".length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 089",
+    "source": "\"text\" .length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 090",
+    "source": "\"text\"\n.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 091",
+    "source": "\"text\".\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 092",
+    "source": "\"text\" .\"Length\"",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 093",
+    "source": "\"text\"\n.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 094",
+    "source": "\"text\".'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 095",
+    "source": "\"text\" .'Length'",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 096",
+    "source": "\"text\"\n.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 097",
+    "source": "\"text\".$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 098",
+    "source": "\"text\" .$name",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 099",
+    "source": "\"text\"\n.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 100",
+    "source": "\"text\".($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 101",
+    "source": "\"text\" .($name)",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 102",
+    "source": "\"text\"\n.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 103",
+    "source": "\"text\".$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 104",
+    "source": "\"text\" .$(\"Length\")",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 105",
+    "source": "\"text\"\n.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 133",
+    "source": "\"text\"[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 134",
+    "source": "\"text\"[0,1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 135",
+    "source": "\"text\"[-1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 136",
+    "source": "\"text\"[1..2]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 137",
+    "source": "\"text\"?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 138",
+    "source": "\"text\"?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 139",
+    "source": "\"text\".ToString()",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 140",
+    "source": "\"text\".ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 141",
+    "source": "\"text\".ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 142",
+    "source": "\"text\".ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 143",
+    "source": "\"text\".ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 144",
+    "source": "\"text\" [0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 145",
+    "source": "\"text\" [0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 146",
+    "source": "\"text\" [-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 147",
+    "source": "\"text\" [1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 148",
+    "source": "\"text\" ?.Length",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 149",
+    "source": "\"text\" ?[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 150",
+    "source": "\"text\" .ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 151",
+    "source": "\"text\" .ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 152",
+    "source": "\"text\" .ToString(1,2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 153",
+    "source": "\"text\" .ToString(1 + 2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 154",
+    "source": "\"text\" .ToString[int](1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 155",
+    "source": "\"text\"\n[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 156",
+    "source": "\"text\"\n[0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 157",
+    "source": "\"text\"\n[-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 158",
+    "source": "\"text\"\n[1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 159",
+    "source": "\"text\"\n?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 160",
+    "source": "\"text\"\n?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 161",
+    "source": "\"text\"\n.ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 162",
+    "source": "\"text\"\n.ToString (1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 163",
+    "source": "\"text\"\n.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 164",
+    "source": "\"text\"\n.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 165",
+    "source": "\"text\"\n.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 106",
+    "source": "@(1,2).Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 107",
+    "source": "@(1,2) .Length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 108",
+    "source": "@(1,2)\n.Length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 109",
+    "source": "@(1,2).length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 110",
+    "source": "@(1,2) .length",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 111",
+    "source": "@(1,2)\n.length",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 112",
+    "source": "@(1,2).\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 113",
+    "source": "@(1,2) .\"Length\"",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 114",
+    "source": "@(1,2)\n.\"Length\"",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 115",
+    "source": "@(1,2).'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 116",
+    "source": "@(1,2) .'Length'",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 117",
+    "source": "@(1,2)\n.'Length'",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 118",
+    "source": "@(1,2).$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 119",
+    "source": "@(1,2) .$name",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 120",
+    "source": "@(1,2)\n.$name",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 121",
+    "source": "@(1,2).($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 122",
+    "source": "@(1,2) .($name)",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 123",
+    "source": "@(1,2)\n.($name)",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 124",
+    "source": "@(1,2).$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "member adjacency 125",
+    "source": "@(1,2) .$(\"Length\")",
+    "valid": false
+  },
+  {
+    "name": "member adjacency 126",
+    "source": "@(1,2)\n.$(\"Length\")",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 166",
+    "source": "@(1,2)[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 167",
+    "source": "@(1,2)[0,1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 168",
+    "source": "@(1,2)[-1]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 169",
+    "source": "@(1,2)[1..2]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 170",
+    "source": "@(1,2)?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 171",
+    "source": "@(1,2)?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 172",
+    "source": "@(1,2).ToString()",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 173",
+    "source": "@(1,2).ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 174",
+    "source": "@(1,2).ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 175",
+    "source": "@(1,2).ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 176",
+    "source": "@(1,2).ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 177",
+    "source": "@(1,2) [0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 178",
+    "source": "@(1,2) [0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 179",
+    "source": "@(1,2) [-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 180",
+    "source": "@(1,2) [1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 181",
+    "source": "@(1,2) ?.Length",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 182",
+    "source": "@(1,2) ?[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 183",
+    "source": "@(1,2) .ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 184",
+    "source": "@(1,2) .ToString (1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 185",
+    "source": "@(1,2) .ToString(1,2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 186",
+    "source": "@(1,2) .ToString(1 + 2)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 187",
+    "source": "@(1,2) .ToString[int](1)",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 188",
+    "source": "@(1,2)\n[0]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 189",
+    "source": "@(1,2)\n[0,1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 190",
+    "source": "@(1,2)\n[-1]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 191",
+    "source": "@(1,2)\n[1..2]",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 192",
+    "source": "@(1,2)\n?.Length",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 193",
+    "source": "@(1,2)\n?[0]",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 194",
+    "source": "@(1,2)\n.ToString()",
+    "valid": false
+  },
+  {
+    "name": "postfix adjacency 195",
+    "source": "@(1,2)\n.ToString (1)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 196",
+    "source": "@(1,2)\n.ToString(1,2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 197",
+    "source": "@(1,2)\n.ToString(1 + 2)",
+    "valid": true
+  },
+  {
+    "name": "postfix adjacency 198",
+    "source": "@(1,2)\n.ToString[int](1)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 001",
+    "source": "Write-Output word",
+    "valid": true
+  },
+  {
+    "name": "command arguments 002",
+    "source": "Write-Output -Name:word",
+    "valid": true
+  },
+  {
+    "name": "command arguments 003",
+    "source": "& $cmd word",
+    "valid": true
+  },
+  {
+    "name": "command arguments 004",
+    "source": ". ./script.ps1 word",
+    "valid": true
+  },
+  {
+    "name": "command arguments 005",
+    "source": "Write-Output a-b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 006",
+    "source": "Write-Output -Name:a-b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 007",
+    "source": "& $cmd a-b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 008",
+    "source": ". ./script.ps1 a-b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 009",
+    "source": "Write-Output -literal",
+    "valid": true
+  },
+  {
+    "name": "command arguments 010",
+    "source": "Write-Output -Name:-literal",
+    "valid": true
+  },
+  {
+    "name": "command arguments 011",
+    "source": "& $cmd -literal",
+    "valid": true
+  },
+  {
+    "name": "command arguments 012",
+    "source": ". ./script.ps1 -literal",
+    "valid": true
+  },
+  {
+    "name": "command arguments 013",
+    "source": "Write-Output ./path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 014",
+    "source": "Write-Output -Name:./path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 015",
+    "source": "& $cmd ./path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 016",
+    "source": ". ./script.ps1 ./path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 017",
+    "source": "Write-Output C:\\path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 018",
+    "source": "Write-Output -Name:C:\\path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 019",
+    "source": "& $cmd C:\\path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 020",
+    "source": ". ./script.ps1 C:\\path",
+    "valid": true
+  },
+  {
+    "name": "command arguments 021",
+    "source": "Write-Output a:b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 022",
+    "source": "Write-Output -Name:a:b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 023",
+    "source": "& $cmd a:b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 024",
+    "source": ". ./script.ps1 a:b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 025",
+    "source": "Write-Output name=value",
+    "valid": true
+  },
+  {
+    "name": "command arguments 026",
+    "source": "Write-Output -Name:name=value",
+    "valid": true
+  },
+  {
+    "name": "command arguments 027",
+    "source": "& $cmd name=value",
+    "valid": true
+  },
+  {
+    "name": "command arguments 028",
+    "source": ". ./script.ps1 name=value",
+    "valid": true
+  },
+  {
+    "name": "command arguments 029",
+    "source": "Write-Output *.*",
+    "valid": true
+  },
+  {
+    "name": "command arguments 030",
+    "source": "Write-Output -Name:*.*",
+    "valid": true
+  },
+  {
+    "name": "command arguments 031",
+    "source": "& $cmd *.*",
+    "valid": true
+  },
+  {
+    "name": "command arguments 032",
+    "source": ". ./script.ps1 *.*",
+    "valid": true
+  },
+  {
+    "name": "command arguments 033",
+    "source": "Write-Output -Name:1..2",
+    "valid": true
+  },
+  {
+    "name": "command arguments 034",
+    "source": "& $cmd 1..2",
+    "valid": true
+  },
+  {
+    "name": "command arguments 035",
+    "source": ". ./script.ps1 1..2",
+    "valid": true
+  },
+  {
+    "name": "command arguments 036",
+    "source": "Write-Output $x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 037",
+    "source": "Write-Output -Name:$x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 038",
+    "source": "& $cmd $x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 039",
+    "source": ". ./script.ps1 $x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 040",
+    "source": "Write-Output ${x}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 041",
+    "source": "Write-Output -Name:${x}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 042",
+    "source": "& $cmd ${x}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 043",
+    "source": ". ./script.ps1 ${x}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 044",
+    "source": "Write-Output \"a\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 045",
+    "source": "Write-Output -Name:\"a\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 046",
+    "source": "& $cmd \"a\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 047",
+    "source": ". ./script.ps1 \"a\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 048",
+    "source": "Write-Output 'a'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 049",
+    "source": "Write-Output -Name:'a'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 050",
+    "source": "& $cmd 'a'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 051",
+    "source": ". ./script.ps1 'a'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 052",
+    "source": "Write-Output pre$x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 053",
+    "source": "Write-Output -Name:pre$x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 054",
+    "source": "& $cmd pre$x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 055",
+    "source": ". ./script.ps1 pre$x",
+    "valid": true
+  },
+  {
+    "name": "command arguments 056",
+    "source": "Write-Output ${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 057",
+    "source": "Write-Output -Name:${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 058",
+    "source": "& $cmd ${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 059",
+    "source": ". ./script.ps1 ${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 060",
+    "source": "Write-Output pre${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 061",
+    "source": "Write-Output -Name:pre${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 062",
+    "source": "& $cmd pre${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 063",
+    "source": ". ./script.ps1 pre${x}post",
+    "valid": true
+  },
+  {
+    "name": "command arguments 064",
+    "source": "Write-Output \"a\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 065",
+    "source": "Write-Output -Name:\"a\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 066",
+    "source": "& $cmd \"a\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 067",
+    "source": ". ./script.ps1 \"a\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 068",
+    "source": "Write-Output a\"b\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 069",
+    "source": "Write-Output -Name:a\"b\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 070",
+    "source": "& $cmd a\"b\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 071",
+    "source": ". ./script.ps1 a\"b\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 072",
+    "source": "Write-Output a'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 073",
+    "source": "Write-Output -Name:a'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 074",
+    "source": "& $cmd a'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 075",
+    "source": ". ./script.ps1 a'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 076",
+    "source": "Write-Output a\"$x\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 077",
+    "source": "Write-Output -Name:a\"$x\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 078",
+    "source": "& $cmd a\"$x\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 079",
+    "source": ". ./script.ps1 a\"$x\"b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 080",
+    "source": "Write-Output \"a\"'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 081",
+    "source": "Write-Output -Name:\"a\"'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 082",
+    "source": "& $cmd \"a\"'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 083",
+    "source": ". ./script.ps1 \"a\"'b'",
+    "valid": true
+  },
+  {
+    "name": "command arguments 084",
+    "source": "Write-Output a` b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 085",
+    "source": "Write-Output -Name:a` b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 086",
+    "source": "& $cmd a` b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 087",
+    "source": ". ./script.ps1 a` b",
+    "valid": true
+  },
+  {
+    "name": "command arguments 088",
+    "source": "Write-Output `\"quote`\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 089",
+    "source": "Write-Output -Name:`\"quote`\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 090",
+    "source": "& $cmd `\"quote`\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 091",
+    "source": ". ./script.ps1 `\"quote`\"",
+    "valid": true
+  },
+  {
+    "name": "command arguments 092",
+    "source": "Write-Output [int]",
+    "valid": true
+  },
+  {
+    "name": "command arguments 093",
+    "source": "Write-Output -Name:[int]",
+    "valid": true
+  },
+  {
+    "name": "command arguments 094",
+    "source": "& $cmd [int]",
+    "valid": true
+  },
+  {
+    "name": "command arguments 095",
+    "source": ". ./script.ps1 [int]",
+    "valid": true
+  },
+  {
+    "name": "command arguments 096",
+    "source": "Write-Output [int]1",
+    "valid": true
+  },
+  {
+    "name": "command arguments 097",
+    "source": "Write-Output -Name:[int]1",
+    "valid": true
+  },
+  {
+    "name": "command arguments 098",
+    "source": "& $cmd [int]1",
+    "valid": true
+  },
+  {
+    "name": "command arguments 099",
+    "source": ". ./script.ps1 [int]1",
+    "valid": true
+  },
+  {
+    "name": "command arguments 100",
+    "source": "Write-Output @(1,2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 101",
+    "source": "Write-Output -Name:@(1,2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 102",
+    "source": "& $cmd @(1,2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 103",
+    "source": ". ./script.ps1 @(1,2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 104",
+    "source": "Write-Output $(1+2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 105",
+    "source": "Write-Output -Name:$(1+2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 106",
+    "source": "& $cmd $(1+2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 107",
+    "source": ". ./script.ps1 $(1+2)",
+    "valid": true
+  },
+  {
+    "name": "command arguments 108",
+    "source": "Write-Output @{a=1}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 109",
+    "source": "Write-Output -Name:@{a=1}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 110",
+    "source": "& $cmd @{a=1}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 111",
+    "source": ". ./script.ps1 @{a=1}",
+    "valid": true
+  },
+  {
+    "name": "command arguments 112",
+    "source": "Write-Output { $x }",
+    "valid": true
+  },
+  {
+    "name": "command arguments 113",
+    "source": "Write-Output -Name:{ $x }",
+    "valid": true
+  },
+  {
+    "name": "command arguments 114",
+    "source": "& $cmd { $x }",
+    "valid": true
+  },
+  {
+    "name": "command arguments 115",
+    "source": ". ./script.ps1 { $x }",
+    "valid": true
+  },
+  {
+    "name": "command arguments 116",
+    "source": "Write-Output $x.member",
+    "valid": true
+  },
+  {
+    "name": "command arguments 117",
+    "source": "Write-Output -Name:$x.member",
+    "valid": true
+  },
+  {
+    "name": "command arguments 118",
+    "source": "& $cmd $x.member",
+    "valid": true
+  },
+  {
+    "name": "command arguments 119",
+    "source": ". ./script.ps1 $x.member",
+    "valid": true
+  },
+  {
+    "name": "command arguments 120",
+    "source": "Write-Output $x[0]",
+    "valid": true
+  },
+  {
+    "name": "command arguments 121",
+    "source": "Write-Output -Name:$x[0]",
+    "valid": true
+  },
+  {
+    "name": "command arguments 122",
+    "source": "& $cmd $x[0]",
+    "valid": true
+  },
+  {
+    "name": "command arguments 123",
+    "source": ". ./script.ps1 $x[0]",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 001",
+    "source": "Write-Output prepost",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 002",
+    "source": "Write-Output pre$y",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 003",
+    "source": "Write-Output pre${y}",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 004",
+    "source": "Write-Output pre\"quoted\"",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 005",
+    "source": "Write-Output pre'quoted'",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 006",
+    "source": "Write-Output $xpost",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 007",
+    "source": "Write-Output $x$y",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 008",
+    "source": "Write-Output $x${y}",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 009",
+    "source": "Write-Output $x\"quoted\"",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 010",
+    "source": "Write-Output $x'quoted'",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 011",
+    "source": "Write-Output ${x}$y",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 012",
+    "source": "Write-Output ${x}${y}",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 013",
+    "source": "Write-Output ${x}\"quoted\"",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 014",
+    "source": "Write-Output ${x}'quoted'",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 015",
+    "source": "Write-Output \"quoted\"post",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 016",
+    "source": "Write-Output \"quoted\"$y",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 017",
+    "source": "Write-Output \"quoted\"${y}",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 018",
+    "source": "Write-Output \"quoted\"\"quoted\"",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 019",
+    "source": "Write-Output \"quoted\"'quoted'",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 020",
+    "source": "Write-Output 'quoted'post",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 021",
+    "source": "Write-Output 'quoted'$y",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 022",
+    "source": "Write-Output 'quoted'${y}",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 023",
+    "source": "Write-Output 'quoted'\"quoted\"",
+    "valid": true
+  },
+  {
+    "name": "argument concatenation 024",
+    "source": "Write-Output 'quoted''quoted'",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 001",
+    "source": "$o.F($x)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 002",
+    "source": "param($x=$x)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 003",
+    "source": "$o.F(0,$x)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 005",
+    "source": "$o.F(1+2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 006",
+    "source": "param($x=1+2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 007",
+    "source": "$o.F(0,1+2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 008",
+    "source": "[A(1+2)]param($x)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 009",
+    "source": "$o.F(1,2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 010",
+    "source": "param($x=1,2)",
+    "valid": false
+  },
+  {
+    "name": "argument expression modes 011",
+    "source": "$o.F(0,1,2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 012",
+    "source": "[A(1,2)]param($x)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 013",
+    "source": "$o.F((1,2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 014",
+    "source": "param($x=(1,2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 015",
+    "source": "$o.F(0,(1,2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 016",
+    "source": "[A((1,2))]param($x)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 017",
+    "source": "$o.F(1..2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 018",
+    "source": "param($x=1..2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 019",
+    "source": "$o.F(0,1..2)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 021",
+    "source": "$o.F([int]1)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 022",
+    "source": "param($x=[int]1)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 023",
+    "source": "$o.F(0,[int]1)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 024",
+    "source": "[A([int]1)]param($x)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 025",
+    "source": "$o.F(@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 026",
+    "source": "param($x=@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 027",
+    "source": "$o.F(0,@(1,2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 029",
+    "source": "$o.F($(1;2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 030",
+    "source": "param($x=$(1;2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 031",
+    "source": "$o.F(0,$(1;2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 033",
+    "source": "$o.F(@{a=1})",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 034",
+    "source": "param($x=@{a=1})",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 035",
+    "source": "$o.F(0,@{a=1})",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 037",
+    "source": "$o.F(($a ? 1 : 2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 038",
+    "source": "param($x=($a ? 1 : 2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 039",
+    "source": "$o.F(0,($a ? 1 : 2))",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 041",
+    "source": "$o.F($a ?? $b)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 042",
+    "source": "param($x=$a ?? $b)",
+    "valid": true
+  },
+  {
+    "name": "argument expression modes 043",
+    "source": "$o.F(0,$a ?? $b)",
+    "valid": true
+  },
+  {
+    "name": "keyword case 001",
+    "source": "if ($true) { 1 } ELSE { 2 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 002",
+    "source": "IF ($true) { 1 } ELSE { 2 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 003",
+    "source": "If ($true) { 1 } ELSE { 2 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 004",
+    "source": "switch -REGEX ($x) { default { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 005",
+    "source": "SWITCH -REGEX ($x) { default { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 006",
+    "source": "Switch -REGEX ($x) { default { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 007",
+    "source": "foreach ($x IN $xs) { $x }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 008",
+    "source": "FOREACH ($x IN $xs) { $x }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 009",
+    "source": "Foreach ($x IN $xs) { $x }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 010",
+    "source": "for ($i=0;$i -LT 3;$i++) { $i }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 011",
+    "source": "FOR ($i=0;$i -LT 3;$i++) { $i }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 012",
+    "source": "For ($i=0;$i -LT 3;$i++) { $i }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 013",
+    "source": "while ($false) { 1 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 014",
+    "source": "WHILE ($false) { 1 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 015",
+    "source": "While ($false) { 1 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 016",
+    "source": "do { 1 } UNTIL ($true)",
+    "valid": true
+  },
+  {
+    "name": "keyword case 017",
+    "source": "DO { 1 } UNTIL ($true)",
+    "valid": true
+  },
+  {
+    "name": "keyword case 018",
+    "source": "Do { 1 } UNTIL ($true)",
+    "valid": true
+  },
+  {
+    "name": "keyword case 019",
+    "source": "try { 1 } CATCH { 2 } FINALLY { 3 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 020",
+    "source": "TRY { 1 } CATCH { 2 } FINALLY { 3 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 021",
+    "source": "Try { 1 } CATCH { 2 } FINALLY { 3 }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 022",
+    "source": "trap { continue }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 023",
+    "source": "TRAP { continue }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 024",
+    "source": "Trap { continue }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 025",
+    "source": "function Test { param($x) $x }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 026",
+    "source": "FUNCTION Test { param($x) $x }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 027",
+    "source": "Function Test { param($x) $x }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 028",
+    "source": "filter Test { $_ }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 029",
+    "source": "FILTER Test { $_ }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 030",
+    "source": "Filter Test { $_ }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 031",
+    "source": "param([int]$x=1)\n$x",
+    "valid": true
+  },
+  {
+    "name": "keyword case 032",
+    "source": "PARAM([int]$x=1)\n$x",
+    "valid": true
+  },
+  {
+    "name": "keyword case 033",
+    "source": "Param([int]$x=1)\n$x",
+    "valid": true
+  },
+  {
+    "name": "keyword case 034",
+    "source": "{ begin { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 035",
+    "source": "{ BEGIN { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 036",
+    "source": "{ Begin { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 037",
+    "source": "{ process { $_ } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 038",
+    "source": "{ PROCESS { $_ } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 039",
+    "source": "{ Process { $_ } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 040",
+    "source": "{ end { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 041",
+    "source": "{ END { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 042",
+    "source": "{ End { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 043",
+    "source": "{ clean { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 044",
+    "source": "{ CLEAN { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 045",
+    "source": "{ Clean { 1 } }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 046",
+    "source": "using NAMESPACE System.Text",
+    "valid": true
+  },
+  {
+    "name": "keyword case 047",
+    "source": "USING NAMESPACE System.Text",
+    "valid": true
+  },
+  {
+    "name": "keyword case 048",
+    "source": "Using NAMESPACE System.Text",
+    "valid": true
+  },
+  {
+    "name": "keyword case 049",
+    "source": "data Test { \"value\" }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 050",
+    "source": "DATA Test { \"value\" }",
+    "valid": true
+  },
+  {
+    "name": "keyword case 051",
+    "source": "Data Test { \"value\" }",
+    "valid": true
+  },
+  {
+    "name": "incomplete syntax 001",
+    "source": "(",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 002",
+    "source": "@(",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 003",
+    "source": "$(",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 004",
+    "source": "@{",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 005",
+    "source": "[int",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 006",
+    "source": "\"unclosed",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 007",
+    "source": "'unclosed",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 008",
+    "source": "${unclosed",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 009",
+    "source": "if ($true)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 010",
+    "source": "if $true {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 011",
+    "source": "if () {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 012",
+    "source": "foreach ($x $xs) {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 013",
+    "source": "foreach ($x in) {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 014",
+    "source": "for (;;; ) {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 015",
+    "source": "while () {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 016",
+    "source": "do {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 017",
+    "source": "try {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 018",
+    "source": "try {} catch",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 019",
+    "source": "function {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 020",
+    "source": "function f(",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 021",
+    "source": "param($x,)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 022",
+    "source": "$x =",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 023",
+    "source": "($x +)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 024",
+    "source": "($x -eq)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 025",
+    "source": "($x ??)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 026",
+    "source": "($x ? 1)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 027",
+    "source": "($x ? : 1)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 028",
+    "source": "$x[",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 029",
+    "source": "$x[]",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 030",
+    "source": "$x.F(",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 031",
+    "source": "$x.F(,)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 032",
+    "source": "$x.F(1,)",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 033",
+    "source": "@{a}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 034",
+    "source": "@{a=}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 035",
+    "source": "@{a=1 b=2}",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 036",
+    "source": "1 |",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 037",
+    "source": "| 1",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 038",
+    "source": "Write-Output >",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 039",
+    "source": "Write-Output 2>&",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 040",
+    "source": "Write-Output -Name:",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 041",
+    "source": "{ begin {} process",
+    "valid": false
+  },
+  {
+    "name": "incomplete syntax 042",
+    "source": "switch ($x) { default }",
+    "valid": false
+  },
+  {
+    "name": "unicode lexical forms 001",
+    "source": "$é",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 002",
+    "source": "${é}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 003",
+    "source": "\"$é\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 004",
+    "source": "\"${é}\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 005",
+    "source": "Write-Output $é",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 006",
+    "source": "Write-Output ${é}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 007",
+    "source": "function é { 1 }",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 008",
+    "source": "$o.é",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 009",
+    "source": "[é]",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 010",
+    "source": "Write-Output é",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 011",
+    "source": "$über",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 012",
+    "source": "${über}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 013",
+    "source": "\"$über\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 014",
+    "source": "\"${über}\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 015",
+    "source": "Write-Output $über",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 016",
+    "source": "Write-Output ${über}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 017",
+    "source": "function über { 1 }",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 018",
+    "source": "$o.über",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 019",
+    "source": "[über]",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 020",
+    "source": "Write-Output über",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 021",
+    "source": "$日本語",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 022",
+    "source": "${日本語}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 023",
+    "source": "\"$日本語\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 024",
+    "source": "\"${日本語}\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 025",
+    "source": "Write-Output $日本語",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 026",
+    "source": "Write-Output ${日本語}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 027",
+    "source": "function 日本語 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 028",
+    "source": "$o.日本語",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 029",
+    "source": "[日本語]",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 030",
+    "source": "Write-Output 日本語",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 031",
+    "source": "$Δ",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 032",
+    "source": "${Δ}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 033",
+    "source": "\"$Δ\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 034",
+    "source": "\"${Δ}\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 035",
+    "source": "Write-Output $Δ",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 036",
+    "source": "Write-Output ${Δ}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 037",
+    "source": "function Δ { 1 }",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 038",
+    "source": "$o.Δ",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 039",
+    "source": "[Δ]",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 040",
+    "source": "Write-Output Δ",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 041",
+    "source": "$𐐀",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 042",
+    "source": "${𐐀}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 043",
+    "source": "\"$𐐀\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 044",
+    "source": "\"${𐐀}\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 045",
+    "source": "Write-Output $𐐀",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 046",
+    "source": "Write-Output ${𐐀}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 047",
+    "source": "function 𐐀 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 048",
+    "source": "$o.𐐀",
+    "valid": false
+  },
+  {
+    "name": "unicode lexical forms 049",
+    "source": "[𐐀]",
+    "valid": false
+  },
+  {
+    "name": "unicode lexical forms 050",
+    "source": "Write-Output 𐐀",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 051",
+    "source": "$😀",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 052",
+    "source": "${😀}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 053",
+    "source": "\"$😀\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 054",
+    "source": "\"${😀}\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 055",
+    "source": "Write-Output $😀",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 056",
+    "source": "Write-Output ${😀}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 057",
+    "source": "function 😀 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 058",
+    "source": "$o.😀",
+    "valid": false
+  },
+  {
+    "name": "unicode lexical forms 059",
+    "source": "[😀]",
+    "valid": false
+  },
+  {
+    "name": "unicode lexical forms 060",
+    "source": "Write-Output 😀",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 061",
+    "source": "$𝒙",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 062",
+    "source": "${𝒙}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 063",
+    "source": "\"$𝒙\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 064",
+    "source": "\"${𝒙}\"",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 065",
+    "source": "Write-Output $𝒙",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 066",
+    "source": "Write-Output ${𝒙}",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 067",
+    "source": "function 𝒙 { 1 }",
+    "valid": true
+  },
+  {
+    "name": "unicode lexical forms 068",
+    "source": "$o.𝒙",
+    "valid": false
+  },
+  {
+    "name": "unicode lexical forms 069",
+    "source": "[𝒙]",
+    "valid": false
+  },
+  {
+    "name": "unicode lexical forms 070",
+    "source": "Write-Output 𝒙",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 001",
+    "source": "'text'",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 002",
+    "source": "Write-Output pre'text'post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 003",
+    "source": "'text‘",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 004",
+    "source": "Write-Output pre'text‘post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 005",
+    "source": "'text’",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 006",
+    "source": "Write-Output pre'text’post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 007",
+    "source": "'text‚",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 008",
+    "source": "Write-Output pre'text‚post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 009",
+    "source": "'text‛",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 010",
+    "source": "Write-Output pre'text‛post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 011",
+    "source": "‘text'",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 012",
+    "source": "Write-Output pre‘text'post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 013",
+    "source": "‘text‘",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 014",
+    "source": "Write-Output pre‘text‘post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 015",
+    "source": "‘text’",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 016",
+    "source": "Write-Output pre‘text’post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 017",
+    "source": "‘text‚",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 018",
+    "source": "Write-Output pre‘text‚post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 019",
+    "source": "‘text‛",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 020",
+    "source": "Write-Output pre‘text‛post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 021",
+    "source": "’text'",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 022",
+    "source": "Write-Output pre’text'post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 023",
+    "source": "’text‘",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 024",
+    "source": "Write-Output pre’text‘post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 025",
+    "source": "’text’",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 026",
+    "source": "Write-Output pre’text’post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 027",
+    "source": "’text‚",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 028",
+    "source": "Write-Output pre’text‚post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 029",
+    "source": "’text‛",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 030",
+    "source": "Write-Output pre’text‛post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 031",
+    "source": "‚text'",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 032",
+    "source": "Write-Output pre‚text'post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 033",
+    "source": "‚text‘",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 034",
+    "source": "Write-Output pre‚text‘post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 035",
+    "source": "‚text’",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 036",
+    "source": "Write-Output pre‚text’post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 037",
+    "source": "‚text‚",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 038",
+    "source": "Write-Output pre‚text‚post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 039",
+    "source": "‚text‛",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 040",
+    "source": "Write-Output pre‚text‛post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 041",
+    "source": "‛text'",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 042",
+    "source": "Write-Output pre‛text'post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 043",
+    "source": "‛text‘",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 044",
+    "source": "Write-Output pre‛text‘post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 045",
+    "source": "‛text’",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 046",
+    "source": "Write-Output pre‛text’post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 047",
+    "source": "‛text‚",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 048",
+    "source": "Write-Output pre‛text‚post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 049",
+    "source": "‛text‛",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 050",
+    "source": "Write-Output pre‛text‛post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 051",
+    "source": "\"text\"",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 052",
+    "source": "Write-Output pre\"text\"post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 053",
+    "source": "\"text“",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 054",
+    "source": "Write-Output pre\"text“post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 055",
+    "source": "\"text”",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 056",
+    "source": "Write-Output pre\"text”post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 057",
+    "source": "\"text„",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 058",
+    "source": "Write-Output pre\"text„post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 059",
+    "source": "“text\"",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 060",
+    "source": "Write-Output pre“text\"post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 061",
+    "source": "“text“",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 062",
+    "source": "Write-Output pre“text“post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 063",
+    "source": "“text”",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 064",
+    "source": "Write-Output pre“text”post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 065",
+    "source": "“text„",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 066",
+    "source": "Write-Output pre“text„post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 067",
+    "source": "”text\"",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 068",
+    "source": "Write-Output pre”text\"post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 069",
+    "source": "”text“",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 070",
+    "source": "Write-Output pre”text“post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 071",
+    "source": "”text”",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 072",
+    "source": "Write-Output pre”text”post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 073",
+    "source": "”text„",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 074",
+    "source": "Write-Output pre”text„post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 075",
+    "source": "„text\"",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 076",
+    "source": "Write-Output pre„text\"post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 077",
+    "source": "„text“",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 078",
+    "source": "Write-Output pre„text“post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 079",
+    "source": "„text”",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 080",
+    "source": "Write-Output pre„text”post",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 081",
+    "source": "„text„",
+    "valid": true
+  },
+  {
+    "name": "smart quotes 082",
+    "source": "Write-Output pre„text„post",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 001",
+    "source": "($a -eq $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 002",
+    "source": "($a -notlike \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 003",
+    "source": "Write-Output -Name value",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 004",
+    "source": "Write-Output -Name:$true",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 005",
+    "source": "(-1)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 006",
+    "source": "($a –eq $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 007",
+    "source": "($a –EQ $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 008",
+    "source": "($a –notlike \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 009",
+    "source": "(–not $a)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 010",
+    "source": "Write-Output –Name value",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 011",
+    "source": "Write-Output –Name:$true",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 012",
+    "source": "(–1)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 013",
+    "source": "($a – $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 014",
+    "source": "($a —eq $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 015",
+    "source": "($a —EQ $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 016",
+    "source": "($a —notlike \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 017",
+    "source": "(—not $a)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 018",
+    "source": "Write-Output —Name value",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 019",
+    "source": "Write-Output —Name:$true",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 020",
+    "source": "(—1)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 021",
+    "source": "($a — $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 022",
+    "source": "($a ―eq $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 023",
+    "source": "($a ―EQ $b)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 024",
+    "source": "($a ―notlike \"x\")",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 025",
+    "source": "(―not $a)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 026",
+    "source": "Write-Output ―Name value",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 027",
+    "source": "Write-Output ―Name:$true",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 028",
+    "source": "(―1)",
+    "valid": true
+  },
+  {
+    "name": "unicode dash 029",
+    "source": "($a ― $b)",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 001",
+    "source": "1foo",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 002",
+    "source": "(1foo)",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 003",
+    "source": "$n = 1foo",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 004",
+    "source": "Write-Output 1foo",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 005",
+    "source": "Write-Output pre1foopost",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 006",
+    "source": "123abc",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 007",
+    "source": "(123abc)",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 008",
+    "source": "$n = 123abc",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 009",
+    "source": "Write-Output 123abc",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 010",
+    "source": "Write-Output pre123abcpost",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 011",
+    "source": "1.2.3",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 012",
+    "source": "Write-Output pre1.2.3post",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 013",
+    "source": "1e",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 014",
+    "source": "Write-Output pre1epost",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 015",
+    "source": "0x",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 016",
+    "source": "Write-Output pre0xpost",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 017",
+    "source": "0xgg",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 018",
+    "source": "(0xgg)",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 019",
+    "source": "$n = 0xgg",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 020",
+    "source": "Write-Output 0xgg",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 021",
+    "source": "Write-Output pre0xggpost",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 022",
+    "source": "1Lu",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 023",
+    "source": "Write-Output pre1Lupost",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 024",
+    "source": "1_000",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 025",
+    "source": "Write-Output pre1_000post",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 026",
+    "source": "1.5u",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 027",
+    "source": "Write-Output pre1.5upost",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 028",
+    "source": "2>&1",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 029",
+    "source": "(2>&1)",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 030",
+    "source": "$n = 2>&1",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 031",
+    "source": "Write-Output 2>&1",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 032",
+    "source": "Write-Output pre2>&1post",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 033",
+    "source": "1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric token boundaries 034",
+    "source": "Write-Output pre1..2post",
+    "valid": true
+  }
+]
