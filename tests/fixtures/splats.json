@@ -1,0 +1,302 @@
+[
+  {
+    "name": "ASCII splat",
+    "source": "cmd @args\n",
+    "valid": true
+  },
+  {
+    "name": "Latin Unicode splat",
+    "source": "cmd @é\n",
+    "valid": true
+  },
+  {
+    "name": "CJK Unicode splat",
+    "source": "cmd @日本語\n",
+    "valid": true
+  },
+  {
+    "name": "combining mark after splat name",
+    "source": "cmd @á\n",
+    "valid": true
+  },
+  {
+    "name": "combining mark at splat start",
+    "source": "cmd @́\n",
+    "valid": false
+  },
+  {
+    "name": "letter introduced after runtime Unicode version",
+    "source": "cmd @Ᲊ\n",
+    "valid": false
+  },
+  {
+    "name": "snowman at splat start",
+    "source": "cmd @☃\n",
+    "valid": false
+  },
+  {
+    "name": "Arabic digit splat",
+    "source": "cmd @١\n",
+    "valid": true
+  },
+  {
+    "name": "supplementary letter at splat start",
+    "source": "cmd @𐐀\n",
+    "valid": false
+  },
+  {
+    "name": "supplementary letter after splat name",
+    "source": "cmd @x𐐀\n",
+    "valid": true
+  },
+  {
+    "name": "emoji at splat start",
+    "source": "cmd @😀\n",
+    "valid": false
+  },
+  {
+    "name": "emoji after splat name",
+    "source": "cmd @x😀\n",
+    "valid": true
+  },
+  {
+    "name": "emoji and suffix after splat name",
+    "source": "cmd @x🚀suffix\n",
+    "valid": true
+  },
+  {
+    "name": "NBSP separates splat and argument",
+    "source": "cmd @x tail\n",
+    "valid": true
+  },
+  {
+    "name": "NEL separates splat and argument",
+    "source": "cmd @xtail\n",
+    "valid": true
+  },
+  {
+    "name": "line separator separates splat and argument",
+    "source": "cmd @x tail\n",
+    "valid": true
+  },
+  {
+    "name": "ideographic space separates splat and argument",
+    "source": "cmd @x　tail\n",
+    "valid": true
+  },
+  {
+    "name": "BOM inside splat looking argument",
+    "source": "cmd @x﻿tail\n",
+    "valid": true
+  },
+  {
+    "name": "zero width space inside splat looking argument",
+    "source": "cmd @x​tail\n",
+    "valid": true
+  },
+  {
+    "name": "Mongolian vowel separator inside splat looking argument",
+    "source": "cmd @x᠎tail\n",
+    "valid": true
+  },
+  {
+    "name": "global scoped splat",
+    "source": "cmd @global:x\n",
+    "valid": true
+  },
+  {
+    "name": "script scoped splat",
+    "source": "cmd @script:x\n",
+    "valid": true
+  },
+  {
+    "name": "environment drive splat",
+    "source": "cmd @env:PATH\n",
+    "valid": true
+  },
+  {
+    "name": "extra colon in scoped splat",
+    "source": "cmd @env:PATH:x\n",
+    "valid": true
+  },
+  {
+    "name": "empty scoped splat name",
+    "source": "cmd @env:\n",
+    "valid": false
+  },
+  {
+    "name": "empty splat drive name",
+    "source": "cmd @:name\n",
+    "valid": true
+  },
+  {
+    "name": "static member after splat",
+    "source": "cmd @x::Name\n",
+    "valid": false
+  },
+  {
+    "name": "multiple colon splat name",
+    "source": "cmd @x:y:z\n",
+    "valid": true
+  },
+  {
+    "name": "question marks in scoped splat",
+    "source": "cmd @x?:y?\n",
+    "valid": true
+  },
+  {
+    "name": "variable after splat looking name",
+    "source": "cmd @x$y\n",
+    "valid": true
+  },
+  {
+    "name": "braced variable after splat looking name",
+    "source": "cmd @x${y}\n",
+    "valid": true
+  },
+  {
+    "name": "subexpression after splat looking name",
+    "source": "cmd @x$(1)\n",
+    "valid": true
+  },
+  {
+    "name": "question mark automatic splat with suffix",
+    "source": "cmd @?foo\n",
+    "valid": true
+  },
+  {
+    "name": "caret automatic splat with suffix",
+    "source": "cmd @^foo\n",
+    "valid": true
+  },
+  {
+    "name": "dollar automatic splat with suffix",
+    "source": "cmd @$foo\n",
+    "valid": true
+  },
+  {
+    "name": "variable after splat scope colon",
+    "source": "cmd @x:$y\n",
+    "valid": true
+  },
+  {
+    "name": "double quoted piece after splat looking name",
+    "source": "cmd @x\"tail\"\n",
+    "valid": true
+  },
+  {
+    "name": "literal quoted piece after splat looking name",
+    "source": "cmd @x'$y'\n",
+    "valid": true
+  },
+  {
+    "name": "quoted subexpression after splat looking name",
+    "source": "cmd @x\"$(1)\"\n",
+    "valid": true
+  },
+  {
+    "name": "quoted piece and suffix after splat looking name",
+    "source": "cmd @x\"tail\"suffix\n",
+    "valid": true
+  },
+  {
+    "name": "unsupported smart quote after splat looking name",
+    "source": "cmd @x‟tail\n",
+    "valid": true
+  },
+  {
+    "name": "unterminated quoted piece after splat looking name",
+    "source": "cmd @x\"unterminated\n",
+    "valid": false
+  },
+  {
+    "name": "slash after splat looking name",
+    "source": "cmd @x/y\n",
+    "valid": true
+  },
+  {
+    "name": "hyphen after splat looking name",
+    "source": "cmd @x-y\n",
+    "valid": true
+  },
+  {
+    "name": "member after splat",
+    "source": "cmd @x.thing\n",
+    "valid": false
+  },
+  {
+    "name": "index after splat",
+    "source": "cmd @x[0]\n",
+    "valid": false
+  },
+  {
+    "name": "question mark inside splat name",
+    "source": "cmd @x?foo\n",
+    "valid": true
+  },
+  {
+    "name": "question mark member after splat",
+    "source": "cmd @x?.Name\n",
+    "valid": false
+  },
+  {
+    "name": "empty qualified splat",
+    "source": "cmd @x:\n",
+    "valid": false
+  },
+  {
+    "name": "escaped space after splat looking name",
+    "source": "cmd @x` y\n",
+    "valid": true
+  },
+  {
+    "name": "question mark automatic splat",
+    "source": "cmd @?\n",
+    "valid": true
+  },
+  {
+    "name": "caret automatic splat",
+    "source": "cmd @^\n",
+    "valid": true
+  },
+  {
+    "name": "dollar automatic splat",
+    "source": "cmd @$\n",
+    "valid": true
+  },
+  {
+    "name": "numeric splat name",
+    "source": "cmd @1\n",
+    "valid": true
+  },
+  {
+    "name": "splat at expression pipeline start",
+    "source": "@x\n",
+    "valid": false
+  },
+  {
+    "name": "splat in assignment expression",
+    "source": "$a = @x\n",
+    "valid": false
+  },
+  {
+    "name": "hash literal is not splat",
+    "source": "cmd @{}\n",
+    "valid": true
+  },
+  {
+    "name": "repeated at sign",
+    "source": "cmd @@x\n",
+    "valid": false
+  },
+  {
+    "name": "dollar automatic splat before expression argument",
+    "source": "cmd @$(1)\n",
+    "valid": true
+  },
+  {
+    "name": "literal at sign in expandable string",
+    "source": "cmd \"literal @x\"\n",
+    "valid": true
+  }
+]

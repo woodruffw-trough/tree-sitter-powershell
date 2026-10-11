@@ -3,6 +3,7 @@ src/parser.c linguist-generated
 src/grammar.json linguist-generated
 src/node-types.json linguist-generated
 src/variable_chars.h linguist-generated
+src/identifier_chars.js linguist-generated
 # Corpus fixtures intentionally include CRLF, lone CR, and trailing spaces.
 test/corpus/*.txt -text whitespace=-trailing-space,cr-at-eol
 # Preserve upstream fixtures byte-for-byte for their recorded hashes.

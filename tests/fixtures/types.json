@@ -208,5 +208,165 @@
     "name": "type tokenizer [A१]",
     "source": "[A१]",
     "valid": true
+  },
+  {
+    "name": "pinned Unicode classification U+1C89 initial",
+    "source": "[Ᲊ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+1C89 continuation",
+    "source": "[AᲉ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+1C89 class initial",
+    "source": "class Ᲊ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+1C89 class continuation",
+    "source": "class AᲉ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+1C8A initial",
+    "source": "[ᲊ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+1C8A continuation",
+    "source": "[Aᲊ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+1C8A class initial",
+    "source": "class ᲊ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+1C8A class continuation",
+    "source": "class Aᲊ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CB initial",
+    "source": "[Ɤ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CB continuation",
+    "source": "[AꟋ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CB class initial",
+    "source": "class Ɤ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CB class continuation",
+    "source": "class AꟋ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CC initial",
+    "source": "[Ꟍ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CC continuation",
+    "source": "[AꟌ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CC class initial",
+    "source": "class Ꟍ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CC class continuation",
+    "source": "class AꟌ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CD initial",
+    "source": "[ꟍ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CD continuation",
+    "source": "[Aꟍ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CD class initial",
+    "source": "class ꟍ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7CD class continuation",
+    "source": "class Aꟍ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DA initial",
+    "source": "[Ꟛ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DA continuation",
+    "source": "[AꟚ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DA class initial",
+    "source": "class Ꟛ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DA class continuation",
+    "source": "class AꟚ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DB initial",
+    "source": "[ꟛ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DB continuation",
+    "source": "[Aꟛ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DB class initial",
+    "source": "class ꟛ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DB class continuation",
+    "source": "class Aꟛ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DC initial",
+    "source": "[Ƛ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DC continuation",
+    "source": "[AꟜ]",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DC class initial",
+    "source": "class Ƛ {}",
+    "valid": false
+  },
+  {
+    "name": "pinned Unicode classification U+A7DC class continuation",
+    "source": "class AꟜ {}",
+    "valid": false
   }
 ]

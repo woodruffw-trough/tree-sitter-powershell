@@ -7,7 +7,7 @@ The grammar covers command and expression modes, pipelines and redirection, cont
 ## Authoritative sources
 
 The grammar follows Microsoft's [PowerShell language specification](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-15), especially its [lexical structure](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-02), [expressions](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-07), and [statements](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08).
-That specification describes PowerShell 3.0. For current PowerShell syntax, use the [about topics](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing), the upstream [parser](https://github.com/PowerShell/PowerShell/blob/master/src/System.Management.Automation/engine/parser/Parser.cs) and [tokenizer](https://github.com/PowerShell/PowerShell/blob/master/src/System.Management.Automation/engine/parser/tokenizer.cs), and the PowerShell parser itself as an oracle.
+That specification describes PowerShell 3.0. For current PowerShell syntax, this grammar uses the [about topics](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing), the upstream [parser](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs) and [tokenizer](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs), and PowerShell 7.5.4 itself as a pinned oracle.
 
 ## Development policy
 

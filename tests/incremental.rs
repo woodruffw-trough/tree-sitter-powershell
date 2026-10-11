@@ -147,3 +147,32 @@ fn highlighting_query_compiles() {
     )
     .unwrap();
 }
+
+#[test]
+fn splat_edits_preserve_contextual_classification_and_recovery() {
+    for (source, old, new, valid) in [
+        ("cmd @name\n", "@name", "@name😀", true),
+        ("cmd @name\n", "@name", "@?name", true),
+        ("cmd @env:NAME\n", "NAME", "", false),
+        ("cmd @name\n", "name", "na\u{2000}me", true),
+    ] {
+        let mut parser = parser();
+        let mut original = parser.parse(source, None).unwrap();
+        assert!(!original.root_node().has_error(), "{source}");
+        let start = source.find(old).unwrap();
+        let end = start + old.len();
+        let edited = format!("{}{}{}", &source[..start], new, &source[end..]);
+        original.edit(&InputEdit {
+            start_byte: start,
+            old_end_byte: end,
+            new_end_byte: start + new.len(),
+            start_position: point(source, start),
+            old_end_position: point(source, end),
+            new_end_position: point(&edited, start + new.len()),
+        });
+        let incremental = parser.parse(&edited, Some(&original)).unwrap();
+        let fresh = parser.parse(&edited, None).unwrap();
+        assert_eq!(!fresh.root_node().has_error(), valid, "{edited}");
+        assert_same_tree(incremental.root_node(), fresh.root_node(), &edited);
+    }
+}
