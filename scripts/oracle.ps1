@@ -95,6 +95,7 @@ function Get-AstRecord($Node) {
             Add-AstField $fields 'body' $Node.Body
             Add-AstField $fields 'parameters' $Node.Parameters
             $record.name = $Node.Name
+            $record.synthetic = ($Node.Parent -is [Management.Automation.Language.FunctionMemberAst])
         }
         'FunctionMemberAst' {
             Add-AstField $fields 'body' $Node.Body
@@ -155,6 +156,18 @@ function Get-AstRecord($Node) {
         'VariableExpressionAst' {
             $record.name = $Node.VariablePath.UserPath
             $record.splatted = $Node.Splatted
+        }
+        'ConstantExpressionAst' {
+            $record.constantType = if ($null -eq $Node.Value) {
+                'null'
+            } else {
+                $Node.Value.GetType().FullName
+            }
+            # An omitted attribute value is synthesized by PowerShell's parser.
+            $record.synthetic = (
+                $Node.Parent -is [Management.Automation.Language.NamedAttributeArgumentAst] -and
+                $Node.Parent.ExpressionOmitted
+            )
         }
         'StringConstantExpressionAst' {
             $record.stringKind = $Node.StringConstantType.ToString()

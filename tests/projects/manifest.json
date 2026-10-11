@@ -1,0 +1,245 @@
+{
+  "formatVersion": 1,
+  "projects": [
+    {
+      "repository": "ScoopInstaller/Scoop",
+      "commit": "e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f",
+      "directory": "scoop",
+      "license": "MIT OR Unlicense",
+      "sources": [
+        "scoop/lib/core.ps1",
+        "scoop/lib/install.ps1",
+        "scoop/libexec/scoop-update.ps1"
+      ],
+      "notices": [
+        "scoop/LICENSE"
+      ]
+    },
+    {
+      "repository": "pester/Pester",
+      "commit": "98e56d65da1642a7158992b50ded240c42a3ac18",
+      "directory": "pester",
+      "license": "Apache-2.0",
+      "sources": [
+        "pester/src/Pester.Runtime.ps1",
+        "pester/src/functions/Mock.ps1",
+        "pester/src/TypeClass.ps1"
+      ],
+      "notices": [
+        "pester/LICENSE",
+        "pester/ThirdPartyNotices.txt",
+        "pester/src/csharp/Pester/DiffPlex/LICENSE.txt"
+      ]
+    },
+    {
+      "repository": "PowerShell/PSReadLine",
+      "commit": "2984546f62da9f63c31aba965ec3008fcb107024",
+      "directory": "psreadline",
+      "license": "BSD-2-Clause",
+      "sources": [
+        "psreadline/PSReadLine/SamplePSReadLineProfile.ps1",
+        "psreadline/tools/helper.psm1",
+        "psreadline/tools/CheckHelp.ps1"
+      ],
+      "notices": [
+        "psreadline/License.txt"
+      ]
+    },
+    {
+      "repository": "dahlbyk/posh-git",
+      "commit": "bbc5ac380018239e0ac70411a59f4e367ca87f2d",
+      "directory": "posh-git",
+      "license": "MIT",
+      "sources": [
+        "posh-git/src/PoshGitTypes.ps1",
+        "posh-git/src/GitPrompt.ps1",
+        "posh-git/src/GitTabExpansion.ps1"
+      ],
+      "notices": [
+        "posh-git/LICENSE.txt"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "scoop/lib/core.ps1",
+      "repository": "ScoopInstaller/Scoop",
+      "upstreamPath": "lib/core.ps1",
+      "commit": "e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f",
+      "gitBlob": "7ca74cebf15f6e01b66c8a1f501ad4b7f3b9b591",
+      "sha256": "b9e3d44ed444fba9f8e4934d5631ad6b1f1c2b573001955564c42c54756c3679",
+      "bytes": 50823,
+      "kind": "source"
+    },
+    {
+      "path": "scoop/lib/install.ps1",
+      "repository": "ScoopInstaller/Scoop",
+      "upstreamPath": "lib/install.ps1",
+      "commit": "e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f",
+      "gitBlob": "7b242278d173b8f5c9797fd22b2abd93184a0980",
+      "sha256": "a4aad174a6d8360ceace9cf1e3a3ca0239531b8e0c17c8f7086f74133e010129",
+      "bytes": 20887,
+      "kind": "source"
+    },
+    {
+      "path": "scoop/libexec/scoop-update.ps1",
+      "repository": "ScoopInstaller/Scoop",
+      "upstreamPath": "libexec/scoop-update.ps1",
+      "commit": "e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f",
+      "gitBlob": "387ae4e093906804edd0d7d0196ae96826e1316d",
+      "sha256": "4437623277ae3165cffc9402747ec16c21fe6be76b6734b45ed814094b55031f",
+      "bytes": 19598,
+      "kind": "source"
+    },
+    {
+      "path": "scoop/LICENSE",
+      "repository": "ScoopInstaller/Scoop",
+      "upstreamPath": "LICENSE",
+      "commit": "e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f",
+      "gitBlob": "68b7fd92d6c6b99cdf0748b51a91bfde6eec962a",
+      "sha256": "92c2b8f7e3b344a307889ff5f55dc3d7fa048f846845549df0e33e44e5939476",
+      "bytes": 3486,
+      "kind": "notice"
+    },
+    {
+      "path": "pester/src/Pester.Runtime.ps1",
+      "repository": "pester/Pester",
+      "upstreamPath": "src/Pester.Runtime.ps1",
+      "commit": "98e56d65da1642a7158992b50ded240c42a3ac18",
+      "gitBlob": "bfee2b8d26175f9a3775a39caf2da15de7521b6a",
+      "sha256": "e84ddb2943be3d5b43edb08dd03cf931a25bf36948d952797a264101312770ca",
+      "bytes": 136145,
+      "kind": "source"
+    },
+    {
+      "path": "pester/src/functions/Mock.ps1",
+      "repository": "pester/Pester",
+      "upstreamPath": "src/functions/Mock.ps1",
+      "commit": "98e56d65da1642a7158992b50ded240c42a3ac18",
+      "gitBlob": "318a98923f6d27dee3e50d79c36ac417dd24fe05",
+      "sha256": "a4fdd4787ebc36750e7fd33459c4cdd361b96b977a14af6918780b2f5127a6ed",
+      "bytes": 94445,
+      "kind": "source"
+    },
+    {
+      "path": "pester/src/TypeClass.ps1",
+      "repository": "pester/Pester",
+      "upstreamPath": "src/TypeClass.ps1",
+      "commit": "98e56d65da1642a7158992b50ded240c42a3ac18",
+      "gitBlob": "b66e0235c891003f8b8d5b125f672579cc060e40",
+      "sha256": "f1dbee84393f243b09f9491e6c3280c874a1adaa33e3c0a6f9c6903d6e362921",
+      "bytes": 1886,
+      "kind": "source"
+    },
+    {
+      "path": "pester/LICENSE",
+      "repository": "pester/Pester",
+      "upstreamPath": "LICENSE",
+      "commit": "98e56d65da1642a7158992b50ded240c42a3ac18",
+      "gitBlob": "d2e27fe203287cca91435b6de358cc4618bf8c71",
+      "sha256": "6a2fc73db70e674162600052e12a6537e93b51d5dfcf2340c4ed08cdb174debb",
+      "bytes": 579,
+      "kind": "notice"
+    },
+    {
+      "path": "pester/ThirdPartyNotices.txt",
+      "repository": "pester/Pester",
+      "upstreamPath": "ThirdPartyNotices.txt",
+      "commit": "98e56d65da1642a7158992b50ded240c42a3ac18",
+      "gitBlob": "27c0e1325cff614ba53c8d1215152afb41a6caea",
+      "sha256": "f9c2b517314e2c506d0d675c8ed02a5534fa3380dcb9ddf05b1e39ff58074650",
+      "bytes": 9939,
+      "kind": "notice"
+    },
+    {
+      "path": "pester/src/csharp/Pester/DiffPlex/LICENSE.txt",
+      "repository": "pester/Pester",
+      "upstreamPath": "src/csharp/Pester/DiffPlex/LICENSE.txt",
+      "commit": "98e56d65da1642a7158992b50ded240c42a3ac18",
+      "gitBlob": "9aa0a58ae70544e0c0c17452016385db7aa06104",
+      "sha256": "2f5666c5dc09d47fdb0de97be21642ae2eb8ad94d3cd6108eafb778c1b3ba609",
+      "bytes": 9143,
+      "kind": "notice"
+    },
+    {
+      "path": "psreadline/PSReadLine/SamplePSReadLineProfile.ps1",
+      "repository": "PowerShell/PSReadLine",
+      "upstreamPath": "PSReadLine/SamplePSReadLineProfile.ps1",
+      "commit": "2984546f62da9f63c31aba965ec3008fcb107024",
+      "gitBlob": "6da7e8617800f81b60c4c9125c38e7df533f1b06",
+      "sha256": "bb7a15b1b4d952544ca209d7ce76e26232242a5e950b88144aba4d28d16d33e8",
+      "bytes": 26204,
+      "kind": "source"
+    },
+    {
+      "path": "psreadline/tools/helper.psm1",
+      "repository": "PowerShell/PSReadLine",
+      "upstreamPath": "tools/helper.psm1",
+      "commit": "2984546f62da9f63c31aba965ec3008fcb107024",
+      "gitBlob": "56776ea9a1eb847a7d3e14feef4bd2835c73c58b",
+      "sha256": "d13dfe4b80100b56e378957741131cfba909782eff4eab1a29b976d2fe76f30b",
+      "bytes": 12641,
+      "kind": "source"
+    },
+    {
+      "path": "psreadline/tools/CheckHelp.ps1",
+      "repository": "PowerShell/PSReadLine",
+      "upstreamPath": "tools/CheckHelp.ps1",
+      "commit": "2984546f62da9f63c31aba965ec3008fcb107024",
+      "gitBlob": "bc37b540df665b773f6873ab41d061cab1c30d7c",
+      "sha256": "9273fb16119efd62d7296b52052d22179747a5d9c9ea9674d292c910153df013",
+      "bytes": 9744,
+      "kind": "source"
+    },
+    {
+      "path": "psreadline/License.txt",
+      "repository": "PowerShell/PSReadLine",
+      "upstreamPath": "License.txt",
+      "commit": "2984546f62da9f63c31aba965ec3008fcb107024",
+      "gitBlob": "6e21fbbafe2d15ae45f7b06e5b791d4fec01a577",
+      "sha256": "577273b040bdddb01b02768d9ad07fcb40415479fc2e65c8287294c6abf56de6",
+      "bytes": 1300,
+      "kind": "notice"
+    },
+    {
+      "path": "posh-git/src/PoshGitTypes.ps1",
+      "repository": "dahlbyk/posh-git",
+      "upstreamPath": "src/PoshGitTypes.ps1",
+      "commit": "bbc5ac380018239e0ac70411a59f4e367ca87f2d",
+      "gitBlob": "bd33a7d6cc71e5fa6a2a13cffafd4ed5ddba5f7b",
+      "sha256": "5e9e2ddf6c66b0495f248ed157302eb27a4fb97ad2a2345545d343c304342afb",
+      "bytes": 11602,
+      "kind": "source"
+    },
+    {
+      "path": "posh-git/src/GitPrompt.ps1",
+      "repository": "dahlbyk/posh-git",
+      "upstreamPath": "src/GitPrompt.ps1",
+      "commit": "bbc5ac380018239e0ac70411a59f4e367ca87f2d",
+      "gitBlob": "af68396922c156220147415ae87e529afab478f7",
+      "sha256": "0b14df6c9dd11a02e91ea5f60c37a3f3797051943e99f57acfc5210b607ac2c4",
+      "bytes": 31981,
+      "kind": "source"
+    },
+    {
+      "path": "posh-git/src/GitTabExpansion.ps1",
+      "repository": "dahlbyk/posh-git",
+      "upstreamPath": "src/GitTabExpansion.ps1",
+      "commit": "bbc5ac380018239e0ac70411a59f4e367ca87f2d",
+      "gitBlob": "5820da226244e592a6ba8771ff9c18ae21573bca",
+      "sha256": "955193a346824d4cfc9b6266c533876d6430c87e570dcfe4d673f82d77c3040d",
+      "bytes": 23459,
+      "kind": "source"
+    },
+    {
+      "path": "posh-git/LICENSE.txt",
+      "repository": "dahlbyk/posh-git",
+      "upstreamPath": "LICENSE.txt",
+      "commit": "bbc5ac380018239e0ac70411a59f4e367ca87f2d",
+      "gitBlob": "77ec3959569e60515c4065be12c75913bc0c77a1",
+      "sha256": "b025fa0d6aa1a480c442f2fa741783dc441673e1c54f3f48a92bb09a5c017e85",
+      "bytes": 1091,
+      "kind": "notice"
+    }
+  ]
+}

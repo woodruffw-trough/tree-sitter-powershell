@@ -1,0 +1,62 @@
+[
+  {
+    "name": "ScoopInstaller/Scoop lib/core.ps1",
+    "path": "scoop/lib/core.ps1",
+    "valid": true
+  },
+  {
+    "name": "ScoopInstaller/Scoop lib/install.ps1",
+    "path": "scoop/lib/install.ps1",
+    "valid": true
+  },
+  {
+    "name": "ScoopInstaller/Scoop libexec/scoop-update.ps1",
+    "path": "scoop/libexec/scoop-update.ps1",
+    "valid": true
+  },
+  {
+    "name": "pester/Pester src/Pester.Runtime.ps1",
+    "path": "pester/src/Pester.Runtime.ps1",
+    "valid": true
+  },
+  {
+    "name": "pester/Pester src/functions/Mock.ps1",
+    "path": "pester/src/functions/Mock.ps1",
+    "valid": true
+  },
+  {
+    "name": "pester/Pester src/TypeClass.ps1",
+    "path": "pester/src/TypeClass.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/PSReadLine PSReadLine/SamplePSReadLineProfile.ps1",
+    "path": "psreadline/PSReadLine/SamplePSReadLineProfile.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/PSReadLine tools/helper.psm1",
+    "path": "psreadline/tools/helper.psm1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/PSReadLine tools/CheckHelp.ps1",
+    "path": "psreadline/tools/CheckHelp.ps1",
+    "valid": true
+  },
+  {
+    "name": "dahlbyk/posh-git src/PoshGitTypes.ps1",
+    "path": "posh-git/src/PoshGitTypes.ps1",
+    "valid": true
+  },
+  {
+    "name": "dahlbyk/posh-git src/GitPrompt.ps1",
+    "path": "posh-git/src/GitPrompt.ps1",
+    "valid": true
+  },
+  {
+    "name": "dahlbyk/posh-git src/GitTabExpansion.ps1",
+    "path": "posh-git/src/GitTabExpansion.ps1",
+    "valid": true
+  }
+]

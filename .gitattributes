@@ -8,3 +8,8 @@ src/identifier_chars.js linguist-generated
 test/corpus/*.txt -text whitespace=-trailing-space,cr-at-eol
 # Preserve upstream fixtures byte-for-byte for their recorded hashes.
 tests/upstream/powershell-7.5.4/** -text whitespace=-trailing-space,cr-at-eol
+# External source and license snapshots retain their original bytes as well.
+tests/projects/scoop/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/pester/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/psreadline/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/posh-git/** -text whitespace=-trailing-space,cr-at-eol

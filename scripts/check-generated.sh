@@ -37,3 +37,4 @@ diff -u -- src/identifier_chars.js "$generated/identifier_chars.js"
 
 # Integration sources stay identical to the attributed upstream release.
 sha256sum --check --strict tests/upstream/SHA256SUMS
+(cd tests/projects && sha256sum --check --strict SHA256SUMS)
