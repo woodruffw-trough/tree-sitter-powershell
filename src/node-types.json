@@ -1831,35 +1831,11 @@
     "named": true,
     "fields": {
       "command": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_primary_expression",
-            "named": true
-          },
-          {
-            "type": "argument_fragment",
-            "named": true
-          },
-          {
-            "type": "bare_word",
-            "named": true
-          },
-          {
-            "type": "cast_expression",
-            "named": true
-          },
-          {
-            "type": "line_continuation",
-            "named": true
-          },
-          {
-            "type": "splat_expression",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
+            "type": "command_argument",
             "named": true
           }
         ]

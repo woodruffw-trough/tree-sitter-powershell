@@ -643,7 +643,8 @@ module.exports = grammar({
 
     invocation_operator_command: $ => seq(
       field('operator', choice('&', '.')),
-      field('command', $._command_argument_value),
+      // Keep the complete target in one field even when adjacent pieces expand.
+      field('command', alias($._command_argument_value, $.command_argument)),
     ),
 
     command_parameter: $ => seq(

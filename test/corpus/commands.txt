@@ -125,13 +125,15 @@ Invocation operators and splatting
   (pipeline
     (command
       name: (invocation_operator_command
-        command: (variable))
+        command: (command_argument
+          (variable)))
       (command_argument
         (splat_expression))))
   (pipeline
     (command
       name: (invocation_operator_command
-        command: (bare_word)))))
+        command: (command_argument
+          (bare_word))))))
 
 ==================
 Pipeline chains and background invocation

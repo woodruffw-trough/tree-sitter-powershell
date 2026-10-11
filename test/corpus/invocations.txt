@@ -1,0 +1,34 @@
+================================================================================
+Invocation command field wraps an interpolated relative path
+================================================================================
+& .\$installScript -Channel $Channel
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      name: (invocation_operator_command
+        command: (command_argument
+          (bare_word)
+          (variable)))
+      (command_parameter
+        name: (command_parameter_name))
+      (command_argument
+        (variable)))))
+
+================================================================================
+Dot sourcing wraps a composite path and its adjacent suffix
+================================================================================
+. ./prefix${name}.ps1 -Force
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      name: (invocation_operator_command
+        command: (command_argument
+          (bare_word)
+          (variable)
+          (argument_fragment)))
+      (command_parameter
+        name: (command_parameter_name)))))

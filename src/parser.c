@@ -3474,6 +3474,9 @@ static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE
   [3] = {
     [0] = sym_pipeline,
   },
+  [10] = {
+    [1] = sym_command_argument,
+  },
 };
 
 static const uint16_t ts_non_terminal_alias_map[] = {
@@ -3483,6 +3486,9 @@ static const uint16_t ts_non_terminal_alias_map[] = {
   sym__pipeline, 2,
     sym__pipeline,
     sym_pipeline,
+  sym__command_argument_value, 2,
+    sym__command_argument_value,
+    sym_command_argument,
   0,
 };
 

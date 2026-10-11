@@ -1,0 +1,62 @@
+[
+  {
+    "name": "interpolated relative invocation path",
+    "source": "& .\\$installScript -Channel $Channel -Version $Version",
+    "valid": true
+  },
+  {
+    "name": "interpolated slash invocation path",
+    "source": "& ./prefix${name}.ps1 -Force",
+    "valid": true
+  },
+  {
+    "name": "subexpression invocation path",
+    "source": "& ./prefix$(1).ps1 -Force",
+    "valid": true
+  },
+  {
+    "name": "quoted composite invocation path",
+    "source": "& pre\"$name\".ps1 -Force",
+    "valid": true
+  },
+  {
+    "name": "dot sourced interpolated path",
+    "source": ". .\\$script -Force",
+    "valid": true
+  },
+  {
+    "name": "invocation target variable",
+    "source": "& $command @arguments",
+    "valid": true
+  },
+  {
+    "name": "invocation target member",
+    "source": ". \"file\".ps1",
+    "valid": true
+  },
+  {
+    "name": "literal invocation target",
+    "source": "& script.ps1 -Force",
+    "valid": true
+  },
+  {
+    "name": "parenthesized invocation target",
+    "source": "& ($commands[0]) -Force",
+    "valid": true
+  },
+  {
+    "name": "quoted invocation target",
+    "source": "& \"script with space.ps1\" -Force",
+    "valid": true
+  },
+  {
+    "name": "number invocation target",
+    "source": "& 1",
+    "valid": true
+  },
+  {
+    "name": "type invocation target",
+    "source": "& [int]",
+    "valid": true
+  }
+]

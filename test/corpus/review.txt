@@ -152,8 +152,9 @@ break & "cmd"
   (pipeline
     (command
       name: (invocation_operator_command
-        command: (expandable_string
-          (string_content))))))
+        command: (command_argument
+          (expandable_string
+            (string_content)))))))
 
 ==================
 Invocation target preserves adjacent member access
@@ -166,10 +167,11 @@ Invocation target preserves adjacent member access
   (pipeline
     (command
       name: (invocation_operator_command
-        command: (member_access
-          object: (expandable_string
-            (string_content))
-          member: (identifier))))))
+        command: (command_argument
+          (member_access
+            object: (expandable_string
+              (string_content))
+            member: (identifier)))))))
 
 ==================
 Expandable strings retain space-only and trailing bodies
