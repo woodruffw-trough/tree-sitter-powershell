@@ -110,6 +110,8 @@ Enroll the crate's GitHub publisher on crates.io with these values:
 | Workflow filename | `publish.yml` |
 | Environment | `crates.io` |
 
-To release, update both version fields, commit the change, and push an annotated
+To release, update both version fields and the README dependency, then regenerate
+the parser with `tree-sitter generate --js-runtime native` to update its embedded
+version. Run the checks above, commit the change, and push an annotated
 `v<version>` tag at that commit. The publishing workflow does not cancel an active
 release when another run starts for the same tag.
