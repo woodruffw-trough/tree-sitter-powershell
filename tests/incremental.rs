@@ -3,7 +3,7 @@ use tree_sitter::{InputEdit, Node, Parser, Point};
 fn parser() -> Parser {
     let mut parser = Parser::new();
     parser
-        .set_language(&tree_sitter_powershell::LANGUAGE.into())
+        .set_language(&woodruffw_trough_tree_sitter_powershell::LANGUAGE.into())
         .unwrap();
     parser
 }
@@ -154,8 +154,8 @@ fn partial_input_recovers_after_completion() {
 #[test]
 fn highlighting_query_compiles() {
     tree_sitter::Query::new(
-        &tree_sitter_powershell::LANGUAGE.into(),
-        tree_sitter_powershell::HIGHLIGHTS_QUERY,
+        &woodruffw_trough_tree_sitter_powershell::LANGUAGE.into(),
+        woodruffw_trough_tree_sitter_powershell::HIGHLIGHTS_QUERY,
     )
     .unwrap();
 }

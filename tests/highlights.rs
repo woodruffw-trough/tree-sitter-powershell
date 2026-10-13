@@ -21,7 +21,7 @@ fn point(source: &str, offset: usize) -> Point {
 }
 
 fn captures(source: &str) -> Vec<Capture> {
-    let language = tree_sitter_powershell::LANGUAGE.into();
+    let language = woodruffw_trough_tree_sitter_powershell::LANGUAGE.into();
     let mut parser = Parser::new();
     parser.set_language(&language).unwrap();
     let tree = parser.parse(source, None).unwrap();
@@ -31,8 +31,11 @@ fn captures(source: &str) -> Vec<Capture> {
         tree.root_node().to_sexp()
     );
 
-    let query = Query::new(&language, tree_sitter_powershell::HIGHLIGHTS_QUERY)
-        .expect("The shipped highlighting query must compile");
+    let query = Query::new(
+        &language,
+        woodruffw_trough_tree_sitter_powershell::HIGHLIGHTS_QUERY,
+    )
+    .expect("The shipped highlighting query must compile");
     let mut cursor = QueryCursor::new();
     let mut matches = cursor.captures(&query, tree.root_node(), source.as_bytes());
     let mut captures = Vec::new();

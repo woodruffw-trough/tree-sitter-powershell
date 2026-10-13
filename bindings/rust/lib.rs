@@ -2,7 +2,7 @@
 //!
 //! ```
 //! let mut parser = tree_sitter::Parser::new();
-//! parser.set_language(&tree_sitter_powershell::LANGUAGE.into()).unwrap();
+//! parser.set_language(&woodruffw_trough_tree_sitter_powershell::LANGUAGE.into()).unwrap();
 //! let tree = parser.parse("Get-ChildItem | Where-Object { $_.Length -gt 0 }", None).unwrap();
 //! assert!(!tree.root_node().has_error());
 //! ```

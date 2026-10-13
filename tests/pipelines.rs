@@ -294,7 +294,7 @@ fn pipeline_ranges_fields_and_background_agree_with_live_oracle() {
 #[test]
 fn pipeline_public_fields_support_complete_range_queries() {
     let source = "1 > one | b && c > two\na&&b &";
-    let language = tree_sitter_powershell::LANGUAGE.into();
+    let language = woodruffw_trough_tree_sitter_powershell::LANGUAGE.into();
     let query = Query::new(
         &language,
         r#"

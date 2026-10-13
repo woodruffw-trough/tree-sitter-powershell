@@ -10,7 +10,7 @@ const POWERSHELL_VERSION: &str = "7.5.4";
 pub fn parser() -> Parser {
     let mut parser = Parser::new();
     parser
-        .set_language(&tree_sitter_powershell::LANGUAGE.into())
+        .set_language(&woodruffw_trough_tree_sitter_powershell::LANGUAGE.into())
         .unwrap();
     parser
 }

@@ -1,5 +1,5 @@
 [package]
-name = "tree-sitter-powershell"
+name = "woodruffw-trough-tree-sitter-powershell"
 version = "0.1.0"
 description = "A tree-sitter grammar for PowerShell"
 authors = ["tree-sitter-powershell contributors"]

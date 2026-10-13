@@ -11,18 +11,21 @@ reference parser.
 
 ## Rust usage
 
-The crate requires Rust 1.90 or later and a C compiler. Add it from this repository:
+The Rust crate is `woodruffw-trough-tree-sitter-powershell`. It requires Rust 1.90
+or later and a C compiler. Add it from this repository:
 
 ```toml
 [dependencies]
 tree-sitter = "0.27.1"
-tree-sitter-powershell = { git = "https://github.com/woodruffw-trough/tree-sitter-powershell" }
+
+[dependencies.woodruffw-trough-tree-sitter-powershell]
+git = "https://github.com/woodruffw-trough/tree-sitter-powershell"
 ```
 
 ```rust
 let mut parser = tree_sitter::Parser::new();
 parser
-    .set_language(&tree_sitter_powershell::LANGUAGE.into())
+    .set_language(&woodruffw_trough_tree_sitter_powershell::LANGUAGE.into())
     .unwrap();
 let tree = parser
     .parse("Get-ChildItem | Where-Object { $_.Length -gt 0 }", None)

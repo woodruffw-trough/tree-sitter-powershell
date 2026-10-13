@@ -34,7 +34,7 @@ fn flow_nodes<'tree>(node: Node<'tree>, result: &mut Vec<Node<'tree>>) {
 }
 
 fn query_field<'tree>(node: Node<'tree>, source: &str, name: &str) -> Vec<Node<'tree>> {
-    let language = tree_sitter_powershell::LANGUAGE.into();
+    let language = woodruffw_trough_tree_sitter_powershell::LANGUAGE.into();
     let query = Query::new(&language, &format!("({} {name}: _ @field)", node.kind())).unwrap();
     let mut cursor = QueryCursor::new();
     let mut matches = cursor.matches(&query, node, source.as_bytes());
@@ -113,7 +113,7 @@ fn explicit_statement_queries_match_typed_flow_and_direct_assignment() {
     let mut parser = common::parser();
     let tree = parser.parse(source, None).unwrap();
     assert!(!tree.root_node().has_error());
-    let language = tree_sitter_powershell::LANGUAGE.into();
+    let language = woodruffw_trough_tree_sitter_powershell::LANGUAGE.into();
     // Hidden grammar helpers are not public query categories. Consumers query
     // the concrete statement kinds that carry the fields they need.
     let query = Query::new(
@@ -153,13 +153,14 @@ fn explicit_statement_queries_match_typed_flow_and_direct_assignment() {
 
 #[test]
 fn public_metadata_exposes_scalar_flow_roles_and_hides_grammar_helpers() {
-    let nodes: Vec<Value> = serde_json::from_str(tree_sitter_powershell::NODE_TYPES).unwrap();
+    let nodes: Vec<Value> =
+        serde_json::from_str(woodruffw_trough_tree_sitter_powershell::NODE_TYPES).unwrap();
     assert!(
         nodes
             .iter()
             .all(|node| node["type"] != "flow_control_statement")
     );
-    let language = tree_sitter_powershell::LANGUAGE.into();
+    let language = woodruffw_trough_tree_sitter_powershell::LANGUAGE.into();
     for helper in ["_statement", "_expression", "_primary_expression"] {
         assert!(nodes.iter().all(|node| node["type"] != helper));
         let error = Query::new(&language, &format!("({helper}) @helper")).unwrap_err();

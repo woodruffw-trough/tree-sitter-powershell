@@ -23,7 +23,7 @@ fn complete_field_values_and_semantic_relationships_match_powershell() {
 #[test]
 fn consumer_field_queries_capture_complete_values_and_lists() {
     let mut parser = common::parser();
-    let language = tree_sitter_powershell::LANGUAGE.into();
+    let language = woodruffw_trough_tree_sitter_powershell::LANGUAGE.into();
     for case in cases() {
         let source = case["source"].as_str().unwrap();
         let tree = parser.parse(source, None).unwrap();
@@ -67,7 +67,7 @@ fn concrete_expression_queries_cover_calls_and_unary_and_cast_operands() {
     let tree = parser.parse(source, None).unwrap();
     assert!(!tree.root_node().has_error());
     let query = Query::new(
-        &tree_sitter_powershell::LANGUAGE.into(),
+        &woodruffw_trough_tree_sitter_powershell::LANGUAGE.into(),
         "(binary_expression) @binary\n(integer_literal) @integer",
     )
     .unwrap();
@@ -102,7 +102,8 @@ fn concrete_expression_queries_cover_calls_and_unary_and_cast_operands() {
 
 #[test]
 fn public_node_types_distinguish_scalar_roles_from_repeated_lists() {
-    let nodes: Vec<Value> = serde_json::from_str(tree_sitter_powershell::NODE_TYPES).unwrap();
+    let nodes: Vec<Value> =
+        serde_json::from_str(woodruffw_trough_tree_sitter_powershell::NODE_TYPES).unwrap();
     for (kind, field, required, multiple, types) in [
         (
             "command_parameter",
