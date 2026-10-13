@@ -17,7 +17,7 @@ or later and a C compiler. Add it from crates.io:
 ```toml
 [dependencies]
 tree-sitter = "0.27.1"
-woodruffw-trough-tree-sitter-powershell = "0.1.0"
+woodruffw-trough-tree-sitter-powershell = "0.1.1"
 ```
 
 ```rust
