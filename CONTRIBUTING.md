@@ -89,3 +89,27 @@ recreates the parser and Unicode tables and verifies imported fixture hashes.
 Linting checks formatting, clippy and rustdoc warnings, C warnings, shell scripts,
 Python, and GitHub Actions security. A local offline security check can use
 `ZIZMOR_OFFLINE=true scripts/lint.sh`; CI also checks action vulnerabilities online.
+
+## Releases
+
+`.github/workflows/publish.yml` publishes tags named `v<version>`. It runs the full
+CI workflow, checks that the tag matches both `Cargo.toml` and `tree-sitter.json`,
+and verifies the package before authenticating with crates.io.
+
+The publishing job uses the GitHub environment `crates.io`. GitHub creates it
+when the first publishing job starts. The official `rust-lang/crates-io-auth-action`
+uses [Trusted Publishing](https://crates.io/docs/trusted-publishing) to obtain a
+short-lived publishing token through GitHub OIDC and revokes it after the job.
+
+Enroll the crate's GitHub publisher on crates.io with these values:
+
+| Field | Value |
+| --- | --- |
+| Repository owner | `woodruffw-trough` |
+| Repository name | `tree-sitter-powershell` |
+| Workflow filename | `publish.yml` |
+| Environment | `crates.io` |
+
+To release, update both version fields, commit the change, and push an annotated
+`v<version>` tag at that commit. The publishing workflow does not cancel an active
+release when another run starts for the same tag.
