@@ -2,6 +2,9 @@
 
 ## Setup
 
+Clone [the repository](https://github.com/woodruffw-trough/tree-sitter-powershell)
+and run the commands below from its root.
+
 The commands below use Bash. Development uses Rust 1.90.0, tree-sitter CLI 0.27.1,
 PowerShell 7.5.4, Python 3, a C compiler, and ShellCheck. `rust-toolchain.toml` selects
 the Rust toolchain and its rustfmt and clippy components.

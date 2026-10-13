@@ -12,14 +12,12 @@ reference parser.
 ## Rust usage
 
 The Rust crate is `woodruffw-trough-tree-sitter-powershell`. It requires Rust 1.90
-or later and a C compiler. Add it from this repository:
+or later and a C compiler. Add it from crates.io:
 
 ```toml
 [dependencies]
 tree-sitter = "0.27.1"
-
-[dependencies.woodruffw-trough-tree-sitter-powershell]
-git = "https://github.com/woodruffw-trough/tree-sitter-powershell"
+woodruffw-trough-tree-sitter-powershell = "0.1.0"
 ```
 
 ```rust

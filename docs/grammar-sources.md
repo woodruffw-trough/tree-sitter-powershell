@@ -130,7 +130,7 @@ for incomplete editor input.
 
 ## Checking the tree
 
-[`scripts/oracle.ps1`](../scripts/oracle.ps1) calls
+[`scripts/oracle.ps1`](https://github.com/woodruffw-trough/tree-sitter-powershell/blob/main/scripts/oracle.ps1) calls
 `System.Management.Automation.Language.Parser.ParseInput` and records diagnostics,
 tokens, and AST ranges without running fixture scripts. Tests compare syntax
 acceptance, command elements and parameter classification, expression grouping,
@@ -141,6 +141,6 @@ comparing them.
 Corpus tests assert explicit trees. Focused fixtures and generated token matrices
 cover context-dependent syntax, and complete project files exercise interactions
 across larger scripts. Imported sources carry their provenance and hashes with the
-fixture collection; see the [PowerShell fixtures](../tests/upstream/README.md) and
-[external project fixtures](../tests/projects/README.md).
+fixture collection; see the [PowerShell fixtures](https://github.com/woodruffw-trough/tree-sitter-powershell/blob/main/tests/upstream/README.md) and
+[external project fixtures](https://github.com/woodruffw-trough/tree-sitter-powershell/blob/main/tests/projects/README.md).
 Contributor commands are in [CONTRIBUTING.md](../CONTRIBUTING.md).
