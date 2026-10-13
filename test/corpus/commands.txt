@@ -193,7 +193,7 @@ Write-Output value 2>&1 *> result.txt
           (bare_word))))))
 
 ==================
-Stop parsing consumes semicolons literally
+Verbatim arguments consume semicolons literally
 ==================
 native --% --flag=(x) ; $text >file
 
@@ -204,7 +204,71 @@ native --% --flag=(x) ; $text >file
     elements: (command
       name: (command_name
         (bare_word))
-      (stop_parsing))))
+      (verbatim_arguments
+        text: (string_content)))))
+
+==================
+Verbatim double quotes preserve pipes and chain operators
+==================
+native --% “a|b && c” | next && last
+
+---
+
+(source_file
+  (pipeline_chain
+    left: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))
+        (verbatim_arguments
+          text: (string_content)))
+      elements: (command
+        name: (command_name
+          (bare_word))))
+    right: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))))))
+
+==================
+Verbatim arguments preserve a lone ampersand before a chain
+==================
+native --% a&b&&next
+
+---
+
+(source_file
+  (pipeline_chain
+    left: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))
+        (verbatim_arguments
+          text: (string_content))))
+    right: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))))))
+
+==================
+A newline ends unmatched verbatim double quotes
+==================
+native --% "unfinished|&&
+next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (verbatim_arguments
+        text: (string_content))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))))
 
 ==================
 Keyword-like commands

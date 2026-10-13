@@ -1847,7 +1847,7 @@
           "named": true
         },
         {
-          "type": "stop_parsing",
+          "type": "verbatim_arguments",
           "named": true
         }
       ]
@@ -4234,11 +4234,6 @@
     }
   },
   {
-    "type": "stop_parsing",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "sub_expression",
     "named": true,
     "fields": {},
@@ -5039,6 +5034,22 @@
           },
           {
             "type": "single_quoted_string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "verbatim_arguments",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string_content",
             "named": true
           }
         ]

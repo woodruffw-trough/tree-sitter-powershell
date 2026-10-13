@@ -1,0 +1,548 @@
+[
+  {
+    "name": "empty tail at eof",
+    "source": "native --%",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "empty tail after whitespace",
+    "source": "native --% \t\f\u000b  ",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "empty tail before newline",
+    "source": "native --%   \nnext",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "empty tail before pipe",
+    "source": "native --% | next",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "empty adjacent pipe",
+    "source": "native --%| next",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "empty tail before chain",
+    "source": "native --% && next",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "empty adjacent chain",
+    "source": "native --%&& next",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "raw punctuation at eof",
+    "source": "native --% --flag=(x) ; $text >file #comment <# block #>",
+    "valid": true,
+    "verbatim": [
+      "--flag=(x) ; $text >file #comment <# block #>"
+    ]
+  },
+  {
+    "name": "leading and trailing whitespace",
+    "source": "native --% \t\f\u000b  raw\t   ",
+    "valid": true,
+    "verbatim": [
+      "raw\t   "
+    ]
+  },
+  {
+    "name": "trailing whitespace before pipe",
+    "source": "native --% raw\t  | next",
+    "valid": true,
+    "verbatim": [
+      "raw\t  "
+    ]
+  },
+  {
+    "name": "trailing whitespace before chain",
+    "source": "native --% raw\t  && next",
+    "valid": true,
+    "verbatim": [
+      "raw\t  "
+    ]
+  },
+  {
+    "name": "lf boundary",
+    "source": "native --% raw  \nnext",
+    "valid": true,
+    "verbatim": [
+      "raw  "
+    ]
+  },
+  {
+    "name": "cr boundary",
+    "source": "native --% raw  \rnext",
+    "valid": true,
+    "verbatim": [
+      "raw  "
+    ]
+  },
+  {
+    "name": "crlf boundary",
+    "source": "native --% raw  \r\nnext",
+    "valid": true,
+    "verbatim": [
+      "raw  "
+    ]
+  },
+  {
+    "name": "raw single ampersands",
+    "source": "native --% a&b & c",
+    "valid": true,
+    "verbatim": [
+      "a&b & c"
+    ]
+  },
+  {
+    "name": "single then double ampersand",
+    "source": "native --% a&b && next",
+    "valid": true,
+    "verbatim": [
+      "a&b "
+    ]
+  },
+  {
+    "name": "unquoted adjacent pipe",
+    "source": "native --% a|next",
+    "valid": true,
+    "verbatim": [
+      "a"
+    ]
+  },
+  {
+    "name": "unquoted adjacent chain",
+    "source": "native --% a&&next",
+    "valid": true,
+    "verbatim": [
+      "a"
+    ]
+  },
+  {
+    "name": "straight double quoted boundaries",
+    "source": "native --% \"a|b && c\" | next",
+    "valid": true,
+    "verbatim": [
+      "\"a|b && c\" "
+    ]
+  },
+  {
+    "name": "smart double quoted boundaries",
+    "source": "native --% “a|b && c” && next",
+    "valid": true,
+    "verbatim": [
+      "“a|b && c” "
+    ]
+  },
+  {
+    "name": "low smart quoted boundaries",
+    "source": "native --% „a|b && c“ | next",
+    "valid": true,
+    "verbatim": [
+      "„a|b && c“ "
+    ]
+  },
+  {
+    "name": "mixed double quote toggles",
+    "source": "native --% \"a|b” c “d&&e\" | next",
+    "valid": true,
+    "verbatim": [
+      "\"a|b” c “d&&e\" "
+    ]
+  },
+  {
+    "name": "consecutive double quote toggles",
+    "source": "native --% \"\"| next",
+    "valid": true,
+    "verbatim": [
+      "\"\""
+    ]
+  },
+  {
+    "name": "unclosed straight quote at eof",
+    "source": "native --% \"raw | &&",
+    "valid": true,
+    "verbatim": [
+      "\"raw | &&"
+    ]
+  },
+  {
+    "name": "unclosed smart quote at eof",
+    "source": "native --% “raw | &&",
+    "valid": true,
+    "verbatim": [
+      "“raw | &&"
+    ]
+  },
+  {
+    "name": "unclosed quote ends at newline",
+    "source": "native --% \"raw | &&\nnext | last",
+    "valid": true,
+    "verbatim": [
+      "\"raw | &&"
+    ]
+  },
+  {
+    "name": "unclosed quote ends at crlf",
+    "source": "native --% “raw | &&\r\nnext | last",
+    "valid": true,
+    "verbatim": [
+      "“raw | &&"
+    ]
+  },
+  {
+    "name": "single quote stays literal",
+    "source": "native --% 'raw ; $x'",
+    "valid": true,
+    "verbatim": [
+      "'raw ; $x'"
+    ]
+  },
+  {
+    "name": "single quote does not protect pipe",
+    "source": "native --% 'raw | next",
+    "valid": true,
+    "verbatim": [
+      "'raw "
+    ]
+  },
+  {
+    "name": "single quote does not protect chain",
+    "source": "native --% 'raw && next",
+    "valid": true,
+    "verbatim": [
+      "'raw "
+    ]
+  },
+  {
+    "name": "backtick does not escape pipe",
+    "source": "native --% raw`| next",
+    "valid": true,
+    "verbatim": [
+      "raw`"
+    ]
+  },
+  {
+    "name": "backtick does not escape chain",
+    "source": "native --% raw`&& next",
+    "valid": true,
+    "verbatim": [
+      "raw`"
+    ]
+  },
+  {
+    "name": "backtick does not escape quote",
+    "source": "native --% \"raw`\"| next",
+    "valid": true,
+    "verbatim": [
+      "\"raw`\""
+    ]
+  },
+  {
+    "name": "backtick does not continue line",
+    "source": "native --% raw`\nnext",
+    "valid": true,
+    "verbatim": [
+      "raw`"
+    ]
+  },
+  {
+    "name": "two tails reset quote state",
+    "source": "native --% \"first |\nnext --% second | last",
+    "valid": true,
+    "verbatim": [
+      "\"first |",
+      "second "
+    ]
+  },
+  {
+    "name": "two tails in pipeline",
+    "source": "native --% \"first|value\" | next --% second&&last",
+    "valid": true,
+    "verbatim": [
+      "\"first|value\" ",
+      "second"
+    ]
+  },
+  {
+    "name": "unicode offsets",
+    "source": "écho 😀 --% 变量😀 \"x|y\"  | next",
+    "valid": true,
+    "verbatim": [
+      "变量😀 \"x|y\"  "
+    ]
+  },
+  {
+    "name": "nested function command",
+    "source": "function F {\n native -Switch value --% $x (raw)\n}\n",
+    "valid": true,
+    "verbatim": [
+      "$x (raw)"
+    ]
+  },
+  {
+    "name": "nested subexpression command",
+    "source": "$(native --% $x (raw)\n)",
+    "valid": true,
+    "verbatim": [
+      "$x (raw)"
+    ]
+  },
+  {
+    "name": "invocation operator command",
+    "source": "& \"native\" --% $x (raw)",
+    "valid": true,
+    "verbatim": [
+      "$x (raw)"
+    ]
+  },
+  {
+    "name": "dot invocation command",
+    "source": ". native --% $x (raw)",
+    "valid": true,
+    "verbatim": [
+      "$x (raw)"
+    ]
+  },
+  {
+    "name": "end of parameters before marker",
+    "source": "native -- -flag --% $x (raw)",
+    "valid": true,
+    "verbatim": [
+      "$x (raw)"
+    ]
+  },
+  {
+    "name": "quoted marker stays argument",
+    "source": "native \"--%\" next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "marker spelling as command name",
+    "source": "--%",
+    "valid": false,
+    "verbatim": []
+  },
+  {
+    "name": "missing command after pipe",
+    "source": "native --% raw |",
+    "valid": false,
+    "verbatim": [
+      "raw "
+    ]
+  },
+  {
+    "name": "missing command after chain",
+    "source": "native --% raw &&",
+    "valid": false,
+    "verbatim": [
+      "raw "
+    ]
+  },
+  {
+    "name": "single quoted pipe leaves unmatched quote",
+    "source": "native --% 'a|b' | next",
+    "valid": false,
+    "verbatim": [
+      "'a"
+    ]
+  },
+  {
+    "name": "consumed closing brace remains incomplete",
+    "source": "function F { native --% raw }",
+    "valid": false,
+    "verbatim": [
+      "raw }"
+    ]
+  },
+  {
+    "name": "adjacent text stays argument",
+    "source": "native --%raw next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "adjacent quoted text stays argument",
+    "source": "native --%\"a|b\" | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "excluded smart quote stays literal",
+    "source": "native --% ‟raw | next",
+    "valid": true,
+    "verbatim": [
+      "‟raw "
+    ]
+  },
+  {
+    "name": "or chain after tail",
+    "source": "native --% \"raw||inside\" || next",
+    "valid": true,
+    "verbatim": [
+      "\"raw||inside\" "
+    ]
+  },
+  {
+    "name": "tail before pipe",
+    "source": "native --% raw | next",
+    "valid": true,
+    "verbatim": [
+      "raw "
+    ]
+  },
+  {
+    "name": "ordinary argument before pipe",
+    "source": "native raw | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "empty tail after body deletion",
+    "source": "native --%  | next",
+    "valid": true,
+    "verbatim": [
+      null
+    ]
+  },
+  {
+    "name": "tail before chain",
+    "source": "native --% raw && next",
+    "valid": true,
+    "verbatim": [
+      "raw "
+    ]
+  },
+  {
+    "name": "lone ampersand before command spelling",
+    "source": "native --% raw & next",
+    "valid": true,
+    "verbatim": [
+      "raw & next"
+    ]
+  },
+  {
+    "name": "double quote converted to single",
+    "source": "native --% 'a|b && c\" | next",
+    "valid": false,
+    "verbatim": [
+      "'a"
+    ]
+  },
+  {
+    "name": "missing chain after rhs deletion",
+    "source": "native --% raw && ",
+    "valid": false,
+    "verbatim": [
+      "raw "
+    ]
+  },
+  {
+    "name": "completed consumed closing brace",
+    "source": "function F { native --% raw \n}",
+    "valid": true,
+    "verbatim": [
+      "raw "
+    ]
+  },
+  {
+    "name": "marker replaced with end of parameters",
+    "source": "native -- raw | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "unicode tail edit",
+    "source": "native --% 变量😀 | next",
+    "valid": true,
+    "verbatim": [
+      "变量😀 "
+    ]
+  },
+  {
+    "name": "adjacent smart quoted text stays argument",
+    "source": "native --%“a|b” | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "adjacent variable stays argument",
+    "source": "native --%$x | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "adjacent subexpression stays argument",
+    "source": "native --%$(foo) | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "escaped marker stops parsing",
+    "source": "native --`% $x (raw) | next",
+    "valid": true,
+    "verbatim": [
+      "$x (raw) "
+    ]
+  },
+  {
+    "name": "en dash marker lookalike stays argument",
+    "source": "native –-% \"a|b\" | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "em dash marker lookalike stays argument",
+    "source": "native —-% \"a|b\" | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "horizontal bar marker lookalike stays argument",
+    "source": "native ―-% \"a|b\" | next",
+    "valid": true,
+    "verbatim": []
+  },
+  {
+    "name": "escaped initial dash marker stops parsing",
+    "source": "native `--% $x (raw) | next",
+    "valid": true,
+    "verbatim": [
+      "$x (raw) "
+    ]
+  },
+  {
+    "name": "embedded nul in raw body",
+    "source": "native --% before\u0000after | next",
+    "valid": true,
+    "verbatim": [
+      "before\u0000after "
+    ]
+  }
+]

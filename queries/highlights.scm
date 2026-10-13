@@ -14,6 +14,7 @@
 (function_definition name: (function_name) @function)
 (command_name) @function.call
 (command_parameter name: _ @variable.parameter)
+(verbatim_arguments "--%" @keyword)
 (parameter name: (variable) @variable.parameter)
 (class_definition name: (identifier) @type.definition)
 (enum_definition name: (identifier) @type.definition)

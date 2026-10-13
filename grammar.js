@@ -219,6 +219,8 @@ module.exports = grammar({
     $._postfix_context,
     $._argument_separator,
     $.splat_expression,
+    $._verbatim_arguments_start,
+    $._verbatim_argument_text,
   ],
 
   word: $ => $.identifier,
@@ -731,7 +733,7 @@ module.exports = grammar({
           repeat(choice($.command_argument, $.redirection)),
         ),
       ),
-      optional($.stop_parsing),
+      optional($.verbatim_arguments),
     ),
 
     // The end marker is a parameter too, with the same complete name field.
@@ -852,7 +854,10 @@ module.exports = grammar({
       ')',
     ),
 
-    stop_parsing: _ => seq(token(prec(4, '--%')), optional(token(/[^\r\n|]+/))),
+    verbatim_arguments: $ => seq(
+      alias($._verbatim_arguments_start, '--%'),
+      optional(field('text', alias($._verbatim_argument_text, $.string_content))),
+    ),
 
     redirection: $ => choice(
       field('operator', $.merging_redirection_operator),

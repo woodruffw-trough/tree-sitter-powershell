@@ -89,6 +89,21 @@ select each statement's operand by role.
 Command parameters consistently expose their complete spelling in `name`,
 including the `--` marker that ends parameter recognition.
 
+The [stop-parsing token](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing?view=powershell-7.5#the-stop-parsing-token)
+starts `verbatim_arguments`, containing an anonymous `--%` marker and an optional
+`text` field with one `string_content` node. For example, in
+`native --% "$name|literal" && next`, the quoted pipe and `$name` stay in the
+raw text, while `&&` starts a pipeline chain. Straight and smart double quotes
+toggle quote state; single quotes and backticks remain literal. Outside double
+quotes, a pipe or `&&` ends the raw text. A physical newline always ends it,
+including inside an unmatched double quote. These boundaries follow
+`GetVerbatimCommandArgument` in the pinned tokenizer.
+
+The text field excludes leading whitespace after the marker and retains trailing
+whitespace before its boundary. When the tail is empty, the CST ends at the marker
+and omits `text`; PowerShell's AST instead adds an empty command argument after
+skipping whitespace. Oracle comparisons account for that synthetic argument.
+
 For example, `Write-Output prefix"$name"` has one command argument containing a
 literal fragment and an expandable string. Its named tree is:
 

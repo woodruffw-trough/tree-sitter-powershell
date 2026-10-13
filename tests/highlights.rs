@@ -255,6 +255,36 @@ fn pipeline_background_and_invocation_operators_are_complete_tokens() {
 }
 
 #[test]
+fn verbatim_arguments_highlight_as_literal_text() {
+    let source = "native --% \"$name|literal && text\" ; >file #raw & && next\n";
+    let captures = captures(source);
+    assert_category(
+        &captures,
+        source,
+        "keyword",
+        &[span(source, "native --%", "--%")],
+    );
+    assert_category(
+        &captures,
+        source,
+        "string",
+        &[span(
+            source,
+            "\"$name|literal && text\" ; >file #raw & ",
+            "\"$name|literal && text\" ; >file #raw & ",
+        )],
+    );
+    assert_category(&captures, source, "variable", &[]);
+    assert_category(&captures, source, "comment", &[]);
+    assert_category(
+        &captures,
+        source,
+        "operator",
+        &[span(source, "&& next", "&&")],
+    );
+}
+
+#[test]
 fn combined_opening_delimiters_are_not_split() {
     let source = concat!(
         "$map = @{ Name = 'café' }\n",

@@ -161,6 +161,7 @@ fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<Co
             name = name.child_by_field_name("command").unwrap();
         }
         let mut elements = vec![(false, mapped_extent(name, offsets))];
+        let mut command_extent = mapped_extent(node, offsets);
         let mut cursor = node.walk();
         for child in node.named_children(&mut cursor) {
             if matches!(child.kind(), "command_argument" | "command_parameter") {
@@ -168,20 +169,26 @@ fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<Co
                     child.kind() == "command_parameter",
                     mapped_extent(child, offsets),
                 ));
-            } else if child.kind() == "stop_parsing" {
+            } else if child.kind() == "verbatim_arguments" {
                 // The grammar keeps the opaque native-command tail together;
                 // Microsoft's AST exposes the --% marker and its text as two
                 // separate command elements. Compare those semantic extents.
-                let text = &source[child.byte_range()];
-                if let Some(tail) = text.strip_prefix("--%") {
-                    let marker_end = child.start_byte() + 3;
-                    elements.push((false, (offsets[child.start_byte()], offsets[marker_end])));
-                    let leading = tail.len() - tail.trim_start().len();
-                    if leading != tail.len() {
-                        elements.push((
-                            false,
-                            (offsets[marker_end + leading], offsets[child.end_byte()]),
-                        ));
+                if let Some(marker) = child.child(0).filter(|marker| marker.kind() == "--%") {
+                    elements.push((false, mapped_extent(marker, offsets)));
+                    if let Some(text) = child.child_by_field_name("text") {
+                        elements.push((false, mapped_extent(text, offsets)));
+                    } else {
+                        // The AST synthesizes an empty argument after skipping
+                        // horizontal whitespace. The CST ends at the marker
+                        // and omits a text child when no source text follows.
+                        let tail = &source[marker.end_byte()..];
+                        let remaining = tail.trim_start_matches(|c: char| {
+                            c.is_whitespace() && !matches!(c, '\r' | '\n')
+                        });
+                        let end = marker.end_byte() + tail.len() - remaining.len();
+                        let offset = offsets[end];
+                        elements.push((false, (offset, offset)));
+                        command_extent.1 = offset;
                     }
                 } else {
                     // Keep malformed recovered nodes in the comparison rather
@@ -190,7 +197,7 @@ fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<Co
                 }
             }
         }
-        result.push((mapped_extent(node, offsets), elements));
+        result.push((command_extent, elements));
     }
     let mut cursor = node.walk();
     for child in node.named_children(&mut cursor) {

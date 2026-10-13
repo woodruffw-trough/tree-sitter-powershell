@@ -5299,7 +5299,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "stop_parsing"
+              "name": "verbatim_arguments"
             },
             {
               "type": "BLANK"
@@ -5949,28 +5949,32 @@
         }
       ]
     },
-    "stop_parsing": {
+    "verbatim_arguments": {
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
+          "type": "ALIAS",
           "content": {
-            "type": "PREC",
-            "value": 4,
-            "content": {
-              "type": "STRING",
-              "value": "--%"
-            }
-          }
+            "type": "SYMBOL",
+            "name": "_verbatim_arguments_start"
+          },
+          "named": false,
+          "value": "--%"
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "TOKEN",
+              "type": "FIELD",
+              "name": "text",
               "content": {
-                "type": "PATTERN",
-                "value": "[^\\r\\n|]+"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_verbatim_argument_text"
+                },
+                "named": true,
+                "value": "string_content"
               }
             },
             {
@@ -10794,6 +10798,14 @@
     {
       "type": "SYMBOL",
       "name": "splat_expression"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_verbatim_arguments_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_verbatim_argument_text"
     }
   ],
   "inline": [],

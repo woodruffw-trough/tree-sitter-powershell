@@ -34,7 +34,9 @@ enum TokenType {
   LINE_CONTINUATION,
   POSTFIX_CONTEXT, // Reject continuations before adjacent member/index access.
   ARGUMENT_SEPARATOR,
-  SPLAT_EXPRESSION
+  SPLAT_EXPRESSION,
+  VERBATIM_ARGUMENTS_START,
+  VERBATIM_ARGUMENT_TEXT
 };
 
 // All context comes from valid tokens and source lookahead. No mutable scanner
@@ -205,6 +207,42 @@ static bool here_header_space(int32_t c) {
 
 static bool newline(int32_t c) {
   return c == '\n' || c == '\r';
+}
+
+// Match GetVerbatimCommandArgument in PowerShell 7.5.4's tokenizer.cs. Only
+// double quotes change the boundary rules; backticks and single quotes are text.
+static bool scan_verbatim_argument_text(TSLexer *lexer) {
+  while (horizontal(lexer->lookahead)) {
+    lexer->advance(lexer, true);
+  }
+  bool content = false;
+  bool in_quotes = false;
+  while (!lexer->eof(lexer) && !newline(lexer->lookahead)) {
+    int32_t c = lexer->lookahead;
+    if (!in_quotes && c == '|') {
+      break;
+    }
+    if (!in_quotes && c == '&') {
+      // Preserve a lone ampersand while leaving both bytes of && for the
+      // ordinary lexer. mark_end still points before the first ampersand.
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '&') {
+        break;
+      }
+    } else {
+      if (double_quote(c)) {
+        in_quotes = !in_quotes;
+      }
+      lexer->advance(lexer, false);
+    }
+    content = true;
+    lexer->mark_end(lexer);
+  }
+  if (!content) {
+    return false;
+  }
+  lexer->result_symbol = VERBATIM_ARGUMENT_TEXT;
+  return true;
 }
 // Comments remain named extras. The method context is a lookahead sentinel
 // that the grammar never needs to consume: a block comment may precede member
@@ -1067,8 +1105,16 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   if (word[0] == '*' && (lexer->lookahead == '>' || lexer->lookahead == '<')) {
     return false;
   }
-  if (!immediate && !any_escape &&
-      (strcmp(word, "--%") == 0 || (valid[PARAMETER_NAME] && strcmp(word, "--") == 0))) {
+  if (!immediate && !name && valid[VERBATIM_ARGUMENTS_START] && (!leading_dash || first == '-') &&
+      strcmp(word, "--%") == 0 && !quote(lexer->lookahead) && lexer->lookahead != '$') {
+    // Recognize the complete cooked argument, including escaped spellings.
+    // A following quote or interpolation belongs to the same argument. Smart
+    // dashes are normalized for parameter scanning but cannot start this marker.
+    lexer->mark_end(lexer);
+    lexer->result_symbol = VERBATIM_ARGUMENTS_START;
+    return true;
+  }
+  if (!immediate && !any_escape && valid[PARAMETER_NAME] && strcmp(word, "--") == 0) {
     return false;
   }
   if (!any_escape && valid[SWITCH_DEFAULT] && strcmp(word, "default") == 0) {
@@ -1227,6 +1273,9 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
   (void)payload;
   // During error recovery tree-sitter enables every external token. Do not
   // reinterpret arbitrary malformed source as a here-string body in that state.
+  if (valid[VERBATIM_ARGUMENT_TEXT] && !valid[VERBATIM_ARGUMENTS_START]) {
+    return scan_verbatim_argument_text(lexer);
+  }
   if (valid[STRING_ESCAPE] && lexer->lookahead == '`' && !valid[EXPANDABLE_HERE_STRING_START]) {
     return scan_string_escape(lexer);
   }
