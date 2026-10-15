@@ -154,8 +154,8 @@ const unaryExpression = ($, argument, allowComma, options = {}) => {
       field('argument', options.assignable || $._assignable_expression),
       optional($._postfix_context),
       field('operator', choice(
-        token.immediate(prec(5, '++')),
-        alias(token.immediate(prec(5, /[-–—―][-–—―]/)), '--'),
+        token(prec(5, '++')),
+        alias(token(prec(5, /[-–—―][-–—―]/)), '--'),
       )),
     ));
   }
@@ -1374,9 +1374,9 @@ const grammarDefinition = {
 
     parenthesized_expression: $ => seq(
       '(',
-      repeat($._terminator),
+      repeat(NEWLINE),
       $._pipeline_entry,
-      repeat($._terminator),
+      repeat(NEWLINE),
       ')',
     ),
 

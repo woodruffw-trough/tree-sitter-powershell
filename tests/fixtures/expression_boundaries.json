@@ -1,0 +1,1027 @@
+[
+  {
+    "name": "postfix_0_0_0",
+    "source": "$i++",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_0_1",
+    "source": "($i++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_0_2",
+    "source": "cmd ($i++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_0_3",
+    "source": "[T]::M($i++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_1_0",
+    "source": "$i--",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_1_1",
+    "source": "($i--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_1_2",
+    "source": "cmd ($i--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_1_3",
+    "source": "[T]::M($i--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_2_0",
+    "source": "$i\u2013\u2013",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_2_1",
+    "source": "($i\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_2_2",
+    "source": "cmd ($i\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_2_3",
+    "source": "[T]::M($i\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_3_0",
+    "source": "$i\u2014\u2014",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_3_1",
+    "source": "($i\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_3_2",
+    "source": "cmd ($i\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_0_3_3",
+    "source": "[T]::M($i\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_0_0",
+    "source": "$i ++",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_0_1",
+    "source": "($i ++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_0_2",
+    "source": "cmd ($i ++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_0_3",
+    "source": "[T]::M($i ++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_1_0",
+    "source": "$i --",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_1_1",
+    "source": "($i --)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_1_2",
+    "source": "cmd ($i --)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_1_3",
+    "source": "[T]::M($i --)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_2_0",
+    "source": "$i \u2013\u2013",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_2_1",
+    "source": "($i \u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_2_2",
+    "source": "cmd ($i \u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_2_3",
+    "source": "[T]::M($i \u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_3_0",
+    "source": "$i \u2014\u2014",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_3_1",
+    "source": "($i \u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_3_2",
+    "source": "cmd ($i \u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_1_3_3",
+    "source": "[T]::M($i \u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_0_0",
+    "source": "$i\t++",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_0_1",
+    "source": "($i\t++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_0_2",
+    "source": "cmd ($i\t++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_0_3",
+    "source": "[T]::M($i\t++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_1_0",
+    "source": "$i\t--",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_1_1",
+    "source": "($i\t--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_1_2",
+    "source": "cmd ($i\t--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_1_3",
+    "source": "[T]::M($i\t--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_2_0",
+    "source": "$i\t\u2013\u2013",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_2_1",
+    "source": "($i\t\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_2_2",
+    "source": "cmd ($i\t\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_2_3",
+    "source": "[T]::M($i\t\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_3_0",
+    "source": "$i\t\u2014\u2014",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_3_1",
+    "source": "($i\t\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_3_2",
+    "source": "cmd ($i\t\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_2_3_3",
+    "source": "[T]::M($i\t\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_0_0",
+    "source": "$i\u00a0++",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_0_1",
+    "source": "($i\u00a0++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_0_2",
+    "source": "cmd ($i\u00a0++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_0_3",
+    "source": "[T]::M($i\u00a0++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_1_0",
+    "source": "$i\u00a0--",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_1_1",
+    "source": "($i\u00a0--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_1_2",
+    "source": "cmd ($i\u00a0--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_1_3",
+    "source": "[T]::M($i\u00a0--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_2_0",
+    "source": "$i\u00a0\u2013\u2013",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_2_1",
+    "source": "($i\u00a0\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_2_2",
+    "source": "cmd ($i\u00a0\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_2_3",
+    "source": "[T]::M($i\u00a0\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_3_0",
+    "source": "$i\u00a0\u2014\u2014",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_3_1",
+    "source": "($i\u00a0\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_3_2",
+    "source": "cmd ($i\u00a0\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_3_3_3",
+    "source": "[T]::M($i\u00a0\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_4_0_0",
+    "source": "$i\n++",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_0_1",
+    "source": "($i\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_0_2",
+    "source": "cmd ($i\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_0_3",
+    "source": "[T]::M($i\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_1_0",
+    "source": "$i\n--",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_1_1",
+    "source": "($i\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_1_2",
+    "source": "cmd ($i\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_1_3",
+    "source": "[T]::M($i\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_2_0",
+    "source": "$i\n\u2013\u2013",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_2_1",
+    "source": "($i\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_2_2",
+    "source": "cmd ($i\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_2_3",
+    "source": "[T]::M($i\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_3_0",
+    "source": "$i\n\u2014\u2014",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_3_1",
+    "source": "($i\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_3_2",
+    "source": "cmd ($i\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_4_3_3",
+    "source": "[T]::M($i\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_0_0",
+    "source": "$i\r\n++",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_0_1",
+    "source": "($i\r\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_0_2",
+    "source": "cmd ($i\r\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_0_3",
+    "source": "[T]::M($i\r\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_1_0",
+    "source": "$i\r\n--",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_1_1",
+    "source": "($i\r\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_1_2",
+    "source": "cmd ($i\r\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_1_3",
+    "source": "[T]::M($i\r\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_2_0",
+    "source": "$i\r\n\u2013\u2013",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_2_1",
+    "source": "($i\r\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_2_2",
+    "source": "cmd ($i\r\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_2_3",
+    "source": "[T]::M($i\r\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_3_0",
+    "source": "$i\r\n\u2014\u2014",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_3_1",
+    "source": "($i\r\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_3_2",
+    "source": "cmd ($i\r\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_5_3_3",
+    "source": "[T]::M($i\r\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_6_0_0",
+    "source": "$i`\n++",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_0_1",
+    "source": "($i`\n++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_0_2",
+    "source": "cmd ($i`\n++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_0_3",
+    "source": "[T]::M($i`\n++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_1_0",
+    "source": "$i`\n--",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_1_1",
+    "source": "($i`\n--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_1_2",
+    "source": "cmd ($i`\n--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_1_3",
+    "source": "[T]::M($i`\n--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_2_0",
+    "source": "$i`\n\u2013\u2013",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_2_1",
+    "source": "($i`\n\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_2_2",
+    "source": "cmd ($i`\n\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_2_3",
+    "source": "[T]::M($i`\n\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_3_0",
+    "source": "$i`\n\u2014\u2014",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_3_1",
+    "source": "($i`\n\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_3_2",
+    "source": "cmd ($i`\n\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_6_3_3",
+    "source": "[T]::M($i`\n\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_0_0",
+    "source": "$i`\r\n++",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_0_1",
+    "source": "($i`\r\n++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_0_2",
+    "source": "cmd ($i`\r\n++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_0_3",
+    "source": "[T]::M($i`\r\n++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_1_0",
+    "source": "$i`\r\n--",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_1_1",
+    "source": "($i`\r\n--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_1_2",
+    "source": "cmd ($i`\r\n--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_1_3",
+    "source": "[T]::M($i`\r\n--)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_2_0",
+    "source": "$i`\r\n\u2013\u2013",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_2_1",
+    "source": "($i`\r\n\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_2_2",
+    "source": "cmd ($i`\r\n\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_2_3",
+    "source": "[T]::M($i`\r\n\u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_3_0",
+    "source": "$i`\r\n\u2014\u2014",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_3_1",
+    "source": "($i`\r\n\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_3_2",
+    "source": "cmd ($i`\r\n\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_7_3_3",
+    "source": "[T]::M($i`\r\n\u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_0_0",
+    "source": "$i <# comment #> ++",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_0_1",
+    "source": "($i <# comment #> ++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_0_2",
+    "source": "cmd ($i <# comment #> ++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_0_3",
+    "source": "[T]::M($i <# comment #> ++)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_1_0",
+    "source": "$i <# comment #> --",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_1_1",
+    "source": "($i <# comment #> --)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_1_2",
+    "source": "cmd ($i <# comment #> --)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_1_3",
+    "source": "[T]::M($i <# comment #> --)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_2_0",
+    "source": "$i <# comment #> \u2013\u2013",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_2_1",
+    "source": "($i <# comment #> \u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_2_2",
+    "source": "cmd ($i <# comment #> \u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_2_3",
+    "source": "[T]::M($i <# comment #> \u2013\u2013)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_3_0",
+    "source": "$i <# comment #> \u2014\u2014",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_3_1",
+    "source": "($i <# comment #> \u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_3_2",
+    "source": "cmd ($i <# comment #> \u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_8_3_3",
+    "source": "[T]::M($i <# comment #> \u2014\u2014)",
+    "valid": true
+  },
+  {
+    "name": "postfix_9_0_0",
+    "source": "$i #comment\n++",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_0_1",
+    "source": "($i #comment\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_0_2",
+    "source": "cmd ($i #comment\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_0_3",
+    "source": "[T]::M($i #comment\n++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_1_0",
+    "source": "$i #comment\n--",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_1_1",
+    "source": "($i #comment\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_1_2",
+    "source": "cmd ($i #comment\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_1_3",
+    "source": "[T]::M($i #comment\n--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_2_0",
+    "source": "$i #comment\n\u2013\u2013",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_2_1",
+    "source": "($i #comment\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_2_2",
+    "source": "cmd ($i #comment\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_2_3",
+    "source": "[T]::M($i #comment\n\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_3_0",
+    "source": "$i #comment\n\u2014\u2014",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_3_1",
+    "source": "($i #comment\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_3_2",
+    "source": "cmd ($i #comment\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_9_3_3",
+    "source": "[T]::M($i #comment\n\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_0_0",
+    "source": "$i\n<#comment#>++",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_0_1",
+    "source": "($i\n<#comment#>++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_0_2",
+    "source": "cmd ($i\n<#comment#>++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_0_3",
+    "source": "[T]::M($i\n<#comment#>++)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_1_0",
+    "source": "$i\n<#comment#>--",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_1_1",
+    "source": "($i\n<#comment#>--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_1_2",
+    "source": "cmd ($i\n<#comment#>--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_1_3",
+    "source": "[T]::M($i\n<#comment#>--)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_2_0",
+    "source": "$i\n<#comment#>\u2013\u2013",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_2_1",
+    "source": "($i\n<#comment#>\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_2_2",
+    "source": "cmd ($i\n<#comment#>\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_2_3",
+    "source": "[T]::M($i\n<#comment#>\u2013\u2013)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_3_0",
+    "source": "$i\n<#comment#>\u2014\u2014",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_3_1",
+    "source": "($i\n<#comment#>\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_3_2",
+    "source": "cmd ($i\n<#comment#>\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "postfix_10_3_3",
+    "source": "[T]::M($i\n<#comment#>\u2014\u2014)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 0",
+    "source": "(1;)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 1",
+    "source": "(;1)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 2",
+    "source": "(1;;)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 3",
+    "source": "(;;1)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 4",
+    "source": "(;cmd)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 5",
+    "source": "(cmd;)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 6",
+    "source": "(1;2)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 7",
+    "source": "(1\n)",
+    "valid": true
+  },
+  {
+    "name": "parenthesis 8",
+    "source": "(\n1)",
+    "valid": true
+  },
+  {
+    "name": "parenthesis 9",
+    "source": "(1 <#x#>)",
+    "valid": true
+  },
+  {
+    "name": "parenthesis 10",
+    "source": "(1 #x\n)",
+    "valid": true
+  },
+  {
+    "name": "parenthesis 11",
+    "source": "($x=1;)",
+    "valid": false
+  },
+  {
+    "name": "parenthesis 12",
+    "source": "($x=1\n)",
+    "valid": true
+  },
+  {
+    "name": "parenthesis 13",
+    "source": "$(1;)",
+    "valid": true
+  },
+  {
+    "name": "parenthesis 14",
+    "source": "@(;1)",
+    "valid": true
+  },
+  {
+    "name": "command postfix 0",
+    "source": "cmd $i ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 1",
+    "source": "cmd $i --",
+    "valid": true
+  },
+  {
+    "name": "command postfix 2",
+    "source": "cmd $i++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 3",
+    "source": "cmd $i--",
+    "valid": true
+  },
+  {
+    "name": "command postfix 4",
+    "source": "cmd $i <#x#> ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 5",
+    "source": "cmd -not $i ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 6",
+    "source": "cmd ,$i ++",
+    "valid": false
+  },
+  {
+    "name": "command postfix 7",
+    "source": "cmd [int]$i ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 8",
+    "source": "cmd + $i ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 9",
+    "source": "cmd ! $i ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 10",
+    "source": "cmd -p:$i ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 11",
+    "source": "& $i ++",
+    "valid": true
+  },
+  {
+    "name": "command postfix 12",
+    "source": "data -supportedcommand $i ++ {}",
+    "valid": false
+  },
+  {
+    "name": "command postfix 13",
+    "source": "switch -file $i ++ {default{}}",
+    "valid": false
+  }
+]

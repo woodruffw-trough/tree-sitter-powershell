@@ -170,6 +170,13 @@ follow command-mode token boundaries.
 Braced variables can contain supplementary Unicode characters:
 `${𐐀}` is a variable, while `$𐐀` is a command token.
 
+Postfix `++` and `--` can follow whitespace or comments after their operand.
+Ordinary parentheses contain one pipeline, with optional surrounding newlines;
+semicolons belong in statement-list constructs such as `$()` instead.
+These rules follow
+[`PrimaryExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7194-L7220)
+and [`ParenthesizedExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7573-L7618).
+
 Method arguments, parameter defaults, attribute arguments, and hashtable keys
 disable the comma operator. That setting also applies inside hashtable statement
 values and their nested control-flow or declaration bodies. Parenthesized

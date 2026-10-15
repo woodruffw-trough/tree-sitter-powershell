@@ -109,6 +109,9 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "[double]+1e-2.Length\n",
         "[double]-1e-2.Length\n",
         "+0bu\nWrite-Output -0bu\n",
+        "$row ++ ; $startRow ++\n",
+        "[T]::GetAddress(1,($i ++))\n",
+        "(1)\n",
     ] {
         let mut parser = parser();
         let original = parser.parse(source, None).unwrap();
@@ -127,6 +130,7 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
                 (start, "$"),
                 (start, "`"),
                 (start, "<#comment#>"),
+                (start, ";"),
                 (char_end, ""),
             ] {
                 let edited = format!("{}{}{}", &source[..start], inserted, &source[end..]);
