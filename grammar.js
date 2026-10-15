@@ -93,18 +93,12 @@ const op = word => alias(
   token(prec(2, new RegExp(ci(word).source.replace(/-/g, '[-–—―]')))),
   word,
 );
-const flag = word => choice(
-  ...Array.from({length: word.length - 1}, (_, i) =>
-    alias(token(prec(2, new RegExp(
-      ci(word.slice(0, i + 2)).source.replace(/-/g, '[-–—―]'),
-    ))), word)),
-);
 
 const CONTEXTUAL_KEYWORDS = [
   'if', 'elseif', 'else', 'switch', 'foreach', 'for', 'while', 'do', 'until',
   'try', 'catch', 'finally', 'trap', 'function', 'filter', 'workflow', 'class',
   'enum', 'break', 'continue', 'return', 'throw', 'exit', 'data', 'configuration',
-  'param', 'dynamicparam', 'begin', 'process', 'end', 'clean',
+  'dynamicparam', 'begin', 'process', 'end', 'clean',
 ];
 
 const BINARY_OPERATORS = [
@@ -211,7 +205,7 @@ const elementAccess = ($, primary) => prec.left(
     optional($._postfix_context),
     choice(token.immediate(prec(5, '[')), token.immediate(prec(5, '?['))),
     repeat(NEWLINE),
-    field('index', $._expression),
+    field('index', $._expression_head),
     repeat(NEWLINE),
     ']',
   ),
@@ -266,6 +260,9 @@ const grammarDefinition = {
     /[ \t\f\v\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]+/,
     $.comment,
     $.line_continuation,
+    // NextToken discards a token-leading backtick followed by horizontal
+    // whitespace. Generic words still consume their own interior escapes.
+    $._escaped_whitespace,
     $._prepared_token,
   ],
 
@@ -325,6 +322,25 @@ const grammarDefinition = {
     $._sub_expression_end,
     $._array_expression_open,
     $._assembly_name_content,
+    $._literal_parameter_token,
+    $._end_of_parameters_token,
+    $._escaped_whitespace,
+    $._argument_expression_start,
+    $._attribute_expression_start,
+    $._member_expression_start,
+    $._index_expression_start,
+    $._clause_keyword_end,
+    $._switch_regex_parameter,
+    $._switch_wildcard_parameter,
+    $._switch_exact_parameter,
+    $._switch_casesensitive_parameter,
+    $._switch_file_parameter_token,
+    $._data_supported_command_parameter,
+    $._foreach_parallel_parameter,
+    $._foreach_throttlelimit_parameter,
+    $._param_block_keyword,
+    $._param_command_name,
+    $._redirection_command_less_than,
   ],
 
   word: $ => $.identifier,
@@ -443,13 +459,19 @@ const grammarDefinition = {
 
     elseif_clause: $ => seq(
       keyword('elseif'),
+      $._clause_keyword_end,
       repeat(NEWLINE),
       field('condition', $.condition),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
 
-    else_clause: $ => seq(keyword('else'), repeat(NEWLINE), field('body', $.statement_block)),
+    else_clause: $ => seq(
+      keyword('else'),
+      $._clause_keyword_end,
+      repeat(NEWLINE),
+      field('body', $.statement_block),
+    ),
 
     condition: $ => seq('(', repeat(NEWLINE), $._pipeline_entry, repeat(NEWLINE), ')'),
 
@@ -473,22 +495,22 @@ const grammarDefinition = {
     ),
 
     _switch_file_parameter: $ => seq(
-      flag('-file'),
+      alias($._switch_file_parameter_token, '-file'),
       repeat(NEWLINE),
-      field('file', alias($._command_argument_value, $.command_argument)),
+      field('file', alias($._single_command_argument_value, $.command_argument)),
     ),
 
-    switch_parameter: _ => choice(
-      flag('-regex'),
-      flag('-wildcard'),
-      flag('-exact'),
-      flag('-casesensitive'),
+    switch_parameter: $ => choice(
+      alias($._switch_regex_parameter, '-regex'),
+      alias($._switch_wildcard_parameter, '-wildcard'),
+      alias($._switch_exact_parameter, '-exact'),
+      alias($._switch_casesensitive_parameter, '-casesensitive'),
     ),
 
     switch_clause: $ => seq(
       field('condition', choice(
         alias($._switch_default, 'default'),
-        alias($._command_argument_value, $.command_argument),
+        alias($._single_command_argument_value, $.command_argument),
       )),
       repeat(NEWLINE),
       field('body', $.statement_block),
@@ -500,7 +522,7 @@ const grammarDefinition = {
       optional(field('label', $.label)),
       keyword('foreach'),
       repeat(NEWLINE),
-      repeat(field('parameters', $.foreach_parameter)),
+      repeat(seq(field('parameters', $.foreach_parameter), repeat(NEWLINE))),
       '(',
       repeat(NEWLINE),
       field('variable', $.variable),
@@ -514,7 +536,14 @@ const grammarDefinition = {
       field('body', $.statement_block),
     ),
 
-    foreach_parameter: _ => choice(op('-parallel'), op('-throttlelimit')),
+    foreach_parameter: $ => choice(
+      alias($._foreach_parallel_parameter, '-parallel'),
+      seq(
+        alias($._foreach_throttlelimit_parameter, '-throttlelimit'),
+        repeat(NEWLINE),
+        field('value', alias($._command_parameter_value, $.command_argument)),
+      ),
+    ),
 
     for_statement: $ => seq(
       optional(field('label', $.label)),
@@ -576,6 +605,7 @@ const grammarDefinition = {
 
     catch_clause: $ => seq(
       keyword('catch'),
+      $._clause_keyword_end,
       repeat(NEWLINE),
       optional(seq(commaSep1(field('types', $.type_literal)), repeat(NEWLINE))),
       field('body', $.statement_block),
@@ -583,6 +613,7 @@ const grammarDefinition = {
 
     finally_clause: $ => seq(
       keyword('finally'),
+      $._clause_keyword_end,
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
@@ -629,9 +660,10 @@ const grammarDefinition = {
       ')',
     ),
 
+    // The scanner commits to a leading parameter block when its list begins.
     param_block: $ => seq(
       repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
-      keyword('param'),
+      alias($._param_block_keyword, 'param'),
       repeat(NEWLINE),
       field('parameters', $.parameter_list),
     ),
@@ -646,7 +678,7 @@ const grammarDefinition = {
         repeat(NEWLINE),
         '=',
         repeat(NEWLINE),
-        field('default', $._argument_expression),
+        field('default', $._argument_expression_head),
       )),
     ),
 
@@ -673,9 +705,9 @@ const grammarDefinition = {
     attribute_argument: $ => choice(
       seq(
         field('name', $.identifier),
-        optional(seq('=', repeat(NEWLINE), field('value', $._argument_expression))),
+        optional(seq('=', repeat(NEWLINE), field('value', $._attribute_expression_head))),
       ),
-      $._argument_expression,
+      $._attribute_expression_head,
     ),
 
     script_block: $ => scriptBlock($, '{'),
@@ -766,7 +798,7 @@ const grammarDefinition = {
       field('arguments', alias($._base_argument_list, $.argument_list)),
     ),
 
-    _base_argument_list: $ => argumentList('(', $._argument_expression),
+    _base_argument_list: $ => argumentList('(', $._argument_expression_head),
 
     enum_definition: $ => seq(
       repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
@@ -823,7 +855,7 @@ const grammarDefinition = {
       optional(seq(field('name', $.identifier), repeat(NEWLINE))),
       optional(
         seq(
-          flag('-supportedcommand'),
+          alias($._data_supported_command_parameter, '-supportedcommand'),
           repeat(NEWLINE),
           field('supported_commands', $._data_supported_command),
           repeat(seq(
@@ -918,36 +950,79 @@ const grammarDefinition = {
       repeat(field('redirections', $.redirection)),
     ),
 
-    command: $ => seq(
-      field('name', choice($.command_name, $.invocation_operator_command)),
-      repeat(choice($.command_argument, $.command_parameter, $.redirection)),
-      optional(
-        seq(
+    command: $ => choice(
+      seq(
+        field('name', choice($.command_name, $.invocation_operator_command)),
+        repeat(choice($.command_argument, $.command_parameter, $.redirection)),
+        optional(seq(
           alias($._end_of_parameters, $.command_parameter),
-          repeat(choice($.command_argument, $.redirection)),
-        ),
+          repeat($._command_element_after_end_of_parameters),
+        )),
+        optional($.verbatim_arguments),
       ),
-      optional($.verbatim_arguments),
+      seq(
+        field('name', alias(
+          $._invocation_end_of_parameters_command, $.invocation_operator_command,
+        )),
+        repeat($._command_element_after_end_of_parameters),
+        optional($.verbatim_arguments),
+      ),
+      seq(
+        field('name', alias($._invocation_verbatim_command, $.invocation_operator_command)),
+        optional(alias($._verbatim_command_argument, $.command_argument)),
+      ),
     ),
+
+    _command_element_after_end_of_parameters: $ => choice(
+      $.command_argument,
+      alias($._literal_parameter_value, $.command_argument),
+      alias($._subsequent_end_of_parameters, $.command_argument),
+      $.redirection,
+    ),
+
+    _invocation_end_of_parameters_command: $ => seq(
+      field('operator', choice('&', '.')),
+      field('command', alias($._end_of_parameters, $.command_parameter)),
+    ),
+
+    _invocation_verbatim_command: $ => seq(
+      field('operator', choice('&', '.')),
+      field('command', alias($._verbatim_command_name, $.command_argument)),
+    ),
+
+    _verbatim_command_name: $ => alias($._verbatim_arguments_start, '--%'),
+
+    _verbatim_command_argument: $ => alias($._verbatim_argument_text, $.string_content),
 
     // The end marker is a parameter too, with the same complete name field.
     _end_of_parameters: $ => seq(
-      field('name', alias(token(prec(3, '--')), $.command_parameter_name)),
+      field('name', alias($._end_of_parameters_token, $.command_parameter_name)),
     ),
 
     // Keywords remain literal command names outside their statement context.
     command_name: $ => choice(
       alias($._command_name, $.bare_word),
+      alias($._param_command_name, $.bare_word),
       alias(token(prec(-1,
         new RegExp(CONTEXTUAL_KEYWORDS.map(word => ci(word).source).join('|')),
       )), $.bare_word),
       alias($._bare_colon_word, $.bare_word),
+      $._redirection_command_name,
+    ),
+
+    _redirection_command_name: $ => choice(
+      alias($.file_redirection_operator, $.bare_word),
+      alias($.merging_redirection_operator, $.bare_word),
+      alias($._redirection_command_less_than, $.bare_word),
     ),
 
     invocation_operator_command: $ => seq(
       field('operator', choice('&', '.')),
       // Keep the complete target in one field even when adjacent pieces expand.
-      field('command', alias($._command_argument_value, $.command_argument)),
+      field('command', alias(choice(
+        $._single_command_argument_value,
+        $._redirection_command_name,
+      ), $.command_argument)),
     ),
 
     command_parameter: $ => seq(
@@ -960,10 +1035,30 @@ const grammarDefinition = {
       ),
     ),
 
-    _command_parameter_value: $ => choice(
+    // Parameter tokens retain their raw lexical boundaries when used as
+    // values. Their dollars and backticks are literal, and a trailing colon
+    // belongs to the token rather than attaching another argument.
+    _literal_parameter_value: $ => alias($._literal_parameter_token, $.bare_word),
+
+    _single_command_argument_value: $ => choice(
       $._command_argument_value,
-      alias($._command_argument_array, $.array_literal_expression),
-      alias(token(prec(4, /[-–—―][^\s;|&()<>{},$'"`]+/)), $.bare_word),
+      $._literal_parameter_value,
+    ),
+
+    _subsequent_end_of_parameters: $ => alias($._end_of_parameters_token, $.bare_word),
+
+    _command_parameter_value: $ => choice(
+      $._single_command_argument_value,
+      alias($._command_parameter_array, $.array_literal_expression),
+    ),
+
+    _command_parameter_array: $ => seq(
+      alias($._single_command_argument_value, $.command_argument),
+      repeat1(seq(
+        alias($._argument_separator, ','),
+        repeat(NEWLINE),
+        alias($._single_command_argument_value, $.command_argument),
+      )),
     ),
 
     command_argument: $ => choice(
@@ -979,7 +1074,7 @@ const grammarDefinition = {
         seq(
           alias($._argument_separator, ','),
           repeat(NEWLINE),
-          alias($._command_argument_value, $.command_argument),
+          alias($._single_command_argument_value, $.command_argument),
         ),
       ),
     ),
@@ -1033,6 +1128,7 @@ const grammarDefinition = {
 
     _argument_interpolation: $ => choice(
       alias($._adjacent_variable, $.variable),
+      alias(token.immediate('$'), $.argument_fragment),
       alias($._argument_expandable_string, $.expandable_string),
       alias($._adjacent_single_quoted_string, $.single_quoted_string),
       alias($._argument_sub_expression, $.sub_expression),
@@ -1068,13 +1164,18 @@ const grammarDefinition = {
       field('operator', $.merging_redirection_operator),
       seq(
         field('operator', $.file_redirection_operator),
-        field('destination', alias($._command_argument_value, $.command_argument)),
+        field('destination', alias($._single_command_argument_value, $.command_argument)),
       ),
     ),
 
     merging_redirection_operator: _ => /(?:[1-6]>&[12]|\*>&1)/,
 
     file_redirection_operator: _ => /(?:[1-6]|\*)?>>?/,
+
+    _expression_head: $ => seq(
+      $._index_expression_start,
+      $._expression,
+    ),
 
     _expression: $ => choice(
       $.array_literal_expression,
@@ -1106,6 +1207,16 @@ const grammarDefinition = {
 
     // Commas delimit method/attribute arguments and parameter defaults. Parentheses
     // re-enter ordinary expression mode and may contain array literals.
+    _attribute_expression_head: $ => seq(
+      $._attribute_expression_start,
+      $._argument_expression,
+    ),
+
+    _argument_expression_head: $ => seq(
+      $._argument_expression_start,
+      $._argument_expression,
+    ),
+
     _argument_expression: $ => choice(
       $._argument_unary_expression,
       alias($._argument_binary_expression, $.binary_expression),
@@ -1436,26 +1547,32 @@ const grammarDefinition = {
 
     // Simple member values stop before the next postfix operator. Prefix
     // operators and casts instead consume a complete recursive unary operand.
-    _member_name: $ => choice(
-      $.identifier,
-      primaryValue($),
-      $.type_literal,
-      alias($._member_name_unary_expression, $.unary_expression),
-      $.cast_expression,
-      $.attributed_expression,
+    _member_name: $ => seq(
+      $._member_expression_start,
+      choice(
+        $.identifier,
+        primaryValue($),
+        $.type_literal,
+        alias($._member_name_unary_expression, $.unary_expression),
+        $.cast_expression,
+        $.attributed_expression,
+      ),
     ),
 
     _member_name_unary_expression: $ => unaryExpression(
       $, $._unary_expression, true, {postfix: false},
     ),
 
-    _argument_member_name: $ => choice(
-      $.identifier,
-      primaryValue($),
-      $.type_literal,
-      alias($._argument_member_name_unary_expression, $.unary_expression),
-      alias($._argument_cast_expression, $.cast_expression),
-      $.attributed_expression,
+    _argument_member_name: $ => seq(
+      $._member_expression_start,
+      choice(
+        $.identifier,
+        primaryValue($),
+        $.type_literal,
+        alias($._argument_member_name_unary_expression, $.unary_expression),
+        alias($._argument_cast_expression, $.cast_expression),
+        $.attributed_expression,
+      ),
     ),
 
     _argument_member_name_unary_expression: $ => unaryExpression(
@@ -1508,7 +1625,7 @@ const grammarDefinition = {
       $, alias($._command_member_access, $.member_access), false,
     ),
 
-    argument_list: $ => argumentList(token.immediate('('), $._argument_expression),
+    argument_list: $ => argumentList(token.immediate('('), $._argument_expression_head),
 
     // Generic lists allow newlines around separators. Bracketed generic arguments
     // forbid a newline immediately after their opener; assembly names stay inline.
@@ -1598,7 +1715,8 @@ const COMMA_CONTEXT_RULES = new Set([
   '_statement', '_block_statement', '_simple_statement', 'statement_block',
   'if_statement', 'elseif_clause', 'else_clause', 'condition',
   'switch_statement', '_switch_file_parameter', 'switch_clause',
-  'foreach_statement', 'for_statement', '_for_header_initializer', '_for_header_condition',
+  'foreach_statement', 'foreach_parameter', 'for_statement',
+  '_for_header_initializer', '_for_header_condition',
   'while_statement', 'do_statement',
   'try_statement', 'catch_clause', 'finally_clause', 'trap_statement',
   'return_statement', 'throw_statement', 'exit_statement',
@@ -1613,6 +1731,9 @@ const COMMA_CONTEXT_RULES = new Set([
   '_pipeline_entry', '_completed_pipeline_entry', 'pipeline', 'pipeline_chain',
   'background_pipeline', 'command_expression', 'command',
   'invocation_operator_command', 'command_parameter', '_command_parameter_value',
+  '_command_parameter_array', '_single_command_argument_value',
+  '_command_element_after_end_of_parameters', '_invocation_end_of_parameters_command',
+  '_invocation_verbatim_command',
   'command_argument', '_command_argument_array', '_command_argument_value',
   'redirection', 'hashtable_expression', 'hash_entry',
   '_command_argument_unary_expression', '_command_argument_unary_operator_expression',

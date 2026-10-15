@@ -9,10 +9,11 @@ type Key = (String, Extent);
 struct Source<'a> {
     text: &'a str,
     offsets: Vec<usize>,
+    numeric_constants: BTreeSet<Extent>,
 }
 
 impl<'a> Source<'a> {
-    fn new(text: &'a str) -> Self {
+    fn new(text: &'a str, result: &Value) -> Self {
         let mut offsets = vec![0; text.len() + 1];
         let mut offset = 0;
         for (byte, character) in text.char_indices() {
@@ -20,7 +21,18 @@ impl<'a> Source<'a> {
             offset += character.len_utf16();
         }
         offsets[text.len()] = offset;
-        Self { text, offsets }
+        let numeric_constants = result["ast"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter(|node| node["type"] == "ConstantExpressionAst")
+            .map(ast_extent)
+            .collect();
+        Self {
+            text,
+            offsets,
+            numeric_constants,
+        }
     }
 
     fn extent(&self, node: Node<'_>) -> Extent {
@@ -32,7 +44,7 @@ impl<'a> Source<'a> {
 
     fn record(&self, node: Node<'_>) -> Value {
         let (mut start, _) = self.extent(node);
-        let mut end = self.offsets[semantic_end_byte(node)];
+        let mut end = self.offsets[semantic_end_byte(node, self.text)];
         if node.kind() == "base_constructor_call" {
             let mut cursor = node.walk();
             let keyword = node
@@ -120,11 +132,43 @@ impl<'a> Source<'a> {
     }
 }
 
-fn semantic_end_byte(node: Node<'_>) -> usize {
+fn semantic_end_byte(node: Node<'_>, source: &str) -> usize {
     if node.kind() == "background_pipeline" {
-        return semantic_end_byte(node.child_by_field_name("pipeline").unwrap());
+        return semantic_end_byte(node.child_by_field_name("pipeline").unwrap(), source);
+    }
+    if node.kind() == "command" {
+        let mut cursor = node.walk();
+        let empty_verbatim = node.named_children(&mut cursor).any(|child| {
+            child.kind() == "verbatim_arguments"
+                && child.child_by_field_name("text").is_none()
+                && child.end_byte() == node.end_byte()
+        });
+        let verbatim_target = node
+            .child_by_field_name("name")
+            .filter(|name| name.kind() == "invocation_operator_command")
+            .and_then(|name| name.child_by_field_name("command"))
+            .is_some_and(|target| {
+                target.child(0).is_some_and(|marker| marker.kind() == "--%")
+                    && target.end_byte() == node.end_byte()
+            });
+        if empty_verbatim || verbatim_target {
+            // ScanVerbatimArgument skips leading horizontal whitespace even
+            // when the AST's final argument has an empty source extent.
+            let tail = &source[node.end_byte()..];
+            let remaining = tail.trim_start_matches(|character: char| {
+                character.is_whitespace() && !matches!(character, '\r' | '\n')
+            });
+            return node.end_byte() + tail.len() - remaining.len();
+        }
+    }
+    if node.kind() == "pipeline" {
+        let mut cursor = node.walk();
+        if let Some(element) = node.children_by_field_name("elements", &mut cursor).last() {
+            return semantic_end_byte(element, source);
+        }
     }
     let field = match node.kind() {
+        "pipeline_chain" => "right",
         "assignment_statement" => "right",
         "return_statement" | "throw_statement" | "exit_statement" => "value",
         _ => return node.end_byte(),
@@ -133,7 +177,7 @@ fn semantic_end_byte(node: Node<'_>) -> usize {
     // background extent excludes '&'. Preserve enclosing ')' and '}' tokens.
     node.child_by_field_name(field)
         .filter(|child| child.end_byte() == node.end_byte())
-        .map(semantic_end_byte)
+        .map(|child| semantic_end_byte(child, source))
         .unwrap_or_else(|| node.end_byte())
 }
 
@@ -181,7 +225,11 @@ fn folded_numeric(node: Node<'_>, source: &Source<'_>) -> bool {
     let Some(argument) = node.child_by_field_name("argument") else {
         return false;
     };
-    matches!(source.text(operator), "+" | "-" | "–" | "—" | "―")
+    // PowerShell folds adjacent signs only when its current lexer mode allows
+    // signed numbers. A cast can leave '+' as a unary operator after lookahead.
+    // Normalize only the exact constant extent reported by the parser.
+    source.numeric_constants.contains(&source.extent(node))
+        && matches!(source.text(operator), "+" | "-" | "–" | "—" | "―")
         && matches!(argument.kind(), "integer_literal" | "real_literal")
         && operator.end_byte() == argument.start_byte()
 }
@@ -547,6 +595,12 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
             source,
         ),
         ("ForEachStatementAst", "condition") => source.field(node, "value"),
+        ("ForEachStatementAst", "throttleLimit") => field_children(node, "parameters")
+            .into_iter()
+            .filter_map(|parameter| parameter.child_by_field_name("value"))
+            .next_back()
+            .map(|value| source.record(value))
+            .unwrap_or(Value::Null),
         ("ForStatementAst", "iterator") => source.field(node, "update"),
         ("TryStatementAst", "catches") => extents(field_children(node, "handlers"), source),
         ("TryStatementAst", "finally") => node
@@ -626,7 +680,7 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "TypeDefinitionAst" => &["members", "attributes", "baseTypes"],
         "PropertyMemberAst" => &["value", "propertyType", "attributes"],
         "IfStatementAst" => &["clauses", "else"],
-        "ForEachStatementAst" => &["variable", "condition", "body"],
+        "ForEachStatementAst" => &["variable", "condition", "throttleLimit", "body"],
         "ForStatementAst" => &["initializer", "condition", "iterator", "body"],
         "WhileStatementAst" | "DoWhileStatementAst" | "DoUntilStatementAst" => {
             &["condition", "body"]
@@ -983,7 +1037,7 @@ pub fn assert_structure(cases: &[Value], results: &[Value]) -> usize {
             continue;
         }
         let text = case["source"].as_str().unwrap();
-        let source = Source::new(text);
+        let source = Source::new(text, result);
         let tree = parser.parse(text, None).unwrap();
         let mut actual = BTreeMap::new();
         collect(tree.root_node(), &source, &mut actual);

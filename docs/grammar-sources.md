@@ -26,7 +26,8 @@ The upstream [Parsing.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v
 [Parser.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/Parser.Tests.ps1),
 and [LineContinuance.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/LineContinuance.Tests.ps1)
 provide regression examples. When historical prose and the pinned implementation
-differ, tests follow the pinned parser.
+differ, tests follow the pinned parser. The speculative numeric-comment diagnostic
+described below is checked separately from syntax acceptance.
 
 ## Concrete syntax tree
 
@@ -70,6 +71,12 @@ PowerShell allows physical newlines as well as semicolons between header clauses
 the clause positions determine these fields.
 Declaration names, parameter defaults, class property values, catch types, and
 conditional clauses also have fields, so queries can select their syntactic role.
+Control-header flags retain their complete spelling, including an optional colon.
+For example, `foreach_parameter.value` contains the whole operand of
+`-ThrottleLimit:`. PowerShell recognizes workflow-only foreach flags before
+reporting that they are reserved; the tests check those diagnostics separately
+from the resulting syntax tree. These operands follow
+[`ForeachStatementRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L3358-L3516).
 
 In a `data_statement`, each `supported_commands` field contains one complete
 command name or expression. Literal names such as `foo$bar` remain `bare_word`
@@ -112,6 +119,15 @@ optional `value`; `break` and `continue` expose an optional `label`. Queries can
 select each statement's operand by role.
 Command parameters consistently expose their complete spelling in `name`,
 including the `--` marker that ends parameter recognition.
+In `& -- arg`, the invocation's `command` field is that `command_parameter`.
+Parameter-shaped literal values keep the tokenizer's boundaries: in
+`cmd -- -foo.bar`, `-foo` and `.bar` are separate arguments. Dollars and backticks
+inside such a parameter token remain literal. These rules follow
+[`ScanParameter`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L3185-L3336)
+and [`GetCommandArgument`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L6295-L6440).
+Token-leading backtick-escaped horizontal whitespace is skipped by
+[`NextToken`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L4688-L4705);
+the same escape within a word remains part of that word.
 
 The [stop-parsing token](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing?view=powershell-7.5#the-stop-parsing-token)
 starts `verbatim_arguments`, containing an anonymous `--%` marker and an optional
@@ -127,6 +143,8 @@ The text field excludes leading whitespace after the marker and retains trailing
 whitespace before its boundary. When the tail is empty, the CST ends at the marker
 and omits `text`; PowerShell's AST instead adds an empty command argument after
 skipping whitespace. Oracle comparisons account for that synthetic argument.
+When `--%` itself is the target of `&` or `.`, the marker is a `command_argument`
+and its opaque tail is a separate argument, matching PowerShell's command elements.
 
 For example, `Write-Output prefix"$name"` has one command argument containing a
 literal fragment and an expandable string. Its named tree is:
@@ -179,6 +197,20 @@ and below addition. An adjacent numeric sign forms a `unary_expression` before
 member access: in `-1e-2.ToString()`, the call's object is `-1e-2`. A spaced sign
 instead applies to the complete operand. Numeric-looking command arguments still
 follow command-mode token boundaries.
+At the beginning of a method argument, parameter default, index, or member name,
+the tokenizer uses a different numeric lookahead. Thus `[T]::M(1? 2 : 3)` is
+invalid, while `[T]::M(1 ? 2 : 3)` and `[T]::M(1 + 2? 3 : 4)` are valid.
+These boundaries follow
+[`ExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L6696-L6786)
+and [`UnaryExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7062-L7085).
+
+PowerShell 7.5.4 reports a speculative unterminated-string diagnostic for `-1#"`,
+although its final tokens and AST contain a signed number followed by a line
+comment. The CST treats the quote as comment text. A dedicated regression checks
+the oracle's diagnostic and its final number/comment boundaries; ordinary syntax
+comparisons remain strict. The tokenizer's
+[`Resync`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L1031-L1099)
+restores token state after speculative parsing.
 
 Braced variables can contain supplementary Unicode characters:
 `${𐐀}` is a variable, while `$𐐀` is a command token.
@@ -189,6 +221,14 @@ semicolons belong in statement-list constructs such as `$()` instead.
 These rules follow
 [`PrimaryExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7194-L7220)
 and [`ParenthesizedExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7573-L7618).
+
+At the start of a script body, `param` begins a parameter block when the next
+nontrivia token is `(`, including when that block is malformed. Otherwise it can
+name a command, as in `param a`. Continuation keywords such as `else` and `catch`
+also require a token boundary; a glued comment or quote can continue a generic
+command word. These distinctions follow
+[`ParamBlockRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L845-L879)
+and [`ScanIdentifier`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L4402-L4458).
 
 Method arguments, parameter defaults, attribute arguments, and hashtable keys
 disable the comma operator. That setting also applies inside hashtable statement

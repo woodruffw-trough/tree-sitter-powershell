@@ -1,0 +1,30 @@
+==================
+Signed command arguments are literal words
+==================
+
+cmd -1 +1
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name (bare_word))
+      (command_argument (bare_word))
+      (command_argument (bare_word)))))
+
+==================
+Cast lookahead leaves plus as a unary operator
+==================
+
+[int]+1
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (cast_expression
+        type: (type_literal (type_name name: (type_identifier)))
+        value: (unary_expression
+          argument: (integer_literal))))))

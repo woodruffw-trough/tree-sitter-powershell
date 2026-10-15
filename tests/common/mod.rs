@@ -160,7 +160,11 @@ fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<Co
         if name.kind() == "invocation_operator_command" {
             name = name.child_by_field_name("command").unwrap();
         }
-        let mut elements = vec![(false, mapped_extent(name, offsets))];
+        let verbatim_name = name.child(0).is_some_and(|marker| marker.kind() == "--%");
+        let mut elements = vec![(
+            name.kind() == "command_parameter",
+            mapped_extent(name, offsets),
+        )];
         let mut command_extent = mapped_extent(node, offsets);
         let mut cursor = node.walk();
         for child in node.named_children(&mut cursor) {
@@ -196,6 +200,17 @@ fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<Co
                     elements.push((false, mapped_extent(child, offsets)));
                 }
             }
+        }
+        if verbatim_name && elements.len() == 1 {
+            // A verbatim marker may occupy the target of '&' or '.'. The
+            // parser still synthesizes an empty argument after skipped spaces.
+            let tail = &source[name.end_byte()..];
+            let remaining =
+                tail.trim_start_matches(|c: char| c.is_whitespace() && !matches!(c, '\r' | '\n'));
+            let end = name.end_byte() + tail.len() - remaining.len();
+            let offset = offsets[end];
+            elements.push((false, (offset, offset)));
+            command_extent.1 = offset;
         }
         result.push((command_extent, elements));
     }

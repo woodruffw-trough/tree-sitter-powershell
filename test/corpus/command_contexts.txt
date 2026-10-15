@@ -1,0 +1,86 @@
+==================
+End-of-parameters preserves parameter-token boundaries as literal arguments
+==================
+cmd -- -foo.bar
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name (bare_word))
+      (command_parameter name: (command_parameter_name))
+      (command_argument (bare_word))
+      (command_argument (bare_word)))))
+
+==================
+A colon-attached parameter value consumes one raw parameter token
+==================
+cmd -p:-foo:bar
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name (bare_word))
+      (command_parameter
+        name: (command_parameter_name)
+        value: (command_argument (bare_word)))
+      (command_argument (bare_word)))))
+
+==================
+Invocation operators accept redirection tokens as literal command names
+==================
+& 2>&1 next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (invocation_operator_command
+        command: (command_argument (bare_word)))
+      (command_argument (bare_word)))))
+
+==================
+An invocation-head end marker remains a parameter and ends recognition
+==================
+& -- next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (invocation_operator_command
+        command: (command_parameter name: (command_parameter_name)))
+      (command_argument (bare_word)))))
+
+==================
+An invocation-head verbatim marker leaves an opaque argument before a pipe
+==================
+& --% next|last
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (invocation_operator_command command: (command_argument))
+      (command_argument (string_content)))
+    elements: (command name: (command_name (bare_word)))))
+
+==================
+Token-leading escaped whitespace is trivia before a parameter
+==================
+cmd `  -P v
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name (bare_word))
+      (command_parameter name: (command_parameter_name))
+      (command_argument (bare_word)))))

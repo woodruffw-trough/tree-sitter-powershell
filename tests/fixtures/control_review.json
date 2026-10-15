@@ -1,0 +1,4513 @@
+[
+  {
+    "name": "param script bare",
+    "source": "param",
+    "valid": true
+  },
+  {
+    "name": "param script argument",
+    "source": "param a",
+    "valid": true
+  },
+  {
+    "name": "param script block argument",
+    "source": "param{}",
+    "valid": true
+  },
+  {
+    "name": "param script parameter block",
+    "source": "param($x)",
+    "valid": true
+  },
+  {
+    "name": "param script newline before list",
+    "source": "param\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param script comment before list",
+    "source": "param <#x#> ($x)",
+    "valid": true
+  },
+  {
+    "name": "param script semicolon ends command",
+    "source": "param;($x)",
+    "valid": true
+  },
+  {
+    "name": "param script line comment before list",
+    "source": "param #x\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param script adjacent continuation",
+    "source": "param`\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param script next statement",
+    "source": "param\n1",
+    "valid": true
+  },
+  {
+    "name": "param script trailing newline",
+    "source": "param\n",
+    "valid": true
+  },
+  {
+    "name": "param script quoted argument",
+    "source": "param \"x\"",
+    "valid": true
+  },
+  {
+    "name": "param script bracketed suffix",
+    "source": "param[Exception]",
+    "valid": true
+  },
+  {
+    "name": "param script glued comment suffix",
+    "source": "param<#x#>()",
+    "valid": false
+  },
+  {
+    "name": "param function bare",
+    "source": "function f {param}",
+    "valid": true
+  },
+  {
+    "name": "param function argument",
+    "source": "function f {param a}",
+    "valid": true
+  },
+  {
+    "name": "param function block argument",
+    "source": "function f {param{}}",
+    "valid": true
+  },
+  {
+    "name": "param function parameter block",
+    "source": "function f {param($x)}",
+    "valid": true
+  },
+  {
+    "name": "param function newline before list",
+    "source": "function f {param\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param function comment before list",
+    "source": "function f {param <#x#> ($x)}",
+    "valid": true
+  },
+  {
+    "name": "param function semicolon ends command",
+    "source": "function f {param;($x)}",
+    "valid": true
+  },
+  {
+    "name": "param function line comment before list",
+    "source": "function f {param #x\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param function adjacent continuation",
+    "source": "function f {param`\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param function next statement",
+    "source": "function f {param\n1}",
+    "valid": true
+  },
+  {
+    "name": "param function trailing newline",
+    "source": "function f {param\n}",
+    "valid": true
+  },
+  {
+    "name": "param function quoted argument",
+    "source": "function f {param \"x\"}",
+    "valid": true
+  },
+  {
+    "name": "param function bracketed suffix",
+    "source": "function f {param[Exception]}",
+    "valid": true
+  },
+  {
+    "name": "param function glued comment suffix",
+    "source": "function f {param<#x#>()}",
+    "valid": false
+  },
+  {
+    "name": "param expression bare",
+    "source": "{param}",
+    "valid": true
+  },
+  {
+    "name": "param expression argument",
+    "source": "{param a}",
+    "valid": true
+  },
+  {
+    "name": "param expression block argument",
+    "source": "{param{}}",
+    "valid": true
+  },
+  {
+    "name": "param expression parameter block",
+    "source": "{param($x)}",
+    "valid": true
+  },
+  {
+    "name": "param expression newline before list",
+    "source": "{param\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param expression comment before list",
+    "source": "{param <#x#> ($x)}",
+    "valid": true
+  },
+  {
+    "name": "param expression semicolon ends command",
+    "source": "{param;($x)}",
+    "valid": true
+  },
+  {
+    "name": "param expression line comment before list",
+    "source": "{param #x\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param expression adjacent continuation",
+    "source": "{param`\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param expression next statement",
+    "source": "{param\n1}",
+    "valid": true
+  },
+  {
+    "name": "param expression trailing newline",
+    "source": "{param\n}",
+    "valid": true
+  },
+  {
+    "name": "param expression quoted argument",
+    "source": "{param \"x\"}",
+    "valid": true
+  },
+  {
+    "name": "param expression bracketed suffix",
+    "source": "{param[Exception]}",
+    "valid": true
+  },
+  {
+    "name": "param expression glued comment suffix",
+    "source": "{param<#x#>()}",
+    "valid": false
+  },
+  {
+    "name": "param following statement bare",
+    "source": "1; param",
+    "valid": true
+  },
+  {
+    "name": "param following statement argument",
+    "source": "1; param a",
+    "valid": true
+  },
+  {
+    "name": "param following statement block argument",
+    "source": "1; param{}",
+    "valid": true
+  },
+  {
+    "name": "param following statement parameter block",
+    "source": "1; param($x)",
+    "valid": true
+  },
+  {
+    "name": "param following statement newline before list",
+    "source": "1; param\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param following statement comment before list",
+    "source": "1; param <#x#> ($x)",
+    "valid": true
+  },
+  {
+    "name": "param following statement semicolon ends command",
+    "source": "1; param;($x)",
+    "valid": true
+  },
+  {
+    "name": "param following statement line comment before list",
+    "source": "1; param #x\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param following statement adjacent continuation",
+    "source": "1; param`\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param following statement next statement",
+    "source": "1; param\n1",
+    "valid": true
+  },
+  {
+    "name": "param following statement trailing newline",
+    "source": "1; param\n",
+    "valid": true
+  },
+  {
+    "name": "param following statement quoted argument",
+    "source": "1; param \"x\"",
+    "valid": true
+  },
+  {
+    "name": "param following statement bracketed suffix",
+    "source": "1; param[Exception]",
+    "valid": true
+  },
+  {
+    "name": "param following statement glued comment suffix",
+    "source": "1; param<#x#>()",
+    "valid": false
+  },
+  {
+    "name": "param statement body bare",
+    "source": "if (1) {param}",
+    "valid": true
+  },
+  {
+    "name": "param statement body argument",
+    "source": "if (1) {param a}",
+    "valid": true
+  },
+  {
+    "name": "param statement body block argument",
+    "source": "if (1) {param{}}",
+    "valid": true
+  },
+  {
+    "name": "param statement body parameter block",
+    "source": "if (1) {param($x)}",
+    "valid": true
+  },
+  {
+    "name": "param statement body newline before list",
+    "source": "if (1) {param\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param statement body comment before list",
+    "source": "if (1) {param <#x#> ($x)}",
+    "valid": true
+  },
+  {
+    "name": "param statement body semicolon ends command",
+    "source": "if (1) {param;($x)}",
+    "valid": true
+  },
+  {
+    "name": "param statement body line comment before list",
+    "source": "if (1) {param #x\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param statement body adjacent continuation",
+    "source": "if (1) {param`\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param statement body next statement",
+    "source": "if (1) {param\n1}",
+    "valid": true
+  },
+  {
+    "name": "param statement body trailing newline",
+    "source": "if (1) {param\n}",
+    "valid": true
+  },
+  {
+    "name": "param statement body quoted argument",
+    "source": "if (1) {param \"x\"}",
+    "valid": true
+  },
+  {
+    "name": "param statement body bracketed suffix",
+    "source": "if (1) {param[Exception]}",
+    "valid": true
+  },
+  {
+    "name": "param statement body glued comment suffix",
+    "source": "if (1) {param<#x#>()}",
+    "valid": false
+  },
+  {
+    "name": "param hash value bare",
+    "source": "@{a=param}",
+    "valid": true
+  },
+  {
+    "name": "param hash value argument",
+    "source": "@{a=param a}",
+    "valid": true
+  },
+  {
+    "name": "param hash value block argument",
+    "source": "@{a=param{}}",
+    "valid": true
+  },
+  {
+    "name": "param hash value parameter block",
+    "source": "@{a=param($x)}",
+    "valid": true
+  },
+  {
+    "name": "param hash value newline before list",
+    "source": "@{a=param\n($x)}",
+    "valid": false
+  },
+  {
+    "name": "param hash value comment before list",
+    "source": "@{a=param <#x#> ($x)}",
+    "valid": true
+  },
+  {
+    "name": "param hash value semicolon ends command",
+    "source": "@{a=param;($x)}",
+    "valid": false
+  },
+  {
+    "name": "param hash value line comment before list",
+    "source": "@{a=param #x\n($x)}",
+    "valid": false
+  },
+  {
+    "name": "param hash value adjacent continuation",
+    "source": "@{a=param`\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param hash value next statement",
+    "source": "@{a=param\n1}",
+    "valid": false
+  },
+  {
+    "name": "param hash value trailing newline",
+    "source": "@{a=param\n}",
+    "valid": true
+  },
+  {
+    "name": "param hash value quoted argument",
+    "source": "@{a=param \"x\"}",
+    "valid": true
+  },
+  {
+    "name": "param hash value bracketed suffix",
+    "source": "@{a=param[Exception]}",
+    "valid": true
+  },
+  {
+    "name": "param hash value glued comment suffix",
+    "source": "@{a=param<#x#>()}",
+    "valid": false
+  },
+  {
+    "name": "catch adjacent plain",
+    "source": "try {} catch{}",
+    "valid": true
+  },
+  {
+    "name": "catch space plain",
+    "source": "try {} catch {}",
+    "valid": true
+  },
+  {
+    "name": "catch newline plain",
+    "source": "try {} catch\n{}",
+    "valid": true
+  },
+  {
+    "name": "catch glued block comment plain",
+    "source": "try {} catch<#x#>{}",
+    "valid": false
+  },
+  {
+    "name": "catch glued line comment plain",
+    "source": "try {} catch#x\n{}",
+    "valid": false
+  },
+  {
+    "name": "catch glued continuation plain",
+    "source": "try {} catch`\n{}",
+    "valid": false
+  },
+  {
+    "name": "catch semicolon plain",
+    "source": "try {} catch;{}",
+    "valid": false
+  },
+  {
+    "name": "catch spaced block comment plain",
+    "source": "try {} catch <#x#>{}",
+    "valid": true
+  },
+  {
+    "name": "catch spaced continuation plain",
+    "source": "try {} catch `\n{}",
+    "valid": true
+  },
+  {
+    "name": "catch spaced line comment plain",
+    "source": "try {} catch #x\n{}",
+    "valid": true
+  },
+  {
+    "name": "catch adjacent typed",
+    "source": "try {} catch[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch space typed",
+    "source": "try {} catch [Exception] {}",
+    "valid": true
+  },
+  {
+    "name": "catch newline typed",
+    "source": "try {} catch\n[Exception] {}",
+    "valid": true
+  },
+  {
+    "name": "catch glued block comment typed",
+    "source": "try {} catch<#x#>[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch glued line comment typed",
+    "source": "try {} catch#x\n[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch glued continuation typed",
+    "source": "try {} catch`\n[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch semicolon typed",
+    "source": "try {} catch;[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch spaced block comment typed",
+    "source": "try {} catch <#x#>[Exception] {}",
+    "valid": true
+  },
+  {
+    "name": "catch spaced continuation typed",
+    "source": "try {} catch `\n[Exception] {}",
+    "valid": true
+  },
+  {
+    "name": "catch spaced line comment typed",
+    "source": "try {} catch #x\n[Exception] {}",
+    "valid": true
+  },
+  {
+    "name": "finally adjacent plain",
+    "source": "try {} finally{}",
+    "valid": true
+  },
+  {
+    "name": "finally space plain",
+    "source": "try {} finally {}",
+    "valid": true
+  },
+  {
+    "name": "finally newline plain",
+    "source": "try {} finally\n{}",
+    "valid": true
+  },
+  {
+    "name": "finally glued block comment plain",
+    "source": "try {} finally<#x#>{}",
+    "valid": false
+  },
+  {
+    "name": "finally glued line comment plain",
+    "source": "try {} finally#x\n{}",
+    "valid": false
+  },
+  {
+    "name": "finally glued continuation plain",
+    "source": "try {} finally`\n{}",
+    "valid": false
+  },
+  {
+    "name": "finally semicolon plain",
+    "source": "try {} finally;{}",
+    "valid": false
+  },
+  {
+    "name": "finally spaced block comment plain",
+    "source": "try {} finally <#x#>{}",
+    "valid": true
+  },
+  {
+    "name": "finally spaced continuation plain",
+    "source": "try {} finally `\n{}",
+    "valid": true
+  },
+  {
+    "name": "finally spaced line comment plain",
+    "source": "try {} finally #x\n{}",
+    "valid": true
+  },
+  {
+    "name": "else adjacent plain",
+    "source": "if (1) {} else{}",
+    "valid": true
+  },
+  {
+    "name": "else space plain",
+    "source": "if (1) {} else {}",
+    "valid": true
+  },
+  {
+    "name": "else newline plain",
+    "source": "if (1) {} else\n{}",
+    "valid": true
+  },
+  {
+    "name": "else glued block comment plain",
+    "source": "if (1) {} else<#x#>{}",
+    "valid": true
+  },
+  {
+    "name": "else glued line comment plain",
+    "source": "if (1) {} else#x\n{}",
+    "valid": true
+  },
+  {
+    "name": "else glued continuation plain",
+    "source": "if (1) {} else`\n{}",
+    "valid": true
+  },
+  {
+    "name": "else semicolon plain",
+    "source": "if (1) {} else;{}",
+    "valid": false
+  },
+  {
+    "name": "else spaced block comment plain",
+    "source": "if (1) {} else <#x#>{}",
+    "valid": true
+  },
+  {
+    "name": "else spaced continuation plain",
+    "source": "if (1) {} else `\n{}",
+    "valid": true
+  },
+  {
+    "name": "else spaced line comment plain",
+    "source": "if (1) {} else #x\n{}",
+    "valid": true
+  },
+  {
+    "name": "elseif adjacent plain",
+    "source": "if (1) {} elseif(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif space plain",
+    "source": "if (1) {} elseif (2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif newline plain",
+    "source": "if (1) {} elseif\n(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif glued block comment plain",
+    "source": "if (1) {} elseif<#x#>(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif glued line comment plain",
+    "source": "if (1) {} elseif#x\n(2) {}",
+    "valid": false
+  },
+  {
+    "name": "elseif glued continuation plain",
+    "source": "if (1) {} elseif`\n(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif semicolon plain",
+    "source": "if (1) {} elseif;(2) {}",
+    "valid": false
+  },
+  {
+    "name": "elseif spaced block comment plain",
+    "source": "if (1) {} elseif <#x#>(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif spaced continuation plain",
+    "source": "if (1) {} elseif `\n(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif spaced line comment plain",
+    "source": "if (1) {} elseif #x\n(2) {}",
+    "valid": true
+  },
+  {
+    "name": "catch generic suffix 'x'",
+    "source": "try {} catchx[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch generic suffix '[x]'",
+    "source": "try {} catch[x][Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch generic suffix '`x'",
+    "source": "try {} catch`x[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch generic suffix '\"x\"'",
+    "source": "try {} catch\"x\"[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch generic suffix \"'x'\"",
+    "source": "try {} catch'x'[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch generic suffix '$x'",
+    "source": "try {} catch$x[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch generic suffix ':x'",
+    "source": "try {} catch:x[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "catch generic suffix '-x'",
+    "source": "try {} catch-x[Exception] {}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix 'x'",
+    "source": "try {} finallyx{}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix '[x]'",
+    "source": "try {} finally[x]{}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix '`x'",
+    "source": "try {} finally`x{}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix '\"x\"'",
+    "source": "try {} finally\"x\"{}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix \"'x'\"",
+    "source": "try {} finally'x'{}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix '$x'",
+    "source": "try {} finally$x{}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix ':x'",
+    "source": "try {} finally:x{}",
+    "valid": false
+  },
+  {
+    "name": "finally generic suffix '-x'",
+    "source": "try {} finally-x{}",
+    "valid": false
+  },
+  {
+    "name": "else generic suffix 'x'",
+    "source": "if (1) {} elsex{}",
+    "valid": true
+  },
+  {
+    "name": "else generic suffix '[x]'",
+    "source": "if (1) {} else[x]{}",
+    "valid": true
+  },
+  {
+    "name": "else generic suffix '`x'",
+    "source": "if (1) {} else`x{}",
+    "valid": true
+  },
+  {
+    "name": "else generic suffix '\"x\"'",
+    "source": "if (1) {} else\"x\"{}",
+    "valid": true
+  },
+  {
+    "name": "else generic suffix \"'x'\"",
+    "source": "if (1) {} else'x'{}",
+    "valid": true
+  },
+  {
+    "name": "else generic suffix '$x'",
+    "source": "if (1) {} else$x{}",
+    "valid": true
+  },
+  {
+    "name": "else generic suffix ':x'",
+    "source": "if (1) {} else:x{}",
+    "valid": true
+  },
+  {
+    "name": "else generic suffix '-x'",
+    "source": "if (1) {} else-x{}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix 'x'",
+    "source": "if (1) {} elseifx(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix '[x]'",
+    "source": "if (1) {} elseif[x](2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix '`x'",
+    "source": "if (1) {} elseif`x(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix '\"x\"'",
+    "source": "if (1) {} elseif\"x\"(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix \"'x'\"",
+    "source": "if (1) {} elseif'x'(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix '$x'",
+    "source": "if (1) {} elseif$x(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix ':x'",
+    "source": "if (1) {} elseif:x(2) {}",
+    "valid": true
+  },
+  {
+    "name": "elseif generic suffix '-x'",
+    "source": "if (1) {} elseif-x(2) {}",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space word",
+    "source": "switch -file a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon word",
+    "source": "switch -file:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space word",
+    "source": "switch -file: a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline word",
+    "source": "switch -file:\na { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space variable",
+    "source": "switch -file $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon variable",
+    "source": "switch -file:$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space variable",
+    "source": "switch -file: $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline variable",
+    "source": "switch -file:\n$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space member",
+    "source": "switch -file $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon member",
+    "source": "switch -file:$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space member",
+    "source": "switch -file: $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline member",
+    "source": "switch -file:\n$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space expression",
+    "source": "switch -file (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon expression",
+    "source": "switch -file:(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space expression",
+    "source": "switch -file: (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline expression",
+    "source": "switch -file:\n(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space double quote",
+    "source": "switch -file \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon double quote",
+    "source": "switch -file:\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space double quote",
+    "source": "switch -file: \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline double quote",
+    "source": "switch -file:\n\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space single quote",
+    "source": "switch -file 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon single quote",
+    "source": "switch -file:'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space single quote",
+    "source": "switch -file: 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline single quote",
+    "source": "switch -file:\n'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space script block",
+    "source": "switch -file {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon script block",
+    "source": "switch -file:{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space script block",
+    "source": "switch -file: {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline script block",
+    "source": "switch -file:\n{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space double colon",
+    "source": "switch -file :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon double colon",
+    "source": "switch -file::a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon space double colon",
+    "source": "switch -file: :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' colon newline double colon",
+    "source": "switch -file:\n:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-file' space colon space",
+    "source": "switch -file : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-file' colon colon space",
+    "source": "switch -file:: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-file' colon space colon space",
+    "source": "switch -file: : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-file' colon newline colon space",
+    "source": "switch -file:\n: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-f' space word",
+    "source": "switch -f a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon word",
+    "source": "switch -f:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space word",
+    "source": "switch -f: a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline word",
+    "source": "switch -f:\na { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space variable",
+    "source": "switch -f $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon variable",
+    "source": "switch -f:$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space variable",
+    "source": "switch -f: $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline variable",
+    "source": "switch -f:\n$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space member",
+    "source": "switch -f $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon member",
+    "source": "switch -f:$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space member",
+    "source": "switch -f: $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline member",
+    "source": "switch -f:\n$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space expression",
+    "source": "switch -f (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon expression",
+    "source": "switch -f:(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space expression",
+    "source": "switch -f: (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline expression",
+    "source": "switch -f:\n(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space double quote",
+    "source": "switch -f \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon double quote",
+    "source": "switch -f:\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space double quote",
+    "source": "switch -f: \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline double quote",
+    "source": "switch -f:\n\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space single quote",
+    "source": "switch -f 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon single quote",
+    "source": "switch -f:'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space single quote",
+    "source": "switch -f: 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline single quote",
+    "source": "switch -f:\n'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space script block",
+    "source": "switch -f {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon script block",
+    "source": "switch -f:{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space script block",
+    "source": "switch -f: {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline script block",
+    "source": "switch -f:\n{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space double colon",
+    "source": "switch -f :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon double colon",
+    "source": "switch -f::a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon space double colon",
+    "source": "switch -f: :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' colon newline double colon",
+    "source": "switch -f:\n:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-f' space colon space",
+    "source": "switch -f : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-f' colon colon space",
+    "source": "switch -f:: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-f' colon space colon space",
+    "source": "switch -f: : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-f' colon newline colon space",
+    "source": "switch -f:\n: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-FILE' space word",
+    "source": "switch -FILE a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon word",
+    "source": "switch -FILE:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space word",
+    "source": "switch -FILE: a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline word",
+    "source": "switch -FILE:\na { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space variable",
+    "source": "switch -FILE $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon variable",
+    "source": "switch -FILE:$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space variable",
+    "source": "switch -FILE: $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline variable",
+    "source": "switch -FILE:\n$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space member",
+    "source": "switch -FILE $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon member",
+    "source": "switch -FILE:$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space member",
+    "source": "switch -FILE: $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline member",
+    "source": "switch -FILE:\n$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space expression",
+    "source": "switch -FILE (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon expression",
+    "source": "switch -FILE:(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space expression",
+    "source": "switch -FILE: (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline expression",
+    "source": "switch -FILE:\n(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space double quote",
+    "source": "switch -FILE \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon double quote",
+    "source": "switch -FILE:\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space double quote",
+    "source": "switch -FILE: \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline double quote",
+    "source": "switch -FILE:\n\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space single quote",
+    "source": "switch -FILE 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon single quote",
+    "source": "switch -FILE:'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space single quote",
+    "source": "switch -FILE: 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline single quote",
+    "source": "switch -FILE:\n'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space script block",
+    "source": "switch -FILE {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon script block",
+    "source": "switch -FILE:{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space script block",
+    "source": "switch -FILE: {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline script block",
+    "source": "switch -FILE:\n{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space double colon",
+    "source": "switch -FILE :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon double colon",
+    "source": "switch -FILE::a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon space double colon",
+    "source": "switch -FILE: :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' colon newline double colon",
+    "source": "switch -FILE:\n:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '-FILE' space colon space",
+    "source": "switch -FILE : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-FILE' colon colon space",
+    "source": "switch -FILE:: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-FILE' colon space colon space",
+    "source": "switch -FILE: : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '-FILE' colon newline colon space",
+    "source": "switch -FILE:\n: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '—file' space word",
+    "source": "switch —file a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon word",
+    "source": "switch —file:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space word",
+    "source": "switch —file: a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline word",
+    "source": "switch —file:\na { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space variable",
+    "source": "switch —file $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon variable",
+    "source": "switch —file:$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space variable",
+    "source": "switch —file: $x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline variable",
+    "source": "switch —file:\n$x { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space member",
+    "source": "switch —file $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon member",
+    "source": "switch —file:$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space member",
+    "source": "switch —file: $x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline member",
+    "source": "switch —file:\n$x.Length { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space expression",
+    "source": "switch —file (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon expression",
+    "source": "switch —file:(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space expression",
+    "source": "switch —file: (a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline expression",
+    "source": "switch —file:\n(a) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space double quote",
+    "source": "switch —file \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon double quote",
+    "source": "switch —file:\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space double quote",
+    "source": "switch —file: \"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline double quote",
+    "source": "switch —file:\n\"a\" { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space single quote",
+    "source": "switch —file 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon single quote",
+    "source": "switch —file:'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space single quote",
+    "source": "switch —file: 'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline single quote",
+    "source": "switch —file:\n'a' { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space script block",
+    "source": "switch —file {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon script block",
+    "source": "switch —file:{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space script block",
+    "source": "switch —file: {1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline script block",
+    "source": "switch —file:\n{1} { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space double colon",
+    "source": "switch —file :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon double colon",
+    "source": "switch —file::a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon space double colon",
+    "source": "switch —file: :a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' colon newline double colon",
+    "source": "switch —file:\n:a { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch '—file' space colon space",
+    "source": "switch —file : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '—file' colon colon space",
+    "source": "switch —file:: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '—file' colon space colon space",
+    "source": "switch —file: : a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch '—file' colon newline colon space",
+    "source": "switch —file:\n: a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag 'x'",
+    "source": "switch -filex a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '`'",
+    "source": "switch -file` a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '`x'",
+    "source": "switch -file`x a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '` '",
+    "source": "switch -file`  a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '<#x#>'",
+    "source": "switch -file<#x#> a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '#x'",
+    "source": "switch -file#x a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '\"x\"'",
+    "source": "switch -file\"x\" a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag \"'x'\"",
+    "source": "switch -file'x' a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '$x'",
+    "source": "switch -file$x a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '/x'",
+    "source": "switch -file/x a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '>x'",
+    "source": "switch -file>x a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag '<x'",
+    "source": "switch -file<x a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "switch rejects partial flag ']x'",
+    "source": "switch -file]x a { 1 {} }",
+    "valid": false
+  },
+  {
+    "name": "data '-supportedcommand' space word",
+    "source": "data -supportedcommand a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon word",
+    "source": "data -supportedcommand:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space word",
+    "source": "data -supportedcommand: a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline word",
+    "source": "data -supportedcommand:\na {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space variable",
+    "source": "data -supportedcommand $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon variable",
+    "source": "data -supportedcommand:$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space variable",
+    "source": "data -supportedcommand: $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline variable",
+    "source": "data -supportedcommand:\n$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space member",
+    "source": "data -supportedcommand $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon member",
+    "source": "data -supportedcommand:$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space member",
+    "source": "data -supportedcommand: $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline member",
+    "source": "data -supportedcommand:\n$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space expression",
+    "source": "data -supportedcommand (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon expression",
+    "source": "data -supportedcommand:(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space expression",
+    "source": "data -supportedcommand: (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline expression",
+    "source": "data -supportedcommand:\n(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space double quote",
+    "source": "data -supportedcommand \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon double quote",
+    "source": "data -supportedcommand:\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space double quote",
+    "source": "data -supportedcommand: \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline double quote",
+    "source": "data -supportedcommand:\n\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space single quote",
+    "source": "data -supportedcommand 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon single quote",
+    "source": "data -supportedcommand:'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space single quote",
+    "source": "data -supportedcommand: 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline single quote",
+    "source": "data -supportedcommand:\n'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space script block",
+    "source": "data -supportedcommand {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon script block",
+    "source": "data -supportedcommand:{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space script block",
+    "source": "data -supportedcommand: {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline script block",
+    "source": "data -supportedcommand:\n{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space double colon",
+    "source": "data -supportedcommand :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon double colon",
+    "source": "data -supportedcommand::a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon space double colon",
+    "source": "data -supportedcommand: :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' colon newline double colon",
+    "source": "data -supportedcommand:\n:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-supportedcommand' space colon space",
+    "source": "data -supportedcommand : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-supportedcommand' colon colon space",
+    "source": "data -supportedcommand:: a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-supportedcommand' colon space colon space",
+    "source": "data -supportedcommand: : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-supportedcommand' colon newline colon space",
+    "source": "data -supportedcommand:\n: a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-s' space word",
+    "source": "data -s a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon word",
+    "source": "data -s:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space word",
+    "source": "data -s: a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline word",
+    "source": "data -s:\na {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space variable",
+    "source": "data -s $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon variable",
+    "source": "data -s:$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space variable",
+    "source": "data -s: $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline variable",
+    "source": "data -s:\n$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space member",
+    "source": "data -s $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon member",
+    "source": "data -s:$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space member",
+    "source": "data -s: $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline member",
+    "source": "data -s:\n$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space expression",
+    "source": "data -s (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon expression",
+    "source": "data -s:(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space expression",
+    "source": "data -s: (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline expression",
+    "source": "data -s:\n(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space double quote",
+    "source": "data -s \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon double quote",
+    "source": "data -s:\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space double quote",
+    "source": "data -s: \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline double quote",
+    "source": "data -s:\n\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space single quote",
+    "source": "data -s 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon single quote",
+    "source": "data -s:'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space single quote",
+    "source": "data -s: 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline single quote",
+    "source": "data -s:\n'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space script block",
+    "source": "data -s {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon script block",
+    "source": "data -s:{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space script block",
+    "source": "data -s: {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline script block",
+    "source": "data -s:\n{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space double colon",
+    "source": "data -s :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon double colon",
+    "source": "data -s::a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon space double colon",
+    "source": "data -s: :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' colon newline double colon",
+    "source": "data -s:\n:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-s' space colon space",
+    "source": "data -s : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-s' colon colon space",
+    "source": "data -s:: a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-s' colon space colon space",
+    "source": "data -s: : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-s' colon newline colon space",
+    "source": "data -s:\n: a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space word",
+    "source": "data -SUPPORTEDCOMMAND a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon word",
+    "source": "data -SUPPORTEDCOMMAND:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space word",
+    "source": "data -SUPPORTEDCOMMAND: a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline word",
+    "source": "data -SUPPORTEDCOMMAND:\na {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space variable",
+    "source": "data -SUPPORTEDCOMMAND $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon variable",
+    "source": "data -SUPPORTEDCOMMAND:$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space variable",
+    "source": "data -SUPPORTEDCOMMAND: $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline variable",
+    "source": "data -SUPPORTEDCOMMAND:\n$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space member",
+    "source": "data -SUPPORTEDCOMMAND $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon member",
+    "source": "data -SUPPORTEDCOMMAND:$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space member",
+    "source": "data -SUPPORTEDCOMMAND: $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline member",
+    "source": "data -SUPPORTEDCOMMAND:\n$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space expression",
+    "source": "data -SUPPORTEDCOMMAND (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon expression",
+    "source": "data -SUPPORTEDCOMMAND:(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space expression",
+    "source": "data -SUPPORTEDCOMMAND: (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline expression",
+    "source": "data -SUPPORTEDCOMMAND:\n(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space double quote",
+    "source": "data -SUPPORTEDCOMMAND \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon double quote",
+    "source": "data -SUPPORTEDCOMMAND:\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space double quote",
+    "source": "data -SUPPORTEDCOMMAND: \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline double quote",
+    "source": "data -SUPPORTEDCOMMAND:\n\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space single quote",
+    "source": "data -SUPPORTEDCOMMAND 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon single quote",
+    "source": "data -SUPPORTEDCOMMAND:'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space single quote",
+    "source": "data -SUPPORTEDCOMMAND: 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline single quote",
+    "source": "data -SUPPORTEDCOMMAND:\n'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space script block",
+    "source": "data -SUPPORTEDCOMMAND {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon script block",
+    "source": "data -SUPPORTEDCOMMAND:{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space script block",
+    "source": "data -SUPPORTEDCOMMAND: {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline script block",
+    "source": "data -SUPPORTEDCOMMAND:\n{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space double colon",
+    "source": "data -SUPPORTEDCOMMAND :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon double colon",
+    "source": "data -SUPPORTEDCOMMAND::a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space double colon",
+    "source": "data -SUPPORTEDCOMMAND: :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline double colon",
+    "source": "data -SUPPORTEDCOMMAND:\n:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' space colon space",
+    "source": "data -SUPPORTEDCOMMAND : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon colon space",
+    "source": "data -SUPPORTEDCOMMAND:: a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon space colon space",
+    "source": "data -SUPPORTEDCOMMAND: : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '-SUPPORTEDCOMMAND' colon newline colon space",
+    "source": "data -SUPPORTEDCOMMAND:\n: a {}",
+    "valid": false
+  },
+  {
+    "name": "data '—supportedcommand' space word",
+    "source": "data —supportedcommand a {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon word",
+    "source": "data —supportedcommand:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space word",
+    "source": "data —supportedcommand: a {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline word",
+    "source": "data —supportedcommand:\na {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space variable",
+    "source": "data —supportedcommand $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon variable",
+    "source": "data —supportedcommand:$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space variable",
+    "source": "data —supportedcommand: $x {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline variable",
+    "source": "data —supportedcommand:\n$x {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space member",
+    "source": "data —supportedcommand $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon member",
+    "source": "data —supportedcommand:$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space member",
+    "source": "data —supportedcommand: $x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline member",
+    "source": "data —supportedcommand:\n$x.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space expression",
+    "source": "data —supportedcommand (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon expression",
+    "source": "data —supportedcommand:(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space expression",
+    "source": "data —supportedcommand: (a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline expression",
+    "source": "data —supportedcommand:\n(a) {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space double quote",
+    "source": "data —supportedcommand \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon double quote",
+    "source": "data —supportedcommand:\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space double quote",
+    "source": "data —supportedcommand: \"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline double quote",
+    "source": "data —supportedcommand:\n\"a\" {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space single quote",
+    "source": "data —supportedcommand 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon single quote",
+    "source": "data —supportedcommand:'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space single quote",
+    "source": "data —supportedcommand: 'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline single quote",
+    "source": "data —supportedcommand:\n'a' {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space script block",
+    "source": "data —supportedcommand {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon script block",
+    "source": "data —supportedcommand:{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space script block",
+    "source": "data —supportedcommand: {1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline script block",
+    "source": "data —supportedcommand:\n{1} {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space double colon",
+    "source": "data —supportedcommand :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon double colon",
+    "source": "data —supportedcommand::a {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon space double colon",
+    "source": "data —supportedcommand: :a {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' colon newline double colon",
+    "source": "data —supportedcommand:\n:a {}",
+    "valid": true
+  },
+  {
+    "name": "data '—supportedcommand' space colon space",
+    "source": "data —supportedcommand : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '—supportedcommand' colon colon space",
+    "source": "data —supportedcommand:: a {}",
+    "valid": false
+  },
+  {
+    "name": "data '—supportedcommand' colon space colon space",
+    "source": "data —supportedcommand: : a {}",
+    "valid": false
+  },
+  {
+    "name": "data '—supportedcommand' colon newline colon space",
+    "source": "data —supportedcommand:\n: a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag 'x'",
+    "source": "data -supportedcommandx a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '`'",
+    "source": "data -supportedcommand` a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '`x'",
+    "source": "data -supportedcommand`x a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '` '",
+    "source": "data -supportedcommand`  a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '<#x#>'",
+    "source": "data -supportedcommand<#x#> a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '#x'",
+    "source": "data -supportedcommand#x a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '\"x\"'",
+    "source": "data -supportedcommand\"x\" a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag \"'x'\"",
+    "source": "data -supportedcommand'x' a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '$x'",
+    "source": "data -supportedcommand$x a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '/x'",
+    "source": "data -supportedcommand/x a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '>x'",
+    "source": "data -supportedcommand>x a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag '<x'",
+    "source": "data -supportedcommand<x a {}",
+    "valid": false
+  },
+  {
+    "name": "data rejects partial flag ']x'",
+    "source": "data -supportedcommand]x a {}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-r'",
+    "source": "switch -r (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-r:'",
+    "source": "switch -r: (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-r: '",
+    "source": "switch -r:  (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-r:\\n'",
+    "source": "switch -r:\n (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-r`'",
+    "source": "switch -r` (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-r` '",
+    "source": "switch -r`  (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-r<#x#>'",
+    "source": "switch -r<#x#> (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-r#x'",
+    "source": "switch -r#x (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-r\"x\"'",
+    "source": "switch -r\"x\" (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-rx'",
+    "source": "switch -rx (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-regex'",
+    "source": "switch -regex (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-regex:'",
+    "source": "switch -regex: (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-regex: '",
+    "source": "switch -regex:  (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-regex:\\n'",
+    "source": "switch -regex:\n (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-regex`'",
+    "source": "switch -regex` (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-regex` '",
+    "source": "switch -regex`  (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-regex<#x#>'",
+    "source": "switch -regex<#x#> (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-regex#x'",
+    "source": "switch -regex#x (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-regex\"x\"'",
+    "source": "switch -regex\"x\" (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-regexx'",
+    "source": "switch -regexx (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-w'",
+    "source": "switch -w (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-w:'",
+    "source": "switch -w: (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-w: '",
+    "source": "switch -w:  (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-w:\\n'",
+    "source": "switch -w:\n (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-w`'",
+    "source": "switch -w` (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-w` '",
+    "source": "switch -w`  (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-w<#x#>'",
+    "source": "switch -w<#x#> (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-w#x'",
+    "source": "switch -w#x (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-w\"x\"'",
+    "source": "switch -w\"x\" (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-wx'",
+    "source": "switch -wx (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-e'",
+    "source": "switch -e (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-e:'",
+    "source": "switch -e: (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-e: '",
+    "source": "switch -e:  (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-e:\\n'",
+    "source": "switch -e:\n (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-e`'",
+    "source": "switch -e` (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-e` '",
+    "source": "switch -e`  (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-e<#x#>'",
+    "source": "switch -e<#x#> (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-e#x'",
+    "source": "switch -e#x (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-e\"x\"'",
+    "source": "switch -e\"x\" (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-ex'",
+    "source": "switch -ex (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-c'",
+    "source": "switch -c (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-c:'",
+    "source": "switch -c: (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-c: '",
+    "source": "switch -c:  (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-c:\\n'",
+    "source": "switch -c:\n (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-c`'",
+    "source": "switch -c` (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-c` '",
+    "source": "switch -c`  (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-c<#x#>'",
+    "source": "switch -c<#x#> (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-c#x'",
+    "source": "switch -c#x (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-c\"x\"'",
+    "source": "switch -c\"x\" (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-cx'",
+    "source": "switch -cx (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '—r'",
+    "source": "switch —r (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '—r:'",
+    "source": "switch —r: (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '—r: '",
+    "source": "switch —r:  (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '—r:\\n'",
+    "source": "switch —r:\n (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '—r`'",
+    "source": "switch —r` (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '—r` '",
+    "source": "switch —r`  (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '—r<#x#>'",
+    "source": "switch —r<#x#> (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '—r#x'",
+    "source": "switch —r#x (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '—r\"x\"'",
+    "source": "switch —r\"x\" (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '—rx'",
+    "source": "switch —rx (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-REGEX'",
+    "source": "switch -REGEX (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-REGEX:'",
+    "source": "switch -REGEX: (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-REGEX: '",
+    "source": "switch -REGEX:  (1) {1 {}}",
+    "valid": true
+  },
+  {
+    "name": "switch mode flag '-REGEX:\\n'",
+    "source": "switch -REGEX:\n (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-REGEX`'",
+    "source": "switch -REGEX` (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-REGEX` '",
+    "source": "switch -REGEX`  (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-REGEX<#x#>'",
+    "source": "switch -REGEX<#x#> (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-REGEX#x'",
+    "source": "switch -REGEX#x (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-REGEX\"x\"'",
+    "source": "switch -REGEX\"x\" (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch mode flag '-REGEXx'",
+    "source": "switch -REGEXx (1) {1 {}}",
+    "valid": false
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '1'",
+    "source": "foreach -parallel -throttlelimit 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '1'",
+    "source": "foreach -parallel -throttlelimit: 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' 'foo'",
+    "source": "foreach -parallel -throttlelimit foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' 'foo'",
+    "source": "foreach -parallel -throttlelimit: foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '$x'",
+    "source": "foreach -parallel -throttlelimit $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '$x'",
+    "source": "foreach -parallel -throttlelimit: $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '$x.Length'",
+    "source": "foreach -parallel -throttlelimit $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '$x.Length'",
+    "source": "foreach -parallel -throttlelimit: $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '(1)'",
+    "source": "foreach -parallel -throttlelimit (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '(1)'",
+    "source": "foreach -parallel -throttlelimit: (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '@(1)'",
+    "source": "foreach -parallel -throttlelimit @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '@(1)'",
+    "source": "foreach -parallel -throttlelimit: @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '$(1)'",
+    "source": "foreach -parallel -throttlelimit $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '$(1)'",
+    "source": "foreach -parallel -throttlelimit: $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '1,2'",
+    "source": "foreach -parallel -throttlelimit 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '1,2'",
+    "source": "foreach -parallel -throttlelimit: 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '\"a\"'",
+    "source": "foreach -parallel -throttlelimit \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '\"a\"'",
+    "source": "foreach -parallel -throttlelimit: \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '-x'",
+    "source": "foreach -parallel -throttlelimit -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '-x'",
+    "source": "foreach -parallel -throttlelimit: -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit' '-1'",
+    "source": "foreach -parallel -throttlelimit -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-throttlelimit:' '-1'",
+    "source": "foreach -parallel -throttlelimit: -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '1'",
+    "source": "foreach -parallel -t 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '1'",
+    "source": "foreach -parallel -t: 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' 'foo'",
+    "source": "foreach -parallel -t foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' 'foo'",
+    "source": "foreach -parallel -t: foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '$x'",
+    "source": "foreach -parallel -t $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '$x'",
+    "source": "foreach -parallel -t: $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '$x.Length'",
+    "source": "foreach -parallel -t $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '$x.Length'",
+    "source": "foreach -parallel -t: $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '(1)'",
+    "source": "foreach -parallel -t (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '(1)'",
+    "source": "foreach -parallel -t: (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '@(1)'",
+    "source": "foreach -parallel -t @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '@(1)'",
+    "source": "foreach -parallel -t: @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '$(1)'",
+    "source": "foreach -parallel -t $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '$(1)'",
+    "source": "foreach -parallel -t: $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '1,2'",
+    "source": "foreach -parallel -t 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '1,2'",
+    "source": "foreach -parallel -t: 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '\"a\"'",
+    "source": "foreach -parallel -t \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '\"a\"'",
+    "source": "foreach -parallel -t: \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '-x'",
+    "source": "foreach -parallel -t -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '-x'",
+    "source": "foreach -parallel -t: -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t' '-1'",
+    "source": "foreach -parallel -t -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-t:' '-1'",
+    "source": "foreach -parallel -t: -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '1'",
+    "source": "foreach -parallel —th 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '1'",
+    "source": "foreach -parallel —th: 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' 'foo'",
+    "source": "foreach -parallel —th foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' 'foo'",
+    "source": "foreach -parallel —th: foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '$x'",
+    "source": "foreach -parallel —th $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '$x'",
+    "source": "foreach -parallel —th: $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '$x.Length'",
+    "source": "foreach -parallel —th $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '$x.Length'",
+    "source": "foreach -parallel —th: $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '(1)'",
+    "source": "foreach -parallel —th (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '(1)'",
+    "source": "foreach -parallel —th: (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '@(1)'",
+    "source": "foreach -parallel —th @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '@(1)'",
+    "source": "foreach -parallel —th: @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '$(1)'",
+    "source": "foreach -parallel —th $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '$(1)'",
+    "source": "foreach -parallel —th: $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '1,2'",
+    "source": "foreach -parallel —th 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '1,2'",
+    "source": "foreach -parallel —th: 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '\"a\"'",
+    "source": "foreach -parallel —th \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '\"a\"'",
+    "source": "foreach -parallel —th: \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '-x'",
+    "source": "foreach -parallel —th -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '-x'",
+    "source": "foreach -parallel —th: -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th' '-1'",
+    "source": "foreach -parallel —th -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '—th:' '-1'",
+    "source": "foreach -parallel —th: -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '1'",
+    "source": "foreach -parallel -THROTTLELIMIT 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '1'",
+    "source": "foreach -parallel -THROTTLELIMIT: 1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' 'foo'",
+    "source": "foreach -parallel -THROTTLELIMIT foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' 'foo'",
+    "source": "foreach -parallel -THROTTLELIMIT: foo ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '$x'",
+    "source": "foreach -parallel -THROTTLELIMIT $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '$x'",
+    "source": "foreach -parallel -THROTTLELIMIT: $x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '$x.Length'",
+    "source": "foreach -parallel -THROTTLELIMIT $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '$x.Length'",
+    "source": "foreach -parallel -THROTTLELIMIT: $x.Length ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '(1)'",
+    "source": "foreach -parallel -THROTTLELIMIT (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '(1)'",
+    "source": "foreach -parallel -THROTTLELIMIT: (1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '@(1)'",
+    "source": "foreach -parallel -THROTTLELIMIT @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '@(1)'",
+    "source": "foreach -parallel -THROTTLELIMIT: @(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '$(1)'",
+    "source": "foreach -parallel -THROTTLELIMIT $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '$(1)'",
+    "source": "foreach -parallel -THROTTLELIMIT: $(1) ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '1,2'",
+    "source": "foreach -parallel -THROTTLELIMIT 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '1,2'",
+    "source": "foreach -parallel -THROTTLELIMIT: 1,2 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '\"a\"'",
+    "source": "foreach -parallel -THROTTLELIMIT \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '\"a\"'",
+    "source": "foreach -parallel -THROTTLELIMIT: \"a\" ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '-x'",
+    "source": "foreach -parallel -THROTTLELIMIT -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '-x'",
+    "source": "foreach -parallel -THROTTLELIMIT: -x ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT' '-1'",
+    "source": "foreach -parallel -THROTTLELIMIT -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach throttle '-THROTTLELIMIT:' '-1'",
+    "source": "foreach -parallel -THROTTLELIMIT: -1 ($x in 2) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "foreach missing throttle '-throttlelimit '",
+    "source": "foreach -throttlelimit  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-throttlelimit\\n'",
+    "source": "foreach -throttlelimit\n ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-throttlelimit <#x#> '",
+    "source": "foreach -throttlelimit <#x#>  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-throttlelimit: '",
+    "source": "foreach -throttlelimit:  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-throttlelimit:\\n'",
+    "source": "foreach -throttlelimit:\n ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-throttlelimit: <#x#> '",
+    "source": "foreach -throttlelimit: <#x#>  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-t '",
+    "source": "foreach -t  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-t\\n'",
+    "source": "foreach -t\n ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-t <#x#> '",
+    "source": "foreach -t <#x#>  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel -throttlelimit '",
+    "source": "foreach -parallel -throttlelimit  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel -throttlelimit\\n'",
+    "source": "foreach -parallel -throttlelimit\n ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel -throttlelimit <#x#> '",
+    "source": "foreach -parallel -throttlelimit <#x#>  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel -throttlelimit: '",
+    "source": "foreach -parallel -throttlelimit:  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel -throttlelimit:\\n'",
+    "source": "foreach -parallel -throttlelimit:\n ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel -throttlelimit: <#x#> '",
+    "source": "foreach -parallel -throttlelimit: <#x#>  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel: -t: '",
+    "source": "foreach -parallel: -t:  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel: -t:\\n'",
+    "source": "foreach -parallel: -t:\n ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach missing throttle '-parallel: -t: <#x#> '",
+    "source": "foreach -parallel: -t: <#x#>  ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel`'",
+    "source": "foreach -parallel` 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel` '",
+    "source": "foreach -parallel`  1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel<#x#>'",
+    "source": "foreach -parallel<#x#> 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel#x'",
+    "source": "foreach -parallel#x 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel\"x\"'",
+    "source": "foreach -parallel\"x\" 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallelx'",
+    "source": "foreach -parallelx 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-p`'",
+    "source": "foreach -p` 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-p` '",
+    "source": "foreach -p`  1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-p<#x#>'",
+    "source": "foreach -p<#x#> 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-p#x'",
+    "source": "foreach -p#x 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-p\"x\"'",
+    "source": "foreach -p\"x\" 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-px'",
+    "source": "foreach -px 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel:`'",
+    "source": "foreach -parallel:` 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel:` '",
+    "source": "foreach -parallel:`  1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel:<#x#>'",
+    "source": "foreach -parallel:<#x#> 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel:#x'",
+    "source": "foreach -parallel:#x 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel:\"x\"'",
+    "source": "foreach -parallel:\"x\" 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-parallel:x'",
+    "source": "foreach -parallel:x 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-throttlelimit`'",
+    "source": "foreach -throttlelimit` 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-throttlelimit` '",
+    "source": "foreach -throttlelimit`  1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-throttlelimit<#x#>'",
+    "source": "foreach -throttlelimit<#x#> 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-throttlelimit#x'",
+    "source": "foreach -throttlelimit#x 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-throttlelimit\"x\"'",
+    "source": "foreach -throttlelimit\"x\" 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-throttlelimitx'",
+    "source": "foreach -throttlelimitx 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-t:`'",
+    "source": "foreach -t:` 1 ($x in 1) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse",
+      "ThrottleLimitRequiresParallelFlag"
+    ]
+  },
+  {
+    "name": "foreach parameter suffix '-t:` '",
+    "source": "foreach -t:`  1 ($x in 1) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse",
+      "ThrottleLimitRequiresParallelFlag"
+    ]
+  },
+  {
+    "name": "foreach parameter suffix '-t:<#x#>'",
+    "source": "foreach -t:<#x#> 1 ($x in 1) {}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse",
+      "ThrottleLimitRequiresParallelFlag"
+    ]
+  },
+  {
+    "name": "foreach parameter suffix '-t:#x'",
+    "source": "foreach -t:#x 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-t:\"x\"'",
+    "source": "foreach -t:\"x\" 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "foreach parameter suffix '-t:x'",
+    "source": "foreach -t:x 1 ($x in 1) {}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file -not $x {1{}}",
+    "source": "switch -file -not $x {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t -not $x ($x in 1){}",
+    "source": "foreach -parallel -t -not $x ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file + $x {1{}}",
+    "source": "switch -file + $x {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t + $x ($x in 1){}",
+    "source": "foreach -parallel -t + $x ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file - $x {1{}}",
+    "source": "switch -file - $x {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t - $x ($x in 1){}",
+    "source": "foreach -parallel -t - $x ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file !$x {1{}}",
+    "source": "switch -file !$x {1{}}",
+    "valid": true
+  },
+  {
+    "name": "single header argument foreach -parallel -t !$x ($x in 1){}",
+    "source": "foreach -parallel -t !$x ($x in 1){}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument switch -file ! $x {1{}}",
+    "source": "switch -file ! $x {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t ! $x ($x in 1){}",
+    "source": "foreach -parallel -t ! $x ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file ++$x {1{}}",
+    "source": "switch -file ++$x {1{}}",
+    "valid": true
+  },
+  {
+    "name": "single header argument foreach -parallel -t ++$x ($x in 1){}",
+    "source": "foreach -parallel -t ++$x ($x in 1){}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument switch -file ++ $x {1{}}",
+    "source": "switch -file ++ $x {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t ++ $x ($x in 1){}",
+    "source": "foreach -parallel -t ++ $x ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file --$x {1{}}",
+    "source": "switch -file --$x {1{}}",
+    "valid": true
+  },
+  {
+    "name": "single header argument foreach -parallel -t --$x ($x in 1){}",
+    "source": "foreach -parallel -t --$x ($x in 1){}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument switch -file [int]$x {1{}}",
+    "source": "switch -file [int]$x {1{}}",
+    "valid": true
+  },
+  {
+    "name": "single header argument foreach -parallel -t [int]$x ($x in 1){}",
+    "source": "foreach -parallel -t [int]$x ($x in 1){}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument switch -file [int] $x {1{}}",
+    "source": "switch -file [int] $x {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t [int] $x ($x in 1){}",
+    "source": "foreach -parallel -t [int] $x ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file $x++ {1{}}",
+    "source": "switch -file $x++ {1{}}",
+    "valid": true
+  },
+  {
+    "name": "single header argument foreach -parallel -t $x++ ($x in 1){}",
+    "source": "foreach -parallel -t $x++ ($x in 1){}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument switch -file $x ++ {1{}}",
+    "source": "switch -file $x ++ {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t $x ++ ($x in 1){}",
+    "source": "foreach -parallel -t $x ++ ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file -1e-2.ToString() {1{}}",
+    "source": "switch -file -1e-2.ToString() {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t -1e-2.ToString() ($x in 1){}",
+    "source": "foreach -parallel -t -1e-2.ToString() ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument switch -file +1e-2.ToString() {1{}}",
+    "source": "switch -file +1e-2.ToString() {1{}}",
+    "valid": false
+  },
+  {
+    "name": "single header argument foreach -parallel -t +1e-2.ToString() ($x in 1){}",
+    "source": "foreach -parallel -t +1e-2.ToString() ($x in 1){}",
+    "valid": false
+  },
+  {
+    "name": "single header argument @{a=foreach -parallel -t:1,2 ($x in 3) {}}",
+    "source": "@{a=foreach -parallel -t:1,2 ($x in 3) {}}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument function f {foreach -parallel -t:1,2 ($x in 3) {}}",
+    "source": "function f {foreach -parallel -t:1,2 ($x in 3) {}}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument { foreach -parallel -t:1,2 ($x in 3) {} }",
+    "source": "{ foreach -parallel -t:1,2 ($x in 3) {} }",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "single header argument \"$(foreach -parallel -t:1,2 ($x in 3) {})\"",
+    "source": "\"$(foreach -parallel -t:1,2 ($x in 3) {})\"",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ]
+  },
+  {
+    "name": "param commitment source param(1)",
+    "source": "param(1)",
+    "valid": false
+  },
+  {
+    "name": "param commitment function param(1)",
+    "source": "function f {param(1)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment scriptblock param(1)",
+    "source": "{param(1)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment ordinary statement param(1)",
+    "source": "1; param(1)",
+    "valid": true
+  },
+  {
+    "name": "param commitment statement body param(1)",
+    "source": "if (1) {param(1)}",
+    "valid": true
+  },
+  {
+    "name": "param commitment source param($x,)",
+    "source": "param($x,)",
+    "valid": false
+  },
+  {
+    "name": "param commitment function param($x,)",
+    "source": "function f {param($x,)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment scriptblock param($x,)",
+    "source": "{param($x,)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment ordinary statement param($x,)",
+    "source": "1; param($x,)",
+    "valid": false
+  },
+  {
+    "name": "param commitment statement body param($x,)",
+    "source": "if (1) {param($x,)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment source param($x=)",
+    "source": "param($x=)",
+    "valid": false
+  },
+  {
+    "name": "param commitment function param($x=)",
+    "source": "function f {param($x=)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment scriptblock param($x=)",
+    "source": "{param($x=)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment ordinary statement param($x=)",
+    "source": "1; param($x=)",
+    "valid": false
+  },
+  {
+    "name": "param commitment statement body param($x=)",
+    "source": "if (1) {param($x=)}",
+    "valid": false
+  },
+  {
+    "name": "param commitment source param($x=@{a=1,2})",
+    "source": "param($x=@{a=1,2})",
+    "valid": false
+  },
+  {
+    "name": "param commitment function param($x=@{a=1,2})",
+    "source": "function f {param($x=@{a=1,2})}",
+    "valid": false
+  },
+  {
+    "name": "param commitment scriptblock param($x=@{a=1,2})",
+    "source": "{param($x=@{a=1,2})}",
+    "valid": false
+  },
+  {
+    "name": "param commitment ordinary statement param($x=@{a=1,2})",
+    "source": "1; param($x=@{a=1,2})",
+    "valid": true
+  },
+  {
+    "name": "param commitment statement body param($x=@{a=1,2})",
+    "source": "if (1) {param($x=@{a=1,2})}",
+    "valid": true
+  },
+  {
+    "name": "param commitment source param($x=@{})",
+    "source": "param($x=@{})",
+    "valid": true
+  },
+  {
+    "name": "param commitment function param($x=@{})",
+    "source": "function f {param($x=@{})}",
+    "valid": true
+  },
+  {
+    "name": "param commitment scriptblock param($x=@{})",
+    "source": "{param($x=@{})}",
+    "valid": true
+  },
+  {
+    "name": "param commitment ordinary statement param($x=@{})",
+    "source": "1; param($x=@{})",
+    "valid": true
+  },
+  {
+    "name": "param commitment statement body param($x=@{})",
+    "source": "if (1) {param($x=@{})}",
+    "valid": true
+  },
+  {
+    "name": "param malformed list after '\\n'",
+    "source": "param\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param malformed list after ' <#x#> '",
+    "source": "param <#x#> (1)",
+    "valid": false
+  },
+  {
+    "name": "param malformed list after ' #x\\n'",
+    "source": "param #x\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param malformed list after ' `\\n'",
+    "source": "param `\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param malformed list after ' ` \\n'",
+    "source": "param ` \n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead space source $x",
+    "source": "PARAM ($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead space attribute $x",
+    "source": "[A()] PARAM ($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead space body $x",
+    "source": "function f {PARAM ($x)}",
+    "valid": true
+  },
+  {
+    "name": "param lookahead space ordinary $x",
+    "source": "1;PARAM ($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead space quoted function $x",
+    "source": "\"$(function f {PARAM ($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead space quoted attribute function $x",
+    "source": "\"$(function f {[A()] PARAM ($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead space source 1",
+    "source": "PARAM (1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead space attribute 1",
+    "source": "[A()] PARAM (1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead space body 1",
+    "source": "function f {PARAM (1)}",
+    "valid": false
+  },
+  {
+    "name": "param lookahead space ordinary 1",
+    "source": "1;PARAM (1)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead space quoted function 1",
+    "source": "\"$(function f {PARAM (1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead space quoted attribute function 1",
+    "source": "\"$(function f {[A()] PARAM (1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead CRLF source $x",
+    "source": "PARAM\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead CRLF attribute $x",
+    "source": "[A()] PARAM\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead CRLF body $x",
+    "source": "function f {PARAM\r\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param lookahead CRLF ordinary $x",
+    "source": "1;PARAM\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead CRLF quoted function $x",
+    "source": "\"$(function f {PARAM\r\n($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead CRLF quoted attribute function $x",
+    "source": "\"$(function f {[A()] PARAM\r\n($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead CRLF source 1",
+    "source": "PARAM\r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead CRLF attribute 1",
+    "source": "[A()] PARAM\r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead CRLF body 1",
+    "source": "function f {PARAM\r\n(1)}",
+    "valid": false
+  },
+  {
+    "name": "param lookahead CRLF ordinary 1",
+    "source": "1;PARAM\r\n(1)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead CRLF quoted function 1",
+    "source": "\"$(function f {PARAM\r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead CRLF quoted attribute function 1",
+    "source": "\"$(function f {[A()] PARAM\r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead block comment source $x",
+    "source": "PARAM <#(\"\")#> ($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead block comment attribute $x",
+    "source": "[A()] PARAM <#(\"\")#> ($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead block comment body $x",
+    "source": "function f {PARAM <#(\"\")#> ($x)}",
+    "valid": true
+  },
+  {
+    "name": "param lookahead block comment ordinary $x",
+    "source": "1;PARAM <#(\"\")#> ($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead block comment quoted function $x",
+    "source": "\"$(function f {PARAM <#(\"\")#> ($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead block comment quoted attribute function $x",
+    "source": "\"$(function f {[A()] PARAM <#(\"\")#> ($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead block comment source 1",
+    "source": "PARAM <#(\"\")#> (1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead block comment attribute 1",
+    "source": "[A()] PARAM <#(\"\")#> (1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead block comment body 1",
+    "source": "function f {PARAM <#(\"\")#> (1)}",
+    "valid": false
+  },
+  {
+    "name": "param lookahead block comment ordinary 1",
+    "source": "1;PARAM <#(\"\")#> (1)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead block comment quoted function 1",
+    "source": "\"$(function f {PARAM <#(\"\")#> (1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead block comment quoted attribute function 1",
+    "source": "\"$(function f {[A()] PARAM <#(\"\")#> (1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead line comment source $x",
+    "source": "PARAM # )\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead line comment attribute $x",
+    "source": "[A()] PARAM # )\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead line comment body $x",
+    "source": "function f {PARAM # )\r\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param lookahead line comment ordinary $x",
+    "source": "1;PARAM # )\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead line comment quoted function $x",
+    "source": "\"$(function f {PARAM # )\r\n($x)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead line comment quoted attribute function $x",
+    "source": "\"$(function f {[A()] PARAM # )\r\n($x)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead line comment source 1",
+    "source": "PARAM # )\r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead line comment attribute 1",
+    "source": "[A()] PARAM # )\r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead line comment body 1",
+    "source": "function f {PARAM # )\r\n(1)}",
+    "valid": false
+  },
+  {
+    "name": "param lookahead line comment ordinary 1",
+    "source": "1;PARAM # )\r\n(1)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead line comment quoted function 1",
+    "source": "\"$(function f {PARAM # )\r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead line comment quoted attribute function 1",
+    "source": "\"$(function f {[A()] PARAM # )\r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead continuation source $x",
+    "source": "PARAM `\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead continuation attribute $x",
+    "source": "[A()] PARAM `\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead continuation body $x",
+    "source": "function f {PARAM `\r\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param lookahead continuation ordinary $x",
+    "source": "1;PARAM `\r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead continuation quoted function $x",
+    "source": "\"$(function f {PARAM `\r\n($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead continuation quoted attribute function $x",
+    "source": "\"$(function f {[A()] PARAM `\r\n($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead continuation source 1",
+    "source": "PARAM `\r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead continuation attribute 1",
+    "source": "[A()] PARAM `\r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead continuation body 1",
+    "source": "function f {PARAM `\r\n(1)}",
+    "valid": false
+  },
+  {
+    "name": "param lookahead continuation ordinary 1",
+    "source": "1;PARAM `\r\n(1)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead continuation quoted function 1",
+    "source": "\"$(function f {PARAM `\r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead continuation quoted attribute function 1",
+    "source": "\"$(function f {[A()] PARAM `\r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead escaped whitespace source $x",
+    "source": "PARAM ` \r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead escaped whitespace attribute $x",
+    "source": "[A()] PARAM ` \r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead escaped whitespace body $x",
+    "source": "function f {PARAM ` \r\n($x)}",
+    "valid": true
+  },
+  {
+    "name": "param lookahead escaped whitespace ordinary $x",
+    "source": "1;PARAM ` \r\n($x)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead escaped whitespace quoted function $x",
+    "source": "\"$(function f {PARAM ` \r\n($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead escaped whitespace quoted attribute function $x",
+    "source": "\"$(function f {[A()] PARAM ` \r\n($x)})\"",
+    "valid": true
+  },
+  {
+    "name": "param lookahead escaped whitespace source 1",
+    "source": "PARAM ` \r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead escaped whitespace attribute 1",
+    "source": "[A()] PARAM ` \r\n(1)",
+    "valid": false
+  },
+  {
+    "name": "param lookahead escaped whitespace body 1",
+    "source": "function f {PARAM ` \r\n(1)}",
+    "valid": false
+  },
+  {
+    "name": "param lookahead escaped whitespace ordinary 1",
+    "source": "1;PARAM ` \r\n(1)",
+    "valid": true
+  },
+  {
+    "name": "param lookahead escaped whitespace quoted function 1",
+    "source": "\"$(function f {PARAM ` \r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "param lookahead escaped whitespace quoted attribute function 1",
+    "source": "\"$(function f {[A()] PARAM ` \r\n(1)})\"",
+    "valid": false
+  },
+  {
+    "name": "reserved foreach parallel flag",
+    "source": "foreach -p ($item in $items) { $item }\n",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel full flag",
+    "source": "foreach -parallel ($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel abbreviated flag",
+    "source": "foreach -pa ($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel uppercase flag",
+    "source": "foreach -P ($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel smart dash flag",
+    "source": "foreach —p ($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel colon flag",
+    "source": "foreach -p: ($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel colon CRLF",
+    "source": "foreach -parallel:\r\n($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel flag newline",
+    "source": "foreach -p\n($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel flag comment",
+    "source": "foreach -p <#x#> ($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel repeated flags",
+    "source": "foreach -p -parallel ($item in $items) {$item}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel function body",
+    "source": "function f {foreach -p ($item in $items) {$item}}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  },
+  {
+    "name": "reserved foreach parallel hash value",
+    "source": "@{a=foreach -p ($item in $items) {$item}}",
+    "valid": false,
+    "semantic_errors": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "parallel_only": true
+  }
+]

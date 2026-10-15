@@ -1218,11 +1218,6 @@
     "valid": false
   },
   {
-    "name": "reserved foreach parallel flag",
-    "source": "foreach -p ($item in $items) { $item }\n",
-    "valid": false
-  },
-  {
     "name": "data supported command abbreviated flag",
     "source": "data D -s ConvertFrom-StringData { @{ X = 1 } }\n",
     "valid": true

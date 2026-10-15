@@ -309,3 +309,30 @@ fn combined_opening_delimiters_are_not_split() {
         ],
     );
 }
+
+#[test]
+fn contextual_param_and_verbatim_invocation_keep_their_roles() {
+    let source = "param($x)\nparam a\n& --% \"$HOME\"\n";
+    let captures = captures(source);
+    assert_category(
+        &captures,
+        source,
+        "keyword",
+        &[
+            span(source, "param($x)", "param"),
+            span(source, "& --%", "--%"),
+        ],
+    );
+    assert_category(
+        &captures,
+        source,
+        "function.call",
+        &[span(source, "param a", "param")],
+    );
+    assert_category(
+        &captures,
+        source,
+        "variable",
+        &[span(source, "param($x)", "$x")],
+    );
+}

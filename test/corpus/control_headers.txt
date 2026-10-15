@@ -1,0 +1,77 @@
+==================
+A leading param without a parameter list remains an ordinary command
+==================
+param a
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name (bare_word))
+      (command_argument (bare_word)))))
+
+==================
+A complete leading parameter block wins over command parsing
+==================
+param
+($x)
+
+---
+
+(source_file
+  (param_block
+    parameters: (parameter_list
+      (parameter name: (variable)))))
+
+==================
+A switch filename begins after the complete colon-suffixed parameter token
+==================
+switch -f:$path.Length {default {}}
+
+---
+
+(source_file
+  (switch_statement
+    file: (command_argument
+      (member_access
+        object: (variable)
+        member: (identifier)))
+    clauses: (switch_clause
+      body: (statement_block))))
+
+==================
+A data supported-command name begins after its colon-suffixed parameter
+==================
+data -s:foo {}
+
+---
+
+(source_file
+  (data_statement
+    supported_commands: (bare_word)
+    body: (statement_block)))
+
+==================
+A foreach throttle parameter owns its complete parenthesized value
+==================
+foreach -parallel -t:(1,2) ($x in 3) {}
+
+---
+
+(source_file
+  (foreach_statement
+    parameters: (foreach_parameter)
+    parameters: (foreach_parameter
+      value: (command_argument
+        (parenthesized_expression
+          (pipeline
+            elements: (command_expression
+              expression: (array_literal_expression
+                (integer_literal)
+                (integer_literal)))))))
+    variable: (variable)
+    value: (pipeline
+      elements: (command_expression
+        expression: (integer_literal)))
+    body: (statement_block)))

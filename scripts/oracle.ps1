@@ -207,6 +207,7 @@ function Get-AstRecord($Node) {
             $record.label = $Node.Label
             if ($record.type -eq 'ForEachStatementAst') {
                 Add-AstField $fields 'variable' $Node.Variable
+                Add-AstField $fields 'throttleLimit' $Node.ThrottleLimit
             } elseif ($record.type -eq 'ForStatementAst') {
                 Add-AstField $fields 'initializer' $Node.Initializer
                 Add-AstField $fields 'iterator' $Node.Iterator
@@ -319,16 +320,22 @@ foreach ($case in $cases) {
             $astNodes.Add($node)
         }
     }
-    # DataStatementAst's visitor omits CommandsAllowed. Visit these expression
-    # trees explicitly so their argument boundaries and grouping are compared.
+    # These AST visitors omit their header expressions. Visit the subtrees
+    # explicitly so their argument boundaries and grouping are compared too.
     for ($index = 0; $index -lt $astNodes.Count; $index++) {
         $node = $astNodes[$index]
-        if ($node -is [Management.Automation.Language.DataStatementAst]) {
-            foreach ($command in $node.CommandsAllowed) {
-                foreach ($child in $command.FindAll({ param($node) $true }, $true)) {
-                    if ($seenAstNodes.Add($child)) {
-                        $astNodes.Add($child)
-                    }
+        $headerExpressions = if ($node -is [Management.Automation.Language.DataStatementAst]) {
+            @($node.CommandsAllowed)
+        } elseif ($node -is [Management.Automation.Language.ForEachStatementAst] -and
+            $null -ne $node.ThrottleLimit) {
+            @($node.ThrottleLimit)
+        } else {
+            @()
+        }
+        foreach ($expression in $headerExpressions) {
+            foreach ($child in $expression.FindAll({ param($node) $true }, $true)) {
+                if ($seenAstNodes.Add($child)) {
+                    $astNodes.Add($child)
                 }
             }
         }

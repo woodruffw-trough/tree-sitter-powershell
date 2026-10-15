@@ -131,6 +131,13 @@ fn public_node_types_distinguish_scalar_roles_from_repeated_lists() {
             "command",
             true,
             false,
+            vec!["command_argument", "command_parameter"],
+        ),
+        (
+            "foreach_parameter",
+            "value",
+            false,
+            false,
             vec!["command_argument"],
         ),
         (

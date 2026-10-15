@@ -1863,7 +1863,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "argument_fragment",
@@ -1943,6 +1943,10 @@
         },
         {
           "type": "splat_expression",
+          "named": true
+        },
+        {
+          "type": "string_content",
           "named": true
         },
         {
@@ -3001,7 +3005,18 @@
   {
     "type": "foreach_parameter",
     "named": true,
-    "fields": {}
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "command_argument",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "foreach_statement",
@@ -3437,6 +3452,10 @@
         "types": [
           {
             "type": "command_argument",
+            "named": true
+          },
+          {
+            "type": "command_parameter",
             "named": true
           }
         ]

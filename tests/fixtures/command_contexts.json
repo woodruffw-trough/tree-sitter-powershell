@@ -1,0 +1,2372 @@
+[
+  {
+    "name": "command lexical context 000",
+    "source": "& > next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 001",
+    "source": ". > next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 002",
+    "source": "& >> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 003",
+    "source": ". >> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 004",
+    "source": "& 1> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 005",
+    "source": ". 1> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 006",
+    "source": "& 2> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 007",
+    "source": ". 2> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 008",
+    "source": "& *> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 009",
+    "source": ". *> next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 010",
+    "source": "& 2>&1 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 011",
+    "source": ". 2>&1 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 012",
+    "source": "& 3>&1 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 013",
+    "source": ". 3>&1 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 014",
+    "source": "& 1>&2 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 015",
+    "source": ". 1>&2 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 016",
+    "source": "& 1>&1 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 017",
+    "source": ". 1>&1 next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 018",
+    "source": "& < next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 019",
+    "source": ". < next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 020",
+    "source": "& -- next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 021",
+    "source": ". -- next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 022",
+    "source": "& --% next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 023",
+    "source": ". --% next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 024",
+    "source": "& -foo next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 025",
+    "source": ". -foo next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 026",
+    "source": "& -foo:bar next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 027",
+    "source": ". -foo:bar next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 028",
+    "source": "cmd -foo",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 029",
+    "source": "cmd -- -foo",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 030",
+    "source": "cmd -p:-foo",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 031",
+    "source": "cmd >-foo",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 032",
+    "source": "& -foo",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 033",
+    "source": "cmd -foo.bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 034",
+    "source": "cmd -- -foo.bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 035",
+    "source": "cmd -p:-foo.bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 036",
+    "source": "cmd >-foo.bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 037",
+    "source": "& -foo.bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 038",
+    "source": "cmd -foo[0]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 039",
+    "source": "cmd -- -foo[0]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 040",
+    "source": "cmd -p:-foo[0]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 041",
+    "source": "cmd >-foo[0]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 042",
+    "source": "& -foo[0]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 043",
+    "source": "cmd -foo$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 044",
+    "source": "cmd -- -foo$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 045",
+    "source": "cmd -p:-foo$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 046",
+    "source": "cmd >-foo$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 047",
+    "source": "& -foo$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 048",
+    "source": "cmd -foo\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 049",
+    "source": "cmd -- -foo\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 050",
+    "source": "cmd -p:-foo\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 051",
+    "source": "cmd >-foo\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 052",
+    "source": "& -foo\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 053",
+    "source": "cmd -foo'x'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 054",
+    "source": "cmd -- -foo'x'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 055",
+    "source": "cmd -p:-foo'x'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 056",
+    "source": "cmd >-foo'x'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 057",
+    "source": "& -foo'x'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 058",
+    "source": "cmd -foo` x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 059",
+    "source": "cmd -- -foo` x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 060",
+    "source": "cmd -p:-foo` x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 061",
+    "source": "cmd >-foo` x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 062",
+    "source": "& -foo` x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 063",
+    "source": "cmd -foo:bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 064",
+    "source": "cmd -- -foo:bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 065",
+    "source": "cmd -p:-foo:bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 066",
+    "source": "cmd >-foo:bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 067",
+    "source": "& -foo:bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 068",
+    "source": "cmd --",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 069",
+    "source": "cmd -- --",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 070",
+    "source": "cmd -p:--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 071",
+    "source": "cmd >--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 072",
+    "source": "& --",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 073",
+    "source": "cmd ---",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 074",
+    "source": "cmd -- ---",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 075",
+    "source": "cmd -p:---",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 076",
+    "source": "cmd >---",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 077",
+    "source": "& ---",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 078",
+    "source": "cmd ----",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 079",
+    "source": "cmd -- ----",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 080",
+    "source": "cmd -p:----",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 081",
+    "source": "cmd >----",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 082",
+    "source": "& ----",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 083",
+    "source": "cmd --%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 084",
+    "source": "cmd -- --%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 085",
+    "source": "cmd -p:--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 086",
+    "source": "cmd >--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 087",
+    "source": "& --%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 088",
+    "source": "cmd -- –foo",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 089",
+    "source": "cmd -p:–foo",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 090",
+    "source": "cmd -?:x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 091",
+    "source": "cmd -- -?:x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 092",
+    "source": "cmd -p:-?:x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 093",
+    "source": "& -?:x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 094",
+    "source": "cmd -- -#x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 095",
+    "source": "cmd -p:-#x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 096",
+    "source": "cmd -- -!x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 097",
+    "source": "cmd -p:-!x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 098",
+    "source": "cmd -$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 099",
+    "source": "cmd -- -$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 100",
+    "source": "cmd -p:-$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 101",
+    "source": "& -$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 102",
+    "source": "cmd -- -@a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 103",
+    "source": "cmd -p:-@a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 104",
+    "source": "cmd -- -.a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 105",
+    "source": "cmd -p:-.a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 106",
+    "source": "cmd -- -[]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 107",
+    "source": "cmd -p:-[]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 108",
+    "source": "cmd -- -\u0000a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 109",
+    "source": "cmd -p:-\u0000a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 110",
+    "source": "cmd -foo\u0000a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 111",
+    "source": "cmd -- -foo\u0000a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 112",
+    "source": "cmd -p:-foo\u0000a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 113",
+    "source": "cmd >-foo\u0000a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 114",
+    "source": "& -foo\u0000a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 115",
+    "source": "cmd -x:a,b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 116",
+    "source": "cmd -x:a, b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 117",
+    "source": "cmd --,a",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 118",
+    "source": "cmd -- a,b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 119",
+    "source": "cmd -- -x:a,b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 120",
+    "source": "cmd -x:-y,z",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 121",
+    "source": "cmd -x:-y:1",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 122",
+    "source": "cmd -x:-x.z",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 123",
+    "source": "cmd -x:-x[0]",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 124",
+    "source": "1 >--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 125",
+    "source": "1 >--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 126",
+    "source": "cmd -x:>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 127",
+    "source": "cmd -x:>--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 128",
+    "source": "& >--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 129",
+    "source": "& >--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 130",
+    "source": "cmd >>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 131",
+    "source": "cmd >>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 132",
+    "source": "1 >>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 133",
+    "source": "1 >>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 134",
+    "source": "cmd -x:>>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 135",
+    "source": "cmd -x:>>--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 136",
+    "source": "& >>--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 137",
+    "source": "& >>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 138",
+    "source": "cmd 1>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 139",
+    "source": "cmd 1>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 140",
+    "source": "1 1>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 141",
+    "source": "1 1>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 142",
+    "source": "cmd -x:1>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 143",
+    "source": "cmd -x:1>--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 144",
+    "source": "& 1>--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 145",
+    "source": "& 1>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 146",
+    "source": "cmd 2>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 147",
+    "source": "cmd 2>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 148",
+    "source": "1 2>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 149",
+    "source": "1 2>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 150",
+    "source": "cmd -x:2>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 151",
+    "source": "cmd -x:2>--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 152",
+    "source": "& 2>--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 153",
+    "source": "& 2>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 154",
+    "source": "cmd 2>&1--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 155",
+    "source": "cmd 2>&1--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 156",
+    "source": "1 2>&1--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 157",
+    "source": "1 2>&1--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 158",
+    "source": "cmd -x:2>&1--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 159",
+    "source": "cmd -x:2>&1--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 160",
+    "source": "& 2>&1",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 161",
+    "source": "& 2>&1--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 162",
+    "source": "& 2>&1--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 163",
+    "source": "cmd 3>&1--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 164",
+    "source": "cmd 3>&1--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 165",
+    "source": "1 3>&1--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 166",
+    "source": "1 3>&1--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 167",
+    "source": "cmd -x:3>&1--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 168",
+    "source": "cmd -x:3>&1--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 169",
+    "source": "& 3>&1",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 170",
+    "source": "& 3>&1--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 171",
+    "source": "& 3>&1--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 172",
+    "source": "& 1>&2--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 173",
+    "source": "& 1>&2--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 174",
+    "source": "& 1>&1",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 175",
+    "source": "& 1>&1--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 176",
+    "source": "& 1>&1--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 177",
+    "source": "cmd *>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 178",
+    "source": "cmd *>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 179",
+    "source": "1 *>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 180",
+    "source": "1 *>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 181",
+    "source": "cmd -x:*>--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 182",
+    "source": "cmd -x:*>--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 183",
+    "source": "& *>--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 184",
+    "source": "& *>--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 185",
+    "source": "cmd *>&1--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 186",
+    "source": "cmd *>&1--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 187",
+    "source": "1 *>&1--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 188",
+    "source": "1 *>&1--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 189",
+    "source": "cmd -x:*>&1--",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 190",
+    "source": "cmd -x:*>&1--%",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 191",
+    "source": "& *>&1",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 192",
+    "source": "& *>&1--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 193",
+    "source": "& *>&1--%",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 194",
+    "source": "cmd -- -p:1 -- -x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 195",
+    "source": "cmd -p:-- -- -x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 196",
+    "source": "cmd -p:--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 197",
+    "source": "-- -x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 198",
+    "source": "--% x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 199",
+    "source": "cmd -p: -x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 200",
+    "source": "cmd -p:\n-x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 201",
+    "source": "cmd -p:<#c#>-x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 202",
+    "source": "cmd -p:`\n-x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 203",
+    "source": "cmd -p: >x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 204",
+    "source": "cmd -p: &x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 205",
+    "source": "cmd -p: | x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 206",
+    "source": "cmd -p: ; x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 207",
+    "source": "--% x|next",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 208",
+    "source": "& --% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 209",
+    "source": ". --% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 210",
+    "source": "cmd --% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 211",
+    "source": "cmd -- --% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 212",
+    "source": "cmd >--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 213",
+    "source": "switch -file --% { default {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 214",
+    "source": "switch(1){ --% {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 215",
+    "source": "`--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 216",
+    "source": "& `--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 217",
+    "source": ". `--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 218",
+    "source": "cmd `--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 219",
+    "source": "cmd -- `--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 220",
+    "source": "cmd -p:`--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 221",
+    "source": "cmd >`--% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 222",
+    "source": "switch -file `--% { default {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 223",
+    "source": "switch(1){ `--% {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 224",
+    "source": "--`% x|next",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 225",
+    "source": "& --`% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 226",
+    "source": ". --`% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 227",
+    "source": "cmd --`% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 228",
+    "source": "cmd -- --`% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 229",
+    "source": "cmd -p:--`% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 230",
+    "source": "cmd >--`% x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 231",
+    "source": "switch -file --`% { default {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 232",
+    "source": "switch(1){ --`% {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 233",
+    "source": "\"--%\" x|next",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 234",
+    "source": "& \"--%\" x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 235",
+    "source": ". \"--%\" x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 236",
+    "source": "cmd \"--%\" x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 237",
+    "source": "cmd -- \"--%\" x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 238",
+    "source": "cmd -p:\"--%\" x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 239",
+    "source": "cmd >\"--%\" x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 240",
+    "source": "switch -file \"--%\" { default {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 241",
+    "source": "switch(1){ \"--%\" {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 242",
+    "source": "'--%' x|next",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 243",
+    "source": "& '--%' x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 244",
+    "source": ". '--%' x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 245",
+    "source": "cmd '--%' x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 246",
+    "source": "cmd -- '--%' x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 247",
+    "source": "cmd -p:'--%' x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 248",
+    "source": "cmd >'--%' x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 249",
+    "source": "switch -file '--%' { default {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 250",
+    "source": "switch(1){ '--%' {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 251",
+    "source": "-- x|next",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 252",
+    "source": "& -- x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 253",
+    "source": ". -- x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 254",
+    "source": "cmd -- x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 255",
+    "source": "cmd -- -- x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 256",
+    "source": "cmd -p:-- x|next",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 257",
+    "source": "cmd >-- x|next",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 258",
+    "source": "switch -file -- { default {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 259",
+    "source": "switch(1){ -- {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 260",
+    "source": "cmd -- -a x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 261",
+    "source": "cmd -p:-a x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 262",
+    "source": "-a.b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 263",
+    "source": "& -a.b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 264",
+    "source": ". -a.b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 265",
+    "source": "cmd -a.b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 266",
+    "source": "cmd -- -a.b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 267",
+    "source": "cmd -p:-a.b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 268",
+    "source": "cmd >-a.b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 269",
+    "source": "switch -file -a.b { default {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 270",
+    "source": "switch(1){ -a.b {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 271",
+    "source": "-a[b] x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 272",
+    "source": "& -a[b] x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 273",
+    "source": ". -a[b] x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 274",
+    "source": "cmd -a[b] x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 275",
+    "source": "cmd -- -a[b] x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 276",
+    "source": "cmd -p:-a[b] x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 277",
+    "source": "cmd >-a[b] x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 278",
+    "source": "switch -file -a[b] { default {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 279",
+    "source": "switch(1){ -a[b] {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 280",
+    "source": "-a:b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 281",
+    "source": "& -a:b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 282",
+    "source": ". -a:b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 283",
+    "source": "cmd -a:b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 284",
+    "source": "cmd -- -a:b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 285",
+    "source": "cmd -p:-a:b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 286",
+    "source": "cmd >-a:b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 287",
+    "source": "switch -file -a:b { default {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 288",
+    "source": "switch(1){ -a:b {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 289",
+    "source": "-a$x x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 290",
+    "source": "& -a$x x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 291",
+    "source": ". -a$x x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 292",
+    "source": "cmd -a$x x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 293",
+    "source": "cmd -- -a$x x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 294",
+    "source": "cmd -p:-a$x x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 295",
+    "source": "cmd >-a$x x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 296",
+    "source": "switch -file -a$x { default {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 297",
+    "source": "switch(1){ -a$x {} }",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 298",
+    "source": "-a` b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 299",
+    "source": "& -a` b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 300",
+    "source": ". -a` b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 301",
+    "source": "cmd -a` b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 302",
+    "source": "cmd -- -a` b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 303",
+    "source": "cmd -p:-a` b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 304",
+    "source": "cmd >-a` b x|next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 305",
+    "source": "switch -file -a` b { default {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 306",
+    "source": "switch(1){ -a` b {} }",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 307",
+    "source": "cmd -- -p:a -p:b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 308",
+    "source": "cmd -- -p:$x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 309",
+    "source": "cmd -- -p:\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 310",
+    "source": "cmd -- -p:--",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 311",
+    "source": "cmd -p:-x`\ny",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 312",
+    "source": "cmd -p:-x#y",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 313",
+    "source": "cmd -p:-x>y",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 314",
+    "source": "cmd -p:-x\u0000y",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 315",
+    "source": "cmd -- -x`\ny",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 316",
+    "source": "-foo:bar next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 317",
+    "source": "-foo.bar next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 318",
+    "source": "-foo$x next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 319",
+    "source": "-foo` x next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 320",
+    "source": "cmd -p:foo -- -x.y",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 321",
+    "source": "cmd -p:-a,b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 322",
+    "source": "cmd -p:--x,y",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 323",
+    "source": "cmd -p:---,x",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 324",
+    "source": "cmd -p:––,x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 325",
+    "source": "cmd -p:-x:a,b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 326",
+    "source": "cmd >-a:bar,b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 327",
+    "source": "cmd -- -a,b",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 328",
+    "source": "cmd -- --,x",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 329",
+    "source": "cmd -- –– -p:a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 330",
+    "source": "<x {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 331",
+    "source": ">x {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 332",
+    "source": "<$#x#>",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 333",
+    "source": "<<##x#>",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 334",
+    "source": "<#x##>>",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 335",
+    "source": "cmd a$",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 336",
+    "source": "cmd $x$",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 337",
+    "source": "cmd --%$ a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 338",
+    "source": "cmd -$-% a",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 339",
+    "source": "& --%   ",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 340",
+    "source": "& --% | next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 341",
+    "source": ". --% x || next",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 342",
+    "source": "--%   ",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 343",
+    "source": "native --%   ",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 344",
+    "source": "cmd a,-foo.bar",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 345",
+    "source": "cmd -p:-foo.bar,b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 346",
+    "source": "cmd -- --,a",
+    "valid": false
+  },
+  {
+    "name": "command lexical context 347",
+    "source": "cmd a` b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 348",
+    "source": "cmd $x` b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 349",
+    "source": "cmd `  -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 350",
+    "source": "cmd a `  -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 351",
+    "source": "cmd ` b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 352",
+    "source": "cmd ` 'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 353",
+    "source": "cmd ` $v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 354",
+    "source": "cmd ` (1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 355",
+    "source": "function `  f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 356",
+    "source": "data `  x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 357",
+    "source": "cmd `\t -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 358",
+    "source": "cmd a `\t -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 359",
+    "source": "cmd a`\tb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 360",
+    "source": "cmd `\tb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 361",
+    "source": "cmd `\t'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 362",
+    "source": "cmd `\t$v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 363",
+    "source": "cmd `\t(1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 364",
+    "source": "function `\t f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 365",
+    "source": "data `\t x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 366",
+    "source": "cmd `\f -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 367",
+    "source": "cmd a `\f -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 368",
+    "source": "cmd a`\fb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 369",
+    "source": "cmd `\fb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 370",
+    "source": "cmd `\f'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 371",
+    "source": "cmd `\f$v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 372",
+    "source": "cmd `\f(1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 373",
+    "source": "function `\f f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 374",
+    "source": "data `\f x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 375",
+    "source": "cmd `\u000b -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 376",
+    "source": "cmd a `\u000b -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 377",
+    "source": "cmd a`\u000bb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 378",
+    "source": "cmd `\u000bb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 379",
+    "source": "cmd `\u000b'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 380",
+    "source": "cmd `\u000b$v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 381",
+    "source": "cmd `\u000b(1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 382",
+    "source": "function `\u000b f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 383",
+    "source": "data `\u000b x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 384",
+    "source": "cmd ` -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 385",
+    "source": "cmd a ` -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 386",
+    "source": "cmd a`b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 387",
+    "source": "cmd `b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 388",
+    "source": "cmd `'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 389",
+    "source": "cmd `$v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 390",
+    "source": "cmd `(1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 391",
+    "source": "function ` f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 392",
+    "source": "data ` x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 393",
+    "source": "cmd `  -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 394",
+    "source": "cmd a `  -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 395",
+    "source": "cmd a` b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 396",
+    "source": "cmd ` b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 397",
+    "source": "cmd ` 'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 398",
+    "source": "cmd ` $v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 399",
+    "source": "cmd ` (1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 400",
+    "source": "function `  f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 401",
+    "source": "data `  x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 402",
+    "source": "cmd `  -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 403",
+    "source": "cmd a `  -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 404",
+    "source": "cmd a` b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 405",
+    "source": "cmd ` b",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 406",
+    "source": "cmd ` 'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 407",
+    "source": "cmd ` $v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 408",
+    "source": "cmd ` (1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 409",
+    "source": "function `  f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 410",
+    "source": "data `  x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 411",
+    "source": "cmd `\n -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 412",
+    "source": "cmd a `\n -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 413",
+    "source": "cmd a`\nb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 414",
+    "source": "cmd `\nb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 415",
+    "source": "cmd `\n'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 416",
+    "source": "cmd `\n$v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 417",
+    "source": "cmd `\n(1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 418",
+    "source": "function `\n f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 419",
+    "source": "data `\n x {1}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 420",
+    "source": "cmd `\r\n -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 421",
+    "source": "cmd a `\r\n -P v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 422",
+    "source": "cmd a`\r\nb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 423",
+    "source": "cmd `\r\nb",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 424",
+    "source": "cmd `\r\n'b'",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 425",
+    "source": "cmd `\r\n$v",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 426",
+    "source": "cmd `\r\n(1)",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 427",
+    "source": "function `\r\n f {}",
+    "valid": true
+  },
+  {
+    "name": "command lexical context 428",
+    "source": "data `\r\n x {1}",
+    "valid": true
+  },
+  {
+    "name": "command Unicode parameter 000",
+    "source": "-é.x next",
+    "valid": false
+  },
+  {
+    "name": "command Unicode parameter 001",
+    "source": "-_foo$x next",
+    "valid": false
+  },
+  {
+    "name": "command Unicode parameter 002",
+    "source": "-?:next",
+    "valid": false
+  },
+  {
+    "name": "command Unicode parameter 003",
+    "source": "–é.x next",
+    "valid": false
+  },
+  {
+    "name": "command Unicode parameter 004",
+    "source": "cmd -- –é.x",
+    "valid": true
+  },
+  {
+    "name": "command Unicode parameter 005",
+    "source": "cmd -p:–é.x",
+    "valid": true
+  },
+  {
+    "name": "command Unicode parameter 006",
+    "source": "cmd >–é.x",
+    "valid": true
+  },
+  {
+    "name": "command Unicode parameter 007",
+    "source": "-not\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command Unicode parameter 008",
+    "source": "-not.foo",
+    "valid": false
+  },
+  {
+    "name": "command double-dash composite 000",
+    "source": "cmd --$x",
+    "valid": true
+  },
+  {
+    "name": "command double-dash composite 001",
+    "source": "cmd --$(1)",
+    "valid": true
+  },
+  {
+    "name": "command double-dash composite 002",
+    "source": "cmd --${x}",
+    "valid": true
+  },
+  {
+    "name": "command double-dash composite 003",
+    "source": "cmd --\"x\"",
+    "valid": true
+  },
+  {
+    "name": "command double-dash composite 004",
+    "source": "cmd --'x'",
+    "valid": true
+  },
+  {
+    "name": "command double-dash composite 005",
+    "source": "cmd a,--$x",
+    "valid": true
+  },
+  {
+    "name": "command double-dash composite 006",
+    "source": "cmd -- --$x",
+    "valid": true
+  },
+  {
+    "name": "comment prefix commitment 00",
+    "source": "<# unterminated\n",
+    "valid": false
+  },
+  {
+    "name": "comment prefix commitment 01",
+    "source": "& <# unterminated\n",
+    "valid": false
+  },
+  {
+    "name": "comment prefix commitment 02",
+    "source": ". <# unterminated\n",
+    "valid": false
+  },
+  {
+    "name": "comment prefix commitment 03",
+    "source": "<# incomplete\r\n",
+    "valid": false
+  },
+  {
+    "name": "comment prefix commitment 04",
+    "source": "& <# incomplete\r\n",
+    "valid": false
+  },
+  {
+    "name": "comment prefix commitment 05",
+    "source": ". <# incomplete\r\n",
+    "valid": false
+  },
+  {
+    "name": "comment prefix commitment 06",
+    "source": "<\n",
+    "valid": true
+  },
+  {
+    "name": "comment prefix commitment 07",
+    "source": "<#comment#> <\n",
+    "valid": true
+  },
+  {
+    "name": "comment prefix commitment 08",
+    "source": "cmd <\n",
+    "valid": false
+  },
+  {
+    "name": "comment prefix commitment 09",
+    "source": "& <#comment#> < next\n",
+    "valid": true
+  },
+  {
+    "name": "comment prefix complete 10",
+    "source": "<#comment#>\n",
+    "valid": true
+  },
+  {
+    "name": "comment prefix complete 11",
+    "source": "& <#comment#> < next\n",
+    "valid": true
+  },
+  {
+    "name": "comment prefix complete 12",
+    "source": ". <#comment#> < next\n",
+    "valid": true
+  },
+  {
+    "name": "comment prefix ordinary 13",
+    "source": "\"$(<)\"",
+    "valid": true
+  },
+  {
+    "name": "comment prefix here 14",
+    "source": "@\"\n$(<)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "comment prefix ordinary 15",
+    "source": "\"$(& < next)\"",
+    "valid": true
+  },
+  {
+    "name": "comment prefix here 16",
+    "source": "@\"\n$(& < next)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "comment prefix ordinary 17",
+    "source": "\"$(. < next)\"",
+    "valid": true
+  },
+  {
+    "name": "comment prefix here 18",
+    "source": "@\"\n$(. < next)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "comment prefix ordinary 19",
+    "source": "\"$(<#comment#> <)\"",
+    "valid": true
+  },
+  {
+    "name": "comment prefix here 20",
+    "source": "@\"\n$(<#comment#> <)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "comment prefix ordinary 21",
+    "source": "\"$(<# incomplete)\"",
+    "valid": false
+  },
+  {
+    "name": "comment prefix here 22",
+    "source": "@\"\n$(<# incomplete)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "comment prefix ordinary 23",
+    "source": "\"$(& <# incomplete)\"",
+    "valid": false
+  },
+  {
+    "name": "comment prefix here 24",
+    "source": "@\"\n$(& <# incomplete)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "comment prefix ordinary 25",
+    "source": "\"$(. <# incomplete)\"",
+    "valid": false
+  },
+  {
+    "name": "comment prefix here 26",
+    "source": "@\"\n$(. <# incomplete)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "comment prefix ordinary 27",
+    "source": "\"$(cmd <)\"",
+    "valid": false
+  },
+  {
+    "name": "comment prefix here 28",
+    "source": "@\"\n$(cmd <)\n\"@",
+    "valid": false
+  }
+]

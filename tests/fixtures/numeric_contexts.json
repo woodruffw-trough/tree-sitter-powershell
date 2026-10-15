@@ -1,0 +1,7037 @@
+[
+  {
+    "name": "numeric boundary 0000",
+    "source": "1+2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0001",
+    "source": "[T]::M(1+2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0002",
+    "source": "param($x=1+2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0003",
+    "source": "[A(1+2)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0004",
+    "source": "$x[1+2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0005",
+    "source": "$x + 1+2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0006",
+    "source": ",1+2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0007",
+    "source": "-not 1+2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0008",
+    "source": "[int]1+2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0009",
+    "source": "{1+2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0010",
+    "source": "$(1+2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0011",
+    "source": "@{x=1+2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0012",
+    "source": "1-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0013",
+    "source": "[T]::M(1-2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0014",
+    "source": "param($x=1-2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0015",
+    "source": "[A(1-2)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0016",
+    "source": "$x[1-2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0017",
+    "source": "$x + 1-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0018",
+    "source": ",1-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0019",
+    "source": "-not 1-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0020",
+    "source": "[int]1-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0021",
+    "source": "{1-2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0022",
+    "source": "$(1-2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0023",
+    "source": "@{x=1-2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0024",
+    "source": "1*2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0025",
+    "source": "[T]::M(1*2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0026",
+    "source": "param($x=1*2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0027",
+    "source": "[A(1*2)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0028",
+    "source": "$x[1*2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0029",
+    "source": "$x + 1*2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0030",
+    "source": ",1*2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0031",
+    "source": "-not 1*2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0032",
+    "source": "[int]1*2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0033",
+    "source": "{1*2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0034",
+    "source": "$(1*2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0035",
+    "source": "@{x=1*2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0036",
+    "source": "1/2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0037",
+    "source": "[T]::M(1/2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0038",
+    "source": "param($x=1/2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0039",
+    "source": "[A(1/2)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0040",
+    "source": "$x[1/2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0041",
+    "source": "$x + 1/2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0042",
+    "source": ",1/2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0043",
+    "source": "-not 1/2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0044",
+    "source": "[int]1/2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0045",
+    "source": "{1/2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0046",
+    "source": "$(1/2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0047",
+    "source": "@{x=1/2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0048",
+    "source": "1%2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0049",
+    "source": "[T]::M(1%2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0050",
+    "source": "param($x=1%2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0051",
+    "source": "[A(1%2)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0052",
+    "source": "$x[1%2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0053",
+    "source": "$x + 1%2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0054",
+    "source": ",1%2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0055",
+    "source": "-not 1%2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0056",
+    "source": "[int]1%2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0057",
+    "source": "{1%2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0058",
+    "source": "$(1%2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0059",
+    "source": "@{x=1%2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0060",
+    "source": "1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0061",
+    "source": "[T]::M(1..2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0062",
+    "source": "param($x=1..2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0063",
+    "source": "$x[1..2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0064",
+    "source": "$x + 1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0065",
+    "source": ",1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0066",
+    "source": "-not 1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0067",
+    "source": "[int]1..2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0068",
+    "source": "{1..2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0069",
+    "source": "$(1..2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0070",
+    "source": "@{x=1..2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0071",
+    "source": "1-f 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0072",
+    "source": "[T]::M(1-f 2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0073",
+    "source": "param($x=1-f 2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0074",
+    "source": "$x[1-f 2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0075",
+    "source": "$x + 1-f 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0076",
+    "source": ",1-f 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0077",
+    "source": "-not 1-f 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0078",
+    "source": "[int]1-f 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0079",
+    "source": "{1-f 2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0080",
+    "source": "$(1-f 2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0081",
+    "source": "@{x=1-f 2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0082",
+    "source": "1-eq 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0083",
+    "source": "[T]::M(1-eq 2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0084",
+    "source": "param($x=1-eq 2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0085",
+    "source": "$x[1-eq 2]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0086",
+    "source": "$x + 1-eq 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0087",
+    "source": ",1-eq 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0088",
+    "source": "-not 1-eq 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0089",
+    "source": "[int]1-eq 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0090",
+    "source": "{1-eq 2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0091",
+    "source": "$(1-eq 2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0092",
+    "source": "@{x=1-eq 2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0093",
+    "source": "1??2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0094",
+    "source": "[T]::M(1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0095",
+    "source": "param($x=1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0096",
+    "source": "[A(1??2)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0097",
+    "source": "$x[1??2]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0098",
+    "source": "$x + 1??2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0099",
+    "source": ",1??2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0100",
+    "source": "-not 1??2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0101",
+    "source": "[int]1??2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0102",
+    "source": "{1??2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0103",
+    "source": "$(1??2)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0104",
+    "source": "@{x=1??2}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0105",
+    "source": "1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0106",
+    "source": "[T]::M(1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0107",
+    "source": "param($x=1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0108",
+    "source": "[A(1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0109",
+    "source": "$x[1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0110",
+    "source": "$x + 1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0111",
+    "source": ",1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0112",
+    "source": "-not 1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0113",
+    "source": "[int]1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0114",
+    "source": "{1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0115",
+    "source": "$(1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0116",
+    "source": "@{x=1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0117",
+    "source": "1[0]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0118",
+    "source": "[T]::M(1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0119",
+    "source": "param($x=1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0120",
+    "source": "[A(1[0])]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0121",
+    "source": "$x[1[0]]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0122",
+    "source": "$x + 1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0123",
+    "source": ",1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0124",
+    "source": "-not 1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0125",
+    "source": "[int]1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0126",
+    "source": "{1[0]}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0127",
+    "source": "$(1[0])",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0128",
+    "source": "@{x=1[0]}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0129",
+    "source": "1?[0]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0130",
+    "source": "[T]::M(1?[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0131",
+    "source": "param($x=1?[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0132",
+    "source": "[A(1?[0])]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0133",
+    "source": "$x[1?[0]]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0134",
+    "source": "$x + 1?[0]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0135",
+    "source": ",1?[0]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0136",
+    "source": "-not 1?[0]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0137",
+    "source": "[int]1?[0]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0138",
+    "source": "{1?[0]}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0139",
+    "source": "$(1?[0])",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0140",
+    "source": "@{x=1?[0]}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0141",
+    "source": "1.ToString()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0142",
+    "source": "[T]::M(1.ToString())",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0143",
+    "source": "param($x=1.ToString())",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0144",
+    "source": "[A(1.ToString())]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0145",
+    "source": "$x[1.ToString()]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0146",
+    "source": "$x + 1.ToString()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0147",
+    "source": ",1.ToString()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0148",
+    "source": "-not 1.ToString()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0149",
+    "source": "[int]1.ToString()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0150",
+    "source": "{1.ToString()}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0151",
+    "source": "$(1.ToString())",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0152",
+    "source": "@{x=1.ToString()}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0153",
+    "source": "1::M()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0154",
+    "source": "[T]::M(1::M())",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0155",
+    "source": "param($x=1::M())",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0156",
+    "source": "[A(1::M())]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0157",
+    "source": "$x[1::M()]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0158",
+    "source": "$x + 1::M()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0159",
+    "source": ",1::M()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0160",
+    "source": "-not 1::M()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0161",
+    "source": "[int]1::M()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0162",
+    "source": "{1::M()}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0163",
+    "source": "$(1::M())",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0164",
+    "source": "@{x=1::M()}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0165",
+    "source": "1.Length",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0166",
+    "source": "[T]::M(1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0167",
+    "source": "param($x=1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0168",
+    "source": "[A(1.Length)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0169",
+    "source": "$x[1.Length]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0170",
+    "source": "$x + 1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0171",
+    "source": ",1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0172",
+    "source": "-not 1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0173",
+    "source": "[int]1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0174",
+    "source": "{1.Length}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0175",
+    "source": "$(1.Length)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0176",
+    "source": "@{x=1.Length}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0177",
+    "source": "1\"x\"",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0178",
+    "source": "[T]::M(1\"x\")",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0179",
+    "source": "param($x=1\"x\")",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0180",
+    "source": "[A(1\"x\")]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0181",
+    "source": "$x[1\"x\"]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0182",
+    "source": "$x + 1\"x\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0183",
+    "source": ",1\"x\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0184",
+    "source": "-not 1\"x\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0185",
+    "source": "[int]1\"x\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0186",
+    "source": "{1\"x\"}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0187",
+    "source": "$(1\"x\")",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0188",
+    "source": "@{x=1\"x\"}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0189",
+    "source": "1$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0190",
+    "source": "[T]::M(1$x)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0191",
+    "source": "param($x=1$x)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0192",
+    "source": "[A(1$x)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0193",
+    "source": "$x[1$x]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0194",
+    "source": "$x + 1$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0195",
+    "source": ",1$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0196",
+    "source": "-not 1$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0197",
+    "source": "[int]1$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0198",
+    "source": "{1$x}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0199",
+    "source": "$(1$x)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0200",
+    "source": "@{x=1$x}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0201",
+    "source": "1foo",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0202",
+    "source": "[T]::M(1foo)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0203",
+    "source": "param($x=1foo)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0204",
+    "source": "[A(1foo)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0205",
+    "source": "$x[1foo]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0206",
+    "source": "$x + 1foo",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0207",
+    "source": ",1foo",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0208",
+    "source": "-not 1foo",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0209",
+    "source": "[int]1foo",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0210",
+    "source": "{1foo}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0211",
+    "source": "$(1foo)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0212",
+    "source": "@{x=1foo}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0213",
+    "source": "[int].5",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0214",
+    "source": "[T]::M([int].5)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0215",
+    "source": "param($x=[int].5)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0216",
+    "source": "$x[[int].5]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0217",
+    "source": "$x + [int].5",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0218",
+    "source": ",[int].5",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0219",
+    "source": "-not [int].5",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0220",
+    "source": "[int][int].5",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0221",
+    "source": "{[int].5}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0222",
+    "source": "$([int].5)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0223",
+    "source": "@{x=[int].5}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0224",
+    "source": "[int].5.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0225",
+    "source": "[T]::M([int].5.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0226",
+    "source": "param($x=[int].5.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0227",
+    "source": "[A([int].5.Length)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0228",
+    "source": "$x[[int].5.Length]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0229",
+    "source": "$x + [int].5.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0230",
+    "source": ",[int].5.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0231",
+    "source": "-not [int].5.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0232",
+    "source": "[int][int].5.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0233",
+    "source": "{[int].5.Length}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0234",
+    "source": "$([int].5.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0235",
+    "source": "@{x=[int].5.Length}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0236",
+    "source": "[int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0237",
+    "source": "[T]::M([int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0238",
+    "source": "param($x=[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0239",
+    "source": "[A([int].5?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0240",
+    "source": "$x[[int].5?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0241",
+    "source": "$x + [int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0242",
+    "source": ",[int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0243",
+    "source": "-not [int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0244",
+    "source": "[int][int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0245",
+    "source": "{[int].5?2:3}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0246",
+    "source": "$([int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0247",
+    "source": "@{x=[int].5?2:3}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0248",
+    "source": "[int] .5?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0249",
+    "source": "[T]::M([int] .5?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0250",
+    "source": "param($x=[int] .5?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0251",
+    "source": "[A([int] .5?2:3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0252",
+    "source": "$x[[int] .5?2:3]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0253",
+    "source": "$x + [int] .5?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0254",
+    "source": ",[int] .5?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0255",
+    "source": "-not [int] .5?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0256",
+    "source": "[int][int] .5?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0257",
+    "source": "{[int] .5?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0258",
+    "source": "$([int] .5?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0259",
+    "source": "@{x=[int] .5?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0260",
+    "source": "[int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0261",
+    "source": "[T]::M([int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0262",
+    "source": "param($x=[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0263",
+    "source": "[A([int]+1)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0264",
+    "source": "$x[[int]+1]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0265",
+    "source": "$x + [int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0266",
+    "source": ",[int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0267",
+    "source": "-not [int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0268",
+    "source": "[int][int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0269",
+    "source": "{[int]+1}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0270",
+    "source": "$([int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0271",
+    "source": "@{x=[int]+1}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0272",
+    "source": "[int]-1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0273",
+    "source": "[T]::M([int]-1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0274",
+    "source": "param($x=[int]-1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0275",
+    "source": "[A([int]-1)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0276",
+    "source": "$x[[int]-1]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0277",
+    "source": "$x + [int]-1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0278",
+    "source": ",[int]-1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0279",
+    "source": "-not [int]-1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0280",
+    "source": "[int][int]-1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0281",
+    "source": "{[int]-1}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0282",
+    "source": "$([int]-1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0283",
+    "source": "@{x=[int]-1}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0284",
+    "source": "[int]+1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0285",
+    "source": "[T]::M([int]+1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0286",
+    "source": "param($x=[int]+1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0287",
+    "source": "[A([int]+1.Length)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0288",
+    "source": "$x[[int]+1.Length]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0289",
+    "source": "$x + [int]+1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0290",
+    "source": ",[int]+1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0291",
+    "source": "-not [int]+1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0292",
+    "source": "[int][int]+1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0293",
+    "source": "{[int]+1.Length}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0294",
+    "source": "$([int]+1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0295",
+    "source": "@{x=[int]+1.Length}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0296",
+    "source": "[int]-1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0297",
+    "source": "[T]::M([int]-1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0298",
+    "source": "param($x=[int]-1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0299",
+    "source": "[A([int]-1.Length)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0300",
+    "source": "$x[[int]-1.Length]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0301",
+    "source": "$x + [int]-1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0302",
+    "source": ",[int]-1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0303",
+    "source": "-not [int]-1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0304",
+    "source": "[int][int]-1.Length",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0305",
+    "source": "{[int]-1.Length}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0306",
+    "source": "$([int]-1.Length)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0307",
+    "source": "@{x=[int]-1.Length}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0308",
+    "source": "[int]+1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0309",
+    "source": "[T]::M([int]+1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0310",
+    "source": "param($x=[int]+1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0311",
+    "source": "[A([int]+1[0])]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0312",
+    "source": "$x[[int]+1[0]]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0313",
+    "source": "$x + [int]+1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0314",
+    "source": ",[int]+1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0315",
+    "source": "-not [int]+1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0316",
+    "source": "[int][int]+1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0317",
+    "source": "{[int]+1[0]}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0318",
+    "source": "$([int]+1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0319",
+    "source": "@{x=[int]+1[0]}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0320",
+    "source": "[int]-1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0321",
+    "source": "[T]::M([int]-1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0322",
+    "source": "param($x=[int]-1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0323",
+    "source": "[A([int]-1[0])]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0324",
+    "source": "$x[[int]-1[0]]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0325",
+    "source": "$x + [int]-1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0326",
+    "source": ",[int]-1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0327",
+    "source": "-not [int]-1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0328",
+    "source": "[int][int]-1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0329",
+    "source": "{[int]-1[0]}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0330",
+    "source": "$([int]-1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0331",
+    "source": "@{x=[int]-1[0]}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0332",
+    "source": "[int]+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0333",
+    "source": "[T]::M([int]+1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0334",
+    "source": "param($x=[int]+1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0335",
+    "source": "[A([int]+1?2:3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0336",
+    "source": "$x[[int]+1?2:3]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0337",
+    "source": "$x + [int]+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0338",
+    "source": ",[int]+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0339",
+    "source": "-not [int]+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0340",
+    "source": "[int][int]+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0341",
+    "source": "{[int]+1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0342",
+    "source": "$([int]+1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0343",
+    "source": "@{x=[int]+1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0344",
+    "source": "[int]-1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0345",
+    "source": "[T]::M([int]-1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0346",
+    "source": "param($x=[int]-1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0347",
+    "source": "[A([int]-1?2:3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0348",
+    "source": "$x[[int]-1?2:3]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0349",
+    "source": "$x + [int]-1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0350",
+    "source": ",[int]-1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0351",
+    "source": "-not [int]-1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0352",
+    "source": "[int][int]-1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0353",
+    "source": "{[int]-1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0354",
+    "source": "$([int]-1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0355",
+    "source": "@{x=[int]-1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0356",
+    "source": "+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0357",
+    "source": "[T]::M(+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0358",
+    "source": "param($x=+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0359",
+    "source": "[A(+1?2:3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0360",
+    "source": "$x[+1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0361",
+    "source": "$x + +1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0362",
+    "source": ",+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0363",
+    "source": "-not +1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0364",
+    "source": "{+1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0365",
+    "source": "$(+1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0366",
+    "source": "@{x=+1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0367",
+    "source": "-1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0368",
+    "source": "[T]::M(-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0369",
+    "source": "param($x=-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0370",
+    "source": "[A(-1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0371",
+    "source": "$x[-1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0372",
+    "source": "$x + -1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0373",
+    "source": ",-1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0374",
+    "source": "-not -1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0375",
+    "source": "{-1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0376",
+    "source": "$(-1?2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0377",
+    "source": "@{x=-1?2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0378",
+    "source": "1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0379",
+    "source": "(1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0380",
+    "source": "$x = 1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0381",
+    "source": "[T]::M(1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0382",
+    "source": "param($x = 1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0383",
+    "source": "@{k=1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0384",
+    "source": "1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0385",
+    "source": "(1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0386",
+    "source": "$x = 1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0387",
+    "source": "[T]::M(1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0388",
+    "source": "param($x = 1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0389",
+    "source": "@{k=1 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0390",
+    "source": "1 + 1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0391",
+    "source": "(1 + 1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0392",
+    "source": "$x = 1 + 1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0393",
+    "source": "[T]::M(1 + 1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0394",
+    "source": "param($x = 1 + 1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0395",
+    "source": "@{k=1 + 1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0396",
+    "source": "1,1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0397",
+    "source": "(1,1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0398",
+    "source": "$x = 1,1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0399",
+    "source": "[T]::M(1,1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0400",
+    "source": "param($x = 1,1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0401",
+    "source": "@{k=1,1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0402",
+    "source": "+ 1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0403",
+    "source": "(+ 1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0404",
+    "source": "$x = + 1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0405",
+    "source": "[T]::M(+ 1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0406",
+    "source": "param($x = + 1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0407",
+    "source": "@{k=+ 1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0408",
+    "source": "[int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0409",
+    "source": "([int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0410",
+    "source": "$x = [int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0411",
+    "source": "[T]::M([int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0412",
+    "source": "param($x = [int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0413",
+    "source": "@{k=[int]1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0414",
+    "source": "1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0415",
+    "source": "(1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0416",
+    "source": "$x = 1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0417",
+    "source": "[T]::M(1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0418",
+    "source": "param($x = 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0419",
+    "source": "@{k=1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0420",
+    "source": "1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0421",
+    "source": "(1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0422",
+    "source": "$x = 1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0423",
+    "source": "[T]::M(1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0424",
+    "source": "param($x = 1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0425",
+    "source": "@{k=1 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0426",
+    "source": "1 + 1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0427",
+    "source": "(1 + 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0428",
+    "source": "$x = 1 + 1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0429",
+    "source": "[T]::M(1 + 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0430",
+    "source": "param($x = 1 + 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0431",
+    "source": "@{k=1 + 1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0432",
+    "source": "1,1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0433",
+    "source": "(1,1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0434",
+    "source": "$x = 1,1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0435",
+    "source": "[T]::M(1,1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0436",
+    "source": "param($x = 1,1 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0437",
+    "source": "@{k=1,1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0438",
+    "source": "+ 1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0439",
+    "source": "(+ 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0440",
+    "source": "$x = + 1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0441",
+    "source": "[T]::M(+ 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0442",
+    "source": "param($x = + 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0443",
+    "source": "@{k=+ 1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0444",
+    "source": "[int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0445",
+    "source": "([int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0446",
+    "source": "$x = [int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0447",
+    "source": "[T]::M([int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0448",
+    "source": "param($x = [int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0449",
+    "source": "@{k=[int]1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0450",
+    "source": "-1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0451",
+    "source": "(-1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0452",
+    "source": "$x = -1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0453",
+    "source": "[T]::M(-1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0454",
+    "source": "param($x = -1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0455",
+    "source": "@{k=-1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0456",
+    "source": "-1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0457",
+    "source": "(-1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0458",
+    "source": "$x = -1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0459",
+    "source": "[T]::M(-1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0460",
+    "source": "param($x = -1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0461",
+    "source": "@{k=-1 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0462",
+    "source": "1 + -1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0463",
+    "source": "(1 + -1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0464",
+    "source": "$x = 1 + -1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0465",
+    "source": "[T]::M(1 + -1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0466",
+    "source": "param($x = 1 + -1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0467",
+    "source": "@{k=1 + -1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0468",
+    "source": "1,-1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0469",
+    "source": "(1,-1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0470",
+    "source": "$x = 1,-1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0471",
+    "source": "[T]::M(1,-1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0472",
+    "source": "param($x = 1,-1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0473",
+    "source": "@{k=1,-1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0474",
+    "source": "+ -1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0475",
+    "source": "(+ -1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0476",
+    "source": "$x = + -1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0477",
+    "source": "[T]::M(+ -1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0478",
+    "source": "param($x = + -1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0479",
+    "source": "@{k=+ -1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0480",
+    "source": "[int]-1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0481",
+    "source": "([int]-1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0482",
+    "source": "$x = [int]-1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0483",
+    "source": "[T]::M([int]-1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0484",
+    "source": "param($x = [int]-1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0485",
+    "source": "@{k=[int]-1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0486",
+    "source": "-1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0487",
+    "source": "(-1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0488",
+    "source": "$x = -1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0489",
+    "source": "[T]::M(-1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0490",
+    "source": "param($x = -1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0491",
+    "source": "@{k=-1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0492",
+    "source": "-1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0493",
+    "source": "(-1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0494",
+    "source": "$x = -1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0495",
+    "source": "[T]::M(-1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0496",
+    "source": "param($x = -1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0497",
+    "source": "@{k=-1 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0498",
+    "source": "1 + -1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0499",
+    "source": "(1 + -1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0500",
+    "source": "$x = 1 + -1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0501",
+    "source": "[T]::M(1 + -1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0502",
+    "source": "param($x = 1 + -1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0503",
+    "source": "@{k=1 + -1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0504",
+    "source": "1,-1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0505",
+    "source": "(1,-1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0506",
+    "source": "$x = 1,-1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0507",
+    "source": "[T]::M(1,-1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0508",
+    "source": "param($x = 1,-1 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0509",
+    "source": "@{k=1,-1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0510",
+    "source": "+ -1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0511",
+    "source": "(+ -1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0512",
+    "source": "$x = + -1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0513",
+    "source": "[T]::M(+ -1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0514",
+    "source": "param($x = + -1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0515",
+    "source": "@{k=+ -1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0516",
+    "source": "[int]-1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0517",
+    "source": "([int]-1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0518",
+    "source": "$x = [int]-1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0519",
+    "source": "[T]::M([int]-1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0520",
+    "source": "param($x = [int]-1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0521",
+    "source": "@{k=[int]-1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0522",
+    "source": "+1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0523",
+    "source": "(+1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0524",
+    "source": "$x = +1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0525",
+    "source": "[T]::M(+1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0526",
+    "source": "param($x = +1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0527",
+    "source": "@{k=+1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0528",
+    "source": "+1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0529",
+    "source": "(+1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0530",
+    "source": "$x = +1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0531",
+    "source": "[T]::M(+1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0532",
+    "source": "param($x = +1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0533",
+    "source": "@{k=+1 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0534",
+    "source": "1 + +1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0535",
+    "source": "(1 + +1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0536",
+    "source": "$x = 1 + +1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0537",
+    "source": "[T]::M(1 + +1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0538",
+    "source": "param($x = 1 + +1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0539",
+    "source": "@{k=1 + +1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0540",
+    "source": "1,+1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0541",
+    "source": "(1,+1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0542",
+    "source": "$x = 1,+1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0543",
+    "source": "[T]::M(1,+1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0544",
+    "source": "param($x = 1,+1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0545",
+    "source": "@{k=1,+1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0546",
+    "source": "+ +1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0547",
+    "source": "(+ +1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0548",
+    "source": "$x = + +1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0549",
+    "source": "[T]::M(+ +1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0550",
+    "source": "param($x = + +1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0551",
+    "source": "@{k=+ +1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0552",
+    "source": "[int]+1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0553",
+    "source": "([int]+1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0554",
+    "source": "$x = [int]+1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0555",
+    "source": "[T]::M([int]+1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0556",
+    "source": "param($x = [int]+1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0557",
+    "source": "@{k=[int]+1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0558",
+    "source": "+1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0559",
+    "source": "(+1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0560",
+    "source": "$x = +1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0561",
+    "source": "[T]::M(+1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0562",
+    "source": "param($x = +1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0563",
+    "source": "@{k=+1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0564",
+    "source": "+1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0565",
+    "source": "(+1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0566",
+    "source": "$x = +1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0567",
+    "source": "[T]::M(+1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0568",
+    "source": "param($x = +1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0569",
+    "source": "@{k=+1 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0570",
+    "source": "1 + +1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0571",
+    "source": "(1 + +1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0572",
+    "source": "$x = 1 + +1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0573",
+    "source": "[T]::M(1 + +1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0574",
+    "source": "param($x = 1 + +1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0575",
+    "source": "@{k=1 + +1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0576",
+    "source": "1,+1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0577",
+    "source": "(1,+1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0578",
+    "source": "$x = 1,+1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0579",
+    "source": "[T]::M(1,+1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0580",
+    "source": "param($x = 1,+1 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0581",
+    "source": "@{k=1,+1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0582",
+    "source": "+ +1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0583",
+    "source": "(+ +1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0584",
+    "source": "$x = + +1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0585",
+    "source": "[T]::M(+ +1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0586",
+    "source": "param($x = + +1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0587",
+    "source": "@{k=+ +1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0588",
+    "source": "[int]+1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0589",
+    "source": "([int]+1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0590",
+    "source": "$x = [int]+1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0591",
+    "source": "[T]::M([int]+1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0592",
+    "source": "param($x = [int]+1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0593",
+    "source": "@{k=[int]+1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0594",
+    "source": "1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0595",
+    "source": "(1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0596",
+    "source": "$x = 1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0597",
+    "source": "[T]::M(1.2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0598",
+    "source": "param($x = 1.2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0599",
+    "source": "@{k=1.2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0600",
+    "source": "1.2 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0601",
+    "source": "(1.2 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0602",
+    "source": "$x = 1.2 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0603",
+    "source": "[T]::M(1.2 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0604",
+    "source": "param($x = 1.2 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0605",
+    "source": "@{k=1.2 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0606",
+    "source": "1 + 1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0607",
+    "source": "(1 + 1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0608",
+    "source": "$x = 1 + 1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0609",
+    "source": "[T]::M(1 + 1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0610",
+    "source": "param($x = 1 + 1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0611",
+    "source": "@{k=1 + 1.2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0612",
+    "source": "1,1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0613",
+    "source": "(1,1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0614",
+    "source": "$x = 1,1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0615",
+    "source": "[T]::M(1,1.2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0616",
+    "source": "param($x = 1,1.2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0617",
+    "source": "@{k=1,1.2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0618",
+    "source": "+ 1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0619",
+    "source": "(+ 1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0620",
+    "source": "$x = + 1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0621",
+    "source": "[T]::M(+ 1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0622",
+    "source": "param($x = + 1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0623",
+    "source": "@{k=+ 1.2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0624",
+    "source": "[int]1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0625",
+    "source": "([int]1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0626",
+    "source": "$x = [int]1.2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0627",
+    "source": "[T]::M([int]1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0628",
+    "source": "param($x = [int]1.2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0629",
+    "source": "@{k=[int]1.2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0630",
+    "source": "1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0631",
+    "source": "(1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0632",
+    "source": "$x = 1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0633",
+    "source": "[T]::M(1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0634",
+    "source": "param($x = 1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0635",
+    "source": "@{k=1.2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0636",
+    "source": "1.2 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0637",
+    "source": "(1.2 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0638",
+    "source": "$x = 1.2 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0639",
+    "source": "[T]::M(1.2 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0640",
+    "source": "param($x = 1.2 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0641",
+    "source": "@{k=1.2 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0642",
+    "source": "1 + 1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0643",
+    "source": "(1 + 1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0644",
+    "source": "$x = 1 + 1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0645",
+    "source": "[T]::M(1 + 1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0646",
+    "source": "param($x = 1 + 1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0647",
+    "source": "@{k=1 + 1.2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0648",
+    "source": "1,1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0649",
+    "source": "(1,1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0650",
+    "source": "$x = 1,1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0651",
+    "source": "[T]::M(1,1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0652",
+    "source": "param($x = 1,1.2 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0653",
+    "source": "@{k=1,1.2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0654",
+    "source": "+ 1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0655",
+    "source": "(+ 1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0656",
+    "source": "$x = + 1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0657",
+    "source": "[T]::M(+ 1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0658",
+    "source": "param($x = + 1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0659",
+    "source": "@{k=+ 1.2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0660",
+    "source": "[int]1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0661",
+    "source": "([int]1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0662",
+    "source": "$x = [int]1.2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0663",
+    "source": "[T]::M([int]1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0664",
+    "source": "param($x = [int]1.2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0665",
+    "source": "@{k=[int]1.2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0666",
+    "source": "0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0667",
+    "source": "(0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0668",
+    "source": "$x = 0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0669",
+    "source": "[T]::M(0x1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0670",
+    "source": "param($x = 0x1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0671",
+    "source": "@{k=0x1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0672",
+    "source": "0x1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0673",
+    "source": "(0x1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0674",
+    "source": "$x = 0x1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0675",
+    "source": "[T]::M(0x1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0676",
+    "source": "param($x = 0x1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0677",
+    "source": "@{k=0x1 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0678",
+    "source": "1 + 0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0679",
+    "source": "(1 + 0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0680",
+    "source": "$x = 1 + 0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0681",
+    "source": "[T]::M(1 + 0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0682",
+    "source": "param($x = 1 + 0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0683",
+    "source": "@{k=1 + 0x1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0684",
+    "source": "1,0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0685",
+    "source": "(1,0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0686",
+    "source": "$x = 1,0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0687",
+    "source": "[T]::M(1,0x1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0688",
+    "source": "param($x = 1,0x1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0689",
+    "source": "@{k=1,0x1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0690",
+    "source": "+ 0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0691",
+    "source": "(+ 0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0692",
+    "source": "$x = + 0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0693",
+    "source": "[T]::M(+ 0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0694",
+    "source": "param($x = + 0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0695",
+    "source": "@{k=+ 0x1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0696",
+    "source": "[int]0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0697",
+    "source": "([int]0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0698",
+    "source": "$x = [int]0x1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0699",
+    "source": "[T]::M([int]0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0700",
+    "source": "param($x = [int]0x1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0701",
+    "source": "@{k=[int]0x1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0702",
+    "source": "0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0703",
+    "source": "(0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0704",
+    "source": "$x = 0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0705",
+    "source": "[T]::M(0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0706",
+    "source": "param($x = 0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0707",
+    "source": "@{k=0x1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0708",
+    "source": "0x1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0709",
+    "source": "(0x1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0710",
+    "source": "$x = 0x1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0711",
+    "source": "[T]::M(0x1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0712",
+    "source": "param($x = 0x1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0713",
+    "source": "@{k=0x1 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0714",
+    "source": "1 + 0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0715",
+    "source": "(1 + 0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0716",
+    "source": "$x = 1 + 0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0717",
+    "source": "[T]::M(1 + 0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0718",
+    "source": "param($x = 1 + 0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0719",
+    "source": "@{k=1 + 0x1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0720",
+    "source": "1,0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0721",
+    "source": "(1,0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0722",
+    "source": "$x = 1,0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0723",
+    "source": "[T]::M(1,0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0724",
+    "source": "param($x = 1,0x1 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0725",
+    "source": "@{k=1,0x1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0726",
+    "source": "+ 0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0727",
+    "source": "(+ 0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0728",
+    "source": "$x = + 0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0729",
+    "source": "[T]::M(+ 0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0730",
+    "source": "param($x = + 0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0731",
+    "source": "@{k=+ 0x1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0732",
+    "source": "[int]0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0733",
+    "source": "([int]0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0734",
+    "source": "$x = [int]0x1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0735",
+    "source": "[T]::M([int]0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0736",
+    "source": "param($x = [int]0x1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0737",
+    "source": "@{k=[int]0x1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0738",
+    "source": "1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0739",
+    "source": "(1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0740",
+    "source": "$x = 1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0741",
+    "source": "[T]::M(1e-2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0742",
+    "source": "param($x = 1e-2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0743",
+    "source": "@{k=1e-2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0744",
+    "source": "1e-2 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0745",
+    "source": "(1e-2 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0746",
+    "source": "$x = 1e-2 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0747",
+    "source": "[T]::M(1e-2 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0748",
+    "source": "param($x = 1e-2 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0749",
+    "source": "@{k=1e-2 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0750",
+    "source": "1 + 1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0751",
+    "source": "(1 + 1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0752",
+    "source": "$x = 1 + 1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0753",
+    "source": "[T]::M(1 + 1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0754",
+    "source": "param($x = 1 + 1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0755",
+    "source": "@{k=1 + 1e-2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0756",
+    "source": "1,1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0757",
+    "source": "(1,1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0758",
+    "source": "$x = 1,1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0759",
+    "source": "[T]::M(1,1e-2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0760",
+    "source": "param($x = 1,1e-2? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0761",
+    "source": "@{k=1,1e-2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0762",
+    "source": "+ 1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0763",
+    "source": "(+ 1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0764",
+    "source": "$x = + 1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0765",
+    "source": "[T]::M(+ 1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0766",
+    "source": "param($x = + 1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0767",
+    "source": "@{k=+ 1e-2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0768",
+    "source": "[int]1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0769",
+    "source": "([int]1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0770",
+    "source": "$x = [int]1e-2? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0771",
+    "source": "[T]::M([int]1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0772",
+    "source": "param($x = [int]1e-2? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0773",
+    "source": "@{k=[int]1e-2? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0774",
+    "source": "1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0775",
+    "source": "(1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0776",
+    "source": "$x = 1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0777",
+    "source": "[T]::M(1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0778",
+    "source": "param($x = 1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0779",
+    "source": "@{k=1e-2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0780",
+    "source": "1e-2 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0781",
+    "source": "(1e-2 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0782",
+    "source": "$x = 1e-2 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0783",
+    "source": "[T]::M(1e-2 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0784",
+    "source": "param($x = 1e-2 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0785",
+    "source": "@{k=1e-2 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0786",
+    "source": "1 + 1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0787",
+    "source": "(1 + 1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0788",
+    "source": "$x = 1 + 1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0789",
+    "source": "[T]::M(1 + 1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0790",
+    "source": "param($x = 1 + 1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0791",
+    "source": "@{k=1 + 1e-2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0792",
+    "source": "1,1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0793",
+    "source": "(1,1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0794",
+    "source": "$x = 1,1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0795",
+    "source": "[T]::M(1,1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0796",
+    "source": "param($x = 1,1e-2 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0797",
+    "source": "@{k=1,1e-2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0798",
+    "source": "+ 1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0799",
+    "source": "(+ 1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0800",
+    "source": "$x = + 1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0801",
+    "source": "[T]::M(+ 1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0802",
+    "source": "param($x = + 1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0803",
+    "source": "@{k=+ 1e-2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0804",
+    "source": "[int]1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0805",
+    "source": "([int]1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0806",
+    "source": "$x = [int]1e-2 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0807",
+    "source": "[T]::M([int]1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0808",
+    "source": "param($x = [int]1e-2 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0809",
+    "source": "@{k=[int]1e-2 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0810",
+    "source": "1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0811",
+    "source": "(1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0812",
+    "source": "$x = 1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0813",
+    "source": "[T]::M(1kb? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0814",
+    "source": "param($x = 1kb? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0815",
+    "source": "@{k=1kb? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0816",
+    "source": "1kb ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0817",
+    "source": "(1kb ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0818",
+    "source": "$x = 1kb ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0819",
+    "source": "[T]::M(1kb ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0820",
+    "source": "param($x = 1kb ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0821",
+    "source": "@{k=1kb ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0822",
+    "source": "1 + 1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0823",
+    "source": "(1 + 1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0824",
+    "source": "$x = 1 + 1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0825",
+    "source": "[T]::M(1 + 1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0826",
+    "source": "param($x = 1 + 1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0827",
+    "source": "@{k=1 + 1kb? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0828",
+    "source": "1,1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0829",
+    "source": "(1,1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0830",
+    "source": "$x = 1,1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0831",
+    "source": "[T]::M(1,1kb? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0832",
+    "source": "param($x = 1,1kb? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0833",
+    "source": "@{k=1,1kb? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0834",
+    "source": "+ 1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0835",
+    "source": "(+ 1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0836",
+    "source": "$x = + 1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0837",
+    "source": "[T]::M(+ 1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0838",
+    "source": "param($x = + 1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0839",
+    "source": "@{k=+ 1kb? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0840",
+    "source": "[int]1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0841",
+    "source": "([int]1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0842",
+    "source": "$x = [int]1kb? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0843",
+    "source": "[T]::M([int]1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0844",
+    "source": "param($x = [int]1kb? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0845",
+    "source": "@{k=[int]1kb? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0846",
+    "source": "1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0847",
+    "source": "(1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0848",
+    "source": "$x = 1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0849",
+    "source": "[T]::M(1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0850",
+    "source": "param($x = 1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0851",
+    "source": "@{k=1kb ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0852",
+    "source": "1kb ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0853",
+    "source": "(1kb ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0854",
+    "source": "$x = 1kb ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0855",
+    "source": "[T]::M(1kb ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0856",
+    "source": "param($x = 1kb ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0857",
+    "source": "@{k=1kb ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0858",
+    "source": "1 + 1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0859",
+    "source": "(1 + 1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0860",
+    "source": "$x = 1 + 1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0861",
+    "source": "[T]::M(1 + 1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0862",
+    "source": "param($x = 1 + 1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0863",
+    "source": "@{k=1 + 1kb ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0864",
+    "source": "1,1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0865",
+    "source": "(1,1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0866",
+    "source": "$x = 1,1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0867",
+    "source": "[T]::M(1,1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0868",
+    "source": "param($x = 1,1kb ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0869",
+    "source": "@{k=1,1kb ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0870",
+    "source": "+ 1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0871",
+    "source": "(+ 1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0872",
+    "source": "$x = + 1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0873",
+    "source": "[T]::M(+ 1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0874",
+    "source": "param($x = + 1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0875",
+    "source": "@{k=+ 1kb ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0876",
+    "source": "[int]1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0877",
+    "source": "([int]1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0878",
+    "source": "$x = [int]1kb ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0879",
+    "source": "[T]::M([int]1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0880",
+    "source": "param($x = [int]1kb ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0881",
+    "source": "@{k=[int]1kb ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0882",
+    "source": ".5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0883",
+    "source": "(.5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0884",
+    "source": "$x = .5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0885",
+    "source": "[T]::M(.5? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0886",
+    "source": "param($x = .5? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0887",
+    "source": "@{k=.5? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0888",
+    "source": ".5 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0889",
+    "source": "(.5 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0890",
+    "source": "$x = .5 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0891",
+    "source": "[T]::M(.5 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0892",
+    "source": "param($x = .5 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0893",
+    "source": "@{k=.5 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0894",
+    "source": "1 + .5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0895",
+    "source": "(1 + .5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0896",
+    "source": "$x = 1 + .5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0897",
+    "source": "[T]::M(1 + .5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0898",
+    "source": "param($x = 1 + .5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0899",
+    "source": "@{k=1 + .5? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0900",
+    "source": "1,.5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0901",
+    "source": "(1,.5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0902",
+    "source": "$x = 1,.5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0903",
+    "source": "[T]::M(1,.5? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0904",
+    "source": "param($x = 1,.5? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0905",
+    "source": "@{k=1,.5? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0906",
+    "source": "+ .5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0907",
+    "source": "(+ .5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0908",
+    "source": "$x = + .5? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0909",
+    "source": "[T]::M(+ .5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0910",
+    "source": "param($x = + .5? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0911",
+    "source": "@{k=+ .5? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0912",
+    "source": "[int].5? 2 : 3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0913",
+    "source": "([int].5? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0914",
+    "source": "$x = [int].5? 2 : 3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0915",
+    "source": "[T]::M([int].5? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0916",
+    "source": "param($x = [int].5? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0917",
+    "source": "@{k=[int].5? 2 : 3}",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0918",
+    "source": ".5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0919",
+    "source": "(.5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0920",
+    "source": "$x = .5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0921",
+    "source": "[T]::M(.5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0922",
+    "source": "param($x = .5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0923",
+    "source": "@{k=.5 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0924",
+    "source": ".5 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0925",
+    "source": "(.5 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0926",
+    "source": "$x = .5 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0927",
+    "source": "[T]::M(.5 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0928",
+    "source": "param($x = .5 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0929",
+    "source": "@{k=.5 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0930",
+    "source": "1 + .5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0931",
+    "source": "(1 + .5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0932",
+    "source": "$x = 1 + .5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0933",
+    "source": "[T]::M(1 + .5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0934",
+    "source": "param($x = 1 + .5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0935",
+    "source": "@{k=1 + .5 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0936",
+    "source": "1,.5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0937",
+    "source": "(1,.5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0938",
+    "source": "$x = 1,.5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0939",
+    "source": "[T]::M(1,.5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0940",
+    "source": "param($x = 1,.5 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0941",
+    "source": "@{k=1,.5 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0942",
+    "source": "+ .5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0943",
+    "source": "(+ .5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0944",
+    "source": "$x = + .5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0945",
+    "source": "[T]::M(+ .5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0946",
+    "source": "param($x = + .5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0947",
+    "source": "@{k=+ .5 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0948",
+    "source": "[int].5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0949",
+    "source": "([int].5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0950",
+    "source": "$x = [int].5 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0951",
+    "source": "[T]::M([int].5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0952",
+    "source": "param($x = [int].5 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0953",
+    "source": "@{k=[int].5 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0954",
+    "source": "0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0955",
+    "source": "(0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0956",
+    "source": "$x = 0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0957",
+    "source": "[T]::M(0b1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0958",
+    "source": "param($x = 0b1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0959",
+    "source": "@{k=0b1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0960",
+    "source": "0b1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0961",
+    "source": "(0b1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0962",
+    "source": "$x = 0b1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0963",
+    "source": "[T]::M(0b1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0964",
+    "source": "param($x = 0b1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0965",
+    "source": "@{k=0b1 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0966",
+    "source": "1 + 0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0967",
+    "source": "(1 + 0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0968",
+    "source": "$x = 1 + 0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0969",
+    "source": "[T]::M(1 + 0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0970",
+    "source": "param($x = 1 + 0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0971",
+    "source": "@{k=1 + 0b1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0972",
+    "source": "1,0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0973",
+    "source": "(1,0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0974",
+    "source": "$x = 1,0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0975",
+    "source": "[T]::M(1,0b1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0976",
+    "source": "param($x = 1,0b1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 0977",
+    "source": "@{k=1,0b1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0978",
+    "source": "+ 0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0979",
+    "source": "(+ 0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0980",
+    "source": "$x = + 0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0981",
+    "source": "[T]::M(+ 0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0982",
+    "source": "param($x = + 0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0983",
+    "source": "@{k=+ 0b1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0984",
+    "source": "[int]0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0985",
+    "source": "([int]0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0986",
+    "source": "$x = [int]0b1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0987",
+    "source": "[T]::M([int]0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0988",
+    "source": "param($x = [int]0b1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0989",
+    "source": "@{k=[int]0b1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0990",
+    "source": "0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0991",
+    "source": "(0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0992",
+    "source": "$x = 0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0993",
+    "source": "[T]::M(0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0994",
+    "source": "param($x = 0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0995",
+    "source": "@{k=0b1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0996",
+    "source": "0b1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0997",
+    "source": "(0b1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0998",
+    "source": "$x = 0b1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 0999",
+    "source": "[T]::M(0b1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1000",
+    "source": "param($x = 0b1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1001",
+    "source": "@{k=0b1 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1002",
+    "source": "1 + 0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1003",
+    "source": "(1 + 0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1004",
+    "source": "$x = 1 + 0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1005",
+    "source": "[T]::M(1 + 0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1006",
+    "source": "param($x = 1 + 0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1007",
+    "source": "@{k=1 + 0b1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1008",
+    "source": "1,0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1009",
+    "source": "(1,0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1010",
+    "source": "$x = 1,0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1011",
+    "source": "[T]::M(1,0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1012",
+    "source": "param($x = 1,0b1 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1013",
+    "source": "@{k=1,0b1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1014",
+    "source": "+ 0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1015",
+    "source": "(+ 0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1016",
+    "source": "$x = + 0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1017",
+    "source": "[T]::M(+ 0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1018",
+    "source": "param($x = + 0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1019",
+    "source": "@{k=+ 0b1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1020",
+    "source": "[int]0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1021",
+    "source": "([int]0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1022",
+    "source": "$x = [int]0b1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1023",
+    "source": "[T]::M([int]0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1024",
+    "source": "param($x = [int]0b1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1025",
+    "source": "@{k=[int]0b1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1026",
+    "source": "[int]1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1027",
+    "source": "([int]1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1028",
+    "source": "$x = [int]1 ? 2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1029",
+    "source": "[T]::M([int]1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1030",
+    "source": "param($x = [int]1 ? 2:3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1031",
+    "source": "@{k=[int]1 ? 2:3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1032",
+    "source": "1 + [int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1033",
+    "source": "(1 + [int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1034",
+    "source": "$x = 1 + [int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1035",
+    "source": "[T]::M(1 + [int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1036",
+    "source": "param($x = 1 + [int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1037",
+    "source": "@{k=1 + [int]1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1038",
+    "source": "1,[int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1039",
+    "source": "(1,[int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1040",
+    "source": "$x = 1,[int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1041",
+    "source": "[T]::M(1,[int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1042",
+    "source": "param($x = 1,[int]1? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1043",
+    "source": "@{k=1,[int]1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1044",
+    "source": "+ [int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1045",
+    "source": "(+ [int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1046",
+    "source": "$x = + [int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1047",
+    "source": "[T]::M(+ [int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1048",
+    "source": "param($x = + [int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1049",
+    "source": "@{k=+ [int]1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1050",
+    "source": "[int][int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1051",
+    "source": "([int][int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1052",
+    "source": "$x = [int][int]1? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1053",
+    "source": "[T]::M([int][int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1054",
+    "source": "param($x = [int][int]1? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1055",
+    "source": "@{k=[int][int]1? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1056",
+    "source": "[int]1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1057",
+    "source": "([int]1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1058",
+    "source": "$x = [int]1 ? 2 :3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1059",
+    "source": "[T]::M([int]1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1060",
+    "source": "param($x = [int]1 ? 2 :3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1061",
+    "source": "@{k=[int]1 ? 2 :3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1062",
+    "source": "1 + [int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1063",
+    "source": "(1 + [int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1064",
+    "source": "$x = 1 + [int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1065",
+    "source": "[T]::M(1 + [int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1066",
+    "source": "param($x = 1 + [int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1067",
+    "source": "@{k=1 + [int]1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1068",
+    "source": "1,[int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1069",
+    "source": "(1,[int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1070",
+    "source": "$x = 1,[int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1071",
+    "source": "[T]::M(1,[int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1072",
+    "source": "param($x = 1,[int]1 ? 2 : 3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1073",
+    "source": "@{k=1,[int]1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1074",
+    "source": "+ [int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1075",
+    "source": "(+ [int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1076",
+    "source": "$x = + [int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1077",
+    "source": "[T]::M(+ [int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1078",
+    "source": "param($x = + [int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1079",
+    "source": "@{k=+ [int]1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1080",
+    "source": "[int][int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1081",
+    "source": "([int][int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1082",
+    "source": "$x = [int][int]1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1083",
+    "source": "[T]::M([int][int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1084",
+    "source": "param($x = [int][int]1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1085",
+    "source": "@{k=[int][int]1 ? 2 : 3}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1086",
+    "source": "cmd -1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1087",
+    "source": "cmd -p:-1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1088",
+    "source": "& -1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1089",
+    "source": ". -1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1090",
+    "source": "cmd >-1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1091",
+    "source": "switch -file -1 {default{}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1092",
+    "source": "switch (1) {-1 {}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1093",
+    "source": "data -supportedcommand -1 {}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1094",
+    "source": "cmd +1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1095",
+    "source": "cmd -p:+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1096",
+    "source": "& +1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1097",
+    "source": ". +1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1098",
+    "source": "cmd >+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1099",
+    "source": "switch -file +1 {default{}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1100",
+    "source": "switch (1) {+1 {}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1101",
+    "source": "data -supportedcommand +1 {}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1102",
+    "source": "cmd –1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1103",
+    "source": "cmd -p:–1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1104",
+    "source": "& –1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1105",
+    "source": ". –1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1106",
+    "source": "cmd >–1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1107",
+    "source": "switch -file –1 {default{}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1108",
+    "source": "switch (1) {–1 {}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1109",
+    "source": "data -supportedcommand –1 {}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1110",
+    "source": "cmd +1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1111",
+    "source": "cmd -p:+1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1112",
+    "source": "& +1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1113",
+    "source": ". +1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1114",
+    "source": "cmd >+1e-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1115",
+    "source": "switch -file +1e-2 {default{}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1116",
+    "source": "switch (1) {+1e-2 {}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1117",
+    "source": "data -supportedcommand +1e-2 {}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1118",
+    "source": "cmd -0x1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1119",
+    "source": "cmd -p:-0x1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1120",
+    "source": "& -0x1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1121",
+    "source": ". -0x1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1122",
+    "source": "cmd >-0x1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1123",
+    "source": "switch -file -0x1 {default{}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1124",
+    "source": "switch (1) {-0x1 {}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1125",
+    "source": "data -supportedcommand -0x1 {}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1126",
+    "source": "cmd +0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1127",
+    "source": "cmd -p:+0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1128",
+    "source": "& +0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1129",
+    "source": ". +0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1130",
+    "source": "cmd >+0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1131",
+    "source": "switch -file +0bu {default{}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1132",
+    "source": "switch (1) {+0bu {}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1133",
+    "source": "data -supportedcommand +0bu {}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1134",
+    "source": "cmd -0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1135",
+    "source": "cmd -p:-0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1136",
+    "source": "& -0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1137",
+    "source": ". -0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1138",
+    "source": "cmd >-0bu",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1139",
+    "source": "switch -file -0bu {default{}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1140",
+    "source": "switch (1) {-0bu {}}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1141",
+    "source": "data -supportedcommand -0bu {}",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1142",
+    "source": "1#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1143",
+    "source": "1#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1144",
+    "source": "1<#comment#> + 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1145",
+    "source": "-1#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1146",
+    "source": "-1#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1147",
+    "source": "-1<#comment#> + 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1148",
+    "source": "0x1#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1149",
+    "source": "0x1#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1150",
+    "source": "0x1<#comment#> + 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1151",
+    "source": "1e-2#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1152",
+    "source": "1e-2#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1153",
+    "source": "1e-2<#comment#> + 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1154",
+    "source": "a#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1155",
+    "source": "a#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1156",
+    "source": "a<#comment#> + 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1157",
+    "source": "cmd 1#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1158",
+    "source": "cmd 1#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1159",
+    "source": "cmd 1<#comment#> + 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1160",
+    "source": "cmd -1#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1161",
+    "source": "cmd -1#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1162",
+    "source": "cmd -1<#comment#> + 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1163",
+    "source": "[T]::M(<# gap #> 1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1164",
+    "source": "[T]::M(# gap\n1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1165",
+    "source": "[T]::M(`\n1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1166",
+    "source": "[T]::M(0,1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1167",
+    "source": "[T]::M(0,<# gap #> 1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1168",
+    "source": "[T]::M(0,# gap\n1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1169",
+    "source": "[T]::M(0,`\n1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1170",
+    "source": "param($x=<# gap #> 1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1171",
+    "source": "param($x=# gap\n1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1172",
+    "source": "param($x=`\n1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1173",
+    "source": "$x[<# gap #> 1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1174",
+    "source": "$x[# gap\n1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1175",
+    "source": "$x[`\n1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1176",
+    "source": "[A(<# gap #> 1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1177",
+    "source": "[A(# gap\n1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1178",
+    "source": "[A(`\n1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1179",
+    "source": "$x.1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1180",
+    "source": "$x.<# gap #> 1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1181",
+    "source": "$x.# gap\n1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1182",
+    "source": "$x.`\n1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1183",
+    "source": "[T]::M(<# gap #> 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1184",
+    "source": "[T]::M(# gap\n1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1185",
+    "source": "[T]::M(`\n1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1186",
+    "source": "[T]::M(0,1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1187",
+    "source": "[T]::M(0,<# gap #> 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1188",
+    "source": "[T]::M(0,# gap\n1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1189",
+    "source": "[T]::M(0,`\n1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1190",
+    "source": "param($x=1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1191",
+    "source": "param($x=<# gap #> 1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1192",
+    "source": "param($x=# gap\n1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1193",
+    "source": "param($x=`\n1 ? 2 : 3)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1194",
+    "source": "$x[1 ? 2 : 3]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1195",
+    "source": "$x[<# gap #> 1 ? 2 : 3]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1196",
+    "source": "$x[# gap\n1 ? 2 : 3]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1197",
+    "source": "$x[`\n1 ? 2 : 3]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1198",
+    "source": "[A(1 ? 2 : 3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1199",
+    "source": "[A(<# gap #> 1 ? 2 : 3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1200",
+    "source": "[A(# gap\n1 ? 2 : 3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1201",
+    "source": "[A(`\n1 ? 2 : 3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1202",
+    "source": "$x.1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1203",
+    "source": "$x.<# gap #> 1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1204",
+    "source": "$x.# gap\n1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1205",
+    "source": "$x.`\n1 ? 2 : 3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1206",
+    "source": "[T]::M(<# gap #> -1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1207",
+    "source": "[T]::M(# gap\n-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1208",
+    "source": "[T]::M(`\n-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1209",
+    "source": "[T]::M(0,-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1210",
+    "source": "[T]::M(0,<# gap #> -1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1211",
+    "source": "[T]::M(0,# gap\n-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1212",
+    "source": "[T]::M(0,`\n-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1213",
+    "source": "param($x=<# gap #> -1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1214",
+    "source": "param($x=# gap\n-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1215",
+    "source": "param($x=`\n-1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1216",
+    "source": "$x[<# gap #> -1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1217",
+    "source": "$x[# gap\n-1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1218",
+    "source": "$x[`\n-1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1219",
+    "source": "[A(<# gap #> -1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1220",
+    "source": "[A(# gap\n-1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1221",
+    "source": "[A(`\n-1?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1222",
+    "source": "$x.-1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1223",
+    "source": "$x.<# gap #> -1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1224",
+    "source": "$x.# gap\n-1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1225",
+    "source": "$x.`\n-1?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1226",
+    "source": "[T]::M(<# gap #> +1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1227",
+    "source": "[T]::M(# gap\n+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1228",
+    "source": "[T]::M(`\n+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1229",
+    "source": "[T]::M(0,+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1230",
+    "source": "[T]::M(0,<# gap #> +1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1231",
+    "source": "[T]::M(0,# gap\n+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1232",
+    "source": "[T]::M(0,`\n+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1233",
+    "source": "param($x=<# gap #> +1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1234",
+    "source": "param($x=# gap\n+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1235",
+    "source": "param($x=`\n+1?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1236",
+    "source": "$x[<# gap #> +1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1237",
+    "source": "$x[# gap\n+1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1238",
+    "source": "$x[`\n+1?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1239",
+    "source": "[A(<# gap #> +1?2:3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1240",
+    "source": "[A(# gap\n+1?2:3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1241",
+    "source": "[A(`\n+1?2:3)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1242",
+    "source": "$x.+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1243",
+    "source": "$x.<# gap #> +1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1244",
+    "source": "$x.# gap\n+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1245",
+    "source": "$x.`\n+1?2:3",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1246",
+    "source": "[T]::M(<# gap #> 1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1247",
+    "source": "[T]::M(# gap\n1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1248",
+    "source": "[T]::M(`\n1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1249",
+    "source": "[T]::M(0,1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1250",
+    "source": "[T]::M(0,<# gap #> 1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1251",
+    "source": "[T]::M(0,# gap\n1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1252",
+    "source": "[T]::M(0,`\n1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1253",
+    "source": "param($x=<# gap #> 1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1254",
+    "source": "param($x=# gap\n1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1255",
+    "source": "param($x=`\n1[0])",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1256",
+    "source": "$x[<# gap #> 1[0]]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1257",
+    "source": "$x[# gap\n1[0]]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1258",
+    "source": "$x[`\n1[0]]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1259",
+    "source": "[A(<# gap #> 1[0])]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1260",
+    "source": "[A(# gap\n1[0])]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1261",
+    "source": "[A(`\n1[0])]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1262",
+    "source": "$x.1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1263",
+    "source": "$x.<# gap #> 1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1264",
+    "source": "$x.# gap\n1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1265",
+    "source": "$x.`\n1[0]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1266",
+    "source": "[T]::M(<# gap #> 1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1267",
+    "source": "[T]::M(# gap\n1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1268",
+    "source": "[T]::M(`\n1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1269",
+    "source": "[T]::M(0,1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1270",
+    "source": "[T]::M(0,<# gap #> 1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1271",
+    "source": "[T]::M(0,# gap\n1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1272",
+    "source": "[T]::M(0,`\n1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1273",
+    "source": "param($x=<# gap #> 1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1274",
+    "source": "param($x=# gap\n1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1275",
+    "source": "param($x=`\n1??2)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1276",
+    "source": "$x[<# gap #> 1??2]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1277",
+    "source": "$x[# gap\n1??2]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1278",
+    "source": "$x[`\n1??2]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1279",
+    "source": "[A(<# gap #> 1??2)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1280",
+    "source": "[A(# gap\n1??2)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1281",
+    "source": "[A(`\n1??2)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1282",
+    "source": "$x.1??2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1283",
+    "source": "$x.<# gap #> 1??2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1284",
+    "source": "$x.# gap\n1??2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1285",
+    "source": "$x.`\n1??2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1286",
+    "source": "[T]::M(<# gap #> [int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1287",
+    "source": "[T]::M(# gap\n[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1288",
+    "source": "[T]::M(`\n[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1289",
+    "source": "[T]::M(0,[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1290",
+    "source": "[T]::M(0,<# gap #> [int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1291",
+    "source": "[T]::M(0,# gap\n[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1292",
+    "source": "[T]::M(0,`\n[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1293",
+    "source": "param($x=<# gap #> [int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1294",
+    "source": "param($x=# gap\n[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1295",
+    "source": "param($x=`\n[int]+1)",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1296",
+    "source": "$x[<# gap #> [int]+1]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1297",
+    "source": "$x[# gap\n[int]+1]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1298",
+    "source": "$x[`\n[int]+1]",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1299",
+    "source": "[A(<# gap #> [int]+1)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1300",
+    "source": "[A(# gap\n[int]+1)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1301",
+    "source": "[A(`\n[int]+1)]$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1302",
+    "source": "$x.[int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1303",
+    "source": "$x.<# gap #> [int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1304",
+    "source": "$x.# gap\n[int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1305",
+    "source": "$x.`\n[int]+1",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1306",
+    "source": "[T]::M(<# gap #> [int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1307",
+    "source": "[T]::M(# gap\n[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1308",
+    "source": "[T]::M(`\n[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1309",
+    "source": "[T]::M(0,[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1310",
+    "source": "[T]::M(0,<# gap #> [int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1311",
+    "source": "[T]::M(0,# gap\n[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1312",
+    "source": "[T]::M(0,`\n[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1313",
+    "source": "param($x=<# gap #> [int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1314",
+    "source": "param($x=# gap\n[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1315",
+    "source": "param($x=`\n[int].5?2:3)",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1316",
+    "source": "$x[<# gap #> [int].5?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1317",
+    "source": "$x[# gap\n[int].5?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1318",
+    "source": "$x[`\n[int].5?2:3]",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1319",
+    "source": "[A(<# gap #> [int].5?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1320",
+    "source": "[A(# gap\n[int].5?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1321",
+    "source": "[A(`\n[int].5?2:3)]$x",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1322",
+    "source": "$x.[int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1323",
+    "source": "$x.<# gap #> [int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1324",
+    "source": "$x.# gap\n[int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1325",
+    "source": "$x.`\n[int].5?2:3",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1326",
+    "source": "\"$([T]::M(1?2:3))\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1327",
+    "source": "\"$([T]::M(1 ? 2 : 3))\"",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1328",
+    "source": "\"$([T]::M(1[0]))\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1329",
+    "source": "\"$($x[+1?2:3])\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1330",
+    "source": "\"$([int]+1?2:3)\"",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1331",
+    "source": "\"$($x.5?2:3)\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1332",
+    "source": "1#\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1333",
+    "source": "1#'",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1334",
+    "source": "1#`",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1335",
+    "source": "1#$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1336",
+    "source": "1##()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1337",
+    "source": "1## ()\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1338",
+    "source": "1#`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1339",
+    "source": "1#\"\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1340",
+    "source": "1#'\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1341",
+    "source": "-1#`",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1342",
+    "source": "-1#$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1343",
+    "source": "-1##()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1344",
+    "source": "-1## ()\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1345",
+    "source": "-1#`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1346",
+    "source": "0x1#\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1347",
+    "source": "0x1#'",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1348",
+    "source": "0x1#`",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1349",
+    "source": "0x1#$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1350",
+    "source": "0x1##()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1351",
+    "source": "0x1## ()\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1352",
+    "source": "0x1#`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1353",
+    "source": "0x1#\"\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1354",
+    "source": "0x1#'\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1355",
+    "source": "1e-2#\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1356",
+    "source": "1e-2#'",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1357",
+    "source": "1e-2#`",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1358",
+    "source": "1e-2#$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1359",
+    "source": "1e-2##()",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1360",
+    "source": "1e-2## ()\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1361",
+    "source": "1e-2#`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1362",
+    "source": "1e-2#\"\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1363",
+    "source": "1e-2#'\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1364",
+    "source": "a#\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1365",
+    "source": "a#'",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1366",
+    "source": "a#`",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1367",
+    "source": "a#$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1368",
+    "source": "a##()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1369",
+    "source": "a## ()\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1370",
+    "source": "a#`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1371",
+    "source": "a#\"\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1372",
+    "source": "a#'\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1373",
+    "source": "cmd 1#\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1374",
+    "source": "cmd 1#'",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1375",
+    "source": "cmd 1#`",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1376",
+    "source": "cmd 1#$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1377",
+    "source": "cmd 1##()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1378",
+    "source": "cmd 1## ()\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1379",
+    "source": "cmd 1#`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1380",
+    "source": "cmd 1#\"\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1381",
+    "source": "cmd 1#'\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1382",
+    "source": "cmd -1#\"",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1383",
+    "source": "cmd -1#'",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1384",
+    "source": "cmd -1#`",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1385",
+    "source": "cmd -1#$x",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1386",
+    "source": "cmd -1##()",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1387",
+    "source": "cmd -1## ()\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1388",
+    "source": "cmd -1#`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1389",
+    "source": "cmd -1#\"\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1390",
+    "source": "cmd -1#'\n2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1391",
+    "source": "1+`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1392",
+    "source": "1-`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1393",
+    "source": "1*`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1394",
+    "source": "1/`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1395",
+    "source": "1%`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1396",
+    "source": "1`+2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1397",
+    "source": "1`-2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1398",
+    "source": "1+` 2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1399",
+    "source": "1+`\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1400",
+    "source": "1+#comment\n2",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1401",
+    "source": "1.5+`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1402",
+    "source": "0x1+`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1403",
+    "source": "1e-2+`2",
+    "valid": false
+  },
+  {
+    "name": "numeric boundary 1404",
+    "source": "1#`comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1405",
+    "source": "1`#comment",
+    "valid": true
+  },
+  {
+    "name": "numeric boundary 1406",
+    "source": "-1#`comment",
+    "valid": true
+  }
+]

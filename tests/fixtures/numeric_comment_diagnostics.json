@@ -1,0 +1,22 @@
+[
+  {
+    "name": "speculative comment diagnostic 0",
+    "source": "-1#\"",
+    "valid": false
+  },
+  {
+    "name": "speculative comment diagnostic 1",
+    "source": "-1#'",
+    "valid": false
+  },
+  {
+    "name": "speculative comment diagnostic 2",
+    "source": "-1#\"\n2",
+    "valid": false
+  },
+  {
+    "name": "speculative comment diagnostic 3",
+    "source": "-1#'\n2",
+    "valid": false
+  }
+]
