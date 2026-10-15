@@ -25,6 +25,7 @@
 - Derive corpus expectations independently from PowerShell. Inspect every snapshot update; retain intended precedence, argument boundaries, interpolation, and declaration structure. Update expected trees only when the new representation agrees with the oracle.
 - Keep imported project files unmodified. Record the source repository, immutable revision, license, original path, and SHA-256 hash with their fixture collection.
 - Exercise incomplete input and incremental edits when scanner or recovery behavior changes.
+- Use `scripts/fuzz.py` for fuzzing. The pinned tree-sitter CLI can exit zero after reporting failures; the runner checks diagnostics and completed trials. Preserve and fix failing cases instead of skipping them.
 
 ## Validation and publication
 
@@ -32,6 +33,8 @@ Before committing a finished chunk, run:
 
 ```sh
 tree-sitter test --rebuild
+python3 -m unittest discover -s scripts -p 'test_*.py'
+python3 scripts/fuzz.py
 cargo test --locked
 python3 scripts/generate-fixtures.py
 python3 scripts/generate-fixtures.py --variables
