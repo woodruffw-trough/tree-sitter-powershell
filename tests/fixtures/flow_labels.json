@@ -1,0 +1,712 @@
+[
+  {
+    "name": "break before unary comma",
+    "source": "break ,1",
+    "valid": true
+  },
+  {
+    "name": "break before logical not",
+    "source": "break -not $true",
+    "valid": true
+  },
+  {
+    "name": "break before unary join",
+    "source": "break -join 1",
+    "valid": true
+  },
+  {
+    "name": "break before cast",
+    "source": "break [int]$x",
+    "valid": true
+  },
+  {
+    "name": "break before adjacent prefix increment",
+    "source": "break ++$x",
+    "valid": true
+  },
+  {
+    "name": "break before adjacent prefix decrement",
+    "source": "break --$x",
+    "valid": true
+  },
+  {
+    "name": "break before positive signed number",
+    "source": "break +1",
+    "valid": true
+  },
+  {
+    "name": "break before negative signed number",
+    "source": "break -1",
+    "valid": true
+  },
+  {
+    "name": "break before Unicode signed number",
+    "source": "break –1",
+    "valid": true
+  },
+  {
+    "name": "break before invalid decrement target",
+    "source": "break --1",
+    "valid": false
+  },
+  {
+    "name": "break before spaced unary plus",
+    "source": "break + 1",
+    "valid": true
+  },
+  {
+    "name": "break before spaced unary minus",
+    "source": "break - 1",
+    "valid": true
+  },
+  {
+    "name": "break before adjacent exclamation",
+    "source": "break !$true",
+    "valid": true
+  },
+  {
+    "name": "break before minus parenthesized value",
+    "source": "break -(1)",
+    "valid": true
+  },
+  {
+    "name": "break before plus parenthesized value",
+    "source": "break +($x)",
+    "valid": true
+  },
+  {
+    "name": "break before negative real",
+    "source": "break -1.5",
+    "valid": true
+  },
+  {
+    "name": "break before positive real",
+    "source": "break +.5",
+    "valid": true
+  },
+  {
+    "name": "break before negative hexadecimal",
+    "source": "break -0x1",
+    "valid": true
+  },
+  {
+    "name": "break before positive numeric multiplier",
+    "source": "break +1kb",
+    "valid": true
+  },
+  {
+    "name": "break before missing decrement operand",
+    "source": "break --",
+    "valid": false
+  },
+  {
+    "name": "break before type literal",
+    "source": "break [int]",
+    "valid": true
+  },
+  {
+    "name": "break before hashtable",
+    "source": "break @{}",
+    "valid": true
+  },
+  {
+    "name": "break before array expression",
+    "source": "break @(1,2)",
+    "valid": true
+  },
+  {
+    "name": "break before subexpression",
+    "source": "break $(1,2)",
+    "valid": true
+  },
+  {
+    "name": "break before parenthesized array",
+    "source": "break (1,2)",
+    "valid": true
+  },
+  {
+    "name": "break before comma after variable",
+    "source": "break $x,1",
+    "valid": true
+  },
+  {
+    "name": "break before member expression",
+    "source": "break $x.Name",
+    "valid": true
+  },
+  {
+    "name": "break before adjacent postfix increment",
+    "source": "break $x++",
+    "valid": true
+  },
+  {
+    "name": "break before simple name",
+    "source": "break name",
+    "valid": true
+  },
+  {
+    "name": "break before name before dash",
+    "source": "break name-other",
+    "valid": true
+  },
+  {
+    "name": "break before name before dot",
+    "source": "break name.other",
+    "valid": true
+  },
+  {
+    "name": "break before contextual keyword",
+    "source": "break if",
+    "valid": true
+  },
+  {
+    "name": "break before question mark command",
+    "source": "break ?",
+    "valid": true
+  },
+  {
+    "name": "break before invalid plus command",
+    "source": "break +foo",
+    "valid": false
+  },
+  {
+    "name": "break before parameter command",
+    "source": "break -foo",
+    "valid": true
+  },
+  {
+    "name": "continue before unary comma",
+    "source": "continue ,1",
+    "valid": true
+  },
+  {
+    "name": "continue before logical not",
+    "source": "continue -not $true",
+    "valid": true
+  },
+  {
+    "name": "continue before unary join",
+    "source": "continue -join 1",
+    "valid": true
+  },
+  {
+    "name": "continue before cast",
+    "source": "continue [int]$x",
+    "valid": true
+  },
+  {
+    "name": "continue before adjacent prefix increment",
+    "source": "continue ++$x",
+    "valid": true
+  },
+  {
+    "name": "continue before adjacent prefix decrement",
+    "source": "continue --$x",
+    "valid": true
+  },
+  {
+    "name": "continue before positive signed number",
+    "source": "continue +1",
+    "valid": true
+  },
+  {
+    "name": "continue before negative signed number",
+    "source": "continue -1",
+    "valid": true
+  },
+  {
+    "name": "continue before Unicode signed number",
+    "source": "continue –1",
+    "valid": true
+  },
+  {
+    "name": "continue before invalid decrement target",
+    "source": "continue --1",
+    "valid": false
+  },
+  {
+    "name": "continue before spaced unary plus",
+    "source": "continue + 1",
+    "valid": true
+  },
+  {
+    "name": "continue before spaced unary minus",
+    "source": "continue - 1",
+    "valid": true
+  },
+  {
+    "name": "continue before adjacent exclamation",
+    "source": "continue !$true",
+    "valid": true
+  },
+  {
+    "name": "continue before minus parenthesized value",
+    "source": "continue -(1)",
+    "valid": true
+  },
+  {
+    "name": "continue before plus parenthesized value",
+    "source": "continue +($x)",
+    "valid": true
+  },
+  {
+    "name": "continue before negative real",
+    "source": "continue -1.5",
+    "valid": true
+  },
+  {
+    "name": "continue before positive real",
+    "source": "continue +.5",
+    "valid": true
+  },
+  {
+    "name": "continue before negative hexadecimal",
+    "source": "continue -0x1",
+    "valid": true
+  },
+  {
+    "name": "continue before positive numeric multiplier",
+    "source": "continue +1kb",
+    "valid": true
+  },
+  {
+    "name": "continue before missing decrement operand",
+    "source": "continue --",
+    "valid": false
+  },
+  {
+    "name": "continue before type literal",
+    "source": "continue [int]",
+    "valid": true
+  },
+  {
+    "name": "continue before hashtable",
+    "source": "continue @{}",
+    "valid": true
+  },
+  {
+    "name": "continue before array expression",
+    "source": "continue @(1,2)",
+    "valid": true
+  },
+  {
+    "name": "continue before subexpression",
+    "source": "continue $(1,2)",
+    "valid": true
+  },
+  {
+    "name": "continue before parenthesized array",
+    "source": "continue (1,2)",
+    "valid": true
+  },
+  {
+    "name": "continue before comma after variable",
+    "source": "continue $x,1",
+    "valid": true
+  },
+  {
+    "name": "continue before member expression",
+    "source": "continue $x.Name",
+    "valid": true
+  },
+  {
+    "name": "continue before adjacent postfix increment",
+    "source": "continue $x++",
+    "valid": true
+  },
+  {
+    "name": "continue before simple name",
+    "source": "continue name",
+    "valid": true
+  },
+  {
+    "name": "continue before name before dash",
+    "source": "continue name-other",
+    "valid": true
+  },
+  {
+    "name": "continue before name before dot",
+    "source": "continue name.other",
+    "valid": true
+  },
+  {
+    "name": "continue before contextual keyword",
+    "source": "continue if",
+    "valid": true
+  },
+  {
+    "name": "continue before question mark command",
+    "source": "continue ?",
+    "valid": true
+  },
+  {
+    "name": "continue before invalid plus command",
+    "source": "continue +foo",
+    "valid": false
+  },
+  {
+    "name": "continue before parameter command",
+    "source": "continue -foo",
+    "valid": true
+  },
+  {
+    "name": "break before nested positive signed number",
+    "source": "break + +1",
+    "valid": true
+  },
+  {
+    "name": "break before nested negative signed number",
+    "source": "break + -1",
+    "valid": true
+  },
+  {
+    "name": "break before nested command mode logical not",
+    "source": "break + -not $true",
+    "valid": false
+  },
+  {
+    "name": "break before nested command mode exclamation",
+    "source": "break + !$true",
+    "valid": false
+  },
+  {
+    "name": "break before nested command mode cast",
+    "source": "break + [int]$x",
+    "valid": false
+  },
+  {
+    "name": "break before nested command mode increment",
+    "source": "break + ++$x",
+    "valid": false
+  },
+  {
+    "name": "break before nested command mode postfix",
+    "source": "break + $x++",
+    "valid": false
+  },
+  {
+    "name": "break before nested disabled comma",
+    "source": "break + ,1",
+    "valid": false
+  },
+  {
+    "name": "break before nested parenthesized array",
+    "source": "break + (1,2)",
+    "valid": true
+  },
+  {
+    "name": "break before member postfix increment",
+    "source": "break $x.Name++",
+    "valid": true
+  },
+  {
+    "name": "break before braced postfix increment",
+    "source": "break ${x}++",
+    "valid": true
+  },
+  {
+    "name": "break before variable generic suffix",
+    "source": "break $x+1",
+    "valid": true
+  },
+  {
+    "name": "break before special variable generic suffix",
+    "source": "break $?++",
+    "valid": true
+  },
+  {
+    "name": "break before unsigned integer",
+    "source": "break 0",
+    "valid": true
+  },
+  {
+    "name": "break before unsigned real",
+    "source": "break 1.5",
+    "valid": true
+  },
+  {
+    "name": "break before dot real",
+    "source": "break .5",
+    "valid": true
+  },
+  {
+    "name": "break before unsigned hexadecimal",
+    "source": "break 0x1",
+    "valid": true
+  },
+  {
+    "name": "break before script block",
+    "source": "break {1}",
+    "valid": true
+  },
+  {
+    "name": "break before plus quoted generic",
+    "source": "break +\"x\"",
+    "valid": true
+  },
+  {
+    "name": "break before minus quoted generic",
+    "source": "break -'x'",
+    "valid": true
+  },
+  {
+    "name": "break before minus escaped newline",
+    "source": "break -`\n1",
+    "valid": true
+  },
+  {
+    "name": "for label same line",
+    "source": ":outer for (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "for label next line",
+    "source": ":outer\nfor (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "for label semicolon fallback",
+    "source": ":outer ; for (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "for label line comment",
+    "source": ":outer # comment\nfor (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "for label block comment",
+    "source": ":outer <# comment #> for (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "for label adjacent continuation fallback",
+    "source": ":outer`\n for (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "for label spaced continuation",
+    "source": ":outer `\n for (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "while label same line",
+    "source": ":outer while (1) {}",
+    "valid": true
+  },
+  {
+    "name": "while label next line",
+    "source": ":outer\nwhile (1) {}",
+    "valid": true
+  },
+  {
+    "name": "while label semicolon fallback",
+    "source": ":outer ; while (1) {}",
+    "valid": true
+  },
+  {
+    "name": "while label line comment",
+    "source": ":outer # comment\nwhile (1) {}",
+    "valid": true
+  },
+  {
+    "name": "while label block comment",
+    "source": ":outer <# comment #> while (1) {}",
+    "valid": true
+  },
+  {
+    "name": "while label adjacent continuation fallback",
+    "source": ":outer`\n while (1) {}",
+    "valid": true
+  },
+  {
+    "name": "while label spaced continuation",
+    "source": ":outer `\n while (1) {}",
+    "valid": true
+  },
+  {
+    "name": "do label same line",
+    "source": ":outer do {} while (1)",
+    "valid": true
+  },
+  {
+    "name": "do label next line",
+    "source": ":outer\ndo {} while (1)",
+    "valid": true
+  },
+  {
+    "name": "do label semicolon fallback",
+    "source": ":outer ; do {} while (1)",
+    "valid": true
+  },
+  {
+    "name": "do label line comment",
+    "source": ":outer # comment\ndo {} while (1)",
+    "valid": true
+  },
+  {
+    "name": "do label block comment",
+    "source": ":outer <# comment #> do {} while (1)",
+    "valid": true
+  },
+  {
+    "name": "do label adjacent continuation fallback",
+    "source": ":outer`\n do {} while (1)",
+    "valid": true
+  },
+  {
+    "name": "do label spaced continuation",
+    "source": ":outer `\n do {} while (1)",
+    "valid": true
+  },
+  {
+    "name": "switch label same line",
+    "source": ":outer switch (1) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch label next line",
+    "source": ":outer\nswitch (1) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch label semicolon fallback",
+    "source": ":outer ; switch (1) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch label line comment",
+    "source": ":outer # comment\nswitch (1) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch label block comment",
+    "source": ":outer <# comment #> switch (1) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch label adjacent continuation fallback",
+    "source": ":outer`\n switch (1) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "switch label spaced continuation",
+    "source": ":outer `\n switch (1) { 1 {} }",
+    "valid": true
+  },
+  {
+    "name": "foreach label same line",
+    "source": ":outer foreach ($x in 1) {}",
+    "valid": true
+  },
+  {
+    "name": "foreach label next line",
+    "source": ":outer\nforeach ($x in 1) {}",
+    "valid": true
+  },
+  {
+    "name": "foreach label semicolon fallback",
+    "source": ":outer ; foreach ($x in 1) {}",
+    "valid": true
+  },
+  {
+    "name": "foreach label line comment",
+    "source": ":outer # comment\nforeach ($x in 1) {}",
+    "valid": true
+  },
+  {
+    "name": "foreach label block comment",
+    "source": ":outer <# comment #> foreach ($x in 1) {}",
+    "valid": true
+  },
+  {
+    "name": "foreach label adjacent continuation fallback",
+    "source": ":outer`\n foreach ($x in 1) {}",
+    "valid": true
+  },
+  {
+    "name": "foreach label spaced continuation",
+    "source": ":outer `\n foreach ($x in 1) {}",
+    "valid": true
+  },
+  {
+    "name": "trailing spaces after bare break",
+    "source": "break   ",
+    "valid": true
+  },
+  {
+    "name": "trailing line comment after bare break",
+    "source": "break # comment\n$x",
+    "valid": true
+  },
+  {
+    "name": "block comment before variable label",
+    "source": "break <# comment #> $x",
+    "valid": true
+  },
+  {
+    "name": "block comment then newline ends bare break",
+    "source": "break <# comment #>\n$x",
+    "valid": true
+  },
+  {
+    "name": "multiline block comment before variable label",
+    "source": "break <# first\nsecond #> $x",
+    "valid": true
+  },
+  {
+    "name": "continuation before variable label",
+    "source": "break `\n$x",
+    "valid": true
+  },
+  {
+    "name": "continuation before signed number statement",
+    "source": "break `\n-1",
+    "valid": true
+  },
+  {
+    "name": "separated exclamation label",
+    "source": "break ! $true",
+    "valid": true
+  },
+  {
+    "name": "spaced type cast label",
+    "source": "break [ int ] $x",
+    "valid": true
+  },
+  {
+    "name": "spaced prefix increment label",
+    "source": "break ++ $x",
+    "valid": true
+  },
+  {
+    "name": "braced flow label nullable member",
+    "source": "break ${x}?.Name",
+    "valid": true
+  },
+  {
+    "name": "braced flow label nullable index",
+    "source": "break ${x}?[0]",
+    "valid": true
+  },
+  {
+    "name": "label keyword generic boundary double quote",
+    "source": ":outer for\"x\" (1)",
+    "valid": true
+  },
+  {
+    "name": "label keyword generic boundary single quote",
+    "source": ":outer for'x' (1)",
+    "valid": true
+  },
+  {
+    "name": "label keyword generic boundary greater than",
+    "source": ":outer for>out",
+    "valid": true
+  },
+  {
+    "name": "label keyword generic boundary less than",
+    "source": ":outer for<in",
+    "valid": true
+  }
+]

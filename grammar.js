@@ -44,6 +44,18 @@ const argumentList = (open, argument) => seq(
   ')',
 );
 
+// A newline advances a for-header slot, unless a preceding semicolon already
+// advanced it. A semicolon after that newline therefore skips the next slot.
+const forHeaderClause = (value, completed, next) => choice(
+  seq(value, optional(seq(
+    choice(';', repeat1(NEWLINE)),
+    repeat(NEWLINE),
+    optional(next),
+  ))),
+  seq(completed, optional(';'), repeat(NEWLINE), optional(next)),
+  seq(';', repeat(NEWLINE), optional(next)),
+);
+
 // Assignment and flow-control values may end in a background pipeline. Reuse
 // their syntax when recording a statement that already delimits its successor.
 const assignmentStatement = ($, right) => prec.right(seq(
@@ -63,10 +75,10 @@ const flowControlStatement = (word, value, required = false) => prec.right(seq(
 
 const breakContinueStatement = ($, word) => prec.right(seq(
   field('keyword', keyword(word)),
-  optional(field('label', choice(
-    $._unary_expression,
-    alias($._flow_label, $.identifier),
-  ))),
+  choice(
+    seq($._flow_expression_start, field('label', $._flow_unary_expression)),
+    $._flow_label_end,
+  ),
 ));
 
 const ci = word => new RegExp(
@@ -83,7 +95,9 @@ const op = word => alias(
 );
 const flag = word => choice(
   ...Array.from({length: word.length - 1}, (_, i) =>
-    alias(token(prec(2, ci(word.slice(0, i + 2)))), word)),
+    alias(token(prec(2, new RegExp(
+      ci(word.slice(0, i + 2)).source.replace(/-/g, '[-–—―]'),
+    ))), word)),
 );
 
 const CONTEXTUAL_KEYWORDS = [
@@ -95,10 +109,10 @@ const CONTEXTUAL_KEYWORDS = [
 
 // Bare argument fragments share their metacharacters and Unicode escape rules.
 // PowerShell's lowercase `u escape accepts one to six digits up to U+10FFFF.
-const ARGUMENT_CHARACTER = /[^\s;|&()<>{},$'"‘’‚‛“”„`]/.source;
+const ARGUMENT_CHARACTER = /[^\s;|&(){},$'"‘’‚‛“”„`]/.source;
 const ARGUMENT_ESCAPE = /`(?:[^u\r\n]|u\{(?:[0-9A-Fa-f]{1,5}|0[0-9A-Fa-f]{5}|10[0-9A-Fa-f]{4})\})/.source;
-const VARIABLE_FRAGMENT_START = /[^.\[?\s;|&()<>{},$'"‘’‚‛“”„`<>]/.source;
-const QUESTION_FRAGMENT_START = /[^.\[\s;|&()<>{},$'"‘’‚‛“”„`]/.source;
+const VARIABLE_FRAGMENT_START = /[^=.\[?\s;|&(){},$'"‘’‚‛“”„`]/.source;
+const QUESTION_FRAGMENT_START = /[^.\[\s;|&(){},$'"‘’‚‛“”„`]/.source;
 const VARIABLE_ARGUMENT_FRAGMENT = new RegExp(
   `(?:(?:${VARIABLE_FRAGMENT_START}|${ARGUMENT_ESCAPE})` +
   `(?:${ARGUMENT_CHARACTER}|${ARGUMENT_ESCAPE})*|` +
@@ -129,27 +143,106 @@ const BINARY_OPERATORS = [
   [PREC.range, ['..']],
 ];
 
-const unaryExpression = ($, allowComma) => {
+const unaryExpression = ($, argument, allowComma, options = {}) => {
   const operators = ['+', op('-'), '!', op('-not'), op('-bnot'), op('-split'), op('-join')];
   if (allowComma) {
     operators.splice(3, 0, ',');
   }
-  return prec(PREC.unary, choice(
-    seq(field('operator', choice(...operators)), field('argument', $._unary_expression)),
+  const argumentStart = options.argumentStart ? [options.argumentStart] : [];
+  const prefixStart = options.prefixStart ? [options.prefixStart] : [];
+  const alternatives = [
     seq(
-      field('operator', choice('++', op('--'))),
-      field('argument', $._prefix_assignable_expression),
+      field('operator', choice(...operators)),
+      repeat(NEWLINE),
+      ...argumentStart,
+      field('argument', argument),
     ),
     seq(
-      field('argument', $._assignable_expression),
+      field('operator', choice('++', op('--'))),
+      repeat(NEWLINE),
+      ...prefixStart,
+      field('argument', options.prefixAssignable || $._prefix_assignable_expression),
+    ),
+  ];
+  if (options.postfix !== false) {
+    alternatives.push(seq(
+      field('argument', options.assignable || $._assignable_expression),
       optional($._postfix_context),
       field('operator', choice(
         token.immediate(prec(5, '++')),
         alias(token.immediate(prec(5, /[-–—―][-–—―]/)), '--'),
       )),
-    ),
-  ));
+    ));
+  }
+  return prec(PREC.unary, choice(...alternatives));
 };
+
+const primaryValue = $ => choice(
+  $.variable,
+  $.integer_literal,
+  $.real_literal,
+  $.single_quoted_string,
+  $.expandable_string,
+  $.single_quoted_here_string,
+  $.expandable_here_string,
+  $.parenthesized_expression,
+  $.sub_expression,
+  $.array_expression,
+  $.hashtable_expression,
+  $.script_block,
+);
+
+const valuePrimaryExpression = ($, member, element, invocation) => prec(
+  PREC.member,
+  choice(primaryValue($), member, element, invocation),
+);
+
+const memberAccess = ($, primary, member, start = null) => prec.left(
+  PREC.member,
+  seq(
+    choice(
+      seq(
+        field('object', primary),
+        optional($._postfix_context),
+        field('operator', choice(
+          token.immediate(prec(5, '.')),
+          token.immediate(prec(5, '::')),
+          token.immediate(prec(5, '?.')),
+        )),
+      ),
+      seq(field('object', $.type_literal), field('operator', '?.')),
+    ),
+    repeat(NEWLINE),
+    ...(start ? [start] : []),
+    field('member', member),
+  ),
+);
+
+const elementAccess = ($, primary) => prec.left(
+  PREC.member,
+  seq(
+    field('object', primary),
+    optional($._postfix_context),
+    choice(token.immediate(prec(5, '[')), token.immediate(prec(5, '?['))),
+    repeat(NEWLINE),
+    field('index', $._expression),
+    repeat(NEWLINE),
+    ']',
+  ),
+);
+
+const invocationExpression = ($, member) => prec.left(
+  PREC.member,
+  seq(
+    field('function', member),
+    optional(field('type_arguments', $.generic_type_arguments)),
+    optional($._method_invocation_context),
+    choice(
+      field('arguments', $.argument_list),
+      field('arguments', alias($._method_script_block, $.script_block)),
+    ),
+  ),
+);
 
 const binaryExpression = (expression, newlines) => choice(
   ...BINARY_OPERATORS.map(([precedence, operators]) => {
@@ -180,7 +273,7 @@ const scriptBlock = ($, open) => seq(
   '}',
 );
 
-module.exports = grammar({
+const grammarDefinition = {
   name: 'powershell',
 
   extras: $ => [
@@ -221,17 +314,37 @@ module.exports = grammar({
     $.splat_expression,
     $._verbatim_arguments_start,
     $._verbatim_argument_text,
+    $._braced_argument_variable,
+    $._flow_expression_start,
+    $._flow_label_end,
+    $._command_member_start,
+    $._command_unary_start,
   ],
 
   word: $ => $.identifier,
 
   conflicts: $ => [
     [$._value_primary_expression, $.invocation_expression],
+    [$._argument_value_primary_expression, $._argument_invocation_expression],
+    [$._command_value_primary_expression, $._command_invocation_expression],
+    [$._assignable_expression, $._value_primary_expression, $.invocation_expression],
+    [
+      $._argument_assignable_expression,
+      $._argument_value_primary_expression,
+      $._argument_invocation_expression,
+    ],
+    [
+      $._command_assignable_expression,
+      $._command_value_primary_expression,
+      $._command_invocation_expression,
+    ],
     [$.pipeline],
     [$._pipeline_entry, $._completed_pipeline_entry],
     [$._statement, $._completed_assignment_statement],
     [$.if_statement],
     [$.try_statement],
+    [$.parameter],
+    [$.for_statement],
     // Qualifiers share syntax but have distinct property and method field roles.
     [$.class_property, $.class_method],
     // Attribute lists prefix declarations and variable expressions. Preserve
@@ -278,6 +391,7 @@ module.exports = grammar({
       $.foreach_statement,
       $.for_statement,
       $.while_statement,
+      $.do_statement,
       $.try_statement,
       $.trap_statement,
       $.function_definition,
@@ -295,7 +409,6 @@ module.exports = grammar({
     ),
 
     _simple_statement: $ => choice(
-      $.do_statement,
       $.return_statement,
       $.throw_statement,
       $.exit_statement,
@@ -396,12 +509,17 @@ module.exports = grammar({
       keyword('for'),
       repeat(NEWLINE),
       '(',
-      optional(field('initializer', $._pipeline_entry)),
-      optional(seq(
-        ';',
-        optional(field('condition', $._pipeline_entry)),
-        optional(seq(';', optional(field('update', $._pipeline_entry)))),
+      repeat(NEWLINE),
+      optional(forHeaderClause(
+        field('initializer', $._pipeline_entry),
+        field('initializer', $._completed_pipeline_entry),
+        forHeaderClause(
+          field('condition', $._pipeline_entry),
+          field('condition', $._completed_pipeline_entry),
+          field('update', $._pipeline_entry),
+        ),
       )),
+      repeat(NEWLINE),
       ')',
       repeat(NEWLINE),
       field('body', $.statement_block),
@@ -442,8 +560,8 @@ module.exports = grammar({
 
     catch_clause: $ => seq(
       keyword('catch'),
-      optional(commaSep1(field('types', $.type_literal))),
       repeat(NEWLINE),
+      optional(seq(commaSep1(field('types', $.type_literal)), repeat(NEWLINE))),
       field('body', $.statement_block),
     ),
 
@@ -455,8 +573,8 @@ module.exports = grammar({
 
     trap_statement: $ => seq(
       keyword('trap'),
-      optional(field('type', $.type_literal)),
       repeat(NEWLINE),
+      optional(seq(field('type', $.type_literal), repeat(NEWLINE))),
       field('body', $.statement_block),
     ),
 
@@ -508,17 +626,33 @@ module.exports = grammar({
         field('types', $.type_literal),
       ), repeat(NEWLINE))),
       field('name', $.variable),
-      optional(seq('=', repeat(NEWLINE), field('default', $._argument_expression))),
+      optional(seq(
+        repeat(NEWLINE),
+        '=',
+        repeat(NEWLINE),
+        field('default', $._argument_expression),
+      )),
     ),
 
     attribute: $ => seq(
       '[',
+      repeat(NEWLINE),
       field('name', $.type_name),
       field('arguments', alias($._attribute_argument_list, $.argument_list)),
+      repeat(NEWLINE),
       ']',
     ),
 
-    _attribute_argument_list: $ => argumentList('(', $.attribute_argument),
+    _attribute_argument_list: $ => seq(
+      '(',
+      repeat(NEWLINE),
+      optional(seq(
+        optional(seq(',', repeat(NEWLINE))),
+        commaSep1($.attribute_argument),
+        repeat(NEWLINE),
+      )),
+      ')',
+    ),
 
     attribute_argument: $ => choice(
       seq(
@@ -555,8 +689,10 @@ module.exports = grammar({
       keyword('class'),
       repeat(NEWLINE),
       field('name', $.identifier),
-      optional(seq(':', repeat(NEWLINE), commaSep1(field('base_types', $.type_name)))),
       repeat(NEWLINE),
+      optional(seq(
+        ':', repeat(NEWLINE), commaSep1(field('base_types', $.type_name)), repeat(NEWLINE),
+      )),
       field('body', $.class_body),
     ),
 
@@ -585,7 +721,7 @@ module.exports = grammar({
         ),
       ),
       field('name', $.variable),
-      optional(seq('=', field('value', $._expression))),
+      optional(seq('=', repeat(NEWLINE), field('value', $._expression))),
     ),
 
     class_method: $ => seq(
@@ -601,24 +737,20 @@ module.exports = grammar({
       ),
       field('name', $.identifier),
       field('parameters', $.parameter_list),
-      optional(field('base_constructor', $.base_constructor_call)),
       repeat(NEWLINE),
+      optional(seq(field('base_constructor', $.base_constructor_call), repeat(NEWLINE))),
       field('body', $.statement_block),
     ),
 
     base_constructor_call: $ => seq(
       ':',
+      repeat(NEWLINE),
       keyword('base'),
+      repeat(NEWLINE),
       field('arguments', alias($._base_argument_list, $.argument_list)),
     ),
 
-    // Base constructors retain their existing non-immediate opener and newline
-    // rules while sharing the public argument-list shape with ordinary calls.
-    _base_argument_list: $ => seq(
-      '(',
-      optional(commaSep1($._argument_expression)),
-      ')',
-    ),
+    _base_argument_list: $ => argumentList('(', $._argument_expression),
 
     enum_definition: $ => seq(
       repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
@@ -777,8 +909,8 @@ module.exports = grammar({
       alias($._command_argument_array, $.array_literal_expression),
     ),
 
-    // In argument mode, a comma following a value joins a single array argument.
-    // A leading comma still belongs to the ordinary unary expression grammar.
+    // In argument mode, a comma following a value joins one array argument.
+    // A comma cannot start a command argument.
     _command_argument_array: $ => seq(
       alias($._command_argument_value, $.command_argument),
       repeat1(
@@ -795,9 +927,23 @@ module.exports = grammar({
     // argument, whereas $HOME.Length-more has a member value and a parameter.
     _command_argument_value: $ => choice(
       seq($.splat_expression, $._expression_argument_end),
-      seq($._unary_expression, $._expression_argument_end),
-      seq($.member_access, $._member_argument_end),
-      prec.right(1, seq($.variable, repeat($._variable_argument_continuation), $._argument_end)),
+      seq($._command_argument_unary_expression, $._expression_argument_end),
+      seq(alias($._command_member_access, $.member_access), $._member_argument_end),
+      prec.right(1, seq(
+        $.variable,
+        optional(seq(
+          $._variable_argument_continuation,
+          repeat($._generic_argument_continuation),
+        )),
+        $._argument_end,
+      )),
+      // A braced variable followed immediately by '=' continues a generic
+      // argument. An unbraced variable ends before that character instead.
+      prec.right(1, seq(
+        alias($._braced_argument_variable, $.variable),
+        repeat($._generic_argument_continuation),
+        $._argument_end,
+      )),
       seq(
         choice($.bare_word, alias($._bare_colon_word, $.bare_word)),
         repeat($._generic_argument_continuation),
@@ -805,7 +951,7 @@ module.exports = grammar({
       ),
     ),
 
-    _bare_colon_word: _ => token(prec(0, /:[^\s;|&()<>{},$'"‘’‚‛“”„`]*/)),
+    _bare_colon_word: _ => token(prec(0, /:[^\s;|&()<>{},$'"‘’‚‛“”„]*/)),
 
     _variable_argument_continuation: $ => choice(
       alias($._argument_continuation, $.line_continuation),
@@ -819,7 +965,7 @@ module.exports = grammar({
       $._argument_interpolation,
     ),
 
-    _argument_continuation: _ => token.immediate(prec(1, /`[\r\n]/)),
+    _argument_continuation: _ => token.immediate(prec(1, /`(?:\r\n|\r|\n)/)),
 
     // Immediate tokens prevent spaces and other extras from joining fragments.
     _variable_argument_fragment: _ => token.immediate(prec(4, VARIABLE_ARGUMENT_FRAGMENT)),
@@ -867,7 +1013,7 @@ module.exports = grammar({
       ),
     ),
 
-    merging_redirection_operator: _ => /(?:[1-6]|\*)?>&[1-6]/,
+    merging_redirection_operator: _ => /(?:[1-6]>&[12]|\*>&1)/,
 
     file_redirection_operator: _ => /(?:[1-6]|\*)?>>?/,
 
@@ -892,6 +1038,7 @@ module.exports = grammar({
         '?',
         repeat(NEWLINE),
         field('consequence', $._expression),
+        repeat(NEWLINE),
         ':',
         repeat(NEWLINE),
         field('alternative', $._expression),
@@ -901,7 +1048,7 @@ module.exports = grammar({
     // Commas delimit method/attribute arguments and parameter defaults. Parentheses
     // re-enter ordinary expression mode and may contain array literals.
     _argument_expression: $ => choice(
-      $._unary_expression,
+      $._argument_unary_expression,
       alias($._argument_binary_expression, $.binary_expression),
       alias($._argument_ternary_expression, $.ternary_expression),
     ),
@@ -915,6 +1062,7 @@ module.exports = grammar({
         '?',
         repeat(NEWLINE),
         field('consequence', $._argument_expression),
+        repeat(NEWLINE),
         ':',
         repeat(NEWLINE),
         field('alternative', $._argument_expression),
@@ -928,15 +1076,164 @@ module.exports = grammar({
       $.attributed_expression,
     ),
 
-    unary_expression: $ => unaryExpression($, true),
+    unary_expression: $ => unaryExpression($, $._unary_expression, true),
 
-    _cast_unary_expression: $ => unaryExpression($, false),
+    _cast_unary_expression: $ => unaryExpression($, $._unary_expression, false),
+
+    // The parser disables unary comma recursively in method arguments,
+    // attribute arguments, and parameter defaults. Parentheses, indexers,
+    // subexpressions, arrays, and script block expressions restore it.
+    _argument_unary_expression: $ => choice(
+      $._argument_primary_expression,
+      alias($._argument_unary_operator_expression, $.unary_expression),
+      alias($._argument_cast_expression, $.cast_expression),
+      $.attributed_expression,
+    ),
+
+    _argument_unary_operator_expression: $ => unaryExpression(
+      $, $._argument_unary_expression, false, {
+        assignable: $._argument_assignable_expression,
+        prefixAssignable: $._argument_prefix_assignable_expression,
+      },
+    ),
+
+    _flow_unary_expression: $ => choice(
+      alias($._flow_label, $.identifier),
+      $._comma_free_command_primary_expression,
+      alias($._flow_unary_operator_expression, $.unary_expression),
+      alias($._flow_cast_expression, $.cast_expression),
+      $.attributed_expression,
+    ),
+
+    _flow_unary_operator_expression: $ => unaryExpression(
+      $, $._flow_unary_expression, false, {
+        argumentStart: $._flow_expression_start,
+        assignable: $._comma_free_command_assignable_expression,
+        prefixStart: $._flow_expression_start,
+        prefixAssignable: $._comma_free_command_prefix_assignable_expression,
+      },
+    ),
+
+    _flow_cast_expression: $ => prec(
+      PREC.unary,
+      seq(
+        field('type', $.type_literal),
+        $._flow_expression_start,
+        field('value', $._flow_unary_expression),
+      ),
+    ),
+
+    _argument_cast_expression: $ => prec(
+      PREC.unary,
+      seq(field('type', $.type_literal), field('value', $._argument_unary_expression)),
+    ),
+
+    // Command mode first peeks at a complete token. A glued '-1' or '$name-tail'
+    // can be generic text where the same spelling starts an expression elsewhere.
+    // After a prefix operator, recursive unary parsing also enables signed numbers.
+    _command_argument_unary_expression: $ => choice(
+      $._command_primary_expression,
+      alias($._command_argument_unary_operator_expression, $.unary_expression),
+      alias($._command_cast_expression, $.cast_expression),
+      $.attributed_expression,
+    ),
+
+    _command_argument_unary_operator_expression: $ => unaryExpression(
+      $, $._command_unary_expression, false, {
+        argumentStart: $._command_unary_start,
+        assignable: $._command_assignable_expression,
+        prefixStart: $._command_unary_start,
+        prefixAssignable: $._command_prefix_assignable_expression,
+      },
+    ),
+
+    _command_unary_expression: $ => choice(
+      $._command_primary_expression,
+      alias($._command_unary_operator_expression, $.unary_expression),
+      alias($._command_cast_expression, $.cast_expression),
+      $.attributed_expression,
+    ),
+
+    _command_unary_operator_expression: $ => unaryExpression(
+      $, $._command_unary_expression, true, {
+        argumentStart: $._command_unary_start,
+        assignable: $._command_assignable_expression,
+        prefixStart: $._command_unary_start,
+        prefixAssignable: $._command_prefix_assignable_expression,
+      },
+    ),
+
+    _argument_command_unary_expression: $ => choice(
+      $._comma_free_command_primary_expression,
+      alias($._argument_command_unary_operator_expression, $.unary_expression),
+      alias($._argument_command_cast_expression, $.cast_expression),
+      $.attributed_expression,
+    ),
+
+    _argument_command_unary_operator_expression: $ => unaryExpression(
+      $, $._argument_command_unary_expression, false, {
+        argumentStart: $._command_unary_start,
+        assignable: $._comma_free_command_assignable_expression,
+        prefixStart: $._command_unary_start,
+        prefixAssignable: $._comma_free_command_prefix_assignable_expression,
+      },
+    ),
+
+    _command_cast_expression: $ => prec(
+      PREC.unary,
+      seq(field('type', $.type_literal), field('value', $._command_cast_value)),
+    ),
+
+    _command_cast_value: $ => choice(
+      $._command_primary_expression,
+      alias($._command_cast_expression, $.cast_expression),
+      $.attributed_expression,
+      alias($._command_argument_unary_operator_expression, $.unary_expression),
+    ),
+
+    _argument_command_cast_expression: $ => prec(
+      PREC.unary,
+      seq(
+        field('type', $.type_literal),
+        $._command_unary_start,
+        field('value', $._argument_command_unary_expression),
+      ),
+    ),
 
     _assignable_expression: $ => choice(
       $.variable,
       $.member_access,
       $.element_access,
+      $.invocation_expression,
       $.parenthesized_expression,
+    ),
+
+    _argument_assignable_expression: $ => choice(
+      $.variable,
+      alias($._argument_member_access, $.member_access),
+      alias($._argument_element_access, $.element_access),
+      alias($._argument_invocation_expression, $.invocation_expression),
+      $.parenthesized_expression,
+    ),
+
+    _argument_prefix_assignable_expression: $ => choice(
+      $._argument_assignable_expression,
+      $.attributed_expression,
+      alias($._attributed_variable_cast, $.cast_expression),
+    ),
+
+    _command_assignable_expression: $ => choice(
+      $.variable,
+      alias($._command_member_access, $.member_access),
+      alias($._command_element_access, $.element_access),
+      alias($._command_invocation_expression, $.invocation_expression),
+      $.parenthesized_expression,
+    ),
+
+    _command_prefix_assignable_expression: $ => choice(
+      $._command_assignable_expression,
+      $.attributed_expression,
+      alias($._attributed_variable_cast, $.cast_expression),
     ),
 
     _prefix_assignable_expression: $ => choice(
@@ -980,25 +1277,32 @@ module.exports = grammar({
 
     _primary_expression: $ => choice($._value_primary_expression, $.type_literal),
 
-    _value_primary_expression: $ => prec(
-      PREC.member,
-      choice(
-        $.variable,
-        $.integer_literal,
-        $.real_literal,
-        $.single_quoted_string,
-        $.expandable_string,
-        $.single_quoted_here_string,
-        $.expandable_here_string,
-        $.parenthesized_expression,
-        $.sub_expression,
-        $.array_expression,
-        $.hashtable_expression,
-        $.script_block,
-        $.member_access,
-        $.element_access,
-        $.invocation_expression,
-      ),
+    _value_primary_expression: $ => valuePrimaryExpression(
+      $, $.member_access, $.element_access, $.invocation_expression,
+    ),
+
+    _argument_primary_expression: $ => choice(
+      $._argument_value_primary_expression,
+      $.type_literal,
+    ),
+
+    _argument_value_primary_expression: $ => valuePrimaryExpression(
+      $,
+      alias($._argument_member_access, $.member_access),
+      alias($._argument_element_access, $.element_access),
+      alias($._argument_invocation_expression, $.invocation_expression),
+    ),
+
+    _command_primary_expression: $ => choice(
+      $._command_value_primary_expression,
+      $.type_literal,
+    ),
+
+    _command_value_primary_expression: $ => valuePrimaryExpression(
+      $,
+      alias($._command_member_access, $.member_access),
+      alias($._command_element_access, $.element_access),
+      alias($._command_invocation_expression, $.invocation_expression),
     ),
 
     parenthesized_expression: $ => seq(
@@ -1015,84 +1319,107 @@ module.exports = grammar({
 
     hashtable_expression: $ => seq(
       '@{',
-      repeat($._terminator),
+      repeat(NEWLINE),
       repeat(seq($.hash_entry, repeat1($._terminator))),
       optional($.hash_entry),
       '}',
     ),
 
     hash_entry: $ => seq(
-      field('key', choice($.identifier, $._unary_expression)),
+      field('key', choice($.identifier, $._argument_unary_expression)),
       '=',
       repeat(NEWLINE),
       field('value', $._statement),
     ),
 
-    member_access: $ => prec.left(
-      PREC.member,
-      seq(
-        choice(
-          seq(
-            field('object', $._primary_expression),
-            optional($._postfix_context),
-            field(
-              'operator',
-              choice(
-                token.immediate(prec(5, '.')),
-                token.immediate(prec(5, '::')),
-                token.immediate(prec(5, '?.')),
-              ),
-            ),
-          ),
-          seq(field('object', $.type_literal), field('operator', '?.')),
-        ),
-        repeat(NEWLINE),
-        field(
-          'member',
-          choice(
-            $.identifier,
-            $.integer_literal,
-            $.real_literal,
-            $.variable,
-            $.single_quoted_string,
-            $.expandable_string,
-            $.parenthesized_expression,
-            $.sub_expression,
-          ),
-        ),
-      ),
+    member_access: $ => memberAccess($, $._primary_expression, $._member_name),
+
+    _argument_member_access: $ => memberAccess(
+      $, $._argument_primary_expression, $._argument_member_name,
     ),
 
-    element_access: $ => prec.left(
-      PREC.member,
-      seq(
-        field('object', $._value_primary_expression),
-        optional($._postfix_context),
-        choice(token.immediate(prec(5, '[')), token.immediate(prec(5, '?['))),
-        repeat(NEWLINE),
-        field('index', $._expression),
-        repeat(NEWLINE),
-        ']',
-      ),
+    _command_member_access: $ => memberAccess(
+      $, $._command_primary_expression, $._command_member_name, $._command_member_start,
     ),
 
-    invocation_expression: $ => prec.left(
-      PREC.member,
-      seq(
-        field('function', $.member_access),
-        optional(field('type_arguments', $.generic_type_arguments)),
-        optional($._method_invocation_context),
-        choice(
-          field('arguments', $.argument_list),
-          field('arguments', alias($._method_script_block, $.script_block)),
-        ),
-      ),
+    // Simple member values stop before the next postfix operator. Prefix
+    // operators and casts instead consume a complete recursive unary operand.
+    _member_name: $ => choice(
+      $.identifier,
+      primaryValue($),
+      $.type_literal,
+      alias($._member_name_unary_expression, $.unary_expression),
+      $.cast_expression,
+      $.attributed_expression,
+    ),
+
+    _member_name_unary_expression: $ => unaryExpression(
+      $, $._unary_expression, true, {postfix: false},
+    ),
+
+    _argument_member_name: $ => choice(
+      $.identifier,
+      primaryValue($),
+      $.type_literal,
+      alias($._argument_member_name_unary_expression, $.unary_expression),
+      alias($._argument_cast_expression, $.cast_expression),
+      $.attributed_expression,
+    ),
+
+    _argument_member_name_unary_expression: $ => unaryExpression(
+      $, $._argument_unary_expression, false, {
+        postfix: false,
+        prefixAssignable: $._argument_prefix_assignable_expression,
+      },
+    ),
+
+    _command_member_name: $ => choice(
+      $.identifier,
+      primaryValue($),
+      $.type_literal,
+      alias($._command_member_name_unary_expression, $.unary_expression),
+      alias($._command_cast_expression, $.cast_expression),
+      $.attributed_expression,
+    ),
+
+    _command_member_name_unary_expression: $ => unaryExpression(
+      $, $._command_unary_expression, true, {
+        postfix: false,
+        argumentStart: $._command_unary_start,
+        prefixStart: $._command_unary_start,
+        prefixAssignable: $._command_prefix_assignable_expression,
+      },
+    ),
+
+    _argument_command_member_name_unary_expression: $ => unaryExpression(
+      $, $._argument_command_unary_expression, false, {
+        postfix: false,
+        argumentStart: $._command_unary_start,
+        prefixStart: $._command_unary_start,
+        prefixAssignable: $._comma_free_command_prefix_assignable_expression,
+      },
+    ),
+
+    element_access: $ => elementAccess($, $._value_primary_expression),
+
+    _argument_element_access: $ => elementAccess($, $._argument_value_primary_expression),
+
+    _command_element_access: $ => elementAccess($, $._command_value_primary_expression),
+
+    invocation_expression: $ => invocationExpression($, $.member_access),
+
+    _argument_invocation_expression: $ => invocationExpression(
+      $, alias($._argument_member_access, $.member_access),
+    ),
+
+    _command_invocation_expression: $ => invocationExpression(
+      $, alias($._command_member_access, $.member_access),
     ),
 
     argument_list: $ => argumentList(token.immediate('('), $._argument_expression),
 
-    // Generic argument lists allow physical newlines around their separators;
-    // the outer brackets of a type literal and assembly qualification do not.
+    // Generic lists allow newlines around separators. Bracketed generic arguments
+    // forbid a newline immediately after their opener; assembly names stay inline.
     generic_type_arguments: $ => seq(
       token.immediate(prec(5, '[')),
       repeat(NEWLINE),
@@ -1102,7 +1429,9 @@ module.exports = grammar({
       ']',
     ),
 
-    type_literal: $ => seq('[', $.type_name, optional($.assembly_name), ']'),
+    type_literal: $ => seq('[', repeat(NEWLINE), $.type_name, optional($.assembly_name), ']'),
+
+    _generic_type_literal: $ => seq('[', $.type_name, optional($.assembly_name), ']'),
 
     assembly_name: _ => seq(
       ',',
@@ -1117,13 +1446,13 @@ module.exports = grammar({
         seq(
           '[',
           repeat(NEWLINE),
-          choice($.type_name, $.type_literal),
+          choice($.type_name, alias($._generic_type_literal, $.type_literal)),
           repeat(NEWLINE),
           repeat(
             seq(
               ',',
               repeat(NEWLINE),
-              choice($.type_name, $.type_literal),
+              choice($.type_name, alias($._generic_type_literal, $.type_literal)),
               repeat(NEWLINE),
             ),
           ),
@@ -1178,4 +1507,116 @@ module.exports = grammar({
 
     escape_sequence: _ => token(/`[\s\S]/),
   },
-});
+};
+
+// Hashtable statements inherit PowerShell's comma-operator setting. Keep one
+// rule builder for each construct and reuse it in the comma-suppressed context.
+const COMMA_CONTEXT_RULES = new Set([
+  '_script_block_body', '_statement_list', '_terminated_statement',
+  '_statement', '_block_statement', '_simple_statement', 'statement_block',
+  'if_statement', 'elseif_clause', 'else_clause', 'condition',
+  'switch_statement', '_switch_file_parameter', 'switch_clause',
+  'foreach_statement', 'for_statement', 'while_statement', 'do_statement',
+  'try_statement', 'catch_clause', 'finally_clause', 'trap_statement',
+  'return_statement', 'throw_statement', 'exit_statement',
+  '_completed_return_statement', '_completed_throw_statement', '_completed_exit_statement',
+  'function_definition', 'script_block', 'named_block',
+  'class_definition', 'class_body', 'class_property', 'class_method',
+  'enum_definition', 'enum_body', 'enum_member', 'data_statement',
+  'assignment_statement', '_completed_assignment_statement',
+  '_pipeline_entry', '_completed_pipeline_entry', 'pipeline', 'pipeline_chain',
+  'background_pipeline', 'command_expression', 'command',
+  'invocation_operator_command', 'command_parameter', '_command_parameter_value',
+  'command_argument', '_command_argument_array', '_command_argument_value',
+  'redirection', 'hashtable_expression', 'hash_entry',
+  '_command_argument_unary_expression', '_command_argument_unary_operator_expression',
+  '_command_primary_expression', '_command_value_primary_expression',
+  '_command_assignable_expression', '_command_prefix_assignable_expression',
+  '_command_member_access', '_command_member_name',
+  '_command_element_access', '_command_invocation_expression',
+]);
+
+const COMMA_CONTEXT_EXPRESSIONS = {
+  _expression: '_argument_expression',
+  _unary_expression: '_argument_unary_expression',
+  _primary_expression: '_argument_primary_expression',
+  _value_primary_expression: '_argument_value_primary_expression',
+  _assignable_expression: '_argument_assignable_expression',
+  _prefix_assignable_expression: '_argument_prefix_assignable_expression',
+  _cast_value: '_argument_unary_expression',
+  _member_name: '_argument_member_name',
+  member_access: '_argument_member_access',
+  element_access: '_argument_element_access',
+  invocation_expression: '_argument_invocation_expression',
+  cast_expression: '_argument_cast_expression',
+  unary_expression: '_argument_unary_operator_expression',
+  _command_unary_expression: '_argument_command_unary_expression',
+  _command_unary_operator_expression: '_argument_command_unary_operator_expression',
+  _command_cast_expression: '_argument_command_cast_expression',
+  _command_cast_value: '_argument_command_unary_expression',
+  _command_member_name_unary_expression: '_argument_command_member_name_unary_expression',
+};
+
+const commaContextName = (name, owner) => {
+  // Script block expressions reset comma suppression; a function declaration's
+  // body inherits it. Parentheses, subexpressions, arrays, and indexers already
+  // use their ordinary builders at their respective reset boundaries.
+  if (name === 'script_block' && owner !== 'function_definition') {
+    return name;
+  }
+  if (name === '_expression' && owner === '_command_element_access') {
+    return name;
+  }
+  return COMMA_CONTEXT_EXPRESSIONS[name] ||
+    (COMMA_CONTEXT_RULES.has(name) ? `_comma_free_${name.replace(/^_/, '')}` : name);
+};
+
+const commaContext = ($, rule, owner) => {
+  if (rule.type === 'SYMBOL') {
+    const name = commaContextName(rule.name, owner);
+    if (name === rule.name) {
+      return rule;
+    }
+    return rule.name.startsWith('_') ? $[name] : alias($[name], $[rule.name]);
+  }
+  // Preserve alias names and field names while replacing their rule contents.
+  if (rule.content) {
+    return {...rule, content: commaContext($, rule.content, owner)};
+  }
+  if (rule.members) {
+    return {...rule, members: rule.members.map(member => commaContext($, member, owner))};
+  }
+  return rule;
+};
+
+for (const name of COMMA_CONTEXT_RULES) {
+  const builder = grammarDefinition.rules[name];
+  grammarDefinition.rules[`_comma_free_${name.replace(/^_/, '')}`] = $ =>
+    commaContext($, builder($), name);
+}
+
+// Method/default/attribute expressions and member names are the entry points
+// that can introduce a hashtable while comma suppression is already enabled.
+for (const name of ['_argument_value_primary_expression', '_argument_member_name']) {
+  const builder = grammarDefinition.rules[name];
+  grammarDefinition.rules[name] = $ => commaContext($, builder($), name);
+}
+
+const ordinaryConflicts = grammarDefinition.conflicts;
+grammarDefinition.conflicts = $ => {
+  const conflicts = ordinaryConflicts($);
+  const contextual = conflicts.map(conflict => conflict.map(rule =>
+    $[commaContextName(rule.name)],
+  ));
+  const seen = new Set();
+  return [...conflicts, ...contextual].filter(conflict => {
+    const key = conflict.map(rule => rule.name).sort().join(',');
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+};
+
+module.exports = grammar(grammarDefinition);

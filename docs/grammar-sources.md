@@ -56,12 +56,17 @@ instead has one `script_block` as its `arguments`. Functions and methods expose
 `parameters` and `body`. Classes and enums have a `class_body` or `enum_body`, whose
 `members` fields identify the declarations between their braces. These list and
 body nodes preserve source boundaries, including empty lists and bodies.
+Member names can also be expressions. In `$obj.-$name.Length`, the member is the
+complete unary expression `-$name.Length`; in `$obj.$name.Length`, the final
+`.Length` instead accesses the result of `$obj.$name`.
 The official [C# grammar](https://github.com/tree-sitter/tree-sitter-c-sharp/blob/8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5/grammar.js)
 uses the same argument-list and declaration-body conventions.
 
 `for_statement` exposes optional `initializer`, `condition`, and `update` fields,
 plus `body`. This matches the roles used by the official
 [Bash grammar](https://github.com/tree-sitter/tree-sitter-bash/blob/a06c2e4415e9bc0346c6b86d401879ffb44058f7/grammar.js#L211-L229).
+PowerShell allows physical newlines as well as semicolons between header clauses;
+the clause positions determine these fields.
 Declaration names, parameter defaults, class property values, catch types, and
 conditional clauses also have fields, so queries can select their syntactic role.
 
@@ -127,6 +132,12 @@ each element is also a complete `command_argument`: `Write-Output pre$x,post$y`
 has two array elements. `node-types.json` records whether each field is scalar or
 repeated; repeated fields can be retrieved with `children_by_field_name`.
 
+A numeric-looking prefix followed by quotes or interpolation is also part of one
+argument: `Write-Output 1"$name"` contains one composite `command_argument`.
+Argument mode treats `<` and `>` as literal characters after a generic word,
+simple variable, or parameter name. Thus `native $name>out` has one argument,
+while `native $name.Length>out` has a member-access argument and a redirection.
+
 In `Write-Output $HOME.Length-more`, the member-access argument ends before the
 `-more` parameter. Expandable here strings expose
 `variable`, `sub_expression`, `string_content`, and `escape_sequence` children in the
@@ -137,6 +148,13 @@ Operator grouping follows the pinned parser. For example,
 `1 -eq 2 -shl 3` groups as `(1 -eq 2) -shl 3`. Null coalescing binds above comparison
 and below addition. Braced variables can contain supplementary Unicode characters:
 `${𐐀}` is a variable, while `$𐐀` is a command token.
+
+Method arguments, parameter defaults, attribute arguments, and hashtable keys
+disable the comma operator. That setting also applies inside hashtable statement
+values and their nested control-flow or declaration bodies. Parenthesized
+expressions, array expressions, subexpressions, script-block expressions, and
+index operands restore ordinary expression parsing. Command-mode comma lists
+still form array arguments.
 
 PowerShell's semantic AST includes implicit wrappers and combines some source
 fragments. The CST preserves the original spelling and punctuation. PowerShell

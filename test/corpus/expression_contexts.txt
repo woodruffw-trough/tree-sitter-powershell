@@ -1,0 +1,129 @@
+================================================================================
+Prefix operators retain their operand across a physical newline
+================================================================================
+-not
+$true
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (variable)))))
+
+================================================================================
+Ternary newlines preserve a complete method argument
+================================================================================
+$obj.M($true ? 1
+: 2, 3)
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        arguments: (argument_list
+          (ternary_expression
+            condition: (variable)
+            consequence: (integer_literal)
+            alternative: (integer_literal))
+          (integer_literal))))))
+
+================================================================================
+A leading attribute comma does not create an array expression
+================================================================================
+[A(,1)]$x
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (attributed_expression
+        attribute: (attribute
+          name: (type_name
+            name: (type_identifier))
+          arguments: (argument_list
+            (attribute_argument
+              (integer_literal))))
+        value: (variable)))))
+
+================================================================================
+Class and constructor newlines retain declaration roles
+================================================================================
+class C
+: System.Object {
+  [int]$value =
+    -not
+      $false
+  C()
+  :
+  base
+  (
+    1
+    ,
+    2
+  )
+  {}
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    name: (identifier)
+    base_types: (type_name
+      name: (type_identifier))
+    body: (class_body
+      members: (class_property
+        types: (type_literal
+          (type_name
+            name: (type_identifier)))
+        name: (variable)
+        value: (unary_expression
+          argument: (variable)))
+      members: (class_method
+        name: (identifier)
+        parameters: (parameter_list)
+        base_constructor: (base_constructor_call
+          arguments: (argument_list
+            (integer_literal)
+            (integer_literal)))
+        body: (statement_block)))))
+
+================================================================================
+An opening type newline retains the complete cast type
+================================================================================
+[
+int]$x
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (cast_expression
+        type: (type_literal
+          (type_name
+            name: (type_identifier)))
+        value: (variable)))))
+
+================================================================================
+Parentheses restore unary comma in a hashtable key
+================================================================================
+@{(,1)=2;}
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (hashtable_expression
+        (hash_entry
+          key: (parenthesized_expression
+            (pipeline
+              elements: (command_expression
+                expression: (unary_expression
+                  argument: (integer_literal)))))
+          value: (pipeline
+            elements: (command_expression
+              expression: (integer_literal))))))))

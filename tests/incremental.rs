@@ -96,6 +96,11 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "[T]::M([string], $value)\n",
         "[ValidateNotNull()]$x = 1\n",
         "class C {$x=1;;C(){}M(){}$y=2;}\n",
+        "Write-X $obj.- $name\n",
+        "Write-X $obj.$name=more\n",
+        "$obj.F($obj.(,1))\n",
+        "$obj.F(1)++\n",
+        "$obj.-$name.Length\n",
     ] {
         let mut parser = parser();
         let original = parser.parse(source, None).unwrap();

@@ -1,0 +1,50 @@
+================================================================================
+A parameter-default hashtable retains parentheses that enable array syntax
+================================================================================
+param($x=@{a=(1,2)})
+--------------------------------------------------------------------------------
+
+(source_file
+  (param_block
+    parameters: (parameter_list
+      (parameter
+        name: (variable)
+        default: (hashtable_expression
+          (hash_entry
+            key: (identifier)
+            value: (pipeline
+              elements: (command_expression
+                expression: (parenthesized_expression
+                  (pipeline
+                    elements: (command_expression
+                      expression: (array_literal_expression
+                        (integer_literal)
+                        (integer_literal)))))))))))))
+
+================================================================================
+Command argument arrays remain enabled inside a method-argument hashtable
+================================================================================
+$o.M(@{a=echo 1,2})
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        arguments: (argument_list
+          (hashtable_expression
+            (hash_entry
+              key: (identifier)
+              value: (pipeline
+                elements: (command
+                  name: (command_name
+                    (bare_word))
+                  (command_argument
+                    (array_literal_expression
+                      (command_argument
+                        (integer_literal))
+                      (command_argument
+                        (integer_literal)))))))))))))

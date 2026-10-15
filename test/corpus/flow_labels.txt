@@ -1,0 +1,69 @@
+==================
+Unary comma begins a new statement after break
+==================
+break ,1
+
+---
+
+(source_file
+  (break_statement)
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (integer_literal)))))
+
+==================
+An adjacent signed number is not a flow label
+==================
+continue -1
+
+---
+
+(source_file
+  (continue_statement)
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (integer_literal)))))
+
+==================
+A separated unary operator can consume a signed label operand
+==================
+break + -1
+
+---
+
+(source_file
+  (break_statement
+    label: (unary_expression
+      argument: (unary_expression
+        argument: (integer_literal)))))
+
+==================
+The comma following a variable label begins a new statement
+==================
+break $x,1
+
+---
+
+(source_file
+  (break_statement
+    label: (variable))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (integer_literal)))))
+
+==================
+A colon word followed by a semicolon is a command
+==================
+:outer; for (;;) {}
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name (bare_word))))
+  (for_statement
+    body: (statement_block)))

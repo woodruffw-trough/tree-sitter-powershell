@@ -1,0 +1,412 @@
+[
+  {
+    "name": "logical not after newline",
+    "source": "-not\n$true",
+    "valid": true
+  },
+  {
+    "name": "logical not after comment and CRLF",
+    "source": "-not # operand\r\n$true",
+    "valid": true
+  },
+  {
+    "name": "bitwise not after newline",
+    "source": "-bnot\n1",
+    "valid": true
+  },
+  {
+    "name": "bitwise not after comment and CRLF",
+    "source": "-bnot # operand\r\n1",
+    "valid": true
+  },
+  {
+    "name": "unary plus after newline",
+    "source": "+\n1",
+    "valid": true
+  },
+  {
+    "name": "unary plus after comment and CRLF",
+    "source": "+ # operand\r\n1",
+    "valid": true
+  },
+  {
+    "name": "unary minus after newline",
+    "source": "-\n1",
+    "valid": true
+  },
+  {
+    "name": "unary minus after comment and CRLF",
+    "source": "- # operand\r\n1",
+    "valid": true
+  },
+  {
+    "name": "bang after newline",
+    "source": "!\n$true",
+    "valid": true
+  },
+  {
+    "name": "bang after comment and CRLF",
+    "source": "! # operand\r\n$true",
+    "valid": true
+  },
+  {
+    "name": "unary comma after newline",
+    "source": ",\n1",
+    "valid": true
+  },
+  {
+    "name": "unary comma after comment and CRLF",
+    "source": ", # operand\r\n1",
+    "valid": true
+  },
+  {
+    "name": "split after newline",
+    "source": "-split\n\"a b\"",
+    "valid": true
+  },
+  {
+    "name": "split after comment and CRLF",
+    "source": "-split # operand\r\n\"a b\"",
+    "valid": true
+  },
+  {
+    "name": "join after newline",
+    "source": "-join\n\"a\",\"b\"",
+    "valid": true
+  },
+  {
+    "name": "join after comment and CRLF",
+    "source": "-join # operand\r\n\"a\",\"b\"",
+    "valid": true
+  },
+  {
+    "name": "increment after newline",
+    "source": "++\n$x",
+    "valid": true
+  },
+  {
+    "name": "increment after comment and CRLF",
+    "source": "++ # operand\r\n$x",
+    "valid": true
+  },
+  {
+    "name": "decrement after newline",
+    "source": "--\n$x",
+    "valid": true
+  },
+  {
+    "name": "decrement after comment and CRLF",
+    "source": "-- # operand\r\n$x",
+    "valid": true
+  },
+  {
+    "name": "recursive unary newlines",
+    "source": "-not\n-bnot\n1",
+    "valid": true
+  },
+  {
+    "name": "cast unary newline",
+    "source": "[int]-\n1",
+    "valid": true
+  },
+  {
+    "name": "method argument unary newline",
+    "source": "$obj.M(-not\n$true, +\n1)",
+    "valid": true
+  },
+  {
+    "name": "parameter default unary newline",
+    "source": "param($x = -not\n$true)",
+    "valid": true
+  },
+  {
+    "name": "attribute argument unary newline",
+    "source": "[A(-not\n$true)]$x",
+    "valid": true
+  },
+  {
+    "name": "multiline ternary before colon",
+    "source": "$true ? 1\n: 2",
+    "valid": true
+  },
+  {
+    "name": "multiline ternary with comment before colon",
+    "source": "$true ? 1 # consequence\n: 2",
+    "valid": true
+  },
+  {
+    "name": "multiline nested ternary",
+    "source": "$true ? $false ? 1\n: 2\n: 3",
+    "valid": true
+  },
+  {
+    "name": "multiline ternary array branches",
+    "source": "$true ? 1,2\n: 3,4",
+    "valid": true
+  },
+  {
+    "name": "multiline ternary method argument",
+    "source": "$obj.M($true ? 1\n: 2, 3)",
+    "valid": true
+  },
+  {
+    "name": "multiline ternary parameter default",
+    "source": "param($x = $true ? 1\n: 2)",
+    "valid": true
+  },
+  {
+    "name": "multiline ternary attribute argument",
+    "source": "[A($true ? 1\n: 2)]$x",
+    "valid": true
+  },
+  {
+    "name": "multiline ternary property value",
+    "source": "class C { $x = $true ? 1\n: 2 }",
+    "valid": true
+  },
+  {
+    "name": "parameter newline before equals",
+    "source": "param($x\n=1)",
+    "valid": true
+  },
+  {
+    "name": "parameter comment before equals",
+    "source": "param($x # default\n=\n1, $y)",
+    "valid": true
+  },
+  {
+    "name": "function parameter newline before equals",
+    "source": "function f($x\n=\n1) {}",
+    "valid": true
+  },
+  {
+    "name": "class property initializer newline",
+    "source": "class C { [int] $x =\n1 }",
+    "valid": true
+  },
+  {
+    "name": "class property initializer comment",
+    "source": "class C { $x = # initializer\n1 +\n2\n}",
+    "valid": true
+  },
+  {
+    "name": "class inheritance newline before colon",
+    "source": "class C\n: System.Object {}",
+    "valid": true
+  },
+  {
+    "name": "class inheritance comment before colon",
+    "source": "class C # base class\n:\nSystem.Object {}",
+    "valid": true
+  },
+  {
+    "name": "enum inheritance newline before colon is invalid",
+    "source": "enum E\n: byte {A}",
+    "valid": false
+  },
+  {
+    "name": "enum initializer newline is invalid",
+    "source": "enum E {A=\n1}",
+    "valid": false
+  },
+  {
+    "name": "constructor newline before colon",
+    "source": "class C { C()\n:base(){} }",
+    "valid": true
+  },
+  {
+    "name": "constructor newline after colon",
+    "source": "class C { C():\nbase(){} }",
+    "valid": true
+  },
+  {
+    "name": "constructor newline after base",
+    "source": "class C { C():base\n(){} }",
+    "valid": true
+  },
+  {
+    "name": "constructor empty arguments multiline",
+    "source": "class C { C():base(\n){} }",
+    "valid": true
+  },
+  {
+    "name": "constructor arguments multiline",
+    "source": "class C { C():base(\n1\n,\n2\n){} }",
+    "valid": true
+  },
+  {
+    "name": "constructor full multiline declaration",
+    "source": "class C\n:\nSystem.Object {\nC()\n:\nbase\n(\n)\n{}\n}",
+    "valid": true
+  },
+  {
+    "name": "type literal opening newline",
+    "source": "[\nint]",
+    "valid": true
+  },
+  {
+    "name": "type literal opening comment",
+    "source": "[ # type\nint]",
+    "valid": true
+  },
+  {
+    "name": "cast type opening newline",
+    "source": "[\nint]$x",
+    "valid": true
+  },
+  {
+    "name": "type literal closing newline is invalid",
+    "source": "[int\n]",
+    "valid": false
+  },
+  {
+    "name": "attribute opening and closing newlines",
+    "source": "[\nA()\n]$x",
+    "valid": true
+  },
+  {
+    "name": "attribute one leading comma",
+    "source": "[A(,1)]$x",
+    "valid": true
+  },
+  {
+    "name": "attribute leading comma with newlines",
+    "source": "[A(\n,\n1)]$x",
+    "valid": true
+  },
+  {
+    "name": "attribute leading comma before named argument",
+    "source": "[A(,Name=1)]$x",
+    "valid": true
+  },
+  {
+    "name": "attribute multiple leading commas are invalid",
+    "source": "[A(,,1)]$x",
+    "valid": false
+  },
+  {
+    "name": "attribute intervening empty argument is invalid",
+    "source": "[A(1,,2)]$x",
+    "valid": false
+  },
+  {
+    "name": "attribute missing argument after leading comma",
+    "source": "[A(,)]$x",
+    "valid": false
+  },
+  {
+    "name": "attribute missing final argument",
+    "source": "[A(1,)]$x",
+    "valid": false
+  },
+  {
+    "name": "method rejects leading comma",
+    "source": "$obj.M(,1)",
+    "valid": false
+  },
+  {
+    "name": "parameter default rejects leading comma",
+    "source": "param($x=,1)",
+    "valid": false
+  },
+  {
+    "name": "method rejects recursive unary comma",
+    "source": "$obj.M(-not ,1)",
+    "valid": false
+  },
+  {
+    "name": "parameter default rejects recursive unary comma",
+    "source": "param($x=-not ,1)",
+    "valid": false
+  },
+  {
+    "name": "attribute rejects recursive unary comma",
+    "source": "[A(-not ,1)]$x",
+    "valid": false
+  },
+  {
+    "name": "method rejects cast recursive unary comma",
+    "source": "$obj.M([int]-not ,1)",
+    "valid": false
+  },
+  {
+    "name": "parameter default rejects cast recursive unary comma",
+    "source": "param($x=[int]-not ,1)",
+    "valid": false
+  },
+  {
+    "name": "attribute rejects cast recursive unary comma",
+    "source": "[A([int]-not ,1)]$x",
+    "valid": false
+  },
+  {
+    "name": "attribute named value rejects unary comma",
+    "source": "[A(Name=,1)]$x",
+    "valid": false
+  },
+  {
+    "name": "method parentheses restore unary comma",
+    "source": "$obj.M((,1), [int](-not ,1))",
+    "valid": true
+  },
+  {
+    "name": "parameter parentheses restore unary comma",
+    "source": "param($x=(,1))",
+    "valid": true
+  },
+  {
+    "name": "method indexer restores unary comma",
+    "source": "$obj.M($x[,1])",
+    "valid": true
+  },
+  {
+    "name": "method array expression restores unary comma",
+    "source": "$obj.M(@(,1))",
+    "valid": true
+  },
+  {
+    "name": "method subexpression restores unary comma",
+    "source": "$obj.M($(,1))",
+    "valid": true
+  },
+  {
+    "name": "method script block restores unary comma",
+    "source": "$obj.M({,1})",
+    "valid": true
+  },
+  {
+    "name": "hashtable key rejects unary comma",
+    "source": "@{,1=2}",
+    "valid": false
+  },
+  {
+    "name": "hashtable key rejects recursive unary comma",
+    "source": "@{-not ,1=2}",
+    "valid": false
+  },
+  {
+    "name": "hashtable parenthesized key permits unary comma",
+    "source": "@{(,1)=2}",
+    "valid": true
+  },
+  {
+    "name": "hashtable rejects leading semicolon",
+    "source": "@{;a=1}",
+    "valid": false
+  },
+  {
+    "name": "empty hashtable rejects leading semicolon",
+    "source": "@{;}",
+    "valid": false
+  },
+  {
+    "name": "hashtable newline then semicolon is invalid",
+    "source": "@{\n;a=1}",
+    "valid": false
+  },
+  {
+    "name": "hashtable accepts trailing semicolon",
+    "source": "@{a=1;}",
+    "valid": true
+  }
+]

@@ -1,0 +1,427 @@
+[
+  {
+    "name": "raw parameter -foo>bar",
+    "source": "cmd -foo>bar",
+    "valid": true
+  },
+  {
+    "name": "raw parameter -foo<bar",
+    "source": "cmd -foo<bar",
+    "valid": true
+  },
+  {
+    "name": "raw parameter -foo>>bar",
+    "source": "cmd -foo>>bar",
+    "valid": true
+  },
+  {
+    "name": "raw parameter -foo>",
+    "source": "cmd -foo>",
+    "valid": true
+  },
+  {
+    "name": "raw parameter -?>out",
+    "source": "cmd -?>out",
+    "valid": true
+  },
+  {
+    "name": "raw parameter -foo#bar",
+    "source": "cmd -foo#bar",
+    "valid": true
+  },
+  {
+    "name": "raw parameter -foo]bar",
+    "source": "cmd -foo]bar",
+    "valid": true
+  },
+  {
+    "name": "raw parameter -foo`",
+    "source": "cmd -foo`",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation 0>out",
+    "source": "cmd 0>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation 7>out",
+    "source": "cmd 7>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation 12>out",
+    "source": "cmd 12>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation 1.0>out",
+    "source": "cmd 1.0>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation 0xff>out",
+    "source": "cmd 0xff>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation 1kb>out",
+    "source": "cmd 1kb>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation -1>out",
+    "source": "cmd -1>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation +1>out",
+    "source": "cmd +1>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation 1<in",
+    "source": "cmd 1<in",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation *<in",
+    "source": "cmd *<in",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation *a>out",
+    "source": "cmd *a>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation $x>out",
+    "source": "cmd $x>out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation ${x}<in",
+    "source": "cmd ${x}<in",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation a\"b\">out",
+    "source": "cmd a\"b\">out",
+    "valid": true
+  },
+  {
+    "name": "generic redirect punctuation pre${x}>out",
+    "source": "cmd pre${x}>out",
+    "valid": true
+  },
+  {
+    "name": "generic punctuation before background 0>&1",
+    "source": "cmd 0>&1",
+    "valid": true
+  },
+  {
+    "name": "generic punctuation before background 7>&1",
+    "source": "cmd 7>&1",
+    "valid": true
+  },
+  {
+    "name": "generic punctuation before background 12>&1",
+    "source": "cmd 12>&1",
+    "valid": true
+  },
+  {
+    "name": "generic punctuation before background -foo>&1",
+    "source": "cmd -foo>&1",
+    "valid": true
+  },
+  {
+    "name": "generic punctuation before background $x>&1",
+    "source": "cmd $x>&1",
+    "valid": true
+  },
+  {
+    "name": "redirection >out",
+    "source": "cmd >out",
+    "valid": true
+  },
+  {
+    "name": "redirection >>out",
+    "source": "cmd >>out",
+    "valid": true
+  },
+  {
+    "name": "redirection 1>out",
+    "source": "cmd 1>out",
+    "valid": true
+  },
+  {
+    "name": "redirection 2>out",
+    "source": "cmd 2>out",
+    "valid": true
+  },
+  {
+    "name": "redirection 6>out",
+    "source": "cmd 6>out",
+    "valid": true
+  },
+  {
+    "name": "redirection *>out",
+    "source": "cmd *>out",
+    "valid": true
+  },
+  {
+    "name": "redirection *>>out",
+    "source": "cmd *>>out",
+    "valid": true
+  },
+  {
+    "name": "redirection 2>&1",
+    "source": "cmd 2>&1",
+    "valid": true
+  },
+  {
+    "name": "redirection 3>&1",
+    "source": "cmd 3>&1",
+    "valid": true
+  },
+  {
+    "name": "redirection 6>&1",
+    "source": "cmd 6>&1",
+    "valid": true
+  },
+  {
+    "name": "redirection *>&1",
+    "source": "cmd *>&1",
+    "valid": true
+  },
+  {
+    "name": "invalid merging syntax >&1",
+    "source": "cmd >&1",
+    "valid": false
+  },
+  {
+    "name": "invalid merging syntax 2>&3",
+    "source": "cmd 2>&3",
+    "valid": false
+  },
+  {
+    "name": "invalid merging syntax *>&2",
+    "source": "cmd *>&2",
+    "valid": false
+  },
+  {
+    "name": "invalid merging syntax 6>&6",
+    "source": "cmd 6>&6",
+    "valid": false
+  },
+  {
+    "name": "numeric composite argument 1\"b\"",
+    "source": "cmd 1\"b\"",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument 1'b'",
+    "source": "cmd 1'b'",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument 1$y",
+    "source": "cmd 1$y",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument 1${y}",
+    "source": "cmd 1${y}",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument 1$(2)",
+    "source": "cmd 1$(2)",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument -1\"b\"",
+    "source": "cmd -1\"b\"",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument +1\"b\"",
+    "source": "cmd +1\"b\"",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument 1.0\"b\"",
+    "source": "cmd 1.0\"b\"",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument 0xff$y",
+    "source": "cmd 0xff$y",
+    "valid": true
+  },
+  {
+    "name": "numeric composite argument 1kb$(2)",
+    "source": "cmd 1kb$(2)",
+    "valid": true
+  },
+  {
+    "name": "numeric composite context cmd -Name:1\"b\"",
+    "source": "cmd -Name:1\"b\"",
+    "valid": true
+  },
+  {
+    "name": "numeric composite context cmd >1\"b\"",
+    "source": "cmd >1\"b\"",
+    "valid": true
+  },
+  {
+    "name": "numeric composite context & 1\"b\"",
+    "source": "& 1\"b\"",
+    "valid": true
+  },
+  {
+    "name": "numeric composite context switch(1){1\"b\" {} }",
+    "source": "switch(1){1\"b\" {} }",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo\"a\" arg",
+    "source": "foo\"a\" arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo'a' arg",
+    "source": "foo'a' arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name 1\"a\" arg",
+    "source": "1\"a\" arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name 1.\"a\" arg",
+    "source": "1.\"a\" arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo“a” arg",
+    "source": "foo“a” arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo‘a’ arg",
+    "source": "foo‘a’ arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo\"a\"\"b\" arg",
+    "source": "foo\"a\"\"b\" arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo'a''b' arg",
+    "source": "foo'a''b' arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo\"a`\"b\" arg",
+    "source": "foo\"a`\"b\" arg",
+    "valid": true
+  },
+  {
+    "name": "literal command name foo\"a b\"post arg",
+    "source": "foo\"a b\"post arg",
+    "valid": true
+  },
+  {
+    "name": "member script block argument cmd $x.m{2}",
+    "source": "cmd $x.m{2}",
+    "valid": true
+  },
+  {
+    "name": "member script block argument cmd ${x}.m{2}",
+    "source": "cmd ${x}.m{2}",
+    "valid": true
+  },
+  {
+    "name": "member script block argument cmd $x.m{ $_.Name } next",
+    "source": "cmd $x.m{ $_.Name } next",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd $x=tail",
+    "source": "cmd $x=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd ${x}=tail",
+    "source": "cmd ${x}=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd $x${y}=tail",
+    "source": "cmd $x${y}=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd -Name:$x=tail",
+    "source": "cmd -Name:$x=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd -Name:${x}=tail",
+    "source": "cmd -Name:${x}=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd >$x=tail",
+    "source": "cmd >$x=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd >${x}=tail",
+    "source": "cmd >${x}=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context & $x=tail",
+    "source": "& $x=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context & ${x}=tail",
+    "source": "& ${x}=tail",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd $x`\n.x",
+    "source": "cmd $x`\n.x",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd ${x}`\n[0]",
+    "source": "cmd ${x}`\n[0]",
+    "valid": true
+  },
+  {
+    "name": "argument context cmd $x`\r?.x",
+    "source": "cmd $x`\r?.x",
+    "valid": true
+  },
+  {
+    "name": "argument context foo\"$(\"a b\")\" arg",
+    "source": "foo\"$(\"a b\")\" arg",
+    "valid": true
+  },
+  {
+    "name": "argument context foo\"${a\" b}\" arg",
+    "source": "foo\"${a\" b}\" arg",
+    "valid": true
+  },
+  {
+    "name": "argument context function foo\"$(\"a b\")\" {}",
+    "source": "function foo\"$(\"a b\")\" {}",
+    "valid": true
+  }
+]

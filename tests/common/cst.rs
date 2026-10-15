@@ -31,8 +31,16 @@ impl<'a> Source<'a> {
     }
 
     fn record(&self, node: Node<'_>) -> Value {
-        let (start, _) = self.extent(node);
+        let (mut start, _) = self.extent(node);
         let mut end = self.offsets[semantic_end_byte(node)];
+        if node.kind() == "base_constructor_call" {
+            let mut cursor = node.walk();
+            let keyword = node
+                .children(&mut cursor)
+                .find(|child| child.kind() == "base")
+                .unwrap();
+            start = self.extent(keyword).0;
+        }
         if matches!(node.kind(), "class_property" | "enum_member") {
             // PowerShell includes an immediately following semicolon in a
             // property declaration; the CST keeps that token as a delimiter.
@@ -131,13 +139,18 @@ fn is_invocation_target(node: Node<'_>) -> bool {
 }
 
 fn folded_numeric(node: Node<'_>, source: &Source<'_>) -> bool {
-    node.kind() == "unary_expression"
-        && node
-            .child_by_field_name("operator")
-            .is_some_and(|operator| matches!(source.text(operator), "+" | "-" | "–" | "—" | "―"))
-        && node
-            .child_by_field_name("argument")
-            .is_some_and(|argument| matches!(argument.kind(), "integer_literal" | "real_literal"))
+    if node.kind() != "unary_expression" {
+        return false;
+    }
+    let Some(operator) = node.child_by_field_name("operator") else {
+        return false;
+    };
+    let Some(argument) = node.child_by_field_name("argument") else {
+        return false;
+    };
+    matches!(source.text(operator), "+" | "-" | "–" | "—" | "―")
+        && matches!(argument.kind(), "integer_literal" | "real_literal")
+        && operator.end_byte() == argument.start_byte()
 }
 
 fn composite_string(node: Node<'_>) -> bool {
@@ -186,7 +199,7 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
             "PipelineAst"
         }
         "pipeline_chain" => "PipelineChainAst",
-        "command_expression" => "CommandExpressionAst",
+        "command_expression" | "base_constructor_call" => "CommandExpressionAst",
         "binary_expression" => "BinaryExpressionAst",
         "assignment_statement" => "AssignmentStatementAst",
         "unary_expression" if folded_numeric(node, source) => "ConstantExpressionAst",
@@ -351,7 +364,6 @@ fn ast_extent(node: &Value) -> Extent {
 
 fn expected_category(node: &Value) -> Option<&str> {
     let category = node["type"].as_str().unwrap();
-    let extent = ast_extent(node);
     if matches!(category, "PipelineAst" | "CommandExpressionAst") && node["synthetic"] == true {
         // The oracle identifies -file condition wrappers and implicit constructor
         // base calls by exact runtime predicates. Explicit source is still checked;
@@ -363,8 +375,9 @@ fn expected_category(node: &Value) -> Option<&str> {
         // synthesized by a shorthand argument such as [Parameter(Mandatory)].
         return None;
     }
-    if category == "VariableExpressionAst" && extent == (0, 0) && node["name"] == "this" {
-        // Class constructors synthesize a receiver variable without source text.
+    if category == "VariableExpressionAst" && node["synthetic"] == true {
+        // Base-constructor calls synthesize a receiver, including explicit calls
+        // whose receiver inherits the source extent of the 'base' keyword.
         return None;
     }
     if matches!(
@@ -421,6 +434,15 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
         ("PipelineAst", "elements") => extents(field_children(node, "elements"), source),
         ("CommandExpressionAst", "redirections") => {
             extents(field_children(node, "redirections"), source)
+        }
+        ("CommandExpressionAst", "expression") if node.kind() == "base_constructor_call" => {
+            source.record(node)
+        }
+        ("CommandExpressionAst", "baseArguments") if node.kind() == "base_constructor_call" => {
+            extents(
+                named_children(node.child_by_field_name("arguments").unwrap()),
+                source,
+            )
         }
         ("InvokeMemberExpressionAst", "object" | "member") => {
             source.field(node.child_by_field_name("function").unwrap(), field)
@@ -543,7 +565,7 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
     match category {
         "PipelineAst" => &["elements"],
         "PipelineChainAst" => &["left", "right"],
-        "CommandExpressionAst" => &["expression", "redirections"],
+        "CommandExpressionAst" => &["expression", "redirections", "baseArguments"],
         "BinaryExpressionAst" | "AssignmentStatementAst" => &["left", "right"],
         "UnaryExpressionAst" => &["argument"],
         "TernaryExpressionAst" => &["condition", "consequence", "alternative"],
@@ -682,6 +704,12 @@ fn decode_backticks(text: &str) -> String {
 
 fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'static str, Value> {
     let mut result = BTreeMap::new();
+    if category == "CommandExpressionAst" {
+        result.insert(
+            "baseConstructor",
+            json!(node.kind() == "base_constructor_call"),
+        );
+    }
     if matches!(
         category,
         "BinaryExpressionAst"

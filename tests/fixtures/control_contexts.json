@@ -1,0 +1,92 @@
+[
+  {
+    "name": "catch type on following line",
+    "source": "try {} catch\n[Exception] {}",
+    "valid": true
+  },
+  {
+    "name": "catch type list with comments",
+    "source": "try { throw 1 } catch # types\n[ArgumentException],\n[Exception] { 2 }",
+    "valid": true
+  },
+  {
+    "name": "trap type on following line",
+    "source": "trap\n[Exception] { continue }\nGet-Item .",
+    "valid": true
+  },
+  {
+    "name": "untyped catch newline",
+    "source": "try {} catch\n{}",
+    "valid": true
+  },
+  {
+    "name": "untyped trap newline",
+    "source": "trap\n{}",
+    "valid": true
+  },
+  {
+    "name": "do while followed by command",
+    "source": "do {} while (1) Write-Output hi",
+    "valid": true
+  },
+  {
+    "name": "do until followed by block statement",
+    "source": "do {} until (1) if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "do while assignment value delimits next command",
+    "source": "$result = do { 1 } while ($false) Write-Output done",
+    "valid": true
+  },
+  {
+    "name": "switch dash 0",
+    "source": "switch -r (1) { 1 { 2 } }",
+    "valid": true
+  },
+  {
+    "name": "data dash 0",
+    "source": "data -supportedcommand Write-Output { Write-Output 1 }",
+    "valid": true
+  },
+  {
+    "name": "switch dash 1",
+    "source": "switch –r (1) { 1 { 2 } }",
+    "valid": true
+  },
+  {
+    "name": "data dash 1",
+    "source": "data –supportedcommand Write-Output { Write-Output 1 }",
+    "valid": true
+  },
+  {
+    "name": "switch dash 2",
+    "source": "switch —r (1) { 1 { 2 } }",
+    "valid": true
+  },
+  {
+    "name": "data dash 2",
+    "source": "data —supportedcommand Write-Output { Write-Output 1 }",
+    "valid": true
+  },
+  {
+    "name": "switch dash 3",
+    "source": "switch ―r (1) { 1 { 2 } }",
+    "valid": true
+  },
+  {
+    "name": "data dash 3",
+    "source": "data ―supportedcommand Write-Output { Write-Output 1 }",
+    "valid": true
+  },
+  {
+    "name": "catch cannot use attribute as type",
+    "source": "try {} catch [A()] {}",
+    "valid": false
+  },
+  {
+    "name": "trap cannot use attribute as type",
+    "source": "trap [A()] {}",
+    "valid": false
+  }
+]

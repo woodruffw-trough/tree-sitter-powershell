@@ -1,0 +1,535 @@
+[
+  {
+    "name": "negative numeric member name",
+    "source": "$obj.-1",
+    "valid": true,
+    "members": [
+      "-1"
+    ]
+  },
+  {
+    "name": "unary plus member name",
+    "source": "$obj.+$name",
+    "valid": true,
+    "members": [
+      "+$name"
+    ]
+  },
+  {
+    "name": "unary minus member name",
+    "source": "$obj.-$name",
+    "valid": true,
+    "members": [
+      "-$name"
+    ]
+  },
+  {
+    "name": "unary comma member name",
+    "source": "$obj.,1",
+    "valid": true,
+    "members": [
+      ",1"
+    ]
+  },
+  {
+    "name": "logical negation member name",
+    "source": "$obj.!$name",
+    "valid": true,
+    "members": [
+      "!$name"
+    ]
+  },
+  {
+    "name": "bitwise negation member name",
+    "source": "$obj.-bnot $name",
+    "valid": true,
+    "members": [
+      "-bnot $name"
+    ]
+  },
+  {
+    "name": "join member name",
+    "source": "$obj.-join $name",
+    "valid": true,
+    "members": [
+      "-join $name"
+    ]
+  },
+  {
+    "name": "split member name",
+    "source": "$obj.-split $name",
+    "valid": true,
+    "members": [
+      "-split $name"
+    ]
+  },
+  {
+    "name": "prefix increment member name",
+    "source": "$obj.++$name",
+    "valid": true,
+    "members": [
+      "++$name"
+    ]
+  },
+  {
+    "name": "type literal member name",
+    "source": "$obj.[string]",
+    "valid": true,
+    "members": [
+      "[string]"
+    ]
+  },
+  {
+    "name": "type cast member name",
+    "source": "$obj.[string]$name",
+    "valid": true,
+    "members": [
+      "[string]$name"
+    ]
+  },
+  {
+    "name": "array value member name",
+    "source": "$obj.@(1)",
+    "valid": true,
+    "members": [
+      "@(1)"
+    ]
+  },
+  {
+    "name": "hashtable value member name",
+    "source": "$obj.@{a=1}",
+    "valid": true,
+    "members": [
+      "@{a=1}"
+    ]
+  },
+  {
+    "name": "script block value member name",
+    "source": "$obj.{\"name\"}",
+    "valid": true,
+    "members": [
+      "{\"name\"}"
+    ]
+  },
+  {
+    "name": "literal here string member name",
+    "source": "$obj.@'\nname\n'@",
+    "valid": true,
+    "members": [
+      "@'\nname\n'@"
+    ]
+  },
+  {
+    "name": "expandable here string member name",
+    "source": "$obj.@\"\n$name\n\"@",
+    "valid": true,
+    "members": [
+      "@\"\n$name\n\"@"
+    ]
+  },
+  {
+    "name": "static unary member name",
+    "source": "[Math]::-1",
+    "valid": true,
+    "members": [
+      "-1"
+    ]
+  },
+  {
+    "name": "null conditional unary member name",
+    "source": "${obj}?.-$name",
+    "valid": true,
+    "members": [
+      "-$name"
+    ]
+  },
+  {
+    "name": "unary member operand owns nested access",
+    "source": "$obj.-$name.Length",
+    "valid": true,
+    "members": [
+      "-$name.Length",
+      "Length"
+    ]
+  },
+  {
+    "name": "cast member operand owns method call",
+    "source": "$obj.[string]$name.ToString()",
+    "valid": true,
+    "members": [
+      "[string]$name.ToString()",
+      "ToString"
+    ]
+  },
+  {
+    "name": "simple variable member preserves access chain",
+    "source": "$obj.$name.Length",
+    "valid": true,
+    "members": [
+      "$name",
+      "Length"
+    ]
+  },
+  {
+    "name": "simple variable member preserves outer postfix",
+    "source": "$obj.$name++",
+    "valid": true,
+    "members": [
+      "$name"
+    ]
+  },
+  {
+    "name": "parenthesized member preserves outer postfix",
+    "source": "$obj.(1)++",
+    "valid": true,
+    "members": [
+      "(1)"
+    ]
+  },
+  {
+    "name": "unary member interpolation in command",
+    "source": "Write-Output $obj.- $name",
+    "valid": true,
+    "members": [
+      "- $name"
+    ]
+  },
+  {
+    "name": "unary member in method argument",
+    "source": "$obj.F($obj.-$name)",
+    "valid": true,
+    "members": [
+      "F",
+      "-$name"
+    ]
+  },
+  {
+    "name": "comma member requires parentheses in method argument",
+    "source": "$obj.F($obj.(,1))",
+    "valid": true,
+    "members": [
+      "F",
+      "(,1)"
+    ]
+  },
+  {
+    "name": "array member restores comma in method argument",
+    "source": "$obj.F($obj.@(,1))",
+    "valid": true,
+    "members": [
+      "F",
+      "@(,1)"
+    ]
+  },
+  {
+    "name": "subexpression member restores comma in method argument",
+    "source": "$obj.F($obj.$(,1))",
+    "valid": true,
+    "members": [
+      "F",
+      "$(,1)"
+    ]
+  },
+  {
+    "name": "script block member restores comma in method argument",
+    "source": "$obj.F($obj.{,1})",
+    "valid": true,
+    "members": [
+      "F",
+      "{,1}"
+    ]
+  },
+  {
+    "name": "unary comma member disabled in method argument",
+    "source": "$obj.F($obj.,1)",
+    "valid": false
+  },
+  {
+    "name": "recursive unary comma member disabled in method argument",
+    "source": "$obj.F($obj.-,1)",
+    "valid": false
+  },
+  {
+    "name": "unary comma member disabled in parameter default",
+    "source": "function f($x=$obj.,1){}",
+    "valid": false
+  },
+  {
+    "name": "ordinary method postfix ++",
+    "source": "$obj.F(1)++",
+    "valid": true
+  },
+  {
+    "name": "ordinary method prefix ++",
+    "source": "++$obj.F(1)",
+    "valid": true
+  },
+  {
+    "name": "ordinary method postfix --",
+    "source": "$obj.F(1)--",
+    "valid": true
+  },
+  {
+    "name": "ordinary method prefix --",
+    "source": "--$obj.F(1)",
+    "valid": true
+  },
+  {
+    "name": "static method postfix ++",
+    "source": "[Math]::Abs(1)++",
+    "valid": true
+  },
+  {
+    "name": "static method prefix ++",
+    "source": "++[Math]::Abs(1)",
+    "valid": true
+  },
+  {
+    "name": "static method postfix --",
+    "source": "[Math]::Abs(1)--",
+    "valid": true
+  },
+  {
+    "name": "static method prefix --",
+    "source": "--[Math]::Abs(1)",
+    "valid": true
+  },
+  {
+    "name": "script block method postfix ++",
+    "source": "$obj.Where{1}++",
+    "valid": true
+  },
+  {
+    "name": "script block method prefix ++",
+    "source": "++$obj.Where{1}",
+    "valid": true
+  },
+  {
+    "name": "script block method postfix --",
+    "source": "$obj.Where{1}--",
+    "valid": true
+  },
+  {
+    "name": "script block method prefix --",
+    "source": "--$obj.Where{1}",
+    "valid": true
+  },
+  {
+    "name": "method increment in argument",
+    "source": "$obj.F($obj.G()++)",
+    "valid": true,
+    "members": [
+      "F",
+      "G"
+    ]
+  },
+  {
+    "name": "cast wraps postfix method increment",
+    "source": "[int]$obj.F()++",
+    "valid": true,
+    "members": [
+      "F"
+    ]
+  },
+  {
+    "name": "member name missing operand",
+    "source": "$obj.",
+    "valid": false
+  },
+  {
+    "name": "command member token 0",
+    "source": "Write-X $obj.$name-more",
+    "valid": false
+  },
+  {
+    "name": "command member token 1",
+    "source": "Write-X $obj.$name/path",
+    "valid": false
+  },
+  {
+    "name": "command member token 2",
+    "source": "Write-X $obj.$name>out",
+    "valid": false
+  },
+  {
+    "name": "command member token 3",
+    "source": "Write-X $obj.$name\"tail\"",
+    "valid": false
+  },
+  {
+    "name": "command member token 4",
+    "source": "Write-X $obj.$name=more",
+    "valid": true
+  },
+  {
+    "name": "command member token 5",
+    "source": "Write-X $obj.$name[0]",
+    "valid": true
+  },
+  {
+    "name": "command member token 6",
+    "source": "Write-X $obj.$name.Length",
+    "valid": true
+  },
+  {
+    "name": "command member token 7",
+    "source": "Write-X $obj.${name}-more",
+    "valid": false
+  },
+  {
+    "name": "command member token 8",
+    "source": "Write-X $obj.-1",
+    "valid": false
+  },
+  {
+    "name": "command member token 9",
+    "source": "Write-X $obj.+1",
+    "valid": false
+  },
+  {
+    "name": "command member token 10",
+    "source": "Write-X $obj.!$name",
+    "valid": false
+  },
+  {
+    "name": "command member token 11",
+    "source": "Write-X $obj.++$name",
+    "valid": false
+  },
+  {
+    "name": "command member token 12",
+    "source": "Write-X $obj.[int]$name",
+    "valid": false
+  },
+  {
+    "name": "command member token 13",
+    "source": "Write-X $obj.-join $name",
+    "valid": false
+  },
+  {
+    "name": "command member token 14",
+    "source": "Write-X $obj.- $name",
+    "valid": true
+  },
+  {
+    "name": "command member token 15",
+    "source": "Write-X $obj.- -1",
+    "valid": true
+  },
+  {
+    "name": "command member token 16",
+    "source": "Write-X $obj.- $name-more",
+    "valid": false
+  },
+  {
+    "name": "command member token 17",
+    "source": "Write-X $obj.,1",
+    "valid": true
+  },
+  {
+    "name": "command member token 18",
+    "source": "Write-X $obj.@(1)",
+    "valid": true
+  },
+  {
+    "name": "command member token 19",
+    "source": "Write-X $obj.{1}",
+    "valid": true
+  },
+  {
+    "name": "command member token 20",
+    "source": "Write-X $obj.1\"b\"",
+    "valid": false
+  },
+  {
+    "name": "command member token 21",
+    "source": "Write-X $obj.1$y",
+    "valid": false
+  },
+  {
+    "name": "command member token 22",
+    "source": "Write-X $obj.1.2\"b\"",
+    "valid": false
+  },
+  {
+    "name": "command numeric member boundary 0",
+    "source": "Write-X $obj.1.Length",
+    "valid": false
+  },
+  {
+    "name": "command numeric member boundary 1",
+    "source": "Write-X $obj.1.2",
+    "valid": true
+  },
+  {
+    "name": "command numeric member boundary 2",
+    "source": "Write-X $obj.1..2",
+    "valid": false
+  },
+  {
+    "name": "command numeric member boundary 3",
+    "source": "Write-X $obj.1[0]",
+    "valid": false
+  },
+  {
+    "name": "command numeric member boundary 4",
+    "source": "Write-X $obj.1>out",
+    "valid": false
+  },
+  {
+    "name": "command numeric member boundary 5",
+    "source": "Write-X $obj.1=more",
+    "valid": false
+  },
+  {
+    "name": "command numeric member boundary 6",
+    "source": "Write-X $obj.1,2",
+    "valid": true
+  },
+  {
+    "name": "command numeric member boundary 7",
+    "source": "Write-X $obj.1?.X",
+    "valid": false
+  },
+  {
+    "name": "command unary comma cannot start argument",
+    "source": "Write-X ,1",
+    "valid": false
+  },
+  {
+    "name": "command hashtable keeps comma expressions",
+    "source": "Write-X @{a=1,2}",
+    "valid": true
+  },
+  {
+    "name": "command member after first block comment terminator",
+    "source": "Write-X $obj.<# outer <# nested #> outer #>- $name",
+    "valid": true
+  },
+  {
+    "name": "member comment closes at first terminator",
+    "source": "Write-X $obj.<# <# ignored #>($name)",
+    "valid": true,
+    "members": [
+      "($name)"
+    ]
+  },
+  {
+    "name": "break comment closes at first terminator",
+    "source": "break <# <# ignored #> (1)",
+    "valid": true
+  },
+  {
+    "name": "command member unary operand after comment",
+    "source": "Write-X $obj.- <# comment #> $name",
+    "valid": true,
+    "members": [
+      "- <# comment #> $name"
+    ]
+  },
+  {
+    "name": "flow unary operand after comment",
+    "source": "break - <# comment #> $name",
+    "valid": true
+  }
+]

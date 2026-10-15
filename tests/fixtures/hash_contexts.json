@@ -1,0 +1,697 @@
+[
+  {
+    "name": "ordinary hashtable array literal",
+    "source": "@{a=1,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable array literal",
+    "source": "$obj.M(@{a=1,2})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable array literal",
+    "source": "param($x=@{a=1,2})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable unary comma",
+    "source": "@{a=,1}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable unary comma",
+    "source": "$obj.M(@{a=,1})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable unary comma",
+    "source": "param($x=@{a=,1})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable parenthesized array",
+    "source": "@{a=(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable parenthesized array",
+    "source": "$obj.M(@{a=(1,2)})",
+    "valid": true
+  },
+  {
+    "name": "parameter default hashtable parenthesized array",
+    "source": "param($x=@{a=(1,2)})",
+    "valid": true
+  },
+  {
+    "name": "ordinary hashtable array expression",
+    "source": "@{a=@(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable array expression",
+    "source": "$obj.M(@{a=@(1,2)})",
+    "valid": true
+  },
+  {
+    "name": "parameter default hashtable array expression",
+    "source": "param($x=@{a=@(1,2)})",
+    "valid": true
+  },
+  {
+    "name": "ordinary hashtable subexpression",
+    "source": "@{a=$(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable subexpression",
+    "source": "$obj.M(@{a=$(1,2)})",
+    "valid": true
+  },
+  {
+    "name": "parameter default hashtable subexpression",
+    "source": "param($x=@{a=$(1,2)})",
+    "valid": true
+  },
+  {
+    "name": "ordinary hashtable script block expression",
+    "source": "@{a={1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable script block expression",
+    "source": "$obj.M(@{a={1,2}})",
+    "valid": true
+  },
+  {
+    "name": "parameter default hashtable script block expression",
+    "source": "param($x=@{a={1,2}})",
+    "valid": true
+  },
+  {
+    "name": "ordinary hashtable if body",
+    "source": "@{a=if($true){1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable if body",
+    "source": "$obj.M(@{a=if($true){1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable if body",
+    "source": "param($x=@{a=if($true){1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable if condition",
+    "source": "@{a=if(1,2){}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable if condition",
+    "source": "$obj.M(@{a=if(1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable if condition",
+    "source": "param($x=@{a=if(1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable assignment",
+    "source": "@{a=$x=1,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable assignment",
+    "source": "$obj.M(@{a=$x=1,2})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable assignment",
+    "source": "param($x=@{a=$x=1,2})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable return",
+    "source": "@{a=return 1,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable return",
+    "source": "$obj.M(@{a=return 1,2})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable return",
+    "source": "param($x=@{a=return 1,2})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable throw",
+    "source": "@{a=throw 1,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable throw",
+    "source": "$obj.M(@{a=throw 1,2})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable throw",
+    "source": "param($x=@{a=throw 1,2})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable exit",
+    "source": "@{a=exit 1,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable exit",
+    "source": "$obj.M(@{a=exit 1,2})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable exit",
+    "source": "param($x=@{a=exit 1,2})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable command array",
+    "source": "@{a=Write-Output 1,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable command array",
+    "source": "$obj.M(@{a=Write-Output 1,2})",
+    "valid": true
+  },
+  {
+    "name": "parameter default hashtable command array",
+    "source": "param($x=@{a=Write-Output 1,2})",
+    "valid": true
+  },
+  {
+    "name": "ordinary hashtable command variable array",
+    "source": "@{a=Write-Output $x,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable command variable array",
+    "source": "$obj.M(@{a=Write-Output $x,2})",
+    "valid": true
+  },
+  {
+    "name": "parameter default hashtable command variable array",
+    "source": "param($x=@{a=Write-Output $x,2})",
+    "valid": true
+  },
+  {
+    "name": "ordinary hashtable function declaration",
+    "source": "@{a=function f {1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable function declaration",
+    "source": "$obj.M(@{a=function f {1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable function declaration",
+    "source": "param($x=@{a=function f {1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable nested hashtable",
+    "source": "@{a=@{b=1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable nested hashtable",
+    "source": "$obj.M(@{a=@{b=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable nested hashtable",
+    "source": "param($x=@{a=@{b=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable index expression",
+    "source": "@{a=$x[1,2]}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable index expression",
+    "source": "$obj.M(@{a=$x[1,2]})",
+    "valid": true
+  },
+  {
+    "name": "parameter default hashtable index expression",
+    "source": "param($x=@{a=$x[1,2]})",
+    "valid": true
+  },
+  {
+    "name": "ordinary hashtable switch body",
+    "source": "@{a=switch(1){1 {1,2}}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable switch body",
+    "source": "$obj.M(@{a=switch(1){1 {1,2}}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable switch body",
+    "source": "param($x=@{a=switch(1){1 {1,2}}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable switch condition",
+    "source": "@{a=switch(1,2){default{}}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable switch condition",
+    "source": "$obj.M(@{a=switch(1,2){default{}}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable switch condition",
+    "source": "param($x=@{a=switch(1,2){default{}}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable foreach condition",
+    "source": "@{a=foreach($x in 1,2){}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable foreach condition",
+    "source": "$obj.M(@{a=foreach($x in 1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable foreach condition",
+    "source": "param($x=@{a=foreach($x in 1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable for initializer",
+    "source": "@{a=for(1,2;;){}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable for initializer",
+    "source": "$obj.M(@{a=for(1,2;;){}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable for initializer",
+    "source": "param($x=@{a=for(1,2;;){}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable for condition",
+    "source": "@{a=for(;1,2;){}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable for condition",
+    "source": "$obj.M(@{a=for(;1,2;){}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable for condition",
+    "source": "param($x=@{a=for(;1,2;){}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable for update",
+    "source": "@{a=for(;;1,2){}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable for update",
+    "source": "$obj.M(@{a=for(;;1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable for update",
+    "source": "param($x=@{a=for(;;1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable while condition",
+    "source": "@{a=while(1,2){}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable while condition",
+    "source": "$obj.M(@{a=while(1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable while condition",
+    "source": "param($x=@{a=while(1,2){}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable do condition",
+    "source": "@{a=do{}while(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable do condition",
+    "source": "$obj.M(@{a=do{}while(1,2)})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable do condition",
+    "source": "param($x=@{a=do{}while(1,2)})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable try body",
+    "source": "@{a=try{1,2}catch{}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable try body",
+    "source": "$obj.M(@{a=try{1,2}catch{}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable try body",
+    "source": "param($x=@{a=try{1,2}catch{}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable catch body",
+    "source": "@{a=try{}catch{1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable catch body",
+    "source": "$obj.M(@{a=try{}catch{1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable catch body",
+    "source": "param($x=@{a=try{}catch{1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable finally body",
+    "source": "@{a=try{}finally{1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable finally body",
+    "source": "$obj.M(@{a=try{}finally{1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable finally body",
+    "source": "param($x=@{a=try{}finally{1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable trap body",
+    "source": "@{a=trap{1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable trap body",
+    "source": "$obj.M(@{a=trap{1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable trap body",
+    "source": "param($x=@{a=trap{1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable data body",
+    "source": "@{a=data d {1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable data body",
+    "source": "$obj.M(@{a=data d {1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable data body",
+    "source": "param($x=@{a=data d {1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable class property",
+    "source": "@{a=class C {$x=1,2}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable class property",
+    "source": "$obj.M(@{a=class C {$x=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable class property",
+    "source": "param($x=@{a=class C {$x=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "ordinary hashtable class method",
+    "source": "@{a=class C {M(){1,2}}}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable class method",
+    "source": "$obj.M(@{a=class C {M(){1,2}}})",
+    "valid": false
+  },
+  {
+    "name": "parameter default hashtable class method",
+    "source": "param($x=@{a=class C {M(){1,2}}})",
+    "valid": false
+  },
+  {
+    "name": "nested default parenthesis resets context",
+    "source": "param($x=@{a=(@{b=1,2})})",
+    "valid": true
+  },
+  {
+    "name": "nested method array resets context",
+    "source": "$obj.M(@{a=@(@{b=1,2})})",
+    "valid": true
+  },
+  {
+    "name": "nested method subexpression resets context",
+    "source": "$obj.M(@{a=$(@{b=1,2})})",
+    "valid": true
+  },
+  {
+    "name": "nested method script block resets context",
+    "source": "$obj.M(@{a={@{b=1,2}}})",
+    "valid": true
+  },
+  {
+    "name": "nested method indexer resets context",
+    "source": "$obj.M(@{a=$x[@{b=1,2}]})",
+    "valid": true
+  },
+  {
+    "name": "function declaration parentheses reset body context",
+    "source": "$obj.M(@{a=function f {(1,2)}})",
+    "valid": true
+  },
+  {
+    "name": "function declaration script block literal resets body context",
+    "source": "$obj.M(@{a=function f {{1,2}}})",
+    "valid": true
+  },
+  {
+    "name": "function declaration named block inherits context",
+    "source": "$obj.M(@{a=function f {begin{1,2}}})",
+    "valid": false
+  },
+  {
+    "name": "class method parentheses reset body context",
+    "source": "$obj.M(@{a=class C {M(){(1,2)}}})",
+    "valid": true
+  },
+  {
+    "name": "class property parentheses reset initializer context",
+    "source": "$obj.M(@{a=class C {$x=(1,2)}})",
+    "valid": true
+  },
+  {
+    "name": "method call re-enables suppression within reset",
+    "source": "$obj.M(@{a=(@{b=$obj.M(@{c=1,2})})})",
+    "valid": false
+  },
+  {
+    "name": "dynamic member hashtable inherits argument context",
+    "source": "$obj.M($obj.@{a=1,2})",
+    "valid": false
+  },
+  {
+    "name": "dynamic member hashtable respects reset",
+    "source": "$obj.M($obj.@{a=(1,2)})",
+    "valid": true
+  },
+  {
+    "name": "hashtable key hashtable suppresses comma",
+    "source": "@{@{a=1,2}=3}",
+    "valid": false
+  },
+  {
+    "name": "hashtable key hashtable respects reset",
+    "source": "@{@{a=(1,2)}=3}",
+    "valid": true
+  },
+  {
+    "name": "ordinary command hashtable permits comma",
+    "source": "Write-Output @{a=1,2}",
+    "valid": true
+  },
+  {
+    "name": "method hashtable command argument inherits context",
+    "source": "$obj.M(@{a=Write-Output @{b=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "method hashtable parameter value inherits context",
+    "source": "$obj.M(@{a=Write-Output -Value:@{b=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "method hashtable invocation target inherits context",
+    "source": "$obj.M(@{a=& @{b=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "method hashtable redirection inherits context",
+    "source": "$obj.M(@{a=1 > @{b=1,2}})",
+    "valid": false
+  },
+  {
+    "name": "command array nested hash members inherit context",
+    "source": "$obj.M(@{a=Write-Output @{b=1,2},@{c=3}})",
+    "valid": false
+  },
+  {
+    "name": "command array nested parentheses reset context",
+    "source": "$obj.M(@{a=Write-Output (@{b=1,2}),@{c=3}})",
+    "valid": true
+  },
+  {
+    "name": "command array hash values keep separators",
+    "source": "$obj.M(@{a=Write-Output @{b=1},@{c=2}})",
+    "valid": true
+  },
+  {
+    "name": "command parenthesized unary comma stays enabled",
+    "source": "$obj.M(@{a=Write-Output (,1)})",
+    "valid": true
+  },
+  {
+    "name": "ordinary command leading comma is invalid",
+    "source": "Write-Output ,1",
+    "valid": false
+  },
+  {
+    "name": "method hashtable command leading comma is invalid",
+    "source": "$obj.M(@{a=Write-Output ,1})",
+    "valid": false
+  },
+  {
+    "name": "break hashtable suppresses comma",
+    "source": "break @{a=1,2}",
+    "valid": false
+  },
+  {
+    "name": "break hashtable parentheses reset comma",
+    "source": "break @{a=(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "break parenthesized hashtable resets comma",
+    "source": "break (@{a=1,2})",
+    "valid": true
+  },
+  {
+    "name": "continue hashtable suppresses comma",
+    "source": "continue @{a=1,2}",
+    "valid": false
+  },
+  {
+    "name": "continue hashtable parentheses reset comma",
+    "source": "continue @{a=(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "break member name suppresses comma",
+    "source": "break $obj.,1",
+    "valid": false
+  },
+  {
+    "name": "break member name parentheses reset comma",
+    "source": "break $obj.(,1)",
+    "valid": true
+  },
+  {
+    "name": "continue member unary suppresses comma",
+    "source": "continue $obj.- ,1",
+    "valid": false
+  },
+  {
+    "name": "break increment target inherits comma suppression",
+    "source": "break ++ $obj.@{a=1,2}",
+    "valid": false
+  },
+  {
+    "name": "break increment target respects reset",
+    "source": "break ++ $obj.@{a=(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "break decrement target inherits comma suppression",
+    "source": "break -- $obj.@{a=1,2}",
+    "valid": false
+  },
+  {
+    "name": "break decrement target respects reset",
+    "source": "break -- $obj.@{a=(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "continue unary target inherits comma suppression",
+    "source": "continue - $obj.@{a=1,2}",
+    "valid": false
+  },
+  {
+    "name": "continue unary target respects reset",
+    "source": "continue - $obj.@{a=(1,2)}",
+    "valid": true
+  },
+  {
+    "name": "glued increment starts an independent statement",
+    "source": "break ++$obj.@{a=1,2}",
+    "valid": true
+  },
+  {
+    "name": "command indexer resets inherited comma context",
+    "source": "$obj.M(@{a=Write-Output $x[1,2]})",
+    "valid": true
+  },
+  {
+    "name": "command indexer resets inherited unary comma context",
+    "source": "param($x=@{a=Write-Output $x[,1]})",
+    "valid": true
+  }
+]

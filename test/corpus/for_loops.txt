@@ -1,0 +1,71 @@
+==================
+Newlines separate for-header clauses
+==================
+for (
+  $i = 0
+  $i -lt 3
+  $i++
+) {}
+
+---
+
+(source_file
+  (for_statement
+    initializer: (assignment_statement
+      left: (variable)
+      right: (pipeline
+        elements: (command_expression
+          expression: (integer_literal))))
+    condition: (pipeline
+      elements: (command_expression
+        expression: (binary_expression
+          left: (variable)
+          right: (integer_literal))))
+    update: (pipeline
+      elements: (command_expression
+        expression: (unary_expression
+          argument: (variable))))
+    body: (statement_block)))
+
+==================
+A semicolon after the first newline skips the condition
+==================
+for (1
+; 2) {}
+
+---
+
+(source_file
+  (for_statement
+    initializer: (pipeline
+      elements: (command_expression
+        expression: (integer_literal)))
+    update: (pipeline
+      elements: (command_expression
+        expression: (integer_literal)))
+    body: (statement_block)))
+
+==================
+Semicolons accept following newlines and empty slots
+==================
+for (
+;
+;
+) {}
+for (
+;
+$i -lt 3
+) {}
+
+---
+
+(source_file
+  (for_statement
+    body: (statement_block))
+  (for_statement
+    condition: (pipeline
+      elements: (command_expression
+        expression: (binary_expression
+          left: (variable)
+          right: (integer_literal))))
+    body: (statement_block)))

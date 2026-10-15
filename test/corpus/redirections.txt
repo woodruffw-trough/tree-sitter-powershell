@@ -1,0 +1,178 @@
+==================
+Angle brackets inside raw parameter names
+==================
+cmd -foo>bar -foo<bar -foo>>bar
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_parameter
+        (command_parameter_name))
+      (command_parameter
+        (command_parameter_name))
+      (command_parameter
+        (command_parameter_name)))))
+
+==================
+Numeric and wildcard arguments do not start numbered redirections
+==================
+cmd 0>out 7>out 12>out 1.0>out -1>out *<in *a>out
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Variable and quoted-piece generic arguments retain angle brackets
+==================
+cmd $x>out ${x}<in a"b">out
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (variable)
+        (argument_fragment))
+      (command_argument
+        (variable)
+        (argument_fragment))
+      (command_argument
+        (bare_word)
+        (expandable_string
+          (string_content))
+        (argument_fragment)))))
+
+==================
+Numeric prefixes compose one argument and complete scalar fields
+==================
+cmd 1"b" -Name:2$x >3'log'
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (expandable_string
+          (string_content)))
+      (command_parameter
+        (command_parameter_name)
+        (command_argument
+          (bare_word)
+          (variable)))
+      (redirection
+        (file_redirection_operator)
+        (command_argument
+          (bare_word)
+          (single_quoted_string))))))
+
+==================
+Quoted pieces remain within a literal command name
+==================
+foo"a b"post arg
+1"a" arg
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))))
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+==================
+Member script block invocation stays within its command argument
+==================
+cmd $x.m{2}
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (invocation_expression
+          (member_access
+            (variable)
+            (identifier))
+          (script_block
+            (pipeline
+              (command_expression
+                (integer_literal)))))))))
+
+==================
+Only an unbraced initial variable stops before equals
+==================
+cmd $x=tail ${x}=tail
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (variable))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (variable)
+        (argument_fragment)))))
+
+==================
+Escaped newline continues a variable argument as generic text
+==================
+cmd $x`
+.x
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (variable)
+        (line_continuation)
+        (argument_fragment)))))

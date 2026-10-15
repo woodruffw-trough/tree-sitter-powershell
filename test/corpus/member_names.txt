@@ -1,0 +1,107 @@
+================================================================================
+Member operands distinguish unary recursion from simple access chains
+================================================================================
+$obj.-$name.Length
+$obj.$name.Length
+$obj.[string]$name
+$obj.@(1)
+$obj.@{a=1}
+$obj.{"name"}
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (unary_expression
+          argument: (member_access
+            object: (variable)
+            member: (identifier))))))
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (member_access
+          object: (variable)
+          member: (variable))
+        member: (identifier))))
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (cast_expression
+          type: (type_literal
+            (type_name
+              name: (type_identifier)))
+          value: (variable)))))
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (array_expression
+          (pipeline
+            elements: (command_expression
+              expression: (integer_literal)))))))
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (hashtable_expression
+          (hash_entry
+            key: (identifier)
+            value: (pipeline
+              elements: (command_expression
+                expression: (integer_literal))))))))
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (script_block
+          (pipeline
+            elements: (command_expression
+              expression: (expandable_string
+                (string_content)))))))))
+
+================================================================================
+Method calls retain prefix and postfix increment operands
+================================================================================
+$obj.F(1)++
+--$obj.Where{1}
+$obj.F($obj.(,1))
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (invocation_expression
+          function: (member_access
+            object: (variable)
+            member: (identifier))
+          arguments: (argument_list
+            (integer_literal))))))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (invocation_expression
+          function: (member_access
+            object: (variable)
+            member: (identifier))
+          arguments: (script_block
+            (pipeline
+              elements: (command_expression
+                expression: (integer_literal))))))))
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        arguments: (argument_list
+          (member_access
+            object: (variable)
+            member: (parenthesized_expression
+              (pipeline
+                elements: (command_expression
+                  expression: (unary_expression
+                    argument: (integer_literal)))))))))))

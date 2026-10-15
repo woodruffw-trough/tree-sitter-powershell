@@ -68,6 +68,12 @@ function Get-AstRecord($Node) {
         'CommandExpressionAst' {
             Add-AstField $fields 'expression' $Node.Expression
             Add-AstField $fields 'redirections' $Node.Redirections
+            $record.baseConstructor = (
+                $Node.Expression -is [Management.Automation.Language.BaseCtorInvokeMemberExpressionAst]
+            )
+            if ($record.baseConstructor) {
+                Add-AstField $fields 'baseArguments' $Node.Expression.Arguments
+            }
             $record.synthetic = (
                 (Test-SwitchFilePipeline $Node.Parent) -or
                 ($Node.Extent.StartOffset -eq 0 -and $Node.Extent.EndOffset -eq 0 -and
@@ -235,6 +241,11 @@ function Get-AstRecord($Node) {
         'VariableExpressionAst' {
             $record.name = $Node.VariablePath.UserPath
             $record.splatted = $Node.Splatted
+            # Both implicit and explicit base calls synthesize their receiver.
+            $record.synthetic = (
+                $Node.Parent -is [Management.Automation.Language.BaseCtorInvokeMemberExpressionAst] -and
+                [object]::ReferenceEquals($Node.Parent.Expression, $Node)
+            )
         }
         'ConstantExpressionAst' {
             $record.constantType = if ($null -eq $Node.Value) {

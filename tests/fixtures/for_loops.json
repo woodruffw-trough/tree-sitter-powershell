@@ -1,0 +1,257 @@
+[
+  {
+    "name": "empty header",
+    "source": "for () {}",
+    "valid": true
+  },
+  {
+    "name": "empty multiline header",
+    "source": "for (\n\n) {}",
+    "valid": true
+  },
+  {
+    "name": "empty semicolon slots",
+    "source": "for (;;) {}",
+    "valid": true
+  },
+  {
+    "name": "empty multiline semicolon slots",
+    "source": "for (\n;\n;\n) {}",
+    "valid": true
+  },
+  {
+    "name": "one empty separator",
+    "source": "for (;\n) {}",
+    "valid": true
+  },
+  {
+    "name": "initializer only",
+    "source": "for ($i = 0) { break }",
+    "valid": true
+  },
+  {
+    "name": "initializer after opening newline",
+    "source": "for (\n$i = 0\n) { break }",
+    "valid": true
+  },
+  {
+    "name": "condition without initializer",
+    "source": "for (; $i -lt 3) { break }",
+    "valid": true
+  },
+  {
+    "name": "update without initializer or condition",
+    "source": "for (;; $i++) { break }",
+    "valid": true
+  },
+  {
+    "name": "initializer and condition",
+    "source": "for ($i = 0; $i -lt 3) { break }",
+    "valid": true
+  },
+  {
+    "name": "initializer and update",
+    "source": "for ($i = 0;; $i++) { break }",
+    "valid": true
+  },
+  {
+    "name": "condition and update",
+    "source": "for (; $i -lt 3; $i++) { break }",
+    "valid": true
+  },
+  {
+    "name": "complete header",
+    "source": "for ($i = 0; $i -lt 3; $i++) { continue }",
+    "valid": true
+  },
+  {
+    "name": "newlines separate all clauses",
+    "source": "for ($i = 0\n$i -lt 3\n$i++) {}",
+    "valid": true
+  },
+  {
+    "name": "blank lines separate clauses",
+    "source": "for (\n$i = 0\n\n$i -lt 3\n\n$i++\n) {}",
+    "valid": true
+  },
+  {
+    "name": "multiline clauses after semicolons",
+    "source": "for (\n$i = 0;\n$i -lt 3;\n$i++\n) {}",
+    "valid": true
+  },
+  {
+    "name": "newline after initializer",
+    "source": "for ($i = 0\n$i -lt 3; $i++) {}",
+    "valid": true
+  },
+  {
+    "name": "newline after condition",
+    "source": "for ($i = 0; $i -lt 3\n$i++) {}",
+    "valid": true
+  },
+  {
+    "name": "newline before second separator skips condition",
+    "source": "for ($i = 0\n; $i++) {}",
+    "valid": true
+  },
+  {
+    "name": "newline before second separator without update",
+    "source": "for ($i = 0\n;) {}",
+    "valid": true
+  },
+  {
+    "name": "newline initializer then condition",
+    "source": "for ($i = 0\n$i -lt 3) {}",
+    "valid": true
+  },
+  {
+    "name": "newline between empty clauses and update",
+    "source": "for (;\n;\n$i++\n) {}",
+    "valid": true
+  },
+  {
+    "name": "carriage return separators",
+    "source": "for ($i = 0\r$i -lt 3\r$i++) {}",
+    "valid": true
+  },
+  {
+    "name": "windows newline separators",
+    "source": "for ($i = 0\r\n$i -lt 3\r\n$i++) {}",
+    "valid": true
+  },
+  {
+    "name": "comments after semicolons",
+    "source": "for ($i = 0; # initialize\n$i -lt 3; # condition\n$i++ # update\n) {}",
+    "valid": true
+  },
+  {
+    "name": "comments before newline separators",
+    "source": "for ($i = 0 # initialize\n$i -lt 3 # condition\n$i++ # update\n) {}",
+    "valid": true
+  },
+  {
+    "name": "block comments before semicolons",
+    "source": "for ($i = 0 <# initializer #>; $i -lt 3 <# condition #>; $i++ <# update #>) {}",
+    "valid": true
+  },
+  {
+    "name": "block comment with newline before semicolon",
+    "source": "for ($i = 0 <# first\nsecond #>; $i -lt 3; $i++) {}",
+    "valid": true
+  },
+  {
+    "name": "operator continuation stays within initializer",
+    "source": "for ($i = 1 +\n2; $i -lt 3; $i++) {}",
+    "valid": true
+  },
+  {
+    "name": "operator continuation stays within condition",
+    "source": "for ($i = 0; $i -lt\n3; $i++) {}",
+    "valid": true
+  },
+  {
+    "name": "escaped newline stays within initializer",
+    "source": "for ($i = 1 `\n+ 2; $i -lt 3; $i++) {}",
+    "valid": true
+  },
+  {
+    "name": "pipeline clauses",
+    "source": "for (Get-Item . | Select-Object Name\nTest-Path .\nWrite-Output next) {}",
+    "valid": true
+  },
+  {
+    "name": "pipeline chains as clauses",
+    "source": "for (Get-Item . && Write-Output start\nTest-Path . || Test-Path ..\nWrite-Output next) {}",
+    "valid": true
+  },
+  {
+    "name": "labeled multiline loop",
+    "source": ":outer\nfor\n(\n$i = 0\n$i -lt 3\n$i++\n)\n{ break outer }",
+    "valid": true
+  },
+  {
+    "name": "Unicode variable clauses",
+    "source": "for ($索引 = 0\n$索引 -lt 3\n$索引++) {}",
+    "valid": true
+  },
+  {
+    "name": "nested multiline loop",
+    "source": "for ($i = 0\n$i -lt 3\n$i++) { for (;\n$j -lt 2\n$j++) {} }",
+    "valid": true
+  },
+  {
+    "name": "leading pipe belongs to initializer",
+    "source": "for (Get-Item .\n| Select-Object Name\nTest-Path .\nWrite-Output next) {}",
+    "valid": true
+  },
+  {
+    "name": "background clauses before semicolons",
+    "source": "for (Write-Output a &; Write-Output b &; Write-Output c &) {}",
+    "valid": true
+  },
+  {
+    "name": "background clauses before newlines",
+    "source": "for (Write-Output a &\nWrite-Output b &\nWrite-Output c) {}",
+    "valid": true
+  },
+  {
+    "name": "background clauses delimit themselves",
+    "source": "for (Write-Output a & Write-Output b & Write-Output c) {}",
+    "valid": true
+  },
+  {
+    "name": "newline then extra semicolon before update",
+    "source": "for ($i = 0; $i -lt 3\n; $i++) {}",
+    "valid": false
+  },
+  {
+    "name": "newline then semicolon after initializer shifts slots",
+    "source": "for ($i = 0\n; $i -lt 3; $i++) {}",
+    "valid": false
+  },
+  {
+    "name": "newline before final semicolon",
+    "source": "for (1; 2\n;) {}",
+    "valid": false
+  },
+  {
+    "name": "newline before final empty separator",
+    "source": "for (; 1\n;) {}",
+    "valid": false
+  },
+  {
+    "name": "too many semicolons",
+    "source": "for (;;;) {}",
+    "valid": false
+  },
+  {
+    "name": "too many newline clauses",
+    "source": "for (1\n2\n3\n4) {}",
+    "valid": false
+  },
+  {
+    "name": "same line numeric clauses lack separator",
+    "source": "for (1 2 3) {}",
+    "valid": false
+  },
+  {
+    "name": "same line variable clauses lack separator",
+    "source": "for ($i=0 $true $i++) {}",
+    "valid": false
+  },
+  {
+    "name": "incomplete header",
+    "source": "for ($i = 0;\n",
+    "valid": false
+  },
+  {
+    "name": "incomplete update",
+    "source": "for ($i = 0; $i -lt 3; $i++",
+    "valid": false
+  },
+  {
+    "name": "missing loop body",
+    "source": "for ($i = 0\n$i -lt 3\n$i++)",
+    "valid": false
+  }
+]
