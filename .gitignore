@@ -1,5 +1,6 @@
 /target/
 /work/
+/.venv/
 *.so
 *.dll
 *.dylib

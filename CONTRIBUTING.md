@@ -2,7 +2,7 @@
 
 ## Setup
 
-Install Rust through [rustup](https://rustup.rs/), a C compiler, Python 3,
+Install Rust through [rustup](https://rustup.rs/), [uv](https://docs.astral.sh/uv/), a C compiler,
 ShellCheck, and [PowerShell 7.5.4](https://github.com/PowerShell/PowerShell/releases/tag/v7.5.4).
 The repository's `rust-toolchain.toml` selects the Rust toolchain. Run the following
 commands from the repository root in Bash.
@@ -15,15 +15,11 @@ export TREE_SITTER_JS_RUNTIME=native
 ```
 
 If `pwsh` is outside `PATH`, set `PWSH_BIN` to its executable.
-On Ubuntu x86-64, install the lint tools with:
+Install the development tools from the lockfile:
 
 ```sh
-python3 -m venv work/ci-tools
-work/ci-tools/bin/pip install --require-hashes -r scripts/requirements-ci.txt
-export PATH="$PWD/work/ci-tools/bin:$PATH"
+uv sync --locked
 ```
-
-On other platforms, install the tool versions listed in `scripts/requirements-ci.txt`.
 
 ## Development
 
@@ -43,28 +39,29 @@ Format changes with:
 
 ```sh
 cargo fmt --all
-clang-format -i src/scanner.c
-ruff format scripts
-ruff check --fix scripts
+uv run --locked clang-format -i src/scanner.c
+uv run --locked ruff format scripts
+uv run --locked ruff check --fix scripts
 ```
 
 ## Checks
 
-Run the same checks as CI:
+Run the development checks:
 
 ```sh
 tree-sitter test --rebuild
 TREE_SITTER_SEED=0 tree-sitter fuzz --rebuild --iterations 100 --edits 3
 cargo test --locked
-python3 scripts/generate-fixtures.py
-python3 scripts/generate-fixtures.py --variables
-scripts/check-generated.sh
-scripts/lint.sh
+uv run --locked python scripts/generate-fixtures.py
+uv run --locked python scripts/generate-fixtures.py --variables
+uv run --locked scripts/check-generated.sh
+uv run --locked scripts/lint.sh
 ```
 
 The PowerShell tests parse fixture scripts without executing them.
 `scripts/check-generated.sh` verifies generated files and imported fixture hashes;
-`scripts/lint.sh` checks formatting, compiler warnings, and workflow security.
+`scripts/lint.sh` checks formatting and compiler warnings. CI audits workflows with
+`zizmor-action`.
 
 To reproduce a fuzz failure, use the reported seed, the same edit setting, and a
 case-name filter:

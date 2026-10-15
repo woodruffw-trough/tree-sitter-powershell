@@ -19,4 +19,3 @@ cc -fsyntax-only -std=c11 -Wall -Wextra -Werror -I src src/scanner.c
 shellcheck scripts/*.sh
 ruff format --check scripts
 ruff check scripts
-zizmor --collect all --strict-collection --pedantic --no-ignores .github

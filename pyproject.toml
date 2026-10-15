@@ -1,0 +1,5 @@
+[dependency-groups]
+dev = [
+    "clang-format==20.1.8",
+    "ruff==0.14.14",
+]

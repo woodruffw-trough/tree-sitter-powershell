@@ -55,24 +55,33 @@ jobs:
           printf '%s\n' "$oracle" >> "$GITHUB_PATH"
           printf 'PWSH_BIN=%s\n' "$oracle/pwsh" >> "$GITHUB_ENV"
 
-      - name: Install pinned formatters and security linter
-        run: |
-          python3 -m venv "$RUNNER_TEMP/ci-tools"
-          "$RUNNER_TEMP/ci-tools/bin/pip" install --require-hashes -r scripts/requirements-ci.txt
-          printf '%s\n' "$RUNNER_TEMP/ci-tools/bin" >> "$GITHUB_PATH"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.23"
 
-      - name: Lint source and workflow security
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: scripts/lint.sh
+      - name: Install development tools
+        run: uv sync --locked
+
+      - name: Audit workflow security
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        with:
+          version: "1.30.1"
+          inputs: .github
+          collect: all
+          persona: pedantic
+          advanced-security: false
+
+      - name: Lint source
+        run: uv run --locked scripts/lint.sh
 
       - name: Verify generated parser and Rust-only bindings
-        run: scripts/check-generated.sh
+        run: uv run --locked scripts/check-generated.sh
 
       - name: Verify generated PowerShell oracle fixtures
         run: |
-          python3 scripts/generate-fixtures.py
-          python3 scripts/generate-fixtures.py --variables
+          uv run --locked python scripts/generate-fixtures.py
+          uv run --locked python scripts/generate-fixtures.py --variables
 
       - name: Test grammar corpus and queries
         run: tree-sitter test --rebuild
