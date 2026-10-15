@@ -13,6 +13,7 @@
 - Agree on file ownership before parallel edits. Coordinate changes to `grammar.js`, external token order in `src/scanner.c`, and generated files with one owner responsible for regeneration.
 - Give simultaneous checkouts distinct `XDG_CACHE_HOME` directories. The CLI caches compiled parsers by language name; rebuild after source changes before trusting parse results.
 - Keep agent instructions here. Write README, contributor, and design documentation for human readers; omit task history, agent coordination, and unsupported coverage claims.
+- Prefer direct tool commands and small changes. Avoid custom wrappers, tracking, or other infrastructure without a concrete need.
 - Format handwritten Rust, C, and Python with the configured tools. Preserve generated parser files, Unicode tables, and imported fixture bytes.
 
 ## Grammar and tests
@@ -26,7 +27,7 @@
 - Derive corpus expectations independently from PowerShell. Inspect every snapshot update; retain intended precedence, argument boundaries, interpolation, and declaration structure. Update expected trees only when the new representation agrees with the oracle.
 - Keep imported project files unmodified. Record the source repository, immutable revision, license, original path, and SHA-256 hash with their fixture collection.
 - Exercise incomplete input and incremental edits when scanner or recovery behavior changes.
-- Use `scripts/fuzz.py` for fuzzing. The pinned tree-sitter CLI can exit zero after reporting failures; the runner checks diagnostics and completed trials. Preserve and fix failing cases instead of skipping them.
+- Run `tree-sitter fuzz` directly. The pinned CLI can exit zero after reporting failures, so inspect its output as well as its status; CI checks the log. Preserve and fix failing cases instead of skipping them.
 
 ## Validation and publication
 
@@ -34,7 +35,7 @@ Before committing a finished chunk, run:
 
 ```sh
 tree-sitter test --rebuild
-python3 scripts/fuzz.py
+TREE_SITTER_SEED=0 tree-sitter fuzz --rebuild --iterations 100 --edits 3
 cargo test --locked
 python3 scripts/generate-fixtures.py
 python3 scripts/generate-fixtures.py --variables

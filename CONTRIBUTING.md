@@ -75,7 +75,7 @@ Run the same checks as CI:
 
 ```sh
 tree-sitter test --rebuild
-python3 scripts/fuzz.py
+TREE_SITTER_SEED=0 tree-sitter fuzz --rebuild --iterations 100 --edits 3
 cargo test --locked
 python3 scripts/generate-fixtures.py
 python3 scripts/generate-fixtures.py --variables
@@ -93,43 +93,29 @@ Python, and GitHub Actions security. A local offline security check can use
 
 ## Fuzzing
 
-The pinned CLI provides [`tree-sitter fuzz`](https://github.com/tree-sitter/tree-sitter/blob/v0.27.1/docs/src/cli/fuzz.md).
-It starts from the corpus in `test/corpus`, applies random text edits, checks node
-sizes and changed ranges, reverses the edits, and compares the restored tree with
-the corpus expectation. It also checks tree-sitter's tracked allocations for leaks.
-This complements the PowerShell oracle tests: it exercises malformed editor input
-and incremental parsing without running PowerShell scripts.
+[`tree-sitter fuzz`](https://github.com/tree-sitter/tree-sitter/blob/v0.27.1/docs/src/cli/fuzz.md)
+applies random edits to `test/corpus` inputs, checks tree consistency and changed
+ranges, undoes the edits, and compares the restored tree with its expectation.
+It also checks tree-sitter's tracked allocations for leaks.
 
-Run the same deterministic budget as pull-request and release CI:
+Run the same 100 iterations per case as CI:
 
 ```sh
-python3 scripts/fuzz.py --seed 0 --iterations 100 --edits 3
+TREE_SITTER_SEED=0 tree-sitter fuzz --rebuild --iterations 100 --edits 3
 ```
 
-Iterations are per corpus case. The pinned CLI performs between one and
-`edits + 1` edit operations per trial. With 120 corpus cases, the default budget
-exercises 12,000 edit-and-undo trials. The `Fuzz` workflow runs 5,000 iterations
-per case with `--edits 8`, using its run ID as the starting seed to vary coverage.
-It runs daily, on manual dispatch, and when the runner or its workflow changes on
-`main`.
-
-Use the Python runner instead of invoking the CLI directly: tree-sitter 0.27.1
-can print a fuzzing failure and still exit successfully. The runner requires the
-pinned CLI version, checks diagnostics and the complete trial trace, and rejects
-skipped or empty runs. The runner sets the QuickJS runtime explicitly.
-
-Each run saves the full log, settings, and a replay command under `work/fuzz`.
-GitHub Actions keeps these artifacts for seven days, including failed runs. To
-reproduce a failing seed against one corpus case:
+With 120 cases, this runs 12,000 edit-and-undo trials. Increase `--iterations` and
+`--edits` for a longer run. The pinned CLI performs between one and `edits + 1`
+edit operations per trial. To reproduce a reported seed for a particular case:
 
 ```sh
-python3 scripts/fuzz.py --seed 42 --iterations 1 --edits 3 --include 'Composite quoted'
+TREE_SITTER_SEED=42 tree-sitter fuzz --rebuild --iterations 1 --edits 3 --include 'Composite quoted'
 ```
 
-Use the seed and edit setting from the failure log and a case-name expression
-matching that case. Keep the parser and CLI versions unchanged while reproducing;
-the random edit sequence also depends on the input. Reduce a failure to a focused
-incremental regression before changing the grammar or scanner.
+Keep the same edit setting, corpus, and CLI version when reproducing. Inspect the
+output: version 0.27.1 can report fuzz failures while exiting zero. CI saves
+`work/fuzz.log` for seven days and checks it for failure diagnostics. Reduce any
+failure to a focused incremental regression before changing the grammar or scanner.
 
 ## Releases
 

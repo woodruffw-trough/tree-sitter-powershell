@@ -79,18 +79,23 @@ jobs:
 
       - name: Fuzz corpus edits
         id: fuzz
-        run: python3 scripts/fuzz.py --seed 0 --iterations 100 --edits 3
+        env:
+          TREE_SITTER_SEED: "0"
+        run: |
+          mkdir -p work
+          printf 'seed=%s iterations=100 edits=3\n' "$TREE_SITTER_SEED" | tee work/fuzz.log
+          tree-sitter fuzz --rebuild --iterations 100 --edits 3 2>&1 | tee -a work/fuzz.log
+          # tree-sitter 0.27.1 can log fuzz failures and still exit zero.
+          if grep -E 'corpus tests failed fuzzing|No corpus (directory|files) found' work/fuzz.log; then
+            exit 1
+          fi
 
-      - name: Upload fuzzing logs and replay settings
+      - name: Upload fuzzing log
         if: ${{ !cancelled() && steps.fuzz.outcome != 'skipped' }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: fuzz-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            work/fuzz/**/combined.log
-            work/fuzz/**/version.log
-            work/fuzz/**/settings.json
-            work/fuzz/**/replay.txt
+          path: work/fuzz.log
           if-no-files-found: error
           retention-days: 7
 
