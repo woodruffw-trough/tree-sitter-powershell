@@ -1,7 +1,7 @@
 # Complete external project fixtures
 
-These are complete, unmodified PowerShell source files from ten independently
-maintained projects. The test harness parses them with tree-sitter and the pinned
+These are complete, unmodified PowerShell source files from fourteen
+independently maintained projects. The test harness parses them with tree-sitter and the pinned
 PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 
 | Project and pinned revision | License | Files and coverage |
@@ -16,6 +16,10 @@ PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 | [Chocolatey](https://github.com/chocolatey/choco/tree/c8659d49508d2a1dcb61ef3548f90552ff86c5c8) | Apache-2.0 | `nuspec/chocolatey/chocolatey/tools/chocolateysetup.psm1`: Windows installation functions, registry paths, native command arguments, and nested exception handling. |
 | [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer/tree/e14c382a7c2ad0883e98aee611eee9b875d8bb30) | MIT | `Utils/RuleMaker.psm1`: C# here-string templates, XML member access, method calls, and source-file generation. |
 | [PowerShellForGitHub](https://github.com/microsoft/PowerShellForGitHub/tree/fd4fa65f23ca30f18f85312a85348e660c287a9c) | MIT | `GitHubGraphQl.ps1`: advanced API functions, parameter sets, GraphQL examples, hashtables, and splatting. |
+| [DscResource.Common](https://github.com/dsccommunity/DscResource.Common/tree/2430c508e03908cc3d08705d87a915006302f3e3) | MIT | `source/Public/Compare-DscParameterState.ps1`: typed parameters, recursive comparison, splatting, arrays, hashtables, and multiline conditions. |
+| [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh/tree/913014b4abdb5c6be2fcd6e759d242168fa390e8) | MIT | `src/shell/scripts/omp.ps1`: scoped functions, module script blocks, native arguments, callbacks, and interpolated prompt strings. |
+| [ImportExcel](https://github.com/dfinke/ImportExcel/tree/5387c061461c811d106b125588f064c4739342cb) | Apache-2.0 | `Public/Export-Excel.ps1`: pipeline functions, validation attributes, typed method calls, multidimensional indexing, and spaced postfix increments. |
+| [Pode](https://github.com/Badgerati/Pode/tree/89797a301afec7611c55cd395f841fe78812ae01) | MIT | `src/Private/Authentication.ps1`: nested authentication callbacks, member and index access, interpolated URLs, C# here-strings, and exception handling. |
 
 Each project retains its original license file. Pester's copyright notice and
 third-party notices are retained, including the upstream copy of the full
@@ -26,9 +30,9 @@ repository's license does not replace them.
 `manifest.json` records every original path, repository, commit, Git blob ID,
 SHA-256 digest, byte count, and source/notice role. `SHA256SUMS` covers the original
 source and notice bytes. Git attributes disable line-ending conversion for the
-ten snapshot directories, including their UTF-8 byte-order marks, CRLF endings,
-and trailing whitespace. The Rust reader consumes one leading UTF-8 BOM to match
-.NET's `ReadAllText` before passing source text to the two parsers.
+fourteen snapshot directories, including their UTF-8 byte-order marks, CRLF
+endings, and trailing whitespace. The Rust reader consumes one leading UTF-8 BOM
+to match .NET's `ReadAllText` before passing source text to the two parsers.
 
 The shared structural comparison in `../common/cst.rs` checks mapped node kinds and UTF-16 source
 extents in both directions, then checks child fields and operator metadata. This

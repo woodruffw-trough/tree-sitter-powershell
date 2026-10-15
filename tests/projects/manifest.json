@@ -135,6 +135,54 @@
       "notices": [
         "powershellforgithub/LICENSE"
       ]
+    },
+    {
+      "repository": "dsccommunity/DscResource.Common",
+      "commit": "2430c508e03908cc3d08705d87a915006302f3e3",
+      "directory": "dscresource-common",
+      "license": "MIT",
+      "sources": [
+        "dscresource-common/source/Public/Compare-DscParameterState.ps1"
+      ],
+      "notices": [
+        "dscresource-common/LICENSE"
+      ]
+    },
+    {
+      "repository": "JanDeDobbeleer/oh-my-posh",
+      "commit": "913014b4abdb5c6be2fcd6e759d242168fa390e8",
+      "directory": "oh-my-posh",
+      "license": "MIT",
+      "sources": [
+        "oh-my-posh/src/shell/scripts/omp.ps1"
+      ],
+      "notices": [
+        "oh-my-posh/COPYING"
+      ]
+    },
+    {
+      "repository": "dfinke/ImportExcel",
+      "commit": "5387c061461c811d106b125588f064c4739342cb",
+      "directory": "importexcel",
+      "license": "Apache-2.0",
+      "sources": [
+        "importexcel/Public/Export-Excel.ps1"
+      ],
+      "notices": [
+        "importexcel/LICENSE.txt"
+      ]
+    },
+    {
+      "repository": "Badgerati/Pode",
+      "commit": "89797a301afec7611c55cd395f841fe78812ae01",
+      "directory": "pode",
+      "license": "MIT",
+      "sources": [
+        "pode/src/Private/Authentication.ps1"
+      ],
+      "notices": [
+        "pode/LICENSE.txt"
+      ]
     }
   ],
   "files": [
@@ -486,6 +534,86 @@
       "gitBlob": "cab5778cadefb583f5ceea181a343501d8f9cd6e",
       "sha256": "bea100d8314e79f8463556b8df43993b22e1df25062dcb2f1db2c454709d4b61",
       "bytes": 1322,
+      "kind": "notice"
+    },
+    {
+      "path": "dscresource-common/source/Public/Compare-DscParameterState.ps1",
+      "repository": "dsccommunity/DscResource.Common",
+      "upstreamPath": "source/Public/Compare-DscParameterState.ps1",
+      "commit": "2430c508e03908cc3d08705d87a915006302f3e3",
+      "gitBlob": "b48e457f7352070ea7e6ce6e51c4db58a6b47eb7",
+      "sha256": "6febb8a0e2716a9dd2b714c3341d28de14dadd33ebf188d006f97062d5564473",
+      "bytes": 26827,
+      "kind": "source"
+    },
+    {
+      "path": "dscresource-common/LICENSE",
+      "repository": "dsccommunity/DscResource.Common",
+      "upstreamPath": "LICENSE",
+      "commit": "2430c508e03908cc3d08705d87a915006302f3e3",
+      "gitBlob": "f4c3ee9272b5c831fb8f722c550396a75bc9e311",
+      "sha256": "9154c82db8cabadd04b26f47d86ab16f59170e32d7b8d9c6748c29bfa474e06e",
+      "bytes": 1089,
+      "kind": "notice"
+    },
+    {
+      "path": "oh-my-posh/src/shell/scripts/omp.ps1",
+      "repository": "JanDeDobbeleer/oh-my-posh",
+      "upstreamPath": "src/shell/scripts/omp.ps1",
+      "commit": "913014b4abdb5c6be2fcd6e759d242168fa390e8",
+      "gitBlob": "633dfc57e78c5ef5bfe0fad8ed96cdb6bbde9e14",
+      "sha256": "55eb498af63dbf56dddb72ebb547183c74293212ddcedd9f61ae6d4dcfde9869",
+      "bytes": 59432,
+      "kind": "source"
+    },
+    {
+      "path": "oh-my-posh/COPYING",
+      "repository": "JanDeDobbeleer/oh-my-posh",
+      "upstreamPath": "COPYING",
+      "commit": "913014b4abdb5c6be2fcd6e759d242168fa390e8",
+      "gitBlob": "0052a411de0b7179803ca0723ddc782fe8249227",
+      "sha256": "a5308c4e51268229a039ec4ec9a251a4cdb89d9380383e6e13aeba64a74f19ad",
+      "bytes": 1056,
+      "kind": "notice"
+    },
+    {
+      "path": "importexcel/Public/Export-Excel.ps1",
+      "repository": "dfinke/ImportExcel",
+      "upstreamPath": "Public/Export-Excel.ps1",
+      "commit": "5387c061461c811d106b125588f064c4739342cb",
+      "gitBlob": "5c08b20812e7780d53a3de425409e8f447264d3f",
+      "sha256": "19ecdfc7fb5e076e04d8c279840826aafd7aa6d546706fa1eca588eaa3da1404",
+      "bytes": 40444,
+      "kind": "source"
+    },
+    {
+      "path": "importexcel/LICENSE.txt",
+      "repository": "dfinke/ImportExcel",
+      "upstreamPath": "LICENSE.txt",
+      "commit": "5387c061461c811d106b125588f064c4739342cb",
+      "gitBlob": "7465d9395103c54a821721db3337704d77284e8e",
+      "sha256": "edcf009bd67198659cd303561c6c9463162bd871733326ff82b566a711ca95e6",
+      "bytes": 11339,
+      "kind": "notice"
+    },
+    {
+      "path": "pode/src/Private/Authentication.ps1",
+      "repository": "Badgerati/Pode",
+      "upstreamPath": "src/Private/Authentication.ps1",
+      "commit": "89797a301afec7611c55cd395f841fe78812ae01",
+      "gitBlob": "25884bbf3997679b68e8b0813adb0d4e4438dafa",
+      "sha256": "116607509855bb67b1b92cb9256678dfe4551faae28fd4a1025a32add2cda61c",
+      "bytes": 78175,
+      "kind": "source"
+    },
+    {
+      "path": "pode/LICENSE.txt",
+      "repository": "Badgerati/Pode",
+      "upstreamPath": "LICENSE.txt",
+      "commit": "89797a301afec7611c55cd395f841fe78812ae01",
+      "gitBlob": "20aab2ec1ef8665087d3173d221e675f654d5474",
+      "sha256": "f442110383d36c571665d65e2c3e3f62524d6891490117afdf18e7faf3f917e6",
+      "bytes": 1100,
       "kind": "notice"
     }
   ]

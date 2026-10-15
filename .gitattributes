@@ -19,3 +19,7 @@ tests/projects/invoke-build/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/chocolatey/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/psscriptanalyzer/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/powershellforgithub/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/dscresource-common/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/oh-my-posh/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/importexcel/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/pode/** -text whitespace=-trailing-space,cr-at-eol

@@ -108,5 +108,25 @@
     "name": "microsoft/PowerShellForGitHub GitHubGraphQl.ps1",
     "path": "powershellforgithub/GitHubGraphQl.ps1",
     "valid": true
+  },
+  {
+    "name": "dsccommunity/DscResource.Common source/Public/Compare-DscParameterState.ps1",
+    "path": "dscresource-common/source/Public/Compare-DscParameterState.ps1",
+    "valid": true
+  },
+  {
+    "name": "JanDeDobbeleer/oh-my-posh src/shell/scripts/omp.ps1",
+    "path": "oh-my-posh/src/shell/scripts/omp.ps1",
+    "valid": true
+  },
+  {
+    "name": "dfinke/ImportExcel Public/Export-Excel.ps1",
+    "path": "importexcel/Public/Export-Excel.ps1",
+    "valid": true
+  },
+  {
+    "name": "Badgerati/Pode src/Private/Authentication.ps1",
+    "path": "pode/src/Private/Authentication.ps1",
+    "valid": true
   }
 ]
