@@ -433,3 +433,41 @@ int[]
           name: (type_identifier)
           (type_name
             name: (type_identifier)))))))
+
+==================
+Leading escaped function and filter names
+==================
+
+function `u{41} {}
+filter `#name {}
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    body: (script_block)))
+
+==================
+Leading continuations precede the function name
+==================
+
+function `
+ foo {}
+filter `
+ bar {}
+
+---
+
+(source_file
+  (function_definition
+    (line_continuation)
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    (line_continuation)
+    name: (function_name)
+    body: (script_block)))

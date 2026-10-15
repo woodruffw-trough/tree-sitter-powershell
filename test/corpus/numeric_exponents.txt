@@ -1,0 +1,56 @@
+================================================================================
+Smart dash exponent signs retain real literals and member receivers
+================================================================================
+1e–2; 1.E—2; .5e―2; 1e–2.Length; 1e—2.ToString()
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command_expression
+      (real_literal)))
+  (pipeline
+    (command_expression
+      (real_literal)))
+  (pipeline
+    (command_expression
+      (real_literal)))
+  (pipeline
+    (command_expression
+      (member_access
+        (real_literal)
+        (identifier))))
+  (pipeline
+    (command_expression
+      (invocation_expression
+        (member_access
+          (real_literal)
+          (identifier))
+        (argument_list)))))
+
+================================================================================
+Smart dash subtraction splits numeric expressions but preserves generic arguments
+================================================================================
+1–2; 1e—2―1; Write-Output 1e–2 1e—2―1 1e―2tail
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command_expression
+      (binary_expression
+        (integer_literal)
+        (integer_literal))))
+  (pipeline
+    (command_expression
+      (binary_expression
+        (real_literal)
+        (integer_literal))))
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (real_literal))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)))))

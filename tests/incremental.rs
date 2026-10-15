@@ -101,6 +101,14 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "$obj.F($obj.(,1))\n",
         "$obj.F(1)++\n",
         "$obj.-$name.Length\n",
+        "data\nMessages\n-supportedcommand\nfoo$bar,$name.Length,(Get-Item .)\n{}\n",
+        "data -supportedcommand @name.Length,${name}-tail,-not,[string] {}\n",
+        "function `u{41} {}\n",
+        "function `\r\n foo {}\n",
+        "-1e-2.ToString()\n",
+        "[double]+1e-2.Length\n",
+        "[double]-1e-2.Length\n",
+        "+0bu\nWrite-Output -0bu\n",
     ] {
         let mut parser = parser();
         let original = parser.parse(source, None).unwrap();

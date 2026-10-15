@@ -1,0 +1,492 @@
+[
+  {
+    "name": "data unnamed block",
+    "source": "data { \"text\" }",
+    "valid": true
+  },
+  {
+    "name": "data newline before name",
+    "source": "data\nMessages { \"text\" }",
+    "valid": true
+  },
+  {
+    "name": "data newline before flag",
+    "source": "data Messages\n-supportedcommand ConvertFrom-StringData {}",
+    "valid": true
+  },
+  {
+    "name": "data newline after flag",
+    "source": "data Messages -supportedcommand\nConvertFrom-StringData {}",
+    "valid": true
+  },
+  {
+    "name": "data newlines throughout",
+    "source": "data\nMessages\n-supportedcommand\nConvertFrom-StringData,\nWrite-Output\n{}",
+    "valid": true
+  },
+  {
+    "name": "data newline before comma",
+    "source": "data Messages -supportedcommand ConvertFrom-StringData\n,Write-Output {}",
+    "valid": false
+  },
+  {
+    "name": "data comment before comma",
+    "source": "data Messages -supportedcommand ConvertFrom-StringData # note\n,Write-Output {}",
+    "valid": false
+  },
+  {
+    "name": "data comment after comma",
+    "source": "data Messages -supportedcommand ConvertFrom-StringData, # note\nWrite-Output {}",
+    "valid": true
+  },
+  {
+    "name": "data leading comma",
+    "source": "data Messages -supportedcommand ,Write-Output {}",
+    "valid": false
+  },
+  {
+    "name": "data trailing comma",
+    "source": "data Messages -supportedcommand Write-Output, {}",
+    "valid": false
+  },
+  {
+    "name": "data missing command",
+    "source": "data Messages -supportedcommand {}",
+    "valid": false
+  },
+  {
+    "name": "data missing body",
+    "source": "data Messages -supportedcommand Write-Output",
+    "valid": false
+  },
+  {
+    "name": "data extra command",
+    "source": "data Messages -supportedcommand foo bar {}",
+    "valid": false
+  },
+  {
+    "name": "data unnamed supported commands",
+    "source": "data -supportedcommand foo,bar {}",
+    "valid": true
+  },
+  {
+    "name": "data abbreviated flag",
+    "source": "data Messages -s foo {}",
+    "valid": true
+  },
+  {
+    "name": "data smart dash flag",
+    "source": "data Messages —S foo {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 00",
+    "source": "data Messages -supportedcommand foo {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 01",
+    "source": "data Messages -supportedcommand foo$bar {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 02",
+    "source": "data Messages -supportedcommand $foo-tail {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 03",
+    "source": "data Messages -supportedcommand foo\"$bar\" {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 04",
+    "source": "data Messages -supportedcommand foo$(1) {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 05",
+    "source": "data Messages -supportedcommand [string] {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 06",
+    "source": "data Messages -supportedcommand [string]::x {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 07",
+    "source": "data Messages -supportedcommand [string]$foo {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 08",
+    "source": "data Messages -supportedcommand -not {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 09",
+    "source": "data Messages -supportedcommand -not$foo {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 10",
+    "source": "data Messages -supportedcommand -not($foo) {}",
+    "valid": false
+  },
+  {
+    "name": "data supported command 11",
+    "source": "data Messages -supportedcommand -1 {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 12",
+    "source": "data Messages -supportedcommand +1 {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 13",
+    "source": "data Messages -supportedcommand - {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 14",
+    "source": "data Messages -supportedcommand -- {}",
+    "valid": false
+  },
+  {
+    "name": "data supported command 15",
+    "source": "data Messages -supportedcommand ++ {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 16",
+    "source": "data Messages -supportedcommand + {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 17",
+    "source": "data Messages -supportedcommand ! {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 18",
+    "source": "data Messages -supportedcommand . {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 19",
+    "source": "data Messages -supportedcommand :foo {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 20",
+    "source": "data Messages -supportedcommand begin {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 21",
+    "source": "data Messages -supportedcommand using {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 22",
+    "source": "data Messages -supportedcommand $foo {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 23",
+    "source": "data Messages -supportedcommand $foo.Length {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 24",
+    "source": "data Messages -supportedcommand $foo[0] {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 25",
+    "source": "data Messages -supportedcommand $foo.Where{ $_.Enabled } {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 26",
+    "source": "data Messages -supportedcommand $foo.M(1,2) {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 27",
+    "source": "data Messages -supportedcommand $foo.M[int](1) {}",
+    "valid": false
+  },
+  {
+    "name": "data supported command 28",
+    "source": "data Messages -supportedcommand (\"foo\") {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 29",
+    "source": "data Messages -supportedcommand (Write-Output foo) {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 30",
+    "source": "data Messages -supportedcommand $(Write-Output foo) {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 31",
+    "source": "data Messages -supportedcommand @(1,2) {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 32",
+    "source": "data Messages -supportedcommand @{a=1} {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 33",
+    "source": "data Messages -supportedcommand {\"foo\"} {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 34",
+    "source": "data Messages -supportedcommand 1 {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 35",
+    "source": "data Messages -supportedcommand 1..2 {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 36",
+    "source": "data Messages -supportedcommand 2+3 {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 37",
+    "source": "data Messages -supportedcommand \"$foo\" {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 38",
+    "source": "data Messages -supportedcommand \"foo\" {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 39",
+    "source": "data Messages -supportedcommand 'foo' {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 40",
+    "source": "data Messages -supportedcommand \"foo\"$bar {}",
+    "valid": false
+  },
+  {
+    "name": "data supported command 41",
+    "source": "data Messages -supportedcommand $foo.Length$bar {}",
+    "valid": false
+  },
+  {
+    "name": "data supported command 42",
+    "source": "data Messages -supportedcommand ${foo}-tail {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 43",
+    "source": "data Messages -supportedcommand ${foo}=tail {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 44",
+    "source": "data Messages -supportedcommand $foo=tail {}",
+    "valid": false
+  },
+  {
+    "name": "data supported command 45",
+    "source": "data Messages -supportedcommand $foo?[0] {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 46",
+    "source": "data Messages -supportedcommand @foo {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 47",
+    "source": "data Messages -supportedcommand @foo-tail {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 48",
+    "source": "data Messages -supportedcommand @foo.bar {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 49",
+    "source": "data Messages -supportedcommand @foo[0] {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 50",
+    "source": "data Messages -supportedcommand @foo$bar {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 51",
+    "source": "data Messages -supportedcommand @foo\"$bar\" {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 52",
+    "source": "data Messages -supportedcommand @ {}",
+    "valid": false
+  },
+  {
+    "name": "data supported command 53",
+    "source": "data Messages -supportedcommand $ {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 54",
+    "source": "data Messages -supportedcommand `u{41} {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 55",
+    "source": "data Messages -supportedcommand \"a`u{41}\" {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 56",
+    "source": "data Messages -supportedcommand @'\nfoo\n'@ {}",
+    "valid": true
+  },
+  {
+    "name": "data supported command 57",
+    "source": "data Messages -supportedcommand @\"\n$foo\n\"@ {}",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 74",
+    "source": "@{a=data -supportedcommand $foo.Bar { 1,2 }}",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 75",
+    "source": "$obj.M(@{a=data -supportedcommand $foo.Bar { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 76",
+    "source": "param($x=@{a=data -supportedcommand $foo.Bar { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 77",
+    "source": "$result = data -supportedcommand $foo.Bar { 1,2 }",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 78",
+    "source": "@{a=data -supportedcommand foo$bar { 1,2 }}",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 79",
+    "source": "$obj.M(@{a=data -supportedcommand foo$bar { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 80",
+    "source": "param($x=@{a=data -supportedcommand foo$bar { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 81",
+    "source": "$result = data -supportedcommand foo$bar { 1,2 }",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 82",
+    "source": "@{a=data -supportedcommand (\"foo\") { 1,2 }}",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 83",
+    "source": "$obj.M(@{a=data -supportedcommand (\"foo\") { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 84",
+    "source": "param($x=@{a=data -supportedcommand (\"foo\") { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 85",
+    "source": "$result = data -supportedcommand (\"foo\") { 1,2 }",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 86",
+    "source": "@{a=data -supportedcommand { Get-Item x } { 1,2 }}",
+    "valid": true
+  },
+  {
+    "name": "data nested supported command 87",
+    "source": "$obj.M(@{a=data -supportedcommand { Get-Item x } { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 88",
+    "source": "param($x=@{a=data -supportedcommand { Get-Item x } { 1,2 }})",
+    "valid": false
+  },
+  {
+    "name": "data nested supported command 89",
+    "source": "$result = data -supportedcommand { Get-Item x } { 1,2 }",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 94",
+    "source": "$obj.M(@{a=data -supportedcommand (1,2) { (1,2) }})",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 95",
+    "source": "param($x=@{a=data -supportedcommand (1,2) { (1,2) }})",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 96",
+    "source": "$obj.M(@{a=data -supportedcommand @(1,2) { (1,2) }})",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 97",
+    "source": "param($x=@{a=data -supportedcommand @(1,2) { (1,2) }})",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 98",
+    "source": "$obj.M(@{a=data -supportedcommand {1,2} { (1,2) }})",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 99",
+    "source": "param($x=@{a=data -supportedcommand {1,2} { (1,2) }})",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 100",
+    "source": "$obj.M(@{a=data -supportedcommand $items[0,1] { (1,2) }})",
+    "valid": true
+  },
+  {
+    "name": "data comma reset 101",
+    "source": "param($x=@{a=data -supportedcommand $items[0,1] { (1,2) }})",
+    "valid": true
+  }
+]

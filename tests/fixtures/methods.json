@@ -73,5 +73,30 @@
     "name": "space after generic method arguments",
     "source": "$x.Where[int] {$_}",
     "valid": false
+  },
+  {
+    "name": "generic variable member in command argument is not a generic invocation",
+    "source": "cmd $foo.M[int](1)",
+    "valid": false
+  },
+  {
+    "name": "generic variable member invocation target is not a generic invocation",
+    "source": "& $foo.M[int](1)",
+    "valid": false
+  },
+  {
+    "name": "generic variable member in expression mode",
+    "source": "$foo.M[int](1)",
+    "valid": true
+  },
+  {
+    "name": "parentheses restore generic member invocation in command arguments",
+    "source": "cmd ($foo.M[int](1))",
+    "valid": true
+  },
+  {
+    "name": "static generic spelling remains bare command text",
+    "source": "cmd [T]::M[int](1)",
+    "valid": true
   }
 ]

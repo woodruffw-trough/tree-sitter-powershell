@@ -285,14 +285,6 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         | "expandable_here_string"
             if !quoted_fragment(node) =>
         {
-            if node.parent().is_some_and(|parent| {
-                parent.kind() == "data_statement"
-                    && field_children(parent, "supported_commands").contains(&node)
-            }) {
-                // Supported-command names are semantic BareWord constants even
-                // when the concrete spelling uses quotes; fields keep ranges.
-                return None;
-            }
             "QuotedStringAst"
         }
         "command_argument" if composite_string(node) && has_interpolation(node) => {

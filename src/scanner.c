@@ -41,7 +41,10 @@ enum TokenType {
   FLOW_EXPRESSION_START,
   FLOW_LABEL_END,
   COMMAND_MEMBER_START,
-  COMMAND_UNARY_START
+  COMMAND_UNARY_START,
+  DATA_COMMAND_NAME,
+  SIGNED_NUMBER_START,
+  CAST_VALUE_CONTEXT
 };
 
 // All context comes from valid tokens and source lookahead. No mutable scanner
@@ -112,7 +115,8 @@ static bool suffix_ok(const char *s) {
 }
 
 static bool numeric_token(const char *s, enum TokenType *kind) {
-  if (*s == '+' || *s == '-') {
+  bool signed_number = *s == '+' || *s == '-';
+  if (signed_number) {
     ++s;
   }
   const char *end = s;
@@ -126,7 +130,7 @@ static bool numeric_token(const char *s, enum TokenType *kind) {
     }
   } else if (s[0] == '0' && s[1] == 'b') {
     end += 2;
-    if (*end != '0' && *end != '1') {
+    if (*end != '0' && *end != '1' && !(signed_number && *end == 'u')) {
       return false;
     }
     while (*end == '0' || *end == '1') {
@@ -939,10 +943,20 @@ static bool scan_name_quoted_piece(TSLexer *lexer) {
 // Function names are literal generic tokens. Quoted pieces and escaped
 // characters can occur after an unquoted prefix, and embedded dollar
 // subexpressions remain part of the name rather than evaluated children.
-static bool scan_function_name(TSLexer *lexer) {
+static bool scan_function_name(TSLexer *lexer, const bool *valid) {
   int32_t c = lexer->lookahead;
   if (generic_end(c) || c == '$' || c == '@' || c == '#') {
     return false;
+  }
+  if (c == '`') {
+    lexer->advance(lexer, false);
+    if (newline(lexer->lookahead)) {
+      return scan_line_continuation_after_tick(lexer, valid);
+    }
+    int32_t decoded;
+    if (!scan_backtick_escape_after_tick(lexer, &decoded, NULL)) {
+      return false;
+    }
   }
   bool previous_dollar = false;
   while (!lexer->eof(lexer)) {
@@ -1075,6 +1089,10 @@ typedef struct {
   char inline_data[128];
 } GenericWord;
 
+static bool generic_dash(int32_t c) {
+  return c == '-' || c == 0x2013 || c == 0x2014 || c == 0x2015;
+}
+
 static bool generic_word_append(GenericWord *word, int32_t c) {
   if (word->length + 1 >= word->capacity) {
     if (word->capacity > SIZE_MAX / 2) {
@@ -1096,7 +1114,17 @@ static bool generic_word_append(GenericWord *word, int32_t c) {
     word->data = data;
     word->capacity = capacity;
   }
-  // Classification only needs folded ASCII. Keep non-ASCII and cooked NUL
+  // Number scanning accepts smart dashes in exponent signs and after a numeric
+  // prefix. Fold them only in numeric-looking words: generic text such as -\u2014%
+  // must not become the ASCII-only verbatim-argument marker.
+  bool numeric_start =
+      word->length > 0 && (ascii_digit(word->data[0]) || word->data[0] == '.' ||
+                           ((word->data[0] == '+' || word->data[0] == '-') && word->length > 1 &&
+                            (ascii_digit(word->data[1]) || word->data[1] == '.')));
+  if (generic_dash(c) && numeric_start) {
+    c = '-';
+  }
+  // Classification otherwise needs folded ASCII. Keep non-ASCII and cooked NUL
   // visibly nonnumeric without inserting an embedded C-string terminator.
   word->data[word->length++] = c > 0 && c < 128 ? (char)ascii_lower(c) : '?';
   word->data[word->length] = 0;
@@ -1129,6 +1157,7 @@ static bool command_mode_number_follows(TSLexer *lexer, int32_t sign) {
 static bool generic_numeric_pending(GenericWord *word) {
   size_t n = word->length;
   if ((n == 1 && word->data[0] == '.') ||
+      (n == 2 && (word->data[0] == '+' || word->data[0] == '-') && word->data[1] == '.') ||
       (n == 2 && word->data[0] == '0' && word->data[1] == 'b')) {
     return true;
   }
@@ -1150,11 +1179,7 @@ static bool generic_numeric_pending(GenericWord *word) {
 }
 
 static bool generic_numeric_boundary(int32_t c) {
-  return c > 0 && c < 128 && strchr("+-*/%.<>", (char)c) != NULL;
-}
-
-static bool generic_dash(int32_t c) {
-  return c == '-' || c == 0x2013 || c == 0x2014 || c == 0x2015;
+  return generic_dash(c) || (c > 0 && c < 128 && strchr("+*/%.<>", (char)c) != NULL);
 }
 
 static bool generic_unary_operator(const char *word) {
@@ -1163,19 +1188,40 @@ static bool generic_unary_operator(const char *word) {
 }
 
 static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
-                              GenericWord *buffer) {
-  bool name = valid[COMMAND_NAME] && !immediate;
-  enum TokenType kind = name ? COMMAND_NAME : BARE_WORD;
+                              GenericWord *buffer, bool continuation) {
+  bool data_name = valid[DATA_COMMAND_NAME] && !immediate;
   int32_t first = lexer->lookahead;
-  if (name && (first == '+' || first == '!')) {
+  bool signed_start = valid[SIGNED_NUMBER_START] && !immediate && !continuation && !data_name &&
+                      (!valid[BARE_WORD] || valid[COMMAND_NAME]) &&
+                      (generic_dash(first) || (first == '+' && !valid[CAST_VALUE_CONTEXT]));
+  bool name =
+      !immediate && (valid[COMMAND_NAME] || data_name || (signed_start && !valid[BARE_WORD]));
+  enum TokenType kind = data_name ? DATA_COMMAND_NAME : name ? COMMAND_NAME : BARE_WORD;
+  // Preserve the initial position when classifying an adjacent signed primary.
+  // A failed probe must still be able to return a generic command name.
+  if (signed_start) {
+    lexer->mark_end(lexer);
+  }
+  if (!continuation && !data_name &&
+      ((first == '+' && valid[CAST_VALUE_CONTEXT]) || (name && first == '!'))) {
     return false;
   }
-  if (generic_end(first) || first == '#' || first == '@' || (!immediate && first == ':') ||
-      ((first == '[' || first == ']') && name)) {
+  if (!continuation && !data_name && name && first == '+') {
+    if (!generic_word_append(buffer, '+')) {
+      return false;
+    }
+    lexer->advance(lexer, false);
+    if (!ascii_digit(lexer->lookahead) && lexer->lookahead != '.') {
+      return false;
+    }
+  }
+  if (!continuation && (generic_end(first) || first == '#' || first == '@' ||
+                        (!immediate && !data_name && first == ':') ||
+                        ((first == '[' || first == ']') && name && !data_name))) {
     return false;
   }
   bool dollar_prefix = false;
-  if (first == '$') {
+  if (!continuation && first == '$') {
     lexer->advance(lexer, false);
     if (variable_start(lexer->lookahead)) {
       if (lexer->lookahead == '{' && valid[BRACED_ARGUMENT_VARIABLE]) {
@@ -1189,15 +1235,16 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     dollar_prefix = true;
   }
-  bool leading_dash = !immediate && generic_dash(first);
+  bool leading_dash = !continuation && !immediate && generic_dash(first);
   if (leading_dash) {
     if (!generic_word_append(buffer, '-')) {
       return false;
     }
     lexer->advance(lexer, false);
     int32_t next = lexer->lookahead;
-    if (name && !((next >= 'a' && next <= 'z') || (next >= 'A' && next <= 'Z') ||
-                  decimal_character(next) || next == '.')) {
+    if (name && !data_name &&
+        !((next >= 'a' && next <= 'z') || (next >= 'A' && next <= 'Z') || decimal_character(next) ||
+          next == '.')) {
       return false;
     }
     if (valid[PARAMETER_NAME] && variable_character(next) && !decimal_character(next)) {
@@ -1231,19 +1278,21 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   }
   char *word = buffer->data;
   size_t n = buffer->length;
-  bool any_escape = false;
+  bool any_escape = continuation;
   enum TokenType numeric_kind = INTEGER_LITERAL;
-  bool numeric_start = ascii_digit(first) || first == '.' ||
-                       (leading_dash && (ascii_digit(lexer->lookahead) || lexer->lookahead == '.'));
+  bool numeric_start =
+      !continuation && (ascii_digit(first) || first == '.' ||
+                        ((leading_dash || first == '+') &&
+                         (ascii_digit(lexer->lookahead) || lexer->lookahead == '.')));
   bool numeric_live = numeric_start;
   size_t numeric_prefix = 0;
   while (!lexer->eof(lexer)) {
     int32_t c = lexer->lookahead;
-    if (name && leading_dash && n > 1 && !any_escape && generic_unary_operator(word) &&
-        !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
+    if (name && !data_name && leading_dash && n > 1 && !any_escape &&
+        generic_unary_operator(word) && !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
       return false;
     }
-    if (name && n == 1 && word[0] == '.' && c == '$') {
+    if (name && !data_name && n == 1 && word[0] == '.' && c == '$') {
       return false;
     }
     if (name && c == '(' && n > 0 && word[n - 1] == '$') {
@@ -1265,7 +1314,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       continue;
     }
     if (name && quote(c)) {
-      if (n == 1 && word[0] == '.') {
+      if (!data_name && n == 1 && word[0] == '.') {
         return false;
       }
       if (!scan_name_quoted_piece(lexer) || !generic_word_append(buffer, '?')) {
@@ -1285,11 +1334,13 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       bool numeric = !any_escape && numeric_live && numeric_token(word, &candidate_kind);
       if (name && n > 0 && numeric && c == '>') {
         numeric_kind = candidate_kind;
-        lexer->mark_end(lexer);
+        if (!signed_start) {
+          lexer->mark_end(lexer);
+        }
         lexer->advance(lexer, false);
         if (lexer->lookahead != '&') {
-          lexer->result_symbol = numeric_kind;
-          return valid[numeric_kind];
+          lexer->result_symbol = signed_start ? SIGNED_NUMBER_START : numeric_kind;
+          return signed_start || valid[numeric_kind];
         }
         if (!generic_word_append(buffer, '>') || !generic_word_append(buffer, '&')) {
           return false;
@@ -1356,7 +1407,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       if (numeric_token(word, &candidate_kind)) {
         numeric_kind = candidate_kind;
         numeric_prefix = n;
-        lexer->mark_end(lexer);
+        if (!signed_start) {
+          lexer->mark_end(lexer);
+        }
       } else {
         numeric_live = generic_numeric_pending(buffer);
       }
@@ -1391,7 +1444,19 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       lexer->result_symbol = BARE_WORD;
       return valid[BARE_WORD];
     }
-    if (!any_escape && numeric_token(word, &full_kind)) {
+    bool empty_binary = n >= 3 && (word[0] == '+' || word[0] == '-') && word[1] == '0' &&
+                        word[2] == 'b' && (n == 3 || (word[3] != '0' && word[3] != '1'));
+    if (!name && empty_binary) {
+      lexer->mark_end(lexer);
+      lexer->result_symbol = BARE_WORD;
+      return valid[BARE_WORD];
+    }
+    if (!any_escape && (!data_name || (!leading_dash && first != '+')) &&
+        numeric_token(word, &full_kind)) {
+      if (signed_start) {
+        lexer->result_symbol = SIGNED_NUMBER_START;
+        return true;
+      }
       // Signed numbers retain the grammar's unary-expression structure.
       if (leading_dash) {
         return false;
@@ -1403,12 +1468,19 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       lexer->result_symbol = full_kind;
       return true;
     }
-    if (name && !any_escape &&
+    if (data_name && !any_escape && strcmp(word, "--") == 0) {
+      return false;
+    }
+    if (name && !data_name && !any_escape &&
         (reserved(word) || strcmp(word, ".") == 0 || generic_unary_operator(word))) {
       return false;
     }
-    if (name && !any_escape && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
-        strchr("+-*/%.", word[numeric_prefix]) != NULL) {
+    if (name && !data_name && !any_escape && numeric_start && numeric_prefix != 0 &&
+        numeric_prefix < n && strchr("+-*/%.", word[numeric_prefix]) != NULL) {
+      if (signed_start) {
+        lexer->result_symbol = SIGNED_NUMBER_START;
+        return true;
+      }
       if (leading_dash) {
         return false;
       }
@@ -1419,16 +1491,60 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       return true;
     }
   }
+  if (name && !data_name && !any_escape && (strcmp(word, "-0b") == 0 || strcmp(word, "+0b") == 0)) {
+    return false;
+  }
   lexer->mark_end(lexer);
   lexer->result_symbol = kind;
-  return true;
+  return valid[kind];
 }
 
 static bool scan_generic(TSLexer *lexer, const bool *valid, bool immediate) {
   GenericWord word = {0};
   word.data = word.inline_data;
   word.capacity = sizeof(word.inline_data);
-  bool result = scan_generic_word(lexer, valid, immediate, &word);
+  bool result = scan_generic_word(lexer, valid, immediate, &word, false);
+  if (word.data != word.inline_data) {
+    free(word.data);
+  }
+  return result;
+}
+
+// In command-name mode a variable followed by generic text is a literal name.
+// Keep standalone variables available to the primary-expression grammar.
+static bool scan_data_variable_name(TSLexer *lexer, const bool *valid) {
+  bool splat = lexer->lookahead == '@';
+  lexer->advance(lexer, false);
+  int32_t first = lexer->lookahead;
+  if (first == '(' || (splat && first == '{')) {
+    return false;
+  }
+  if (splat && quote(first)) {
+    return scan_here_string_after_at(lexer, valid);
+  }
+  if (splat && !variable_start(first)) {
+    return false;
+  }
+  bool braced = !splat && first == '{';
+  if (variable_start(first)) {
+    if (!scan_variable_after_dollar(lexer, valid, splat ? SPLAT_EXPRESSION : VARIABLE)) {
+      return false;
+    }
+    int32_t next = lexer->lookahead;
+    if ((generic_end(next) && !quote(next) && next != '<' && next != '>') || next == '.' ||
+        next == '[' || (!braced && next == '=')) {
+      return true;
+    }
+  }
+  GenericWord word = {0};
+  word.data = word.inline_data;
+  word.capacity = sizeof(word.inline_data);
+  // The consumed prefix guarantees a nonnumeric, nonkeyword generic name.
+  // Its exact cooked value is immaterial to the remaining boundary scan.
+  if (!generic_word_append(&word, '?')) {
+    return false;
+  }
+  bool result = scan_generic_word(lexer, valid, false, &word, true);
   if (word.data != word.inline_data) {
     free(word.data);
   }
@@ -1490,7 +1606,7 @@ static bool scan_number(TSLexer *lexer, const bool *valid) {
   }
   if (lexer->lookahead == 'e' || lexer->lookahead == 'E') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == '+' || lexer->lookahead == '-') {
+    if (lexer->lookahead == '+' || generic_dash(lexer->lookahead)) {
       lexer->advance(lexer, false);
     }
     if (!ascii_digit(lexer->lookahead)) {
@@ -1651,7 +1767,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     return true;
   }
   if (valid[LINE_CONTINUATION] && !valid[COMMAND_NAME] && !valid[BARE_WORD] &&
-      lexer->lookahead == '`') {
+      !valid[DATA_COMMAND_NAME] && !valid[FUNCTION_NAME] && lexer->lookahead == '`') {
     lexer->advance(lexer, false);
     return scan_line_continuation_after_tick(lexer, valid);
   }
@@ -1659,7 +1775,11 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     return scan_comment(lexer, valid);
   }
   if (valid[FUNCTION_NAME] && !valid[COMMAND_NAME]) {
-    return scan_function_name(lexer);
+    return scan_function_name(lexer, valid);
+  }
+  if (valid[DATA_COMMAND_NAME] && !valid[COMMAND_NAME] &&
+      (lexer->lookahead == '$' || lexer->lookahead == '@')) {
+    return scan_data_variable_name(lexer, valid);
   }
   if (valid[LABEL_START] && !valid[HERE_STRING_CONTENT] && lexer->lookahead == ':') {
     return scan_label_start(lexer);
@@ -1685,11 +1805,12 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     }
     return scan_splat_after_at(lexer, valid);
   }
-  if (valid[COMMAND_NAME] || valid[BARE_WORD]) {
+  if (valid[COMMAND_NAME] || valid[BARE_WORD] || valid[DATA_COMMAND_NAME] ||
+      (valid[SIGNED_NUMBER_START] && (lexer->lookahead == '+' || generic_dash(lexer->lookahead)))) {
     // A failed generic scan cannot be rewound. Numeric starts are handled by
     // the ordinary lexer unless an argument-mode bare token is required.
     if (ascii_digit(lexer->lookahead) || lexer->lookahead == '.') {
-      if (valid[BARE_WORD] || valid[COMMAND_NAME]) {
+      if (valid[BARE_WORD] || valid[COMMAND_NAME] || valid[DATA_COMMAND_NAME]) {
         return scan_generic(lexer, valid, false);
       }
     } else {

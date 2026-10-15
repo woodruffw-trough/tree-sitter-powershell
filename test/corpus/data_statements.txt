@@ -1,0 +1,128 @@
+==================
+Data header newlines and comma list
+==================
+
+data
+Messages
+-supportedcommand
+ConvertFrom-StringData,
+Write-Output
+{ 1 }
+
+---
+
+(source_file
+  (data_statement
+    name: (identifier)
+    supported_commands: (bare_word)
+    supported_commands: (bare_word)
+    body: (statement_block
+      (pipeline
+        elements: (command_expression
+          expression: (integer_literal))))))
+
+==================
+Supported command expressions retain their own structure
+==================
+
+data -supportedcommand $name.Length, (Get-Item .), { "value" }, @items[0] {}
+
+---
+
+(source_file
+  (data_statement
+    supported_commands: (member_access
+      object: (variable)
+      member: (identifier))
+    supported_commands: (parenthesized_expression
+      (pipeline
+        elements: (command
+          name: (command_name
+            (bare_word))
+          (command_argument
+            (bare_word)))))
+    supported_commands: (script_block
+      (pipeline
+        elements: (command_expression
+          expression: (expandable_string
+            (string_content)))))
+    supported_commands: (element_access
+      object: (splat_expression)
+      index: (integer_literal))
+    body: (statement_block)))
+
+==================
+Generic supported command names are literal tokens
+==================
+
+data -supportedcommand foo$bar, $name-tail, foo"$bar", [string], -not, -1, 2+3 {}
+
+---
+
+(source_file
+  (data_statement
+    supported_commands: (bare_word)
+    supported_commands: (bare_word)
+    supported_commands: (bare_word)
+    supported_commands: (bare_word)
+    supported_commands: (bare_word)
+    supported_commands: (bare_word)
+    supported_commands: (bare_word)
+    body: (statement_block)))
+
+==================
+Quoted supported commands retain interpolation
+==================
+
+data -supportedcommand "Get-$name", 'Write-Output' {}
+
+---
+
+(source_file
+  (data_statement
+    supported_commands: (expandable_string
+      (string_content)
+      (variable))
+    supported_commands: (single_quoted_string)
+    body: (statement_block)))
+
+==================
+Data expressions inherit comma contexts and retain resets
+==================
+
+$obj.M(@{a=data -supportedcommand (1,2), $items[0,1] { (1,2) }})
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        arguments: (argument_list
+          (hashtable_expression
+            (hash_entry
+              key: (identifier)
+              value: (data_statement
+                supported_commands: (parenthesized_expression
+                  (pipeline
+                    elements: (command_expression
+                      expression: (array_literal_expression
+                        (integer_literal)
+                        (integer_literal)))))
+                supported_commands: (element_access
+                  object: (variable)
+                  index: (array_literal_expression
+                    (integer_literal)
+                    (integer_literal)))
+                body: (statement_block
+                  (pipeline
+                    elements: (command_expression
+                      expression: (parenthesized_expression
+                        (pipeline
+                          elements: (command_expression
+                            expression: (array_literal_expression
+                              (integer_literal)
+                              (integer_literal))))))))))))))))

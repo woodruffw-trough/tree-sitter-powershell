@@ -307,7 +307,28 @@ foreach ($case in $cases) {
             incomplete = $_.IncompleteInput
         }
     })
-    $nodes = @($ast.FindAll({ param($node) $true }, $true) | ForEach-Object {
+    $astNodes = [Collections.Generic.List[Management.Automation.Language.Ast]]::new()
+    $seenAstNodes = [Collections.Generic.HashSet[Management.Automation.Language.Ast]]::new()
+    foreach ($node in $ast.FindAll({ param($node) $true }, $true)) {
+        if ($seenAstNodes.Add($node)) {
+            $astNodes.Add($node)
+        }
+    }
+    # DataStatementAst's visitor omits CommandsAllowed. Visit these expression
+    # trees explicitly so their argument boundaries and grouping are compared.
+    for ($index = 0; $index -lt $astNodes.Count; $index++) {
+        $node = $astNodes[$index]
+        if ($node -is [Management.Automation.Language.DataStatementAst]) {
+            foreach ($command in $node.CommandsAllowed) {
+                foreach ($child in $command.FindAll({ param($node) $true }, $true)) {
+                    if ($seenAstNodes.Add($child)) {
+                        $astNodes.Add($child)
+                    }
+                }
+            }
+        }
+    }
+    $nodes = @($astNodes | ForEach-Object {
         Get-AstRecord $_
     })
     $tokenExtents = @($tokens | ForEach-Object {
@@ -318,10 +339,9 @@ foreach ($case in $cases) {
             end = $_.Extent.EndOffset
         }
     })
-    $commands = @($ast.FindAll({
-        param($node)
-        $node -is [Management.Automation.Language.CommandAst]
-    }, $true) | ForEach-Object {
+    $commands = @($astNodes | Where-Object {
+        $_ -is [Management.Automation.Language.CommandAst]
+    } | ForEach-Object {
         [ordered]@{
             start = $_.Extent.StartOffset
             end = $_.Extent.EndOffset

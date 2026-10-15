@@ -13,6 +13,7 @@ implementation below.
 | Expressions and precedence | [Chapter 7](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-07) | [Operators](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_operators), [operator precedence](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_operator_precedence) |
 | Commands, pipelines, statements | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Parsing](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing), [pipeline chains](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators), [redirection](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection) |
 | Functions and parameters | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions), [advanced functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced), [named blocks](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_methods) |
+| Data sections | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Data sections](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_data_sections) |
 | Classes, enums, generics | Added after PowerShell 3.0 | [Classes](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes), [enums](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_enum), [generic method calls](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_calling_generic_methods) |
 
 The implementation reference is PowerShell 7.5.4:
@@ -69,6 +70,11 @@ PowerShell allows physical newlines as well as semicolons between header clauses
 the clause positions determine these fields.
 Declaration names, parameter defaults, class property values, catch types, and
 conditional clauses also have fields, so queries can select their syntactic role.
+
+In a `data_statement`, each `supported_commands` field contains one complete
+command name or expression. Literal names such as `foo$bar` remain `bare_word`
+nodes; quoted strings, variables, member access, and grouped expressions retain
+their usual structure. The statement's `body` is a `statement_block`.
 
 A `pipeline` exposes complete `elements`: a `command`, or a `command_expression`
 with `expression` and optional `redirections`. Pipes connect these elements.
@@ -146,7 +152,12 @@ same way as ordinary expandable strings, including literal whitespace.
 Operator grouping follows the pinned parser. For example,
 `$true -or $false -and $false` groups as `($true -or $false) -and $false`, and
 `1 -eq 2 -shl 3` groups as `(1 -eq 2) -shl 3`. Null coalescing binds above comparison
-and below addition. Braced variables can contain supplementary Unicode characters:
+and below addition. An adjacent numeric sign forms a `unary_expression` before
+member access: in `-1e-2.ToString()`, the call's object is `-1e-2`. A spaced sign
+instead applies to the complete operand. Numeric-looking command arguments still
+follow command-mode token boundaries.
+
+Braced variables can contain supplementary Unicode characters:
 `${𐐀}` is a variable, while `$𐐀` is a command token.
 
 Method arguments, parameter defaults, attribute arguments, and hashtable keys

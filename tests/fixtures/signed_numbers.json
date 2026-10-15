@@ -1,0 +1,1182 @@
+[
+  {
+    "name": "signed member 000",
+    "source": "+0x1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 001",
+    "source": "+0x1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 002",
+    "source": "+1.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 003",
+    "source": "+1.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 004",
+    "source": "+1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 005",
+    "source": "+1e-2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 006",
+    "source": "+.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 007",
+    "source": "+.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 008",
+    "source": "+1d.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 009",
+    "source": "+1d.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 010",
+    "source": "+0b1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 011",
+    "source": "+0b1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 012",
+    "source": "$n = +1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 013",
+    "source": "[int]+1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 014",
+    "source": "[T]::M(+1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 015",
+    "source": "param($n = +1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 016",
+    "source": "$o[+1e-2.Length]",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 017",
+    "source": "Write-Output +1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 018",
+    "source": "Write-Output (+1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 019",
+    "source": "+ 1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 020",
+    "source": "+\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 021",
+    "source": "+<#c#>1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 022",
+    "source": "+`\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 023",
+    "source": "+0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 024",
+    "source": "Write-Output +0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 025",
+    "source": "+0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 026",
+    "source": "Write-Output +0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 027",
+    "source": "+0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 028",
+    "source": "Write-Output +0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 029",
+    "source": "+0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 030",
+    "source": "Write-Output +0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 031",
+    "source": "+0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 032",
+    "source": "Write-Output +0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 033",
+    "source": "+0b",
+    "valid": false
+  },
+  {
+    "name": "signed generic binary 034",
+    "source": "Write-Output +0b",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 035",
+    "source": "+0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 036",
+    "source": "Write-Output +0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 037",
+    "source": "+1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 038",
+    "source": "Write-Output +1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 039",
+    "source": "+1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 040",
+    "source": "Write-Output +1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 041",
+    "source": "+1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 042",
+    "source": "Write-Output +1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 043",
+    "source": "+foo",
+    "valid": false
+  },
+  {
+    "name": "signed generic binary 044",
+    "source": "Write-Output +foo",
+    "valid": true
+  },
+  {
+    "name": "signed member 045",
+    "source": "-0x1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 046",
+    "source": "-0x1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 047",
+    "source": "-1.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 048",
+    "source": "-1.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 049",
+    "source": "-1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 050",
+    "source": "-1e-2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 051",
+    "source": "-.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 052",
+    "source": "-.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 053",
+    "source": "-1d.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 054",
+    "source": "-1d.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 055",
+    "source": "-0b1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 056",
+    "source": "-0b1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 057",
+    "source": "$n = -1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 058",
+    "source": "[int]-1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 059",
+    "source": "[T]::M(-1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 060",
+    "source": "param($n = -1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 061",
+    "source": "$o[-1e-2.Length]",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 062",
+    "source": "Write-Output -1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 063",
+    "source": "Write-Output (-1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 064",
+    "source": "- 1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 065",
+    "source": "-\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 066",
+    "source": "-<#c#>1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 067",
+    "source": "-`\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 068",
+    "source": "-0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 069",
+    "source": "Write-Output -0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 070",
+    "source": "-0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 071",
+    "source": "Write-Output -0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 072",
+    "source": "-0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 073",
+    "source": "Write-Output -0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 074",
+    "source": "-0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 075",
+    "source": "Write-Output -0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 076",
+    "source": "-0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 077",
+    "source": "Write-Output -0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 078",
+    "source": "-0b",
+    "valid": false
+  },
+  {
+    "name": "signed generic binary 079",
+    "source": "Write-Output -0b",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 080",
+    "source": "-0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 081",
+    "source": "Write-Output -0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 082",
+    "source": "-1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 083",
+    "source": "Write-Output -1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 084",
+    "source": "-1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 085",
+    "source": "Write-Output -1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 086",
+    "source": "-1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 087",
+    "source": "Write-Output -1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 088",
+    "source": "-foo",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 089",
+    "source": "Write-Output -foo",
+    "valid": true
+  },
+  {
+    "name": "signed member 090",
+    "source": "–0x1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 091",
+    "source": "–0x1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 092",
+    "source": "–1.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 093",
+    "source": "–1.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 094",
+    "source": "–1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 095",
+    "source": "–1e-2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 096",
+    "source": "–.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 097",
+    "source": "–.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 098",
+    "source": "–1d.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 099",
+    "source": "–1d.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 100",
+    "source": "–0b1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 101",
+    "source": "–0b1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 102",
+    "source": "$n = –1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 103",
+    "source": "[int]–1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 104",
+    "source": "[T]::M(–1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 105",
+    "source": "param($n = –1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 106",
+    "source": "$o[–1e-2.Length]",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 107",
+    "source": "Write-Output –1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 108",
+    "source": "Write-Output (–1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 109",
+    "source": "– 1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 110",
+    "source": "–\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 111",
+    "source": "–<#c#>1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 112",
+    "source": "–`\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 113",
+    "source": "–0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 114",
+    "source": "Write-Output –0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 115",
+    "source": "–0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 116",
+    "source": "Write-Output –0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 117",
+    "source": "–0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 118",
+    "source": "Write-Output –0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 119",
+    "source": "–0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 120",
+    "source": "Write-Output –0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 121",
+    "source": "–0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 122",
+    "source": "Write-Output –0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 123",
+    "source": "–0b",
+    "valid": false
+  },
+  {
+    "name": "signed generic binary 124",
+    "source": "Write-Output –0b",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 125",
+    "source": "–0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 126",
+    "source": "Write-Output –0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 127",
+    "source": "–1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 128",
+    "source": "Write-Output –1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 129",
+    "source": "–1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 130",
+    "source": "Write-Output –1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 131",
+    "source": "–1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 132",
+    "source": "Write-Output –1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 133",
+    "source": "–foo",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 134",
+    "source": "Write-Output –foo",
+    "valid": true
+  },
+  {
+    "name": "signed member 135",
+    "source": "—0x1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 136",
+    "source": "—0x1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 137",
+    "source": "—1.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 138",
+    "source": "—1.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 139",
+    "source": "—1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 140",
+    "source": "—1e-2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 141",
+    "source": "—.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 142",
+    "source": "—.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 143",
+    "source": "—1d.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 144",
+    "source": "—1d.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 145",
+    "source": "—0b1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 146",
+    "source": "—0b1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 147",
+    "source": "$n = —1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 148",
+    "source": "[int]—1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 149",
+    "source": "[T]::M(—1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 150",
+    "source": "param($n = —1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 151",
+    "source": "$o[—1e-2.Length]",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 152",
+    "source": "Write-Output —1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 153",
+    "source": "Write-Output (—1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 154",
+    "source": "— 1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 155",
+    "source": "—\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 156",
+    "source": "—<#c#>1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 157",
+    "source": "—`\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 158",
+    "source": "—0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 159",
+    "source": "Write-Output —0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 160",
+    "source": "—0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 161",
+    "source": "Write-Output —0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 162",
+    "source": "—0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 163",
+    "source": "Write-Output —0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 164",
+    "source": "—0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 165",
+    "source": "Write-Output —0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 166",
+    "source": "—0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 167",
+    "source": "Write-Output —0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 168",
+    "source": "—0b",
+    "valid": false
+  },
+  {
+    "name": "signed generic binary 169",
+    "source": "Write-Output —0b",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 170",
+    "source": "—0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 171",
+    "source": "Write-Output —0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 172",
+    "source": "—1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 173",
+    "source": "Write-Output —1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 174",
+    "source": "—1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 175",
+    "source": "Write-Output —1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 176",
+    "source": "—1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 177",
+    "source": "Write-Output —1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 178",
+    "source": "—foo",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 179",
+    "source": "Write-Output —foo",
+    "valid": true
+  },
+  {
+    "name": "signed member 180",
+    "source": "―0x1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 181",
+    "source": "―0x1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 182",
+    "source": "―1.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 183",
+    "source": "―1.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 184",
+    "source": "―1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 185",
+    "source": "―1e-2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 186",
+    "source": "―.5.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 187",
+    "source": "―.5.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 188",
+    "source": "―1d.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 189",
+    "source": "―1d.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed member 190",
+    "source": "―0b1.Length",
+    "valid": true
+  },
+  {
+    "name": "signed member 191",
+    "source": "―0b1.ToString()",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 192",
+    "source": "$n = ―1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 193",
+    "source": "[int]―1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 194",
+    "source": "[T]::M(―1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 195",
+    "source": "param($n = ―1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 196",
+    "source": "$o[―1e-2.Length]",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 197",
+    "source": "Write-Output ―1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed contexts 198",
+    "source": "Write-Output (―1e-2.Length)",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 199",
+    "source": "― 1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 200",
+    "source": "―\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 201",
+    "source": "―<#c#>1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "sign trivia 202",
+    "source": "―`\n1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 203",
+    "source": "―0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 204",
+    "source": "Write-Output ―0bu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 205",
+    "source": "―0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 206",
+    "source": "Write-Output ―0bul",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 207",
+    "source": "―0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 208",
+    "source": "Write-Output ―0bus",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 209",
+    "source": "―0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 210",
+    "source": "Write-Output ―0buy",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 211",
+    "source": "―0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 212",
+    "source": "Write-Output ―0buKB",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 213",
+    "source": "―0b",
+    "valid": false
+  },
+  {
+    "name": "signed generic binary 214",
+    "source": "Write-Output ―0b",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 215",
+    "source": "―0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 216",
+    "source": "Write-Output ―0b1e2",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 217",
+    "source": "―1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 218",
+    "source": "Write-Output ―1dd",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 219",
+    "source": "―1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 220",
+    "source": "Write-Output ―1lu",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 221",
+    "source": "―1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 222",
+    "source": "Write-Output ―1du",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 223",
+    "source": "―foo",
+    "valid": true
+  },
+  {
+    "name": "signed generic binary 224",
+    "source": "Write-Output ―foo",
+    "valid": true
+  },
+  {
+    "name": "additional 225",
+    "source": "0bu",
+    "valid": true
+  },
+  {
+    "name": "additional 226",
+    "source": "0bul",
+    "valid": true
+  },
+  {
+    "name": "additional 227",
+    "source": "0b",
+    "valid": true
+  },
+  {
+    "name": "additional 228",
+    "source": "[int]0bu",
+    "valid": false
+  },
+  {
+    "name": "additional 229",
+    "source": "[int]-0bu",
+    "valid": true
+  },
+  {
+    "name": "additional 230",
+    "source": "[int]+0bu",
+    "valid": false
+  },
+  {
+    "name": "additional 231",
+    "source": "[T]::M(+1dd)",
+    "valid": false
+  },
+  {
+    "name": "additional 232",
+    "source": "param($n = +1dd)",
+    "valid": false
+  },
+  {
+    "name": "additional 233",
+    "source": "$o[+1dd]",
+    "valid": false
+  },
+  {
+    "name": "additional 234",
+    "source": "+1dd.Length",
+    "valid": true
+  },
+  {
+    "name": "additional 235",
+    "source": "+1dd.ToString()",
+    "valid": false
+  }
+]

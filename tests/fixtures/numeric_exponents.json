@@ -1,0 +1,917 @@
+[
+  {
+    "name": "ASCII minus 1e-2 expression",
+    "source": "1e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2 assignment",
+    "source": "$n = 1e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2 cast",
+    "source": "[double]1e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2 command argument",
+    "source": "Write-Output 1e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2 method argument",
+    "source": "[T]::M(1e-2)",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1.E-2 expression",
+    "source": "1.E-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1.E-2 assignment",
+    "source": "$n = 1.E-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1.E-2 cast",
+    "source": "[double]1.E-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1.E-2 command argument",
+    "source": "Write-Output 1.E-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1.E-2 method argument",
+    "source": "[T]::M(1.E-2)",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus .5e-2 expression",
+    "source": ".5e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus .5e-2 assignment",
+    "source": "$n = .5e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus .5e-2 cast",
+    "source": "[double].5e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus .5e-2 command argument",
+    "source": "Write-Output .5e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus .5e-2 method argument",
+    "source": "[T]::M(.5e-2)",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2kb expression",
+    "source": "1e-2kb",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2kb assignment",
+    "source": "$n = 1e-2kb",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2kb cast",
+    "source": "[double]1e-2kb",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2kb command argument",
+    "source": "Write-Output 1e-2kb",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus 1e-2kb method argument",
+    "source": "[T]::M(1e-2kb)",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus member",
+    "source": "1e-2.Length",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus method",
+    "source": "1e-2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus parenthesized command argument",
+    "source": "Write-Output (1e-2)",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus negative",
+    "source": "-1e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus positive",
+    "source": "+1e-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e- name",
+    "source": "1e-",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e- argument",
+    "source": "Write-Output 1e-",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-foo name",
+    "source": "1e-foo",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-foo argument",
+    "source": "Write-Output 1e-foo",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-2tail name",
+    "source": "1e-2tail",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-2tail argument",
+    "source": "Write-Output 1e-2tail",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-2\"tail\" name",
+    "source": "1e-2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-2\"tail\" argument",
+    "source": "Write-Output 1e-2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-2$tail name",
+    "source": "1e-2$tail",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus generic 1e-2$tail argument",
+    "source": "Write-Output 1e-2$tail",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1-2 expression",
+    "source": "1-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1-2 argument",
+    "source": "Write-Output 1-2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1e-2-1 expression",
+    "source": "1e-2-1",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1e-2-1 argument",
+    "source": "Write-Output 1e-2-1",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1e-2+1 expression",
+    "source": "1e-2+1",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1e-2+1 argument",
+    "source": "Write-Output 1e-2+1",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1e-2..2 expression",
+    "source": "1e-2..2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus numeric boundary 1e-2..2 argument",
+    "source": "Write-Output 1e-2..2",
+    "valid": true
+  },
+  {
+    "name": "ASCII minus incomplete [double]1e-",
+    "source": "[double]1e-",
+    "valid": false
+  },
+  {
+    "name": "ASCII minus incomplete (1e-2 + )",
+    "source": "(1e-2 + )",
+    "valid": false
+  },
+  {
+    "name": "en dash 1e–2 expression",
+    "source": "1e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2 assignment",
+    "source": "$n = 1e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2 cast",
+    "source": "[double]1e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2 command argument",
+    "source": "Write-Output 1e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2 method argument",
+    "source": "[T]::M(1e–2)",
+    "valid": true
+  },
+  {
+    "name": "en dash 1.E–2 expression",
+    "source": "1.E–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1.E–2 assignment",
+    "source": "$n = 1.E–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1.E–2 cast",
+    "source": "[double]1.E–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1.E–2 command argument",
+    "source": "Write-Output 1.E–2",
+    "valid": true
+  },
+  {
+    "name": "en dash 1.E–2 method argument",
+    "source": "[T]::M(1.E–2)",
+    "valid": true
+  },
+  {
+    "name": "en dash .5e–2 expression",
+    "source": ".5e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash .5e–2 assignment",
+    "source": "$n = .5e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash .5e–2 cast",
+    "source": "[double].5e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash .5e–2 command argument",
+    "source": "Write-Output .5e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash .5e–2 method argument",
+    "source": "[T]::M(.5e–2)",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2kb expression",
+    "source": "1e–2kb",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2kb assignment",
+    "source": "$n = 1e–2kb",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2kb cast",
+    "source": "[double]1e–2kb",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2kb command argument",
+    "source": "Write-Output 1e–2kb",
+    "valid": true
+  },
+  {
+    "name": "en dash 1e–2kb method argument",
+    "source": "[T]::M(1e–2kb)",
+    "valid": true
+  },
+  {
+    "name": "en dash member",
+    "source": "1e–2.Length",
+    "valid": true
+  },
+  {
+    "name": "en dash method",
+    "source": "1e–2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "en dash parenthesized command argument",
+    "source": "Write-Output (1e–2)",
+    "valid": true
+  },
+  {
+    "name": "en dash negative",
+    "source": "-1e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash positive",
+    "source": "+1e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash smart negative",
+    "source": "–1e–2",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e– name",
+    "source": "1e–",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e– argument",
+    "source": "Write-Output 1e–",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–foo name",
+    "source": "1e–foo",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–foo argument",
+    "source": "Write-Output 1e–foo",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–2tail name",
+    "source": "1e–2tail",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–2tail argument",
+    "source": "Write-Output 1e–2tail",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–2\"tail\" name",
+    "source": "1e–2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–2\"tail\" argument",
+    "source": "Write-Output 1e–2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–2$tail name",
+    "source": "1e–2$tail",
+    "valid": true
+  },
+  {
+    "name": "en dash generic 1e–2$tail argument",
+    "source": "Write-Output 1e–2$tail",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1–2 expression",
+    "source": "1–2",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1–2 argument",
+    "source": "Write-Output 1–2",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1e–2–1 expression",
+    "source": "1e–2–1",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1e–2–1 argument",
+    "source": "Write-Output 1e–2–1",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1e–2+1 expression",
+    "source": "1e–2+1",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1e–2+1 argument",
+    "source": "Write-Output 1e–2+1",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1e–2..2 expression",
+    "source": "1e–2..2",
+    "valid": true
+  },
+  {
+    "name": "en dash numeric boundary 1e–2..2 argument",
+    "source": "Write-Output 1e–2..2",
+    "valid": true
+  },
+  {
+    "name": "en dash incomplete [double]1e–",
+    "source": "[double]1e–",
+    "valid": false
+  },
+  {
+    "name": "en dash incomplete (1e–2 + )",
+    "source": "(1e–2 + )",
+    "valid": false
+  },
+  {
+    "name": "em dash 1e—2 expression",
+    "source": "1e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2 assignment",
+    "source": "$n = 1e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2 cast",
+    "source": "[double]1e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2 command argument",
+    "source": "Write-Output 1e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2 method argument",
+    "source": "[T]::M(1e—2)",
+    "valid": true
+  },
+  {
+    "name": "em dash 1.E—2 expression",
+    "source": "1.E—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1.E—2 assignment",
+    "source": "$n = 1.E—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1.E—2 cast",
+    "source": "[double]1.E—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1.E—2 command argument",
+    "source": "Write-Output 1.E—2",
+    "valid": true
+  },
+  {
+    "name": "em dash 1.E—2 method argument",
+    "source": "[T]::M(1.E—2)",
+    "valid": true
+  },
+  {
+    "name": "em dash .5e—2 expression",
+    "source": ".5e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash .5e—2 assignment",
+    "source": "$n = .5e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash .5e—2 cast",
+    "source": "[double].5e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash .5e—2 command argument",
+    "source": "Write-Output .5e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash .5e—2 method argument",
+    "source": "[T]::M(.5e—2)",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2kb expression",
+    "source": "1e—2kb",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2kb assignment",
+    "source": "$n = 1e—2kb",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2kb cast",
+    "source": "[double]1e—2kb",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2kb command argument",
+    "source": "Write-Output 1e—2kb",
+    "valid": true
+  },
+  {
+    "name": "em dash 1e—2kb method argument",
+    "source": "[T]::M(1e—2kb)",
+    "valid": true
+  },
+  {
+    "name": "em dash member",
+    "source": "1e—2.Length",
+    "valid": true
+  },
+  {
+    "name": "em dash method",
+    "source": "1e—2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "em dash parenthesized command argument",
+    "source": "Write-Output (1e—2)",
+    "valid": true
+  },
+  {
+    "name": "em dash negative",
+    "source": "-1e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash positive",
+    "source": "+1e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash smart negative",
+    "source": "—1e—2",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e— name",
+    "source": "1e—",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e— argument",
+    "source": "Write-Output 1e—",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—foo name",
+    "source": "1e—foo",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—foo argument",
+    "source": "Write-Output 1e—foo",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—2tail name",
+    "source": "1e—2tail",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—2tail argument",
+    "source": "Write-Output 1e—2tail",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—2\"tail\" name",
+    "source": "1e—2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—2\"tail\" argument",
+    "source": "Write-Output 1e—2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—2$tail name",
+    "source": "1e—2$tail",
+    "valid": true
+  },
+  {
+    "name": "em dash generic 1e—2$tail argument",
+    "source": "Write-Output 1e—2$tail",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1—2 expression",
+    "source": "1—2",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1—2 argument",
+    "source": "Write-Output 1—2",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1e—2—1 expression",
+    "source": "1e—2—1",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1e—2—1 argument",
+    "source": "Write-Output 1e—2—1",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1e—2+1 expression",
+    "source": "1e—2+1",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1e—2+1 argument",
+    "source": "Write-Output 1e—2+1",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1e—2..2 expression",
+    "source": "1e—2..2",
+    "valid": true
+  },
+  {
+    "name": "em dash numeric boundary 1e—2..2 argument",
+    "source": "Write-Output 1e—2..2",
+    "valid": true
+  },
+  {
+    "name": "em dash incomplete [double]1e—",
+    "source": "[double]1e—",
+    "valid": false
+  },
+  {
+    "name": "em dash incomplete (1e—2 + )",
+    "source": "(1e—2 + )",
+    "valid": false
+  },
+  {
+    "name": "horizontal bar 1e―2 expression",
+    "source": "1e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2 assignment",
+    "source": "$n = 1e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2 cast",
+    "source": "[double]1e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2 command argument",
+    "source": "Write-Output 1e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2 method argument",
+    "source": "[T]::M(1e―2)",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1.E―2 expression",
+    "source": "1.E―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1.E―2 assignment",
+    "source": "$n = 1.E―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1.E―2 cast",
+    "source": "[double]1.E―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1.E―2 command argument",
+    "source": "Write-Output 1.E―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1.E―2 method argument",
+    "source": "[T]::M(1.E―2)",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar .5e―2 expression",
+    "source": ".5e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar .5e―2 assignment",
+    "source": "$n = .5e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar .5e―2 cast",
+    "source": "[double].5e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar .5e―2 command argument",
+    "source": "Write-Output .5e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar .5e―2 method argument",
+    "source": "[T]::M(.5e―2)",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2kb expression",
+    "source": "1e―2kb",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2kb assignment",
+    "source": "$n = 1e―2kb",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2kb cast",
+    "source": "[double]1e―2kb",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2kb command argument",
+    "source": "Write-Output 1e―2kb",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar 1e―2kb method argument",
+    "source": "[T]::M(1e―2kb)",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar member",
+    "source": "1e―2.Length",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar method",
+    "source": "1e―2.ToString()",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar parenthesized command argument",
+    "source": "Write-Output (1e―2)",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar negative",
+    "source": "-1e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar positive",
+    "source": "+1e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar smart negative",
+    "source": "―1e―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e― name",
+    "source": "1e―",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e― argument",
+    "source": "Write-Output 1e―",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―foo name",
+    "source": "1e―foo",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―foo argument",
+    "source": "Write-Output 1e―foo",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―2tail name",
+    "source": "1e―2tail",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―2tail argument",
+    "source": "Write-Output 1e―2tail",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―2\"tail\" name",
+    "source": "1e―2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―2\"tail\" argument",
+    "source": "Write-Output 1e―2\"tail\"",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―2$tail name",
+    "source": "1e―2$tail",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar generic 1e―2$tail argument",
+    "source": "Write-Output 1e―2$tail",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1―2 expression",
+    "source": "1―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1―2 argument",
+    "source": "Write-Output 1―2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1e―2―1 expression",
+    "source": "1e―2―1",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1e―2―1 argument",
+    "source": "Write-Output 1e―2―1",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1e―2+1 expression",
+    "source": "1e―2+1",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1e―2+1 argument",
+    "source": "Write-Output 1e―2+1",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1e―2..2 expression",
+    "source": "1e―2..2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar numeric boundary 1e―2..2 argument",
+    "source": "Write-Output 1e―2..2",
+    "valid": true
+  },
+  {
+    "name": "horizontal bar incomplete [double]1e―",
+    "source": "[double]1e―",
+    "valid": false
+  },
+  {
+    "name": "horizontal bar incomplete (1e―2 + )",
+    "source": "(1e―2 + )",
+    "valid": false
+  }
+]

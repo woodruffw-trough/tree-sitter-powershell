@@ -177,10 +177,11 @@ const unaryExpression = ($, argument, allowComma, options = {}) => {
   return prec(PREC.unary, choice(...alternatives));
 };
 
-const primaryValue = $ => choice(
+const primaryValue = ($, allowSigned = true) => choice(
   $.variable,
   $.integer_literal,
   $.real_literal,
+  ...(allowSigned ? [alias($._signed_numeric_expression, $.unary_expression)] : []),
   $.single_quoted_string,
   $.expandable_string,
   $.single_quoted_here_string,
@@ -231,11 +232,11 @@ const elementAccess = ($, primary) => prec.left(
   ),
 );
 
-const invocationExpression = ($, member) => prec.left(
+const invocationExpression = ($, member, generic = true) => prec.left(
   PREC.member,
   seq(
     field('function', member),
-    optional(field('type_arguments', $.generic_type_arguments)),
+    ...(generic ? [optional(field('type_arguments', $.generic_type_arguments))] : []),
     optional($._method_invocation_context),
     choice(
       field('arguments', $.argument_list),
@@ -319,6 +320,9 @@ const grammarDefinition = {
     $._flow_label_end,
     $._command_member_start,
     $._command_unary_start,
+    $._data_command_name,
+    $._signed_number_start,
+    $._cast_value_context,
   ],
 
   word: $ => $.identifier,
@@ -786,19 +790,48 @@ const grammarDefinition = {
 
     data_statement: $ => seq(
       keyword('data'),
-      optional(field('name', $.identifier)),
+      repeat(NEWLINE),
+      optional(seq(field('name', $.identifier), repeat(NEWLINE))),
       optional(
         seq(
           flag('-supportedcommand'),
-          commaSep1(field('supported_commands', choice(
-            $.bare_word,
-            $.single_quoted_string,
-            $.expandable_string,
-          ))),
+          repeat(NEWLINE),
+          field('supported_commands', $._data_supported_command),
+          repeat(seq(
+            ',',
+            repeat(NEWLINE),
+            field('supported_commands', $._data_supported_command),
+          )),
+          repeat(NEWLINE),
         ),
       ),
-      repeat(NEWLINE),
       field('body', $.statement_block),
+    ),
+
+    // Supported commands use command-name mode: generic text stays literal,
+    // while a standalone variable, quoted value, or grouped value is a primary
+    // expression. Unary operators are literal names in this context too.
+    _data_supported_command: $ => choice(
+      alias($._data_command_name, $.bare_word),
+      $._data_command_primary_expression,
+    ),
+
+    _data_command_primary_expression: $ => prec(PREC.member, choice(
+      primaryValue($, false),
+      $.splat_expression,
+      alias($._data_command_member_access, $.member_access),
+      alias($._data_command_element_access, $.element_access),
+      alias($._data_command_invocation_expression, $.invocation_expression),
+    )),
+
+    _data_command_member_access: $ => memberAccess(
+      $, $._data_command_primary_expression, $._command_member_name, $._command_member_start,
+    ),
+
+    _data_command_element_access: $ => elementAccess($, $._data_command_primary_expression),
+
+    _data_command_invocation_expression: $ => invocationExpression(
+      $, alias($._data_command_member_access, $.member_access), false,
     ),
 
     configuration_definition: $ => seq(
@@ -1078,6 +1111,20 @@ const grammarDefinition = {
 
     unary_expression: $ => unaryExpression($, $._unary_expression, true),
 
+    // An adjacent numeric sign belongs to the primary before member access.
+    // A spaced sign remains an ordinary unary operator over its full operand.
+    _signed_numeric_expression: $ => prec(PREC.member, seq(
+      $._signed_number_start,
+      field('operator', choice('+', op('-'))),
+      field('argument', choice(
+        $.integer_literal,
+        $.real_literal,
+        // PowerShell accepts an empty binary prefix only with an adjacent sign
+        // and an unsigned suffix; unsigned bare 0bu remains a generic word.
+        alias(token.immediate(/0[bB][uU][lLsSyY]?(?:[kKmMgGtTpP][bB])?/), $.integer_literal),
+      )),
+    )),
+
     _cast_unary_expression: $ => unaryExpression($, $._unary_expression, false),
 
     // The parser disables unary comma recursively in method arguments,
@@ -1119,13 +1166,18 @@ const grammarDefinition = {
       seq(
         field('type', $.type_literal),
         $._flow_expression_start,
+        optional($._cast_value_context),
         field('value', $._flow_unary_expression),
       ),
     ),
 
     _argument_cast_expression: $ => prec(
       PREC.unary,
-      seq(field('type', $.type_literal), field('value', $._argument_unary_expression)),
+      seq(
+        field('type', $.type_literal),
+        optional($._cast_value_context),
+        field('value', $._argument_unary_expression),
+      ),
     ),
 
     // Command mode first peeks at a complete token. A glued '-1' or '$name-tail'
@@ -1181,7 +1233,11 @@ const grammarDefinition = {
 
     _command_cast_expression: $ => prec(
       PREC.unary,
-      seq(field('type', $.type_literal), field('value', $._command_cast_value)),
+      seq(
+        field('type', $.type_literal),
+        optional($._cast_value_context),
+        field('value', $._command_cast_value),
+      ),
     ),
 
     _command_cast_value: $ => choice(
@@ -1196,6 +1252,7 @@ const grammarDefinition = {
       seq(
         field('type', $.type_literal),
         $._command_unary_start,
+        optional($._cast_value_context),
         field('value', $._argument_command_unary_expression),
       ),
     ),
@@ -1244,7 +1301,11 @@ const grammarDefinition = {
 
     cast_expression: $ => prec(
       PREC.unary,
-      seq(field('type', $.type_literal), field('value', $._cast_value)),
+      seq(
+        field('type', $.type_literal),
+        optional($._cast_value_context),
+        field('value', $._cast_value),
+      ),
     ),
 
     // Validation attributes can wrap a variable, including intervening type
@@ -1413,7 +1474,7 @@ const grammarDefinition = {
     ),
 
     _command_invocation_expression: $ => invocationExpression(
-      $, alias($._command_member_access, $.member_access),
+      $, alias($._command_member_access, $.member_access), false,
     ),
 
     argument_list: $ => argumentList(token.immediate('('), $._argument_expression),
@@ -1523,6 +1584,9 @@ const COMMA_CONTEXT_RULES = new Set([
   'function_definition', 'script_block', 'named_block',
   'class_definition', 'class_body', 'class_property', 'class_method',
   'enum_definition', 'enum_body', 'enum_member', 'data_statement',
+  '_data_supported_command', '_data_command_primary_expression',
+  '_data_command_member_access', '_data_command_element_access',
+  '_data_command_invocation_expression',
   'assignment_statement', '_completed_assignment_statement',
   '_pipeline_entry', '_completed_pipeline_entry', 'pipeline', 'pipeline_chain',
   'background_pipeline', 'command_expression', 'command',
@@ -1564,7 +1628,8 @@ const commaContextName = (name, owner) => {
   if (name === 'script_block' && owner !== 'function_definition') {
     return name;
   }
-  if (name === '_expression' && owner === '_command_element_access') {
+  if (name === '_expression' &&
+      (owner === '_command_element_access' || owner === '_data_command_element_access')) {
     return name;
   }
   return COMMA_CONTEXT_EXPRESSIONS[name] ||

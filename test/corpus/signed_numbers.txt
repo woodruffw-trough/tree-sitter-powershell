@@ -1,0 +1,69 @@
+================================================================================
+Adjacent numeric signs bind to a member receiver; spaced signs wrap the member
+================================================================================
+-1e-2.Length; - 1e-2.Length
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command_expression
+      (member_access
+        (unary_expression
+          (real_literal))
+        (identifier))))
+  (pipeline
+    (command_expression
+      (unary_expression
+        (member_access
+          (real_literal)
+          (identifier))))))
+
+================================================================================
+A cast peeks plus as an operator but rescans minus as a numeric sign
+================================================================================
+[int]+1e-2.Length; [int]-1e-2.Length
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command_expression
+      (cast_expression
+        (type_literal
+          (type_name
+            (type_identifier)))
+        (unary_expression
+          (member_access
+            (real_literal)
+            (identifier))))))
+  (pipeline
+    (command_expression
+      (cast_expression
+        (type_literal
+          (type_name
+            (type_identifier)))
+        (member_access
+          (unary_expression
+            (real_literal))
+          (identifier))))))
+
+================================================================================
+Malformed plus numbers and command-mode empty binary prefixes remain generic
+================================================================================
++1dd; -0bu; Write-Output -0bu
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name
+        (bare_word))))
+  (pipeline
+    (command_expression
+      (unary_expression
+        (integer_literal))))
+  (pipeline
+    (command
+      (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))

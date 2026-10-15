@@ -493,5 +493,145 @@
     "name": "horizontal whitespace U+FEFF case 98",
     "source": "$a﻿=﻿1﻿+﻿2",
     "valid": false
+  },
+  {
+    "name": "function leading escaped name 00",
+    "source": "function `u{41} {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 01",
+    "source": "function `f {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 02",
+    "source": "function `#foo {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 03",
+    "source": "function `$foo {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 04",
+    "source": "function `\"foo {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 05",
+    "source": "function `(foo {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 06",
+    "source": "function `u{10ffff} {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 07",
+    "source": "function `u{110000} {}",
+    "valid": false
+  },
+  {
+    "name": "function leading escaped name 08",
+    "source": "function `u{} {}",
+    "valid": false
+  },
+  {
+    "name": "function leading escaped name 09",
+    "source": "function `u {}",
+    "valid": false
+  },
+  {
+    "name": "function leading escaped name 10",
+    "source": "function `\nfoo {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 11",
+    "source": "function `\r\nfoo {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 12",
+    "source": "function `\n foo {}",
+    "valid": true
+  },
+  {
+    "name": "function leading escaped name 13",
+    "source": "function `\r\n foo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 14",
+    "source": "filter `u{41} {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 15",
+    "source": "filter `f {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 16",
+    "source": "filter `#foo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 17",
+    "source": "filter `$foo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 18",
+    "source": "filter `\"foo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 19",
+    "source": "filter `(foo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 20",
+    "source": "filter `u{10ffff} {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 21",
+    "source": "filter `u{110000} {}",
+    "valid": false
+  },
+  {
+    "name": "filter leading escaped name 22",
+    "source": "filter `u{} {}",
+    "valid": false
+  },
+  {
+    "name": "filter leading escaped name 23",
+    "source": "filter `u {}",
+    "valid": false
+  },
+  {
+    "name": "filter leading escaped name 24",
+    "source": "filter `\nfoo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 25",
+    "source": "filter `\r\nfoo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 26",
+    "source": "filter `\n foo {}",
+    "valid": true
+  },
+  {
+    "name": "filter leading escaped name 27",
+    "source": "filter `\r\n foo {}",
+    "valid": true
   }
 ]
