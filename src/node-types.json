@@ -5137,7 +5137,7 @@
         "required": true,
         "types": [
           {
-            "type": "bare_word",
+            "type": "command_argument",
             "named": true
           },
           {

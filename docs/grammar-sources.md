@@ -76,6 +76,19 @@ command name or expression. Literal names such as `foo$bar` remain `bare_word`
 nodes; quoted strings, variables, member access, and grouped expressions retain
 their usual structure. The statement's `body` is a `statement_block`.
 
+Assembly-qualified types keep the assembly spelling in one `assembly_name`.
+Commas separate metadata properties, each of which can contain one equals sign;
+spaces, including .NET Unicode separators, are allowed around those separators.
+Opening brackets remain literal assembly text. These lexical boundaries follow
+`GetAssemblyNameSpec` in the pinned tokenizer; assembly resolution happens later.
+
+A `using_statement` exposes `kind` and one complete `value`. Values beginning
+with unquoted text use a `command_argument`, so `using namespace System."Text"`
+keeps the literal and quoted fragments together. A newline or semicolon separates
+a using declaration from the next statement. These rules follow Microsoft's
+[`about_Using`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_using)
+and `UsingStatementRule` in the pinned parser.
+
 A `pipeline` exposes complete `elements`: a `command`, or a `command_expression`
 with `expression` and optional `redirections`. Pipes connect these elements.
 `pipeline_chain` instead exposes `left`, `operator`, and `right`, so

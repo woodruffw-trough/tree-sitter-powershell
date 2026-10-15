@@ -456,6 +456,22 @@ fn interpolation_expressions(node: Node<'_>, source: &Source<'_>, expressions: &
 
 fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>) -> Value {
     match (category, field) {
+        ("UsingStatementAst", "name") => {
+            let value = node.child_by_field_name("value").unwrap();
+            if value.kind() == "hashtable_expression" {
+                Value::Null
+            } else {
+                source.record(value)
+            }
+        }
+        ("UsingStatementAst", "module") => {
+            let value = node.child_by_field_name("value").unwrap();
+            if value.kind() == "hashtable_expression" {
+                source.record(value)
+            } else {
+                Value::Null
+            }
+        }
         ("PipelineAst", "elements") => extents(field_children(node, "elements"), source),
         ("CommandExpressionAst", "redirections") => {
             extents(field_children(node, "redirections"), source)
@@ -620,6 +636,7 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "CatchClauseAst" => &["body", "types"],
         "TrapStatementAst" => &["body", "type"],
         "DataStatementAst" => &["body", "supportedCommands"],
+        "UsingStatementAst" => &["name", "module"],
         "ReturnStatementAst" | "ThrowStatementAst" | "ExitStatementAst" => &["value"],
         "BreakStatementAst" | "ContinueStatementAst" => &["label"],
         "QuotedStringAst" | "CompositeStringAst" => &["expressions"],
@@ -861,6 +878,17 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
         let name = source.collected_text(node.child_by_field_name("name").unwrap());
         let name = name.strip_prefix('$').unwrap_or(&name);
         result.insert("name", json!(decode_name(name)));
+    }
+    if category == "UsingStatementAst" {
+        let kind = node.child_by_field_name("kind").unwrap();
+        let text = source.text(kind).to_ascii_lowercase();
+        let kind = match text.as_str() {
+            "namespace" => "Namespace",
+            "module" => "Module",
+            "assembly" => "Assembly",
+            _ => unreachable!("unknown using statement kind"),
+        };
+        result.insert("kind", json!(kind));
     }
     if category == "QuotedStringAst" {
         let kind = match node.kind() {

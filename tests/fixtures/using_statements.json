@@ -1,0 +1,337 @@
+[
+  {
+    "name": "namespace ordinary",
+    "source": "using namespace System.Text",
+    "valid": true
+  },
+  {
+    "name": "namespace quoted",
+    "source": "using namespace \"System.Text\"",
+    "valid": true
+  },
+  {
+    "name": "namespace single quoted",
+    "source": "using namespace 'System.Text'",
+    "valid": true
+  },
+  {
+    "name": "namespace double quote suffix",
+    "source": "using namespace System.\"Text\"",
+    "valid": true
+  },
+  {
+    "name": "namespace single quote suffix",
+    "source": "using namespace System.'Text'",
+    "valid": true
+  },
+  {
+    "name": "namespace double quote middle",
+    "source": "using namespace System.\"Text\".More",
+    "valid": true
+  },
+  {
+    "name": "namespace single quote middle",
+    "source": "using namespace System.'Text'.More",
+    "valid": true
+  },
+  {
+    "name": "namespace two quoted fragments",
+    "source": "using namespace Sys\"tem\".\"Text\"",
+    "valid": true
+  },
+  {
+    "name": "namespace mixed quoted fragments",
+    "source": "using namespace Sys'tem'.\"Text\"",
+    "valid": true
+  },
+  {
+    "name": "namespace escaped name",
+    "source": "using namespace System.`Text",
+    "valid": true
+  },
+  {
+    "name": "namespace quoted leading member",
+    "source": "using namespace \"System\".Text",
+    "valid": false
+  },
+  {
+    "name": "namespace single quoted leading member",
+    "source": "using namespace 'System'.Text",
+    "valid": false
+  },
+  {
+    "name": "namespace hashtable",
+    "source": "using namespace @{a=1}",
+    "valid": false
+  },
+  {
+    "name": "namespace missing",
+    "source": "using namespace ",
+    "valid": false
+  },
+  {
+    "name": "namespace comma array",
+    "source": "using namespace System.Text,Other",
+    "valid": false
+  },
+  {
+    "name": "System followed by final eof",
+    "source": "using namespace System",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by final eof",
+    "source": "using namespace System.\"Text\"",
+    "valid": true
+  },
+  {
+    "name": "System followed by newline",
+    "source": "using namespace System\n1",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by newline",
+    "source": "using namespace System.\"Text\"\n1",
+    "valid": true
+  },
+  {
+    "name": "System followed by semicolon",
+    "source": "using namespace System;1",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by semicolon",
+    "source": "using namespace System.\"Text\";1",
+    "valid": true
+  },
+  {
+    "name": "System followed by comment newline",
+    "source": "using namespace System # c\n1",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by comment newline",
+    "source": "using namespace System.\"Text\" # c\n1",
+    "valid": true
+  },
+  {
+    "name": "System followed by block comment newline",
+    "source": "using namespace System <# c #>\n1",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by block comment newline",
+    "source": "using namespace System.\"Text\" <# c #>\n1",
+    "valid": true
+  },
+  {
+    "name": "System followed by spaced number",
+    "source": "using namespace System 1",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by spaced number",
+    "source": "using namespace System.\"Text\" 1",
+    "valid": false
+  },
+  {
+    "name": "System followed by spaced string",
+    "source": "using namespace System \"Text\"",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by spaced string",
+    "source": "using namespace System.\"Text\" \"Text\"",
+    "valid": false
+  },
+  {
+    "name": "System followed by spaced class",
+    "source": "using namespace System class C {}",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by spaced class",
+    "source": "using namespace System.\"Text\" class C {}",
+    "valid": false
+  },
+  {
+    "name": "System followed by spaced param",
+    "source": "using namespace System param()",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by spaced param",
+    "source": "using namespace System.\"Text\" param()",
+    "valid": false
+  },
+  {
+    "name": "System followed by spaced using",
+    "source": "using namespace System using namespace Text",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by spaced using",
+    "source": "using namespace System.\"Text\" using namespace Text",
+    "valid": false
+  },
+  {
+    "name": "System followed by block comment spaced statement",
+    "source": "using namespace System <# c #> 1",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by block comment spaced statement",
+    "source": "using namespace System.\"Text\" <# c #> 1",
+    "valid": false
+  },
+  {
+    "name": "System followed by multiline block comment spaced statement",
+    "source": "using namespace System <# c\nd #> 1",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by multiline block comment spaced statement",
+    "source": "using namespace System.\"Text\" <# c\nd #> 1",
+    "valid": false
+  },
+  {
+    "name": "System followed by line continuation spaced statement",
+    "source": "using namespace System `\n 1",
+    "valid": false
+  },
+  {
+    "name": "System.\"Text\" followed by line continuation spaced statement",
+    "source": "using namespace System.\"Text\" `\n 1",
+    "valid": false
+  },
+  {
+    "name": "System followed by terminated param",
+    "source": "using namespace System;param()",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by terminated param",
+    "source": "using namespace System.\"Text\";param()",
+    "valid": true
+  },
+  {
+    "name": "System followed by terminated using",
+    "source": "using namespace System;using namespace Text",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by terminated using",
+    "source": "using namespace System.\"Text\";using namespace Text",
+    "valid": true
+  },
+  {
+    "name": "System followed by newline using",
+    "source": "using namespace System\nusing namespace Text",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by newline using",
+    "source": "using namespace System.\"Text\"\nusing namespace Text",
+    "valid": true
+  },
+  {
+    "name": "System followed by quoted composite then newline",
+    "source": "using namespace System\nparam()",
+    "valid": true
+  },
+  {
+    "name": "System.\"Text\" followed by quoted composite then newline",
+    "source": "using namespace System.\"Text\"\nparam()",
+    "valid": true
+  },
+  {
+    "name": "using context 54",
+    "source": "using namespace System\nusing namespace System.Text\n[CmdletBinding()]param($x)\n$x",
+    "valid": true
+  },
+  {
+    "name": "using context 55",
+    "source": "using namespace System;using namespace System.Text;param($x);$x",
+    "valid": true
+  },
+  {
+    "name": "using context 56",
+    "source": "using namespace System\nbegin {}\nprocess {}",
+    "valid": true
+  },
+  {
+    "name": "using context 57",
+    "source": "using namespace System.\"Text\"\nbegin {}\nprocess {}",
+    "valid": true
+  },
+  {
+    "name": "using context 58",
+    "source": "using namespace System\nfunction f(){}",
+    "valid": true
+  },
+  {
+    "name": "using context 59",
+    "source": "1;using namespace System",
+    "valid": false
+  },
+  {
+    "name": "using context 60",
+    "source": "{using namespace System}",
+    "valid": false
+  },
+  {
+    "name": "using context 61",
+    "source": "function f {using namespace System}",
+    "valid": false
+  },
+  {
+    "name": "using context 62",
+    "source": "USING NAMESPACE System.\"Text\"",
+    "valid": true
+  },
+  {
+    "name": "using context 63",
+    "source": "using\nnamespace System",
+    "valid": false
+  },
+  {
+    "name": "using context 64",
+    "source": "using namespace\nSystem",
+    "valid": false
+  },
+  {
+    "name": "using context 65",
+    "source": "using namespace System\nusing namespace",
+    "valid": false
+  },
+  {
+    "name": "using context 66",
+    "source": "using namespace System;using namespace System 1",
+    "valid": false
+  },
+  {
+    "name": "using context 68",
+    "source": "using assembly @{a=1}",
+    "valid": false
+  },
+  {
+    "name": "using context 69",
+    "source": "using module \"MissingModuleNameForGrammarTest\" 1",
+    "valid": false
+  },
+  {
+    "name": "using context 70",
+    "source": "using assembly \"MissingAssemblyForGrammarTest.dll\" 1",
+    "valid": false
+  },
+  {
+    "name": "utility module",
+    "source": "using module Microsoft.PowerShell.Utility",
+    "valid": true
+  },
+  {
+    "name": "module specification",
+    "source": "using module @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "valid": true
+  }
+]

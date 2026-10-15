@@ -1,0 +1,32 @@
+==================
+Assembly metadata allows spaces around equals inside a bracketed generic argument
+==================
+[List[[int, x, y = z]]]
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (type_literal
+        (type_name
+          name: (type_identifier)
+          (type_literal
+            (type_name
+              name: (type_identifier))
+            (assembly_name)))))))
+
+==================
+Opening brackets remain part of assembly-name text
+==================
+[int, x[y]
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (type_literal
+        (type_name
+          name: (type_identifier))
+        (assembly_name)))))

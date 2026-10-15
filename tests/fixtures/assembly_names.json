@@ -1,0 +1,822 @@
+[
+  {
+    "name": "first name type",
+    "source": "[int, mscorlib]",
+    "valid": true
+  },
+  {
+    "name": "first name generic",
+    "source": "[List[[int, mscorlib]]]",
+    "valid": true
+  },
+  {
+    "name": "first name parameter",
+    "source": "param([int, mscorlib]$x)",
+    "valid": true
+  },
+  {
+    "name": "first name cast",
+    "source": "[int, mscorlib]$x",
+    "valid": true
+  },
+  {
+    "name": "first equals type",
+    "source": "[int, x=1]",
+    "valid": false
+  },
+  {
+    "name": "first equals generic",
+    "source": "[List[[int, x=1]]]",
+    "valid": false
+  },
+  {
+    "name": "first equals parameter",
+    "source": "param([int, x=1]$x)",
+    "valid": false
+  },
+  {
+    "name": "first equals cast",
+    "source": "[int, x=1]$x",
+    "valid": false
+  },
+  {
+    "name": "empty first equals type",
+    "source": "[int, =1]",
+    "valid": false
+  },
+  {
+    "name": "empty first equals generic",
+    "source": "[List[[int, =1]]]",
+    "valid": false
+  },
+  {
+    "name": "empty first equals parameter",
+    "source": "param([int, =1]$x)",
+    "valid": false
+  },
+  {
+    "name": "empty first equals cast",
+    "source": "[int, =1]$x",
+    "valid": false
+  },
+  {
+    "name": "repeated first equals type",
+    "source": "[int, x=1=2]",
+    "valid": false
+  },
+  {
+    "name": "repeated first equals generic",
+    "source": "[List[[int, x=1=2]]]",
+    "valid": false
+  },
+  {
+    "name": "repeated first equals parameter",
+    "source": "param([int, x=1=2]$x)",
+    "valid": false
+  },
+  {
+    "name": "repeated first equals cast",
+    "source": "[int, x=1=2]$x",
+    "valid": false
+  },
+  {
+    "name": "metadata equals type",
+    "source": "[int, x,y=z]",
+    "valid": true
+  },
+  {
+    "name": "metadata equals generic",
+    "source": "[List[[int, x,y=z]]]",
+    "valid": true
+  },
+  {
+    "name": "metadata equals parameter",
+    "source": "param([int, x,y=z]$x)",
+    "valid": true
+  },
+  {
+    "name": "metadata equals cast",
+    "source": "[int, x,y=z]$x",
+    "valid": true
+  },
+  {
+    "name": "metadata spaced equals type",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "metadata spaced equals generic",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "metadata spaced equals parameter",
+    "source": "param([int, x, y = z]$x)",
+    "valid": true
+  },
+  {
+    "name": "metadata spaced equals cast",
+    "source": "[int, x, y = z]$x",
+    "valid": true
+  },
+  {
+    "name": "empty metadata value type",
+    "source": "[int, x,y=]",
+    "valid": true
+  },
+  {
+    "name": "empty metadata value generic",
+    "source": "[List[[int, x,y=]]]",
+    "valid": true
+  },
+  {
+    "name": "empty metadata value parameter",
+    "source": "param([int, x,y=]$x)",
+    "valid": true
+  },
+  {
+    "name": "empty metadata value cast",
+    "source": "[int, x,y=]$x",
+    "valid": true
+  },
+  {
+    "name": "empty metadata spaced value type",
+    "source": "[int, x, y =]",
+    "valid": true
+  },
+  {
+    "name": "empty metadata spaced value generic",
+    "source": "[List[[int, x, y =]]]",
+    "valid": true
+  },
+  {
+    "name": "empty metadata spaced value parameter",
+    "source": "param([int, x, y =]$x)",
+    "valid": true
+  },
+  {
+    "name": "empty metadata spaced value cast",
+    "source": "[int, x, y =]$x",
+    "valid": true
+  },
+  {
+    "name": "empty metadata name type",
+    "source": "[int, x,=z]",
+    "valid": true
+  },
+  {
+    "name": "empty metadata name generic",
+    "source": "[List[[int, x,=z]]]",
+    "valid": true
+  },
+  {
+    "name": "empty metadata name parameter",
+    "source": "param([int, x,=z]$x)",
+    "valid": true
+  },
+  {
+    "name": "empty metadata name cast",
+    "source": "[int, x,=z]$x",
+    "valid": true
+  },
+  {
+    "name": "repeated metadata equals type",
+    "source": "[int, x,y=z=w]",
+    "valid": false
+  },
+  {
+    "name": "repeated metadata equals generic",
+    "source": "[List[[int, x,y=z=w]]]",
+    "valid": false
+  },
+  {
+    "name": "repeated metadata equals parameter",
+    "source": "param([int, x,y=z=w]$x)",
+    "valid": false
+  },
+  {
+    "name": "repeated metadata equals cast",
+    "source": "[int, x,y=z=w]$x",
+    "valid": false
+  },
+  {
+    "name": "repeated empty metadata equals type",
+    "source": "[int, x,y==]",
+    "valid": false
+  },
+  {
+    "name": "repeated empty metadata equals generic",
+    "source": "[List[[int, x,y==]]]",
+    "valid": false
+  },
+  {
+    "name": "repeated empty metadata equals parameter",
+    "source": "param([int, x,y==]$x)",
+    "valid": false
+  },
+  {
+    "name": "repeated empty metadata equals cast",
+    "source": "[int, x,y==]$x",
+    "valid": false
+  },
+  {
+    "name": "comma metadata type",
+    "source": "[int, x,,,y=z]",
+    "valid": true
+  },
+  {
+    "name": "comma metadata generic",
+    "source": "[List[[int, x,,,y=z]]]",
+    "valid": true
+  },
+  {
+    "name": "comma metadata parameter",
+    "source": "param([int, x,,,y=z]$x)",
+    "valid": true
+  },
+  {
+    "name": "comma metadata cast",
+    "source": "[int, x,,,y=z]$x",
+    "valid": true
+  },
+  {
+    "name": "trailing metadata comma type",
+    "source": "[int, x,y=z,]",
+    "valid": true
+  },
+  {
+    "name": "trailing metadata comma generic",
+    "source": "[List[[int, x,y=z,]]]",
+    "valid": true
+  },
+  {
+    "name": "trailing metadata comma parameter",
+    "source": "param([int, x,y=z,]$x)",
+    "valid": true
+  },
+  {
+    "name": "trailing metadata comma cast",
+    "source": "[int, x,y=z,]$x",
+    "valid": true
+  },
+  {
+    "name": "leading metadata comma type",
+    "source": "[int, ,x=y]",
+    "valid": true
+  },
+  {
+    "name": "leading metadata comma generic",
+    "source": "[List[[int, ,x=y]]]",
+    "valid": true
+  },
+  {
+    "name": "leading metadata comma parameter",
+    "source": "param([int, ,x=y]$x)",
+    "valid": true
+  },
+  {
+    "name": "leading metadata comma cast",
+    "source": "[int, ,x=y]$x",
+    "valid": true
+  },
+  {
+    "name": "opening bracket type",
+    "source": "[int, x[y]",
+    "valid": true
+  },
+  {
+    "name": "opening bracket generic",
+    "source": "[List[[int, x[y]]]",
+    "valid": true
+  },
+  {
+    "name": "opening bracket parameter",
+    "source": "param([int, x[y]$x)",
+    "valid": true
+  },
+  {
+    "name": "opening bracket cast",
+    "source": "[int, x[y]$x",
+    "valid": true
+  },
+  {
+    "name": "opening bracket metadata type",
+    "source": "[int, x,y=[z]",
+    "valid": true
+  },
+  {
+    "name": "opening bracket metadata generic",
+    "source": "[List[[int, x,y=[z]]]",
+    "valid": true
+  },
+  {
+    "name": "opening bracket metadata parameter",
+    "source": "param([int, x,y=[z]$x)",
+    "valid": true
+  },
+  {
+    "name": "opening bracket metadata cast",
+    "source": "[int, x,y=[z]$x",
+    "valid": true
+  },
+  {
+    "name": "parentheses type",
+    "source": "[int, x(y)]",
+    "valid": true
+  },
+  {
+    "name": "parentheses generic",
+    "source": "[List[[int, x(y)]]]",
+    "valid": true
+  },
+  {
+    "name": "parentheses parameter",
+    "source": "param([int, x(y)]$x)",
+    "valid": true
+  },
+  {
+    "name": "parentheses cast",
+    "source": "[int, x(y)]$x",
+    "valid": true
+  },
+  {
+    "name": "equals in parentheses type",
+    "source": "[int, x(y=z)]",
+    "valid": false
+  },
+  {
+    "name": "equals in parentheses generic",
+    "source": "[List[[int, x(y=z)]]]",
+    "valid": false
+  },
+  {
+    "name": "equals in parentheses parameter",
+    "source": "param([int, x(y=z)]$x)",
+    "valid": false
+  },
+  {
+    "name": "equals in parentheses cast",
+    "source": "[int, x(y=z)]$x",
+    "valid": false
+  },
+  {
+    "name": "quoted name type",
+    "source": "[int, \"x\"]",
+    "valid": true
+  },
+  {
+    "name": "quoted name generic",
+    "source": "[List[[int, \"x\"]]]",
+    "valid": true
+  },
+  {
+    "name": "quoted name parameter",
+    "source": "param([int, \"x\"]$x)",
+    "valid": true
+  },
+  {
+    "name": "quoted name cast",
+    "source": "[int, \"x\"]$x",
+    "valid": true
+  },
+  {
+    "name": "quoted metadata type",
+    "source": "[int, x,y=\"z\"]",
+    "valid": true
+  },
+  {
+    "name": "quoted metadata generic",
+    "source": "[List[[int, x,y=\"z\"]]]",
+    "valid": true
+  },
+  {
+    "name": "quoted metadata parameter",
+    "source": "param([int, x,y=\"z\"]$x)",
+    "valid": true
+  },
+  {
+    "name": "quoted metadata cast",
+    "source": "[int, x,y=\"z\"]$x",
+    "valid": true
+  },
+  {
+    "name": "word separator type",
+    "source": "[int, x y]",
+    "valid": false
+  },
+  {
+    "name": "word separator generic",
+    "source": "[List[[int, x y]]]",
+    "valid": false
+  },
+  {
+    "name": "word separator parameter",
+    "source": "param([int, x y]$x)",
+    "valid": false
+  },
+  {
+    "name": "word separator cast",
+    "source": "[int, x y]$x",
+    "valid": false
+  },
+  {
+    "name": "metadata word separator type",
+    "source": "[int, x,y=z z]",
+    "valid": false
+  },
+  {
+    "name": "metadata word separator generic",
+    "source": "[List[[int, x,y=z z]]]",
+    "valid": false
+  },
+  {
+    "name": "metadata word separator parameter",
+    "source": "param([int, x,y=z z]$x)",
+    "valid": false
+  },
+  {
+    "name": "metadata word separator cast",
+    "source": "[int, x,y=z z]$x",
+    "valid": false
+  },
+  {
+    "name": "newline type",
+    "source": "[int, x,y=\nz]",
+    "valid": false
+  },
+  {
+    "name": "newline generic",
+    "source": "[List[[int, x,y=\nz]]]",
+    "valid": false
+  },
+  {
+    "name": "newline parameter",
+    "source": "param([int, x,y=\nz]$x)",
+    "valid": false
+  },
+  {
+    "name": "newline cast",
+    "source": "[int, x,y=\nz]$x",
+    "valid": false
+  },
+  {
+    "name": "carriage return type",
+    "source": "[int, x,y=\rz]",
+    "valid": false
+  },
+  {
+    "name": "carriage return generic",
+    "source": "[List[[int, x,y=\rz]]]",
+    "valid": false
+  },
+  {
+    "name": "carriage return parameter",
+    "source": "param([int, x,y=\rz]$x)",
+    "valid": false
+  },
+  {
+    "name": "carriage return cast",
+    "source": "[int, x,y=\rz]$x",
+    "valid": false
+  },
+  {
+    "name": "NUL name end type",
+    "source": "[int, x\u0000]",
+    "valid": false
+  },
+  {
+    "name": "NUL name end generic",
+    "source": "[List[[int, x\u0000]]]",
+    "valid": false
+  },
+  {
+    "name": "NUL name end parameter",
+    "source": "param([int, x\u0000]$x)",
+    "valid": false
+  },
+  {
+    "name": "NUL name end cast",
+    "source": "[int, x\u0000]$x",
+    "valid": false
+  },
+  {
+    "name": "NUL name middle type",
+    "source": "[int, x\u0000z]",
+    "valid": false
+  },
+  {
+    "name": "NUL name middle generic",
+    "source": "[List[[int, x\u0000z]]]",
+    "valid": false
+  },
+  {
+    "name": "NUL name middle parameter",
+    "source": "param([int, x\u0000z]$x)",
+    "valid": false
+  },
+  {
+    "name": "NUL name middle cast",
+    "source": "[int, x\u0000z]$x",
+    "valid": false
+  },
+  {
+    "name": "backtick newline type",
+    "source": "[int, x`\ny]",
+    "valid": false
+  },
+  {
+    "name": "backtick newline generic",
+    "source": "[List[[int, x`\ny]]]",
+    "valid": false
+  },
+  {
+    "name": "backtick newline parameter",
+    "source": "param([int, x`\ny]$x)",
+    "valid": false
+  },
+  {
+    "name": "backtick newline cast",
+    "source": "[int, x`\ny]$x",
+    "valid": false
+  },
+  {
+    "name": "assembly whitespace U+0020 108",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0020 109",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0020 110",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0020 111",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0009 112",
+    "source": "[int, x\t, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0009 113",
+    "source": "[int, x,\ty=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0009 114",
+    "source": "[int, x, y\t=\tz]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0009 115",
+    "source": "[List[[int, x, y\t=\tz]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000C 116",
+    "source": "[int, x\f, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000C 117",
+    "source": "[int, x,\fy=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000C 118",
+    "source": "[int, x, y\f=\fz]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000C 119",
+    "source": "[List[[int, x, y\f=\fz]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000B 120",
+    "source": "[int, x\u000b, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000B 121",
+    "source": "[int, x,\u000by=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000B 122",
+    "source": "[int, x, y\u000b=\u000bz]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+000B 123",
+    "source": "[List[[int, x, y\u000b=\u000bz]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0085 124",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0085 125",
+    "source": "[int, x,y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0085 126",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+0085 127",
+    "source": "[List[[int, x, y=z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+00A0 128",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+00A0 129",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+00A0 130",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+00A0 131",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+1680 132",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+1680 133",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+1680 134",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+1680 135",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2000 136",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2000 137",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2000 138",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2000 139",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2007 140",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2007 141",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2007 142",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2007 143",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2028 144",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2028 145",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2028 146",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2028 147",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2029 148",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2029 149",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2029 150",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+2029 151",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+202F 152",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+202F 153",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+202F 154",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+202F 155",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+205F 156",
+    "source": "[int, x , y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+205F 157",
+    "source": "[int, x, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+205F 158",
+    "source": "[int, x, y = z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+205F 159",
+    "source": "[List[[int, x, y = z]]]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+3000 160",
+    "source": "[int, x　, y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+3000 161",
+    "source": "[int, x,　y=z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+3000 162",
+    "source": "[int, x, y　=　z]",
+    "valid": true
+  },
+  {
+    "name": "assembly whitespace U+3000 163",
+    "source": "[List[[int, x, y　=　z]]]",
+    "valid": true
+  }
+]

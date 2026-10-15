@@ -1,0 +1,36 @@
+==================
+Using value preserves adjacent quoted and literal fragments
+==================
+using namespace System."Text".More
+
+---
+
+(source_file
+  (using_statement
+    value: (command_argument
+      (bare_word)
+      (expandable_string
+        (string_content))
+      (argument_fragment))))
+
+==================
+Using declarations separate complete values before script parameters
+==================
+using namespace Sys'tem'.Text;using namespace Other
+param($x)
+
+---
+
+(source_file
+  (using_statement
+    value: (command_argument
+      (bare_word)
+      (single_quoted_string)
+      (argument_fragment)))
+  (using_statement
+    value: (command_argument
+      (bare_word)))
+  (param_block
+    parameters: (parameter_list
+      (parameter
+        name: (variable)))))

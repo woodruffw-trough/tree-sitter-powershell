@@ -8,7 +8,8 @@ using namespace System
 
 (source_file
   (using_statement
-    value: (bare_word))
+    value: (command_argument
+      (bare_word)))
   (param_block
     attributes: (attribute
       name: (type_name

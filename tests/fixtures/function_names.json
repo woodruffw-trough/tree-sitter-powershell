@@ -1,0 +1,192 @@
+[
+  {
+    "name": "function name 'f'",
+    "source": "function f {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00f'",
+    "source": "function \u0000f {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00'",
+    "source": "function \u0000 {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00$f'",
+    "source": "function \u0000$f {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00\"f\"'",
+    "source": "function \u0000\"f\" {}",
+    "valid": true
+  },
+  {
+    "name": "function name \"\\x00'f'\"",
+    "source": "function \u0000'f' {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00@f'",
+    "source": "function \u0000@f {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00`f'",
+    "source": "function \u0000`f {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00`0'",
+    "source": "function \u0000`0 {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00`u{41}'",
+    "source": "function \u0000`u{41} {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00$(foo)'",
+    "source": "function \u0000$(foo) {}",
+    "valid": true
+  },
+  {
+    "name": "function name '\\x00()'",
+    "source": "function \u0000() {}",
+    "valid": true
+  },
+  {
+    "name": "function name 'f\\x00'",
+    "source": "function f\u0000 {}",
+    "valid": false
+  },
+  {
+    "name": "function name '\\x00\\x00f'",
+    "source": "function \u0000\u0000f {}",
+    "valid": false
+  },
+  {
+    "name": "function name '\\x00\\nf'",
+    "source": "function \u0000\nf {}",
+    "valid": false
+  },
+  {
+    "name": "function name '\\x00 f'",
+    "source": "function \u0000 f {}",
+    "valid": false
+  },
+  {
+    "name": "function name '\\x00('",
+    "source": "function \u0000( {}",
+    "valid": false
+  },
+  {
+    "name": "function name '\\x00\\x00'",
+    "source": "function \u0000\u0000 {}",
+    "valid": false
+  },
+  {
+    "name": "function name 'f\\x00f'",
+    "source": "function f\u0000f {}",
+    "valid": false
+  },
+  {
+    "name": "filter name 'f'",
+    "source": "filter f {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00f'",
+    "source": "filter \u0000f {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00'",
+    "source": "filter \u0000 {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00$f'",
+    "source": "filter \u0000$f {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00\"f\"'",
+    "source": "filter \u0000\"f\" {}",
+    "valid": true
+  },
+  {
+    "name": "filter name \"\\x00'f'\"",
+    "source": "filter \u0000'f' {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00@f'",
+    "source": "filter \u0000@f {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00`f'",
+    "source": "filter \u0000`f {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00`0'",
+    "source": "filter \u0000`0 {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00`u{41}'",
+    "source": "filter \u0000`u{41} {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00$(foo)'",
+    "source": "filter \u0000$(foo) {}",
+    "valid": true
+  },
+  {
+    "name": "filter name '\\x00()'",
+    "source": "filter \u0000() {}",
+    "valid": true
+  },
+  {
+    "name": "filter name 'f\\x00'",
+    "source": "filter f\u0000 {}",
+    "valid": false
+  },
+  {
+    "name": "filter name '\\x00\\x00f'",
+    "source": "filter \u0000\u0000f {}",
+    "valid": false
+  },
+  {
+    "name": "filter name '\\x00\\nf'",
+    "source": "filter \u0000\nf {}",
+    "valid": false
+  },
+  {
+    "name": "filter name '\\x00 f'",
+    "source": "filter \u0000 f {}",
+    "valid": false
+  },
+  {
+    "name": "filter name '\\x00('",
+    "source": "filter \u0000( {}",
+    "valid": false
+  },
+  {
+    "name": "filter name '\\x00\\x00'",
+    "source": "filter \u0000\u0000 {}",
+    "valid": false
+  },
+  {
+    "name": "filter name 'f\\x00f'",
+    "source": "filter f\u0000f {}",
+    "valid": false
+  }
+]

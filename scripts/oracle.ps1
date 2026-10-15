@@ -178,6 +178,11 @@ function Get-AstRecord($Node) {
             Add-AstField $fields 'baseTypes' $Node.BaseTypes
             $record.isEnum = $Node.IsEnum
         }
+        'UsingStatementAst' {
+            Add-AstField $fields 'name' $Node.Name
+            Add-AstField $fields 'module' $Node.ModuleSpecification
+            $record.kind = $Node.UsingStatementKind.ToString()
+        }
         'PropertyMemberAst' {
             Add-AstField $fields 'value' $Node.InitialValue
             $record.name = $Node.Name

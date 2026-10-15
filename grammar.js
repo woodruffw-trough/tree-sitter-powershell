@@ -365,9 +365,12 @@ const grammarDefinition = {
   rules: {
     source_file: $ => seq(
       repeat($._terminator),
-      repeat(seq($.using_statement, repeat($._terminator))),
-      optional(seq($.param_block, repeat($._terminator))),
-      optional($._script_block_body),
+      repeat(seq($.using_statement, repeat1($._terminator))),
+      optional(choice(
+        $.using_statement,
+        seq($.param_block, repeat($._terminator), optional($._script_block_body)),
+        $._script_block_body,
+      )),
     ),
 
     // Named blocks are permitted only at the beginning of a script body.
@@ -790,11 +793,28 @@ const grammarDefinition = {
 
     using_statement: $ => seq(
       keyword('using'),
-      field('kind', choice(keyword('namespace'), keyword('module'), keyword('assembly'))),
-      field(
-        'value',
-        choice($.bare_word, $.single_quoted_string, $.expandable_string, $.hashtable_expression),
+      choice(
+        seq(
+          field('kind', keyword('module')),
+          field('value', choice($._using_argument_value, $.hashtable_expression)),
+        ),
+        seq(
+          field('kind', choice(keyword('namespace'), keyword('assembly'))),
+          field('value', $._using_argument_value),
+        ),
       ),
+    ),
+
+    // Using values begin in command-argument mode. Unquoted text can include
+    // adjacent quote fragments; a quoted leading value instead ends as one string.
+    _using_argument_value: $ => choice(
+      seq(alias($._using_generic_argument_value, $.command_argument), $._argument_end),
+      seq(choice($.single_quoted_string, $.expandable_string), $._argument_end),
+    ),
+
+    _using_generic_argument_value: $ => seq(
+      choice($.bare_word, alias($._bare_colon_word, $.bare_word)),
+      repeat($._generic_argument_continuation),
     ),
 
     data_statement: $ => seq(

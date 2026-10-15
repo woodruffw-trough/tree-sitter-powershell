@@ -112,6 +112,11 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "$row ++ ; $startRow ++\n",
         "[T]::GetAddress(1,($i ++))\n",
         "(1)\n",
+        "using namespace System.\"Text\".More\nparam($x)\n$x\n",
+        "using namespace Sys'tem'.Text;using namespace Other\n1\n",
+        "[int, x, y = z]\n[List[[string, a[b, Culture = neutral]]]\n",
+        "param([int, x, y = z]$x)\n$x\n",
+        "function \0f {}\nfilter \0\"name\" {}\n",
     ] {
         let mut parser = parser();
         let original = parser.parse(source, None).unwrap();

@@ -1370,10 +1370,14 @@ static bool scan_name_quoted_piece(TSLexer *lexer) {
 // subexpressions remain part of the name rather than evaluated children.
 static bool scan_function_name(TSLexer *lexer, const bool *valid) {
   int32_t c = lexer->lookahead;
-  if (generic_end(c) || c == '$' || c == '@' || c == '#') {
+  if (lexer->eof(lexer) || (generic_end(c) && c != 0) || c == '$' || c == '@' || c == '#') {
     return false;
   }
-  if (c == '`') {
+  // NextToken passes one non-EOF NUL into ScanGenericToken as its first
+  // character. Another NUL later in the name still starts a separate token.
+  if (c == 0) {
+    lexer->advance(lexer, false);
+  } else if (c == '`') {
     lexer->advance(lexer, false);
     if (newline(lexer->lookahead)) {
       return scan_line_continuation_after_tick(lexer, valid);
@@ -2330,39 +2334,39 @@ static bool scan_fragment(TSLexer *lexer, const bool *valid) {
   return true;
 }
 
+// GetAssemblyNameSpec uses commas between metadata properties and allows one
+// equals sign within each property. Opening brackets are ordinary assembly text.
 static bool assembly_word(int32_t c) {
-  return c != 0 && !horizontal(c) && !newline(c) && c != ',' && c != '[' && c != ']';
+  return c != 0 && !horizontal(c) && !newline(c) && c != ',' && c != '=' && c != ']';
 }
 
-static bool assembly_space(int32_t c) {
-  return c == ' ' || c == '\t' || c == '\f' || c == '\v';
+static void scan_assembly_word(TSLexer *lexer) {
+  while (!lexer->eof(lexer) && assembly_word(lexer->lookahead)) {
+    lexer->advance(lexer, false);
+  }
+  lexer->mark_end(lexer);
+  while (horizontal(lexer->lookahead)) {
+    lexer->advance(lexer, false);
+  }
 }
 
 static bool scan_assembly_name(TSLexer *lexer) {
   if (!assembly_word(lexer->lookahead) && lexer->lookahead != ',') {
     return false;
   }
-  if (assembly_word(lexer->lookahead)) {
-    do {
-      lexer->advance(lexer, false);
-    } while (!lexer->eof(lexer) && assembly_word(lexer->lookahead));
-    lexer->mark_end(lexer);
-  }
-  while (!lexer->eof(lexer)) {
-    while (assembly_space(lexer->lookahead)) {
-      lexer->advance(lexer, false);
-    }
-    if (lexer->lookahead != ',') {
-      break;
-    }
+  scan_assembly_word(lexer);
+  while (lexer->lookahead == ',') {
     lexer->advance(lexer, false);
-    while (assembly_space(lexer->lookahead)) {
+    while (horizontal(lexer->lookahead)) {
       lexer->advance(lexer, false);
     }
-    lexer->mark_end(lexer);
-    while (!lexer->eof(lexer) && assembly_word(lexer->lookahead)) {
+    scan_assembly_word(lexer);
+    if (lexer->lookahead == '=') {
       lexer->advance(lexer, false);
-      lexer->mark_end(lexer);
+      while (horizontal(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      }
+      scan_assembly_word(lexer);
     }
   }
   lexer->result_symbol = ASSEMBLY_NAME_CONTENT;

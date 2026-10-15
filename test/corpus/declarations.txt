@@ -192,7 +192,8 @@ data Messages { @{ Greeting = 'Hello' } }
 
 (source_file
   (using_statement
-    value: (bare_word))
+    value: (command_argument
+      (bare_word)))
   (data_statement
     name: (identifier)
     body: (statement_block
