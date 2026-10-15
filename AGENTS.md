@@ -17,6 +17,7 @@
 
 ## Grammar and tests
 
+- Test the grammar, scanner, CST, queries, and Rust binding. Do not add tests for test-only helpers or infrastructure.
 - Use Microsoft's documentation, the pinned parser source, and PowerShell 7.5.4 `Parser::ParseInput` as syntax authorities. See `docs/grammar-sources.md` for links.
 - Parse fixture code without executing it. Distinguish syntax from name resolution and compiler checks when choosing oracle cases.
 - Add regression coverage for grammar or scanner changes. Assert relevant nodes, fields, and grouping, or compare corresponding source extents with PowerShell's AST. A successful parse alone does not establish a correct tree.
@@ -33,7 +34,6 @@ Before committing a finished chunk, run:
 
 ```sh
 tree-sitter test --rebuild
-python3 -m unittest discover -s scripts -p 'test_*.py'
 python3 scripts/fuzz.py
 cargo test --locked
 python3 scripts/generate-fixtures.py

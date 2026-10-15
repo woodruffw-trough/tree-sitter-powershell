@@ -75,7 +75,6 @@ Run the same checks as CI:
 
 ```sh
 tree-sitter test --rebuild
-python3 -m unittest discover -s scripts -p 'test_*.py'
 python3 scripts/fuzz.py
 cargo test --locked
 python3 scripts/generate-fixtures.py
@@ -117,8 +116,7 @@ It runs daily, on manual dispatch, and when the runner or its workflow changes o
 Use the Python runner instead of invoking the CLI directly: tree-sitter 0.27.1
 can print a fuzzing failure and still exit successfully. The runner requires the
 pinned CLI version, checks diagnostics and the complete trial trace, and rejects
-skipped or empty runs. Its contract tests exercise these failure modes with a
-stand-in CLI. The runner sets the QuickJS runtime explicitly.
+skipped or empty runs. The runner sets the QuickJS runtime explicitly.
 
 Each run saves the full log, settings, and a replay command under `work/fuzz`.
 GitHub Actions keeps these artifacts for seven days, including failed runs. To

@@ -77,9 +77,6 @@ jobs:
       - name: Test grammar corpus and queries
         run: tree-sitter test --rebuild
 
-      - name: Test fuzzing runner failure handling
-        run: python3 -m unittest discover -s scripts -p 'test_*.py'
-
       - name: Fuzz corpus edits
         id: fuzz
         run: python3 scripts/fuzz.py --seed 0 --iterations 100 --edits 3
