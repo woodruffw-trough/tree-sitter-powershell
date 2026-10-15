@@ -221,7 +221,7 @@ pub fn assert_commands(cases: &[Value], results: &[Value]) {
             utf16_extent(tree.root_node(), source)
         );
         commands(tree.root_node(), source, &offsets, &mut actual);
-        let expected: Vec<_> = result["commands"]
+        let mut expected: Vec<_> = result["commands"]
             .as_array()
             .unwrap()
             .iter()
@@ -247,6 +247,11 @@ pub fn assert_commands(cases: &[Value], results: &[Value]) {
                 (extent, elements)
             })
             .collect();
+        // PowerShell visits traps before the surrounding statement list,
+        // regardless of their source position. Compare commands in source
+        // order while preserving every command's direct element order.
+        actual.sort_by_key(|(extent, _)| *extent);
+        expected.sort_by_key(|(extent, _)| *extent);
         if actual != expected {
             if source.len() > 4096 {
                 let first_differences = expected

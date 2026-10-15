@@ -1,6 +1,6 @@
 # Complete external project fixtures
 
-These are complete, unmodified PowerShell source files from four independently
+These are complete, unmodified PowerShell source files from six independently
 maintained projects. The test harness parses them with tree-sitter and the pinned
 PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 
@@ -10,6 +10,8 @@ PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 | [Pester](https://github.com/pester/Pester/tree/98e56d65da1642a7158992b50ded240c42a3ac18) | Apache-2.0 | `src/Pester.Runtime.ps1`, `src/functions/Mock.ps1`, `src/TypeClass.ps1`: large function bodies, runtime code generation, attributes, nested script blocks, splatting, and typed reflection calls. |
 | [PSReadLine](https://github.com/PowerShell/PSReadLine/tree/2984546f62da9f63c31aba965ec3008fcb107024) | BSD-2-Clause | `PSReadLine/SamplePSReadLineProfile.ps1`, `tools/helper.psm1`, `tools/CheckHelp.ps1`: interactive profile functions, script-block method arguments, composite invocation names, module functions, classes, and help validation. |
 | [posh-git](https://github.com/dahlbyk/posh-git/tree/bbc5ac380018239e0ac70411a59f4e367ca87f2d) | MIT | `src/PoshGitTypes.ps1`, `src/GitPrompt.ps1`, `src/GitTabExpansion.ps1`: enums, overloaded constructors, class methods, interpolated prompts, nested expressions, and command completion. |
+| [dbatools](https://github.com/dataplat/dbatools/tree/347fb1820030113278fb41911815febcd48f54d0) | MIT | `public/Invoke-DbaQuery.ps1`, `public/Restore-DbaDatabase.ps1`, `public/Write-DbaDbTableData.ps1`: advanced functions, SQL here-strings, typed data access, parameter sets, nested pipelines, and error handling. |
+| [PSResourceGet](https://github.com/PowerShell/PSResourceGet/tree/2abcb8e1cb307ca3d65d051f13e6aa32b90035ba) | MIT | `buildtools.psm1`, `src/Microsoft.PowerShell.PSResourceGet.psm1`, `src/dsc/psresourceget.ps1`: module setup and build functions, enums, classes, typed methods, resource dispatch, and a top-level trap. |
 
 Each project retains its original license file. Pester's copyright notice and
 third-party notices are retained, including the upstream copy of the full
@@ -19,7 +21,7 @@ upstream licenses; the grammar repository's license does not replace them.
 `manifest.json` records every original path, repository, commit, Git blob ID,
 SHA-256 digest, byte count, and source/notice role. `SHA256SUMS` covers the original
 source and notice bytes. Git attributes disable line-ending conversion for the
-four snapshot directories, including their UTF-8 byte-order marks, CRLF endings,
+six snapshot directories, including their UTF-8 byte-order marks, CRLF endings,
 and trailing whitespace. The Rust reader consumes one leading UTF-8 BOM to match
 .NET's `ReadAllText` before passing source text to the two parsers.
 

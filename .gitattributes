@@ -13,3 +13,5 @@ tests/projects/scoop/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/pester/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/psreadline/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/posh-git/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/dbatools/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/psresourceget/** -text whitespace=-trailing-space,cr-at-eol

@@ -58,6 +58,34 @@
       "notices": [
         "posh-git/LICENSE.txt"
       ]
+    },
+    {
+      "repository": "dataplat/dbatools",
+      "commit": "347fb1820030113278fb41911815febcd48f54d0",
+      "directory": "dbatools",
+      "license": "MIT",
+      "sources": [
+        "dbatools/public/Invoke-DbaQuery.ps1",
+        "dbatools/public/Restore-DbaDatabase.ps1",
+        "dbatools/public/Write-DbaDbTableData.ps1"
+      ],
+      "notices": [
+        "dbatools/license"
+      ]
+    },
+    {
+      "repository": "PowerShell/PSResourceGet",
+      "commit": "2abcb8e1cb307ca3d65d051f13e6aa32b90035ba",
+      "directory": "psresourceget",
+      "license": "MIT",
+      "sources": [
+        "psresourceget/buildtools.psm1",
+        "psresourceget/src/Microsoft.PowerShell.PSResourceGet.psm1",
+        "psresourceget/src/dsc/psresourceget.ps1"
+      ],
+      "notices": [
+        "psresourceget/LICENSE"
+      ]
     }
   ],
   "files": [
@@ -239,6 +267,86 @@
       "gitBlob": "77ec3959569e60515c4065be12c75913bc0c77a1",
       "sha256": "b025fa0d6aa1a480c442f2fa741783dc441673e1c54f3f48a92bb09a5c017e85",
       "bytes": 1091,
+      "kind": "notice"
+    },
+    {
+      "path": "dbatools/public/Invoke-DbaQuery.ps1",
+      "repository": "dataplat/dbatools",
+      "upstreamPath": "public/Invoke-DbaQuery.ps1",
+      "commit": "347fb1820030113278fb41911815febcd48f54d0",
+      "gitBlob": "b34ab262d97a7243a4c0aedfa201b2a03d636ee5",
+      "sha256": "8b817395d8a4a5d9ed96a3f8694218513951d68ecb0beb987866cb88f22a7108",
+      "bytes": 37645,
+      "kind": "source"
+    },
+    {
+      "path": "dbatools/public/Restore-DbaDatabase.ps1",
+      "repository": "dataplat/dbatools",
+      "upstreamPath": "public/Restore-DbaDatabase.ps1",
+      "commit": "347fb1820030113278fb41911815febcd48f54d0",
+      "gitBlob": "b168187c354da66921b0c81c16127ccc60091d05",
+      "sha256": "19827e505b1e715d0cb084c5e49dfe86955a7ddea22a75b39a0d62d36bae05bc",
+      "bytes": 63498,
+      "kind": "source"
+    },
+    {
+      "path": "dbatools/public/Write-DbaDbTableData.ps1",
+      "repository": "dataplat/dbatools",
+      "upstreamPath": "public/Write-DbaDbTableData.ps1",
+      "commit": "347fb1820030113278fb41911815febcd48f54d0",
+      "gitBlob": "ace0e8e57abbbdd07aa9c125830859f10bf98f91",
+      "sha256": "b396fbdf3f405dc7253502e99d4ec5d12743616dbe44314a2c0936f7d8368bfa",
+      "bytes": 40010,
+      "kind": "source"
+    },
+    {
+      "path": "dbatools/license",
+      "repository": "dataplat/dbatools",
+      "upstreamPath": "license",
+      "commit": "347fb1820030113278fb41911815febcd48f54d0",
+      "gitBlob": "b019d01ffc79829a75d36c2119f6ea22810c61e4",
+      "sha256": "af24b79175fcd620deb35ec7e556ee01c77f0afa52a2d6915f36b859524b3416",
+      "bytes": 1072,
+      "kind": "notice"
+    },
+    {
+      "path": "psresourceget/buildtools.psm1",
+      "repository": "PowerShell/PSResourceGet",
+      "upstreamPath": "buildtools.psm1",
+      "commit": "2abcb8e1cb307ca3d65d051f13e6aa32b90035ba",
+      "gitBlob": "9aab19832dc366d28e1192407f6472f63f8e3f00",
+      "sha256": "076005e06ce325b5b6aab2074f37babe293b88ef1d6f94157d07cffc54bc6c56",
+      "bytes": 10457,
+      "kind": "source"
+    },
+    {
+      "path": "psresourceget/src/Microsoft.PowerShell.PSResourceGet.psm1",
+      "repository": "PowerShell/PSResourceGet",
+      "upstreamPath": "src/Microsoft.PowerShell.PSResourceGet.psm1",
+      "commit": "2abcb8e1cb307ca3d65d051f13e6aa32b90035ba",
+      "gitBlob": "3e477cb1f72f711925faf80b7a41fab36e28eb36",
+      "sha256": "4a93ed771e58c79b84920e87d1f62f3764b2b22e749b4d5dffcc2ee1dfbb9dea",
+      "bytes": 3219,
+      "kind": "source"
+    },
+    {
+      "path": "psresourceget/src/dsc/psresourceget.ps1",
+      "repository": "PowerShell/PSResourceGet",
+      "upstreamPath": "src/dsc/psresourceget.ps1",
+      "commit": "2abcb8e1cb307ca3d65d051f13e6aa32b90035ba",
+      "gitBlob": "9c875272207941eceb41d112ee2aa9838cc2ef69",
+      "sha256": "96d6b4b8a55550d5a06389eb3ff56884ae0cf00630db791451b33a07163160a5",
+      "bytes": 36933,
+      "kind": "source"
+    },
+    {
+      "path": "psresourceget/LICENSE",
+      "repository": "PowerShell/PSResourceGet",
+      "upstreamPath": "LICENSE",
+      "commit": "2abcb8e1cb307ca3d65d051f13e6aa32b90035ba",
+      "gitBlob": "4c3581d3b05242d2001f4bd2b5724050ada8b491",
+      "sha256": "fa683c17cb13cf9739ed7e66656939c984460fdf0c4e6f05cbf17c41258d301b",
+      "bytes": 1074,
       "kind": "notice"
     }
   ]

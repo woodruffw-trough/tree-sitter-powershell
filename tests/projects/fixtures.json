@@ -58,5 +58,35 @@
     "name": "dahlbyk/posh-git src/GitTabExpansion.ps1",
     "path": "posh-git/src/GitTabExpansion.ps1",
     "valid": true
+  },
+  {
+    "name": "dataplat/dbatools public/Invoke-DbaQuery.ps1",
+    "path": "dbatools/public/Invoke-DbaQuery.ps1",
+    "valid": true
+  },
+  {
+    "name": "dataplat/dbatools public/Restore-DbaDatabase.ps1",
+    "path": "dbatools/public/Restore-DbaDatabase.ps1",
+    "valid": true
+  },
+  {
+    "name": "dataplat/dbatools public/Write-DbaDbTableData.ps1",
+    "path": "dbatools/public/Write-DbaDbTableData.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/PSResourceGet buildtools.psm1",
+    "path": "psresourceget/buildtools.psm1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/PSResourceGet src/Microsoft.PowerShell.PSResourceGet.psm1",
+    "path": "psresourceget/src/Microsoft.PowerShell.PSResourceGet.psm1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/PSResourceGet src/dsc/psresourceget.ps1",
+    "path": "psresourceget/src/dsc/psresourceget.ps1",
+    "valid": true
   }
 ]
