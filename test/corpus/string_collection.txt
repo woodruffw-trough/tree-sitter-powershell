@@ -1,0 +1,65 @@
+==================
+Quoted interpolation counts balanced physical parentheses inside literal strings
+==================
+"$('()')"
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (sub_expression
+          (pipeline
+            elements: (command_expression
+              expression: (single_quoted_string))))))))
+
+==================
+Ordinary interpolation collects doubled quotes before parsing its nested string
+==================
+"$(""x"")"
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (sub_expression
+          (pipeline
+            elements: (command_expression
+              expression: (expandable_string
+                (string_content)))))))))
+
+==================
+Collected quoted command names preserve one literal name across spaces
+==================
+"$(foo""bar baz"")"
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (sub_expression
+          (pipeline
+            elements: (command
+              name: (command_name
+                (bare_word)))))))))
+
+==================
+Collected function names preserve their declaration fields
+==================
+"$(function foo""bar baz"" {})"
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (sub_expression
+          (function_definition
+            name: (function_name)
+            body: (script_block)))))))

@@ -1,8 +1,9 @@
 #include "tree_sitter/parser.h"
 #include "variable_chars.h"
+#include <assert.h>
+#include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
 
 // Keep this order aligned with grammar.js's externals. Context tokens expose
@@ -30,7 +31,8 @@ enum TokenType {
   PARAMETER_NAME,
   FUNCTION_NAME,
   COMMENT,
-  METHOD_INVOCATION_CONTEXT, // Reject trivia before a method's opening '(' or '{'.
+  METHOD_INVOCATION_CONTEXT, // Reject trivia before a method's opening '(' or
+                             // '{'.
   LINE_CONTINUATION,
   POSTFIX_CONTEXT, // Reject continuations before adjacent member/index access.
   ARGUMENT_SEPARATOR,
@@ -44,30 +46,445 @@ enum TokenType {
   COMMAND_UNARY_START,
   DATA_COMMAND_NAME,
   SIGNED_NUMBER_START,
-  CAST_VALUE_CONTEXT
+  CAST_VALUE_CONTEXT,
+  SINGLE_QUOTED_STRING,
+  ADJACENT_SINGLE_QUOTED_STRING,
+  STRING_CONTENT,
+  VARIABLE_ARGUMENT_FRAGMENT,
+  GENERIC_ARGUMENT_FRAGMENT,
+  DOUBLE_QUOTE,
+  ADJACENT_DOUBLE_QUOTE,
+  PREPARED_TOKEN,
+  LEFT_PAREN,
+  ADJACENT_LEFT_PAREN,
+  RIGHT_PAREN,
+  SUB_EXPRESSION_OPEN,
+  ADJACENT_SUB_EXPRESSION_OPEN,
+  SUB_EXPRESSION_END,
+  ARRAY_EXPRESSION_OPEN,
+  ASSEMBLY_NAME_CONTENT,
+  EXTERNAL_TOKEN_COUNT
 };
 
-// All context comes from valid tokens and source lookahead. No mutable scanner
-// state needs serialization, including during incremental parsing or recovery.
+static bool prepared_context_token(TSSymbol symbol) {
+  return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END;
+}
+
+// Offsets count included source codepoints from the preparation position. They
+// remain valid across excluded ranges and never depend on physical row numbers.
+typedef struct {
+  bool active;
+  uint32_t start;
+  uint32_t end;
+  TSSymbol symbol;
+} PreparedToken;
+
+typedef struct {
+  uint32_t balance;
+  uint32_t semantic_depth;
+  bool ordinary;
+} Interpolation;
+
+// A prepared token stores its active flag, two raw codepoint counts, and its
+// symbol. Reserve the largest header before accepting another collector frame.
+#define PREPARED_TOKEN_STATE_SIZE 11
+#define INTERPOLATION_STATE_BUDGET                                                                 \
+  (TREE_SITTER_SERIALIZATION_BUFFER_SIZE - PREPARED_TOKEN_STATE_SIZE)
+// Each encoded run needs at least three bytes. The header takes additional
+// space, so this backing array cannot fill before the serialization budget.
+#define MAX_INTERPOLATION_RUNS (TREE_SITTER_SERIALIZATION_BUFFER_SIZE / 3)
+
+typedef struct {
+  uint32_t delta;
+  uint32_t semantic_delta;
+  uint32_t count;
+  bool toggles_ordinary;
+} InterpolationRun;
+
+typedef struct {
+  uint32_t balance;
+  uint32_t semantic_depth;
+  uint32_t depth;
+  uint32_t ordinary_layers;
+  uint32_t run_count;
+  Interpolation outermost;
+  Interpolation top;
+  InterpolationRun runs[MAX_INTERPOLATION_RUNS];
+  PreparedToken prepared;
+  bool collector_eof;
+} Scanner;
+
+static size_t unsigned_size(uint64_t value) {
+  size_t size = 1;
+  while (value >= 128) {
+    value >>= 7;
+    ++size;
+  }
+  return size;
+}
+
+static char *write_unsigned(char *buffer, uint64_t value) {
+  while (value >= 128) {
+    *buffer++ = (char)((value & 127) | 128);
+    value >>= 7;
+  }
+  *buffer++ = (char)value;
+  return buffer;
+}
+
+static bool read_unsigned(const char **cursor, const char *end, uint64_t *result) {
+  uint64_t value = 0;
+  unsigned shift = 0;
+  while (*cursor < end && shift <= 63) {
+    uint8_t byte = (uint8_t)*(*cursor)++;
+    uint8_t payload = byte & 127;
+    if (shift == 63 && payload > 1) {
+      return false;
+    }
+    value |= (uint64_t)payload << shift;
+    if (!(byte & 128)) {
+      if (shift != 0 && payload == 0) {
+        return false;
+      }
+      *result = value;
+      return true;
+    }
+    shift += 7;
+  }
+  return false;
+}
+
+static void write_u32(char *buffer, uint32_t value) {
+  for (unsigned i = 0; i < 4; ++i) {
+    buffer[i] = (char)(value >> (i * 8));
+  }
+}
+
+static uint32_t read_u32(const char *buffer) {
+  uint32_t value = 0;
+  for (unsigned i = 0; i < 4; ++i) {
+    value |= (uint32_t)(uint8_t)buffer[i] << (i * 8);
+  }
+  return value;
+}
+
+static uint64_t encoded_delta(const InterpolationRun *run) {
+  return (uint64_t)run->delta * 2 + run->toggles_ordinary;
+}
+
+static size_t run_size(const InterpolationRun *run) {
+  return unsigned_size(run->count) + unsigned_size(encoded_delta(run)) +
+         unsigned_size(run->semantic_delta);
+}
+
+static size_t interpolation_state_size(const Scanner *scanner) {
+  if (!scanner->depth) {
+    return 0;
+  }
+  // Fixed-width current counters cannot grow the encoded state between
+  // quoted interpolation starts and ends.
+  size_t size = 8 + unsigned_size(scanner->outermost.balance) +
+                unsigned_size(scanner->outermost.semantic_depth) + 1;
+  for (uint32_t i = 0; i < scanner->run_count; ++i) {
+    size += run_size(&scanner->runs[i]);
+  }
+  return size;
+}
+
+static Interpolation current_interpolation(const Scanner *scanner) {
+  return scanner->top;
+}
+
+static uint32_t ordinary_interpolation_layers(const Scanner *scanner) {
+  return scanner->ordinary_layers;
+}
+
+static bool push_interpolation(Scanner *scanner, Interpolation frame) {
+  if (scanner->depth == UINT32_MAX || frame.balance == 0 || frame.semantic_depth == 0) {
+    return false;
+  }
+  if (!scanner->depth) {
+    size_t size = 8 + unsigned_size(frame.balance) + unsigned_size(frame.semantic_depth) + 1;
+    if (size > INTERPOLATION_STATE_BUDGET) {
+      return false;
+    }
+    scanner->outermost = frame;
+    scanner->top = frame;
+    scanner->depth = 1;
+    scanner->ordinary_layers = frame.ordinary;
+    scanner->run_count = 0;
+    return true;
+  }
+  if (frame.balance <= scanner->top.balance ||
+      frame.semantic_depth <= scanner->top.semantic_depth) {
+    return false;
+  }
+  InterpolationRun next = {
+      .delta = frame.balance - scanner->top.balance,
+      .semantic_delta = frame.semantic_depth - scanner->top.semantic_depth,
+      .count = 1,
+      .toggles_ordinary = scanner->top.ordinary != frame.ordinary,
+  };
+  InterpolationRun *last = scanner->run_count ? &scanner->runs[scanner->run_count - 1] : NULL;
+  bool extends = last && last->delta == next.delta && last->semantic_delta == next.semantic_delta &&
+                 last->toggles_ordinary == next.toggles_ordinary;
+  size_t size = interpolation_state_size(scanner);
+  if (extends) {
+    size += unsigned_size(last->count + 1) - unsigned_size(last->count);
+  } else {
+    size += run_size(&next);
+  }
+  if (size > INTERPOLATION_STATE_BUDGET ||
+      (!extends && scanner->run_count == MAX_INTERPOLATION_RUNS)) {
+    return false;
+  }
+  if (extends) {
+    ++last->count;
+  } else {
+    scanner->runs[scanner->run_count++] = next;
+  }
+  scanner->top = frame;
+  ++scanner->depth;
+  scanner->ordinary_layers += frame.ordinary;
+  return true;
+}
+
+static bool pop_interpolation(Scanner *scanner) {
+  if (!scanner->depth) {
+    return false;
+  }
+  scanner->ordinary_layers -= scanner->top.ordinary;
+  if (scanner->depth == 1) {
+    scanner->depth = 0;
+    scanner->semantic_depth = 0;
+    scanner->run_count = 0;
+    return true;
+  }
+  InterpolationRun *last = &scanner->runs[scanner->run_count - 1];
+  scanner->top.balance -= last->delta;
+  scanner->top.semantic_depth -= last->semantic_delta;
+  scanner->top.ordinary ^= last->toggles_ordinary;
+  if (--last->count == 0) {
+    --scanner->run_count;
+  }
+  --scanner->depth;
+  return true;
+}
+
+typedef struct {
+  TSLexer lexer;
+  TSLexer *base;
+  Scanner *scanner;
+  uint32_t balance;
+  uint32_t marked_balance;
+  bool overflow;
+} TrackedLexer;
+
+static void tracked_advance(TSLexer *lexer, bool skip) {
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  if (tracked->scanner->depth) {
+    if (tracked->base->lookahead == '(') {
+      if (tracked->balance == UINT32_MAX) {
+        tracked->overflow = true;
+      } else {
+        ++tracked->balance;
+      }
+    } else if (tracked->base->lookahead == ')') {
+      if (tracked->balance == 0) {
+        tracked->overflow = true;
+      } else {
+        --tracked->balance;
+      }
+    }
+  }
+  tracked->base->advance(tracked->base, skip);
+  lexer->lookahead = tracked->base->lookahead;
+}
+
+static void tracked_mark_end(TSLexer *lexer) {
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  tracked->base->mark_end(tracked->base);
+  tracked->marked_balance = tracked->balance;
+}
+
+static uint32_t tracked_column(TSLexer *lexer) {
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  return tracked->base->get_column(tracked->base);
+}
+
+static bool tracked_range_start(const TSLexer *lexer) {
+  const TrackedLexer *tracked = (const TrackedLexer *)lexer;
+  return tracked->base->is_at_included_range_start(tracked->base);
+}
+
+static bool tracked_eof(const TSLexer *lexer) {
+  const TrackedLexer *tracked = (const TrackedLexer *)lexer;
+  if (tracked->scanner->depth && lexer->lookahead == ')' &&
+      tracked->balance == current_interpolation(tracked->scanner).balance) {
+    tracked->scanner->collector_eof = true;
+    return true;
+  }
+  return tracked->base->eof(tracked->base);
+}
+
 void *tree_sitter_powershell_external_scanner_create(void) {
-  return NULL;
+  return calloc(1, sizeof(Scanner));
 }
 
 void tree_sitter_powershell_external_scanner_destroy(void *payload) {
-  (void)payload;
+  free(payload);
+}
+
+static unsigned serialize_interpolations(Scanner *scanner, char *buffer) {
+  if (!scanner->depth) {
+    return 0;
+  }
+  write_u32(buffer, scanner->balance);
+  write_u32(buffer + 4, scanner->semantic_depth);
+  char *cursor = write_unsigned(buffer + 8, scanner->outermost.balance);
+  cursor = write_unsigned(cursor, scanner->outermost.semantic_depth);
+  *cursor++ = scanner->outermost.ordinary;
+  for (uint32_t i = 0; i < scanner->run_count; ++i) {
+    InterpolationRun *run = &scanner->runs[i];
+    cursor = write_unsigned(cursor, run->count);
+    cursor = write_unsigned(cursor, encoded_delta(run));
+    cursor = write_unsigned(cursor, run->semantic_delta);
+  }
+  return (unsigned)(cursor - buffer);
+}
+
+static bool decode_interpolation_state(Scanner *scanner, const char *buffer, unsigned length) {
+  if (length < 11 || length > INTERPOLATION_STATE_BUDGET) {
+    return false;
+  }
+  const char *cursor = buffer + 8;
+  const char *end = buffer + length;
+  uint64_t balance;
+  uint64_t semantic_depth;
+  if (!read_unsigned(&cursor, end, &balance) || balance == 0 || balance > UINT32_MAX ||
+      !read_unsigned(&cursor, end, &semantic_depth) || semantic_depth == 0 ||
+      semantic_depth > UINT32_MAX || cursor == end || (uint8_t)*cursor > 1) {
+    return false;
+  }
+  scanner->balance = read_u32(buffer);
+  scanner->semantic_depth = read_u32(buffer + 4);
+  scanner->outermost = (Interpolation){
+      .balance = (uint32_t)balance,
+      .semantic_depth = (uint32_t)semantic_depth,
+      .ordinary = *cursor++ != 0,
+  };
+  scanner->top = scanner->outermost;
+  scanner->depth = 1;
+  scanner->ordinary_layers = scanner->outermost.ordinary;
+  while (cursor < end) {
+    uint64_t count;
+    uint64_t packed_delta;
+    uint64_t semantic_delta;
+    if (scanner->run_count == MAX_INTERPOLATION_RUNS || !read_unsigned(&cursor, end, &count) ||
+        count == 0 || count > UINT32_MAX - scanner->depth ||
+        !read_unsigned(&cursor, end, &packed_delta) ||
+        !read_unsigned(&cursor, end, &semantic_delta)) {
+      return false;
+    }
+    uint64_t delta = packed_delta >> 1;
+    bool toggles_ordinary = packed_delta & 1;
+    if (delta == 0 || delta > UINT32_MAX || semantic_delta == 0 || semantic_delta > UINT32_MAX ||
+        count > (UINT32_MAX - scanner->top.balance) / delta ||
+        count > (UINT32_MAX - scanner->top.semantic_depth) / semantic_delta) {
+      return false;
+    }
+    InterpolationRun run = {
+        .delta = (uint32_t)delta,
+        .semantic_delta = (uint32_t)semantic_delta,
+        .count = (uint32_t)count,
+        .toggles_ordinary = toggles_ordinary,
+    };
+    if (scanner->run_count) {
+      InterpolationRun *previous = &scanner->runs[scanner->run_count - 1];
+      if (previous->delta == run.delta && previous->semantic_delta == run.semantic_delta &&
+          previous->toggles_ordinary == run.toggles_ordinary) {
+        return false;
+      }
+    }
+    scanner->runs[scanner->run_count++] = run;
+    scanner->top.balance += (uint32_t)(delta * count);
+    scanner->top.semantic_depth += (uint32_t)(semantic_delta * count);
+    scanner->depth += (uint32_t)count;
+    if (toggles_ordinary) {
+      scanner->ordinary_layers += (uint32_t)(count / 2);
+      if ((count & 1) && !scanner->top.ordinary) {
+        ++scanner->ordinary_layers;
+      }
+      scanner->top.ordinary ^= (count & 1) != 0;
+    } else if (scanner->top.ordinary) {
+      scanner->ordinary_layers += (uint32_t)count;
+    }
+  }
+  return scanner->balance >= scanner->top.balance &&
+         scanner->semantic_depth >= scanner->top.semantic_depth;
 }
 
 unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *buffer) {
-  (void)payload;
-  (void)buffer;
-  return 0;
+  Scanner *scanner = payload;
+  if (!scanner->depth) {
+    return 0;
+  }
+  size_t size = interpolation_state_size(scanner) +
+                (scanner->prepared.active ? PREPARED_TOKEN_STATE_SIZE : 1);
+  assert(size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
+  (void)size;
+  char *cursor = buffer;
+  *cursor++ = scanner->prepared.active;
+  if (scanner->prepared.active) {
+    write_u32(cursor, scanner->prepared.start);
+    cursor += 4;
+    write_u32(cursor, scanner->prepared.end);
+    cursor += 4;
+    *cursor++ = (char)scanner->prepared.symbol;
+    *cursor++ = (char)(scanner->prepared.symbol >> 8);
+  }
+  return (unsigned)(cursor - buffer) + serialize_interpolations(scanner, cursor);
 }
 
 void tree_sitter_powershell_external_scanner_deserialize(void *payload, const char *buffer,
                                                          unsigned length) {
-  (void)payload;
-  (void)buffer;
-  (void)length;
+  Scanner *scanner = payload;
+  memset(scanner, 0, sizeof(*scanner));
+  if (!length) {
+    return;
+  }
+  uint8_t flags = (uint8_t)*buffer++;
+  --length;
+  if (flags > 1) {
+    return;
+  }
+  if (flags) {
+    if (length < 10) {
+      return;
+    }
+    scanner->prepared.active = true;
+    scanner->prepared.start = read_u32(buffer);
+    scanner->prepared.end = read_u32(buffer + 4);
+    scanner->prepared.symbol = (uint8_t)buffer[8] | (uint16_t)(uint8_t)buffer[9] << 8;
+    buffer += 10;
+    length -= 10;
+    if ((scanner->prepared.start > scanner->prepared.end ||
+         (scanner->prepared.start == scanner->prepared.end &&
+          !prepared_context_token(scanner->prepared.symbol))) ||
+        (scanner->prepared.symbol >= EXTERNAL_TOKEN_COUNT ||
+         scanner->prepared.symbol == PREPARED_TOKEN)) {
+      memset(scanner, 0, sizeof(*scanner));
+      return;
+    }
+  }
+  if (!decode_interpolation_state(scanner, buffer, length)) {
+    memset(scanner, 0, sizeof(*scanner));
+  }
+}
+
+static bool at_collector_end(TSLexer *lexer) {
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  return lexer->eof(lexer) && tracked->scanner->collector_eof;
 }
 
 static bool horizontal(int32_t c) {
@@ -219,7 +636,8 @@ static bool newline(int32_t c) {
 }
 
 // Match GetVerbatimCommandArgument in PowerShell 7.5.4's tokenizer.cs. Only
-// double quotes change the boundary rules; backticks and single quotes are text.
+// double quotes change the boundary rules; backticks and single quotes are
+// text.
 static bool scan_verbatim_argument_text(TSLexer *lexer) {
   while (horizontal(lexer->lookahead)) {
     lexer->advance(lexer, true);
@@ -255,12 +673,16 @@ static bool scan_verbatim_argument_text(TSLexer *lexer) {
 }
 // Comments remain named extras. The method context is a lookahead sentinel
 // that the grammar never needs to consume: a block comment may precede member
-// access, but PowerShell forbids one between a method name and its argument opener.
+// access, but PowerShell forbids one between a method name and its argument
+// opener.
 static bool scan_comment(TSLexer *lexer, const bool *valid) {
   if (lexer->lookahead == '#') {
     do {
       lexer->advance(lexer, false);
     } while (!lexer->eof(lexer) && !newline(lexer->lookahead));
+    if (at_collector_end(lexer)) {
+      return false;
+    }
     lexer->mark_end(lexer);
     lexer->result_symbol = COMMENT;
     return true;
@@ -824,6 +1246,9 @@ static bool scan_splat_after_at(TSLexer *lexer, const bool *valid) {
       lexer->advance(lexer, false);
       generic = true;
       if (lexer->eof(lexer)) {
+        if (at_collector_end(lexer)) {
+          return false;
+        }
         break;
       }
       bool physical_newline = false;
@@ -1081,7 +1506,8 @@ static bool scan_here_string_content(TSLexer *lexer, const bool *valid) {
 
 // PowerShell's tokenizer switches to argument mode after the command name.
 // This token preserves punctuation in arguments (2+2 is text, not arithmetic)
-// while stopping at interpolation and quoted pieces, represented by grammar rules.
+// while stopping at interpolation and quoted pieces, represented by grammar
+// rules.
 typedef struct {
   char *data;
   size_t length;
@@ -1115,8 +1541,8 @@ static bool generic_word_append(GenericWord *word, int32_t c) {
     word->capacity = capacity;
   }
   // Number scanning accepts smart dashes in exponent signs and after a numeric
-  // prefix. Fold them only in numeric-looking words: generic text such as -\u2014%
-  // must not become the ASCII-only verbatim-argument marker.
+  // prefix. Fold them only in numeric-looking words: generic text such as
+  // -\u2014% must not become the ASCII-only verbatim-argument marker.
   bool numeric_start =
       word->length > 0 && (ascii_digit(word->data[0]) || word->data[0] == '.' ||
                            ((word->data[0] == '+' || word->data[0] == '-') && word->length > 1 &&
@@ -1215,9 +1641,10 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       return false;
     }
   }
-  if (!continuation && (generic_end(first) || first == '#' || first == '@' ||
-                        (!immediate && !data_name && first == ':') ||
-                        ((first == '[' || first == ']') && name && !data_name))) {
+  if (!continuation &&
+      ((generic_end(first) && !(first == 0 && !lexer->eof(lexer))) || first == '#' ||
+       first == '@' || (!immediate && !data_name && first == ':') ||
+       ((first == '[' || first == ']') && name && !data_name))) {
     return false;
   }
   bool dollar_prefix = false;
@@ -1272,6 +1699,12 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       lexer->result_symbol = PARAMETER_NAME;
       return true;
     }
+  }
+  if (!continuation && first == 0 && !lexer->eof(lexer)) {
+    if (!generic_word_append(buffer, 0)) {
+      return false;
+    }
+    lexer->advance(lexer, false);
   }
   if (dollar_prefix && !generic_word_append(buffer, '$')) {
     return false;
@@ -1367,6 +1800,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     if (c == '`') {
       lexer->advance(lexer, false);
       if (lexer->eof(lexer)) {
+        if (at_collector_end(lexer)) {
+          return false;
+        }
         // A trailing backtick belongs to a nonempty generic token; a lone
         // backtick is incomplete input.
         if (n == 0 || !generic_word_append(buffer, '`')) {
@@ -1422,7 +1858,8 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       strcmp(word, "--%") == 0 && !quote(lexer->lookahead) && lexer->lookahead != '$') {
     // Recognize the complete cooked argument, including escaped spellings.
     // A following quote or interpolation belongs to the same argument. Smart
-    // dashes are normalized for parameter scanning but cannot start this marker.
+    // dashes are normalized for parameter scanning but cannot start this
+    // marker.
     lexer->mark_end(lexer);
     lexer->result_symbol = VERBATIM_ARGUMENTS_START;
     return true;
@@ -1510,11 +1947,23 @@ static bool scan_generic(TSLexer *lexer, const bool *valid, bool immediate) {
   return result;
 }
 
+static bool scan_generic_after_prefix(TSLexer *lexer, const bool *valid, int32_t prefix) {
+  GenericWord word = {0};
+  word.data = word.inline_data;
+  word.capacity = sizeof(word.inline_data);
+  if (!generic_word_append(&word, prefix)) {
+    return false;
+  }
+  bool result = scan_generic_word(lexer, valid, false, &word, true);
+  if (word.data != word.inline_data) {
+    free(word.data);
+  }
+  return result;
+}
+
 // In command-name mode a variable followed by generic text is a literal name.
 // Keep standalone variables available to the primary-expression grammar.
-static bool scan_data_variable_name(TSLexer *lexer, const bool *valid) {
-  bool splat = lexer->lookahead == '@';
-  lexer->advance(lexer, false);
+static bool scan_data_variable_name_after_prefix(TSLexer *lexer, const bool *valid, bool splat) {
   int32_t first = lexer->lookahead;
   if (first == '(' || (splat && first == '{')) {
     return false;
@@ -1536,19 +1985,15 @@ static bool scan_data_variable_name(TSLexer *lexer, const bool *valid) {
       return true;
     }
   }
-  GenericWord word = {0};
-  word.data = word.inline_data;
-  word.capacity = sizeof(word.inline_data);
   // The consumed prefix guarantees a nonnumeric, nonkeyword generic name.
   // Its exact cooked value is immaterial to the remaining boundary scan.
-  if (!generic_word_append(&word, '?')) {
-    return false;
-  }
-  bool result = scan_generic_word(lexer, valid, false, &word, true);
-  if (word.data != word.inline_data) {
-    free(word.data);
-  }
-  return result;
+  return scan_generic_after_prefix(lexer, valid, '?');
+}
+
+static bool scan_data_variable_name(TSLexer *lexer, const bool *valid) {
+  bool splat = lexer->lookahead == '@';
+  lexer->advance(lexer, false);
+  return scan_data_variable_name_after_prefix(lexer, valid, splat);
 }
 
 static bool scan_number(TSLexer *lexer, const bool *valid) {
@@ -1648,9 +2093,452 @@ suffix:
   return true;
 }
 
-bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
-                                                  const bool *valid) {
-  (void)payload;
+// A collector removes one layer of quote/backtick pairs before its nested
+// script is lexed. Keep one pending character per layer. Checking a flushed
+// copy at each raw prefix identifies complete tokens without losing raw
+// extents.
+typedef struct {
+  int32_t *pending;
+  int32_t output[16];
+  unsigned depth;
+  unsigned length;
+} QuoteStream;
+
+static void quote_emit(QuoteStream *stream, int32_t c) {
+  if (stream->length < 16) {
+    stream->output[stream->length] = c;
+  }
+  if (stream->length < 17) {
+    ++stream->length;
+  }
+}
+
+static void quote_feed_special(QuoteStream *stream, unsigned layer, int32_t c) {
+  for (; layer < stream->depth; ++layer) {
+    int32_t pending = stream->pending[layer];
+    if (!pending) {
+      stream->pending[layer] = c;
+      return;
+    }
+    stream->pending[layer] = 0;
+    if (!double_quote(c)) {
+      stream->pending[layer] = c;
+      c = pending;
+    }
+  }
+  quote_emit(stream, c);
+}
+
+static void quote_feed(QuoteStream *stream, unsigned layer, int32_t c) {
+  if (c == '`' || double_quote(c)) {
+    quote_feed_special(stream, layer, c);
+    return;
+  }
+  for (; layer < stream->depth && stream->length < 16; ++layer) {
+    if (stream->pending[layer]) {
+      int32_t pending = stream->pending[layer];
+      stream->pending[layer] = 0;
+      quote_feed_special(stream, layer + 1, pending);
+    }
+  }
+  quote_emit(stream, c);
+}
+
+static QuoteStream quote_flushed(QuoteStream stream, int32_t *pending) {
+  memcpy(pending, stream.pending, stream.depth * sizeof(*pending));
+  stream.pending = pending;
+  for (unsigned i = 0; i < stream.depth; ++i) {
+    if (stream.pending[i]) {
+      int32_t c = stream.pending[i];
+      stream.pending[i] = 0;
+      quote_feed(&stream, i + 1, c);
+    }
+  }
+  return stream;
+}
+
+static unsigned quote_layers(TSLexer *lexer) {
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  return ordinary_interpolation_layers(tracked->scanner);
+}
+
+enum QuotedToken {
+  NO_QUOTED_TOKEN,
+  ONE_QUOTE,
+  TWO_QUOTES,
+  QUOTED_ESCAPE
+};
+
+static enum QuotedToken scan_quoted_token(TSLexer *lexer, unsigned maximum_quotes, bool escapes,
+                                          int32_t *decoded) {
+  size_t layers = quote_layers(lexer);
+  if (layers > (SIZE_MAX / sizeof(int32_t) - 1) / 2) {
+    return NO_QUOTED_TOKEN;
+  }
+  int32_t *pending = calloc((size_t)layers * 2 + 1, sizeof(*pending));
+  if (!pending) {
+    return NO_QUOTED_TOKEN;
+  }
+  QuoteStream stream = {.depth = layers, .pending = pending};
+  enum QuotedToken accepted = NO_QUOTED_TOKEN;
+  while (!lexer->eof(lexer)) {
+    int32_t c = lexer->lookahead;
+    if (accepted && !double_quote(c) && c != '`') {
+      break;
+    }
+    if (!escapes && !double_quote(c) && c != '`') {
+      break;
+    }
+    lexer->advance(lexer, false);
+    quote_feed(&stream, 0, c);
+    if (stream.length > 10) {
+      break;
+    }
+    bool stable_quotes = stream.length <= maximum_quotes;
+    for (unsigned i = 0; i < stream.length; ++i) {
+      stable_quotes &= double_quote(stream.output[i]);
+    }
+    bool stable_escape = escapes && (!stream.length || stream.output[0] == '`');
+    if (stream.length > 2 && stream.output[1] != 'u') {
+      stable_escape = false;
+    }
+    if (!stable_quotes && !stable_escape) {
+      break;
+    }
+    QuoteStream prefix = quote_flushed(stream, pending + layers);
+    bool quotes = prefix.length && prefix.length <= maximum_quotes;
+    for (unsigned i = 0; i < prefix.length && quotes; ++i) {
+      quotes &= double_quote(prefix.output[i]);
+    }
+    if (quotes) {
+      accepted = prefix.length == 2 ? TWO_QUOTES : ONE_QUOTE;
+      lexer->mark_end(lexer);
+      continue;
+    }
+    if (!escapes || prefix.length < 2 || prefix.output[0] != '`') {
+      continue;
+    }
+    int32_t value = prefix.output[1];
+    bool complete = prefix.length == 2 && value != 'u';
+    if (value == 'u' && prefix.length >= 5 && prefix.length <= 10 && prefix.output[2] == '{' &&
+        prefix.output[prefix.length - 1] == '}') {
+      uint32_t unicode = 0;
+      complete = true;
+      for (unsigned i = 3; i + 1 < prefix.length; ++i) {
+        int32_t digit = ascii_lower(prefix.output[i]);
+        if (!ascii_hex(digit)) {
+          complete = false;
+          break;
+        }
+        unicode = unicode * 16 + (ascii_digit(digit) ? digit - '0' : digit - 'a' + 10);
+      }
+      complete &= unicode <= 0x10ffff;
+      value = unicode;
+    }
+    if (complete) {
+      lexer->mark_end(lexer);
+      *decoded = value;
+      accepted = QUOTED_ESCAPE;
+      if (value != '`' && !double_quote(value)) {
+        break;
+      }
+    }
+  }
+  free(pending);
+  return accepted;
+}
+
+static bool scan_literal(TSLexer *lexer) {
+  lexer->advance(lexer, false);
+  while (!lexer->eof(lexer)) {
+    int32_t c = lexer->lookahead;
+    lexer->advance(lexer, false);
+    if (single_quote(c)) {
+      if (single_quote(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      } else {
+        lexer->mark_end(lexer);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+static bool fragment_character(int32_t c) {
+  return c != 0 && !horizontal(c) && !newline(c) && c != ';' && c != '|' && c != '&' && c != '(' &&
+         c != ')' && c != '{' && c != '}' && c != ',' && c != '$' && !quote(c) && c != '`';
+}
+
+static bool scan_fragment(TSLexer *lexer, const bool *valid) {
+  bool variable = valid[VARIABLE_ARGUMENT_FRAGMENT];
+  int32_t first = lexer->lookahead;
+  bool content = false;
+  if (variable && (first == '=' || first == '.' || first == '[')) {
+    return false;
+  }
+  if (first == ':' && valid[ARGUMENT_END]) {
+    lexer->mark_end(lexer);
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == ':') {
+      lexer->advance(lexer, false);
+      if (horizontal(lexer->lookahead) || newline(lexer->lookahead) ||
+          (lexer->eof(lexer) && !at_collector_end(lexer))) {
+        lexer->result_symbol = ARGUMENT_END;
+        return true;
+      }
+      return false;
+    }
+    lexer->mark_end(lexer);
+    content = true;
+  } else if (variable && first == '?') {
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    content = true;
+    if (lexer->lookahead == '.' || lexer->lookahead == '[') {
+      lexer->result_symbol = VARIABLE_ARGUMENT_FRAGMENT;
+      return true;
+    }
+  } else if (!fragment_character(first) && first != '`') {
+    return false;
+  }
+  while (!lexer->eof(lexer)) {
+    if (lexer->lookahead == '`') {
+      lexer->mark_end(lexer);
+      lexer->advance(lexer, false);
+      if (newline(lexer->lookahead)) {
+        break;
+      }
+      int32_t decoded;
+      if (!scan_backtick_escape_after_tick(lexer, &decoded, NULL)) {
+        return false;
+      }
+      lexer->mark_end(lexer);
+      content = true;
+    } else if (fragment_character(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      content = true;
+    } else {
+      break;
+    }
+  }
+  if (!content) {
+    return false;
+  }
+  lexer->result_symbol = variable ? VARIABLE_ARGUMENT_FRAGMENT : GENERIC_ARGUMENT_FRAGMENT;
+  return true;
+}
+
+static bool assembly_word(int32_t c) {
+  return c != 0 && !horizontal(c) && !newline(c) && c != ',' && c != '[' && c != ']';
+}
+
+static bool assembly_space(int32_t c) {
+  return c == ' ' || c == '\t' || c == '\f' || c == '\v';
+}
+
+static bool scan_assembly_name(TSLexer *lexer) {
+  if (!assembly_word(lexer->lookahead) && lexer->lookahead != ',') {
+    return false;
+  }
+  if (assembly_word(lexer->lookahead)) {
+    do {
+      lexer->advance(lexer, false);
+    } while (!lexer->eof(lexer) && assembly_word(lexer->lookahead));
+    lexer->mark_end(lexer);
+  }
+  while (!lexer->eof(lexer)) {
+    while (assembly_space(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+    }
+    if (lexer->lookahead != ',') {
+      break;
+    }
+    lexer->advance(lexer, false);
+    while (assembly_space(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+    }
+    lexer->mark_end(lexer);
+    while (!lexer->eof(lexer) && assembly_word(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+    }
+  }
+  lexer->result_symbol = ASSEMBLY_NAME_CONTENT;
+  return true;
+}
+
+static bool prepare_transformed_token(Scanner *, TSLexer *, const bool *, size_t, PreparedToken *);
+static bool emit_prepared_token(TSLexer *, const bool *, size_t, PreparedToken *);
+
+static bool request_preparation(Scanner *scanner, TSLexer *lexer, const bool *valid) {
+  if (!prepare_transformed_token(scanner, lexer, valid, EXTERNAL_TOKEN_COUNT, &scanner->prepared)) {
+    return false;
+  }
+  lexer->result_symbol = PREPARED_TOKEN;
+  return true;
+}
+
+static bool scan_subexpression_end(Scanner *scanner, TSLexer *lexer, const bool *valid) {
+  if (!valid[SUB_EXPRESSION_END] || lexer->lookahead != ')') {
+    return false;
+  }
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  if (scanner->depth) {
+    Interpolation frame = current_interpolation(scanner);
+    bool collector = scanner->semantic_depth == frame.semantic_depth;
+    if (collector) {
+      if (tracked->balance != frame.balance) {
+        return false;
+      }
+    } else if (scanner->semantic_depth < frame.semantic_depth ||
+               tracked->balance <= frame.balance) {
+      return false;
+    }
+    lexer->advance(lexer, false);
+    --scanner->semantic_depth;
+    if (collector) {
+      pop_interpolation(scanner);
+    }
+  } else {
+    lexer->advance(lexer, false);
+  }
+  lexer->mark_end(lexer);
+  lexer->result_symbol = SUB_EXPRESSION_END;
+  return true;
+}
+
+static bool scan_subexpression_start(Scanner *scanner, TSLexer *lexer, const bool *valid) {
+  if (lexer->lookahead != '$' ||
+      (!valid[SUB_EXPRESSION_OPEN] && !valid[ADJACENT_SUB_EXPRESSION_OPEN])) {
+    return false;
+  }
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  lexer->advance(lexer, false);
+  if (lexer->lookahead != '(') {
+    if (valid[DATA_COMMAND_NAME] && !valid[COMMAND_NAME]) {
+      return scan_data_variable_name_after_prefix(lexer, valid, false);
+    }
+    if (variable_start(lexer->lookahead)) {
+      return scan_variable_after_dollar(lexer, valid,
+                                        lexer->lookahead == '{' && valid[BRACED_ARGUMENT_VARIABLE]
+                                            ? BRACED_ARGUMENT_VARIABLE
+                                        : valid[VARIABLE] ? VARIABLE
+                                                          : ADJACENT_VARIABLE);
+    }
+    if (!valid[LITERAL_DOLLAR] && (valid[BARE_WORD] || valid[COMMAND_NAME])) {
+      return scan_generic_after_prefix(lexer, valid, '$');
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = LITERAL_DOLLAR;
+    return valid[LITERAL_DOLLAR];
+  }
+  bool quoted = valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START];
+  lexer->advance(lexer, false);
+  if (scanner->depth) {
+    if (scanner->semantic_depth == UINT32_MAX) {
+      return false;
+    }
+    ++scanner->semantic_depth;
+  } else if (quoted) {
+    tracked->balance = 1;
+    scanner->semantic_depth = 1;
+  }
+  if (quoted &&
+      !push_interpolation(scanner, (Interpolation){.balance = tracked->balance,
+                                                   .semantic_depth = scanner->semantic_depth,
+                                                   .ordinary = !valid[HERE_STRING_CONTENT] &&
+                                                               !valid[HERE_STRING_END]})) {
+    return false;
+  }
+  lexer->mark_end(lexer);
+  lexer->result_symbol =
+      valid[ADJACENT_SUB_EXPRESSION_OPEN] ? ADJACENT_SUB_EXPRESSION_OPEN : SUB_EXPRESSION_OPEN;
+  return true;
+}
+
+static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
+  if (scan_subexpression_end(scanner, lexer, valid)) {
+    return true;
+  }
+  if (lexer->lookahead == '$' &&
+      (valid[SUB_EXPRESSION_OPEN] || valid[ADJACENT_SUB_EXPRESSION_OPEN])) {
+    return scan_subexpression_start(scanner, lexer, valid);
+  }
+  // Punctuation remains visible during recovery, where every external is valid.
+  if (lexer->lookahead == '(' && (valid[LEFT_PAREN] || valid[ADJACENT_LEFT_PAREN])) {
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = valid[ADJACENT_LEFT_PAREN] ? ADJACENT_LEFT_PAREN : LEFT_PAREN;
+    return true;
+  }
+  if (lexer->lookahead == ')' && valid[RIGHT_PAREN]) {
+    if (lexer->eof(lexer)) {
+      return false;
+    }
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = RIGHT_PAREN;
+    return true;
+  }
+  bool preparing = valid[PREPARED_TOKEN] && ordinary_interpolation_layers(scanner);
+  bool here_body = (valid[HERE_STRING_CONTENT] || valid[HERE_STRING_END]) &&
+                   !valid[EXPANDABLE_HERE_STRING_START];
+  bool fragments = (valid[VARIABLE_ARGUMENT_FRAGMENT] || valid[GENERIC_ARGUMENT_FRAGMENT]) &&
+                   !valid[COMMAND_NAME] && !valid[HERE_STRING_CONTENT] &&
+                   (valid[GENERIC_ARGUMENT_FRAGMENT] || lexer->lookahead != '=') &&
+                   (fragment_character(lexer->lookahead) || lexer->lookahead == '`');
+  bool verbatim = valid[VERBATIM_ARGUMENT_TEXT] && !valid[VERBATIM_ARGUMENTS_START];
+  if (preparing && (here_body || fragments || verbatim)) {
+    return request_preparation(scanner, lexer, valid);
+  }
+  if ((valid[DOUBLE_QUOTE] || valid[ADJACENT_DOUBLE_QUOTE] || valid[STRING_ESCAPE]) &&
+      !valid[EXPANDABLE_HERE_STRING_START] &&
+      ((double_quote(lexer->lookahead) && (valid[DOUBLE_QUOTE] || valid[ADJACENT_DOUBLE_QUOTE])) ||
+       (lexer->lookahead == '`' && valid[STRING_ESCAPE]))) {
+    int32_t decoded;
+    unsigned maximum =
+        (valid[DOUBLE_QUOTE] || valid[ADJACENT_DOUBLE_QUOTE]) ? valid[STRING_CONTENT] ? 2 : 1 : 0;
+    enum QuotedToken token = scan_quoted_token(lexer, maximum, valid[STRING_ESCAPE], &decoded);
+    if (!token) {
+      return false;
+    }
+    lexer->result_symbol = token == TWO_QUOTES            ? STRING_CONTENT
+                           : token == QUOTED_ESCAPE       ? STRING_ESCAPE
+                           : valid[ADJACENT_DOUBLE_QUOTE] ? ADJACENT_DOUBLE_QUOTE
+                                                          : DOUBLE_QUOTE;
+    return true;
+  }
+  if (valid[STRING_CONTENT] && !valid[EXPANDABLE_HERE_STRING_START] && lexer->lookahead != '`' &&
+      lexer->lookahead != '$') {
+    bool content = false;
+    while (!lexer->eof(lexer) && !double_quote(lexer->lookahead) && lexer->lookahead != '$' &&
+           lexer->lookahead != '`') {
+      content = true;
+      lexer->advance(lexer, false);
+    }
+    if (!content) {
+      return false;
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = STRING_CONTENT;
+    return true;
+  }
+  if (valid[ADJACENT_SINGLE_QUOTED_STRING] && single_quote(lexer->lookahead)) {
+    if (!scan_literal(lexer)) {
+      return false;
+    }
+    lexer->result_symbol = ADJACENT_SINGLE_QUOTED_STRING;
+    return true;
+  }
+  if ((valid[VARIABLE_ARGUMENT_FRAGMENT] || valid[GENERIC_ARGUMENT_FRAGMENT]) &&
+      !valid[COMMAND_NAME] && !valid[HERE_STRING_CONTENT] &&
+      (valid[GENERIC_ARGUMENT_FRAGMENT] || lexer->lookahead != '=') &&
+      (fragment_character(lexer->lookahead) || lexer->lookahead == '`')) {
+    return scan_fragment(lexer, valid);
+  }
+
   // During error recovery tree-sitter enables every external token. Do not
   // reinterpret arbitrary malformed source as a here-string body in that state.
   if (valid[VERBATIM_ARGUMENT_TEXT] && !valid[VERBATIM_ARGUMENTS_START]) {
@@ -1735,7 +2623,8 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
       lexer->advance(lexer, false);
       if (lexer->lookahead == ':') {
         lexer->advance(lexer, false);
-        if (generic_end(lexer->lookahead) && !quote(lexer->lookahead)) {
+        if (horizontal(lexer->lookahead) || newline(lexer->lookahead) ||
+            (lexer->eof(lexer) && !at_collector_end(lexer))) {
           lexer->result_symbol = ARGUMENT_END;
           return true;
         }
@@ -1760,6 +2649,55 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
   while (horizontal(lexer->lookahead)) {
     lexer->advance(lexer, true);
   }
+  if (scan_subexpression_end(scanner, lexer, valid)) {
+    return true;
+  }
+  if (lexer->lookahead == '$' && valid[SUB_EXPRESSION_OPEN]) {
+    return scan_subexpression_start(scanner, lexer, valid);
+  }
+  if (preparing && !newline(lexer->lookahead) &&
+      (valid[FUNCTION_NAME] || valid[COMMAND_NAME] || valid[BARE_WORD] ||
+       valid[DATA_COMMAND_NAME] ||
+       (valid[SIGNED_NUMBER_START] &&
+        (lexer->lookahead == '+' || generic_dash(lexer->lookahead))) ||
+       (lexer->lookahead == '@' &&
+        (valid[SINGLE_QUOTED_HERE_STRING] || valid[EXPANDABLE_HERE_STRING_START])))) {
+    return request_preparation(scanner, lexer, valid);
+  }
+  if (lexer->lookahead == '(' && valid[LEFT_PAREN]) {
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = LEFT_PAREN;
+    return true;
+  }
+  if (lexer->lookahead == ')' && valid[RIGHT_PAREN]) {
+    if (lexer->eof(lexer)) {
+      return false;
+    }
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = RIGHT_PAREN;
+    return true;
+  }
+  if (valid[ASSEMBLY_NAME_CONTENT]) {
+    return scan_assembly_name(lexer);
+  }
+  if (valid[DOUBLE_QUOTE] &&
+      (double_quote(lexer->lookahead) || (lexer->lookahead == '`' && quote_layers(lexer)))) {
+    int32_t decoded;
+    if (scan_quoted_token(lexer, 1, false, &decoded) != ONE_QUOTE) {
+      return false;
+    }
+    lexer->result_symbol = DOUBLE_QUOTE;
+    return true;
+  }
+  if (valid[SINGLE_QUOTED_STRING] && single_quote(lexer->lookahead)) {
+    if (!scan_literal(lexer)) {
+      return false;
+    }
+    lexer->result_symbol = SINGLE_QUOTED_STRING;
+    return true;
+  }
   if (valid[ARGUMENT_SEPARATOR] && lexer->lookahead == ',') {
     lexer->advance(lexer, false);
     lexer->mark_end(lexer);
@@ -1777,8 +2715,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
   if (valid[FUNCTION_NAME] && !valid[COMMAND_NAME]) {
     return scan_function_name(lexer, valid);
   }
-  if (valid[DATA_COMMAND_NAME] && !valid[COMMAND_NAME] &&
-      (lexer->lookahead == '$' || lexer->lookahead == '@')) {
+  if (valid[DATA_COMMAND_NAME] && !valid[COMMAND_NAME] && lexer->lookahead == '$') {
     return scan_data_variable_name(lexer, valid);
   }
   if (valid[LABEL_START] && !valid[HERE_STRING_CONTENT] && lexer->lookahead == ':') {
@@ -1798,8 +2735,17 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
   }
   if (lexer->lookahead == '@' &&
       (valid[SINGLE_QUOTED_HERE_STRING] || valid[EXPANDABLE_HERE_STRING_START] ||
-       valid[SPLAT_EXPRESSION] || valid[BARE_WORD])) {
+       valid[SPLAT_EXPRESSION] || valid[BARE_WORD] || valid[ARRAY_EXPRESSION_OPEN])) {
     lexer->advance(lexer, false);
+    if (valid[ARRAY_EXPRESSION_OPEN] && lexer->lookahead == '(') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      lexer->result_symbol = ARRAY_EXPRESSION_OPEN;
+      return true;
+    }
+    if (valid[DATA_COMMAND_NAME] && !valid[COMMAND_NAME]) {
+      return scan_data_variable_name_after_prefix(lexer, valid, true);
+    }
     if (quote(lexer->lookahead)) {
       return scan_here_string_after_at(lexer, valid);
     }
@@ -1821,4 +2767,252 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
     return scan_number(lexer, valid);
   }
   return false;
+}
+
+typedef struct {
+  int32_t character;
+  uint32_t end;
+} PreparationCharacter;
+
+typedef struct {
+  TSLexer lexer;
+  const PreparationCharacter *characters;
+  size_t length;
+  size_t position;
+  size_t marked;
+  size_t start;
+  uint32_t column;
+  bool included_range_start;
+} PreparationLexer;
+
+static void preparation_advance(TSLexer *lexer, bool skip) {
+  PreparationLexer *prepared = (PreparationLexer *)lexer;
+  if (prepared->position < prepared->length) {
+    if (lexer->lookahead == '\n') {
+      prepared->column = 0;
+    } else {
+      ++prepared->column;
+    }
+    ++prepared->position;
+  }
+  if (skip) {
+    prepared->start = prepared->position;
+  }
+  lexer->lookahead = prepared->position < prepared->length
+                         ? prepared->characters[prepared->position].character
+                         : 0;
+}
+
+static void preparation_mark_end(TSLexer *lexer) {
+  PreparationLexer *prepared = (PreparationLexer *)lexer;
+  prepared->marked = prepared->position;
+}
+
+static uint32_t preparation_column(TSLexer *lexer) {
+  PreparationLexer *prepared = (PreparationLexer *)lexer;
+  return prepared->column;
+}
+
+static bool preparation_range_start(const TSLexer *lexer) {
+  const PreparationLexer *prepared = (const PreparationLexer *)lexer;
+  return prepared->position == 0 && prepared->included_range_start;
+}
+
+static bool preparation_eof(const TSLexer *lexer) {
+  const PreparationLexer *prepared = (const PreparationLexer *)lexer;
+  return prepared->position == prepared->length;
+}
+
+/* Temporary prefixes contain only output that later input cannot change.
+ * Withhold each layer's trailing tick/quote until the real collector ends. */
+static size_t preparation_transform(PreparationCharacter *characters, size_t length,
+                                    uint32_t layers, bool complete) {
+  for (uint32_t layer = 0; layer < layers && length; ++layer) {
+    size_t output = 0;
+    bool changed = false;
+    for (size_t input = 0; input < length; ++input) {
+      int32_t character = characters[input].character;
+      if (character == '`' || double_quote(character)) {
+        if (input + 1 == length && !complete) {
+          changed = true;
+          break;
+        }
+        if (input + 1 < length && double_quote(characters[input + 1].character)) {
+          ++input;
+          changed = true;
+        }
+      }
+      characters[output++] = characters[input];
+    }
+    length = output;
+    if (!changed) {
+      /* No remaining pair can change on a later identical pass. */
+      break;
+    }
+  }
+  return length;
+}
+
+static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bool *valid,
+                                      size_t valid_count, PreparedToken *result) {
+  uint32_t layers = ordinary_interpolation_layers(scanner);
+  if (!layers || valid_count <= SUB_EXPRESSION_OPEN || valid_count <= SUB_EXPRESSION_END) {
+    return false;
+  }
+  PreparedToken prepared = {0};
+  bool range_start = lexer->is_at_included_range_start(lexer);
+  lexer->mark_end(lexer);
+  PreparationCharacter *raw = NULL;
+  PreparationCharacter *transformed = NULL;
+  bool *virtual_valid = malloc(valid_count * sizeof(*virtual_valid));
+  if (!virtual_valid) {
+    return false;
+  }
+  memcpy(virtual_valid, valid, valid_count * sizeof(*virtual_valid));
+  virtual_valid[SUB_EXPRESSION_OPEN] = false;
+  virtual_valid[ADJACENT_SUB_EXPRESSION_OPEN] = false;
+  virtual_valid[SUB_EXPRESSION_END] = false;
+  size_t length = 0;
+  size_t capacity = 0;
+  size_t target = 32;
+  bool success = false;
+  for (;;) {
+    if (target > SIZE_MAX / sizeof(*raw)) {
+      break;
+    }
+    if (target > capacity) {
+      PreparationCharacter *larger = realloc(raw, target * sizeof(*raw));
+      if (!larger) {
+        break;
+      }
+      raw = larger;
+      larger = realloc(transformed, target * sizeof(*transformed));
+      if (!larger) {
+        break;
+      }
+      transformed = larger;
+      capacity = target;
+    }
+    while (length < target && !lexer->eof(lexer)) {
+      if (length == UINT32_MAX) {
+        goto cleanup;
+      }
+      int32_t character = lexer->lookahead;
+      lexer->advance(lexer, false);
+      raw[length] = (PreparationCharacter){
+          .character = character,
+          .end = (uint32_t)length + 1,
+      };
+      ++length;
+    }
+    bool complete = lexer->eof(lexer);
+    memcpy(transformed, raw, length * sizeof(*raw));
+    size_t virtual_length = preparation_transform(transformed, length, layers, complete);
+    PreparationLexer source = {
+        .lexer =
+            {
+                .lookahead = virtual_length ? transformed[0].character : 0,
+                .advance = preparation_advance,
+                .mark_end = preparation_mark_end,
+                .get_column = preparation_column,
+                .is_at_included_range_start = preparation_range_start,
+                .eof = preparation_eof,
+            },
+        .characters = transformed,
+        .length = virtual_length,
+        .included_range_start = range_start,
+    };
+    Scanner virtual_scanner = {.collector_eof = complete};
+    TrackedLexer virtual_lexer = {
+        .lexer =
+            {
+                .lookahead = source.lexer.lookahead,
+                .advance = tracked_advance,
+                .mark_end = tracked_mark_end,
+                .get_column = tracked_column,
+                .is_at_included_range_start = tracked_range_start,
+                .eof = tracked_eof,
+            },
+        .base = &source.lexer,
+        .scanner = &virtual_scanner,
+    };
+    bool accepted = scan(&virtual_scanner, &virtual_lexer.lexer, virtual_valid);
+    if (complete || source.position < virtual_length) {
+      if (accepted &&
+          (source.marked > source.start ||
+           (source.marked == source.start &&
+            prepared_context_token(virtual_lexer.lexer.result_symbol))) &&
+          source.marked <= virtual_length && virtual_lexer.lexer.result_symbol < valid_count &&
+          valid[virtual_lexer.lexer.result_symbol]) {
+        prepared.start = source.start ? transformed[source.start - 1].end : 0;
+        prepared.end = source.marked ? transformed[source.marked - 1].end : 0;
+        prepared.symbol = virtual_lexer.lexer.result_symbol;
+        prepared.active = true;
+        *result = prepared;
+        success = true;
+      }
+      break;
+    }
+    if (target > SIZE_MAX / 2) {
+      break;
+    }
+    target *= 2;
+  }
+cleanup:
+  free(virtual_valid);
+  free(transformed);
+  free(raw);
+  return success;
+}
+
+static bool emit_prepared_token(TSLexer *lexer, const bool *valid, size_t valid_count,
+                                PreparedToken *prepared) {
+  if (!prepared->active || prepared->symbol >= valid_count || !valid[prepared->symbol] ||
+      (prepared->start > prepared->end ||
+       (prepared->start == prepared->end && !prepared_context_token(prepared->symbol)))) {
+    return false;
+  }
+  for (uint32_t position = 0; position < prepared->end; ++position) {
+    if (lexer->eof(lexer)) {
+      return false;
+    }
+    lexer->advance(lexer, position < prepared->start);
+  }
+  lexer->mark_end(lexer);
+  lexer->result_symbol = prepared->symbol;
+  prepared->active = false;
+  return true;
+}
+
+bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
+                                                  const bool *valid) {
+  Scanner candidate = *(Scanner *)payload;
+  candidate.collector_eof = false;
+  TrackedLexer tracked = {.lexer =
+                              {
+                                  .lookahead = lexer->lookahead,
+                                  .advance = tracked_advance,
+                                  .mark_end = tracked_mark_end,
+                                  .get_column = tracked_column,
+                                  .is_at_included_range_start = tracked_range_start,
+                                  .eof = tracked_eof,
+                              },
+                          .base = lexer,
+                          .scanner = &candidate,
+                          .balance = candidate.balance,
+                          .marked_balance = candidate.balance};
+  bool accepted;
+  if (candidate.prepared.active) {
+    accepted =
+        emit_prepared_token(&tracked.lexer, valid, EXTERNAL_TOKEN_COUNT, &candidate.prepared);
+  } else {
+    accepted = scan(&candidate, &tracked.lexer, valid);
+  }
+  if (!accepted || tracked.overflow) {
+    return false;
+  }
+  candidate.balance = candidate.depth ? tracked.marked_balance : 0;
+  *(Scanner *)payload = candidate;
+  lexer->result_symbol = tracked.lexer.result_symbol;
+  return true;
 }

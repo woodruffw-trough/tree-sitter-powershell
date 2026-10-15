@@ -76,6 +76,39 @@ impl<'a> Source<'a> {
         &self.text[node.byte_range()]
     }
 
+    fn collected_text(&self, node: Node<'_>) -> String {
+        let mut layers = 0;
+        let mut ancestor = node.parent();
+        while let Some(parent) = ancestor {
+            if parent.kind() == "sub_expression"
+                && parent
+                    .parent()
+                    .is_some_and(|string| string.kind() == "expandable_string")
+            {
+                layers += 1;
+            }
+            ancestor = parent.parent();
+        }
+        let mut text = self.text(node).to_owned();
+        for _ in 0..layers {
+            let mut characters = text.chars().peekable();
+            let mut collected = String::new();
+            while let Some(character) = characters.next() {
+                if matches!(character, '`' | '"' | '“' | '”' | '„')
+                    && characters
+                        .peek()
+                        .is_some_and(|character| double_quote(*character))
+                {
+                    collected.push(characters.next().unwrap());
+                } else {
+                    collected.push(character);
+                }
+            }
+            text = collected;
+        }
+        text
+    }
+
     fn excerpt(&self, extent: Extent) -> String {
         let units = self
             .text
@@ -694,6 +727,67 @@ fn decode_backticks(text: &str) -> String {
     decoded
 }
 
+fn double_quote(character: char) -> bool {
+    matches!(character, '"' | '“' | '”' | '„')
+}
+
+fn single_quote(character: char) -> bool {
+    matches!(character, '\'' | '‘' | '’' | '‚' | '‛')
+}
+
+fn decode_name(text: &str) -> String {
+    let mut characters = text.chars().peekable();
+    let mut quote = None;
+    let mut decoded = String::new();
+    while let Some(character) = characters.next() {
+        if character == '`' && quote != Some('\'') {
+            let mut escape = String::from("`");
+            if let Some(character) = characters.next() {
+                escape.push(character);
+                if character == 'u' {
+                    for character in characters.by_ref() {
+                        escape.push(character);
+                        if character == '}' {
+                            break;
+                        }
+                    }
+                }
+            }
+            decoded.push_str(&decode_backticks(&escape));
+            continue;
+        }
+        let kind = if single_quote(character) {
+            Some('\'')
+        } else if double_quote(character) {
+            Some('"')
+        } else {
+            None
+        };
+        if let Some(kind) = kind {
+            if quote == Some(kind) {
+                if characters.peek().is_some_and(|next| {
+                    if kind == '\'' {
+                        single_quote(*next)
+                    } else {
+                        double_quote(*next)
+                    }
+                }) {
+                    decoded.push(characters.next().unwrap());
+                } else {
+                    quote = None;
+                }
+            } else if quote.is_none() {
+                quote = Some(kind);
+            } else {
+                decoded.push(character);
+            }
+        } else {
+            decoded.push(character);
+        }
+    }
+    decoded
+}
+
 fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'static str, Value> {
     let mut result = BTreeMap::new();
     if category == "CommandExpressionAst" {
@@ -744,7 +838,7 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
     }
     if category == "VariableExpressionAst" {
         result.insert("splatted", json!(node.kind() == "splat_expression"));
-        let text = source.text(node);
+        let text = source.collected_text(node);
         let name = text[1..]
             .strip_prefix('{')
             .and_then(|name| name.strip_suffix('}'))
@@ -764,11 +858,9 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
         category,
         "FunctionDefinitionAst" | "FunctionMemberAst" | "PropertyMemberAst" | "TypeDefinitionAst"
     ) {
-        let name = source.text(node.child_by_field_name("name").unwrap());
-        result.insert(
-            "name",
-            json!(decode_backticks(name.strip_prefix('$').unwrap_or(name))),
-        );
+        let name = source.collected_text(node.child_by_field_name("name").unwrap());
+        let name = name.strip_prefix('$').unwrap_or(&name);
+        result.insert("name", json!(decode_name(name)));
     }
     if category == "QuotedStringAst" {
         let kind = match node.kind() {

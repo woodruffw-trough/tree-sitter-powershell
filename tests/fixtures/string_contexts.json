@@ -1,0 +1,1377 @@
+[
+  {
+    "name": "ordinary-subexpr-\"'('\"",
+    "source": "\"$('(')\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"'('\"",
+    "source": "@\"\n$('(')\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-\"')'\"",
+    "source": "\"$(')')\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"')'\"",
+    "source": "@\"\n$(')')\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-\"'()'\"",
+    "source": "\"$('()')\"",
+    "valid": true
+  },
+  {
+    "name": "here-subexpr-\"'()'\"",
+    "source": "@\"\n$('()')\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary-subexpr-\"'a)b'\"",
+    "source": "\"$('a)b')\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"'a)b'\"",
+    "source": "@\"\n$('a)b')\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-\"'a(b'\"",
+    "source": "\"$('a(b')\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"'a(b'\"",
+    "source": "@\"\n$('a(b')\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'\"(\"'",
+    "source": "\"$(\"(\")\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'\"(\"'",
+    "source": "@\"\n$(\"(\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'\")\"'",
+    "source": "\"$(\")\")\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'\")\"'",
+    "source": "@\"\n$(\")\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'\"()\"'",
+    "source": "\"$(\"()\")\"",
+    "valid": true
+  },
+  {
+    "name": "here-subexpr-'\"()\"'",
+    "source": "@\"\n$(\"()\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary-subexpr-'\"a)b\"'",
+    "source": "\"$(\"a)b\")\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'\"a)b\"'",
+    "source": "@\"\n$(\"a)b\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'\"a(b\"'",
+    "source": "\"$(\"a(b\")\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'\"a(b\"'",
+    "source": "@\"\n$(\"a(b\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-\"'# ( comment'\"",
+    "source": "\"$('# ( comment')\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"'# ( comment'\"",
+    "source": "@\"\n$('# ( comment')\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'1 <# ) #>'",
+    "source": "\"$(1 <# ) #>)\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'1 <# ) #>'",
+    "source": "@\"\n$(1 <# ) #>)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'1 <# ( #>'",
+    "source": "\"$(1 <# ( #>)\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'1 <# ( #>'",
+    "source": "@\"\n$(1 <# ( #>)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'1 <# () #>'",
+    "source": "\"$(1 <# () #>)\"",
+    "valid": true
+  },
+  {
+    "name": "here-subexpr-'1 <# () #>'",
+    "source": "@\"\n$(1 <# () #>)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary-subexpr-'1 # )\\n'",
+    "source": "\"$(1 # )\n)\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'1 # )\\n'",
+    "source": "@\"\n$(1 # )\n)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'1 # (\\n'",
+    "source": "\"$(1 # (\n)\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'1 # (\\n'",
+    "source": "@\"\n$(1 # (\n)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'1 # ()\\n'",
+    "source": "\"$(1 # ()\n)\"",
+    "valid": true
+  },
+  {
+    "name": "here-subexpr-'1 # ()\\n'",
+    "source": "@\"\n$(1 # ()\n)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary-subexpr-\"'`)'\"",
+    "source": "\"$('`)')\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"'`)'\"",
+    "source": "@\"\n$('`)')\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-\"'`('\"",
+    "source": "\"$('`(')\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"'`('\"",
+    "source": "@\"\n$('`(')\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'\"`\"x`\"\"'",
+    "source": "\"$(\"`\"x`\"\")\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'\"`\"x`\"\"'",
+    "source": "@\"\n$(\"`\"x`\"\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary-subexpr-'\"\"x\"\"'",
+    "source": "\"$(\"\"x\"\")\"",
+    "valid": true
+  },
+  {
+    "name": "here-subexpr-'\"\"x\"\"'",
+    "source": "@\"\n$(\"\"x\"\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-\"@'\\n)\\n'@\"",
+    "source": "\"$(@'\n)\n'@)\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"@'\\n)\\n'@\"",
+    "source": "@\"\n$(@'\n)\n'@)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-\"@'\\n(\\n'@\"",
+    "source": "\"$(@'\n(\n'@)\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-\"@'\\n(\\n'@\"",
+    "source": "@\"\n$(@'\n(\n'@)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary-subexpr-'@\"\\n)\\n\"@'",
+    "source": "\"$(@\"\n)\n\"@)\"",
+    "valid": false
+  },
+  {
+    "name": "here-subexpr-'@\"\\n)\\n\"@'",
+    "source": "@\"\n$(@\"\n)\n\"@)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "escape-'`u{0}'",
+    "source": "\"`u{0}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'`u{0}'",
+    "source": "@\"\n`u{0}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'`u{D800}'",
+    "source": "\"`u{D800}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'`u{D800}'",
+    "source": "@\"\n`u{D800}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'`u{10FFFF}'",
+    "source": "\"`u{10FFFF}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'`u{10FFFF}'",
+    "source": "@\"\n`u{10FFFF}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'`u{110000}'",
+    "source": "\"`u{110000}\"",
+    "valid": false
+  },
+  {
+    "name": "here-escape-'`u{110000}'",
+    "source": "@\"\n`u{110000}\n\"@",
+    "valid": false
+  },
+  {
+    "name": "escape-'`u{}'",
+    "source": "\"`u{}\"",
+    "valid": false
+  },
+  {
+    "name": "here-escape-'`u{}'",
+    "source": "@\"\n`u{}\n\"@",
+    "valid": false
+  },
+  {
+    "name": "escape-'`u{0000000}'",
+    "source": "\"`u{0000000}\"",
+    "valid": false
+  },
+  {
+    "name": "here-escape-'`u{0000000}'",
+    "source": "@\"\n`u{0000000}\n\"@",
+    "valid": false
+  },
+  {
+    "name": "escape-'`u{000000}'",
+    "source": "\"`u{000000}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'`u{000000}'",
+    "source": "@\"\n`u{000000}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'`U{20}'",
+    "source": "\"`U{20}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'`U{20}'",
+    "source": "@\"\n`U{20}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'`u x'",
+    "source": "\"`u x\"",
+    "valid": false
+  },
+  {
+    "name": "here-escape-'`u x'",
+    "source": "@\"\n`u x\n\"@",
+    "valid": false
+  },
+  {
+    "name": "escape-'`\\x00'",
+    "source": "\"`\u0000\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'`\\x00'",
+    "source": "@\"\n`\u0000\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'\\x00'",
+    "source": "\"\u0000\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'\\x00'",
+    "source": "@\"\n\u0000\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'`\\r\\n'",
+    "source": "\"`\r\n\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'`\\r\\n'",
+    "source": "@\"\n`\r\n\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'$$x'",
+    "source": "\"$$x\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'$$x'",
+    "source": "@\"\n$$x\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'$?x'",
+    "source": "\"$?x\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'$?x'",
+    "source": "@\"\n$?x\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'$^x'",
+    "source": "\"$^x\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'$^x'",
+    "source": "@\"\n$^x\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'$x?y'",
+    "source": "\"$x?y\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'$x?y'",
+    "source": "@\"\n$x?y\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'$x::y'",
+    "source": "\"$x::y\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'$x::y'",
+    "source": "@\"\n$x::y\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'$:x'",
+    "source": "\"$:x\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'$:x'",
+    "source": "@\"\n$:x\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'$x:y:z'",
+    "source": "\"$x:y:z\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'$x:y:z'",
+    "source": "@\"\n$x:y:z\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'${x:y:z}'",
+    "source": "\"${x:y:z}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'${x:y:z}'",
+    "source": "@\"\n${x:y:z}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'${x`u{3a}}'",
+    "source": "\"${x`u{3a}}\"",
+    "valid": false
+  },
+  {
+    "name": "here-escape-'${x`u{3a}}'",
+    "source": "@\"\n${x`u{3a}}\n\"@",
+    "valid": false
+  },
+  {
+    "name": "escape-'${x`n}'",
+    "source": "\"${x`n}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'${x`n}'",
+    "source": "@\"\n${x`n}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'${x`{y}'",
+    "source": "\"${x`{y}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'${x`{y}'",
+    "source": "@\"\n${x`{y}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'${x`u{7b}y}'",
+    "source": "\"${x`u{7b}y}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'${x`u{7b}y}'",
+    "source": "@\"\n${x`u{7b}y}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "escape-'${x`u{7d}y}'",
+    "source": "\"${x`u{7d}y}\"",
+    "valid": true
+  },
+  {
+    "name": "here-escape-'${x`u{7d}y}'",
+    "source": "@\"\n${x`u{7d}y}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '')",
+    "source": "@\"\n\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '\\r')",
+    "source": "@\"\n\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '\\n')",
+    "source": "@\"\n\n\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '\\r\\n')",
+    "source": "@\"\n\r\n\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '\\x00')",
+    "source": "@\"\n\u0000\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '$')",
+    "source": "@\"\n$\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '`\\n')",
+    "source": "@\"\n`\n\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '`\\r\\n')",
+    "source": "@\"\n`\r\n\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '`u{a}')",
+    "source": "@\"\n`u{a}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '`u{d}')",
+    "source": "@\"\n`u{d}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '`u{22}')",
+    "source": "@\"\n`u{22}\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\n', '\"@')",
+    "source": "@\"\n\"@\n\"@",
+    "valid": false
+  },
+  {
+    "name": "herebody-('\\n', \"'@\")",
+    "source": "@\"\n'@\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '')",
+    "source": "@\"\r\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '\\r')",
+    "source": "@\"\r\r\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '\\n')",
+    "source": "@\"\r\n\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '\\r\\n')",
+    "source": "@\"\r\r\n\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '\\x00')",
+    "source": "@\"\r\u0000\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '$')",
+    "source": "@\"\r$\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '`\\n')",
+    "source": "@\"\r`\n\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '`\\r\\n')",
+    "source": "@\"\r`\r\n\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '`u{a}')",
+    "source": "@\"\r`u{a}\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '`u{d}')",
+    "source": "@\"\r`u{d}\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '`u{22}')",
+    "source": "@\"\r`u{22}\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r', '\"@')",
+    "source": "@\"\r\"@\r\"@",
+    "valid": false
+  },
+  {
+    "name": "herebody-('\\r', \"'@\")",
+    "source": "@\"\r'@\r\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '')",
+    "source": "@\"\r\n\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '\\r')",
+    "source": "@\"\r\n\r\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '\\n')",
+    "source": "@\"\r\n\n\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '\\r\\n')",
+    "source": "@\"\r\n\r\n\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '\\x00')",
+    "source": "@\"\r\n\u0000\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '$')",
+    "source": "@\"\r\n$\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '`\\n')",
+    "source": "@\"\r\n`\n\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '`\\r\\n')",
+    "source": "@\"\r\n`\r\n\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '`u{a}')",
+    "source": "@\"\r\n`u{a}\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '`u{d}')",
+    "source": "@\"\r\n`u{d}\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '`u{22}')",
+    "source": "@\"\r\n`u{22}\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "herebody-('\\r\\n', '\"@')",
+    "source": "@\"\r\n\"@\r\n\"@",
+    "valid": false
+  },
+  {
+    "name": "herebody-('\\r\\n', \"'@\")",
+    "source": "@\"\r\n'@\r\n\"@",
+    "valid": true
+  },
+  {
+    "name": "comment-'<# x <# y #> z #>'",
+    "source": "<# x <# y #> z #>",
+    "valid": true
+  },
+  {
+    "name": "comment-'<# x `#> y #>'",
+    "source": "<# x `#> y #>",
+    "valid": true
+  },
+  {
+    "name": "comment-'foo<#x#>bar'",
+    "source": "foo<#x#>bar",
+    "valid": true
+  },
+  {
+    "name": "comment-'$a<#x#>.b'",
+    "source": "$a<#x#>.b",
+    "valid": true
+  },
+  {
+    "name": "comment-'\"#x <#y#>\"'",
+    "source": "\"#x <#y#>\"",
+    "valid": true
+  },
+  {
+    "name": "comment-'<# \\x00 #>'",
+    "source": "<# \u0000 #>",
+    "valid": true
+  },
+  {
+    "name": "comment-'# \\x00\\n1'",
+    "source": "# \u0000\n1",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 0",
+    "source": "'\u0000'",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 1",
+    "source": "\"a\u0000b\"",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 2",
+    "source": "\"\u0000\u0000\"",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 3",
+    "source": "cmd a\u0000b",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 4",
+    "source": "a\u0000b arg",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 5",
+    "source": "${a\u0000b}",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 6",
+    "source": "function a\u0000b {}",
+    "valid": false
+  },
+  {
+    "name": "NUL boundary 7",
+    "source": "\"$a\u0000b\"",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 8",
+    "source": "@\"\n\u0000\n\"@",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 9",
+    "source": "@'\n\u0000\n'@",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 10",
+    "source": "cmd \"\u0000\"",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 11",
+    "source": "cmd '\u0000'",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 12",
+    "source": "\"$(\u0000)\"",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 13",
+    "source": "1\u0000+2",
+    "valid": false
+  },
+  {
+    "name": "NUL boundary 14",
+    "source": "\u0000",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 15",
+    "source": "\u00001",
+    "valid": true
+  },
+  {
+    "name": "NUL boundary 16",
+    "source": "cmd x\u0000\nnext",
+    "valid": true
+  },
+  {
+    "name": "command_name_doubled",
+    "source": "\"$(foo\"\"bar baz\"\")\"",
+    "valid": true
+  },
+  {
+    "name": "command_name_tick_quote",
+    "source": "\"$(foo`\"bar baz`\")\"",
+    "valid": true
+  },
+  {
+    "name": "function_name_doubled",
+    "source": "\"$(function foo\"\"bar baz\"\" {})\"",
+    "valid": true
+  },
+  {
+    "name": "function_name_tick_quote",
+    "source": "\"$(function foo`\"bar baz`\" {})\"",
+    "valid": true
+  },
+  {
+    "name": "function_name_leading_tick_quote",
+    "source": "\"$(function `\"foo bar`\" {})\"",
+    "valid": false
+  },
+  {
+    "name": "command_argument_doubled",
+    "source": "\"$(Write-Output foo\"\"bar baz\"\")\"",
+    "valid": true
+  },
+  {
+    "name": "command_argument_tick_quote",
+    "source": "\"$(Write-Output foo`\"bar baz`\")\"",
+    "valid": true
+  },
+  {
+    "name": "here_body_tick_quote",
+    "source": "\"$(@\"\"\nfoo`\"\n\"\"@\n)\"",
+    "valid": true
+  },
+  {
+    "name": "here_body_double_quote",
+    "source": "\"$(@\"\"\nfoo\"\"\n\"\"@\n)\"",
+    "valid": true
+  },
+  {
+    "name": "verbatim_quote_pipe_newline",
+    "source": "\"$(cmd --% \"\"a|b\"\"\n)\"",
+    "valid": true
+  },
+  {
+    "name": "line_comment_tick_quote",
+    "source": "\"$(# `\"\n1)\"",
+    "valid": true
+  },
+  {
+    "name": "block_comment_tick_quote",
+    "source": "\"$(<# `\" #> 1)\"",
+    "valid": true
+  },
+  {
+    "name": "braced_variable_tick_quote",
+    "source": "\"$(${a`\"b})\"",
+    "valid": true
+  },
+  {
+    "name": "braced_variable_two_ticks_quote",
+    "source": "\"$(${a``\"b})\"",
+    "valid": true
+  },
+  {
+    "name": "quoted_expression_tick_quote",
+    "source": "\"$(`\"foo bar`\")\"",
+    "valid": true
+  },
+  {
+    "name": "nested_command_name_doubled",
+    "source": "\"$(\"\"$(foo\"\"\"\"bar baz\"\"\"\")\"\")\"",
+    "valid": true
+  },
+  {
+    "name": "single_quoted_literal_tick_quote",
+    "source": "\"$('a`\"b')\"",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 1 double quotes",
+    "source": "\"$(\"foo\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 1 double quotes",
+    "source": "@\"\n$(\"foo\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 1 backticks then quote",
+    "source": "\"$(\"foo`\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 1 backticks then quote",
+    "source": "@\"\n$(\"foo`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 1 escaped quotes",
+    "source": "\"$(\"foo`\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 1 escaped quotes",
+    "source": "@\"\n$(\"foo`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 1 interleaved quotes",
+    "source": "\"$(\"foo\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 1 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 2 double quotes",
+    "source": "\"$(\"foo\"\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 2 double quotes",
+    "source": "@\"\n$(\"foo\"\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 2 backticks then quote",
+    "source": "\"$(\"foo``\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 2 backticks then quote",
+    "source": "@\"\n$(\"foo``\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 2 escaped quotes",
+    "source": "\"$(\"foo`\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 2 escaped quotes",
+    "source": "@\"\n$(\"foo`\"`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 2 interleaved quotes",
+    "source": "\"$(\"foo\"`\"\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 2 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 3 double quotes",
+    "source": "\"$(\"foo\"\"\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 3 double quotes",
+    "source": "@\"\n$(\"foo\"\"\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 3 backticks then quote",
+    "source": "\"$(\"foo```\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 3 backticks then quote",
+    "source": "@\"\n$(\"foo```\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 3 escaped quotes",
+    "source": "\"$(\"foo`\"`\"`\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 3 escaped quotes",
+    "source": "@\"\n$(\"foo`\"`\"`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 3 interleaved quotes",
+    "source": "\"$(\"foo\"`\"\"`\"\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 3 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"\"`\"\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 4 double quotes",
+    "source": "\"$(\"foo\"\"\"\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 4 double quotes",
+    "source": "@\"\n$(\"foo\"\"\"\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 4 backticks then quote",
+    "source": "\"$(\"foo````\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 4 backticks then quote",
+    "source": "@\"\n$(\"foo````\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 4 escaped quotes",
+    "source": "\"$(\"foo`\"`\"`\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 4 escaped quotes",
+    "source": "@\"\n$(\"foo`\"`\"`\"`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 4 interleaved quotes",
+    "source": "\"$(\"foo\"`\"\"`\"\"`\"\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 4 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"\"`\"\"`\"\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 5 double quotes",
+    "source": "\"$(\"foo\"\"\"\"\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 5 double quotes",
+    "source": "@\"\n$(\"foo\"\"\"\"\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 5 backticks then quote",
+    "source": "\"$(\"foo`````\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 5 backticks then quote",
+    "source": "@\"\n$(\"foo`````\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 5 escaped quotes",
+    "source": "\"$(\"foo`\"`\"`\"`\"`\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 5 escaped quotes",
+    "source": "@\"\n$(\"foo`\"`\"`\"`\"`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 5 interleaved quotes",
+    "source": "\"$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 5 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 6 double quotes",
+    "source": "\"$(\"foo\"\"\"\"\"\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 6 double quotes",
+    "source": "@\"\n$(\"foo\"\"\"\"\"\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 6 backticks then quote",
+    "source": "\"$(\"foo``````\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 6 backticks then quote",
+    "source": "@\"\n$(\"foo``````\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 6 escaped quotes",
+    "source": "\"$(\"foo`\"`\"`\"`\"`\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 6 escaped quotes",
+    "source": "@\"\n$(\"foo`\"`\"`\"`\"`\"`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 6 interleaved quotes",
+    "source": "\"$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 6 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 7 double quotes",
+    "source": "\"$(\"foo\"\"\"\"\"\"\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 7 double quotes",
+    "source": "@\"\n$(\"foo\"\"\"\"\"\"\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 7 backticks then quote",
+    "source": "\"$(\"foo```````\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 7 backticks then quote",
+    "source": "@\"\n$(\"foo```````\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 7 escaped quotes",
+    "source": "\"$(\"foo`\"`\"`\"`\"`\"`\"`\"bar\")\"",
+    "valid": false
+  },
+  {
+    "name": "here interpolation 7 escaped quotes",
+    "source": "@\"\n$(\"foo`\"`\"`\"`\"`\"`\"`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 7 interleaved quotes",
+    "source": "\"$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 7 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 8 double quotes",
+    "source": "\"$(\"foo\"\"\"\"\"\"\"\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 8 double quotes",
+    "source": "@\"\n$(\"foo\"\"\"\"\"\"\"\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 8 backticks then quote",
+    "source": "\"$(\"foo````````\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 8 backticks then quote",
+    "source": "@\"\n$(\"foo````````\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "ordinary interpolation 8 escaped quotes",
+    "source": "\"$(\"foo`\"`\"`\"`\"`\"`\"`\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 8 escaped quotes",
+    "source": "@\"\n$(\"foo`\"`\"`\"`\"`\"`\"`\"`\"bar\")\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary interpolation 8 interleaved quotes",
+    "source": "\"$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\"",
+    "valid": true
+  },
+  {
+    "name": "here interpolation 8 interleaved quotes",
+    "source": "@\"\n$(\"foo\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"\"`\"bar\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector closing 0",
+    "source": "\"$(foo`)\"",
+    "valid": false
+  },
+  {
+    "name": "collector closing 1",
+    "source": "\"$(@foo`)\"",
+    "valid": false
+  },
+  {
+    "name": "collector closing 2",
+    "source": "\"$(foo``)\"",
+    "valid": true
+  },
+  {
+    "name": "collector closing 3",
+    "source": "\"$(1 #comment)\"",
+    "valid": false
+  },
+  {
+    "name": "collector closing 4",
+    "source": "\"$(1 #comment\n)\"",
+    "valid": true
+  },
+  {
+    "name": "collector closing 5",
+    "source": "\"$(foo`u{29})\"",
+    "valid": true
+  },
+  {
+    "name": "collector closing 6",
+    "source": "@\"\n$(foo`)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector closing 7",
+    "source": "\"$(foo`\n)\"",
+    "valid": true
+  },
+  {
+    "name": "collector closing 8",
+    "source": "\"$(foo`\r\n)\"",
+    "valid": true
+  },
+  {
+    "name": "reviewed signed exponent",
+    "source": "\"$(-1e-2.ToString())\"",
+    "valid": true
+  },
+  {
+    "name": "reviewed positive cast",
+    "source": "\"$([double]+1e-2.Length)\"",
+    "valid": true
+  },
+  {
+    "name": "reviewed negative cast",
+    "source": "\"$([double]-1e-2.Length)\"",
+    "valid": true
+  },
+  {
+    "name": "reviewed data command",
+    "source": "\"$(data -supportedcommand foo\"\"bar baz\"\" {})\"",
+    "valid": true
+  },
+  {
+    "name": "reviewed function escape",
+    "source": "\"$(function `u{41} {})\"",
+    "valid": true
+  },
+  {
+    "name": "ordinary nested code subexpression",
+    "source": "\"$($(1) + 2)\"",
+    "valid": true
+  },
+  {
+    "name": "quoted interpolation inside code subexpression",
+    "source": "$(\"$($x)\")",
+    "valid": true
+  },
+  {
+    "name": "nested code and quoted subexpressions",
+    "source": "\"$( $($x) ; \"$($y)\" )\"",
+    "valid": true
+  },
+  {
+    "name": "here nested code and quoted subexpressions",
+    "source": "@\"\n$( $($x) ; \"$($y)\" )\n\"@",
+    "valid": true
+  },
+  {
+    "name": "ordinary code literal open parenthesis",
+    "source": "$('(')",
+    "valid": true
+  },
+  {
+    "name": "normal subexpression permits raw balance difference",
+    "source": "\"$( $('('); ')' )\"",
+    "valid": true
+  },
+  {
+    "name": "normal subexpression reaches collector early",
+    "source": "\"$( $(')'); '(' )\"",
+    "valid": false
+  },
+  {
+    "name": "mixed_collector_modes_2",
+    "source": "@\"\n$( \"$( 1 )\" )\n\"@",
+    "valid": true
+  },
+  {
+    "name": "mixed_collector_modes_5",
+    "source": "\"$( @\"\n$( \"$( @\"\n$( \"$( 1 )\" )\n\"@ )\" )\n\"@ )\"",
+    "valid": true
+  },
+  {
+    "name": "mixed_collector_modes_12",
+    "source": "@\"\n$( \"$( @\"\n$( \"$( @\"\n$( \"$( @\"\n$( \"$( @\"\n$( \"$( @\"\n$( \"$( 1 )\" )\n\"@ )\" )\n\"@ )\" )\n\"@ )\" )\n\"@ )\" )\n\"@ )\" )\n\"@",
+    "valid": true
+  },
+  {
+    "name": "0",
+    "source": "\"$(-1e-2\"\"x y\"\")\"",
+    "valid": true
+  },
+  {
+    "name": "1",
+    "source": "\"$(+1e-2\"\"x y\"\")\"",
+    "valid": true
+  },
+  {
+    "name": "collected leading escaped command name",
+    "source": "\"$(`echo)\"",
+    "valid": true
+  },
+  {
+    "name": "collected leading Unicode escaped command name",
+    "source": "\"$(`u{41})\"",
+    "valid": true
+  },
+  {
+    "name": "collected variable double colon argument boundary",
+    "source": "\"$(cmd $name::)\"",
+    "valid": false
+  },
+  {
+    "name": "collected double colon before whitespace",
+    "source": "\"$(cmd $name:: )\"",
+    "valid": true
+  },
+  {
+    "name": "collected double colon before newline",
+    "source": "\"$(cmd $name::\n)\"",
+    "valid": true
+  },
+  {
+    "name": "collected double colon before semicolon",
+    "source": "\"$(cmd $name::;)\"",
+    "valid": false
+  },
+  {
+    "name": "double colon before semicolon",
+    "source": "cmd $name::;",
+    "valid": false
+  }
+]

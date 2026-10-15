@@ -149,6 +149,16 @@ In `Write-Output $HOME.Length-more`, the member-access argument ends before the
 `variable`, `sub_expression`, `string_content`, and `escape_sequence` children in the
 same way as ordinary expandable strings, including literal whitespace.
 
+Inside expandable strings, PowerShell first collects the text of `$()` and then
+parses it. The collector counts physical parentheses, including those in quotes
+or comments. In ordinary strings it also reduces `""` and `` `" `` to one `"`
+before parsing the collected text; here strings preserve those pairs. The CST
+retains the original spelling and nested expressions. For example, `"$(""x"")"`
+contains an inner `expandable_string` whose delimiters each span two raw quotes.
+Straight and smart double quotes use the same anonymous `"` node kind.
+These rules follow
+[`ScanSubExpression`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L2362-L2447).
+
 Operator grouping follows the pinned parser. For example,
 `$true -or $false -and $false` groups as `($true -or $false) -and $false`, and
 `1 -eq 2 -shl 3` groups as `(1 -eq 2) -shl 3`. Null coalescing binds above comparison

@@ -107,21 +107,6 @@ const CONTEXTUAL_KEYWORDS = [
   'param', 'dynamicparam', 'begin', 'process', 'end', 'clean',
 ];
 
-// Bare argument fragments share their metacharacters and Unicode escape rules.
-// PowerShell's lowercase `u escape accepts one to six digits up to U+10FFFF.
-const ARGUMENT_CHARACTER = /[^\s;|&(){},$'"‘’‚‛“”„`]/.source;
-const ARGUMENT_ESCAPE = /`(?:[^u\r\n]|u\{(?:[0-9A-Fa-f]{1,5}|0[0-9A-Fa-f]{5}|10[0-9A-Fa-f]{4})\})/.source;
-const VARIABLE_FRAGMENT_START = /[^=.\[?\s;|&(){},$'"‘’‚‛“”„`]/.source;
-const QUESTION_FRAGMENT_START = /[^.\[\s;|&(){},$'"‘’‚‛“”„`]/.source;
-const VARIABLE_ARGUMENT_FRAGMENT = new RegExp(
-  `(?:(?:${VARIABLE_FRAGMENT_START}|${ARGUMENT_ESCAPE})` +
-  `(?:${ARGUMENT_CHARACTER}|${ARGUMENT_ESCAPE})*|` +
-  `\\?(?:${QUESTION_FRAGMENT_START}${ARGUMENT_CHARACTER}*)?)`,
-);
-const GENERIC_ARGUMENT_FRAGMENT = new RegExp(
-  `(?:${ARGUMENT_CHARACTER}|${ARGUMENT_ESCAPE})+`,
-);
-
 const BINARY_OPERATORS = [
   [PREC.logical, ['-and', '-or', '-xor']],
   [PREC.bitwise, ['-band', '-bor', '-bxor']],
@@ -281,6 +266,7 @@ const grammarDefinition = {
     /[ \t\f\v\u0085\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]+/,
     $.comment,
     $.line_continuation,
+    $._prepared_token,
   ],
 
   // Keep this order synchronized with TokenType in src/scanner.c. The method
@@ -323,6 +309,22 @@ const grammarDefinition = {
     $._data_command_name,
     $._signed_number_start,
     $._cast_value_context,
+    $.single_quoted_string,
+    $._adjacent_single_quoted_string,
+    $.string_content,
+    $._variable_argument_fragment,
+    $._generic_argument_fragment,
+    $._double_quote,
+    $._adjacent_double_quote,
+    $._prepared_token,
+    $._left_paren,
+    $._adjacent_left_paren,
+    $._right_paren,
+    $._sub_expression_open,
+    $._adjacent_sub_expression_open,
+    $._sub_expression_end,
+    $._array_expression_open,
+    $._assembly_name_content,
   ],
 
   word: $ => $.identifier,
@@ -1007,20 +1009,17 @@ const grammarDefinition = {
 
     _argument_continuation: _ => token.immediate(prec(1, /`(?:\r\n|\r|\n)/)),
 
-    // Immediate tokens prevent spaces and other extras from joining fragments.
-    _variable_argument_fragment: _ => token.immediate(prec(4, VARIABLE_ARGUMENT_FRAGMENT)),
-
-    _generic_argument_fragment: _ => token.immediate(prec(4, GENERIC_ARGUMENT_FRAGMENT)),
+    // Immediate external tokens keep spaces and extras from joining fragments.
 
     _argument_interpolation: $ => choice(
       alias($._adjacent_variable, $.variable),
       alias($._argument_expandable_string, $.expandable_string),
-      alias(token.immediate(/['‘’‚‛](?:[^'‘’‚‛]|['‘’‚‛]['‘’‚‛])*['‘’‚‛]/), $.single_quoted_string),
+      alias($._adjacent_single_quoted_string, $.single_quoted_string),
       alias($._argument_sub_expression, $.sub_expression),
     ),
 
     _argument_expandable_string: $ => seq(
-      choice(token.immediate('"'), token.immediate('“'), token.immediate('”'), token.immediate('„')),
+      alias($._adjacent_double_quote, '"'),
       repeat(
         choice(
           $.string_content,
@@ -1030,14 +1029,14 @@ const grammarDefinition = {
           $.sub_expression,
         ),
       ),
-      choice(token.immediate('"'), token.immediate('“'), token.immediate('”'), token.immediate('„')),
+      alias($._double_quote, '"'),
     ),
 
     _argument_sub_expression: $ => seq(
       token.immediate('$('),
       repeat($._terminator),
       optional($._statement_list),
-      ')',
+      alias($._sub_expression_end, ')'),
     ),
 
     verbatim_arguments: $ => seq(
@@ -1381,7 +1380,12 @@ const grammarDefinition = {
       ')',
     ),
 
-    sub_expression: $ => seq('$(', repeat($._terminator), optional($._statement_list), ')'),
+    sub_expression: $ => seq(
+      '$(',
+      repeat($._terminator),
+      optional($._statement_list),
+      alias($._sub_expression_end, ')'),
+    ),
 
     array_expression: $ => seq('@(', repeat($._terminator), optional($._statement_list), ')'),
 
@@ -1501,12 +1505,7 @@ const grammarDefinition = {
 
     _generic_type_literal: $ => seq('[', $.type_name, optional($.assembly_name), ']'),
 
-    assembly_name: _ => seq(
-      ',',
-      token(
-        /(?:[^\s,\[\]]+|,+[ \t\f\v]*(?:[^\s,\[\]]+)?)(?:[ \t\f\v]*,[ \t\f\v]*(?:[^\s,\[\]]+)?)*/,
-      ),
-    ),
+    assembly_name: $ => seq(',', $._assembly_name_content),
 
     type_name: $ => seq(
       field('name', $.type_identifier),
@@ -1536,8 +1535,6 @@ const grammarDefinition = {
 
     identifier: _ => new RegExp(IDENTIFIER_START + IDENTIFIER_CONTINUE + '*'),
 
-    single_quoted_string: _ => token(/['‘’‚‛](?:[^'‘’‚‛]|['‘’‚‛]['‘’‚‛])*['‘’‚‛]/),
-
     // Here-string footer tokens include their preceding physical newline.
     expandable_here_string: $ => choice(
       $._empty_expandable_here_string,
@@ -1558,7 +1555,7 @@ const grammarDefinition = {
 
     // Immediate closing delimiters keep trailing body whitespace as content.
     expandable_string: $ => seq(
-      choice('"', '“', '”', '„'),
+      alias($._double_quote, '"'),
       repeat(
         choice(
           $.string_content,
@@ -1568,12 +1565,9 @@ const grammarDefinition = {
           $.sub_expression,
         ),
       ),
-      choice(token.immediate('"'), token.immediate('“'), token.immediate('”'), token.immediate('„')),
+      alias($._double_quote, '"'),
     ),
 
-    string_content: _ => token(prec(1, /["“”„]["“”„]|[^"“”„$`]+/)),
-
-    escape_sequence: _ => token(/`[\s\S]/),
   },
 };
 
@@ -1691,5 +1685,45 @@ grammarDefinition.conflicts = $ => {
     return true;
   });
 };
+
+// PowerShell's collector counts parentheses inside lexical leaves. Keep
+// punctuation external so every parenthesis updates the scanner balance.
+const PARENTHESIS_TOKENS = {
+  '(': '_left_paren',
+  ')': '_right_paren',
+  '$(': '_sub_expression_open',
+  '@(': '_array_expression_open',
+};
+
+const ADJACENT_PARENTHESIS_TOKENS = {
+  '(': '_adjacent_left_paren',
+  '$(': '_adjacent_sub_expression_open',
+};
+
+const parenthesisTokens = ($, rule) => {
+  if (rule.type === 'IMMEDIATE_TOKEN' && rule.content.type === 'STRING') {
+    const name = ADJACENT_PARENTHESIS_TOKENS[rule.content.value];
+    if (name) {
+      return alias($[name], rule.content.value);
+    }
+  }
+  if (rule.type === 'STRING' && PARENTHESIS_TOKENS[rule.value]) {
+    return alias($[PARENTHESIS_TOKENS[rule.value]], rule.value);
+  }
+  if (rule.content) {
+    return {...rule, content: parenthesisTokens($, rule.content)};
+  }
+  if (rule.members) {
+    return {
+      ...rule,
+      members: rule.members.map(member => parenthesisTokens($, member)),
+    };
+  }
+  return rule;
+};
+
+for (const [name, builder] of Object.entries(grammarDefinition.rules)) {
+  grammarDefinition.rules[name] = $ => parenthesisTokens($, builder($));
+}
 
 module.exports = grammar(grammarDefinition);
