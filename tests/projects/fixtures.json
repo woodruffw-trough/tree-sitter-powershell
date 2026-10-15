@@ -88,5 +88,25 @@
     "name": "PowerShell/PSResourceGet src/dsc/psresourceget.ps1",
     "path": "psresourceget/src/dsc/psresourceget.ps1",
     "valid": true
+  },
+  {
+    "name": "nightroman/Invoke-Build Invoke-Build.ps1",
+    "path": "invoke-build/Invoke-Build.ps1",
+    "valid": true
+  },
+  {
+    "name": "chocolatey/choco nuspec/chocolatey/chocolatey/tools/chocolateysetup.psm1",
+    "path": "chocolatey/nuspec/chocolatey/chocolatey/tools/chocolateysetup.psm1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/PSScriptAnalyzer Utils/RuleMaker.psm1",
+    "path": "psscriptanalyzer/Utils/RuleMaker.psm1",
+    "valid": true
+  },
+  {
+    "name": "microsoft/PowerShellForGitHub GitHubGraphQl.ps1",
+    "path": "powershellforgithub/GitHubGraphQl.ps1",
+    "valid": true
   }
 ]

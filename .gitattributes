@@ -15,3 +15,7 @@ tests/projects/psreadline/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/posh-git/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/dbatools/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/psresourceget/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/invoke-build/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/chocolatey/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/psscriptanalyzer/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/powershellforgithub/** -text whitespace=-trailing-space,cr-at-eol

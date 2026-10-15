@@ -1,6 +1,6 @@
 # Complete external project fixtures
 
-These are complete, unmodified PowerShell source files from six independently
+These are complete, unmodified PowerShell source files from ten independently
 maintained projects. The test harness parses them with tree-sitter and the pinned
 PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 
@@ -12,16 +12,21 @@ PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 | [posh-git](https://github.com/dahlbyk/posh-git/tree/bbc5ac380018239e0ac70411a59f4e367ca87f2d) | MIT | `src/PoshGitTypes.ps1`, `src/GitPrompt.ps1`, `src/GitTabExpansion.ps1`: enums, overloaded constructors, class methods, interpolated prompts, nested expressions, and command completion. |
 | [dbatools](https://github.com/dataplat/dbatools/tree/347fb1820030113278fb41911815febcd48f54d0) | MIT | `public/Invoke-DbaQuery.ps1`, `public/Restore-DbaDatabase.ps1`, `public/Write-DbaDbTableData.ps1`: advanced functions, SQL here-strings, typed data access, parameter sets, nested pipelines, and error handling. |
 | [PSResourceGet](https://github.com/PowerShell/PSResourceGet/tree/2abcb8e1cb307ca3d65d051f13e6aa32b90035ba) | MIT | `buildtools.psm1`, `src/Microsoft.PowerShell.PSResourceGet.psm1`, `src/dsc/psresourceget.ps1`: module setup and build functions, enums, classes, typed methods, resource dispatch, and a top-level trap. |
+| [Invoke-Build](https://github.com/nightroman/Invoke-Build/tree/16e0279db6dcc3845d0a550373e1f9f137f2f51b) | Apache-2.0 | `Invoke-Build.ps1`: dynamic parameters, braced and scoped variables, punctuation in function names, task dependencies, and script-block invocation. |
+| [Chocolatey](https://github.com/chocolatey/choco/tree/c8659d49508d2a1dcb61ef3548f90552ff86c5c8) | Apache-2.0 | `nuspec/chocolatey/chocolatey/tools/chocolateysetup.psm1`: Windows installation functions, registry paths, native command arguments, and nested exception handling. |
+| [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer/tree/e14c382a7c2ad0883e98aee611eee9b875d8bb30) | MIT | `Utils/RuleMaker.psm1`: C# here-string templates, XML member access, method calls, and source-file generation. |
+| [PowerShellForGitHub](https://github.com/microsoft/PowerShellForGitHub/tree/fd4fa65f23ca30f18f85312a85348e660c287a9c) | MIT | `GitHubGraphQl.ps1`: advanced API functions, parameter sets, GraphQL examples, hashtables, and splatting. |
 
 Each project retains its original license file. Pester's copyright notice and
 third-party notices are retained, including the upstream copy of the full
-Apache-2.0 terms at its original path. These snapshots remain covered by their
-upstream licenses; the grammar repository's license does not replace them.
+Apache-2.0 terms at its original path. Chocolatey's copyright notice is also
+retained. These snapshots remain covered by their upstream licenses; the grammar
+repository's license does not replace them.
 
 `manifest.json` records every original path, repository, commit, Git blob ID,
 SHA-256 digest, byte count, and source/notice role. `SHA256SUMS` covers the original
 source and notice bytes. Git attributes disable line-ending conversion for the
-six snapshot directories, including their UTF-8 byte-order marks, CRLF endings,
+ten snapshot directories, including their UTF-8 byte-order marks, CRLF endings,
 and trailing whitespace. The Rust reader consumes one leading UTF-8 BOM to match
 .NET's `ReadAllText` before passing source text to the two parsers.
 

@@ -86,6 +86,55 @@
       "notices": [
         "psresourceget/LICENSE"
       ]
+    },
+    {
+      "repository": "nightroman/Invoke-Build",
+      "commit": "16e0279db6dcc3845d0a550373e1f9f137f2f51b",
+      "directory": "invoke-build",
+      "license": "Apache-2.0",
+      "sources": [
+        "invoke-build/Invoke-Build.ps1"
+      ],
+      "notices": [
+        "invoke-build/LICENSE"
+      ]
+    },
+    {
+      "repository": "chocolatey/choco",
+      "commit": "c8659d49508d2a1dcb61ef3548f90552ff86c5c8",
+      "directory": "chocolatey",
+      "license": "Apache-2.0",
+      "sources": [
+        "chocolatey/nuspec/chocolatey/chocolatey/tools/chocolateysetup.psm1"
+      ],
+      "notices": [
+        "chocolatey/LICENSE",
+        "chocolatey/NOTICE"
+      ]
+    },
+    {
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "commit": "e14c382a7c2ad0883e98aee611eee9b875d8bb30",
+      "directory": "psscriptanalyzer",
+      "license": "MIT",
+      "sources": [
+        "psscriptanalyzer/Utils/RuleMaker.psm1"
+      ],
+      "notices": [
+        "psscriptanalyzer/LICENSE"
+      ]
+    },
+    {
+      "repository": "microsoft/PowerShellForGitHub",
+      "commit": "fd4fa65f23ca30f18f85312a85348e660c287a9c",
+      "directory": "powershellforgithub",
+      "license": "MIT",
+      "sources": [
+        "powershellforgithub/GitHubGraphQl.ps1"
+      ],
+      "notices": [
+        "powershellforgithub/LICENSE"
+      ]
     }
   ],
   "files": [
@@ -347,6 +396,96 @@
       "gitBlob": "4c3581d3b05242d2001f4bd2b5724050ada8b491",
       "sha256": "fa683c17cb13cf9739ed7e66656939c984460fdf0c4e6f05cbf17c41258d301b",
       "bytes": 1074,
+      "kind": "notice"
+    },
+    {
+      "path": "invoke-build/Invoke-Build.ps1",
+      "repository": "nightroman/Invoke-Build",
+      "upstreamPath": "Invoke-Build.ps1",
+      "commit": "16e0279db6dcc3845d0a550373e1f9f137f2f51b",
+      "gitBlob": "37028d0322d405cfff8a1637a31dba5ae754a90a",
+      "sha256": "8c9ea3392bec3045a2ac17925a83f4557a62a23df15620ce4193fbbf320622ac",
+      "bytes": 24601,
+      "kind": "source"
+    },
+    {
+      "path": "invoke-build/LICENSE",
+      "repository": "nightroman/Invoke-Build",
+      "upstreamPath": "LICENSE",
+      "commit": "16e0279db6dcc3845d0a550373e1f9f137f2f51b",
+      "gitBlob": "17fb601a5cd5495241d2c9ca725ac0b6602f3759",
+      "sha256": "a09de43239f32bc196b5af966572ba9eff12b159cba4ac4fe8384ac334422e05",
+      "bytes": 10211,
+      "kind": "notice"
+    },
+    {
+      "path": "chocolatey/nuspec/chocolatey/chocolatey/tools/chocolateysetup.psm1",
+      "repository": "chocolatey/choco",
+      "upstreamPath": "nuspec/chocolatey/chocolatey/tools/chocolateysetup.psm1",
+      "commit": "c8659d49508d2a1dcb61ef3548f90552ff86c5c8",
+      "gitBlob": "c66c1282f3d2f50efcdf68cc4b287753e4c444c5",
+      "sha256": "4d1a0d3cc617ab11eb736b8d12f202bec257fd419c9b1d9c5f62e42aab6dbbcf",
+      "bytes": 47999,
+      "kind": "source"
+    },
+    {
+      "path": "chocolatey/LICENSE",
+      "repository": "chocolatey/choco",
+      "upstreamPath": "LICENSE",
+      "commit": "c8659d49508d2a1dcb61ef3548f90552ff86c5c8",
+      "gitBlob": "338979ddc79b37bf5fa6a8f52584c6f652b38b61",
+      "sha256": "f634e0b04b32e05da1915e2d58e89c63e9f358dcd65cc5218a6152ec0e3d65a1",
+      "bytes": 10313,
+      "kind": "notice"
+    },
+    {
+      "path": "chocolatey/NOTICE",
+      "repository": "chocolatey/choco",
+      "upstreamPath": "NOTICE",
+      "commit": "c8659d49508d2a1dcb61ef3548f90552ff86c5c8",
+      "gitBlob": "5ed4024bd44db81c14df32e4520133f67d76e4ec",
+      "sha256": "17174c82568c9e1fe397b43d66e244811007127c94a3cace2186a88c9c6061eb",
+      "bytes": 868,
+      "kind": "notice"
+    },
+    {
+      "path": "psscriptanalyzer/Utils/RuleMaker.psm1",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "upstreamPath": "Utils/RuleMaker.psm1",
+      "commit": "e14c382a7c2ad0883e98aee611eee9b875d8bb30",
+      "gitBlob": "71a5d551f395307e477ccddf2140df8ce6a14188",
+      "sha256": "79467e1d1ced278d961420d5e5e0906dcc896287f5f0ed972159deabc530a8ac",
+      "bytes": 13392,
+      "kind": "source"
+    },
+    {
+      "path": "psscriptanalyzer/LICENSE",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "upstreamPath": "LICENSE",
+      "commit": "e14c382a7c2ad0883e98aee611eee9b875d8bb30",
+      "gitBlob": "48ea6616b5b8581df3401872996cecf1f8b08a0d",
+      "sha256": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+      "bytes": 1073,
+      "kind": "notice"
+    },
+    {
+      "path": "powershellforgithub/GitHubGraphQl.ps1",
+      "repository": "microsoft/PowerShellForGitHub",
+      "upstreamPath": "GitHubGraphQl.ps1",
+      "commit": "fd4fa65f23ca30f18f85312a85348e660c287a9c",
+      "gitBlob": "d8501fb205e60714be7ad192c0523d91b2b225aa",
+      "sha256": "23f7184aa0bee4fb64fbc8a2f4930418c67e13a9b313e8778ce6c1645073c91c",
+      "bytes": 13240,
+      "kind": "source"
+    },
+    {
+      "path": "powershellforgithub/LICENSE",
+      "repository": "microsoft/PowerShellForGitHub",
+      "upstreamPath": "LICENSE",
+      "commit": "fd4fa65f23ca30f18f85312a85348e660c287a9c",
+      "gitBlob": "cab5778cadefb583f5ceea181a343501d8f9cd6e",
+      "sha256": "bea100d8314e79f8463556b8df43993b22e1df25062dcb2f1db2c454709d4b61",
+      "bytes": 1322,
       "kind": "notice"
     }
   ]

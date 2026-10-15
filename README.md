@@ -46,9 +46,9 @@ checked against Microsoft's documentation, the PowerShell parser source, and
 for references and examples.
 
 Tests include explicit corpus trees, focused oracle cases, generated token matrices,
-and complete files from PowerShell, Scoop, Pester, PSReadLine, posh-git, dbatools,
-and PSResourceGet. The oracle parses their source without running the scripts;
-checks compare corresponding tree and AST structure as well as syntax acceptance.
+and complete files from PowerShell and [independent projects](tests/projects/README.md).
+The oracle parses their source without running the scripts; checks compare
+corresponding tree and AST structure as well as syntax acceptance.
 
 ## Contributing
 
