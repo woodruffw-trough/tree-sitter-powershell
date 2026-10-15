@@ -349,6 +349,9 @@ const grammarDefinition = {
     [$.try_statement],
     [$.parameter],
     [$.for_statement],
+    [$._for_header_initializer],
+    [$._for_header_condition],
+    [$._for_header_initializer, $._for_header_condition],
     // Qualifiers share syntax but have distinct property and method field roles.
     [$.class_property, $.class_method],
     // Attribute lists prefix declarations and variable expressions. Preserve
@@ -514,19 +517,23 @@ const grammarDefinition = {
       repeat(NEWLINE),
       '(',
       repeat(NEWLINE),
-      optional(forHeaderClause(
-        field('initializer', $._pipeline_entry),
-        field('initializer', $._completed_pipeline_entry),
-        forHeaderClause(
-          field('condition', $._pipeline_entry),
-          field('condition', $._completed_pipeline_entry),
-          field('update', $._pipeline_entry),
-        ),
-      )),
+      optional($._for_header_initializer),
       repeat(NEWLINE),
       ')',
       repeat(NEWLINE),
       field('body', $.statement_block),
+    ),
+
+    _for_header_initializer: $ => forHeaderClause(
+      field('initializer', $._pipeline_entry),
+      field('initializer', $._completed_pipeline_entry),
+      $._for_header_condition,
+    ),
+
+    _for_header_condition: $ => forHeaderClause(
+      field('condition', $._pipeline_entry),
+      field('condition', $._completed_pipeline_entry),
+      field('update', $._pipeline_entry),
     ),
 
     while_statement: $ => seq(
@@ -1577,7 +1584,8 @@ const COMMA_CONTEXT_RULES = new Set([
   '_statement', '_block_statement', '_simple_statement', 'statement_block',
   'if_statement', 'elseif_clause', 'else_clause', 'condition',
   'switch_statement', '_switch_file_parameter', 'switch_clause',
-  'foreach_statement', 'for_statement', 'while_statement', 'do_statement',
+  'foreach_statement', 'for_statement', '_for_header_initializer', '_for_header_condition',
+  'while_statement', 'do_statement',
   'try_statement', 'catch_clause', 'finally_clause', 'trap_statement',
   'return_statement', 'throw_statement', 'exit_statement',
   '_completed_return_statement', '_completed_throw_statement', '_completed_exit_statement',
