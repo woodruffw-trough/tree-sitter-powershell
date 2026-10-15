@@ -26,12 +26,13 @@ Expandable variables and subexpressions
         (string_content)
         (variable)
         (string_content)
-        (sub_expression
-          (pipeline
-            elements: (command_expression
-              expression: (binary_expression
-                left: (variable)
-                right: (integer_literal)))))))))
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command_expression
+                expression: (binary_expression
+                  left: (variable)
+                  right: (integer_literal))))))))))
 
 ==================
 Expandable escapes
@@ -64,23 +65,24 @@ Nested expandable string subexpression
   (pipeline
     elements: (command_expression
       expression: (expandable_string
-        (sub_expression
-          (if_statement
-            condition: (condition
-              (pipeline
-                elements: (command_expression
-                  expression: (variable))))
-            body: (statement_block
-              (pipeline
-                elements: (command_expression
-                  expression: (expandable_string
-                    (string_content)
-                    (variable)))))
-            else: (else_clause
+        (interpolation
+          expression: (sub_expression
+            (if_statement
+              condition: (condition
+                (pipeline
+                  elements: (command_expression
+                    expression: (variable))))
               body: (statement_block
                 (pipeline
                   elements: (command_expression
-                    expression: (single_quoted_string)))))))))))
+                    expression: (expandable_string
+                      (string_content)
+                      (variable)))))
+              else: (else_clause
+                body: (statement_block
+                  (pipeline
+                    elements: (command_expression
+                      expression: (single_quoted_string))))))))))))
 
 ==================
 Literal here string with suffix
@@ -115,12 +117,13 @@ $($x + 1)
         (string_content)
         (variable)
         (string_content)
-        (sub_expression
-          (pipeline
-            elements: (command_expression
-              expression: (binary_expression
-                left: (variable)
-                right: (integer_literal)))))))))
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command_expression
+                expression: (binary_expression
+                  left: (variable)
+                  right: (integer_literal))))))))))
 
 ==================
 Smart single and double quotes
@@ -167,11 +170,12 @@ $name
   (pipeline
     (command_expression
       (expandable_here_string
-        (sub_expression
-          (pipeline
-            (command_expression
-              (expandable_here_string
-                (variable)))))))))
+        (interpolation
+          (sub_expression
+            (pipeline
+              (command_expression
+                (expandable_here_string
+                  (variable))))))))))
 
 ==================
 Here string literal dollars and escaped footer

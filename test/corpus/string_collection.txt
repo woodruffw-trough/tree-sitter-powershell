@@ -9,10 +9,11 @@ Quoted interpolation counts balanced physical parentheses inside literal strings
   (pipeline
     elements: (command_expression
       expression: (expandable_string
-        (sub_expression
-          (pipeline
-            elements: (command_expression
-              expression: (single_quoted_string))))))))
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command_expression
+                expression: (single_quoted_string)))))))))
 
 ==================
 Ordinary interpolation collects doubled quotes before parsing its nested string
@@ -25,11 +26,12 @@ Ordinary interpolation collects doubled quotes before parsing its nested string
   (pipeline
     elements: (command_expression
       expression: (expandable_string
-        (sub_expression
-          (pipeline
-            elements: (command_expression
-              expression: (expandable_string
-                (string_content)))))))))
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command_expression
+                expression: (expandable_string
+                  (string_content))))))))))
 
 ==================
 Collected quoted command names preserve one literal name across spaces
@@ -42,11 +44,12 @@ Collected quoted command names preserve one literal name across spaces
   (pipeline
     elements: (command_expression
       expression: (expandable_string
-        (sub_expression
-          (pipeline
-            elements: (command
-              name: (command_name
-                (bare_word)))))))))
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command
+                name: (command_name
+                  (bare_word))))))))))
 
 ==================
 Collected function names preserve their declaration fields
@@ -59,7 +62,49 @@ Collected function names preserve their declaration fields
   (pipeline
     elements: (command_expression
       expression: (expandable_string
-        (sub_expression
-          (function_definition
-            name: (function_name)
-            body: (script_block)))))))
+        (interpolation
+          expression: (sub_expression
+            (function_definition
+              name: (function_name)
+              body: (script_block))))))))
+
+==================
+Interpolation spans the collector while its member expression ends before the discarded close
+==================
+"$(`(1).Length)"
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (interpolation
+          expression: (member_access
+            object: (sub_expression
+              (pipeline
+                elements: (command
+                  name: (command_name
+                    (bare_word)))))
+            member: (identifier)))))))
+
+==================
+Command-mode interpolation discards a dot followed by whitespace and its tail
+==================
+cmd prefix$(`(1). name)
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command
+                name: (command_name
+                  (bare_word))))))))))

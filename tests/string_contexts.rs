@@ -297,16 +297,18 @@ fn scanner_recovery_makes_progress() {
 fn collector_boundaries_cross_included_ranges() {
     use tree_sitter::Range;
 
-    for (prefix, suffix) in [
-        ("\"$(1", ")\""),
-        ("\"$($x.L", "ength)\""),
-        ("\"$(i", "f($true){1})\""),
-        ("\"$([in", "t]1)\""),
-        ("\"$(1 -e", "q 1)\""),
-        ("\"$($x+", "+)\""),
-        ("\"$(1 ?", "? 2)\""),
-        ("\"$(foo\"\"bar", " baz\"\")\""),
-        ("\"$(cmd --% \"\"a|", "b\"\"\n)\""),
+    for (prefix, suffix, subexpression_end) in [
+        ("\"$(1", ")\"", None),
+        ("\"$($x.L", "ength)\"", None),
+        ("\"$(i", "f($true){1})\"", None),
+        ("\"$([in", "t]1)\"", None),
+        ("\"$(1 -e", "q 1)\"", None),
+        ("\"$($x+", "+)\"", None),
+        ("\"$(1 ?", "? 2)\"", None),
+        ("\"$(foo\"\"bar", " baz\"\")\"", None),
+        ("\"$(cmd --% \"\"a|", "b\"\"\n)\"", None),
+        ("\"$(`(1).Le", "ngth)\"", Some(7)),
+        ("\"$(`(1)\"\"$", "x\"\")\"", Some(7)),
     ] {
         for gap in ["EXCLUDED", "\nEXCLUDED\n"] {
             let source = format!("{prefix}{gap}{suffix}");
@@ -336,7 +338,13 @@ fn collector_boundaries_cross_included_ranges() {
             assert!(!original.root_node().has_error(), "{source}");
             let subexpression = find_kind(original.root_node(), "sub_expression").unwrap();
             assert_eq!(subexpression.start_byte(), 1, "{source}");
-            assert_eq!(subexpression.end_byte(), source.len() - 1, "{source}");
+            assert_eq!(
+                subexpression.end_byte(),
+                subexpression_end.unwrap_or(source.len() - 1),
+                "{source}"
+            );
+            let interpolation = find_kind(original.root_node(), "interpolation").unwrap();
+            assert_eq!(interpolation.end_byte(), source.len() - 1, "{source}");
             for start in 0..=source.len() {
                 if start > split && start < tail {
                     continue;
@@ -366,5 +374,64 @@ fn collector_boundaries_cross_included_ranges() {
                 assert_eq!(actual, expected, "Included-range edit differs: {edited}");
             }
         }
+    }
+}
+
+#[test]
+fn interpolation_expression_has_semantic_range_within_physical_collector() {
+    use tree_sitter::{Query, QueryCursor, StreamingIterator};
+
+    for (source, kind, physical, semantic, subexpression) in [
+        ("\"$(1).Length\"", "sub_expression", 1..5, 1..5, 1..5),
+        ("\"$(`(1).Length)\"", "member_access", 1..15, 1..14, 1..7),
+        ("\"$(`(1)[0])\"", "element_access", 1..11, 1..10, 1..7),
+        (
+            "\"$(`(1).M(2))\"",
+            "invocation_expression",
+            1..13,
+            1..12,
+            1..7,
+        ),
+        ("\"$(`(1)\"\"$x\"\")\"", "sub_expression", 1..14, 1..7, 1..7),
+        (
+            "cmd prefix$(`(1).Length)",
+            "member_access",
+            10..24,
+            10..23,
+            10..16,
+        ),
+        (
+            "cmd \"$(`(1). name)\"",
+            "sub_expression",
+            5..18,
+            5..11,
+            5..11,
+        ),
+        (
+            "@\"\n$(`(1).Length)\n\"@",
+            "member_access",
+            3..17,
+            3..16,
+            3..9,
+        ),
+    ] {
+        let mut parser = common::parser();
+        let tree = parser.parse(source, None).unwrap();
+        assert!(!tree.root_node().has_error(), "{source}");
+        let interpolation = find_kind(tree.root_node(), "interpolation").unwrap();
+        assert_eq!(interpolation.byte_range(), physical, "{source}");
+        let expression = interpolation.child_by_field_name("expression").unwrap();
+        assert_eq!(expression.kind(), kind, "{source}");
+        assert_eq!(expression.byte_range(), semantic, "{source}");
+        let sub = find_kind(expression, "sub_expression").unwrap();
+        assert_eq!(sub.byte_range(), subexpression, "{source}");
+        assert!(find_kind(interpolation, "variable").is_none(), "{source}");
+        let language = woodruffw_trough_tree_sitter_powershell::LANGUAGE.into();
+        let query = Query::new(&language, "(interpolation expression: (_) @expression)").unwrap();
+        let mut cursor = QueryCursor::new();
+        let mut captures = cursor.captures(&query, tree.root_node(), source.as_bytes());
+        let (capture, index) = captures.next().unwrap();
+        assert_eq!(capture.captures()[*index].node, expression, "{source}");
+        assert!(captures.next().is_none(), "{source}");
     }
 }

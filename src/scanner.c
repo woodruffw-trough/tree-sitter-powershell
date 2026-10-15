@@ -82,6 +82,9 @@ enum TokenType {
   PARAM_BLOCK_KEYWORD,
   PARAM_COMMAND_NAME,
   REDIRECTION_COMMAND_LESS_THAN,
+  INTERPOLATION_OPEN,
+  INTERPOLATION_TAIL,
+  COMMAND_INTERPOLATION_CONTEXT,
   EXTERNAL_TOKEN_COUNT
 };
 
@@ -102,6 +105,7 @@ typedef struct {
   uint32_t balance;
   uint32_t semantic_depth;
   bool ordinary;
+  bool closed;
 } Interpolation;
 
 // A prepared token stores its active flag, two raw codepoint counts, and its
@@ -118,6 +122,7 @@ typedef struct {
   uint32_t semantic_delta;
   uint32_t count;
   bool toggles_ordinary;
+  bool toggles_closed;
 } InterpolationRun;
 
 typedef struct {
@@ -188,7 +193,7 @@ static uint32_t read_u32(const char *buffer) {
 }
 
 static uint64_t encoded_delta(const InterpolationRun *run) {
-  return (uint64_t)run->delta * 2 + run->toggles_ordinary;
+  return (uint64_t)run->delta * 4 + (run->toggles_ordinary ? 2 : 0) + run->toggles_closed;
 }
 
 static size_t run_size(const InterpolationRun *run) {
@@ -243,17 +248,20 @@ static bool push_interpolation(Scanner *scanner, Interpolation frame) {
       .semantic_delta = frame.semantic_depth - scanner->top.semantic_depth,
       .count = 1,
       .toggles_ordinary = scanner->top.ordinary != frame.ordinary,
+      .toggles_closed = scanner->top.closed != frame.closed,
   };
   InterpolationRun *last = scanner->run_count ? &scanner->runs[scanner->run_count - 1] : NULL;
   bool extends = last && last->delta == next.delta && last->semantic_delta == next.semantic_delta &&
-                 last->toggles_ordinary == next.toggles_ordinary;
+                 last->toggles_ordinary == next.toggles_ordinary &&
+                 last->toggles_closed == next.toggles_closed;
   size_t size = interpolation_state_size(scanner);
   if (extends) {
     size += unsigned_size(last->count + 1) - unsigned_size(last->count);
   } else {
     size += run_size(&next);
   }
-  if (size > INTERPOLATION_STATE_BUDGET ||
+  // Closing the top frame may split one run. Keep its maximum encoding free.
+  if (size + 11 > INTERPOLATION_STATE_BUDGET ||
       (!extends && scanner->run_count == MAX_INTERPOLATION_RUNS)) {
     return false;
   }
@@ -283,11 +291,46 @@ static bool pop_interpolation(Scanner *scanner) {
   scanner->top.balance -= last->delta;
   scanner->top.semantic_depth -= last->semantic_delta;
   scanner->top.ordinary ^= last->toggles_ordinary;
+  scanner->top.closed ^= last->toggles_closed;
   if (--last->count == 0) {
     --scanner->run_count;
   }
   --scanner->depth;
   return true;
+}
+
+static bool close_interpolation(Scanner *scanner) {
+  if (!scanner->depth || scanner->top.closed) {
+    return false;
+  }
+  if (scanner->depth == 1) {
+    scanner->outermost.closed = true;
+  } else {
+    InterpolationRun *last = &scanner->runs[scanner->run_count - 1];
+    if (last->count > 1) {
+      if (scanner->run_count == MAX_INTERPOLATION_RUNS) {
+        return false;
+      }
+      InterpolationRun tail = *last;
+      tail.count = 1;
+      tail.toggles_closed = !tail.toggles_closed;
+      --last->count;
+      scanner->runs[scanner->run_count++] = tail;
+    } else {
+      last->toggles_closed = !last->toggles_closed;
+      if (scanner->run_count > 1) {
+        InterpolationRun *previous = last - 1;
+        if (previous->delta == last->delta && previous->semantic_delta == last->semantic_delta &&
+            previous->toggles_ordinary == last->toggles_ordinary &&
+            previous->toggles_closed == last->toggles_closed) {
+          previous->count += last->count;
+          --scanner->run_count;
+        }
+      }
+    }
+  }
+  scanner->top.closed = true;
+  return interpolation_state_size(scanner) <= INTERPOLATION_STATE_BUDGET;
 }
 
 typedef struct {
@@ -362,7 +405,7 @@ static unsigned serialize_interpolations(Scanner *scanner, char *buffer) {
   write_u32(buffer + 4, scanner->semantic_depth);
   char *cursor = write_unsigned(buffer + 8, scanner->outermost.balance);
   cursor = write_unsigned(cursor, scanner->outermost.semantic_depth);
-  *cursor++ = scanner->outermost.ordinary;
+  *cursor++ = scanner->outermost.ordinary | (scanner->outermost.closed ? 2 : 0);
   for (uint32_t i = 0; i < scanner->run_count; ++i) {
     InterpolationRun *run = &scanner->runs[i];
     cursor = write_unsigned(cursor, run->count);
@@ -382,7 +425,7 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
   uint64_t semantic_depth;
   if (!read_unsigned(&cursor, end, &balance) || balance == 0 || balance > UINT32_MAX ||
       !read_unsigned(&cursor, end, &semantic_depth) || semantic_depth == 0 ||
-      semantic_depth > UINT32_MAX || cursor == end || (uint8_t)*cursor > 1) {
+      semantic_depth > UINT32_MAX || cursor == end || (uint8_t)*cursor > 3) {
     return false;
   }
   scanner->balance = read_u32(buffer);
@@ -390,8 +433,10 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
   scanner->outermost = (Interpolation){
       .balance = (uint32_t)balance,
       .semantic_depth = (uint32_t)semantic_depth,
-      .ordinary = *cursor++ != 0,
+      .ordinary = (uint8_t)*cursor & 1,
+      .closed = (uint8_t)*cursor & 2,
   };
+  ++cursor;
   scanner->top = scanner->outermost;
   scanner->depth = 1;
   scanner->ordinary_layers = scanner->outermost.ordinary;
@@ -405,8 +450,9 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
         !read_unsigned(&cursor, end, &semantic_delta)) {
       return false;
     }
-    uint64_t delta = packed_delta >> 1;
-    bool toggles_ordinary = packed_delta & 1;
+    uint64_t delta = packed_delta >> 2;
+    bool toggles_ordinary = packed_delta & 2;
+    bool toggles_closed = packed_delta & 1;
     if (delta == 0 || delta > UINT32_MAX || semantic_delta == 0 || semantic_delta > UINT32_MAX ||
         count > (UINT32_MAX - scanner->top.balance) / delta ||
         count > (UINT32_MAX - scanner->top.semantic_depth) / semantic_delta) {
@@ -417,11 +463,13 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
         .semantic_delta = (uint32_t)semantic_delta,
         .count = (uint32_t)count,
         .toggles_ordinary = toggles_ordinary,
+        .toggles_closed = toggles_closed,
     };
     if (scanner->run_count) {
       InterpolationRun *previous = &scanner->runs[scanner->run_count - 1];
       if (previous->delta == run.delta && previous->semantic_delta == run.semantic_delta &&
-          previous->toggles_ordinary == run.toggles_ordinary) {
+          previous->toggles_ordinary == run.toggles_ordinary &&
+          previous->toggles_closed == run.toggles_closed) {
         return false;
       }
     }
@@ -429,6 +477,7 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
     scanner->top.balance += (uint32_t)(delta * count);
     scanner->top.semantic_depth += (uint32_t)(semantic_delta * count);
     scanner->depth += (uint32_t)count;
+    scanner->top.closed ^= toggles_closed && (count & 1);
     if (toggles_ordinary) {
       scanner->ordinary_layers += (uint32_t)(count / 2);
       if ((count & 1) && !scanner->top.ordinary) {
@@ -439,7 +488,8 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
       scanner->ordinary_layers += (uint32_t)count;
     }
   }
-  return scanner->balance >= scanner->top.balance &&
+  return (scanner->balance >= scanner->top.balance ||
+          (scanner->top.closed && scanner->balance + 1 == scanner->top.balance)) &&
          scanner->semantic_depth >= scanner->top.semantic_depth;
 }
 
@@ -2654,9 +2704,9 @@ static bool scan_subexpression_end(Scanner *scanner, TSLexer *lexer, const bool 
   TrackedLexer *tracked = (TrackedLexer *)lexer;
   if (scanner->depth) {
     Interpolation frame = current_interpolation(scanner);
-    bool collector = scanner->semantic_depth == frame.semantic_depth;
+    bool collector = !frame.closed && scanner->semantic_depth == frame.semantic_depth;
     if (collector) {
-      if (tracked->balance != frame.balance) {
+      if (tracked->balance < frame.balance) {
         return false;
       }
     } else if (scanner->semantic_depth < frame.semantic_depth ||
@@ -2664,9 +2714,12 @@ static bool scan_subexpression_end(Scanner *scanner, TSLexer *lexer, const bool 
       return false;
     }
     lexer->advance(lexer, false);
-    --scanner->semantic_depth;
     if (collector) {
-      pop_interpolation(scanner);
+      if (!close_interpolation(scanner)) {
+        return false;
+      }
+    } else {
+      --scanner->semantic_depth;
     }
   } else {
     lexer->advance(lexer, false);
@@ -2678,7 +2731,8 @@ static bool scan_subexpression_end(Scanner *scanner, TSLexer *lexer, const bool 
 
 static bool scan_subexpression_start(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if (lexer->lookahead != '$' ||
-      (!valid[SUB_EXPRESSION_OPEN] && !valid[ADJACENT_SUB_EXPRESSION_OPEN])) {
+      (!valid[SUB_EXPRESSION_OPEN] && !valid[ADJACENT_SUB_EXPRESSION_OPEN] &&
+       !valid[INTERPOLATION_OPEN])) {
     return false;
   }
   TrackedLexer *tracked = (TrackedLexer *)lexer;
@@ -2713,7 +2767,7 @@ static bool scan_subexpression_start(Scanner *scanner, TSLexer *lexer, const boo
     lexer->result_symbol = LITERAL_DOLLAR;
     return valid[LITERAL_DOLLAR];
   }
-  bool quoted = valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START];
+  bool quoted = valid[INTERPOLATION_OPEN] && !valid[EXPANDABLE_HERE_STRING_START];
   lexer->advance(lexer, false);
   if (scanner->depth) {
     if (scanner->semantic_depth == UINT32_MAX) {
@@ -2732,12 +2786,103 @@ static bool scan_subexpression_start(Scanner *scanner, TSLexer *lexer, const boo
     return false;
   }
   lexer->mark_end(lexer);
-  lexer->result_symbol =
-      valid[ADJACENT_SUB_EXPRESSION_OPEN] ? ADJACENT_SUB_EXPRESSION_OPEN : SUB_EXPRESSION_OPEN;
+  lexer->result_symbol = valid[INTERPOLATION_OPEN]             ? INTERPOLATION_OPEN
+                         : valid[ADJACENT_SUB_EXPRESSION_OPEN] ? ADJACENT_SUB_EXPRESSION_OPEN
+                                                               : SUB_EXPRESSION_OPEN;
+  return true;
+}
+
+static bool scan_interpolation_tail(Scanner *scanner, TSLexer *lexer, const bool *valid) {
+  if (!valid[INTERPOLATION_TAIL] || valid[EXPANDABLE_HERE_STRING_START] || !scanner->depth ||
+      !scanner->top.closed) {
+    return false;
+  }
+  TrackedLexer *tracked = (TrackedLexer *)lexer;
+  Interpolation frame = scanner->top;
+  if (tracked->balance >= frame.balance) {
+    bool ignored = false;
+    // GetMemberAccessOperator skips block comments even when no member follows.
+    // Other trailing text is not reparsed after the primary expression ends.
+    if (valid[POSTFIX_CONTEXT] && lexer->lookahead == '<') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '#') {
+        lexer->advance(lexer, false);
+        bool closed = false;
+        while (!lexer->eof(lexer)) {
+          int32_t c = lexer->lookahead;
+          lexer->advance(lexer, false);
+          if (c == '#' && lexer->lookahead == '>') {
+            lexer->advance(lexer, false);
+            closed = true;
+            break;
+          }
+        }
+        if (!closed) {
+          return false;
+        }
+        lexer->mark_end(lexer);
+        if (valid[METHOD_INVOCATION_CONTEXT]) {
+          while (horizontal(lexer->lookahead)) {
+            lexer->advance(lexer, false);
+          }
+          // A comment ends adjacency between a member name and its call.
+          // The rest of the collected text remains outside the expression.
+          ignored = lexer->lookahead == '(' || lexer->lookahead == '{';
+        }
+        if (!ignored) {
+          lexer->result_symbol = COMMENT;
+          return valid[COMMENT];
+        }
+      } else {
+        ignored = true;
+      }
+    }
+    if (!ignored && valid[POSTFIX_CONTEXT]) {
+      int32_t c = lexer->lookahead;
+      bool command = valid[COMMAND_INTERPOLATION_CONTEXT];
+      if (c == '[') {
+        return false;
+      }
+      if (c == '.' || c == ':' || c == '?') {
+        lexer->advance(lexer, false);
+        if (c == '?' && (lexer->lookahead == '.' || lexer->lookahead == '[')) {
+          return false;
+        }
+        if (c == ':' && lexer->lookahead == ':') {
+          lexer->advance(lexer, false);
+        } else if (c != '.' || lexer->lookahead == '.') {
+          ignored = true;
+        }
+        if (!ignored && (!command || (lexer->lookahead != 0 && !horizontal(lexer->lookahead) &&
+                                      !newline(lexer->lookahead)))) {
+          return false;
+        }
+        ignored = true;
+      }
+    }
+    if (!ignored && valid[METHOD_INVOCATION_CONTEXT] &&
+        (lexer->lookahead == '(' || lexer->lookahead == '{')) {
+      return false;
+    }
+    while (!tracked->base->eof(tracked->base) && tracked->balance >= frame.balance) {
+      lexer->advance(lexer, false);
+    }
+    if (tracked->balance >= frame.balance) {
+      return false;
+    }
+  }
+  --scanner->semantic_depth;
+  pop_interpolation(scanner);
+  lexer->mark_end(lexer);
+  lexer->result_symbol = INTERPOLATION_TAIL;
   return true;
 }
 
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
+  if (valid[INTERPOLATION_TAIL] && !valid[EXPANDABLE_HERE_STRING_START] && scanner->depth &&
+      scanner->top.closed) {
+    return scan_interpolation_tail(scanner, lexer, valid);
+  }
   // Clause keywords are scanned in command mode. A glued comment, quote,
   // backtick, or bracket continues their generic token instead of ending it.
   if (valid[CLAUSE_KEYWORD_END] && !valid[HERE_STRING_CONTENT]) {
@@ -2753,7 +2898,8 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     return true;
   }
   if (lexer->lookahead == '$' &&
-      (valid[SUB_EXPRESSION_OPEN] || valid[ADJACENT_SUB_EXPRESSION_OPEN])) {
+      (valid[SUB_EXPRESSION_OPEN] || valid[ADJACENT_SUB_EXPRESSION_OPEN] ||
+       valid[INTERPOLATION_OPEN])) {
     return scan_subexpression_start(scanner, lexer, valid);
   }
   // Punctuation remains visible during recovery, where every external is valid.
@@ -3201,6 +3347,8 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
   virtual_valid[SUB_EXPRESSION_OPEN] = false;
   virtual_valid[ADJACENT_SUB_EXPRESSION_OPEN] = false;
   virtual_valid[SUB_EXPRESSION_END] = false;
+  virtual_valid[INTERPOLATION_OPEN] = false;
+  virtual_valid[INTERPOLATION_TAIL] = false;
   size_t length = 0;
   size_t capacity = 0;
   size_t target = 32;

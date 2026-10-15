@@ -133,7 +133,7 @@ fn here_string_body_preserves_whitespace_and_escapes() {
             ("string_content", "  lead "),
             ("variable", "$name"),
             ("string_content", "\t "),
-            ("sub_expression", "$(1)"),
+            ("interpolation", "$(1)"),
             ("escape_sequence", "`n"),
         ]
     );

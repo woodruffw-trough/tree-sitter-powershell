@@ -143,7 +143,7 @@ fn expandable_body_coverage(node: Node<'_>, source: &str, failures: &mut Vec<Str
                 }
                 if !matches!(
                     child.kind(),
-                    "string_content" | "escape_sequence" | "variable" | "sub_expression"
+                    "string_content" | "escape_sequence" | "variable" | "interpolation"
                 ) {
                     failures.push(format!(
                         "Unexpected {} in string body at byte {}",

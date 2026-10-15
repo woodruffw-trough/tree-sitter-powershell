@@ -1910,6 +1910,10 @@
           "named": true
         },
         {
+          "type": "interpolation",
+          "named": true
+        },
+        {
           "type": "invocation_expression",
           "named": true
         },
@@ -2853,11 +2857,11 @@
           "named": true
         },
         {
-          "type": "string_content",
+          "type": "interpolation",
           "named": true
         },
         {
-          "type": "sub_expression",
+          "type": "string_content",
           "named": true
         },
         {
@@ -2880,11 +2884,11 @@
           "named": true
         },
         {
-          "type": "string_content",
+          "type": "interpolation",
           "named": true
         },
         {
-          "type": "sub_expression",
+          "type": "string_content",
           "named": true
         },
         {
@@ -3396,6 +3400,34 @@
         "types": [
           {
             "type": "elseif_clause",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interpolation",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "element_access",
+            "named": true
+          },
+          {
+            "type": "invocation_expression",
+            "named": true
+          },
+          {
+            "type": "member_access",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
             "named": true
           }
         ]

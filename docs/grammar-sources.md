@@ -177,7 +177,7 @@ while `native $name.Length>out` has a member-access argument and a redirection.
 
 In `Write-Output $HOME.Length-more`, the member-access argument ends before the
 `-more` parameter. Expandable here strings expose
-`variable`, `sub_expression`, `string_content`, and `escape_sequence` children in the
+`variable`, `interpolation`, `string_content`, and `escape_sequence` children in the
 same way as ordinary expandable strings, including literal whitespace.
 
 Inside expandable strings, PowerShell first collects the text of `$()` and then
@@ -189,6 +189,16 @@ contains an inner `expandable_string` whose delimiters each span two raw quotes.
 Straight and smart double quotes use the same anonymous `"` node kind.
 These rules follow
 [`ScanSubExpression`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L2362-L2447).
+
+Expandable strings and composite command arguments contain `interpolation` nodes
+for collected `$()` text. Each has one `expression` field: a `sub_expression`,
+`member_access`, `element_access`, or `invocation_expression`. The interpolation
+spans the complete physical collector, while its expression retains the nested
+parser's source range. Text PowerShell ignores after that expression creates no
+additional expression children. Standalone `$()` remains a `sub_expression`.
+This distinction follows
+[`ParseNestedExpressions`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7621-L7669),
+which parses one primary expression from each collected token.
 
 Operator grouping follows the pinned parser. For example,
 `$true -or $false -and $false` groups as `($true -or $false) -and $false`, and

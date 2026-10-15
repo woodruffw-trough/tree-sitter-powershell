@@ -106,6 +106,18 @@ fn public_node_types_distinguish_scalar_roles_from_repeated_lists() {
         serde_json::from_str(woodruffw_trough_tree_sitter_powershell::NODE_TYPES).unwrap();
     for (kind, field, required, multiple, types) in [
         (
+            "interpolation",
+            "expression",
+            true,
+            false,
+            vec![
+                "element_access",
+                "invocation_expression",
+                "member_access",
+                "sub_expression",
+            ],
+        ),
+        (
             "command_parameter",
             "name",
             true,

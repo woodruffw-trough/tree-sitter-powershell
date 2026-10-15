@@ -92,10 +92,10 @@ impl<'a> Source<'a> {
         let mut layers = 0;
         let mut ancestor = node.parent();
         while let Some(parent) = ancestor {
-            if parent.kind() == "sub_expression"
+            if parent.kind() == "interpolation"
                 && parent
                     .parent()
-                    .is_some_and(|string| string.kind() == "expandable_string")
+                    .is_some_and(|container| container.kind() != "expandable_here_string")
             {
                 layers += 1;
             }
@@ -243,7 +243,7 @@ fn composite_string(node: Node<'_>) -> bool {
         && children.iter().any(|child| {
             matches!(
                 child.kind(),
-                "variable" | "sub_expression" | "expandable_string" | "single_quoted_string"
+                "variable" | "interpolation" | "expandable_string" | "single_quoted_string"
             )
         })
 }
@@ -256,7 +256,7 @@ fn has_interpolation(node: Node<'_>) -> bool {
     named_children(node)
         .into_iter()
         .any(|child| match child.kind() {
-            "variable" | "sub_expression" => true,
+            "variable" | "interpolation" => true,
             "expandable_string" => has_interpolation(child),
             _ => false,
         })
@@ -495,7 +495,10 @@ fn clause(node: Node<'_>, source: &Source<'_>) -> Value {
 fn interpolation_expressions(node: Node<'_>, source: &Source<'_>, expressions: &mut Vec<Value>) {
     for child in named_children(node) {
         match child.kind() {
-            "variable" | "sub_expression" => expressions.push(source.record(child)),
+            "variable" => expressions.push(source.record(child)),
+            "interpolation" => {
+                expressions.push(source.record(child.child_by_field_name("expression").unwrap()));
+            }
             "expandable_string" => interpolation_expressions(child, source, expressions),
             _ => {}
         }

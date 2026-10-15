@@ -156,15 +156,17 @@ const unaryExpression = ($, argument, allowComma, options = {}) => {
   return prec(PREC.unary, choice(...alternatives));
 };
 
-const primaryValue = ($, allowSigned = true) => choice(
+const primaryValue = ($, allowSigned = true, commandStrings = false) => choice(
   $.variable,
   $.integer_literal,
   $.real_literal,
   ...(allowSigned ? [alias($._signed_numeric_expression, $.unary_expression)] : []),
   $.single_quoted_string,
-  $.expandable_string,
+  commandStrings ? alias($._command_expandable_string, $.expandable_string) : $.expandable_string,
   $.single_quoted_here_string,
-  $.expandable_here_string,
+  commandStrings
+    ? alias($._command_expandable_here_string, $.expandable_here_string)
+    : $.expandable_here_string,
   $.parenthesized_expression,
   $.sub_expression,
   $.array_expression,
@@ -172,9 +174,9 @@ const primaryValue = ($, allowSigned = true) => choice(
   $.script_block,
 );
 
-const valuePrimaryExpression = ($, member, element, invocation) => prec(
+const valuePrimaryExpression = ($, member, element, invocation, commandStrings = false) => prec(
   PREC.member,
-  choice(primaryValue($), member, element, invocation),
+  choice(primaryValue($, true, commandStrings), member, element, invocation),
 );
 
 const memberAccess = ($, primary, member, start = null) => prec.left(
@@ -341,11 +343,16 @@ const grammarDefinition = {
     $._param_block_keyword,
     $._param_command_name,
     $._redirection_command_less_than,
+    $._interpolation_open,
+    $._interpolation_tail,
+    $._command_interpolation_context,
   ],
 
   word: $ => $.identifier,
 
   conflicts: $ => [
+    [$._interpolation_primary_expression, $._interpolation_invocation_expression],
+    [$._command_interpolation_primary_expression, $._command_interpolation_invocation_expression],
     [$._value_primary_expression, $.invocation_expression],
     [$._argument_value_primary_expression, $._argument_invocation_expression],
     [$._command_value_primary_expression, $._command_invocation_expression],
@@ -878,7 +885,7 @@ const grammarDefinition = {
     ),
 
     _data_command_primary_expression: $ => prec(PREC.member, choice(
-      primaryValue($, false),
+      primaryValue($, false, true),
       $.splat_expression,
       alias($._data_command_member_access, $.member_access),
       alias($._data_command_element_access, $.element_access),
@@ -1131,7 +1138,7 @@ const grammarDefinition = {
       alias(token.immediate('$'), $.argument_fragment),
       alias($._argument_expandable_string, $.expandable_string),
       alias($._adjacent_single_quoted_string, $.single_quoted_string),
-      alias($._argument_sub_expression, $.sub_expression),
+      alias($._command_interpolation, $.interpolation),
     ),
 
     _argument_expandable_string: $ => seq(
@@ -1142,17 +1149,24 @@ const grammarDefinition = {
           alias($._literal_dollar, $.string_content),
           alias($._string_escape, $.escape_sequence),
           $.variable,
-          $.sub_expression,
+          alias($._command_interpolation, $.interpolation),
         ),
       ),
       alias($._double_quote, '"'),
     ),
 
-    _argument_sub_expression: $ => seq(
-      token.immediate('$('),
-      repeat($._terminator),
-      optional($._statement_list),
-      alias($._sub_expression_end, ')'),
+    _command_expandable_string: $ => seq(
+      alias($._double_quote, '"'),
+      repeat(
+        choice(
+          $.string_content,
+          alias($._literal_dollar, $.string_content),
+          alias($._string_escape, $.escape_sequence),
+          $.variable,
+          alias($._command_interpolation, $.interpolation),
+        ),
+      ),
+      alias($._double_quote, '"'),
     ),
 
     verbatim_arguments: $ => seq(
@@ -1500,7 +1514,7 @@ const grammarDefinition = {
       $,
       alias($._command_member_access, $.member_access),
       alias($._command_element_access, $.element_access),
-      alias($._command_invocation_expression, $.invocation_expression),
+      alias($._command_invocation_expression, $.invocation_expression), true,
     ),
 
     parenthesized_expression: $ => seq(
@@ -1516,6 +1530,74 @@ const grammarDefinition = {
       repeat($._terminator),
       optional($._statement_list),
       alias($._sub_expression_end, ')'),
+    ),
+
+    interpolation: $ => seq(
+      field('expression', $._interpolation_primary_expression),
+      $._interpolation_tail,
+    ),
+
+    _collected_sub_expression: $ => seq(
+      alias($._interpolation_open, '$('),
+      repeat($._terminator),
+      optional($._statement_list),
+      alias($._sub_expression_end, ')'),
+    ),
+
+    _interpolation_primary_expression: $ => prec(PREC.member, choice(
+      alias($._collected_sub_expression, $.sub_expression),
+      alias($._interpolation_member_access, $.member_access),
+      alias($._interpolation_element_access, $.element_access),
+      alias($._interpolation_invocation_expression, $.invocation_expression),
+    )),
+
+    _interpolation_member_access: $ => prec.left(PREC.member, seq(
+      field('object', $._interpolation_primary_expression),
+      optional($._postfix_context),
+      field('operator', choice(
+        token.immediate(prec(5, '.')),
+        token.immediate(prec(5, '::')),
+        token.immediate(prec(5, '?.')),
+      )),
+      repeat(NEWLINE),
+      field('member', $._member_name),
+    )),
+
+    _interpolation_element_access: $ => elementAccess($, $._interpolation_primary_expression),
+
+    _interpolation_invocation_expression: $ => invocationExpression(
+      $, alias($._interpolation_member_access, $.member_access),
+    ),
+
+    _command_interpolation: $ => seq(
+      field('expression', $._command_interpolation_primary_expression),
+      $._interpolation_tail,
+    ),
+
+    _command_interpolation_primary_expression: $ => prec(PREC.member, choice(
+      alias($._collected_sub_expression, $.sub_expression),
+      alias($._command_interpolation_member_access, $.member_access),
+      alias($._command_interpolation_element_access, $.element_access),
+      alias($._command_interpolation_invocation_expression, $.invocation_expression),
+    )),
+
+    _command_interpolation_member_access: $ => prec.left(PREC.member, seq(
+      field('object', $._command_interpolation_primary_expression),
+      optional($._postfix_context),
+      optional($._command_interpolation_context),
+      field('operator', choice(
+        token.immediate(prec(5, '.')),
+        token.immediate(prec(5, '::')),
+        token.immediate(prec(5, '?.')),
+      )),
+      repeat(NEWLINE),
+      field('member', $._command_member_name),
+    )),
+
+    _command_interpolation_element_access: $ => elementAccess($, $._command_interpolation_primary_expression),
+
+    _command_interpolation_invocation_expression: $ => invocationExpression(
+      $, alias($._command_interpolation_member_access, $.member_access), false,
     ),
 
     array_expression: $ => seq('@(', repeat($._terminator), optional($._statement_list), ')'),
@@ -1584,7 +1666,7 @@ const grammarDefinition = {
 
     _command_member_name: $ => choice(
       $.identifier,
-      primaryValue($),
+      primaryValue($, true, true),
       $.type_literal,
       alias($._command_member_name_unary_expression, $.unary_expression),
       alias($._command_cast_expression, $.cast_expression),
@@ -1683,7 +1765,24 @@ const grammarDefinition = {
             alias($._literal_dollar, $.string_content),
             alias($._string_escape, $.escape_sequence),
             $.variable,
-            $.sub_expression,
+            $.interpolation,
+          ),
+        ),
+        $._here_string_end,
+      ),
+    ),
+
+    _command_expandable_here_string: $ => choice(
+      $._empty_expandable_here_string,
+      seq(
+        $._expandable_here_string_start,
+        repeat(
+          choice(
+            alias($._here_string_content, $.string_content),
+            alias($._literal_dollar, $.string_content),
+            alias($._string_escape, $.escape_sequence),
+            $.variable,
+            alias($._command_interpolation, $.interpolation),
           ),
         ),
         $._here_string_end,
@@ -1699,7 +1798,7 @@ const grammarDefinition = {
           alias($._literal_dollar, $.string_content),
           alias($._string_escape, $.escape_sequence),
           $.variable,
-          $.sub_expression,
+          $.interpolation,
         ),
       ),
       alias($._double_quote, '"'),
