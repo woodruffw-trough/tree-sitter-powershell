@@ -2,28 +2,20 @@
 
 ## Setup
 
-Clone [the repository](https://github.com/woodruffw-trough/tree-sitter-powershell)
-and run the commands below from its root.
+Install Rust through [rustup](https://rustup.rs/), a C compiler, Python 3,
+ShellCheck, and [PowerShell 7.5.4](https://github.com/PowerShell/PowerShell/releases/tag/v7.5.4).
+The repository's `rust-toolchain.toml` selects the Rust toolchain. Run the following
+commands from the repository root in Bash.
 
-The commands below use Bash. Development uses Rust 1.90.0, tree-sitter CLI 0.27.1,
-PowerShell 7.5.4, Python 3, a C compiler, and ShellCheck. `rust-toolchain.toml` selects
-the Rust toolchain and its rustfmt and clippy components.
-
-Install the CLI with its embedded QuickJS runtime:
+Install tree-sitter with QuickJS:
 
 ```sh
 cargo install tree-sitter-cli --version 0.27.1 --locked --no-default-features --features qjs-rt
 export TREE_SITTER_JS_RUNTIME=native
 ```
 
-Install [PowerShell 7.5.4](https://github.com/PowerShell/PowerShell/releases/tag/v7.5.4).
-If `pwsh` is outside `PATH`, set `PWSH_BIN` to its executable:
-
-```sh
-export PWSH_BIN=/path/to/pwsh
-```
-
-For the same lint tools used by CI on Ubuntu x86-64:
+If `pwsh` is outside `PATH`, set `PWSH_BIN` to its executable.
+On Ubuntu x86-64, install the lint tools with:
 
 ```sh
 python3 -m venv work/ci-tools
@@ -31,33 +23,23 @@ work/ci-tools/bin/pip install --require-hashes -r scripts/requirements-ci.txt
 export PATH="$PWD/work/ci-tools/bin:$PATH"
 ```
 
-The requirements pin clang-format 20.1.8, Ruff 0.14.14, and zizmor. Other platforms
-need compatible installations of those versions.
+On other platforms, install the tool versions listed in `scripts/requirements-ci.txt`.
 
-## Making a grammar change
+## Development
 
-Edit `grammar.js` and, when token boundaries require it, `src/scanner.c`. Regenerate
-the checked-in parser with QuickJS:
+The grammar is in `grammar.js`; external tokenization is in `src/scanner.c`.
+Rust is the only supported binding.
+Regenerate the parser after changing the grammar:
 
 ```sh
 tree-sitter generate --js-runtime native
 ```
 
-Add a focused case under `test/corpus` or `tests/fixtures`. Check its interpretation
-with PowerShell's parser, then assert the relevant nodes, fields, and grouping.
-Review tree differences before updating corpus expectations. The
-[design document](docs/grammar-sources.md) explains the syntax authorities and AST
-comparisons.
+Include a regression case in `test/corpus` or `tests/fixtures` for syntax changes.
+The [tree design](docs/grammar-sources.md) describes node conventions and how tests
+compare the grammar with PowerShell's parser.
 
-Imported real-project fixtures retain their original bytes, license, repository
-path, revision, and hash. Their test metadata records provenance alongside the
-sources.
-
-## Formatting
-
-Rust uses rustfmt; handwritten C uses `.clang-format`; Python uses `ruff.toml`.
-The C configuration uses two-space indentation, a 100-column limit, and braces for
-control bodies. The Python configuration also uses a 100-column limit.
+Format changes with:
 
 ```sh
 cargo fmt --all
@@ -65,9 +47,6 @@ clang-format -i src/scanner.c
 ruff format scripts
 ruff check --fix scripts
 ```
-
-Generated parser files, Unicode tables, and imported fixtures retain their generated
-or upstream formatting. `scripts/check-generated.sh` verifies those files separately.
 
 ## Checks
 
@@ -83,62 +62,23 @@ scripts/check-generated.sh
 scripts/lint.sh
 ```
 
-The fixture generator checks that its committed cases match the pinned oracle; its
-`--write` option updates them after a deliberate change. The generated-file check
-recreates the parser and Unicode tables and verifies imported fixture hashes.
+The PowerShell tests parse fixture scripts without executing them.
+`scripts/check-generated.sh` verifies generated files and imported fixture hashes;
+`scripts/lint.sh` checks formatting, compiler warnings, and workflow security.
 
-Linting checks formatting, clippy and rustdoc warnings, C warnings, shell scripts,
-Python, and GitHub Actions security. A local offline security check can use
-`ZIZMOR_OFFLINE=true scripts/lint.sh`; CI also checks action vulnerabilities online.
-
-## Fuzzing
-
-[`tree-sitter fuzz`](https://github.com/tree-sitter/tree-sitter/blob/v0.27.1/docs/src/cli/fuzz.md)
-applies random edits to `test/corpus` inputs, checks tree consistency and changed
-ranges, undoes the edits, and compares the restored tree with its expectation.
-It also checks tree-sitter's tracked allocations for leaks.
-
-Run the same 100 iterations per case as CI:
-
-```sh
-TREE_SITTER_SEED=0 tree-sitter fuzz --rebuild --iterations 100 --edits 3
-```
-
-With 120 cases, this runs 12,000 edit-and-undo trials. Increase `--iterations` and
-`--edits` for a longer run. The pinned CLI performs between one and `edits + 1`
-edit operations per trial. To reproduce a reported seed for a particular case:
+To reproduce a fuzz failure, use the reported seed, the same edit setting, and a
+case-name filter:
 
 ```sh
 TREE_SITTER_SEED=42 tree-sitter fuzz --rebuild --iterations 1 --edits 3 --include 'Composite quoted'
 ```
 
-Keep the same edit setting, corpus, and CLI version when reproducing. Inspect the
-output: version 0.27.1 can report fuzz failures while exiting zero. CI saves
-`work/fuzz.log` for seven days and checks it for failure diagnostics. Reduce any
-failure to a focused incremental regression before changing the grammar or scanner.
+Tree-sitter 0.27.1 can report fuzz failures while exiting zero, so check its output.
+CI also checks the log.
 
 ## Releases
 
-`.github/workflows/publish.yml` publishes tags named `v<version>`. It runs the full
-CI workflow, checks that the tag matches both `Cargo.toml` and `tree-sitter.json`,
-and verifies the package before authenticating with crates.io.
-
-The publishing job uses the GitHub environment `crates.io`. GitHub creates it
-when the first publishing job starts. The official `rust-lang/crates-io-auth-action`
-uses [Trusted Publishing](https://crates.io/docs/trusted-publishing) to obtain a
-short-lived publishing token through GitHub OIDC and revokes it after the job.
-
-Enroll the crate's GitHub publisher on crates.io with these values:
-
-| Field | Value |
-| --- | --- |
-| Repository owner | `woodruffw-trough` |
-| Repository name | `tree-sitter-powershell` |
-| Workflow filename | `publish.yml` |
-| Environment | `crates.io` |
-
-To release, update both version fields and the README dependency, then regenerate
-the parser with `tree-sitter generate --js-runtime native` to update its embedded
-version. Run the checks above, commit the change, and push an annotated
-`v<version>` tag at that commit. The publishing workflow does not cancel an active
-release when another run starts for the same tag.
+Update the version in `Cargo.toml`, `Cargo.lock`, `tree-sitter.json`, and the README
+dependency example. Regenerate the parser, run the checks above, commit, and push
+an annotated `v<version>` tag. The [publish workflow](.github/workflows/publish.yml)
+publishes to crates.io using Trusted Publishing.
