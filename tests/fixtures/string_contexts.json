@@ -1373,5 +1373,330 @@
     "name": "double colon before semicolon",
     "source": "cmd $name::;",
     "valid": false
+  },
+  {
+    "name": "collector_boundary_label_for_ordinary",
+    "source": "\"$(:loop for(;;){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_for_here",
+    "source": "@\"\n$(:loop for(;;){})\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_foreach_ordinary",
+    "source": "\"$(:loop foreach($x in 1){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_foreach_here",
+    "source": "@\"\n$(:loop foreach($x in 1){})\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_while_ordinary",
+    "source": "\"$(:loop while(1){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_while_here",
+    "source": "@\"\n$(:loop while(1){})\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_do_ordinary",
+    "source": "\"$(:loop do{}while(1))\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_do_here",
+    "source": "@\"\n$(:loop do{}while(1))\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_switch_ordinary",
+    "source": "\"$(:loop switch(1){1{}})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_switch_here",
+    "source": "@\"\n$(:loop switch(1){1{}})\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_trivia_0",
+    "source": "\"$(:loop for(;;){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_trivia_1",
+    "source": "\"$(:loop\tfor(;;){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_trivia_2",
+    "source": "\"$(:loop\nfor(;;){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_trivia_3",
+    "source": "\"$(:loop\r\nfor(;;){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_trivia_4",
+    "source": "\"$(:loopfor(;;){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_label_trivia_6",
+    "source": "\"$(:loop`\nfor(;;){})\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_method_trivia_ordinary_0",
+    "source": "\"$($x.M(1))\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_method_trivia_here_0",
+    "source": "@\"\n$($x.M(1))\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_method_trivia_ordinary_1",
+    "source": "\"$($x.M (1))\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_here_1",
+    "source": "@\"\n$($x.M (1))\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_ordinary_2",
+    "source": "\"$($x.M\t(1))\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_here_2",
+    "source": "@\"\n$($x.M\t(1))\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_ordinary_3",
+    "source": "\"$($x.M(1))\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_here_3",
+    "source": "@\"\n$($x.M(1))\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_ordinary_4",
+    "source": "\"$($x.M<#x#>(1))\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_here_4",
+    "source": "@\"\n$($x.M<#x#>(1))\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_method_trivia_ordinary_6",
+    "source": "\"$($x.M\n(1))\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_method_trivia_here_6",
+    "source": "@\"\n$($x.M\n(1))\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_dollar_name_0_False",
+    "source": "\"$($\"\"x)\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_dollar_name_0_True",
+    "source": "\"$($\"\"x\"\")\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_dollar_name_1_False",
+    "source": "\"$($`\"x)\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_dollar_name_1_True",
+    "source": "\"$($`\"x`\")\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_dollar_name_2_False",
+    "source": "\"$($“”x)\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_dollar_name_2_True",
+    "source": "\"$($“”x“”)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_dollar_name_3_False",
+    "source": "\"$($`“x)\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_dollar_name_3_True",
+    "source": "\"$($`“x`“)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_dollar_name_4_False",
+    "source": "\"$($„”x)\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_dollar_name_4_True",
+    "source": "\"$($„”x„”)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_0",
+    "source": "\"$(cmd --% )\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_here_0",
+    "source": "@\"\n$(cmd --% )\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_0",
+    "source": "$( cmd --%  )",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_1",
+    "source": "\"$(cmd --%  )\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_here_1",
+    "source": "@\"\n$(cmd --%  )\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_1",
+    "source": "$( cmd --%   )",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_2",
+    "source": "\"$(cmd --% a)\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_here_2",
+    "source": "@\"\n$(cmd --% a)\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_2",
+    "source": "$( cmd --% a )",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_3",
+    "source": "\"$(cmd --% \"\"a b\"\")\"",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_here_3",
+    "source": "@\"\n$(cmd --% \"\"a b\"\")\n\"@",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_3",
+    "source": "$( cmd --% \"\"a b\"\" )",
+    "valid": false
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_4",
+    "source": "\"$(cmd --% a\n)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_here_4",
+    "source": "@\"\n$(cmd --% a\n)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_4",
+    "source": "$( cmd --% a\n )",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_6",
+    "source": "\"$(cmd --% a| cmd)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_here_6",
+    "source": "@\"\n$(cmd --% a| cmd)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_6",
+    "source": "$( cmd --% a| cmd )",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_7",
+    "source": "\"$(cmd --% a&& cmd)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_here_7",
+    "source": "@\"\n$(cmd --% a&& cmd)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_7",
+    "source": "$( cmd --% a&& cmd )",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_8",
+    "source": "\"$(cmd --% a\r\n)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_here_8",
+    "source": "@\"\n$(cmd --% a\r\n)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_8",
+    "source": "$( cmd --% a\r\n )",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_ordinary_9",
+    "source": "\"$(cmd --% a\n$x)\"",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_here_9",
+    "source": "@\"\n$(cmd --% a\n$x)\n\"@",
+    "valid": true
+  },
+  {
+    "name": "collector_boundary_verbatim_regular_9",
+    "source": "$( cmd --% a\n$x )",
+    "valid": true
   }
 ]

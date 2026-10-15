@@ -67,7 +67,7 @@ enum TokenType {
 };
 
 static bool prepared_context_token(TSSymbol symbol) {
-  return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END;
+  return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END || symbol == LABEL_START;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -644,7 +644,15 @@ static bool scan_verbatim_argument_text(TSLexer *lexer) {
   }
   bool content = false;
   bool in_quotes = false;
-  while (!lexer->eof(lexer) && !newline(lexer->lookahead)) {
+  while ((!lexer->eof(lexer) || at_collector_end(lexer)) && !newline(lexer->lookahead)) {
+    // Verbatim tails include closing parentheses. Consuming the collector's
+    // physical close here leaves the required syntactic close missing.
+    if (at_collector_end(lexer)) {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      lexer->result_symbol = VERBATIM_ARGUMENT_TEXT;
+      return true;
+    }
     int32_t c = lexer->lookahead;
     if (!in_quotes && c == '|') {
       break;
@@ -2373,11 +2381,13 @@ static bool scan_assembly_name(TSLexer *lexer) {
   return true;
 }
 
-static bool prepare_transformed_token(Scanner *, TSLexer *, const bool *, size_t, PreparedToken *);
+static bool prepare_transformed_token(Scanner *, TSLexer *, const bool *, size_t, PreparedToken *,
+                                      bool);
 static bool emit_prepared_token(TSLexer *, const bool *, size_t, PreparedToken *);
 
 static bool request_preparation(Scanner *scanner, TSLexer *lexer, const bool *valid) {
-  if (!prepare_transformed_token(scanner, lexer, valid, EXTERNAL_TOKEN_COUNT, &scanner->prepared)) {
+  if (!prepare_transformed_token(scanner, lexer, valid, EXTERNAL_TOKEN_COUNT, &scanner->prepared,
+                                 false)) {
     return false;
   }
   lexer->result_symbol = PREPARED_TOKEN;
@@ -2386,6 +2396,9 @@ static bool request_preparation(Scanner *scanner, TSLexer *lexer, const bool *va
 
 static bool scan_subexpression_end(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if (!valid[SUB_EXPRESSION_END] || lexer->lookahead != ')') {
+    return false;
+  }
+  if (valid[VERBATIM_ARGUMENT_TEXT] && !valid[VERBATIM_ARGUMENTS_START]) {
     return false;
   }
   TrackedLexer *tracked = (TrackedLexer *)lexer;
@@ -2419,8 +2432,20 @@ static bool scan_subexpression_start(Scanner *scanner, TSLexer *lexer, const boo
     return false;
   }
   TrackedLexer *tracked = (TrackedLexer *)lexer;
+  lexer->mark_end(lexer);
   lexer->advance(lexer, false);
   if (lexer->lookahead != '(') {
+    // A literal-dollar name must use the same transformed input as any other
+    // command name. Preparation starts before the already-consumed dollar.
+    if (valid[PREPARED_TOKEN] && ordinary_interpolation_layers(scanner) &&
+        (valid[COMMAND_NAME] || valid[BARE_WORD] || valid[DATA_COMMAND_NAME])) {
+      if (!prepare_transformed_token(scanner, lexer, valid, EXTERNAL_TOKEN_COUNT,
+                                     &scanner->prepared, true)) {
+        return false;
+      }
+      lexer->result_symbol = PREPARED_TOKEN;
+      return true;
+    }
     if (valid[DATA_COMMAND_NAME] && !valid[COMMAND_NAME]) {
       return scan_data_variable_name_after_prefix(lexer, valid, false);
     }
@@ -2650,8 +2675,15 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
       (lexer->lookahead == '.' || lexer->lookahead == '[')) {
     return false;
   }
+  bool skipped_trivia = false;
   while (horizontal(lexer->lookahead)) {
+    skipped_trivia = true;
     lexer->advance(lexer, true);
+  }
+  // The preparation extra must not hide trivia from an adjacent method opener.
+  if (skipped_trivia && valid[METHOD_INVOCATION_CONTEXT] &&
+      (lexer->lookahead == '(' || lexer->lookahead == '{')) {
+    return false;
   }
   if (scan_subexpression_end(scanner, lexer, valid)) {
     return true;
@@ -2858,14 +2890,17 @@ static size_t preparation_transform(PreparationCharacter *characters, size_t len
 }
 
 static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bool *valid,
-                                      size_t valid_count, PreparedToken *result) {
+                                      size_t valid_count, PreparedToken *result,
+                                      bool dollar_prefix) {
   uint32_t layers = ordinary_interpolation_layers(scanner);
   if (!layers || valid_count <= SUB_EXPRESSION_OPEN || valid_count <= SUB_EXPRESSION_END) {
     return false;
   }
   PreparedToken prepared = {0};
   bool range_start = lexer->is_at_included_range_start(lexer);
-  lexer->mark_end(lexer);
+  if (!dollar_prefix) {
+    lexer->mark_end(lexer);
+  }
   PreparationCharacter *raw = NULL;
   PreparationCharacter *transformed = NULL;
   bool *virtual_valid = malloc(valid_count * sizeof(*virtual_valid));
@@ -2880,6 +2915,7 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
   size_t capacity = 0;
   size_t target = 32;
   bool success = false;
+  bool collected_verbatim_close = false;
   for (;;) {
     if (target > SIZE_MAX / sizeof(*raw)) {
       break;
@@ -2897,10 +2933,18 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
       transformed = larger;
       capacity = target;
     }
-    while (length < target && !lexer->eof(lexer)) {
+    if (dollar_prefix && length == 0) {
+      raw[length++] = (PreparationCharacter){.character = '$', .end = 1};
+    }
+    while (length < target) {
+      if (lexer->eof(lexer) && !(valid[VERBATIM_ARGUMENT_TEXT] &&
+                                 !valid[VERBATIM_ARGUMENTS_START] && at_collector_end(lexer))) {
+        break;
+      }
       if (length == UINT32_MAX) {
         goto cleanup;
       }
+      bool closing = at_collector_end(lexer);
       int32_t character = lexer->lookahead;
       lexer->advance(lexer, false);
       raw[length] = (PreparationCharacter){
@@ -2908,8 +2952,14 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
           .end = (uint32_t)length + 1,
       };
       ++length;
+      if (closing) {
+        // Let the virtual verbatim lexer retain this byte, just as the direct
+        // lexer does. The subsequent parse then diagnoses its missing close.
+        collected_verbatim_close = true;
+        break;
+      }
     }
-    bool complete = lexer->eof(lexer);
+    bool complete = collected_verbatim_close || lexer->eof(lexer);
     memcpy(transformed, raw, length * sizeof(*raw));
     size_t virtual_length = preparation_transform(transformed, length, layers, complete);
     PreparationLexer source = {
@@ -2926,7 +2976,7 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
         .length = virtual_length,
         .included_range_start = range_start,
     };
-    Scanner virtual_scanner = {.collector_eof = complete};
+    Scanner virtual_scanner = {.collector_eof = complete && !collected_verbatim_close};
     TrackedLexer virtual_lexer = {
         .lexer =
             {
@@ -2977,7 +3027,8 @@ static bool emit_prepared_token(TSLexer *lexer, const bool *valid, size_t valid_
     return false;
   }
   for (uint32_t position = 0; position < prepared->end; ++position) {
-    if (lexer->eof(lexer)) {
+    if (lexer->eof(lexer) &&
+        !(prepared->symbol == VERBATIM_ARGUMENT_TEXT && at_collector_end(lexer))) {
       return false;
     }
     lexer->advance(lexer, position < prepared->start);
