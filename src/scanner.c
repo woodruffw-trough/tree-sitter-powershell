@@ -1889,9 +1889,23 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   if (signed_start) {
     lexer->mark_end(lexer);
   }
-  if (!continuation && !data_name &&
-      ((first == '+' && valid[CAST_VALUE_CONTEXT]) || (name && first == '!'))) {
+  if (!continuation && !data_name && first == '+' && valid[CAST_VALUE_CONTEXT]) {
     return false;
+  }
+  // NextToken first tests '!' as a potential decimal number when a digit or
+  // dot follows it. A successful probe leaves '!' as a unary operator; a
+  // malformed numeric word becomes a literal command name. A leading zero
+  // reproduces that probe without recognizing a following 0x/0b as a prefix.
+  bool exclamation_number = false;
+  if (!continuation && !data_name && name && first == '!') {
+    lexer->advance(lexer, false);
+    int32_t next = lexer->lookahead;
+    bool identifier = variable_character(next) && next != '?' && !decimal_character(next);
+    exclamation_number = decimal_character(next) || next == '.';
+    if ((!identifier && !exclamation_number) ||
+        !generic_word_append(buffer, exclamation_number ? '0' : '!')) {
+      return false;
+    }
   }
   if (!continuation && !data_name && name && first == '+') {
     if (!generic_word_append(buffer, '+')) {
@@ -1907,6 +1921,17 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
        first == '@' || (!immediate && !data_name && first == ':') ||
        ((first == '[' || first == ']') && name && !data_name))) {
     return false;
+  }
+  // All-stream redirections remain complete literal command names at the
+  // beginning of a pipeline, including their fixed-width merge targets.
+  if (!continuation && !data_name && name && first == '*') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == '>') {
+      return false;
+    }
+    if (!generic_word_append(buffer, '*')) {
+      return false;
+    }
   }
   bool dollar_prefix = false;
   if (!continuation && first == '$') {
@@ -2016,7 +2041,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   bool any_escape = continuation;
   enum TokenType numeric_kind = INTEGER_LITERAL;
   bool numeric_start =
-      !continuation && (ascii_digit(first) || first == '.' ||
+      !continuation && (exclamation_number || ascii_digit(first) || first == '.' ||
                         ((leading_dash || first == '+') &&
                          (ascii_digit(lexer->lookahead) || lexer->lookahead == '.')));
   bool numeric_live = numeric_start;
@@ -2034,7 +2059,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       // A numeric/operator prefix is reparsed as an expression. Preserve its
       // saved boundary before validating the following variable.
       if (!data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
-          strchr("!+-*/%.#", word[numeric_prefix]) != NULL) {
+          strchr(exclamation_number ? "!+-*/%.#=]" : "!+-*/%.#", word[numeric_prefix]) != NULL) {
         break;
       }
       lexer->advance(lexer, false);
@@ -2066,25 +2091,24 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       enum TokenType candidate_kind = numeric_kind;
       bool numeric = !any_escape && numeric_live && numeric_token(word, &candidate_kind);
       if (name && n > 0 && numeric && c == '>') {
+        if (exclamation_number) {
+          return false;
+        }
         numeric_kind = candidate_kind;
         if (!signed_start) {
           lexer->mark_end(lexer);
         }
         lexer->advance(lexer, false);
-        if (lexer->lookahead != '&') {
-          lexer->result_symbol = signed_start ? SIGNED_NUMBER_START : numeric_kind;
-          return signed_start || valid[numeric_kind];
+        // NewFileRedirectionToken returns the number in expression mode.
+        // Merging redirections instead retain their exact operator token.
+        if (lexer->lookahead == '&' && n == 1 && word[0] >= '1' && word[0] <= '6') {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '1' || lexer->lookahead == '2') {
+            return false;
+          }
         }
-        if (!generic_word_append(buffer, '>') || !generic_word_append(buffer, '&')) {
-          return false;
-        }
-        word = buffer->data;
-        n = buffer->length;
-        lexer->advance(lexer, false);
-        numeric_start = false;
-        numeric_live = false;
-        numeric_prefix = 0;
-        continue;
+        lexer->result_symbol = signed_start ? SIGNED_NUMBER_START : numeric_kind;
+        return signed_start || valid[numeric_kind];
       }
       if (n == 0 || (name && numeric)) {
         break;
@@ -2138,8 +2162,13 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     word = buffer->data;
     n = buffer->length;
+    if (exclamation_number && n == 2 && c == '.' && lexer->lookahead == '.') {
+      return false;
+    }
     if (numeric_live && !(c == '.' && lexer->lookahead == '.') &&
-        (generic_numeric_boundary(c) || generic_numeric_boundary(lexer->lookahead))) {
+        (generic_numeric_boundary(c) || generic_numeric_boundary(lexer->lookahead) ||
+         (exclamation_number &&
+          (c == '=' || c == ']' || lexer->lookahead == '=' || lexer->lookahead == ']')))) {
       // Probe only at boundaries where a number may end. Once a prefix cannot
       // become numeric, stop probing: large malformed words stay linear too.
       enum TokenType candidate_kind = numeric_kind;
@@ -2196,6 +2225,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     if (!any_escape && (!data_name || (!leading_dash && first != '+')) &&
         numeric_token(word, &full_kind)) {
+      if (exclamation_number) {
+        return false;
+      }
       if (signed_start) {
         lexer->result_symbol = SIGNED_NUMBER_START;
         return true;
@@ -2223,19 +2255,25 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       lexer->result_symbol = parameter_kind;
       return valid[parameter_kind];
     }
+    // StatementRule reserves these words; CommandRule still accepts them.
+    // Label lookahead distinguishes statement entry from pipeline entry.
+    bool statement_reserved =
+        valid[LABEL_START] &&
+        (strcmp(word, "from") == 0 || strcmp(word, "define") == 0 || strcmp(word, "var") == 0);
     if (name && !data_name && !any_escape &&
-        (reserved(word) || strcmp(word, ".") == 0 || generic_unary_operator(word))) {
+        (statement_reserved || reserved(word) || strcmp(word, ".") == 0 ||
+         generic_unary_operator(word))) {
       return false;
     }
     // A prefix is recorded before any escape changes numeric classification.
     // Later escaping cannot remove an earlier numeric/operator boundary.
     if (name && !data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
-        strchr("!+-*/%.#", word[numeric_prefix]) != NULL) {
+        strchr(exclamation_number ? "!+-*/%.#=]" : "!+-*/%.#", word[numeric_prefix]) != NULL) {
       if (signed_start) {
         lexer->result_symbol = SIGNED_NUMBER_START;
         return true;
       }
-      if (leading_dash) {
+      if (leading_dash || exclamation_number) {
         return false;
       }
       if (!valid[numeric_kind]) {

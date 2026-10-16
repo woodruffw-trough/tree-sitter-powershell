@@ -2498,5 +2498,565 @@
     "name": "numeric command name unfinished collected comment opening parenthesis",
     "source": "1$(1 # (\n) arg\n",
     "valid": false
+  },
+  {
+    "name": "exclamation identifier",
+    "source": "!name",
+    "valid": true
+  },
+  {
+    "name": "exclamation Unicode identifier",
+    "source": "!é",
+    "valid": true
+  },
+  {
+    "name": "exclamation underscore identifier",
+    "source": "!_name",
+    "valid": true
+  },
+  {
+    "name": "exclamation malformed integer",
+    "source": "!1x",
+    "valid": true
+  },
+  {
+    "name": "exclamation hexadecimal-looking word",
+    "source": "!0x1",
+    "valid": true
+  },
+  {
+    "name": "exclamation binary-looking word",
+    "source": "!0b1",
+    "valid": true
+  },
+  {
+    "name": "exclamation malformed fraction",
+    "source": "!.1x",
+    "valid": true
+  },
+  {
+    "name": "exclamation incomplete exponent",
+    "source": "!1e",
+    "valid": true
+  },
+  {
+    "name": "exclamation invalid suffix",
+    "source": "!1ux",
+    "valid": true
+  },
+  {
+    "name": "exclamation incomplete multiplier",
+    "source": "!1k",
+    "valid": true
+  },
+  {
+    "name": "exclamation continued multiplier",
+    "source": "!1kbX",
+    "valid": true
+  },
+  {
+    "name": "exclamation member-looking interpolation",
+    "source": "!1.$v",
+    "valid": true
+  },
+  {
+    "name": "exclamation ternary-looking suffix",
+    "source": "!1?yes:no",
+    "valid": true
+  },
+  {
+    "name": "exclamation colon suffix",
+    "source": "!1:true",
+    "valid": true
+  },
+  {
+    "name": "exclamation index-looking suffix",
+    "source": "!1[0]",
+    "valid": true
+  },
+  {
+    "name": "exclamation quoted suffix",
+    "source": "!1\"x\"",
+    "valid": true
+  },
+  {
+    "name": "exclamation braced variable suffix",
+    "source": "!1${v}",
+    "valid": true
+  },
+  {
+    "name": "exclamation escaped suffix",
+    "source": "!1`x",
+    "valid": true
+  },
+  {
+    "name": "exclamation Unicode digit",
+    "source": "!١",
+    "valid": true
+  },
+  {
+    "name": "exclamation numeric operand",
+    "source": "!1",
+    "valid": true
+  },
+  {
+    "name": "exclamation fractional operand",
+    "source": "!.1",
+    "valid": true
+  },
+  {
+    "name": "exclamation exponential operand",
+    "source": "!1e2",
+    "valid": true
+  },
+  {
+    "name": "exclamation unsigned-byte operand",
+    "source": "!1uy",
+    "valid": true
+  },
+  {
+    "name": "exclamation multiplier operand",
+    "source": "!1kb",
+    "valid": true
+  },
+  {
+    "name": "exclamation operator boundary",
+    "source": "!1+$v",
+    "valid": true
+  },
+  {
+    "name": "exclamation range operand",
+    "source": "!1..2",
+    "valid": true
+  },
+  {
+    "name": "exclamation missing range operand",
+    "source": "!..",
+    "valid": false
+  },
+  {
+    "name": "assigned exclamation literal name",
+    "source": "$result=!name tail | next",
+    "valid": true
+  },
+  {
+    "name": "invoked exclamation literal name",
+    "source": "& !name tail | next",
+    "valid": true
+  },
+  {
+    "name": "argument exclamation literal name",
+    "source": "cmd !name tail | next",
+    "valid": true
+  },
+  {
+    "name": "assigned exclamation hexadecimal-looking name",
+    "source": "$result=!0x1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "invoked exclamation hexadecimal-looking name",
+    "source": "& !0x1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "argument exclamation hexadecimal-looking name",
+    "source": "cmd !0x1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "assigned exclamation numeric-looking interpolation",
+    "source": "$result=!1.$v tail | next",
+    "valid": true
+  },
+  {
+    "name": "invoked exclamation numeric-looking interpolation",
+    "source": "& !1.$v tail | next",
+    "valid": true
+  },
+  {
+    "name": "argument exclamation numeric-looking interpolation",
+    "source": "cmd !1.$v tail | next",
+    "valid": true
+  },
+  {
+    "name": "assigned exclamation operator operand",
+    "source": "$result=!1+$v",
+    "valid": true
+  },
+  {
+    "name": "invoked exclamation operator operand",
+    "source": "& !1+$v tail | next",
+    "valid": true
+  },
+  {
+    "name": "argument exclamation operator operand",
+    "source": "cmd !1+$v tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection all streams",
+    "source": "*>&1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection all streams following text",
+    "source": "*>&1a tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection all streams following quotes",
+    "source": "*>&1\"a\" tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection all streams following interpolation",
+    "source": "*>&1$(inner) tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection all streams file operator",
+    "source": "*>a tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection all streams append operator",
+    "source": "*>>a tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection output merge",
+    "source": "1>&1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection error merge",
+    "source": "2>&1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection numbered merge suffix",
+    "source": "2>&1a tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection numbered merge numeric suffix",
+    "source": "2>&123 tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection numbered merge quoted suffix",
+    "source": "2>&1\"a\" tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection numbered merge variable suffix",
+    "source": "2>&1$v tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection numbered merge subexpression suffix",
+    "source": "2>&1$(inner) tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection numbered merge array suffix",
+    "source": "2>&1a,b tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection numbered merge comment suffix",
+    "source": "2>&1<#c#>a tail | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection file operator numeric expression",
+    "source": "1>a | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection append operator numeric expression",
+    "source": "1>>a | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection zero file operator",
+    "source": "0>a | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection nonstream file operator",
+    "source": "7>a | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection multidigit file operator",
+    "source": "11>a | next",
+    "valid": true
+  },
+  {
+    "name": "initial redirection missing numbered destination",
+    "source": "1>& next",
+    "valid": false
+  },
+  {
+    "name": "initial redirection missing zero destination",
+    "source": "0>& next",
+    "valid": false
+  },
+  {
+    "name": "initial redirection missing nonstream destination",
+    "source": "7>& next",
+    "valid": false
+  },
+  {
+    "name": "initial redirection missing multidigit destination",
+    "source": "11>& next",
+    "valid": false
+  },
+  {
+    "name": "initial redirection invalid merge destination",
+    "source": "1>&3",
+    "valid": false
+  },
+  {
+    "name": "reserved from as statement",
+    "source": "from",
+    "valid": false
+  },
+  {
+    "name": "reserved from as nested statement",
+    "source": "{ from }",
+    "valid": false
+  },
+  {
+    "name": "reserved from as assignment statement",
+    "source": "$x=from",
+    "valid": false
+  },
+  {
+    "name": "reserved from as pipeline command",
+    "source": "cmd | from",
+    "valid": true
+  },
+  {
+    "name": "reserved from as chain command",
+    "source": "cmd && from",
+    "valid": true
+  },
+  {
+    "name": "reserved from as invocation target",
+    "source": "& from",
+    "valid": true
+  },
+  {
+    "name": "reserved from as argument",
+    "source": "cmd from",
+    "valid": true
+  },
+  {
+    "name": "reserved from as condition",
+    "source": "if (from) {}",
+    "valid": true
+  },
+  {
+    "name": "reserved from as flow value",
+    "source": "return from",
+    "valid": true
+  },
+  {
+    "name": "reserved from as hash key",
+    "source": "@{from=1}",
+    "valid": true
+  },
+  {
+    "name": "reserved from as function name",
+    "source": "function from {}",
+    "valid": true
+  },
+  {
+    "name": "reserved define as statement",
+    "source": "define",
+    "valid": false
+  },
+  {
+    "name": "reserved define as nested statement",
+    "source": "{ define }",
+    "valid": false
+  },
+  {
+    "name": "reserved define as assignment statement",
+    "source": "$x=define",
+    "valid": false
+  },
+  {
+    "name": "reserved define as pipeline command",
+    "source": "cmd | define",
+    "valid": true
+  },
+  {
+    "name": "reserved define as chain command",
+    "source": "cmd && define",
+    "valid": true
+  },
+  {
+    "name": "reserved define as invocation target",
+    "source": "& define",
+    "valid": true
+  },
+  {
+    "name": "reserved define as argument",
+    "source": "cmd define",
+    "valid": true
+  },
+  {
+    "name": "reserved define as condition",
+    "source": "if (define) {}",
+    "valid": true
+  },
+  {
+    "name": "reserved define as flow value",
+    "source": "return define",
+    "valid": true
+  },
+  {
+    "name": "reserved define as hash key",
+    "source": "@{define=1}",
+    "valid": true
+  },
+  {
+    "name": "reserved define as function name",
+    "source": "function define {}",
+    "valid": true
+  },
+  {
+    "name": "reserved var as statement",
+    "source": "var",
+    "valid": false
+  },
+  {
+    "name": "reserved var as nested statement",
+    "source": "{ var }",
+    "valid": false
+  },
+  {
+    "name": "reserved var as assignment statement",
+    "source": "$x=var",
+    "valid": false
+  },
+  {
+    "name": "reserved var as pipeline command",
+    "source": "cmd | var",
+    "valid": true
+  },
+  {
+    "name": "reserved var as chain command",
+    "source": "cmd && var",
+    "valid": true
+  },
+  {
+    "name": "reserved var as invocation target",
+    "source": "& var",
+    "valid": true
+  },
+  {
+    "name": "reserved var as argument",
+    "source": "cmd var",
+    "valid": true
+  },
+  {
+    "name": "reserved var as condition",
+    "source": "if (var) {}",
+    "valid": true
+  },
+  {
+    "name": "reserved var as flow value",
+    "source": "return var",
+    "valid": true
+  },
+  {
+    "name": "reserved var as hash key",
+    "source": "@{var=1}",
+    "valid": true
+  },
+  {
+    "name": "reserved var as function name",
+    "source": "function var {}",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword mixed case",
+    "source": "FrOm",
+    "valid": false
+  },
+  {
+    "name": "reserved keyword uppercase define",
+    "source": "DEFINE",
+    "valid": false
+  },
+  {
+    "name": "reserved keyword uppercase var",
+    "source": "VAR",
+    "valid": false
+  },
+  {
+    "name": "reserved keyword escaped from",
+    "source": "fr`om",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword escaped define",
+    "source": "def`ine",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword escaped var",
+    "source": "v`ar",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword quoted from fragment",
+    "source": "fr\"om\"",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword quoted define fragment",
+    "source": "de'fine'",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword quoted var fragment",
+    "source": "v\"ar\"",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword interpolated from suffix",
+    "source": "from$x",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword define suffix",
+    "source": "define-tail",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword var prefix",
+    "source": "variable",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword process block",
+    "source": "process { from }",
+    "valid": false
+  },
+  {
+    "name": "reserved keyword for header command",
+    "source": "for (from;;) {}",
+    "valid": true
+  },
+  {
+    "name": "reserved keyword statement after background",
+    "source": "cmd & from",
+    "valid": false
   }
 ]

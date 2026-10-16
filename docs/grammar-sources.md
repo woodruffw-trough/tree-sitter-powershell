@@ -155,6 +155,13 @@ Parameter-shaped literal values keep the tokenizer's boundaries: in
 inside such a parameter token remain literal. These rules follow
 [`ScanParameter`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L3185-L3336)
 and [`GetCommandArgument`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L6295-L6440).
+At statement entry, `from`, `define`, and `var` are reserved. They remain valid
+command names in pipeline elements and control-header expressions. An initial
+`!` can also belong to a literal command name, as in `!name` or `!0x1`; its
+numeric lookahead follows `NextToken`. A merging-redirection token at command
+position retains its fixed boundary: `2>&1a` has command name `2>&1` and argument
+`a`, while `11>& next` retains an error for its missing redirection destination.
+
 Token-leading backtick-escaped horizontal whitespace is skipped by
 [`NextToken`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L4688-L4705);
 the same escape within a word remains part of that word. Inside a generic word,
