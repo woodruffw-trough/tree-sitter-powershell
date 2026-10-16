@@ -1,6 +1,6 @@
 # Complete external project fixtures
 
-These are complete, unmodified PowerShell source files from fourteen
+These are complete, unmodified PowerShell source files from sixteen
 independently maintained projects. The test harness parses them with tree-sitter and the pinned
 PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 
@@ -20,6 +20,8 @@ PowerShell 7.5.4 parser; it never dot-sources or executes their code.
 | [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh/tree/913014b4abdb5c6be2fcd6e759d242168fa390e8) | MIT | `src/shell/scripts/omp.ps1`: scoped functions, module script blocks, native arguments, callbacks, and interpolated prompt strings. |
 | [ImportExcel](https://github.com/dfinke/ImportExcel/tree/5387c061461c811d106b125588f064c4739342cb) | Apache-2.0 | `Public/Export-Excel.ps1`: pipeline functions, validation attributes, typed method calls, multidimensional indexing, and spaced postfix increments. |
 | [Pode](https://github.com/Badgerati/Pode/tree/89797a301afec7611c55cd395f841fe78812ae01) | MIT | `src/Private/Authentication.ps1`: nested authentication callbacks, member and index access, interpolated URLs, C# here-strings, and exception handling. |
+| [PSWriteHTML](https://github.com/EvotecIT/PSWriteHTML/tree/e3eb7a7ec7cc580f32ab9563990fefefcdb9d740) | MIT | `Public/New-HTMLTable.ps1`: stacked parameter attributes, nested HTML-generation script blocks, composite strings, splatting, and collection manipulation. |
+| [Plaster](https://github.com/PowerShell/Plaster/tree/104eec83b857766f22f668476c16c2f6793b4874) | MIT | `Plaster/Public/Invoke-Plaster.ps1`: dynamic parameters, generic collections, XML and JSON member access, named blocks, and exception handling. |
 
 Each project retains its original license file. Pester's copyright notice and
 third-party notices are retained, including the upstream copy of the full
@@ -30,7 +32,7 @@ repository's license does not replace them.
 `manifest.json` records every original path, repository, commit, Git blob ID,
 SHA-256 digest, byte count, and source/notice role. `SHA256SUMS` covers the original
 source and notice bytes. Git attributes disable line-ending conversion for the
-fourteen snapshot directories, including their UTF-8 byte-order marks, CRLF
+sixteen snapshot directories, including their UTF-8 byte-order marks, CRLF
 endings, and trailing whitespace. The Rust reader consumes one leading UTF-8 BOM
 to match .NET's `ReadAllText` before passing source text to the two parsers.
 

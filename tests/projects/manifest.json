@@ -183,6 +183,30 @@
       "notices": [
         "pode/LICENSE.txt"
       ]
+    },
+    {
+      "repository": "EvotecIT/PSWriteHTML",
+      "commit": "e3eb7a7ec7cc580f32ab9563990fefefcdb9d740",
+      "directory": "pswritehtml",
+      "license": "MIT",
+      "sources": [
+        "pswritehtml/Public/New-HTMLTable.ps1"
+      ],
+      "notices": [
+        "pswritehtml/LICENSE"
+      ]
+    },
+    {
+      "repository": "PowerShell/Plaster",
+      "commit": "104eec83b857766f22f668476c16c2f6793b4874",
+      "directory": "plaster",
+      "license": "MIT",
+      "sources": [
+        "plaster/Plaster/Public/Invoke-Plaster.ps1"
+      ],
+      "notices": [
+        "plaster/LICENSE"
+      ]
     }
   ],
   "files": [
@@ -614,6 +638,46 @@
       "gitBlob": "20aab2ec1ef8665087d3173d221e675f654d5474",
       "sha256": "f442110383d36c571665d65e2c3e3f62524d6891490117afdf18e7faf3f917e6",
       "bytes": 1100,
+      "kind": "notice"
+    },
+    {
+      "path": "pswritehtml/Public/New-HTMLTable.ps1",
+      "repository": "EvotecIT/PSWriteHTML",
+      "upstreamPath": "Public/New-HTMLTable.ps1",
+      "commit": "e3eb7a7ec7cc580f32ab9563990fefefcdb9d740",
+      "gitBlob": "476f44813207e07370745faf161239950efa1d34",
+      "sha256": "e5a1fe0e7596221caa59f67e5c30a339335e781c754c2382ddd00a29b963c2bf",
+      "bytes": 71354,
+      "kind": "source"
+    },
+    {
+      "path": "pswritehtml/LICENSE",
+      "repository": "EvotecIT/PSWriteHTML",
+      "upstreamPath": "LICENSE",
+      "commit": "e3eb7a7ec7cc580f32ab9563990fefefcdb9d740",
+      "gitBlob": "372a69030546a78bad338922b5884d670c3c5f75",
+      "sha256": "646fe65897304f12a43fcf62e18fcad8ab2641587df684361ae30b14c8168682",
+      "bytes": 1063,
+      "kind": "notice"
+    },
+    {
+      "path": "plaster/Plaster/Public/Invoke-Plaster.ps1",
+      "repository": "PowerShell/Plaster",
+      "upstreamPath": "Plaster/Public/Invoke-Plaster.ps1",
+      "commit": "104eec83b857766f22f668476c16c2f6793b4874",
+      "gitBlob": "c3394cc0af0c3ea1594418a8993372fe8872f3be",
+      "sha256": "cd0c7761a2808ed964f9ab8c73a062958b1565e67cddfefb1f7ff1daeadf537f",
+      "bytes": 17484,
+      "kind": "source"
+    },
+    {
+      "path": "plaster/LICENSE",
+      "repository": "PowerShell/Plaster",
+      "upstreamPath": "LICENSE",
+      "commit": "104eec83b857766f22f668476c16c2f6793b4874",
+      "gitBlob": "2c663a11523e91fcb15bfaf66cd1d1ba660cfad1",
+      "sha256": "b4608a5dca452a2df204dd93f1b6c7d063930c5005240503f9bf2d1919f5f3d3",
+      "bytes": 1088,
       "kind": "notice"
     }
   ]

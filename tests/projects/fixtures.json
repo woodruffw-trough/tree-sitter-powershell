@@ -128,5 +128,15 @@
     "name": "Badgerati/Pode src/Private/Authentication.ps1",
     "path": "pode/src/Private/Authentication.ps1",
     "valid": true
+  },
+  {
+    "name": "EvotecIT/PSWriteHTML Public/New-HTMLTable.ps1",
+    "path": "pswritehtml/Public/New-HTMLTable.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell/Plaster Plaster/Public/Invoke-Plaster.ps1",
+    "path": "plaster/Plaster/Public/Invoke-Plaster.ps1",
+    "valid": true
   }
 ]
