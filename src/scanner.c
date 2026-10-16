@@ -3664,7 +3664,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
       !valid[EXPANDABLE_HERE_STRING_START]) {
     return scan_here_string_content(lexer, valid);
   }
-  if (valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START]) {
+  if (valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START] && !valid[ARGUMENT_END]) {
     return false;
   }
   if ((valid[COMMAND_MEMBER_START] || valid[COMMAND_UNARY_START]) && !valid[HERE_STRING_CONTENT]) {

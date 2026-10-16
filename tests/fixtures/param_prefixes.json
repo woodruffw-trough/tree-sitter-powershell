@@ -1,0 +1,728 @@
+[
+  {
+    "name": "source leading type constraint",
+    "source": "[int]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function leading type constraint",
+    "source": "function f {[int]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block leading type constraint",
+    "source": "{[int]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method leading type constraint",
+    "source": "class C { f(){[int]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block leading type constraint",
+    "source": "param($callback={[int]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block leading type constraint",
+    "source": "@{key={[int]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source adjacent type constraints",
+    "source": "[int][string]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function adjacent type constraints",
+    "source": "function f {[int][string]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block adjacent type constraints",
+    "source": "{[int][string]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method adjacent type constraints",
+    "source": "class C { f(){[int][string]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block adjacent type constraints",
+    "source": "param($callback={[int][string]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block adjacent type constraints",
+    "source": "@{key={[int][string]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source type then attribute",
+    "source": "[int][CmdletBinding()]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function type then attribute",
+    "source": "function f {[int][CmdletBinding()]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block type then attribute",
+    "source": "{[int][CmdletBinding()]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method type then attribute",
+    "source": "class C { f(){[int][CmdletBinding()]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block type then attribute",
+    "source": "param($callback={[int][CmdletBinding()]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block type then attribute",
+    "source": "@{key={[int][CmdletBinding()]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source attribute then type",
+    "source": "[CmdletBinding()][int]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function attribute then type",
+    "source": "function f {[CmdletBinding()][int]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block attribute then type",
+    "source": "{[CmdletBinding()][int]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method attribute then type",
+    "source": "class C { f(){[CmdletBinding()][int]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block attribute then type",
+    "source": "param($callback={[CmdletBinding()][int]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block attribute then type",
+    "source": "@{key={[CmdletBinding()][int]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source attribute type attribute",
+    "source": "[CmdletBinding()][int][OutputType([string])]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function attribute type attribute",
+    "source": "function f {[CmdletBinding()][int][OutputType([string])]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block attribute type attribute",
+    "source": "{[CmdletBinding()][int][OutputType([string])]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method attribute type attribute",
+    "source": "class C { f(){[CmdletBinding()][int][OutputType([string])]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block attribute type attribute",
+    "source": "param($callback={[CmdletBinding()][int][OutputType([string])]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block attribute type attribute",
+    "source": "@{key={[CmdletBinding()][int][OutputType([string])]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source newline before attribute",
+    "source": "[int]\n[CmdletBinding()]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function newline before attribute",
+    "source": "function f {[int]\n[CmdletBinding()]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block newline before attribute",
+    "source": "{[int]\n[CmdletBinding()]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method newline before attribute",
+    "source": "class C { f(){[int]\n[CmdletBinding()]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block newline before attribute",
+    "source": "param($callback={[int]\n[CmdletBinding()]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block newline before attribute",
+    "source": "@{key={[int]\n[CmdletBinding()]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source newline before type",
+    "source": "[CmdletBinding()]\n[int]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function newline before type",
+    "source": "function f {[CmdletBinding()]\n[int]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block newline before type",
+    "source": "{[CmdletBinding()]\n[int]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method newline before type",
+    "source": "class C { f(){[CmdletBinding()]\n[int]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block newline before type",
+    "source": "param($callback={[CmdletBinding()]\n[int]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block newline before type",
+    "source": "@{key={[CmdletBinding()]\n[int]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source whitespace before attribute",
+    "source": "[int] [CmdletBinding()] param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function whitespace before attribute",
+    "source": "function f {[int] [CmdletBinding()] param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block whitespace before attribute",
+    "source": "{[int] [CmdletBinding()] param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method whitespace before attribute",
+    "source": "class C { f(){[int] [CmdletBinding()] param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block whitespace before attribute",
+    "source": "param($callback={[int] [CmdletBinding()] param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block whitespace before attribute",
+    "source": "@{key={[int] [CmdletBinding()] param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source type constraints across newlines",
+    "source": "[int]\n[string]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function type constraints across newlines",
+    "source": "function f {[int]\n[string]\nparam($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block type constraints across newlines",
+    "source": "{[int]\n[string]\nparam($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method type constraints across newlines",
+    "source": "class C { f(){[int]\n[string]\nparam($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block type constraints across newlines",
+    "source": "param($callback={[int]\n[string]\nparam($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block type constraints across newlines",
+    "source": "@{key={[int]\n[string]\nparam($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "source generic type constraint",
+    "source": "[System.Collections.Generic.List[int]]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function generic type constraint",
+    "source": "function f {[System.Collections.Generic.List[int]]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block generic type constraint",
+    "source": "{[System.Collections.Generic.List[int]]param($x)}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method generic type constraint",
+    "source": "class C { f(){[System.Collections.Generic.List[int]]param($x)} }",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default script block generic type constraint",
+    "source": "param($callback={[System.Collections.Generic.List[int]]param($x)})",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hashtable script block generic type constraint",
+    "source": "@{key={[System.Collections.Generic.List[int]]param($x)}}",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "ordinary type expression [int]\n1",
+    "source": "[int]\n1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary type expression [int]",
+    "source": "[int]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary type expression [int];1",
+    "source": "[int];1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary type expression [int][string]$x",
+    "source": "[int][string]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary type expression [int][A()]$x",
+    "source": "[int][A()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary type expression [int]\n[A()]$x",
+    "source": "[int]\n[A()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary type expression [int]\nparam foo",
+    "source": "[int]\nparam foo",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeStatement"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "ordinary type expression [int]\nWrite-Output x",
+    "source": "[int]\nWrite-Output x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary type expression [A()][int]\n$x",
+    "source": "[A()][int]\n$x",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter prefix boundary [int];param($x)",
+    "source": "[int];param($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter prefix boundary [A()][int][B()]$x",
+    "source": "[A()][int][B()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter prefix boundary [A()][B()]$x",
+    "source": "[A()][B()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "long adjacent type prefix",
+    "source": "[int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int]param($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "long multiline type prefix",
+    "source": "[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\n[int]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "long ordinary cast chain",
+    "source": "[int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int][int]$x",
+    "valid": true,
+    "diagnostics": []
+  }
+]

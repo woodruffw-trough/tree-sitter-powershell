@@ -1,0 +1,1024 @@
+[
+  {
+    "name": "using namespace \"System.$name\"",
+    "source": "using namespace \"System.$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module \"System.$name\"",
+    "source": "using module \"System.$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace System.$name",
+    "source": "using namespace System.$name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module System.$name",
+    "source": "using module System.$name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace System.\"$name\"",
+    "source": "using namespace System.\"$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module System.\"$name\"",
+    "source": "using module System.\"$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace System.${name}",
+    "source": "using namespace System.${name}",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module System.${name}",
+    "source": "using module System.${name}",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace System.$(1)",
+    "source": "using namespace System.$(1)",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module System.$(1)",
+    "source": "using module System.$(1)",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace \"System.$(1)\"",
+    "source": "using namespace \"System.$(1)\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module \"System.$(1)\"",
+    "source": "using module \"System.$(1)\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace \"System.`$name\"",
+    "source": "using namespace \"System.`$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module \"System.`$name\"",
+    "source": "using module \"System.`$name\"",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace \"System.$\"",
+    "source": "using namespace \"System.$\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module \"System.$\"",
+    "source": "using module \"System.$\"",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace System.$",
+    "source": "using namespace System.$",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module System.$",
+    "source": "using module System.$",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace @'\nSystem.Text\n'@",
+    "source": "using namespace @'\nSystem.Text\n'@",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using module @'\nSystem.Text\n'@",
+    "source": "using module @'\nSystem.Text\n'@",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace @\"\nSystem.Text\n\"@",
+    "source": "using namespace @\"\nSystem.Text\n\"@",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using module @\"\nSystem.Text\n\"@",
+    "source": "using module @\"\nSystem.Text\n\"@",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace @\"\nSystem.$name\n\"@",
+    "source": "using namespace @\"\nSystem.$name\n\"@",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module @\"\nSystem.$name\n\"@",
+    "source": "using module @\"\nSystem.$name\n\"@",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace \"\"",
+    "source": "using namespace \"\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module \"\"",
+    "source": "using module \"\"",
+    "valid": false,
+    "diagnostics": [
+      "RequiresModuleInvalid"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace ''",
+    "source": "using namespace ''",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module ''",
+    "source": "using module ''",
+    "valid": false,
+    "diagnostics": [
+      "RequiresModuleInvalid"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace 1",
+    "source": "using namespace 1",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module 1",
+    "source": "using module 1",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace 1.2",
+    "source": "using namespace 1.2",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module 1.2",
+    "source": "using module 1.2",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace 0x123",
+    "source": "using namespace 0x123",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module 0x123",
+    "source": "using module 0x123",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace true",
+    "source": "using namespace true",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using module true",
+    "source": "using module true",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace null",
+    "source": "using namespace null",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using module null",
+    "source": "using module null",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace System.`$name",
+    "source": "using namespace System.`$name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module System.`$name",
+    "source": "using module System.`$name",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace System.\"`$name\"",
+    "source": "using namespace System.\"`$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module System.\"`$name\"",
+    "source": "using module System.\"`$name\"",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace System",
+    "source": "using namespace System",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using namespace x = System",
+    "source": "using namespace x = System",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace 'x' = 'System'",
+    "source": "using namespace 'x' = 'System'",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace x=System",
+    "source": "using namespace x=System",
+    "valid": false,
+    "diagnostics": [
+      "InvalidNamespaceValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace x =System",
+    "source": "using namespace x =System",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using namespace x= System",
+    "source": "using namespace x= System",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "InvalidNamespaceValue"
+    ]
+  },
+  {
+    "name": "using namespace x = \"System.$name\"",
+    "source": "using namespace x = \"System.$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace x = System.$name",
+    "source": "using namespace x = System.$name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace x = $name",
+    "source": "using namespace x = $name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "source": "using namespace x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "source": "using namespace @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using namespace x =",
+    "source": "using namespace x =",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using namespace x\n= System",
+    "source": "using namespace x\n= System",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using namespace x =\nSystem",
+    "source": "using namespace x =\nSystem",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using namespace x <#comment#>= System",
+    "source": "using namespace x <#comment#>= System",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace x = @'\nSystem\n'@",
+    "source": "using namespace x = @'\nSystem\n'@",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using type System",
+    "source": "using type System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using type x = System",
+    "source": "using type x = System",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using type 'x' = 'System'",
+    "source": "using type 'x' = 'System'",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using type x=System",
+    "source": "using type x=System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using type x =System",
+    "source": "using type x =System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using type x= System",
+    "source": "using type x= System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using type x = \"System.$name\"",
+    "source": "using type x = \"System.$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using type x = System.$name",
+    "source": "using type x = System.$name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using type x = $name",
+    "source": "using type x = $name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using type x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "source": "using type x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using type @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "source": "using type @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using type x =",
+    "source": "using type x =",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using type x\n= System",
+    "source": "using type x\n= System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using type x =\nSystem",
+    "source": "using type x =\nSystem",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using type x <#comment#>= System",
+    "source": "using type x <#comment#>= System",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using type x = @'\nSystem\n'@",
+    "source": "using type x = @'\nSystem\n'@",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using command System",
+    "source": "using command System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using command x = System",
+    "source": "using command x = System",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using command 'x' = 'System'",
+    "source": "using command 'x' = 'System'",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using command x=System",
+    "source": "using command x=System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using command x =System",
+    "source": "using command x =System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using command x= System",
+    "source": "using command x= System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using command x = \"System.$name\"",
+    "source": "using command x = \"System.$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using command x = System.$name",
+    "source": "using command x = System.$name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using command x = $name",
+    "source": "using command x = $name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using command x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "source": "using command x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using command @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "source": "using command @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using command x =",
+    "source": "using command x =",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using command x\n= System",
+    "source": "using command x\n= System",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInUsingAlias"
+    ]
+  },
+  {
+    "name": "using command x =\nSystem",
+    "source": "using command x =\nSystem",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using command x <#comment#>= System",
+    "source": "using command x <#comment#>= System",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using command x = @'\nSystem\n'@",
+    "source": "using command x = @'\nSystem\n'@",
+    "valid": false,
+    "diagnostics": [
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module System",
+    "source": "using module System",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module x = System",
+    "source": "using module x = System",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse",
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module 'x' = 'System'",
+    "source": "using module 'x' = 'System'",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse",
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module x=System",
+    "source": "using module x=System",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module x =System",
+    "source": "using module x =System",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "ModuleNotFoundDuringParse"
+    ]
+  },
+  {
+    "name": "using module x= System",
+    "source": "using module x= System",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "ModuleNotFoundDuringParse"
+    ]
+  },
+  {
+    "name": "using module x = \"System.$name\"",
+    "source": "using module x = \"System.$name\"",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module x = System.$name",
+    "source": "using module x = System.$name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module x = $name",
+    "source": "using module x = $name",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using module x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "source": "using module x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using module @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "source": "using module @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using module x =",
+    "source": "using module x =",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using module x\n= System",
+    "source": "using module x\n= System",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module x =\nSystem",
+    "source": "using module x =\nSystem",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "using module x <#comment#>= System",
+    "source": "using module x <#comment#>= System",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse",
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module x = @'\nSystem\n'@",
+    "source": "using module x = @'\nSystem\n'@",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse",
+      "UsingStatementNotSupported"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using assembly System",
+    "source": "using assembly System",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using assembly x = System",
+    "source": "using assembly x = System",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly 'x' = 'System'",
+    "source": "using assembly 'x' = 'System'",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x=System",
+    "source": "using assembly x=System",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using assembly x =System",
+    "source": "using assembly x =System",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x= System",
+    "source": "using assembly x= System",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x = \"System.$name\"",
+    "source": "using assembly x = \"System.$name\"",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x = System.$name",
+    "source": "using assembly x = System.$name",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x = $name",
+    "source": "using assembly x = $name",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "source": "using assembly x = @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"}",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "source": "using assembly @{ModuleName=\"Microsoft.PowerShell.Utility\";ModuleVersion=\"7.0\"} = x",
+    "valid": false,
+    "diagnostics": [
+      "InvalidValueForUsingItemName"
+    ]
+  },
+  {
+    "name": "using assembly x =",
+    "source": "using assembly x =",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x\n= System",
+    "source": "using assembly x\n= System",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using assembly x =\nSystem",
+    "source": "using assembly x =\nSystem",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x <#comment#>= System",
+    "source": "using assembly x <#comment#>= System",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using assembly x = @'\nSystem\n'@",
+    "source": "using assembly x = @'\nSystem\n'@",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  }
+]

@@ -61,7 +61,9 @@ body nodes preserve source boundaries, including empty lists and bodies.
 Class method bodies retain parameter blocks and named blocks in their
 `statement_block`, even when PowerShell reports that those constructs are not
 allowed in a method. Parameters likewise retain splatted variable syntax before
-PowerShell reports `SplattingNotPermitted`. Static methods cannot have a
+PowerShell reports `SplattingNotPermitted`. A `param_block` also retains preceding
+type literals in `types`, alongside `attributes`, before the native parser
+reports `TypeNotAllowedBeforeParam`. Static methods cannot have a
 `base_constructor_call`. Enum bodies allow newlines before the first member;
 semicolons separate members after the first.
 
@@ -115,10 +117,13 @@ spaces, including .NET Unicode separators, are allowed around those separators.
 Opening brackets remain literal assembly text. These lexical boundaries follow
 `GetAssemblyNameSpec` in the pinned tokenizer; assembly resolution happens later.
 
-A `using_statement` exposes `kind` and one complete `value`. Values beginning
-with unquoted text use a `command_argument`, so `using namespace System."Text"`
+A `using_statement` exposes `kind`, an optional introduced `alias`, and one
+complete `value`. Values beginning with unquoted text use a `command_argument`, so `using namespace System."Text"`
 keeps the literal and quoted fragments together. A newline or semicolon separates
-a using declaration from the next statement. These rules follow Microsoft's
+a using declaration from the next statement. Quoted values, including here
+strings, must be constant; interpolation retains an error. Namespace, type,
+command, and module alias forms preserve both names, including module
+specifications written as hashtables. These rules follow Microsoft's
 [`about_Using`](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_using)
 and `UsingStatementRule` in the pinned parser.
 

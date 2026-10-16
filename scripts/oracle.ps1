@@ -180,6 +180,7 @@ function Get-AstRecord($Node) {
         }
         'UsingStatementAst' {
             Add-AstField $fields 'name' $Node.Name
+            Add-AstField $fields 'alias' $Node.Alias
             Add-AstField $fields 'module' $Node.ModuleSpecification
             $record.kind = $Node.UsingStatementKind.ToString()
         }

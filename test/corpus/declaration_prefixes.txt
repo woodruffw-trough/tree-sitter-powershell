@@ -1,0 +1,75 @@
+================================================================================
+Parameter blocks retain semantic type constraints
+================================================================================
+
+[int][CmdletBinding()]param($x)
+
+---
+
+(source_file
+  (param_block
+    types: (type_literal
+      (type_name
+        name: (type_identifier)))
+    attributes: (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list))
+    parameters: (parameter_list
+      (parameter
+        name: (variable)))))
+
+================================================================================
+Newlines in a type prefix do not split the parameter block
+================================================================================
+
+[int]
+[string]
+param($x)
+
+---
+
+(source_file
+  (param_block
+    types: (type_literal
+      (type_name
+        name: (type_identifier)))
+    types: (type_literal
+      (type_name
+        name: (type_identifier)))
+    parameters: (parameter_list
+      (parameter
+        name: (variable)))))
+
+================================================================================
+Standalone types and conversion operands retain their expression structure
+================================================================================
+
+[int]
+1
+[A()][int]$x
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (type_literal
+        (type_name
+          name: (type_identifier)))))
+  (pipeline
+    elements: (command_expression
+      expression: (integer_literal)))
+  (pipeline
+    elements: (command_expression
+      expression: (attributed_expression
+        attribute: (attribute
+          name: (type_name
+            name: (type_identifier))
+          arguments: (argument_list))
+        value: (cast_expression
+          type: (type_literal
+            (type_name
+              name: (type_identifier)))
+          value: (variable))))))
+

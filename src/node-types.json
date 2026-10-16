@@ -3845,6 +3845,16 @@
             "named": true
           }
         ]
+      },
+      "types": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "type_literal",
+            "named": true
+          }
+        ]
       }
     }
   },
@@ -5275,6 +5285,32 @@
     "type": "using_statement",
     "named": true,
     "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "command_argument",
+            "named": true
+          },
+          {
+            "type": "expandable_here_string",
+            "named": true
+          },
+          {
+            "type": "expandable_string",
+            "named": true
+          },
+          {
+            "type": "single_quoted_here_string",
+            "named": true
+          },
+          {
+            "type": "single_quoted_string",
+            "named": true
+          }
+        ]
+      },
       "kind": {
         "multiple": false,
         "required": true,
@@ -5284,11 +5320,19 @@
             "named": false
           },
           {
+            "type": "command",
+            "named": false
+          },
+          {
             "type": "module",
             "named": false
           },
           {
             "type": "namespace",
+            "named": false
+          },
+          {
+            "type": "type",
             "named": false
           }
         ]
@@ -5302,11 +5346,19 @@
             "named": true
           },
           {
+            "type": "expandable_here_string",
+            "named": true
+          },
+          {
             "type": "expandable_string",
             "named": true
           },
           {
             "type": "hashtable_expression",
+            "named": true
+          },
+          {
+            "type": "single_quoted_here_string",
             "named": true
           },
           {
@@ -5834,6 +5886,10 @@
     "named": false
   },
   {
+    "type": "command",
+    "named": false
+  },
+  {
     "type": "command_parameter_name",
     "named": true
   },
@@ -6005,6 +6061,10 @@
   },
   {
     "type": "try",
+    "named": false
+  },
+  {
+    "type": "type",
     "named": false
   },
   {

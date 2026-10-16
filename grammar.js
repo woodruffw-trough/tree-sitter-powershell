@@ -399,6 +399,10 @@ const grammarDefinition = {
     // Attribute lists prefix declarations and variable expressions. Preserve
     // both interpretations until a keyword or variable selects their context.
     [$.param_block, $.class_definition, $.enum_definition, $.attributed_expression],
+    // A leading type may instead be a cast or an ordinary type expression.
+    [$.param_block, $._primary_expression],
+    [$.param_block, $.cast_expression],
+    [$._primary_expression, $.cast_expression],
     [$.class_definition, $.enum_definition, $.attributed_expression],
   ],
 
@@ -702,13 +706,22 @@ const grammarDefinition = {
       ')',
     ),
 
-    // The scanner commits to a leading parameter block when its list begins.
-    param_block: $ => seq(
-      repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
+    // A complete header wins over splitting its type prefixes into casts or
+    // standalone statements. Each type keeps conversion precedence until the
+    // param keyword selects the declaration. PowerShell diagnoses these prefixes
+    // after parsing the header.
+    param_block: $ => prec.dynamic(1, seq(
+      repeat(choice(
+        seq(field('attributes', $.attribute), repeat(NEWLINE)),
+        prec.dynamic(1, prec(PREC.unary, seq(
+          field('types', $.type_literal),
+          repeat(NEWLINE),
+        ))),
+      )),
       alias($._param_block_keyword, 'param'),
       repeat(NEWLINE),
       field('parameters', $.parameter_list),
-    ),
+    )),
 
     parameter: $ => seq(
       repeat(seq(choice(
@@ -883,10 +896,37 @@ const grammarDefinition = {
       choice(
         seq(
           field('kind', keyword('module')),
-          field('value', choice($._using_argument_value, $.hashtable_expression)),
+          choice(
+            field('value', choice($._using_argument_value, $.hashtable_expression)),
+            seq(
+              field('alias', $._using_argument_value),
+              '=',
+              $._clause_keyword_end,
+              field('value', choice($._using_argument_value, $.hashtable_expression)),
+            ),
+          ),
         ),
         seq(
-          field('kind', choice(keyword('namespace'), keyword('assembly'))),
+          field('kind', keyword('namespace')),
+          choice(
+            field('value', $._using_argument_value),
+            seq(
+              field('alias', $._using_argument_value),
+              '=',
+              $._clause_keyword_end,
+              field('value', $._using_argument_value),
+            ),
+          ),
+        ),
+        seq(
+          field('kind', choice(keyword('type'), keyword('command'))),
+          field('alias', $._using_argument_value),
+          '=',
+          $._clause_keyword_end,
+          field('value', $._using_argument_value),
+        ),
+        seq(
+          field('kind', keyword('assembly')),
           field('value', $._using_argument_value),
         ),
       ),
@@ -896,12 +936,56 @@ const grammarDefinition = {
     // adjacent quote fragments; a quoted leading value instead ends as one string.
     _using_argument_value: $ => choice(
       seq(alias($._using_generic_argument_value, $.command_argument), $._argument_end),
-      seq(choice($.single_quoted_string, $.expandable_string), $._argument_end),
+      seq(choice(
+        $.single_quoted_string,
+        alias($._using_expandable_string, $.expandable_string),
+        $.single_quoted_here_string,
+        alias($._using_expandable_here_string, $.expandable_here_string),
+      ), $._argument_end),
     ),
 
     _using_generic_argument_value: $ => seq(
       choice($.bare_word, alias($._bare_colon_word, $.bare_word)),
-      repeat($._generic_argument_continuation),
+      repeat(choice(
+        alias($._argument_continuation, $.line_continuation),
+        alias($._generic_argument_fragment, $.argument_fragment),
+        alias($._literal_dollar, $.argument_fragment),
+        alias($._using_argument_expandable_string, $.expandable_string),
+        alias($._adjacent_single_quoted_string, $.single_quoted_string),
+      )),
+    ),
+
+    _using_expandable_string: $ => seq(
+      alias($._double_quote, '"'),
+      repeat(choice(
+        $.string_content,
+        alias($._literal_dollar, $.string_content),
+        alias($._string_escape, $.escape_sequence),
+      )),
+      alias($._double_quote, '"'),
+    ),
+
+    _using_argument_expandable_string: $ => seq(
+      alias($._adjacent_double_quote, '"'),
+      repeat(choice(
+        $.string_content,
+        alias($._literal_dollar, $.string_content),
+        alias($._string_escape, $.escape_sequence),
+      )),
+      alias($._double_quote, '"'),
+    ),
+
+    _using_expandable_here_string: $ => choice(
+      $._empty_expandable_here_string,
+      seq(
+        $._expandable_here_string_start,
+        repeat(choice(
+          alias($._here_string_content, $.string_content),
+          alias($._literal_dollar, $.string_content),
+          alias($._string_escape, $.escape_sequence),
+        )),
+        $._here_string_end,
+      ),
     ),
 
     data_statement: $ => seq(
@@ -1419,14 +1503,14 @@ const grammarDefinition = {
       ),
     ),
 
-    _argument_cast_expression: $ => prec(
+    _argument_cast_expression: $ => prec.dynamic(1, prec(
       PREC.unary,
       seq(
         field('type', $.type_literal),
         optional($._cast_value_context),
         field('value', $._argument_cast_value),
       ),
-    ),
+    )),
 
     // Command mode first peeks at a complete token. A glued '-1' or '$name-tail'
     // can be generic text where the same spelling starts an expression elsewhere.
@@ -1538,14 +1622,14 @@ const grammarDefinition = {
       ),
     ),
 
-    cast_expression: $ => prec(
+    cast_expression: $ => prec.dynamic(1, prec(
       PREC.unary,
       seq(
         field('type', $.type_literal),
         optional($._cast_value_context),
         field('value', $._cast_value),
       ),
-    ),
+    )),
 
     // Attribute targets are parsed as unary expressions; target restrictions
     // are diagnosed later by Microsoft's semantic checks.
@@ -1609,7 +1693,7 @@ const grammarDefinition = {
 
     _primary_expression: $ => choice(
       $._value_primary_expression,
-      $.type_literal,
+      prec(PREC.unary, $.type_literal),
       alias($.computed_member_access, $.member_access),
     ),
 
@@ -1619,7 +1703,7 @@ const grammarDefinition = {
 
     _argument_primary_expression: $ => choice(
       $._argument_value_primary_expression,
-      $.type_literal,
+      prec(PREC.unary, $.type_literal),
       alias($.argument_computed_member_access, $.member_access),
     ),
 

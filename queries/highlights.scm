@@ -43,4 +43,4 @@
 ["if" "elseif" "else" "switch" "default"] @keyword.conditional
 ["foreach" "for" "while" "do" "until" "in"] @keyword.repeat
 ["try" "catch" "finally" "trap" "throw"] @keyword.exception
-["class" "enum" "hidden" "static" "base" "param" "data" "configuration" "using" "namespace" "module" "assembly"] @keyword
+["class" "enum" "hidden" "static" "base" "param" "data" "configuration" "using" "namespace" "module" "assembly" "type" "command"] @keyword

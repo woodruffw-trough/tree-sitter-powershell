@@ -133,6 +133,12 @@ impl<'a> Source<'a> {
 }
 
 fn semantic_end_byte(node: Node<'_>, source: &str) -> usize {
+    if node.kind() == "using_statement" && node.child_by_field_name("alias").is_some() {
+        let value = node.child_by_field_name("value").unwrap();
+        if value.kind() == "hashtable_expression" {
+            return value.start_byte() + 2;
+        }
+    }
     if node.kind() == "background_pipeline" {
         return semantic_end_byte(node.child_by_field_name("pipeline").unwrap(), source);
     }
@@ -343,6 +349,7 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
                         "type_name"
                             | "generic_type_arguments"
                             | "parameter"
+                            | "param_block"
                             | "class_property"
                             | "class_method"
                             | "class_definition"
@@ -512,11 +519,23 @@ fn interpolation_expressions(node: Node<'_>, source: &Source<'_>, expressions: &
 fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>) -> Value {
     match (category, field) {
         ("UsingStatementAst", "name") => {
-            let value = node.child_by_field_name("value").unwrap();
+            let value = node
+                .child_by_field_name("alias")
+                .or_else(|| node.child_by_field_name("value"))
+                .unwrap();
             if value.kind() == "hashtable_expression" {
                 Value::Null
             } else {
                 source.record(value)
+            }
+        }
+        ("UsingStatementAst", "alias") => {
+            let value = node.child_by_field_name("value").unwrap();
+            if node.child_by_field_name("alias").is_some() && value.kind() != "hashtable_expression"
+            {
+                source.record(value)
+            } else {
+                Value::Null
             }
         }
         ("UsingStatementAst", "module") => {
@@ -697,7 +716,7 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "CatchClauseAst" => &["body", "types"],
         "TrapStatementAst" => &["body", "type"],
         "DataStatementAst" => &["body", "supportedCommands"],
-        "UsingStatementAst" => &["name", "module"],
+        "UsingStatementAst" => &["name", "alias", "module"],
         "ReturnStatementAst" | "ThrowStatementAst" | "ExitStatementAst" => &["value"],
         "BreakStatementAst" | "ContinueStatementAst" => &["label"],
         "QuotedStringAst" | "CompositeStringAst" => &["expressions"],
@@ -985,6 +1004,8 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
         let text = source.text(kind).to_ascii_lowercase();
         let kind = match text.as_str() {
             "namespace" => "Namespace",
+            "type" => "Type",
+            "command" => "Command",
             "module" => "Module",
             "assembly" => "Assembly",
             _ => unreachable!("unknown using statement kind"),

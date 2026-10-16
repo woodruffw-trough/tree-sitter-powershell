@@ -892,5 +892,70 @@
         ]
       }
     ]
+  },
+  {
+    "name": "using aliases and complete targets",
+    "source": "using namespace Collections = System.Collections\nusing type Text = System.String\nusing command Read = Get-Item",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UsingStatementNotSupported",
+      "UsingStatementNotSupported",
+      "UsingStatementNotSupported"
+    ],
+    "fields": [
+      {
+        "node": "using_statement",
+        "field": "alias",
+        "texts": [
+          "Collections",
+          "Text",
+          "Read"
+        ]
+      },
+      {
+        "node": "using_statement",
+        "field": "value",
+        "texts": [
+          "System.Collections",
+          "System.String",
+          "Get-Item"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "parameter block retains type and attribute prefix roles",
+    "source": "[int][CmdletBinding()][string]param($x)",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam",
+      "TypeNotAllowedBeforeParam"
+    ],
+    "fields": [
+      {
+        "node": "param_block",
+        "field": "types",
+        "texts": [
+          "[int]",
+          "[string]"
+        ]
+      },
+      {
+        "node": "param_block",
+        "field": "attributes",
+        "texts": [
+          "[CmdletBinding()]"
+        ]
+      },
+      {
+        "node": "param_block",
+        "field": "parameters",
+        "texts": [
+          "($x)"
+        ]
+      }
+    ]
   }
 ]

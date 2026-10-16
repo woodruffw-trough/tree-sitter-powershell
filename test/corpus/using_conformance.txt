@@ -1,0 +1,87 @@
+================================================================================
+using literal here strings and module specification aliases
+================================================================================
+
+using namespace @'
+System.Text
+'@
+using namespace @"
+System.Collections
+"@
+using module Utility = @{ModuleName="Microsoft.PowerShell.Utility";ModuleVersion="7.0"}
+
+---
+
+(source_file
+  (using_statement
+    value: (single_quoted_here_string))
+  (using_statement
+    value: (expandable_here_string
+      (string_content)))
+  (using_statement
+    alias: (command_argument
+      (bare_word))
+    value: (hashtable_expression
+      (hash_entry
+        key: (identifier)
+        value: (pipeline
+          elements: (command_expression
+            expression: (expandable_string
+              (string_content)))))
+      (hash_entry
+        key: (identifier)
+        value: (pipeline
+          elements: (command_expression
+            expression: (expandable_string
+              (string_content))))))))
+
+================================================================================
+using aliases keep introduced names and complete targets
+================================================================================
+
+using namespace Collections = System.Collections
+using type Text = System.String
+using command Read = Get-Item
+
+---
+
+(source_file
+  (using_statement
+    alias: (command_argument
+      (bare_word))
+    value: (command_argument
+      (bare_word)))
+  (using_statement
+    alias: (command_argument
+      (bare_word))
+    value: (command_argument
+      (bare_word)))
+  (using_statement
+    alias: (command_argument
+      (bare_word))
+    value: (command_argument
+      (bare_word))))
+
+================================================================================
+invalid using interpolation preserves the following command
+================================================================================
+
+using namespace "System.$name"
+Write-Output after
+
+---
+
+(source_file
+  (using_statement
+    value: (expandable_string
+      (string_content)
+      (ERROR
+        (argument_fragment)
+        (type_identifier))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
