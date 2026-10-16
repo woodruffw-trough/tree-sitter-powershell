@@ -238,7 +238,11 @@ fn composite_string(node: Node<'_>) -> bool {
     if node.kind() != "command_argument" {
         return false;
     }
-    let children = named_children(node);
+    let mut cursor = node.walk();
+    let children: Vec<_> = node
+        .named_children(&mut cursor)
+        .filter(|child| !child.is_extra())
+        .collect();
     children.len() > 1
         && children.iter().any(|child| {
             matches!(
@@ -942,12 +946,9 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
         result.insert("nullConditional", json!(operator == "?."));
     }
     if category == "IndexExpressionAst" {
-        let target = node.child_by_field_name("object").unwrap();
-        let suffix = &source.text[target.end_byte()..node.end_byte()];
-        result.insert(
-            "nullConditional",
-            json!(suffix.trim_start().starts_with("?[")),
-        );
+        let mut cursor = node.walk();
+        let null_conditional = node.children(&mut cursor).any(|child| child.kind() == "?[");
+        result.insert("nullConditional", json!(null_conditional));
     }
     if category == "VariableExpressionAst" {
         result.insert("splatted", json!(node.kind() == "splat_expression"));

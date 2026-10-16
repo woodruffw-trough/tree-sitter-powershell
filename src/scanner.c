@@ -89,7 +89,8 @@ enum TokenType {
 };
 
 static bool prepared_context_token(TSSymbol symbol) {
-  return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END || symbol == LABEL_START;
+  return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END || symbol == LABEL_START ||
+         symbol == MEMBER_ARGUMENT_END || symbol == EXPRESSION_ARGUMENT_END;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -495,7 +496,7 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
 
 unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *buffer) {
   Scanner *scanner = payload;
-  if (!scanner->depth) {
+  if (!scanner->depth && !scanner->prepared.active) {
     return 0;
   }
   size_t size = interpolation_state_size(scanner) +
@@ -545,6 +546,9 @@ void tree_sitter_powershell_external_scanner_deserialize(void *payload, const ch
       memset(scanner, 0, sizeof(*scanner));
       return;
     }
+  }
+  if (!length && scanner->prepared.active) {
+    return;
   }
   if (!decode_interpolation_state(scanner, buffer, length)) {
     memset(scanner, 0, sizeof(*scanner));
@@ -748,11 +752,58 @@ static bool scan_verbatim_argument_text(TSLexer *lexer) {
   lexer->result_symbol = VERBATIM_ARGUMENT_TEXT;
   return true;
 }
+// The caller consumed '<#'. Lookahead callers retain their earlier token end.
+static bool skip_block_comment_body(TSLexer *lexer) {
+  while (!lexer->eof(lexer)) {
+    int32_t c = lexer->lookahead;
+    lexer->advance(lexer, false);
+    if (c == '#' && lexer->lookahead == '>') {
+      lexer->advance(lexer, false);
+      return true;
+    }
+  }
+  return false;
+}
+
+static bool argument_boundary_context(const bool *valid) {
+  return (valid[MEMBER_ARGUMENT_END] || (valid[EXPRESSION_ARGUMENT_END] && !valid[ARGUMENT_END])) &&
+         !valid[HERE_STRING_CONTENT];
+}
+
+// GetMemberAccessOperator rejects command-mode dots and static separators
+// followed by whitespace. A range or a literal punctuation word starts another
+// argument. Comments also separate a method name from its call opener.
+static bool argument_postfix_follows(TSLexer *lexer, bool allow_call) {
+  int32_t c = lexer->lookahead;
+  if (c == '[' || (allow_call && (c == '(' || c == '{'))) {
+    return true;
+  }
+  if (c == '.' || c == ':') {
+    lexer->advance(lexer, false);
+    if (c == ':') {
+      if (lexer->lookahead != ':') {
+        return false;
+      }
+      lexer->advance(lexer, false);
+    } else if (lexer->lookahead == '.') {
+      return false;
+    }
+    return !horizontal(lexer->lookahead) && !newline(lexer->lookahead) && lexer->lookahead != 0;
+  }
+  if (c == '?') {
+    lexer->advance(lexer, false);
+    return lexer->lookahead == '.' || lexer->lookahead == '[';
+  }
+  return false;
+}
+
+static bool postfix_after_trivia(TSLexer *lexer, const bool *valid, bool escaped_trivia);
+
 // Comments remain named extras. The method context is a lookahead sentinel
 // that the grammar never needs to consume: a block comment may precede member
 // access, but PowerShell forbids one between a method name and its argument
 // opener.
-static bool scan_comment(TSLexer *lexer, const bool *valid) {
+static bool scan_comment(TSLexer *lexer, const bool *valid, bool leading_whitespace) {
   if (lexer->lookahead == '#') {
     do {
       lexer->advance(lexer, false);
@@ -779,28 +830,23 @@ static bool scan_comment(TSLexer *lexer, const bool *valid) {
   // Once '<#' begins a comment, an unterminated body cannot become a
   // command named '<' followed by a line comment.
   lexer->advance(lexer, false);
-  while (!lexer->eof(lexer)) {
-    if (lexer->lookahead == '#') {
-      lexer->advance(lexer, false);
-      if (lexer->lookahead == '>') {
-        lexer->advance(lexer, false);
-        lexer->mark_end(lexer);
-        if (valid[METHOD_INVOCATION_CONTEXT]) {
-          while (horizontal(lexer->lookahead)) {
-            lexer->advance(lexer, false);
-          }
-          if (lexer->lookahead == '(' || lexer->lookahead == '{') {
-            return false;
-          }
-        }
-        lexer->result_symbol = COMMENT;
-        return true;
-      }
-    } else {
+  if (!skip_block_comment_body(lexer)) {
+    return false;
+  }
+  lexer->mark_end(lexer);
+  if (leading_whitespace && postfix_after_trivia(lexer, valid, false)) {
+    return false;
+  }
+  if (valid[METHOD_INVOCATION_CONTEXT]) {
+    while (horizontal(lexer->lookahead)) {
       lexer->advance(lexer, false);
     }
+    if (lexer->lookahead == '(' || lexer->lookahead == '{') {
+      return false;
+    }
   }
-  return false;
+  lexer->result_symbol = COMMENT;
+  return true;
 }
 
 static void consume_newline(TSLexer *lexer) {
@@ -867,6 +913,84 @@ static bool scan_here_string_after_at(TSLexer *lexer, const bool *valid) {
   return false;
 }
 
+static bool variable_character(int32_t c);
+static bool decimal_character(int32_t c);
+
+// This is lookahead only: callers keep their token end before the trivia.
+static bool skip_postfix_trivia(TSLexer *lexer, bool allow_newlines) {
+  while (!lexer->eof(lexer)) {
+    if (horizontal(lexer->lookahead) || (allow_newlines && newline(lexer->lookahead))) {
+      lexer->advance(lexer, false);
+    } else if (allow_newlines && lexer->lookahead == '#') {
+      while (!lexer->eof(lexer) && !newline(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      }
+    } else if (lexer->lookahead == '<') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead != '#') {
+        return false;
+      }
+      lexer->advance(lexer, false);
+      if (!skip_block_comment_body(lexer)) {
+        return false;
+      }
+    } else if (lexer->lookahead == '`') {
+      lexer->advance(lexer, false);
+      if (newline(lexer->lookahead)) {
+        consume_newline(lexer);
+      } else if (horizontal(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      } else {
+        return false;
+      }
+    } else {
+      break;
+    }
+  }
+  return true;
+}
+
+static bool postfix_after_trivia(TSLexer *lexer, const bool *valid, bool escaped_trivia) {
+  if ((!valid[POSTFIX_CONTEXT] && !valid[METHOD_INVOCATION_CONTEXT]) ||
+      !skip_postfix_trivia(lexer, false)) {
+    return false;
+  }
+  int32_t c = lexer->lookahead;
+  if (valid[CAST_VALUE_CONTEXT] && !valid[HERE_STRING_CONTENT]) {
+    // GetLBracket permits trivia before a cast operand and resets its member
+    // adjacency check after a block comment. Backtick trivia does not reset it.
+    if (!escaped_trivia || c == '[' || c == '(' || c == '{') {
+      return false;
+    }
+  }
+  if (c == '.' || c == ':') {
+    lexer->advance(lexer, false);
+    return c == '.' ? lexer->lookahead != '.' : lexer->lookahead == ':';
+  }
+  if (c == '[') {
+    // GenericMethodArgumentsRule reads its '[' using NextToken, which permits
+    // trivia. Ordinary indexing still requires adjacency. A generic list's
+    // first token must be an identifier, rather than an index expression.
+    if (!valid[METHOD_INVOCATION_CONTEXT]) {
+      return true;
+    }
+    lexer->advance(lexer, false);
+    if (!skip_postfix_trivia(lexer, true)) {
+      return true;
+    }
+    c = lexer->lookahead;
+    return !variable_character(c) || c == '?' || decimal_character(c);
+  }
+  if (c == '(' || (c == '{' && valid[METHOD_INVOCATION_CONTEXT])) {
+    return true;
+  }
+  if (c == '?') {
+    lexer->advance(lexer, false);
+    return lexer->lookahead == '.' || lexer->lookahead == '[';
+  }
+  return false;
+}
+
 // The caller consumed the backtick. Named external extras cause tree-sitter
 // to rerun the external lexer after a continuation, which is necessary for
 // argument-mode words. A continuation cannot separate a postfix operator.
@@ -876,20 +1000,8 @@ static bool scan_line_continuation_after_tick(TSLexer *lexer, const bool *valid)
   }
   consume_newline(lexer);
   lexer->mark_end(lexer);
-  if (valid[POSTFIX_CONTEXT] || valid[METHOD_INVOCATION_CONTEXT]) {
-    while (horizontal(lexer->lookahead)) {
-      lexer->advance(lexer, false);
-    }
-    int32_t c = lexer->lookahead;
-    if (c == '.' || c == '[' || c == '(' || (c == '{' && valid[METHOD_INVOCATION_CONTEXT])) {
-      return false;
-    }
-    if (c == '?') {
-      lexer->advance(lexer, false);
-      if (lexer->lookahead == '.' || lexer->lookahead == '[') {
-        return false;
-      }
-    }
+  if (postfix_after_trivia(lexer, valid, true)) {
+    return false;
   }
   lexer->result_symbol = LINE_CONTINUATION;
   return true;
@@ -1444,7 +1556,7 @@ static bool scan_name_quoted_piece(TSLexer *lexer) {
   return false;
 }
 
-static bool scan_escaped_whitespace_after_tick(TSLexer *lexer) {
+static bool scan_escaped_whitespace_after_tick(TSLexer *lexer, const bool *valid) {
   if (!horizontal(lexer->lookahead)) {
     return false;
   }
@@ -1452,6 +1564,9 @@ static bool scan_escaped_whitespace_after_tick(TSLexer *lexer) {
     lexer->advance(lexer, false);
   } while (horizontal(lexer->lookahead));
   lexer->mark_end(lexer);
+  if (postfix_after_trivia(lexer, valid, true)) {
+    return false;
+  }
   lexer->result_symbol = ESCAPED_WHITESPACE;
   return true;
 }
@@ -1474,7 +1589,7 @@ static bool scan_function_name(TSLexer *lexer, const bool *valid) {
       return scan_line_continuation_after_tick(lexer, valid);
     }
     if (horizontal(lexer->lookahead)) {
-      return scan_escaped_whitespace_after_tick(lexer);
+      return scan_escaped_whitespace_after_tick(lexer, valid);
     }
     int32_t decoded;
     if (!scan_backtick_escape_after_tick(lexer, &decoded, NULL)) {
@@ -2003,7 +2118,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
         return scan_line_continuation_after_tick(lexer, valid);
       }
       if (n == 0 && horizontal(lexer->lookahead)) {
-        return scan_escaped_whitespace_after_tick(lexer);
+        return scan_escaped_whitespace_after_tick(lexer, valid);
       }
       if (!scan_backtick_escape_after_tick(lexer, &c, &physical_newline)) {
         return false;
@@ -3022,24 +3137,15 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   }
   // These zero-width endings let the grammar stop a completed expression
   // without absorbing an adjacent operator into its enclosing command argument.
-  if ((valid[MEMBER_ARGUMENT_END] || (valid[EXPRESSION_ARGUMENT_END] && !valid[ARGUMENT_END])) &&
-      !valid[HERE_STRING_CONTENT]) {
+  if (argument_boundary_context(valid)) {
+    if (lexer->lookahead == '<' && valid[COMMENT] && valid[PREPARED_TOKEN]) {
+      // Buffered lookahead retains both possible token ends: before the comment
+      // for a new argument, or after the first comment for continued access.
+      return request_preparation(scanner, lexer, valid);
+    }
     lexer->mark_end(lexer);
-    int32_t c = lexer->lookahead;
-    if (c == '.' || c == '[' || (valid[MEMBER_ARGUMENT_END] && (c == '(' || c == '{'))) {
+    if (argument_postfix_follows(lexer, valid[MEMBER_ARGUMENT_END])) {
       return false;
-    }
-    if (c == ':') {
-      lexer->advance(lexer, false);
-      if (lexer->lookahead == ':') {
-        return false;
-      }
-    }
-    if (c == '?') {
-      lexer->advance(lexer, false);
-      if (lexer->lookahead == '.' || lexer->lookahead == '[') {
-        return false;
-      }
     }
     lexer->result_symbol =
         valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END : EXPRESSION_ARGUMENT_END;
@@ -3170,14 +3276,14 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
       !valid[DATA_COMMAND_NAME] && !valid[FUNCTION_NAME] && lexer->lookahead == '`') {
     lexer->advance(lexer, false);
     if (horizontal(lexer->lookahead)) {
-      return scan_escaped_whitespace_after_tick(lexer);
+      return scan_escaped_whitespace_after_tick(lexer, valid);
     }
     return scan_line_continuation_after_tick(lexer, valid);
   }
   // Do not let a recovery comment swallow quotes or bypass a required boundary.
   if (valid[COMMENT] && !valid[HERE_STRING_CONTENT] &&
       (lexer->lookahead == '#' || lexer->lookahead == '<')) {
-    return scan_comment(lexer, valid);
+    return scan_comment(lexer, valid, skipped_trivia);
   }
   if (generic_dash(lexer->lookahead) &&
       (valid[SWITCH_REGEX_PARAMETER] || valid[SWITCH_WILDCARD_PARAMETER] ||
@@ -3329,11 +3435,39 @@ static size_t preparation_transform(PreparationCharacter *characters, size_t len
   return length;
 }
 
+static bool prepare_argument_comment(PreparationLexer *source, const bool *valid) {
+  TSLexer *lexer = &source->lexer;
+  size_t first_end = 0;
+  lexer->result_symbol = valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END : EXPRESSION_ARGUMENT_END;
+  while (lexer->lookahead == '<') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead != '#') {
+      return true;
+    }
+    lexer->advance(lexer, false);
+    if (!skip_block_comment_body(lexer)) {
+      return false;
+    }
+    if (!first_end) {
+      first_end = source->position;
+    }
+  }
+  if (first_end && argument_postfix_follows(lexer, false)) {
+    source->marked = first_end;
+    lexer->result_symbol = COMMENT;
+  }
+  return true;
+}
+
 static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bool *valid,
                                       size_t valid_count, PreparedToken *result,
                                       bool dollar_prefix) {
   uint32_t layers = ordinary_interpolation_layers(scanner);
-  if (!layers || valid_count <= SUB_EXPRESSION_OPEN || valid_count <= SUB_EXPRESSION_END) {
+  if (valid_count <= SUB_EXPRESSION_OPEN || valid_count <= SUB_EXPRESSION_END) {
+    return false;
+  }
+  bool argument_comment = argument_boundary_context(valid) && lexer->lookahead == '<';
+  if (!layers && !argument_comment) {
     return false;
   }
   PreparedToken prepared = {0};
@@ -3353,6 +3487,7 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
   virtual_valid[SUB_EXPRESSION_END] = false;
   virtual_valid[INTERPOLATION_OPEN] = false;
   virtual_valid[INTERPOLATION_TAIL] = false;
+  virtual_valid[PREPARED_TOKEN] = false;
   size_t length = 0;
   size_t capacity = 0;
   size_t target = 32;
@@ -3418,7 +3553,8 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
         .length = virtual_length,
         .included_range_start = range_start,
     };
-    Scanner virtual_scanner = {.collector_eof = complete && !collected_verbatim_close};
+    Scanner virtual_scanner = {.collector_eof =
+                                   layers != 0 && complete && !collected_verbatim_close};
     TrackedLexer virtual_lexer = {
         .lexer =
             {
@@ -3432,7 +3568,11 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
         .base = &source.lexer,
         .scanner = &virtual_scanner,
     };
-    bool accepted = scan(&virtual_scanner, &virtual_lexer.lexer, virtual_valid);
+    bool accepted = argument_comment ? prepare_argument_comment(&source, virtual_valid)
+                                     : scan(&virtual_scanner, &virtual_lexer.lexer, virtual_valid);
+    if (argument_comment) {
+      virtual_lexer.lexer.result_symbol = source.lexer.result_symbol;
+    }
     if (complete || source.position < virtual_length) {
       if (accepted &&
           (source.marked > source.start ||

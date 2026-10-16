@@ -1836,7 +1836,7 @@ const grammarDefinition = {
     // Generic lists allow newlines around separators. Bracketed generic arguments
     // forbid a newline immediately after their opener; assembly names stay inline.
     generic_type_arguments: $ => seq(
-      token.immediate(prec(5, '[')),
+      choice(token.immediate(prec(5, '[')), token(prec(4, '['))),
       repeat(NEWLINE),
       $.type_name,
       repeat(NEWLINE),

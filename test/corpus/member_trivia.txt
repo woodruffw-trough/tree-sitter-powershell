@@ -1,0 +1,111 @@
+==================
+generic methods and casts retain distinct trivia rules
+==================
+$obj.Method [int](1)
+$obj.Method`
+[int](1)
+[int]` (1)
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        type_arguments: (generic_type_arguments
+          (type_name
+            name: (type_identifier)))
+        arguments: (argument_list
+          (integer_literal)))))
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        (line_continuation)
+        type_arguments: (generic_type_arguments
+          (type_name
+            name: (type_identifier)))
+        arguments: (argument_list
+          (integer_literal)))))
+  (pipeline
+    elements: (command_expression
+      expression: (cast_expression
+        type: (type_literal
+          (type_name
+            name: (type_identifier)))
+        value: (parenthesized_expression
+          (pipeline
+            elements: (command_expression
+              expression: (integer_literal))))))))
+
+==================
+comment postfix and punctuation preserve command arguments
+==================
+cmd $obj.(-$name)<#🦉#>.Name $x.F<#c#>?word $x.F<#c#>..2 | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (member_access
+            object: (variable)
+            member: (parenthesized_expression
+              (pipeline
+                elements: (command_expression
+                  expression: (unary_expression
+                    argument: (variable))))))
+          (comment)
+          member: (identifier)))
+      (command_argument
+        (member_access
+          object: (variable)
+          member: (identifier)))
+      (comment)
+      (command_argument
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (variable)
+          member: (identifier)))
+      (comment)
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+escaped whitespace keeps method call errors and later commands
+==================
+$obj.Method` (1)
+Write-Output after
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (invocation_expression
+        function: (member_access
+          object: (variable)
+          member: (identifier))
+        (ERROR
+          (UNEXPECTED ' '))
+        arguments: (argument_list
+          (integer_literal)))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))

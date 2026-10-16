@@ -69,6 +69,11 @@ invocable, as in `$obj.(-$name)()`. In command arguments, parentheses after an
 unparenthesized unary member start another argument: `cmd $obj.- $name(1)` has
 separate `$obj.- $name` and `(1)` arguments. These distinctions follow
 `MemberNameRule`, `UnaryExpressionRule`, and `MemberAccessRule` in the pinned parser.
+Generic method type arguments accept intervening whitespace and comments, as in
+`$obj.Method [int](1)`. The call opener must touch the method name or closing
+type bracket. Block comments preserve member/index adjacency but separate a
+method name from its call. These rules follow `GenericMethodArgumentsRule`,
+`GetMemberAccessOperator`, and `GetInvokeMemberOpenParen`.
 The official [C# grammar](https://github.com/tree-sitter/tree-sitter-c-sharp/blob/8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5/grammar.js)
 uses the same argument-list and declaration-body conventions.
 

@@ -531,5 +531,715 @@
     "name": "flow unary operand after comment",
     "source": "break - <# comment #> $name",
     "valid": true
+  },
+  {
+    "name": "generic method after space",
+    "source": "$x.F [int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after tab",
+    "source": "$x.F\t[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after escaped space",
+    "source": "$x.F` [int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after escaped tab",
+    "source": "$x.F`\t[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after escaped NBSP",
+    "source": "$x.F` [int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after escaped line separator",
+    "source": "$x.F` [int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after LF continuation",
+    "source": "$x.F`\n[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after CRLF continuation",
+    "source": "$x.F`\r\n[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after block comment",
+    "source": "$x.F<#c#>[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after spaced block comment",
+    "source": "$x.F <#c#> [int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after escaped space then comment",
+    "source": "$x.F` <#c#>[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic method after consecutive continuations",
+    "source": "$x.F`\n`\n[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "static generic leading space",
+    "source": "[Array]::Empty [int]()\n",
+    "valid": true
+  },
+  {
+    "name": "generic method script block after trivia",
+    "source": "$x.F ` [int]{$value}\n",
+    "valid": true
+  },
+  {
+    "name": "generic first type after line comment",
+    "source": "$x.F [#c\nint](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic first type after block comment",
+    "source": "$x.F [<#c#>int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic first type after newline",
+    "source": "$x.F [\nint](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic nested array type after trivia",
+    "source": "$x.F [System.Collections.Generic.List[int[]]]()\n",
+    "valid": true
+  },
+  {
+    "name": "generic opening raw newline starts new expression",
+    "source": "$x.F\n[int](1)\n",
+    "valid": true
+  },
+  {
+    "name": "generic closing bracket must be adjacent to call",
+    "source": "$x.F [int] (1)\n",
+    "valid": false
+  },
+  {
+    "name": "member rejects escaped space",
+    "source": "$x` .Length\n",
+    "valid": false
+  },
+  {
+    "name": "index rejects escaped space",
+    "source": "$x` [0]\n",
+    "valid": false
+  },
+  {
+    "name": "member index rejects escaped space",
+    "source": "$x.F` [0]\n",
+    "valid": false
+  },
+  {
+    "name": "method rejects escaped space",
+    "source": "$x.F` (1)\n",
+    "valid": false
+  },
+  {
+    "name": "method script block rejects escaped space",
+    "source": "$x.F` {1}\n",
+    "valid": false
+  },
+  {
+    "name": "member rejects escaped tab",
+    "source": "$x`\t.Length\n",
+    "valid": false
+  },
+  {
+    "name": "index rejects escaped tab",
+    "source": "$x`\t[0]\n",
+    "valid": false
+  },
+  {
+    "name": "member index rejects escaped tab",
+    "source": "$x.F`\t[0]\n",
+    "valid": false
+  },
+  {
+    "name": "method rejects escaped tab",
+    "source": "$x.F`\t(1)\n",
+    "valid": false
+  },
+  {
+    "name": "method script block rejects escaped tab",
+    "source": "$x.F`\t{1}\n",
+    "valid": false
+  },
+  {
+    "name": "member rejects escaped NBSP",
+    "source": "$x` .Length\n",
+    "valid": false
+  },
+  {
+    "name": "index rejects escaped NBSP",
+    "source": "$x` [0]\n",
+    "valid": false
+  },
+  {
+    "name": "member index rejects escaped NBSP",
+    "source": "$x.F` [0]\n",
+    "valid": false
+  },
+  {
+    "name": "method rejects escaped NBSP",
+    "source": "$x.F` (1)\n",
+    "valid": false
+  },
+  {
+    "name": "method script block rejects escaped NBSP",
+    "source": "$x.F` {1}\n",
+    "valid": false
+  },
+  {
+    "name": "member rejects space then comment",
+    "source": "$x <#c#>.Length\n",
+    "valid": false
+  },
+  {
+    "name": "index rejects space then comment",
+    "source": "$x <#c#>[0]\n",
+    "valid": false
+  },
+  {
+    "name": "member index rejects space then comment",
+    "source": "$x.F <#c#>[0]\n",
+    "valid": false
+  },
+  {
+    "name": "method rejects space then comment",
+    "source": "$x.F <#c#>(1)\n",
+    "valid": false
+  },
+  {
+    "name": "method script block rejects space then comment",
+    "source": "$x.F <#c#>{1}\n",
+    "valid": false
+  },
+  {
+    "name": "member rejects escaped space then comment",
+    "source": "$x` <#c#>.Length\n",
+    "valid": false
+  },
+  {
+    "name": "index rejects escaped space then comment",
+    "source": "$x` <#c#>[0]\n",
+    "valid": false
+  },
+  {
+    "name": "member index rejects escaped space then comment",
+    "source": "$x.F` <#c#>[0]\n",
+    "valid": false
+  },
+  {
+    "name": "method rejects escaped space then comment",
+    "source": "$x.F` <#c#>(1)\n",
+    "valid": false
+  },
+  {
+    "name": "method script block rejects escaped space then comment",
+    "source": "$x.F` <#c#>{1}\n",
+    "valid": false
+  },
+  {
+    "name": "member rejects continuation then comment",
+    "source": "$x`\n<#c#>.Length\n",
+    "valid": false
+  },
+  {
+    "name": "index rejects continuation then comment",
+    "source": "$x`\n<#c#>[0]\n",
+    "valid": false
+  },
+  {
+    "name": "member index rejects continuation then comment",
+    "source": "$x.F`\n<#c#>[0]\n",
+    "valid": false
+  },
+  {
+    "name": "method rejects continuation then comment",
+    "source": "$x.F`\n<#c#>(1)\n",
+    "valid": false
+  },
+  {
+    "name": "method script block rejects continuation then comment",
+    "source": "$x.F`\n<#c#>{1}\n",
+    "valid": false
+  },
+  {
+    "name": "range operator after escaped space",
+    "source": "$x` ..3\n",
+    "valid": true
+  },
+  {
+    "name": "range operator after LF continuation",
+    "source": "$x`\n..3\n",
+    "valid": true
+  },
+  {
+    "name": "range operator after space then comment",
+    "source": "$x <#c#>..3\n",
+    "valid": true
+  },
+  {
+    "name": "static member rejects escaped space",
+    "source": "[Math]` ::Abs(1)\n",
+    "valid": false
+  },
+  {
+    "name": "static member rejects escaped NBSP",
+    "source": "[Math]` ::Abs(1)\n",
+    "valid": false
+  },
+  {
+    "name": "static member rejects LF continuation",
+    "source": "[Math]`\n::Abs(1)\n",
+    "valid": false
+  },
+  {
+    "name": "static member rejects escaped space then comment",
+    "source": "[Math]` <#c#>::Abs(1)\n",
+    "valid": false
+  },
+  {
+    "name": "adjacent comment before member",
+    "source": "$x<#c#>.Length\n",
+    "valid": true
+  },
+  {
+    "name": "adjacent comment before index",
+    "source": "$x<#c#>[0]\n",
+    "valid": true
+  },
+  {
+    "name": "adjacent comment before null conditional index",
+    "source": "$x<#c#>?[0]\n",
+    "valid": true
+  },
+  {
+    "name": "adjacent multiline comment before null conditional index",
+    "source": "$x<#\n#>?[0]\n",
+    "valid": true
+  },
+  {
+    "name": "command argument boundary after escaped space",
+    "source": "cmd $x` [0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command method argument boundary after escaped space",
+    "source": "cmd $x.F` (1) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command interpolation generic trivia",
+    "source": "cmd \"$($x.F` [int](1))\" tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "cast operand after escaped space",
+    "source": "[int]` (1)\n",
+    "valid": true
+  },
+  {
+    "name": "cast operand after continuation",
+    "source": "[int]`\n(1)\n",
+    "valid": true
+  },
+  {
+    "name": "nested cast after spaced comment",
+    "source": "[int] <#c#>[int]$x\n",
+    "valid": true
+  },
+  {
+    "name": "nested literal cast after spaced comment",
+    "source": "[int] <#c#>[int]1\n",
+    "valid": true
+  },
+  {
+    "name": "cast operand after escaped space and comment",
+    "source": "[int]` <#c#>(1)\n",
+    "valid": true
+  },
+  {
+    "name": "type member after spaced comment",
+    "source": "[int] <#c#>.Length\n",
+    "valid": true
+  },
+  {
+    "name": "type static member after spaced comment",
+    "source": "[int] <#c#>::MaxValue\n",
+    "valid": true
+  },
+  {
+    "name": "variable static member rejects spaced comment",
+    "source": "$x <#c#>::F()\n",
+    "valid": false
+  },
+  {
+    "name": "variable static member accepts adjacent comment",
+    "source": "$x<#c#>::F()\n",
+    "valid": true
+  },
+  {
+    "name": "type member rejects escaped space before comment",
+    "source": "[int]` <#c#>.Length\n",
+    "valid": false
+  },
+  {
+    "name": "type member rejects ordinary whitespace",
+    "source": "[int] .Length\n",
+    "valid": false
+  },
+  {
+    "name": "type member rejects whitespace after comment",
+    "source": "[int] <#c#> .Length\n",
+    "valid": false
+  },
+  {
+    "name": "type member resets adjacency at last comment",
+    "source": "[int] <#a#> <#b#>.Length\n",
+    "valid": true
+  },
+  {
+    "name": "type member still rejects escaped space before multiple comments",
+    "source": "[int]` <#a#> <#b#>.Length\n",
+    "valid": false
+  },
+  {
+    "name": "command computed member comment preserves member",
+    "source": "cmd $obj.(-$name)<#c#>.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment preserves static member",
+    "source": "cmd $obj.(-$name)<#c#>::Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment preserves index",
+    "source": "cmd $obj.(-$name)<#c#>[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment preserves null conditional index",
+    "source": "cmd $obj.(-$name)<#c#>?[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment preserves null conditional member",
+    "source": "cmd $obj.(-$name)<#c#>?.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment does not enable generic methods",
+    "source": "cmd $x.F<#c#>[int](1) tail | next\n",
+    "valid": false
+  },
+  {
+    "name": "command named member multiline comment does not enable generic methods",
+    "source": "cmd $x.F<#\n#>[int](1) tail | next\n",
+    "valid": false
+  },
+  {
+    "name": "command computed member comment does not enable generic methods",
+    "source": "cmd $obj.(-$name)<#c#>[int](1) tail | next\n",
+    "valid": false
+  },
+  {
+    "name": "command member comment separates parenthesized argument",
+    "source": "cmd $x.F<#c#>(1) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment separates script block argument",
+    "source": "cmd $x.F<#c#>{1} tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment separates spaced parenthesized argument",
+    "source": "cmd $x.F<#c#> (1) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment separates escaped spaced argument",
+    "source": "cmd $x.F<#c#>` (1) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment separates continued argument",
+    "source": "cmd $x.F<#c#>`\n(1) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment separates generic looking separate argument",
+    "source": "cmd $x.F<#c#> [int](1) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command CRLF continuation retains composite member word",
+    "source": "cmd $x`\r\n.Length tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command CRLF continuation retains composite question member word",
+    "source": "cmd $x`\r\n?.Length tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command CRLF continuation retains composite question index word",
+    "source": "cmd $x`\r\n?[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "external CRLF continuation does not make a composite word",
+    "source": "cmd $x `\r\n .Length tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment separates question word",
+    "source": "cmd $x.F<#c#>?word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment separates colon word",
+    "source": "cmd $x.F<#c#>:word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment separates range word",
+    "source": "cmd $x.F<#c#>..2 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment separates dot word",
+    "source": "cmd $x.F<#c#>. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment separates colon token",
+    "source": "cmd $x.F<#c#>: tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment separates question token",
+    "source": "cmd $x.F<#c#>? tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment separates range token",
+    "source": "cmd $x.F<#c#>.. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment preserves static member",
+    "source": "cmd $x.F<#c#>::Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment preserves null conditional member",
+    "source": "cmd $x.F<#c#>?.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment preserves null conditional index",
+    "source": "cmd $x.F<#c#>?[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment preserves member",
+    "source": "cmd $x.F<#c#>.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command named member comment preserves index",
+    "source": "cmd $x.F<#c#>[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment separates question word",
+    "source": "cmd $obj.(-$name)<#c#>?word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment separates colon word",
+    "source": "cmd $obj.(-$name)<#c#>:word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment separates range word",
+    "source": "cmd $obj.(-$name)<#c#>..2 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment separates dot word",
+    "source": "cmd $obj.(-$name)<#c#>. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment separates colon token",
+    "source": "cmd $obj.(-$name)<#c#>: tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment separates question token",
+    "source": "cmd $obj.(-$name)<#c#>? tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command computed member comment separates range token",
+    "source": "cmd $obj.(-$name)<#c#>.. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment separates question word",
+    "source": "cmd $x[0]<#c#>?word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment separates colon word",
+    "source": "cmd $x[0]<#c#>:word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment separates range word",
+    "source": "cmd $x[0]<#c#>..2 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment separates dot word",
+    "source": "cmd $x[0]<#c#>. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment separates colon token",
+    "source": "cmd $x[0]<#c#>: tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment separates question token",
+    "source": "cmd $x[0]<#c#>? tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment separates range token",
+    "source": "cmd $x[0]<#c#>.. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment preserves static member",
+    "source": "cmd $x[0]<#c#>::Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment preserves null conditional member",
+    "source": "cmd $x[0]<#c#>?.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment preserves null conditional index",
+    "source": "cmd $x[0]<#c#>?[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment preserves member",
+    "source": "cmd $x[0]<#c#>.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command array element comment preserves index",
+    "source": "cmd $x[0]<#c#>[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment separates question word",
+    "source": "cmd $(1)<#c#>?word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment separates colon word",
+    "source": "cmd $(1)<#c#>:word tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment separates range word",
+    "source": "cmd $(1)<#c#>..2 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment separates dot word",
+    "source": "cmd $(1)<#c#>. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment separates colon token",
+    "source": "cmd $(1)<#c#>: tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment separates question token",
+    "source": "cmd $(1)<#c#>? tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment separates range token",
+    "source": "cmd $(1)<#c#>.. tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment preserves static member",
+    "source": "cmd $(1)<#c#>::Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment preserves null conditional member",
+    "source": "cmd $(1)<#c#>?.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment preserves null conditional index",
+    "source": "cmd $(1)<#c#>?[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment preserves member",
+    "source": "cmd $(1)<#c#>.Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command subexpression comment preserves index",
+    "source": "cmd $(1)<#c#>[0] tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "generic methods and casts retain distinct trivia rules",
+    "source": "$obj.Method [int](1)\n$obj.Method`\n[int](1)\n[int]` (1)\n",
+    "valid": true
+  },
+  {
+    "name": "comment postfix and punctuation preserve command arguments",
+    "source": "cmd $obj.(-$name)<#🦉#>.Name $x.F<#c#>?word $x.F<#c#>..2 | next\n",
+    "valid": true
+  },
+  {
+    "name": "escaped whitespace keeps method call errors and later commands",
+    "source": "$obj.Method` (1)\nWrite-Output after\n",
+    "valid": false
   }
 ]
