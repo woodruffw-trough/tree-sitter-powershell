@@ -1708,7 +1708,7 @@ static bool generic_numeric_pending(GenericWord *word) {
 }
 
 static bool generic_numeric_boundary(int32_t c) {
-  return generic_dash(c) || (c > 0 && c < 128 && strchr("+*/%.<>#", (char)c) != NULL);
+  return generic_dash(c) || (c > 0 && c < 128 && strchr("!+*/%.<>#", (char)c) != NULL);
 }
 
 static bool generic_unary_operator(const char *word) {
@@ -1919,7 +1919,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       // A numeric/operator prefix is reparsed as an expression. Preserve its
       // saved boundary before validating the following variable.
       if (!data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
-          strchr("+-*/%.#", word[numeric_prefix]) != NULL) {
+          strchr("!+-*/%.#", word[numeric_prefix]) != NULL) {
         break;
       }
       lexer->advance(lexer, false);
@@ -2115,7 +2115,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     // A prefix is recorded before any escape changes numeric classification.
     // Later escaping cannot remove an earlier numeric/operator boundary.
     if (name && !data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
-        strchr("+-*/%.#", word[numeric_prefix]) != NULL) {
+        strchr("!+-*/%.#", word[numeric_prefix]) != NULL) {
       if (signed_start) {
         lexer->result_symbol = SIGNED_NUMBER_START;
         return true;

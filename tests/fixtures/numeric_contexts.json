@@ -7033,5 +7033,70 @@
     "name": "numeric boundary 1406",
     "source": "-1#`comment",
     "valid": true
+  },
+  {
+    "name": "trailing decimal number before ! (1.)",
+    "source": "1.!$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before ++ (1.)",
+    "source": "1.++$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before -- (1.)",
+    "source": "1.--$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before ! (-1.)",
+    "source": "-1.!$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before ++ (-1.)",
+    "source": "-1.++$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before -- (-1.)",
+    "source": "-1.--$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before ! (+1.)",
+    "source": "+1.!$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before ++ (+1.)",
+    "source": "+1.++$y",
+    "valid": false
+  },
+  {
+    "name": "trailing decimal number before -- (+1.)",
+    "source": "+1.--$y",
+    "valid": false
+  },
+  {
+    "name": "binary plus with spaced prefix increment",
+    "source": "1. + ++$y",
+    "valid": true
+  },
+  {
+    "name": "binary minus with spaced prefix decrement",
+    "source": "1. - --$y",
+    "valid": true
+  },
+  {
+    "name": "generic command argument keeps exclamation literal",
+    "source": "cmd 1.!$y",
+    "valid": true
+  },
+  {
+    "name": "fractional member accepts a unary member name",
+    "source": ".1.!$y",
+    "valid": true
   }
 ]

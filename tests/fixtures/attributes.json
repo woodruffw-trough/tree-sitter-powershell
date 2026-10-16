@@ -138,10 +138,5 @@
     "name": "prefix attributed typed variable",
     "source": "++[A()][int]$x",
     "valid": true
-  },
-  {
-    "name": "prefix cast of nonvariable",
-    "source": "++[int]1",
-    "valid": false
   }
 ]

@@ -223,6 +223,13 @@ This distinction follows
 [`ParseNestedExpressions`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7621-L7669),
 which parses one primary expression from each collected token.
 
+Increment and decrement form `unary_expression` nodes with complete `++` and
+`--` operator tokens. PowerShell checks whether the operand can be assigned in
+[`SemanticChecks.VisitUnaryExpression`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/SemanticChecks.cs#L891-L907),
+after parsing. Thus `1.++` has a complete tree and reports
+`OperatorRequiresVariableOrProperty`; `1.++$x` is a syntax error because another
+expression follows without a statement separator.
+
 Operator grouping follows the pinned parser. For example,
 `$true -or $false -and $false` groups as `($true -or $false) -and $false`, and
 `1 -eq 2 -shl 3` groups as `(1 -eq 2) -shl 3`. Null coalescing binds above comparison

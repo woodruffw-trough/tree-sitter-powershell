@@ -16,6 +16,33 @@ fn numeric_token_contexts_match_powershell() {
 }
 
 #[test]
+fn increment_target_restrictions_preserve_unary_syntax() {
+    let mut cases: Vec<Value> =
+        serde_json::from_str(include_str!("fixtures/increment_semantics.json")).unwrap();
+    let mut results = common::oracle(&cases, "tests/fixtures/increment_semantics.json");
+    for (case, result) in cases.iter_mut().zip(&mut results) {
+        let errors: Vec<_> = result["errors"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|error| error["id"].as_str().unwrap())
+            .collect();
+        let expected: &[&str] = if case["valid"] == true {
+            &[]
+        } else {
+            &["OperatorRequiresVariableOrProperty"]
+        };
+        assert_eq!(errors, expected, "{}", case["name"]);
+        // SemanticChecks validates assignment targets after constructing the AST.
+        case["valid"] = true.into();
+        result["valid"] = true.into();
+    }
+    common::assert_syntax(&cases);
+    common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
+}
+
+#[test]
 fn signed_number_comments_keep_lexical_boundaries_despite_speculative_oracle_errors() {
     let cases: Vec<Value> =
         serde_json::from_str(include_str!("fixtures/numeric_comment_diagnostics.json")).unwrap();

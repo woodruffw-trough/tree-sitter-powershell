@@ -1,0 +1,97 @@
+[
+  {
+    "name": "attributes prefix cast of nonvariable",
+    "source": "++[int]1",
+    "valid": false
+  },
+  {
+    "name": "flow_labels break before invalid decrement target",
+    "source": "break --1",
+    "valid": false
+  },
+  {
+    "name": "flow_labels continue before invalid decrement target",
+    "source": "continue --1",
+    "valid": false
+  },
+  {
+    "name": "long_tokens --1",
+    "source": "--1",
+    "valid": false
+  },
+  {
+    "name": "long_tokens -—1",
+    "source": "-—1",
+    "valid": false
+  },
+  {
+    "name": "long_tokens ––1",
+    "source": "––1",
+    "valid": false
+  },
+  {
+    "name": "postfix integer increment",
+    "source": "1++",
+    "valid": false
+  },
+  {
+    "name": "postfix decimal decrement",
+    "source": "1.--",
+    "valid": false
+  },
+  {
+    "name": "prefix integer increment",
+    "source": "++1",
+    "valid": false
+  },
+  {
+    "name": "prefix quoted string decrement",
+    "source": "--'x'",
+    "valid": false
+  },
+  {
+    "name": "postfix empty array increment",
+    "source": "@()++",
+    "valid": false
+  },
+  {
+    "name": "postfix hashtable decrement",
+    "source": "@{}--",
+    "valid": false
+  },
+  {
+    "name": "postfix grouped literal increment",
+    "source": "(1)++",
+    "valid": false
+  },
+  {
+    "name": "prefix variable increment",
+    "source": "++$x",
+    "valid": true
+  },
+  {
+    "name": "postfix variable decrement",
+    "source": "$x--",
+    "valid": true
+  },
+  {
+    "name": "binary plus spaced prefix increment",
+    "source": "1 + ++$x",
+    "valid": true
+  },
+  {
+    "name": "binary minus spaced prefix decrement",
+    "source": "1 - --$x",
+    "valid": true
+  },
+  {
+    "name": "decimal plus spaced unary plus",
+    "source": "1. + +$x",
+    "valid": true
+  },
+  {
+    "name": "decimal minus spaced unary minus",
+    "source": "1. - -$x",
+    "valid": true
+  }
+]

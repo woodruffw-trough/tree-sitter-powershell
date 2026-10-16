@@ -45,11 +45,6 @@
     "valid": true
   },
   {
-    "name": "break before invalid decrement target",
-    "source": "break --1",
-    "valid": false
-  },
-  {
     "name": "break before spaced unary plus",
     "source": "break + 1",
     "valid": true
@@ -218,11 +213,6 @@
     "name": "continue before Unicode signed number",
     "source": "continue –1",
     "valid": true
-  },
-  {
-    "name": "continue before invalid decrement target",
-    "source": "continue --1",
-    "valid": false
   },
   {
     "name": "continue before spaced unary plus",

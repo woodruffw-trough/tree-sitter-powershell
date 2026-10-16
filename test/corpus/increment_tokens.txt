@@ -1,0 +1,17 @@
+==================
+Increment target checks preserve complete operator tokens
+==================
+1.++
+--'value'
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (real_literal))))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (single_quoted_string)))))

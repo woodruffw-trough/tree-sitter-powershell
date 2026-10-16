@@ -408,11 +408,6 @@
     "valid": true
   },
   {
-    "name": "--1",
-    "source": "--1",
-    "valid": false
-  },
-  {
     "name": "--$x",
     "source": "--$x",
     "valid": true
@@ -443,11 +438,6 @@
     "valid": false
   },
   {
-    "name": "-—1",
-    "source": "-—1",
-    "valid": false
-  },
-  {
     "name": "-—foo",
     "source": "-—foo",
     "valid": false
@@ -466,11 +456,6 @@
     "name": "-bnot1",
     "source": "-bnot1",
     "valid": true
-  },
-  {
-    "name": "––1",
-    "source": "––1",
-    "valid": false
   },
   {
     "name": "-1foo",

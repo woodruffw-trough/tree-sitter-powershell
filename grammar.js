@@ -140,12 +140,12 @@ const unaryExpression = ($, argument, allowComma, options = {}) => {
       field('operator', choice('++', op('--'))),
       repeat(NEWLINE),
       ...prefixStart,
-      field('argument', options.prefixAssignable || $._prefix_assignable_expression),
+      field('argument', argument),
     ),
   ];
   if (options.postfix !== false) {
     alternatives.push(seq(
-      field('argument', options.assignable || $._assignable_expression),
+      field('argument', options.postfixArgument || $._value_primary_expression),
       optional($._postfix_context),
       field('operator', choice(
         token(prec(5, '++')),
@@ -351,9 +351,6 @@ const grammarDefinition = {
   word: $ => $.identifier,
 
   conflicts: $ => [
-    [$._assignable_expression, $._primary_expression],
-    [$._argument_assignable_expression, $._argument_primary_expression],
-    [$._command_assignable_expression, $._command_primary_expression],
     [$._interpolation_postfix_primary_expression, $._interpolation_invocation_expression],
     [$._value_primary_expression, $.invocation_expression],
     [$._argument_value_primary_expression, $._argument_invocation_expression],
@@ -1302,8 +1299,7 @@ const grammarDefinition = {
 
     _argument_unary_operator_expression: $ => unaryExpression(
       $, $._argument_unary_expression, false, {
-        assignable: $._argument_assignable_expression,
-        prefixAssignable: $._argument_prefix_assignable_expression,
+        postfixArgument: $._argument_value_primary_expression,
       },
     ),
 
@@ -1318,9 +1314,8 @@ const grammarDefinition = {
     _flow_unary_operator_expression: $ => unaryExpression(
       $, $._flow_unary_expression, false, {
         argumentStart: $._flow_expression_start,
-        assignable: $._comma_free_command_assignable_expression,
+        postfixArgument: $._comma_free_command_value_primary_expression,
         prefixStart: $._flow_expression_start,
-        prefixAssignable: $._comma_free_command_prefix_assignable_expression,
       },
     ),
 
@@ -1356,9 +1351,8 @@ const grammarDefinition = {
     _command_argument_unary_operator_expression: $ => unaryExpression(
       $, $._command_unary_expression, false, {
         argumentStart: $._command_unary_start,
-        assignable: $._command_assignable_expression,
+        postfixArgument: $._command_value_primary_expression,
         prefixStart: $._command_unary_start,
-        prefixAssignable: $._command_prefix_assignable_expression,
       },
     ),
 
@@ -1372,9 +1366,8 @@ const grammarDefinition = {
     _command_unary_operator_expression: $ => unaryExpression(
       $, $._command_unary_expression, true, {
         argumentStart: $._command_unary_start,
-        assignable: $._command_assignable_expression,
+        postfixArgument: $._command_value_primary_expression,
         prefixStart: $._command_unary_start,
-        prefixAssignable: $._command_prefix_assignable_expression,
       },
     ),
 
@@ -1388,9 +1381,8 @@ const grammarDefinition = {
     _argument_command_unary_operator_expression: $ => unaryExpression(
       $, $._argument_command_unary_expression, false, {
         argumentStart: $._command_unary_start,
-        assignable: $._comma_free_command_assignable_expression,
+        postfixArgument: $._comma_free_command_value_primary_expression,
         prefixStart: $._command_unary_start,
-        prefixAssignable: $._comma_free_command_prefix_assignable_expression,
       },
     ),
 
@@ -1418,51 +1410,6 @@ const grammarDefinition = {
         optional($._cast_value_context),
         field('value', $._argument_command_unary_expression),
       ),
-    ),
-
-    _assignable_expression: $ => choice(
-      $.variable,
-      alias($._computed_member_access, $.member_access),
-      $.member_access,
-      $.element_access,
-      $.invocation_expression,
-      $.parenthesized_expression,
-    ),
-
-    _argument_assignable_expression: $ => choice(
-      $.variable,
-      alias($._argument_computed_member_access, $.member_access),
-      alias($._argument_member_access, $.member_access),
-      alias($._argument_element_access, $.element_access),
-      alias($._argument_invocation_expression, $.invocation_expression),
-      $.parenthesized_expression,
-    ),
-
-    _argument_prefix_assignable_expression: $ => choice(
-      $._argument_assignable_expression,
-      $.attributed_expression,
-      alias($._attributed_variable_cast, $.cast_expression),
-    ),
-
-    _command_assignable_expression: $ => choice(
-      $.variable,
-      alias($._command_computed_member_access, $.member_access),
-      alias($._command_member_access, $.member_access),
-      alias($._command_element_access, $.element_access),
-      alias($._command_invocation_expression, $.invocation_expression),
-      $.parenthesized_expression,
-    ),
-
-    _command_prefix_assignable_expression: $ => choice(
-      $._command_assignable_expression,
-      $.attributed_expression,
-      alias($._attributed_variable_cast, $.cast_expression),
-    ),
-
-    _prefix_assignable_expression: $ => choice(
-      $._assignable_expression,
-      $.attributed_expression,
-      alias($._attributed_variable_cast, $.cast_expression),
     ),
 
     cast_expression: $ => prec(
@@ -1743,7 +1690,6 @@ const grammarDefinition = {
     _argument_member_name_unary_expression: $ => unaryExpression(
       $, $._argument_unary_expression, false, {
         postfix: false,
-        prefixAssignable: $._argument_prefix_assignable_expression,
       },
     ),
 
@@ -1761,7 +1707,6 @@ const grammarDefinition = {
         postfix: false,
         argumentStart: $._command_unary_start,
         prefixStart: $._command_unary_start,
-        prefixAssignable: $._command_prefix_assignable_expression,
       },
     ),
 
@@ -1770,7 +1715,6 @@ const grammarDefinition = {
         postfix: false,
         argumentStart: $._command_unary_start,
         prefixStart: $._command_unary_start,
-        prefixAssignable: $._comma_free_command_prefix_assignable_expression,
       },
     ),
 
@@ -2023,7 +1967,6 @@ const COMMA_CONTEXT_RULES = new Set([
   'redirection', 'hashtable_expression', 'hash_entry',
   '_command_argument_unary_expression', '_command_argument_unary_operator_expression',
   '_command_primary_expression', '_command_value_primary_expression',
-  '_command_assignable_expression', '_command_prefix_assignable_expression',
   '_command_member_access', '_command_computed_member_access',
   '_command_member_name', '_command_computed_member_name',
   '_command_type_member_primary_expression',
@@ -2040,8 +1983,6 @@ const COMMA_CONTEXT_EXPRESSIONS = {
   _unary_expression: '_argument_unary_expression',
   _primary_expression: '_argument_primary_expression',
   _value_primary_expression: '_argument_value_primary_expression',
-  _assignable_expression: '_argument_assignable_expression',
-  _prefix_assignable_expression: '_argument_prefix_assignable_expression',
   _cast_value: '_argument_unary_expression',
   _member_name: '_argument_member_name',
   _computed_member_name: '_argument_computed_member_name',
