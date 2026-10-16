@@ -368,6 +368,8 @@ const grammarDefinition = {
       $._command_invocation_expression,
     ],
     [$.pipeline],
+    [$._simple_statement, $.pipeline_chain],
+    [$._pipeline_entry, $.pipeline_chain],
     [$._pipeline_entry, $._completed_pipeline_entry],
     [$._statement, $._completed_assignment_statement],
     [$.if_statement],
@@ -940,7 +942,10 @@ const grammarDefinition = {
 
     pipeline_chain: $ => prec.left(seq(
       field('left', choice($.pipeline, $.pipeline_chain)),
-      field('operator', choice('&&', '||')),
+      choice(
+        field('operator', choice('&&', '||')),
+        seq($._leading_pipe_newline, field('operator', '||')),
+      ),
       repeat(NEWLINE),
       field('right', $.pipeline),
     )),
@@ -950,7 +955,11 @@ const grammarDefinition = {
       field('operator', '&'),
     ),
 
-    _leading_pipe: $ => seq(NEWLINE, repeat(seq($.comment, NEWLINE)), '|'),
+    // IsPipeContinuation accepts a following '|' character, including '||'.
+    // Comment-only lines may intervene, but blank lines end the pipeline.
+    _leading_pipe_newline: $ => seq(NEWLINE, repeat(seq($.comment, optional(NEWLINE)))),
+
+    _leading_pipe: $ => seq($._leading_pipe_newline, '|'),
 
     command_expression: $ => seq(
       field('expression', $._expression),
@@ -1129,7 +1138,9 @@ const grammarDefinition = {
       $._argument_interpolation,
     ),
 
-    _argument_continuation: _ => token.immediate(prec(1, /`(?:\r\n|\r|\n)/)),
+    // Inside a generic word, backtick escapes one physical character. For
+    // CRLF, the remaining LF still ends the command.
+    _argument_continuation: _ => token.immediate(prec(1, /`[\r\n]/)),
 
     // Immediate external tokens keep spaces and extras from joining fragments.
 

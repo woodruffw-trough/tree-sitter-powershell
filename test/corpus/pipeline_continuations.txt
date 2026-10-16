@@ -1,0 +1,84 @@
+================================================================================
+Leading or chains preserve pipelines and left associativity
+================================================================================
+
+Get-Item .
+# continued chain
+|| Write-Output fallback | Format-List && Write-Output done
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline_chain
+    left: (pipeline_chain
+      left: (pipeline
+        elements: (command
+          name: (command_name
+            (bare_word))
+          (command_argument
+            (bare_word))))
+      (comment)
+      right: (pipeline
+        elements: (command
+          name: (command_name
+            (bare_word))
+          (command_argument
+            (bare_word)))
+        elements: (command
+          name: (command_name
+            (bare_word)))))
+    right: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))
+        (command_argument
+          (bare_word))))))
+
+================================================================================
+Block comments can immediately precede a leading pipe
+================================================================================
+
+Get-Item .
+<# continued pipeline #>| Select-Object Name
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    (comment)
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))))
+
+================================================================================
+Block comments can immediately precede a leading or
+================================================================================
+
+Get-Item .
+<# continued chain #>|| Write-Output fallback
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline_chain
+    left: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))
+        (command_argument
+          (bare_word))))
+    (comment)
+    right: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))
+        (command_argument
+          (bare_word))))))
+

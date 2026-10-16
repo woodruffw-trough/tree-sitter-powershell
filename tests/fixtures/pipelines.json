@@ -588,5 +588,135 @@
     "name": "chain-rhs-subexpression-assignment",
     "source": "a && $( $x = 1 )",
     "valid": true
+  },
+  {
+    "name": "leading-or-newline",
+    "source": "a\n|| b\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-crlf",
+    "source": "a\r\n|| b\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-cr",
+    "source": "a\r|| b\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-adjacent-hash",
+    "source": "cmd a#x\n|| next\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-comment-lines",
+    "source": "a\n# line\n<# block #>\n|| b\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-inline-block-comment",
+    "source": "a\n<# block #>|| b\n",
+    "valid": true
+  },
+  {
+    "name": "leading-pipe-inline-block-comment",
+    "source": "a\n<# block #>| b\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-chain-associativity",
+    "source": "a\n|| b | c && d\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-assignment",
+    "source": "$x=a\n|| b\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-parenthesized",
+    "source": "(a\n|| b)\n",
+    "valid": true
+  },
+  {
+    "name": "leading-or-hashtable",
+    "source": "@{ key=a\n|| b }\n",
+    "valid": true
+  },
+  {
+    "name": "leading-and-rejected",
+    "source": "a\n&& b\n",
+    "valid": false
+  },
+  {
+    "name": "leading-or-blank-line-rejected",
+    "source": "a\n\n|| b\n",
+    "valid": false
+  },
+  {
+    "name": "leading-pipe-blank-line-rejected",
+    "source": "a\n\n| b\n",
+    "valid": false
+  },
+  {
+    "name": "leading-or-blank-after-comment-rejected",
+    "source": "a\n# comment\n\n|| b\n",
+    "valid": false
+  },
+  {
+    "name": "generic-variable-backtick-crlf",
+    "source": "cmd $x`\r\n-Name:1\n",
+    "valid": true
+  },
+  {
+    "name": "generic-braced-variable-backtick-crlf",
+    "source": "cmd ${x}`\r\n-Name:1\n",
+    "valid": true
+  },
+  {
+    "name": "generic-prefixed-variable-backtick-crlf",
+    "source": "cmd a$x`\r\n-Name:1\n",
+    "valid": true
+  },
+  {
+    "name": "generic-variable-suffix-backtick-crlf",
+    "source": "cmd ${x}tail`\r\n-Name:1\n",
+    "valid": true
+  },
+  {
+    "name": "generic-variable-backtick-lf",
+    "source": "cmd $x`\n-Name:1\n",
+    "valid": true
+  },
+  {
+    "name": "generic-variable-backtick-cr",
+    "source": "cmd $x`\r-Name:1\n",
+    "valid": true
+  },
+  {
+    "name": "generic-variable-backtick-crlf-and-rejected",
+    "source": "cmd $x`\r\n&& next\n",
+    "valid": false
+  },
+  {
+    "name": "generic-variable-backtick-crlf-or",
+    "source": "cmd $x`\r\n|| next\n",
+    "valid": true
+  },
+  {
+    "name": "generic-variable-backtick-crlf-pipe",
+    "source": "cmd $x`\r\n| next\n",
+    "valid": true
+  },
+  {
+    "name": "quoted-token-backtick-crlf",
+    "source": "cmd \"a\"`\r\n-Name:1\n",
+    "valid": true
+  },
+  {
+    "name": "subexpression-token-backtick-crlf",
+    "source": "cmd $(a)`\r\n-Name:1\n",
+    "valid": true
   }
 ]

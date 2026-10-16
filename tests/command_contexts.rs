@@ -165,6 +165,8 @@ fn command_token_boundary_edits_match_fresh_parses() {
         ".1.${name}\n",
         "1+${name}\n",
         "cmd 1.${name}\n",
+        "cmd $x`\r\n-Name:1\n",
+        "cmd a${x}tail`\r\n| next\n",
         "cmd -p:-foo:bar,baz\n",
         "cmd >-foo.bar\n",
         "& 2>&1 x\n",

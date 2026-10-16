@@ -110,6 +110,10 @@ The chain operators have equal precedence and associate left, as described in
 [Microsoft's pipeline-chain documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators#operator-syntax-and-precedence).
 `background_pipeline` wraps the complete pipeline or chain in its `pipeline`
 field and retains the trailing `&` in `operator`.
+A line beginning with `|` or `||` continues the preceding pipeline when no blank
+line intervenes; comment-only lines are allowed. `&&` must follow the left
+pipeline before a newline. These boundaries follow `IsPipeContinuation` in the
+pinned tokenizer.
 
 An `assignment_statement` is a statement with `left`, `operator`, and `right`;
 its right side can be another assignment, a pipeline chain, or a control
@@ -133,7 +137,9 @@ inside such a parameter token remain literal. These rules follow
 and [`GetCommandArgument`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L6295-L6440).
 Token-leading backtick-escaped horizontal whitespace is skipped by
 [`NextToken`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L4688-L4705);
-the same escape within a word remains part of that word.
+the same escape within a word remains part of that word. Inside a generic word,
+backtick escapes only the CR of a CRLF pair, so the remaining LF ends the command.
+A token-leading continuation consumes the complete CRLF pair.
 
 The [stop-parsing token](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing?view=powershell-7.5#the-stop-parsing-token)
 starts `verbatim_arguments`, containing an anonymous `--%` marker and an optional
