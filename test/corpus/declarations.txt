@@ -472,3 +472,30 @@ filter `
     (line_continuation)
     name: (function_name)
     body: (script_block)))
+
+==================
+Braced fragments remain literal function names
+==================
+function f${a"b}($p) { $p }
+filter ${name}-tail {}
+function f$$() {}
+
+---
+
+(source_file
+  (function_definition
+    name: (function_name)
+    parameters: (parameter_list
+      (parameter
+        name: (variable)))
+    body: (script_block
+      (pipeline
+        elements: (command_expression
+          expression: (variable)))))
+  (function_definition
+    name: (function_name)
+    body: (script_block))
+  (function_definition
+    name: (function_name)
+    parameters: (parameter_list)
+    body: (script_block)))

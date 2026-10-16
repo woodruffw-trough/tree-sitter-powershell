@@ -2368,5 +2368,135 @@
     "name": "comment prefix here 28",
     "source": "@\"\n$(cmd <)\n\"@",
     "valid": false
+  },
+  {
+    "name": "integer-prefix command name keeps braced variable literal",
+    "source": "1${y}\n",
+    "valid": true
+  },
+  {
+    "name": "decimal-prefix command name keeps braced variable literal",
+    "source": "1.${y}\n",
+    "valid": true
+  },
+  {
+    "name": "negative numeric-prefix command name keeps braced variable literal",
+    "source": "-1.${y}\n",
+    "valid": true
+  },
+  {
+    "name": "positive numeric-prefix command name keeps braced variable literal",
+    "source": "+1.${y}\n",
+    "valid": true
+  },
+  {
+    "name": "braced variable and suffix stay inside a numeric-prefix command name",
+    "source": "1.${y}.n\n",
+    "valid": true
+  },
+  {
+    "name": "spaces inside a braced variable stay in the command name",
+    "source": "1.${y x}\n",
+    "valid": true
+  },
+  {
+    "name": "escaped opening brace stays inside a numeric-prefix command name",
+    "source": "1.${a`{b}\n",
+    "valid": true
+  },
+  {
+    "name": "escaped closing and opening braces stay inside a command name",
+    "source": "1.${a`}`{b}\n",
+    "valid": true
+  },
+  {
+    "name": "numeric-prefix command name rejects an empty braced variable",
+    "source": "1.${}\n",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix command name rejects an incomplete braced variable",
+    "source": "1.${x\n",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix command name rejects an empty qualified variable",
+    "source": "1.${y:}\n",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix command name rejects an unescaped nested brace",
+    "source": "1.${x{y}\n",
+    "valid": false
+  },
+  {
+    "name": "addition retains a following braced variable as an expression",
+    "source": "1+${y}\n",
+    "valid": true
+  },
+  {
+    "name": "range retains a following braced variable as an expression",
+    "source": "1..${y}\n",
+    "valid": true
+  },
+  {
+    "name": "leading-decimal member access retains a braced variable member",
+    "source": ".1.${y}\n",
+    "valid": true
+  },
+  {
+    "name": "leading-decimal member access rejects an empty braced variable",
+    "source": ".1.${}\n",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix command name rejects an empty unbraced qualification",
+    "source": "1.$y:\n",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix command name keeps qualified braced variable literal",
+    "source": "1.${y:z}\n",
+    "valid": true
+  },
+  {
+    "name": "numeric-prefix literal command rejects raw opening parenthesis inside a quote",
+    "source": "1$('(') arg",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix literal command rejects raw escaped opening parenthesis",
+    "source": "1$(`() arg",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix literal command rejects raw opening parenthesis inside a comment",
+    "source": "1$(1 # (\n) arg",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix literal command rejects raw opening parenthesis inside a braced variable",
+    "source": "1$(${a(b}) arg",
+    "valid": false
+  },
+  {
+    "name": "numeric-prefix literal command keeps a complete subexpression literal",
+    "source": "1$(1) arg",
+    "valid": true
+  },
+  {
+    "name": "numeric command name unfinished collected quoted opening parenthesis",
+    "source": "1$('(') arg\n",
+    "valid": false
+  },
+  {
+    "name": "numeric command name unfinished collected escaped opening parenthesis",
+    "source": "1$(`() arg\n",
+    "valid": false
+  },
+  {
+    "name": "numeric command name unfinished collected comment opening parenthesis",
+    "source": "1$(1 # (\n) arg\n",
+    "valid": false
   }
 ]

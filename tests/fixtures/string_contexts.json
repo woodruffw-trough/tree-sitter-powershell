@@ -2543,5 +2543,15 @@
     "name": "recovery_missing_brace_hash_pipeline",
     "source": "echo \"${oops#tail\" after | Out-File $env:GITHUB_ENV\n",
     "valid": false
+  },
+  {
+    "name": "braced interpolation ordinary",
+    "source": "\"$(function f${a\"\"b} {})\"",
+    "valid": true
+  },
+  {
+    "name": "braced interpolation here",
+    "source": "@\"\n$(function f${a\"b} {})\n\"@",
+    "valid": true
   }
 ]

@@ -1,0 +1,52 @@
+[
+  {
+    "name": "command redirect splat is a semantic restriction",
+    "source": "cmd >@a\n",
+    "valid": false
+  },
+  {
+    "name": "expression redirect splat is a semantic restriction",
+    "source": "$x >@a\n",
+    "valid": false
+  },
+  {
+    "name": "append redirect qualified splat is a semantic restriction",
+    "source": "cmd 2>>@global:a\n",
+    "valid": false
+  },
+  {
+    "name": "colon parameter splat is a semantic restriction",
+    "source": "cmd -p:@a\n",
+    "valid": false
+  },
+  {
+    "name": "spaced colon parameter qualified splat is a semantic restriction",
+    "source": "cmd -p: @global:a\n",
+    "valid": false
+  },
+  {
+    "name": "colon parameter array splat is a semantic restriction",
+    "source": "cmd -p:a,@b\n",
+    "valid": false
+  },
+  {
+    "name": "ordinary command splat is valid",
+    "source": "cmd @a\n",
+    "valid": true
+  },
+  {
+    "name": "variable redirect is valid",
+    "source": "$x >$a\n",
+    "valid": true
+  },
+  {
+    "name": "colon parameter array expression is valid",
+    "source": "cmd -p:@(1)\n",
+    "valid": true
+  },
+  {
+    "name": "hashtable redirect is valid",
+    "source": "cmd >@{a=1}\n",
+    "valid": true
+  }
+]

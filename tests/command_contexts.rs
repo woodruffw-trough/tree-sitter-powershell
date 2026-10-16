@@ -20,6 +20,34 @@ fn command_token_ranges_and_grouping_match_powershell() {
 }
 
 #[test]
+fn static_splat_restrictions_preserve_command_syntax() {
+    let mut cases: Vec<Value> =
+        serde_json::from_str(include_str!("fixtures/splat_semantics.json")).unwrap();
+    let mut results = common::oracle(&cases, "tests/fixtures/splat_semantics.json");
+    for (case, result) in cases.iter_mut().zip(&mut results) {
+        let errors: Vec<_> = result["errors"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|error| error["id"].as_str().unwrap())
+            .collect();
+        let expected: &[&str] = if case["valid"] == true {
+            &[]
+        } else {
+            &["SplattingNotPermitted"]
+        };
+        assert_eq!(errors, expected, "{}", case["name"]);
+        // SemanticChecks rejects splats after constructing the complete AST.
+        // Keep the destination and parameter-value syntax available to tools.
+        case["valid"] = true.into();
+        result["valid"] = true.into();
+    }
+    common::assert_syntax(&cases);
+    common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
+}
+
+#[test]
 fn command_roles_keep_complete_literal_tokens() {
     let source = "cmd -- -foo$x -bar.baz\ncmd -p:-foo.bar\ncmd >-foo:bar\n& 2>&1 x\n& -- -foo.bar\n& --% a|next";
     let tree = common::parser().parse(source, None).unwrap();
@@ -133,6 +161,10 @@ fn fingerprint(node: Node<'_>, output: &mut String) {
 fn command_token_boundary_edits_match_fresh_parses() {
     for source in [
         "cmd -- -foo.bar -foo$x\n",
+        "1.${name}.n next | Out-Null\n",
+        ".1.${name}\n",
+        "1+${name}\n",
+        "cmd 1.${name}\n",
         "cmd -p:-foo:bar,baz\n",
         "cmd >-foo.bar\n",
         "& 2>&1 x\n",

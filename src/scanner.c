@@ -1106,10 +1106,7 @@ static bool scan_backtick_escape(TSLexer *lexer, int32_t *decoded, bool *physica
 
 // The caller has consumed '$'. Scope/drive qualification requires a name
 // after the first colon, even inside braced and expandable-string variables.
-static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum TokenType kind) {
-  if (!valid[kind]) {
-    return false;
-  }
+static bool scan_variable_name(TSLexer *lexer, bool mark_end) {
   int32_t first = lexer->lookahead;
   if (first == '?' || first == '$' || first == '^') {
     lexer->advance(lexer, false);
@@ -1148,14 +1145,15 @@ static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum T
     while (variable_character(lexer->lookahead) || lexer->lookahead == ':') {
       int32_t c = lexer->lookahead;
       if (c == ':') {
-        lexer->mark_end(lexer);
+        if (mark_end) {
+          lexer->mark_end(lexer);
+        }
         lexer->advance(lexer, false);
         // A double colon after an existing name begins static member access.
         if (length != 0 && lexer->lookahead == ':') {
           if (qualified && colon == length) {
             return false;
           }
-          lexer->result_symbol = kind;
           return true;
         }
       } else {
@@ -1171,7 +1169,16 @@ static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum T
       return false;
     }
   }
-  lexer->mark_end(lexer);
+  if (mark_end) {
+    lexer->mark_end(lexer);
+  }
+  return true;
+}
+
+static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum TokenType kind) {
+  if (!valid[kind] || !scan_variable_name(lexer, true)) {
+    return false;
+  }
   if (kind == BRACED_ARGUMENT_VARIABLE && lexer->lookahead != '=') {
     if (!valid[VARIABLE]) {
       return false;
@@ -1383,6 +1390,26 @@ static bool scan_string_dollar(TSLexer *lexer, const bool *valid) {
   return true;
 }
 
+// Literal names preserve the raw spelling of variable and subexpression
+// fragments, but still validate their syntax and keep their delimiters inside
+// the same name token.
+static bool scan_name_dollar(TSLexer *lexer) {
+  if (lexer->lookahead == '(') {
+    unsigned depth = 0;
+    do {
+      int32_t c = lexer->lookahead;
+      if (c == '(') {
+        ++depth;
+      } else if (c == ')') {
+        --depth;
+      }
+      lexer->advance(lexer, false);
+    } while (depth != 0 && !lexer->eof(lexer));
+    return depth == 0;
+  }
+  return !variable_start(lexer->lookahead) || scan_variable_name(lexer, false);
+}
+
 // A quoted piece in a literal name stays within the same token. Single and
 // double delimiters may be doubled; only double-quoted pieces process escapes.
 static bool scan_name_quoted_piece(TSLexer *lexer) {
@@ -1400,40 +1427,8 @@ static bool scan_name_quoted_piece(TSLexer *lexer) {
     }
     if (!single && c == '$') {
       lexer->advance(lexer, false);
-      if (lexer->lookahead == '(') {
-        // ScanSubExpression counts physical parentheses even inside its
-        // quotes. Its contents are reparsed later by PowerShell's parser.
-        unsigned depth = 0;
-        do {
-          c = lexer->lookahead;
-          if (c == '(') {
-            ++depth;
-          } else if (c == ')') {
-            --depth;
-          }
-          lexer->advance(lexer, false);
-        } while (depth != 0 && !lexer->eof(lexer));
-        if (depth != 0) {
-          return false;
-        }
-      } else if (lexer->lookahead == '{') {
-        // A braced variable's name can contain quotes and spaces. Those
-        // characters cannot close the enclosing quoted name piece.
-        lexer->advance(lexer, false);
-        while (!lexer->eof(lexer) && lexer->lookahead != '}') {
-          if (lexer->lookahead == '`') {
-            int32_t decoded;
-            if (!scan_backtick_escape(lexer, &decoded, NULL)) {
-              return false;
-            }
-          } else {
-            lexer->advance(lexer, false);
-          }
-        }
-        if (lexer->lookahead != '}') {
-          return false;
-        }
-        lexer->advance(lexer, false);
+      if (!scan_name_dollar(lexer)) {
+        return false;
       }
       continue;
     }
@@ -1466,7 +1461,7 @@ static bool scan_escaped_whitespace_after_tick(TSLexer *lexer) {
 // subexpressions remain part of the name rather than evaluated children.
 static bool scan_function_name(TSLexer *lexer, const bool *valid) {
   int32_t c = lexer->lookahead;
-  if (lexer->eof(lexer) || (generic_end(c) && c != 0) || c == '$' || c == '@' || c == '#') {
+  if (lexer->eof(lexer) || (generic_end(c) && c != 0) || c == '@' || c == '#') {
     return false;
   }
   // NextToken passes one non-EOF NUL into ScanGenericToken as its first
@@ -1486,7 +1481,25 @@ static bool scan_function_name(TSLexer *lexer, const bool *valid) {
       return false;
     }
   }
-  bool previous_dollar = false;
+  if (c == '$') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == '(') {
+      return false;
+    }
+    bool braced = lexer->lookahead == '{';
+    if (variable_start(lexer->lookahead)) {
+      if (!scan_variable_name(lexer, false)) {
+        return false;
+      }
+      int32_t next = lexer->lookahead;
+      // A standalone variable is not a function name. Adjacent generic text
+      // instead makes the complete token a literal name, as in ${name}-tail.
+      if ((generic_end(next) && !quote(next) && next != '<' && next != '>') || next == '.' ||
+          next == '[' || next == ':' || (!braced && next == '=')) {
+        return false;
+      }
+    }
+  }
   while (!lexer->eof(lexer)) {
     c = lexer->lookahead;
     if (c == '`') {
@@ -1497,37 +1510,24 @@ static bool scan_function_name(TSLexer *lexer, const bool *valid) {
           return false;
         }
       }
-      previous_dollar = false;
       continue;
     }
     if (single_quote(c) || double_quote(c)) {
       if (!scan_name_quoted_piece(lexer)) {
         return false;
       }
-      previous_dollar = false;
       continue;
     }
-    if (c == '(' && previous_dollar) {
-      unsigned depth = 0;
-      do {
-        c = lexer->lookahead;
-        if (c == '(') {
-          ++depth;
-        } else if (c == ')') {
-          --depth;
-        }
-        lexer->advance(lexer, false);
-      } while (depth != 0 && !lexer->eof(lexer));
-      if (depth != 0) {
+    if (c == '$') {
+      lexer->advance(lexer, false);
+      if (!scan_name_dollar(lexer)) {
         return false;
       }
-      previous_dollar = false;
       continue;
     }
     if (generic_end(c) && c != '<' && c != '>') {
       break;
     }
-    previous_dollar = c == '$';
     lexer->advance(lexer, false);
   }
   lexer->mark_end(lexer);
@@ -1915,22 +1915,20 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     if (name && !data_name && n == 1 && word[0] == '.' && c == '$') {
       return false;
     }
-    if (name && c == '(' && n > 0 && word[n - 1] == '$') {
-      unsigned depth = 0;
-      do {
-        c = lexer->lookahead;
-        if (c == '(') {
-          ++depth;
-        } else if (c == ')') {
-          --depth;
-        }
-        if (!generic_word_append(buffer, c)) {
-          return false;
-        }
-        word = buffer->data;
-        n = buffer->length;
-        lexer->advance(lexer, false);
-      } while (depth > 0 && !lexer->eof(lexer));
+    if (name && c == '$') {
+      // A numeric/operator prefix is reparsed as an expression. Preserve its
+      // saved boundary before validating the following variable.
+      if (!data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
+          strchr("+-*/%.#", word[numeric_prefix]) != NULL) {
+        break;
+      }
+      lexer->advance(lexer, false);
+      if (!scan_name_dollar(lexer) || !generic_word_append(buffer, '?')) {
+        return false;
+      }
+      word = buffer->data;
+      n = buffer->length;
+      numeric_live = false;
       continue;
     }
     if (name && quote(c)) {

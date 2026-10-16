@@ -104,6 +104,8 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "data\nMessages\n-supportedcommand\nfoo$bar,$name.Length,(Get-Item .)\n{}\n",
         "data -supportedcommand @name.Length,${name}-tail,-not,[string] {}\n",
         "function `u{41} {}\n",
+        "function f${a\"b}($p) { $p }; function f$$() {}\n",
+        "filter ${name}-tail {}; function f\"${a`u{7d}b}\" {}\n",
         "function `\r\n foo {}\n",
         "-1e-2.ToString()\n",
         "[double]+1e-2.Length\n",

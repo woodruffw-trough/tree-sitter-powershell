@@ -1,0 +1,51 @@
+==================
+Numeric-prefix command names keep braced variables literal
+==================
+1.${name}.n next | Out-Null
+cmd 1.${name}
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (variable)))))
+
+==================
+Numeric operator boundaries still introduce variable expressions
+==================
+.1.${name}
+1+${name}
+1..${name}
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (real_literal)
+        member: (variable))))
+  (pipeline
+    elements: (command_expression
+      expression: (binary_expression
+        left: (integer_literal)
+        right: (variable))))
+  (pipeline
+    elements: (command_expression
+      expression: (binary_expression
+        left: (integer_literal)
+        right: (variable)))))

@@ -188,5 +188,155 @@
     "name": "filter name 'f\\x00f'",
     "source": "filter f\u0000f {}",
     "valid": false
+  },
+  {
+    "name": "braced name",
+    "source": "function f${name} {}",
+    "valid": true
+  },
+  {
+    "name": "braced name before parameters",
+    "source": "function f${a b}($p) { $p }",
+    "valid": true
+  },
+  {
+    "name": "braced quote name",
+    "source": "function f${a\"b} {}",
+    "valid": true
+  },
+  {
+    "name": "braced smart quote name",
+    "source": "filter f${a“b} {}",
+    "valid": true
+  },
+  {
+    "name": "braced single quote name",
+    "source": "function f${a'b} {}",
+    "valid": true
+  },
+  {
+    "name": "braced raw parenthesis",
+    "source": "function f${a(b} {}",
+    "valid": true
+  },
+  {
+    "name": "braced escaped close",
+    "source": "function f${a`}b} {}",
+    "valid": true
+  },
+  {
+    "name": "braced Unicode escaped close",
+    "source": "function f${a`u{7d}b} {}",
+    "valid": true
+  },
+  {
+    "name": "braced Unicode escaped quote",
+    "source": "function f${a`u{22}b} {}",
+    "valid": true
+  },
+  {
+    "name": "braced quoted fragment",
+    "source": "function f\"prefix${a b}suffix\" {}",
+    "valid": true
+  },
+  {
+    "name": "braced quoted inner quote",
+    "source": "function f\"prefix${a\"b}suffix\" {}",
+    "valid": true
+  },
+  {
+    "name": "special variable parameters",
+    "source": "function f$$() {}",
+    "valid": true
+  },
+  {
+    "name": "special variable before braced fragment",
+    "source": "function f$$${a} {}",
+    "valid": true
+  },
+  {
+    "name": "qualified fragment",
+    "source": "function f$env:NAME {}",
+    "valid": true
+  },
+  {
+    "name": "leading braced generic name",
+    "source": "function ${name}-tail {}",
+    "valid": true
+  },
+  {
+    "name": "leading braced equals generic name",
+    "source": "filter ${name}=tail {}",
+    "valid": true
+  },
+  {
+    "name": "leading variable generic name",
+    "source": "function $name-tail {}",
+    "valid": true
+  },
+  {
+    "name": "leading literal dollar name",
+    "source": "function $+ {}",
+    "valid": true
+  },
+  {
+    "name": "empty braced name",
+    "source": "function f${} {}",
+    "valid": false
+  },
+  {
+    "name": "empty qualified braced name",
+    "source": "function f${env:} {}",
+    "valid": false
+  },
+  {
+    "name": "unclosed braced name",
+    "source": "function f${name {}",
+    "valid": false
+  },
+  {
+    "name": "raw nested brace name",
+    "source": "function f${a{b} {}",
+    "valid": false
+  },
+  {
+    "name": "raw nested brace quoted fragment",
+    "source": "function f\"${a{b}\" {}",
+    "valid": false
+  },
+  {
+    "name": "empty braced quoted fragment",
+    "source": "function f\"${}\" {}",
+    "valid": false
+  },
+  {
+    "name": "empty unbraced scope",
+    "source": "function f$env: {}",
+    "valid": false
+  },
+  {
+    "name": "leading standalone braced name",
+    "source": "function ${name} {}",
+    "valid": false
+  },
+  {
+    "name": "leading braced member name",
+    "source": "function ${name}.Length {}",
+    "valid": false
+  },
+  {
+    "name": "leading standalone variable name",
+    "source": "function $name {}",
+    "valid": false
+  },
+  {
+    "name": "leading static variable name",
+    "source": "function $name::member {}",
+    "valid": false
+  },
+  {
+    "name": "leading variable assignment name",
+    "source": "function $name=value {}",
+    "valid": false
   }
 ]

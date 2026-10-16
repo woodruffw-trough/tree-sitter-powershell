@@ -814,6 +814,45 @@ fn decode_name(text: &str) -> String {
     let mut quote = None;
     let mut decoded = String::new();
     while let Some(character) = characters.next() {
+        if character == '$' && quote != Some('\'') {
+            decoded.push(character);
+            if characters
+                .peek()
+                .is_some_and(|next| matches!(next, '$' | '?' | '^'))
+            {
+                decoded.push(characters.next().unwrap());
+                continue;
+            }
+            if let Some(&open @ ('{' | '(')) = characters.peek() {
+                decoded.push(characters.next().unwrap());
+                let close = if open == '{' { '}' } else { ')' };
+                let mut depth = 1;
+                while let Some(character) = characters.next() {
+                    decoded.push(character);
+                    if open == '{' && character == '`' {
+                        if let Some(escaped) = characters.next() {
+                            decoded.push(escaped);
+                            if escaped == 'u' {
+                                for digit in characters.by_ref() {
+                                    decoded.push(digit);
+                                    if digit == '}' {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    } else if character == close {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    } else if open == '(' && character == open {
+                        depth += 1;
+                    }
+                }
+            }
+            continue;
+        }
         if character == '`' && quote != Some('\'') {
             let mut escape = String::from("`");
             if let Some(character) = characters.next() {
@@ -933,7 +972,11 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
         "FunctionDefinitionAst" | "FunctionMemberAst" | "PropertyMemberAst" | "TypeDefinitionAst"
     ) {
         let name = source.collected_text(node.child_by_field_name("name").unwrap());
-        let name = name.strip_prefix('$').unwrap_or(&name);
+        let name = if category == "PropertyMemberAst" {
+            name.strip_prefix('$').unwrap_or(&name)
+        } else {
+            &name
+        };
         result.insert("name", json!(decode_name(name)));
     }
     if category == "UsingStatementAst" {

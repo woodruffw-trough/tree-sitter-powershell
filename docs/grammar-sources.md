@@ -71,6 +71,12 @@ PowerShell allows physical newlines as well as semicolons between header clauses
 the clause positions determine these fields.
 Declaration names, parameter defaults, class property values, catch types, and
 conditional clauses also have fields, so queries can select their syntactic role.
+A function name is one literal `function_name`, including any embedded variable
+or subexpression spelling. For example, `function f${name}($p) { $p }` has name
+`f${name}` and a separate parameter list and body. A variable by itself cannot
+name a function; adjacent generic text makes `${name}-tail` a literal name.
+These boundaries follow `ScanGenericToken` and `FunctionDeclarationRule` in the
+pinned PowerShell parser.
 Control-header flags retain their complete spelling, including an optional colon.
 For example, `foreach_parameter.value` contains the whole operand of
 `-ThrottleLimit:`. PowerShell recognizes workflow-only foreach flags before
@@ -171,6 +177,9 @@ repeated; repeated fields can be retrieved with `children_by_field_name`.
 
 A numeric-looking prefix followed by quotes or interpolation is also part of one
 argument: `Write-Output 1"$name"` contains one composite `command_argument`.
+At command position, `1.${name}` is one literal `command_name`, with the braced
+spelling inside its `bare_word`. `1+${name}` remains arithmetic; `cmd 1.${name}`
+contains an interpolated argument.
 Argument mode treats `<` and `>` as literal characters after a generic word,
 simple variable, or parameter name. Thus `native $name>out` has one argument,
 while `native $name.Length>out` has a member-access argument and a redirection.
