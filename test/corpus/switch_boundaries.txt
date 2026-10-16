@@ -1,0 +1,108 @@
+==================
+Default prefixes retain complete clause conditions
+==================
+switch (1) {
+  default"x" {}
+  default'name' {}
+  default$value {}
+  default${name} {}
+  default$(Get-Item .) {}
+  default {}
+}
+
+---
+
+(source_file
+  (switch_statement
+    condition: (condition
+      (pipeline
+        elements: (command_expression
+          expression: (integer_literal))))
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word)
+        (expandable_string
+          (string_content)))
+      body: (statement_block))
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word)
+        (single_quoted_string))
+      body: (statement_block))
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word)
+        (variable))
+      body: (statement_block))
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word)
+        (variable))
+      body: (statement_block))
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word)
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command
+                name: (command_name
+                  (bare_word))
+                (command_argument
+                  (bare_word)))))))
+      body: (statement_block))
+    clauses: (switch_clause
+      body: (statement_block))))
+
+==================
+A newline may precede the first clause and a semicolon may follow it
+==================
+switch (1) {
+  default # fallback
+  {} ;
+}
+
+---
+
+(source_file
+  (switch_statement
+    condition: (condition
+      (pipeline
+        elements: (command_expression
+          expression: (integer_literal))))
+    clauses: (switch_clause
+      (comment)
+      body: (statement_block))))
+
+==================
+A semicolon before the first clause is an error
+==================
+switch (1) { ; default {} }
+
+---
+
+(source_file
+  (switch_statement
+    condition: (condition
+      (pipeline
+        elements: (command_expression
+          expression: (integer_literal))))
+    (ERROR)
+    clauses: (switch_clause
+      body: (statement_block))))
+
+==================
+A file switch also rejects a leading semicolon
+==================
+switch -file input.txt {
+; default {} }
+
+---
+
+(source_file
+  (switch_statement
+    file: (command_argument
+      (bare_word))
+    (ERROR)
+    clauses: (switch_clause
+      body: (statement_block))))

@@ -496,7 +496,7 @@ const grammarDefinition = {
       ),
       repeat(NEWLINE),
       '{',
-      repeat($._terminator),
+      repeat(NEWLINE),
       repeat1(seq(field('clauses', $.switch_clause), repeat($._terminator))),
       '}',
     ),

@@ -4509,5 +4509,105 @@
       "KeywordParameterReservedForFutureUse"
     ],
     "parallel_only": true
+  },
+  {
+    "name": "switch default prefix quoted suffix",
+    "source": "switch (1) { default\"x\" {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix single-quoted suffix",
+    "source": "switch (1) { default'x' {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix empty quoted suffix",
+    "source": "switch (1) { default\"\" {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix smart quoted suffix",
+    "source": "switch (1) { default“x” {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix variable suffix",
+    "source": "switch (1) { default$value {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix braced variable suffix",
+    "source": "switch (1) { default${name} {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix subexpression suffix",
+    "source": "switch (1) { default$(Get-Item .) {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix bracket suffix",
+    "source": "switch (1) { default[name] {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix hash suffix",
+    "source": "switch (1) { default#tag {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix block-comment-shaped suffix",
+    "source": "switch (1) { default<#tag#> {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix escaped suffix",
+    "source": "switch (1) { default`x {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix escaped keyword",
+    "source": "switch (1) { de`fault {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch uppercase default prefix quoted suffix",
+    "source": "switch (1) { DEFAULT\"x\" {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default prefix in file switch",
+    "source": "switch -file input.txt { default$value {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default with separated line comment",
+    "source": "switch (1) { default # fallback\n {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch default with separated block comment",
+    "source": "switch (1) { default <# fallback #> {} }\n",
+    "valid": true
+  },
+  {
+    "name": "switch newlines before first clause and semicolons after it",
+    "source": "switch (1) {\n default {} ;\n}\n",
+    "valid": true
+  },
+  {
+    "name": "switch semicolon before first clause",
+    "source": "switch (1) { ; default {} }\n",
+    "valid": false
+  },
+  {
+    "name": "switch newline semicolon before first clause",
+    "source": "switch (1) {\n; default {} }\n",
+    "valid": false
+  },
+  {
+    "name": "switch file semicolon before first clause",
+    "source": "switch -file input.txt {\n; default {} }\n",
+    "valid": false
   }
 ]

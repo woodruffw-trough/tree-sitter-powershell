@@ -2054,7 +2054,8 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     lexer->result_symbol = VERBATIM_ARGUMENTS_START;
     return true;
   }
-  if (!any_escape && valid[SWITCH_DEFAULT] && strcmp(word, "default") == 0) {
+  if (!any_escape && valid[SWITCH_DEFAULT] && strcmp(word, "default") == 0 &&
+      !quote(lexer->lookahead) && lexer->lookahead != '$') {
     lexer->mark_end(lexer);
     lexer->result_symbol = SWITCH_DEFAULT;
     return true;
