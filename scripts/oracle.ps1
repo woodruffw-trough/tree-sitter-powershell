@@ -17,9 +17,14 @@ $names = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
 $fixtureDirectory = Split-Path -Parent (Resolve-Path -LiteralPath $Fixtures).Path
 
 function Get-AstExtent($Node) {
+    $end = $Node.Extent.EndOffset
+    if ($Node -is [Management.Automation.Language.DynamicKeywordStatementAst] -and
+        $dynamicKeywordDefinition.GetValue($Node).BodyMode -ne 'Command') {
+        $end = $Node.CommandElements[2].Extent.EndOffset
+    }
     return [ordered]@{
         start = $Node.Extent.StartOffset
-        end = $Node.Extent.EndOffset
+        end = $end
     }
 }
 
@@ -79,6 +84,39 @@ function Get-AstRecord($Node) {
                 ($Node.Extent.StartOffset -eq 0 -and $Node.Extent.EndOffset -eq 0 -and
                     $Node.Expression.GetType().Name -eq 'BaseCtorInvokeMemberExpressionAst')
             )
+        }
+        'DynamicKeywordStatementAst' {
+            $elements = $Node.CommandElements
+            Add-AstField $fields 'keyword' $elements[0]
+            $definition = $dynamicKeywordDefinition.GetValue($Node)
+            $record.bodyMode = $definition.BodyMode.ToString()
+            if ($definition.BodyMode -eq 'Command') {
+                Add-AstField $fields 'elements' @($elements | Select-Object -Skip 1)
+            } else {
+                if ($definition.NameMode -ne 'NoName') {
+                    Add-AstField $fields 'name' $elements[1]
+                }
+                Add-AstField $fields 'body' $elements[2]
+                # The semantic extent includes trivia before the next token.
+                $record.end = $elements[2].Extent.EndOffset
+            }
+        }
+        'HashtableAst' {
+            $fields.entries = @($Node.KeyValuePairs | ForEach-Object {
+                [ordered]@{
+                    key = Get-AstExtent $_.Item1
+                    value = Get-AstExtent $_.Item2
+                }
+            })
+        }
+        'BlockStatementAst' {
+            Add-AstField $fields 'body' $Node.Body
+            $record.kind = $Node.Kind.Kind.ToString()
+        }
+        'ConfigurationDefinitionAst' {
+            Add-AstField $fields 'name' $Node.InstanceName
+            Add-AstField $fields 'body' $Node.Body
+            Add-AstField $fields 'attributes' $configurationAttributes.GetValue($Node)
         }
         'BinaryExpressionAst' {
             Add-AstField $fields 'left' $Node.Left
@@ -280,6 +318,21 @@ function Get-AstRecord($Node) {
     return $record
 }
 
+$dynamicKeywordDefinition = [Management.Automation.Language.DynamicKeywordStatementAst].GetProperty(
+    'Keyword', [Reflection.BindingFlags] 'Instance, NonPublic'
+)
+if ($null -eq $dynamicKeywordDefinition) {
+    throw 'The pinned parser must expose DynamicKeywordStatementAst.Keyword.'
+}
+
+# The pinned parser stores configuration attributes outside its public visitor.
+$configurationAttributes = [Management.Automation.Language.ConfigurationDefinitionAst].GetProperty(
+    'CustomAttributes', [Reflection.BindingFlags] 'Instance, NonPublic'
+)
+if ($null -eq $configurationAttributes) {
+    throw 'The pinned parser must expose ConfigurationDefinitionAst.CustomAttributes.'
+}
+
 foreach ($case in $cases) {
     # Large upstream fixtures refer to unmodified, attributed source files.
     if (-not $case.ContainsKey('source') -and $case.ContainsKey('path')) {
@@ -298,12 +351,44 @@ foreach ($case in $cases) {
 
     $tokens = $null
     $parseErrors = $null
-    $ast = [Management.Automation.Language.Parser]::ParseInput(
-        $case.source,
-        $case.name,
-        [ref] $tokens,
-        [ref] $parseErrors
-    )
+    $hasDynamicKeywords = $case.ContainsKey('dynamic_keywords')
+    if ($hasDynamicKeywords) {
+        [Management.Automation.Language.DynamicKeyword]::Push()
+    }
+    try {
+        if ($hasDynamicKeywords) {
+            foreach ($metadata in $case.dynamic_keywords) {
+                $keyword = [Management.Automation.Language.DynamicKeyword]::new()
+                $keyword.Keyword = $metadata.keyword
+                $keyword.BodyMode = [Management.Automation.Language.DynamicKeywordBodyMode] $metadata.body_mode
+                $keyword.NameMode = [Management.Automation.Language.DynamicKeywordNameMode] $metadata.name_mode
+                if ($metadata.ContainsKey('properties')) {
+                    foreach ($name in $metadata.properties) {
+                        $property = [Management.Automation.Language.DynamicKeywordProperty]::new()
+                        $property.Name = $name
+                        $keyword.Properties.Add($name, $property)
+                    }
+                }
+                if ($metadata.ContainsKey('implementing_module')) {
+                    $keyword.ImplementingModule = $metadata.implementing_module
+                }
+                if ($metadata.ContainsKey('meta_statement')) {
+                    $keyword.MetaStatement = $metadata.meta_statement
+                }
+                [Management.Automation.Language.DynamicKeyword]::AddKeyword($keyword)
+            }
+        }
+        $ast = [Management.Automation.Language.Parser]::ParseInput(
+            $case.source,
+            $case.name,
+            [ref] $tokens,
+            [ref] $parseErrors
+        )
+    } finally {
+        if ($hasDynamicKeywords) {
+            [Management.Automation.Language.DynamicKeyword]::Pop()
+        }
+    }
 
     $errors = @($parseErrors | ForEach-Object {
         [ordered]@{
@@ -330,6 +415,8 @@ foreach ($case in $cases) {
         } elseif ($node -is [Management.Automation.Language.ForEachStatementAst] -and
             $null -ne $node.ThrottleLimit) {
             @($node.ThrottleLimit)
+        } elseif ($node -is [Management.Automation.Language.ConfigurationDefinitionAst]) {
+            @($configurationAttributes.GetValue($node))
         } else {
             @()
         }

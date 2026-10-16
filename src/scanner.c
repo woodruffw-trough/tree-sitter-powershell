@@ -53,6 +53,7 @@ enum TokenType {
   COMMAND_MEMBER_START,
   COMMAND_UNARY_START,
   DATA_COMMAND_NAME,
+  CONFIGURATION_NAME_START,
   SIGNED_NUMBER_START,
   CAST_VALUE_CONTEXT,
   SINGLE_QUOTED_STRING,
@@ -93,15 +94,27 @@ enum TokenType {
   INTERPOLATION_OPEN,
   INTERPOLATION_TAIL,
   COMMAND_INTERPOLATION_CONTEXT,
+  DSC_NODE_KEYWORD,
+  DSC_IMPORT_KEYWORD,
+  DSC_RESOURCE_KEYWORD,
+  DSC_SCRIPT_KEYWORD,
+  DSC_SETTINGS_KEYWORD,
+  CONFIGURATION_CONTEXT_START,
+  SCRIPT_RESOURCE_CONTEXT_START,
+  WORKFLOW_CONTEXT_START,
+  FUNCTION_CONTEXT_START,
+  CONTEXT_END,
+  WORKFLOW_INLINE_SCRIPT,
   EXTERNAL_TOKEN_COUNT
 };
 
 static bool prepared_context_token(TSSymbol symbol) {
   return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END || symbol == LABEL_START ||
          symbol == MEMBER_ARGUMENT_END || symbol == EXPRESSION_ARGUMENT_END ||
-         symbol == SWITCH_CLAUSE_START || symbol == UNARY_SIGN_CONTEXT ||
-         symbol == CAST_VALUE_CONTEXT || symbol == FLOW_PIPE_START ||
-         symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION;
+         symbol == CONFIGURATION_NAME_START || symbol == SWITCH_CLAUSE_START ||
+         symbol == UNARY_SIGN_CONTEXT || symbol == CAST_VALUE_CONTEXT ||
+         symbol == FLOW_PIPE_START || symbol == EXPRESSION_CONTINUATION ||
+         symbol == ATTRIBUTE_CONTINUATION;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -123,8 +136,8 @@ typedef struct {
 // A prepared token stores its active flag, two raw codepoint counts, and its
 // symbol. Reserve the largest header before accepting another collector frame.
 #define PREPARED_TOKEN_STATE_SIZE 11
-#define INTERPOLATION_STATE_BUDGET                                                                 \
-  (TREE_SITTER_SERIALIZATION_BUFFER_SIZE - PREPARED_TOKEN_STATE_SIZE)
+#define CONTEXT_LENGTH_RESERVE 2
+#define MAX_CONTEXT_RUNS (TREE_SITTER_SERIALIZATION_BUFFER_SIZE / 2)
 // Each encoded run needs at least three bytes. The header takes additional
 // space, so this backing array cannot fill before the serialization budget.
 #define MAX_INTERPOLATION_RUNS (TREE_SITTER_SERIALIZATION_BUFFER_SIZE / 3)
@@ -137,6 +150,16 @@ typedef struct {
   bool toggles_closed;
 } InterpolationRun;
 
+enum ContextMode {
+  CONTEXT_DSC = 1,
+  CONTEXT_WORKFLOW = 2
+};
+
+typedef struct {
+  uint32_t count;
+  uint8_t changes;
+} ContextRun;
+
 typedef struct {
   uint32_t balance;
   uint32_t semantic_depth;
@@ -148,6 +171,9 @@ typedef struct {
   InterpolationRun runs[MAX_INTERPOLATION_RUNS];
   PreparedToken prepared;
   bool collector_eof;
+  uint8_t context_mode;
+  uint32_t context_run_count;
+  ContextRun context_runs[MAX_CONTEXT_RUNS];
 } Scanner;
 
 static size_t unsigned_size(uint64_t value) {
@@ -227,6 +253,106 @@ static size_t interpolation_state_size(const Scanner *scanner) {
   return size;
 }
 
+static size_t context_state_size(const Scanner *scanner) {
+  if (!scanner->context_run_count) {
+    return 0;
+  }
+  size_t size = 1 + unsigned_size(scanner->context_run_count);
+  for (uint32_t i = 0; i < scanner->context_run_count; ++i) {
+    size += 1 + unsigned_size(scanner->context_runs[i].count);
+  }
+  return size;
+}
+
+static size_t interpolation_state_budget(const Scanner *scanner) {
+  size_t reserved = PREPARED_TOKEN_STATE_SIZE + CONTEXT_LENGTH_RESERVE;
+  size_t contexts = context_state_size(scanner);
+  return contexts > TREE_SITTER_SERIALIZATION_BUFFER_SIZE - reserved
+             ? 0
+             : TREE_SITTER_SERIALIZATION_BUFFER_SIZE - reserved - contexts;
+}
+
+static bool push_context(Scanner *scanner, uint8_t mode) {
+  ContextRun *last =
+      scanner->context_run_count ? &scanner->context_runs[scanner->context_run_count - 1] : NULL;
+  uint8_t changes = scanner->context_mode ^ mode;
+  if (last && last->changes == changes) {
+    if (last->count == UINT32_MAX) {
+      return false;
+    }
+    ++last->count;
+  } else {
+    if (scanner->context_run_count == MAX_CONTEXT_RUNS) {
+      return false;
+    }
+    scanner->context_runs[scanner->context_run_count++] =
+        (ContextRun){.count = 1, .changes = changes};
+  }
+  scanner->context_mode = mode;
+  size_t contexts = context_state_size(scanner);
+  size_t reserved = PREPARED_TOKEN_STATE_SIZE + CONTEXT_LENGTH_RESERVE;
+  return contexts + reserved < TREE_SITTER_SERIALIZATION_BUFFER_SIZE &&
+         interpolation_state_size(scanner) + (scanner->depth ? 11 : 0) <=
+             TREE_SITTER_SERIALIZATION_BUFFER_SIZE - contexts - reserved;
+}
+
+static bool pop_context(Scanner *scanner) {
+  if (!scanner->context_run_count) {
+    return false;
+  }
+  ContextRun *last = &scanner->context_runs[scanner->context_run_count - 1];
+  scanner->context_mode ^= last->changes;
+  if (!--last->count) {
+    --scanner->context_run_count;
+  }
+  return true;
+}
+
+static char *serialize_contexts(const Scanner *scanner, char *cursor) {
+  *cursor++ = (char)scanner->context_mode;
+  cursor = write_unsigned(cursor, scanner->context_run_count);
+  for (uint32_t i = 0; i < scanner->context_run_count; ++i) {
+    *cursor++ = (char)scanner->context_runs[i].changes;
+    cursor = write_unsigned(cursor, scanner->context_runs[i].count);
+  }
+  return cursor;
+}
+
+static bool decode_context_state(Scanner *scanner, const char *buffer, unsigned length) {
+  if (length < 4) {
+    return false;
+  }
+  const char *cursor = buffer;
+  const char *end = buffer + length;
+  uint8_t mode = (uint8_t)*cursor++;
+  uint64_t run_count;
+  if ((mode & ~(CONTEXT_DSC | CONTEXT_WORKFLOW)) || !read_unsigned(&cursor, end, &run_count) ||
+      !run_count || run_count > MAX_CONTEXT_RUNS) {
+    return false;
+  }
+  for (uint32_t i = 0; i < run_count; ++i) {
+    if (cursor == end) {
+      return false;
+    }
+    uint8_t changes = (uint8_t)*cursor++;
+    uint64_t count;
+    if ((changes & ~(CONTEXT_DSC | CONTEXT_WORKFLOW)) || !read_unsigned(&cursor, end, &count) ||
+        !count || count > UINT32_MAX || (i && scanner->context_runs[i - 1].changes == changes)) {
+      return false;
+    }
+    scanner->context_runs[i] = (ContextRun){.count = (uint32_t)count, .changes = changes};
+  }
+  uint8_t restored = mode;
+  for (uint32_t i = 0; i < run_count; ++i) {
+    if (scanner->context_runs[i].count & 1) {
+      restored ^= scanner->context_runs[i].changes;
+    }
+  }
+  scanner->context_mode = mode;
+  scanner->context_run_count = (uint32_t)run_count;
+  return cursor == end && restored == 0;
+}
+
 static Interpolation current_interpolation(const Scanner *scanner) {
   return scanner->top;
 }
@@ -241,7 +367,7 @@ static bool push_interpolation(Scanner *scanner, Interpolation frame) {
   }
   if (!scanner->depth) {
     size_t size = 8 + unsigned_size(frame.balance) + unsigned_size(frame.semantic_depth) + 1;
-    if (size > INTERPOLATION_STATE_BUDGET) {
+    if (size > interpolation_state_budget(scanner)) {
       return false;
     }
     scanner->outermost = frame;
@@ -273,7 +399,7 @@ static bool push_interpolation(Scanner *scanner, Interpolation frame) {
     size += run_size(&next);
   }
   // Closing the top frame may split one run. Keep its maximum encoding free.
-  if (size + 11 > INTERPOLATION_STATE_BUDGET ||
+  if (size + 11 > interpolation_state_budget(scanner) ||
       (!extends && scanner->run_count == MAX_INTERPOLATION_RUNS)) {
     return false;
   }
@@ -342,7 +468,7 @@ static bool close_interpolation(Scanner *scanner) {
     }
   }
   scanner->top.closed = true;
-  return interpolation_state_size(scanner) <= INTERPOLATION_STATE_BUDGET;
+  return interpolation_state_size(scanner) <= interpolation_state_budget(scanner);
 }
 
 typedef struct {
@@ -428,7 +554,7 @@ static unsigned serialize_interpolations(Scanner *scanner, char *buffer) {
 }
 
 static bool decode_interpolation_state(Scanner *scanner, const char *buffer, unsigned length) {
-  if (length < 11 || length > INTERPOLATION_STATE_BUDGET) {
+  if (length < 11 || length > interpolation_state_budget(scanner)) {
     return false;
   }
   const char *cursor = buffer + 8;
@@ -507,15 +633,17 @@ static bool decode_interpolation_state(Scanner *scanner, const char *buffer, uns
 
 unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *buffer) {
   Scanner *scanner = payload;
-  if (!scanner->depth && !scanner->prepared.active) {
+  if (!scanner->depth && !scanner->prepared.active && !scanner->context_run_count) {
     return 0;
   }
+  size_t contexts = context_state_size(scanner);
   size_t size = interpolation_state_size(scanner) +
-                (scanner->prepared.active ? PREPARED_TOKEN_STATE_SIZE : 1);
+                (scanner->prepared.active ? PREPARED_TOKEN_STATE_SIZE : 1) +
+                (contexts ? unsigned_size(contexts) + contexts : 0);
   assert(size <= TREE_SITTER_SERIALIZATION_BUFFER_SIZE);
   (void)size;
   char *cursor = buffer;
-  *cursor++ = scanner->prepared.active;
+  *cursor++ = scanner->prepared.active | (scanner->context_run_count ? 2 : 0);
   if (scanner->prepared.active) {
     write_u32(cursor, scanner->prepared.start);
     cursor += 4;
@@ -523,6 +651,10 @@ unsigned tree_sitter_powershell_external_scanner_serialize(void *payload, char *
     cursor += 4;
     *cursor++ = (char)scanner->prepared.symbol;
     *cursor++ = (char)(scanner->prepared.symbol >> 8);
+  }
+  if (contexts) {
+    cursor = write_unsigned(cursor, contexts);
+    cursor = serialize_contexts(scanner, cursor);
   }
   return (unsigned)(cursor - buffer) + serialize_interpolations(scanner, cursor);
 }
@@ -536,10 +668,10 @@ void tree_sitter_powershell_external_scanner_deserialize(void *payload, const ch
   }
   uint8_t flags = (uint8_t)*buffer++;
   --length;
-  if (flags > 1) {
+  if (flags > 3) {
     return;
   }
-  if (flags) {
+  if (flags & 1) {
     if (length < 10) {
       return;
     }
@@ -558,7 +690,19 @@ void tree_sitter_powershell_external_scanner_deserialize(void *payload, const ch
       return;
     }
   }
-  if (!length && scanner->prepared.active) {
+  if (flags & 2) {
+    const char *cursor = buffer;
+    uint64_t contexts;
+    if (!read_unsigned(&cursor, buffer + length, &contexts) ||
+        contexts > (uint64_t)(buffer + length - cursor) ||
+        !decode_context_state(scanner, cursor, (unsigned)contexts)) {
+      memset(scanner, 0, sizeof(*scanner));
+      return;
+    }
+    length -= (unsigned)(cursor - buffer) + (unsigned)contexts;
+    buffer = cursor + contexts;
+  }
+  if (!length && (scanner->prepared.active || scanner->context_run_count)) {
     return;
   }
   if (!decode_interpolation_state(scanner, buffer, length)) {
@@ -1080,11 +1224,11 @@ static bool numeric_word(const char *s) {
 
 static bool reserved(const char *s) {
   static const char *const words[] = {
-      "if",     "elseif",   "else",  "switch", "foreach",       "for",      "while",
-      "do",     "until",    "try",   "catch",  "finally",       "trap",     "function",
-      "filter", "workflow", "class", "enum",   "break",         "continue", "return",
-      "throw",  "exit",     "data",  "using",  "configuration", "param",    "dynamicparam",
-      "begin",  "process",  "end",   "clean"};
+      "if",       "elseif",       "else",   "switch",   "foreach", "for",   "while",
+      "do",       "until",        "try",    "catch",    "finally", "trap",  "parallel",
+      "sequence", "function",     "filter", "workflow", "class",   "enum",  "break",
+      "continue", "return",       "throw",  "exit",     "data",    "using", "configuration",
+      "param",    "dynamicparam", "begin",  "process",  "end",     "clean"};
   for (unsigned i = 0; i < sizeof(words) / sizeof(words[0]); ++i) {
     if (strcmp(s, words[i]) == 0) {
       return true;
@@ -2362,6 +2506,54 @@ static bool parameter_list_follows(TSLexer *lexer) {
   return lexer->lookahead == '(';
 }
 
+static bool scan_dsc_keyword(TSLexer *lexer, const bool *valid, const char *word) {
+  static const struct {
+    const char *name;
+    enum TokenType symbol;
+  } keywords[] = {
+      {"node", DSC_NODE_KEYWORD},
+      {"import-dscresource", DSC_IMPORT_KEYWORD},
+      {"script", DSC_SCRIPT_KEYWORD},
+      {"settings", DSC_SETTINGS_KEYWORD},
+      {"archive", DSC_RESOURCE_KEYWORD},
+      {"environment", DSC_RESOURCE_KEYWORD},
+      {"file", DSC_RESOURCE_KEYWORD},
+      {"group", DSC_RESOURCE_KEYWORD},
+      {"groupset", DSC_RESOURCE_KEYWORD},
+      {"log", DSC_RESOURCE_KEYWORD},
+      {"package", DSC_RESOURCE_KEYWORD},
+      {"msipackage", DSC_RESOURCE_KEYWORD},
+      {"processset", DSC_RESOURCE_KEYWORD},
+      {"registry", DSC_RESOURCE_KEYWORD},
+      {"service", DSC_RESOURCE_KEYWORD},
+      {"serviceset", DSC_RESOURCE_KEYWORD},
+      {"user", DSC_RESOURCE_KEYWORD},
+      {"waitforall", DSC_RESOURCE_KEYWORD},
+      {"waitforany", DSC_RESOURCE_KEYWORD},
+      {"waitforsome", DSC_RESOURCE_KEYWORD},
+      {"windowsfeature", DSC_RESOURCE_KEYWORD},
+      {"windowsfeatureset", DSC_RESOURCE_KEYWORD},
+      {"windowsoptionalfeature", DSC_RESOURCE_KEYWORD},
+      {"windowsoptionalfeatureset", DSC_RESOURCE_KEYWORD},
+      {"windowspackagecab", DSC_RESOURCE_KEYWORD},
+      {"windowsprocess", DSC_RESOURCE_KEYWORD},
+      {"configurationrepositoryweb", DSC_RESOURCE_KEYWORD},
+      {"configurationrepositoryshare", DSC_RESOURCE_KEYWORD},
+      {"resourcerepositoryweb", DSC_RESOURCE_KEYWORD},
+      {"resourcerepositoryshare", DSC_RESOURCE_KEYWORD},
+      {"reportserverweb", DSC_RESOURCE_KEYWORD},
+      {"partialconfiguration", DSC_RESOURCE_KEYWORD},
+  };
+  for (unsigned i = 0; i < sizeof(keywords) / sizeof(keywords[0]); ++i) {
+    if (valid[keywords[i].symbol] && strcmp(word, keywords[i].name) == 0) {
+      lexer->mark_end(lexer);
+      lexer->result_symbol = keywords[i].symbol;
+      return true;
+    }
+  }
+  return false;
+}
+
 static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
                               GenericWord *buffer, bool continuation, bool signed_prefix) {
   bool data_name = valid[DATA_COMMAND_NAME] && !immediate;
@@ -2757,6 +2949,11 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
                                           : PARAM_COMMAND_NAME;
       lexer->result_symbol = parameter_kind;
       return valid[parameter_kind];
+    }
+    TrackedLexer *tracked = (TrackedLexer *)lexer;
+    if (name && !data_name && !any_escape && !valid[HERE_STRING_CONTENT] &&
+        (tracked->scanner->context_mode & CONTEXT_DSC) && scan_dsc_keyword(lexer, valid, word)) {
+      return true;
     }
     // StatementRule reserves these words; CommandRule still accepts them.
     // Label lookahead distinguishes statement entry from pipeline entry.
@@ -3738,6 +3935,38 @@ static bool scan_expression_continuation(TSLexer *lexer) {
 }
 
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
+  if (!valid[HERE_STRING_CONTENT] &&
+      (valid[CONFIGURATION_CONTEXT_START] || valid[SCRIPT_RESOURCE_CONTEXT_START] ||
+       valid[WORKFLOW_CONTEXT_START] || valid[FUNCTION_CONTEXT_START] || valid[CONTEXT_END])) {
+    enum TokenType context_token;
+    uint8_t mode = scanner->context_mode;
+    if (valid[CONFIGURATION_CONTEXT_START]) {
+      context_token = CONFIGURATION_CONTEXT_START;
+      mode |= CONTEXT_DSC;
+    } else if (valid[SCRIPT_RESOURCE_CONTEXT_START]) {
+      context_token = SCRIPT_RESOURCE_CONTEXT_START;
+      mode &= ~CONTEXT_DSC;
+    } else if (valid[WORKFLOW_CONTEXT_START]) {
+      context_token = WORKFLOW_CONTEXT_START;
+      mode |= CONTEXT_WORKFLOW;
+    } else if (valid[FUNCTION_CONTEXT_START]) {
+      context_token = FUNCTION_CONTEXT_START;
+      mode &= ~CONTEXT_WORKFLOW;
+    } else {
+      if (!pop_context(scanner)) {
+        return false;
+      }
+      lexer->mark_end(lexer);
+      lexer->result_symbol = CONTEXT_END;
+      return true;
+    }
+    if (!push_context(scanner, mode)) {
+      return false;
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = context_token;
+    return true;
+  }
   if (valid[INTERPOLATION_TAIL] && !valid[EXPANDABLE_HERE_STRING_START] && scanner->depth &&
       scanner->top.closed) {
     return scan_interpolation_tail(scanner, lexer, valid);
@@ -3785,7 +4014,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
                    (valid[GENERIC_ARGUMENT_FRAGMENT] || lexer->lookahead != '=') &&
                    (fragment_character(lexer->lookahead) || lexer->lookahead == '`');
   bool verbatim = valid[VERBATIM_ARGUMENT_TEXT] && !valid[VERBATIM_ARGUMENTS_START];
-  if (preparing && (here_body || fragments || verbatim)) {
+  if (preparing && (here_body || fragments || verbatim || valid[CONFIGURATION_NAME_START])) {
     return request_preparation(scanner, lexer, valid);
   }
   if ((valid[DOUBLE_QUOTE] || valid[ADJACENT_DOUBLE_QUOTE] || valid[STRING_ESCAPE]) &&
@@ -3970,6 +4199,26 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if (skipped_trivia && valid[METHOD_INVOCATION_CONTEXT] &&
       (lexer->lookahead == '(' || lexer->lookahead == '{')) {
     return false;
+  }
+  // Configuration names use one command argument, but an opening brace at
+  // its start is always the missing-name error, never a script-block name.
+  if (valid[CONFIGURATION_NAME_START] && !valid[HERE_STRING_CONTENT] && lexer->lookahead != '#' &&
+      lexer->lookahead != '<') {
+    if (lexer->eof(lexer) || newline(lexer->lookahead) || lexer->lookahead == '{') {
+      return false;
+    }
+    lexer->mark_end(lexer);
+    if (lexer->lookahead == '`') {
+      lexer->advance(lexer, false);
+      if (horizontal(lexer->lookahead)) {
+        return scan_escaped_whitespace_after_tick(lexer, valid);
+      }
+      if (newline(lexer->lookahead)) {
+        return scan_line_continuation_after_tick(lexer, valid);
+      }
+    }
+    lexer->result_symbol = CONFIGURATION_NAME_START;
+    return true;
   }
   // Let extras consume trivia before classifying the following expression.
   if (!valid[HERE_STRING_CONTENT] && lexer->lookahead != '#' && lexer->lookahead != '<' &&
@@ -4383,8 +4632,10 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
         .length = virtual_length,
         .included_range_start = range_start,
     };
-    Scanner virtual_scanner = {.collector_eof =
-                                   layers != 0 && complete && !collected_verbatim_close};
+    Scanner virtual_scanner = {
+        .collector_eof = layers != 0 && complete && !collected_verbatim_close,
+        .context_mode = scanner->context_mode,
+    };
     TrackedLexer virtual_lexer = {
         .lexer =
             {

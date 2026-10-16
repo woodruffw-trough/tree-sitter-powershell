@@ -1,0 +1,1797 @@
+[
+  {
+    "name": "configuration name 1 separator ' '",
+    "source": "configuration Example {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 1 separator '\\n'",
+    "source": "configuration\nExample {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 2 separator ' '",
+    "source": "configuration Example/One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 2 separator '\\n'",
+    "source": "configuration\nExample/One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 3 separator ' '",
+    "source": "configuration Example.One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 3 separator '\\n'",
+    "source": "configuration\nExample.One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 4 separator ' '",
+    "source": "configuration Example-One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 4 separator '\\n'",
+    "source": "configuration\nExample-One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 5 separator ' '",
+    "source": "configuration Example_One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 5 separator '\\n'",
+    "source": "configuration\nExample_One {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 6 separator ' '",
+    "source": "configuration \"Example\" {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 6 separator '\\n'",
+    "source": "configuration\n\"Example\" {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 7 separator ' '",
+    "source": "configuration 'Example' {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 7 separator '\\n'",
+    "source": "configuration\n'Example' {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 8 separator ' '",
+    "source": "configuration \"$name\" {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 8 separator '\\n'",
+    "source": "configuration\n\"$name\" {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 9 separator ' '",
+    "source": "configuration Example$tail {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 9 separator '\\n'",
+    "source": "configuration\nExample$tail {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 10 separator ' '",
+    "source": "configuration Example\"Suffix\" {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 11 separator ' '",
+    "source": "configuration $name-tail {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 11 separator '\\n'",
+    "source": "configuration\n$name-tail {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 12 separator ' '",
+    "source": "configuration ${name}-tail {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 12 separator '\\n'",
+    "source": "configuration\n${name}-tail {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 13 separator ' '",
+    "source": "configuration $name.Suffix {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 13 separator '\\n'",
+    "source": "configuration\n$name.Suffix {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 14 separator ' '",
+    "source": "configuration $name?[0] {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 14 separator '\\n'",
+    "source": "configuration\n$name?[0] {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 15 separator ' '",
+    "source": "configuration ($name) {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 15 separator '\\n'",
+    "source": "configuration\n($name) {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 16 separator ' '",
+    "source": "configuration $(Get-Name) {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 16 separator '\\n'",
+    "source": "configuration\n$(Get-Name) {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 17 separator ' '",
+    "source": "configuration @($name) {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 17 separator '\\n'",
+    "source": "configuration\n@($name) {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 18 separator ' '",
+    "source": "configuration @{Name=$name} {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 18 separator '\\n'",
+    "source": "configuration\n@{Name=$name} {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 19 separator ' '",
+    "source": "configuration one,two {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 19 separator '\\n'",
+    "source": "configuration\none,two {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 20 separator ' '",
+    "source": "configuration one,\ntwo {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 20 separator '\\n'",
+    "source": "configuration\none,\ntwo {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 21 separator ' '",
+    "source": "configuration [string]$name {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 21 separator '\\n'",
+    "source": "configuration\n[string]$name {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 27 separator ' '",
+    "source": "configuration -- {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "ParameterRequiresArgument",
+      "MissingConfigurationName",
+      "MissingCurlyInConfigurationStatement"
+    ]
+  },
+  {
+    "name": "configuration name 27 separator '\\n'",
+    "source": "configuration\n-- {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "ParameterRequiresArgument",
+      "MissingConfigurationName",
+      "MissingCurlyInConfigurationStatement"
+    ]
+  },
+  {
+    "name": "configuration name 29 separator ' '",
+    "source": "configuration !$name {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 29 separator '\\n'",
+    "source": "configuration\n!$name {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 30 separator ' '",
+    "source": "configuration !($name) {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "InvalidConfigurationName",
+      "MissingCurlyInConfigurationStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 30 separator '\\n'",
+    "source": "configuration\n!($name) {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "InvalidConfigurationName",
+      "MissingCurlyInConfigurationStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 31 separator ' '",
+    "source": "configuration -$name {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 31 separator '\\n'",
+    "source": "configuration\n-$name {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration name 32 separator ' '",
+    "source": "configuration -($name) {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "InvalidConfigurationName",
+      "MissingCurlyInConfigurationStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 32 separator '\\n'",
+    "source": "configuration\n-($name) {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "InvalidConfigurationName",
+      "MissingCurlyInConfigurationStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 33 separator ' '",
+    "source": "configuration +($name) {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "InvalidConfigurationName",
+      "MissingCurlyInConfigurationStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 33 separator '\\n'",
+    "source": "configuration\n+($name) {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "InvalidConfigurationName",
+      "MissingCurlyInConfigurationStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 38 separator ' '",
+    "source": "configuration {} {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 38 separator '\\n'",
+    "source": "configuration\n{} {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 39 separator ' '",
+    "source": "configuration { command } {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration name 39 separator '\\n'",
+    "source": "configuration\n{ command } {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration {} {}",
+    "source": "configuration {} {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration { command } {}",
+    "source": "configuration { command } {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "configuration one two {}",
+    "source": "configuration one two {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingCurlyInConfigurationStatement"
+    ]
+  },
+  {
+    "name": "configuration $name.Length{}",
+    "source": "configuration $name.Length{}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingCurlyInConfigurationStatement"
+    ]
+  },
+  {
+    "name": "configuration $name.Length {}",
+    "source": "configuration $name.Length {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration -foo.bar {}",
+    "source": "configuration -foo.bar {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "InvalidConfigurationName",
+      "MissingCurlyInConfigurationStatement"
+    ]
+  },
+  {
+    "name": "[Some()] configuration Example {}",
+    "source": "[Some()] configuration Example {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "[Some()]\nconfiguration\nExample\n{}",
+    "source": "[Some()]\nconfiguration\nExample\n{}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "configuration;Example {}",
+    "source": "configuration;Example {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "ParameterRequiresArgument",
+      "MissingConfigurationName",
+      "MissingCurlyInConfigurationStatement"
+    ]
+  },
+  {
+    "name": "configuration Example;{}",
+    "source": "configuration Example;{}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingCurlyInConfigurationStatement"
+    ]
+  },
+  {
+    "name": "configuration\n\n{}",
+    "source": "configuration\n\n{}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName"
+    ]
+  },
+  {
+    "name": "configuration name 10 separator '\\n'",
+    "source": "configuration\nExample\"Suffix\" {}\nWrite-Output after",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "continued header",
+    "source": "configuration`\nExample {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "continued header after space",
+    "source": "configuration `\nExample {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "continued missing name",
+    "source": "configuration `\n{} {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "comment missing name",
+    "source": "configuration <#comment#> {} {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "line comment missing name",
+    "source": "configuration #comment\n{} {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "escaped name",
+    "source": "configuration `Example {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "escaped whitespace before name",
+    "source": "configuration ` Example {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "escaped whitespace before missing name",
+    "source": "configuration ` {} {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "comment before name",
+    "source": "configuration <#comment#>Example {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "line comment before name",
+    "source": "configuration #comment\nExample {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "newlines around name",
+    "source": "configuration\n\nExample\n\n{}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "comment adjacent keyword",
+    "source": "configuration<#comment#>Example {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "continued comment missing name",
+    "source": "configuration `\n<#comment#>{} {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [
+      "MissingConfigurationName",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "quoted name member",
+    "source": "configuration \"Example\".Length {}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "parallel {}",
+    "source": "parallel {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel {}",
+    "source": "workflow Example { parallel {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel { Write-Output item }",
+    "source": "parallel { Write-Output item }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel { Write-Output item }",
+    "source": "workflow Example { parallel { Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel { parallel { command }; sequence { command } }",
+    "source": "parallel { parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel { parallel { command }; sequence { command } }",
+    "source": "workflow Example { parallel { parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel\n{}",
+    "source": "parallel\n{}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel\n{}",
+    "source": "workflow Example { parallel\n{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel\n{ Write-Output item }",
+    "source": "parallel\n{ Write-Output item }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel\n{ Write-Output item }",
+    "source": "workflow Example { parallel\n{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel\n{ parallel { command }; sequence { command } }",
+    "source": "parallel\n{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel\n{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { parallel\n{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel<#comment#>{}",
+    "source": "parallel<#comment#>{}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow parallel<#comment#>{}",
+    "source": "workflow Example { parallel<#comment#>{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel<#comment#>{ Write-Output item }",
+    "source": "parallel<#comment#>{ Write-Output item }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow parallel<#comment#>{ Write-Output item }",
+    "source": "workflow Example { parallel<#comment#>{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel<#comment#>{ parallel { command }; sequence { command } }",
+    "source": "parallel<#comment#>{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel<#comment#>{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { parallel<#comment#>{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel`\n{}",
+    "source": "parallel`\n{}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow parallel`\n{}",
+    "source": "workflow Example { parallel`\n{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel`\n{ Write-Output item }",
+    "source": "parallel`\n{ Write-Output item }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow parallel`\n{ Write-Output item }",
+    "source": "workflow Example { parallel`\n{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel`\n{ parallel { command }; sequence { command } }",
+    "source": "parallel`\n{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel`\n{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { parallel`\n{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel\n#comment\n{}",
+    "source": "parallel\n#comment\n{}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel\n#comment\n{}",
+    "source": "workflow Example { parallel\n#comment\n{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel\n#comment\n{ Write-Output item }",
+    "source": "parallel\n#comment\n{ Write-Output item }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel\n#comment\n{ Write-Output item }",
+    "source": "workflow Example { parallel\n#comment\n{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel\n#comment\n{ parallel { command }; sequence { command } }",
+    "source": "parallel\n#comment\n{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow parallel\n#comment\n{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { parallel\n#comment\n{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence {}",
+    "source": "sequence {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence {}",
+    "source": "workflow Example { sequence {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence { Write-Output item }",
+    "source": "sequence { Write-Output item }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence { Write-Output item }",
+    "source": "workflow Example { sequence { Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence { parallel { command }; sequence { command } }",
+    "source": "sequence { parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence { parallel { command }; sequence { command } }",
+    "source": "workflow Example { sequence { parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence\n{}",
+    "source": "sequence\n{}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence\n{}",
+    "source": "workflow Example { sequence\n{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence\n{ Write-Output item }",
+    "source": "sequence\n{ Write-Output item }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence\n{ Write-Output item }",
+    "source": "workflow Example { sequence\n{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence\n{ parallel { command }; sequence { command } }",
+    "source": "sequence\n{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence\n{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { sequence\n{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence<#comment#>{}",
+    "source": "sequence<#comment#>{}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow sequence<#comment#>{}",
+    "source": "workflow Example { sequence<#comment#>{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence<#comment#>{ Write-Output item }",
+    "source": "sequence<#comment#>{ Write-Output item }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow sequence<#comment#>{ Write-Output item }",
+    "source": "workflow Example { sequence<#comment#>{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence<#comment#>{ parallel { command }; sequence { command } }",
+    "source": "sequence<#comment#>{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence<#comment#>{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { sequence<#comment#>{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence`\n{}",
+    "source": "sequence`\n{}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow sequence`\n{}",
+    "source": "workflow Example { sequence`\n{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence`\n{ Write-Output item }",
+    "source": "sequence`\n{ Write-Output item }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow sequence`\n{ Write-Output item }",
+    "source": "workflow Example { sequence`\n{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence`\n{ parallel { command }; sequence { command } }",
+    "source": "sequence`\n{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence`\n{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { sequence`\n{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence\n#comment\n{}",
+    "source": "sequence\n#comment\n{}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence\n#comment\n{}",
+    "source": "workflow Example { sequence\n#comment\n{} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence\n#comment\n{ Write-Output item }",
+    "source": "sequence\n#comment\n{ Write-Output item }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence\n#comment\n{ Write-Output item }",
+    "source": "workflow Example { sequence\n#comment\n{ Write-Output item } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "sequence\n#comment\n{ parallel { command }; sequence { command } }",
+    "source": "sequence\n#comment\n{ parallel { command }; sequence { command } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword",
+      "UnexpectedKeyword",
+      "UnexpectedKeyword"
+    ]
+  },
+  {
+    "name": "workflow sequence\n#comment\n{ parallel { command }; sequence { command } }",
+    "source": "workflow Example { sequence\n#comment\n{ parallel { command }; sequence { command } } }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "parallel text",
+    "source": "parallel text",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword"
+    ]
+  },
+  {
+    "name": "parallel;{}",
+    "source": "parallel;{}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword"
+    ]
+  },
+  {
+    "name": "sequence $x {}",
+    "source": "sequence $x {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "parallel (1) {}",
+    "source": "parallel (1) {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "parallel",
+    "source": "parallel",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword"
+    ]
+  },
+  {
+    "name": "workflow Example { parallel text }",
+    "source": "workflow Example { parallel text }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "`parallel {}",
+    "source": "`parallel {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "`sequence {}",
+    "source": "`sequence {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "& parallel {}",
+    "source": "& parallel {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "& sequence {}",
+    "source": "& sequence {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "cmd parallel sequence",
+    "source": "cmd parallel sequence",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parallel\"word\" {}",
+    "source": "parallel\"word\" {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "sequence$value {}",
+    "source": "sequence$value {}",
+    "valid": true,
+    "diagnostics": []
+  }
+]

@@ -1,0 +1,164 @@
+====================
+standard file resource in node
+====================
+configuration Example { Node localhost { File ExampleFile { DestinationPath = "C:\Temp"; Ensure = "Present" } } }
+
+---
+
+(source_file
+  (configuration_definition
+    name: (command_argument
+      (bare_word))
+    body: (script_block
+      (node_statement
+        name: (bare_word)
+        body: (script_block
+          (resource_statement
+            type: (type_identifier)
+            name: (bare_word)
+            body: (resource_body
+              properties: (hash_entry
+                key: (identifier)
+                value: (pipeline
+                  elements: (command_expression
+                    expression: (expandable_string
+                      (string_content)))))
+              properties: (hash_entry
+                key: (identifier)
+                value: (pipeline
+                  elements: (command_expression
+                    expression: (expandable_string
+                      (string_content))))))))))))
+
+====================
+script resource property bags restore ordinary command names
+====================
+configuration Example { Script ExampleScript { GetScript = { File first; Node second; Import-DscResource third }; TestScript = { $true }; SetScript = { Write-Output done } }; File ExampleFile { DestinationPath = $path } }
+
+---
+
+(source_file
+  (configuration_definition
+    name: (command_argument
+      (bare_word))
+    body: (script_block
+      (resource_statement
+        type: (type_identifier)
+        name: (bare_word)
+        body: (resource_body
+          properties: (hash_entry
+            key: (identifier)
+            value: (pipeline
+              elements: (command_expression
+                expression: (script_block
+                  (pipeline
+                    elements: (command
+                      name: (command_name
+                        (bare_word))
+                      (command_argument
+                        (bare_word))))
+                  (pipeline
+                    elements: (command
+                      name: (command_name
+                        (bare_word))
+                      (command_argument
+                        (bare_word))))
+                  (pipeline
+                    elements: (command
+                      name: (command_name
+                        (bare_word))
+                      (command_argument
+                        (bare_word))))))))
+          properties: (hash_entry
+            key: (identifier)
+            value: (pipeline
+              elements: (command_expression
+                expression: (script_block
+                  (pipeline
+                    elements: (command_expression
+                      expression: (variable)))))))
+          properties: (hash_entry
+            key: (identifier)
+            value: (pipeline
+              elements: (command_expression
+                expression: (script_block
+                  (pipeline
+                    elements: (command
+                      name: (command_name
+                        (bare_word))
+                      (command_argument
+                        (bare_word))))))))))
+      (resource_statement
+        type: (type_identifier)
+        name: (bare_word)
+        body: (resource_body
+          properties: (hash_entry
+            key: (identifier)
+            value: (pipeline
+              elements: (command_expression
+                expression: (variable)))))))))
+
+====================
+meta configuration settings have no instance name
+====================
+[DscLocalConfigurationManager()] configuration Example { Node localhost { Settings { RefreshMode = "Push"; ConfigurationMode = "ApplyAndMonitor" } } }
+
+---
+
+(source_file
+  (configuration_definition
+    attributes: (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list))
+    name: (command_argument
+      (bare_word))
+    body: (script_block
+      (node_statement
+        name: (bare_word)
+        body: (script_block
+          (resource_statement
+            type: (type_identifier)
+            body: (resource_body
+              properties: (hash_entry
+                key: (identifier)
+                value: (pipeline
+                  elements: (command_expression
+                    expression: (expandable_string
+                      (string_content)))))
+              properties: (hash_entry
+                key: (identifier)
+                value: (pipeline
+                  elements: (command_expression
+                    expression: (expandable_string
+                      (string_content))))))))))))
+
+====================
+malformed resource property preserves next command
+====================
+configuration Example { File A { DestinationPath = }; Write-Output after | next }
+
+---
+
+(source_file
+  (configuration_definition
+    name: (command_argument
+      (bare_word))
+    body: (script_block
+      (resource_statement
+        type: (type_identifier)
+        name: (bare_word)
+        body: (resource_body
+          properties: (hash_entry
+            key: (identifier)
+            value: (return_statement
+              keyword: (MISSING "return")))))
+      (pipeline
+        elements: (command
+          name: (command_name
+            (bare_word))
+          (command_argument
+            (bare_word)))
+        elements: (command
+          name: (command_name
+            (bare_word)))))))

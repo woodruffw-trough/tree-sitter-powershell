@@ -15,6 +15,7 @@ implementation below.
 | Functions and parameters | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions), [advanced functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced), [named blocks](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_methods) |
 | Data sections | [Chapter 8](https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-08) | [Data sections](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_data_sections) |
 | Classes, enums, generics | Added after PowerShell 3.0 | [Classes](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes), [enums](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_enum), [generic method calls](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_calling_generic_methods) |
+| DSC configurations and resources | Added after PowerShell 3.0 | [Configurations](https://learn.microsoft.com/en-us/powershell/dsc/configurations/configurations?view=dsc-1.1), [Windows resources](https://learn.microsoft.com/en-us/powershell/dsc/reference/resources/windows/?view=dsc-1.1), [LCM settings](https://learn.microsoft.com/en-us/powershell/dsc/managing-nodes/metaconfig?view=dsc-1.1) |
 
 The implementation reference is PowerShell 7.5.4:
 
@@ -110,6 +111,27 @@ In a `data_statement`, each `supported_commands` field contains one complete
 command name or expression. Literal names such as `foo$bar` remain `bare_word`
 nodes; quoted strings, variables, member access, and grouped expressions retain
 their usual structure. The statement's `body` is a `statement_block`.
+
+`configuration_definition` exposes `attributes`, a complete `name`, and a
+`script_block` as its `body`. Within a configuration, `node_statement` has a
+`name` and script-block `body`; `resource_statement` has a resource `type`, an
+optional `name`, and a `resource_body`. Each resource property is a `hash_entry`
+under the body's `properties` field. `import_dsc_resource_statement` preserves
+its command-like `elements`. These forms follow `ConfigurationStatementRule`
+and `DynamicKeywordStatementRule` in the pinned parser.
+
+Resource grouping covers Microsoft's standard Windows/PSDscResources and LCM
+keywords. `File` and `Node` remain ordinary commands outside configurations;
+`Script` resource property bags also use ordinary PowerShell syntax. Arbitrary
+module-provided keyword registries are outside this fixed syntax policy. The
+oracle supplies scoped keyword metadata without loading resource modules or
+running their parsing hooks. The registry construction is defined by
+[`CimDSCParser.CreateKeywordFromCimClass`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/DscSupport/CimDSCParser.cs).
+
+Legacy `parallel_statement` and `sequence_statement` nodes each expose a
+`statement_block` as their `body`. Tests distinguish their syntax from
+PowerShell Core's workflow-support diagnostics.
+
 
 Assembly-qualified types keep the assembly spelling in one `assembly_name`.
 Commas separate metadata properties, each of which can contain one equals sign;

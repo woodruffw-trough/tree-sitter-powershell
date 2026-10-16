@@ -347,3 +347,38 @@ fn contextual_param_and_verbatim_invocation_keep_their_roles() {
         &[span(source, "param($x)", "$x")],
     );
 }
+
+#[test]
+fn dsc_keywords_and_resource_types_have_contextual_roles() {
+    let source = "configuration C { Import-DscResource -ModuleName PSDscResources; Node localhost { File Asset { Ensure='Present' } } }\nFile outside {}\nNode outside {}";
+    let actual = captures(source);
+    assert_category(
+        &actual,
+        source,
+        "keyword",
+        &[
+            span(source, "configuration C", "configuration"),
+            span(
+                source,
+                "Import-DscResource -ModuleName",
+                "Import-DscResource",
+            ),
+            span(source, "Node localhost", "Node"),
+        ],
+    );
+    assert_category(
+        &actual,
+        source,
+        "type",
+        &[span(source, "File Asset", "File")],
+    );
+    assert_category(
+        &actual,
+        source,
+        "function.call",
+        &[
+            span(source, "File outside", "File"),
+            span(source, "Node outside", "Node"),
+        ],
+    );
+}

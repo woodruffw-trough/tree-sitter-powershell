@@ -45,6 +45,15 @@ impl<'a> Source<'a> {
     fn record(&self, node: Node<'_>) -> Value {
         let (mut start, _) = self.extent(node);
         let mut end = self.offsets[semantic_end_byte(node, self.text)];
+        if node.kind() == "configuration_definition" {
+            // ConfigurationDefinitionAst excludes its preceding attributes.
+            let mut cursor = node.walk();
+            let keyword = node
+                .children(&mut cursor)
+                .find(|child| child.kind() == "configuration")
+                .unwrap();
+            start = self.extent(keyword).0;
+        }
         if node.kind() == "base_constructor_call" {
             let mut cursor = node.walk();
             let keyword = node
@@ -321,7 +330,7 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         "array_expression" => "ArrayExpressionAst",
         "sub_expression" => "SubExpressionAst",
         "parenthesized_expression" => "ParenExpressionAst",
-        "hashtable_expression" => "HashtableAst",
+        "hashtable_expression" | "resource_body" => "HashtableAst",
         "parameter" => "ParameterAst",
         "function_definition" => "FunctionDefinitionAst",
         "class_method" => "FunctionMemberAst",
@@ -402,6 +411,11 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         "catch_clause" => "CatchClauseAst",
         "trap_statement" => "TrapStatementAst",
         "data_statement" => "DataStatementAst",
+        "parallel_statement" | "sequence_statement" => "BlockStatementAst",
+        "configuration_definition" => "ConfigurationDefinitionAst",
+        "node_statement" | "resource_statement" | "import_dsc_resource_statement" => {
+            "DynamicKeywordStatementAst"
+        }
         "return_statement" => "ReturnStatementAst",
         "throw_statement" => "ThrowStatementAst",
         "exit_statement" => "ExitStatementAst",
@@ -670,6 +684,28 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
             .find(|node| node.child_by_field_name("condition").unwrap().kind() == "default")
             .map(|node| source.field(node, "body"))
             .unwrap_or(Value::Null),
+        ("HashtableAst", "entries") => Value::Array(
+            named_children(node)
+                .into_iter()
+                .filter(|entry| entry.kind() == "hash_entry")
+                .map(|entry| {
+                    json!({
+                        "key": source.field(entry, "key"),
+                        "value": source.field(entry, "value"),
+                    })
+                })
+                .collect(),
+        ),
+        ("DynamicKeywordStatementAst", "elements") => {
+            extents(field_children(node, "elements"), source)
+        }
+        ("DynamicKeywordStatementAst", "keyword") => {
+            if node.kind() == "resource_statement" {
+                source.field(node, "type")
+            } else {
+                source.field(node, "keyword")
+            }
+        }
         ("DataStatementAst", "supportedCommands") => {
             extents(field_children(node, "supported_commands"), source)
         }
@@ -716,6 +752,10 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "CatchClauseAst" => &["body", "types"],
         "TrapStatementAst" => &["body", "type"],
         "DataStatementAst" => &["body", "supportedCommands"],
+        "BlockStatementAst" => &["body"],
+        "ConfigurationDefinitionAst" => &["name", "body", "attributes"],
+        "DynamicKeywordStatementAst" => &["keyword", "name", "body", "elements"],
+        "HashtableAst" => &["entries"],
         "UsingStatementAst" => &["name", "alias", "module"],
         "ReturnStatementAst" | "ThrowStatementAst" | "ExitStatementAst" => &["value"],
         "BreakStatementAst" | "ContinueStatementAst" => &["label"],
@@ -1083,6 +1123,27 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
             .child_by_field_name("label")
             .map(|label| decode_backticks(source.text(label.child_by_field_name("name").unwrap())));
         result.insert("label", json!(label));
+    }
+    if category == "DynamicKeywordStatementAst" {
+        result.insert(
+            "bodyMode",
+            json!(match node.kind() {
+                "node_statement" => "ScriptBlock",
+                "resource_statement" => "Hashtable",
+                "import_dsc_resource_statement" => "Command",
+                _ => unreachable!(),
+            }),
+        );
+    }
+    if category == "BlockStatementAst" {
+        result.insert(
+            "kind",
+            json!(match node.kind() {
+                "parallel_statement" => "Parallel",
+                "sequence_statement" => "Sequence",
+                _ => unreachable!(),
+            }),
+        );
     }
     if category == "DataStatementAst" {
         result.insert(

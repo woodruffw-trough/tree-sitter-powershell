@@ -104,7 +104,7 @@ const op = word => alias(
 
 const CONTEXTUAL_KEYWORDS = [
   'if', 'elseif', 'else', 'switch', 'foreach', 'for', 'while', 'do', 'until',
-  'try', 'catch', 'finally', 'trap', 'function', 'filter', 'workflow', 'class',
+  'try', 'catch', 'finally', 'trap', 'parallel', 'sequence', 'function', 'filter', 'workflow', 'class',
   'enum', 'break', 'continue', 'return', 'throw', 'exit', 'data', 'configuration',
   'dynamicparam', 'begin', 'process', 'end', 'clean',
 ];
@@ -279,8 +279,9 @@ const binaryExpression = ($, expression, newlines) => choice(
   }),
 );
 
-const scriptBlock = ($, open) => seq(
+const scriptBlock = ($, open, context = null) => seq(
   open,
+  ...(context ? [context] : []),
   repeat(NEWLINE),
   optional(choice(
     seq($.param_block, repeat($._terminator), optional($._script_block_body)),
@@ -288,6 +289,17 @@ const scriptBlock = ($, open) => seq(
     $._script_block_body,
   )),
   '}',
+  ...(context ? [$._context_end] : []),
+);
+
+const resourceBody = ($, context = null) => seq(
+  '{',
+  ...(context ? [context] : []),
+  repeat(NEWLINE),
+  repeat(seq(field('properties', $.hash_entry), repeat1($._terminator))),
+  optional(field('properties', $.hash_entry)),
+  '}',
+  ...(context ? [$._context_end] : []),
 );
 
 const grammarDefinition = {
@@ -349,6 +361,7 @@ const grammarDefinition = {
     $._command_member_start,
     $._command_unary_start,
     $._data_command_name,
+    $._configuration_name_start,
     $._signed_number_start,
     $._cast_value_context,
     $.single_quoted_string,
@@ -389,6 +402,17 @@ const grammarDefinition = {
     $._interpolation_open,
     $._interpolation_tail,
     $._command_interpolation_context,
+    $._dsc_node_keyword,
+    $._dsc_import_keyword,
+    $._dsc_resource_keyword,
+    $._dsc_script_keyword,
+    $._dsc_settings_keyword,
+    $._configuration_context_start,
+    $._script_resource_context_start,
+    $._workflow_context_start,
+    $._function_context_start,
+    $._context_end,
+    $._workflow_inline_script,
   ],
 
   word: $ => $.identifier,
@@ -419,12 +443,12 @@ const grammarDefinition = {
     [$.class_property, $.class_method],
     // Attribute lists prefix declarations and variable expressions. Preserve
     // both interpretations until a keyword or variable selects their context.
-    [$.param_block, $.class_definition, $.enum_definition, $.attributed_expression],
+    [$.param_block, $.class_definition, $.enum_definition, $.configuration_definition, $.attributed_expression],
     // A leading type may instead be a cast or an ordinary type expression.
     [$.param_block, $._primary_expression],
     [$.param_block, $.cast_expression],
     [$._primary_expression, $.cast_expression],
-    [$.class_definition, $.enum_definition, $.attributed_expression],
+    [$.class_definition, $.enum_definition, $.configuration_definition, $.attributed_expression],
   ],
 
   rules: {
@@ -472,11 +496,15 @@ const grammarDefinition = {
       $.do_statement,
       $.try_statement,
       $.trap_statement,
+      $.parallel_statement,
+      $.sequence_statement,
       $.function_definition,
       $.class_definition,
       $.enum_definition,
       $.data_statement,
       $.configuration_definition,
+      $.node_statement,
+      $.resource_statement,
       $.break_statement,
       $.continue_statement,
       $.background_pipeline,
@@ -487,6 +515,7 @@ const grammarDefinition = {
     ),
 
     _simple_statement: $ => choice(
+      $.import_dsc_resource_statement,
       $.return_statement,
       $.throw_statement,
       $.exit_statement,
@@ -681,6 +710,18 @@ const grammarDefinition = {
     finally_clause: $ => seq(
       keyword('finally'),
       $._clause_keyword_end,
+      repeat(NEWLINE),
+      field('body', $.statement_block),
+    ),
+
+    parallel_statement: $ => seq(
+      keyword('parallel'),
+      repeat(NEWLINE),
+      field('body', $.statement_block),
+    ),
+
+    sequence_statement: $ => seq(
+      keyword('sequence'),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
@@ -1067,10 +1108,62 @@ const grammarDefinition = {
     ),
 
     configuration_definition: $ => seq(
+      repeat(seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE))),
       keyword('configuration'),
-      field('name', choice($.identifier, $.variable)),
+      repeat(NEWLINE),
+      $._configuration_name_start,
+      field('name', alias($._command_parameter_value, $.command_argument)),
+      repeat(NEWLINE),
+      field('body', alias($._configuration_body, $.script_block)),
+    ),
+
+    _configuration_body: $ => scriptBlock($, '{', $._configuration_context_start),
+
+    node_statement: $ => seq(
+      field('keyword', alias($._dsc_node_keyword, 'node')),
+      repeat(NEWLINE),
+      $._configuration_name_start,
+      field('name', $._data_supported_command),
       repeat(NEWLINE),
       field('body', $.script_block),
+    ),
+
+    resource_statement: $ => choice(
+      seq(
+        field('type', alias($._dsc_resource_keyword, $.type_identifier)),
+        repeat(NEWLINE),
+        $._configuration_name_start,
+        field('name', $._data_supported_command),
+        repeat(NEWLINE),
+        field('body', $.resource_body),
+      ),
+      seq(
+        field('type', alias($._dsc_script_keyword, $.type_identifier)),
+        repeat(NEWLINE),
+        $._configuration_name_start,
+        field('name', $._data_supported_command),
+        repeat(NEWLINE),
+        field('body', alias($._script_resource_body, $.resource_body)),
+      ),
+      seq(
+        field('type', alias($._dsc_settings_keyword, $.type_identifier)),
+        repeat(NEWLINE),
+        field('body', $.resource_body),
+      ),
+    ),
+
+    resource_body: $ => resourceBody($),
+
+    _script_resource_body: $ => resourceBody($, $._script_resource_context_start),
+
+    import_dsc_resource_statement: $ => seq(
+      field('keyword', alias($._dsc_import_keyword, 'Import-DscResource')),
+      repeat(field('elements', choice($.command_argument, $.command_parameter, $.redirection))),
+      optional(seq(
+        field('elements', alias($._end_of_parameters, $.command_parameter)),
+        repeat(field('elements', $._command_element_after_end_of_parameters)),
+      )),
+      optional($.verbatim_arguments),
     ),
 
     assignment_statement: $ => assignmentStatement($, $._statement),
@@ -2285,6 +2378,9 @@ const COMMA_CONTEXT_RULES = new Set([
   '_for_header_initializer', '_for_header_condition',
   'while_statement', 'do_statement',
   'try_statement', 'catch_clause', 'finally_clause', 'trap_statement',
+  'parallel_statement', 'sequence_statement',
+  'node_statement', 'resource_statement', 'resource_body', '_script_resource_body',
+  'import_dsc_resource_statement',
   'return_statement', 'throw_statement', 'exit_statement',
   '_completed_return_statement', '_completed_throw_statement', '_completed_exit_statement',
   'function_definition', 'script_block', 'named_block',

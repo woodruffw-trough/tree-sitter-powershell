@@ -957,5 +957,77 @@
         ]
       }
     ]
+  },
+  {
+    "name": "configuration header fields preserve attributes and complete names",
+    "source": "[Some()]\nconfiguration\nExample\n{}",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "configuration_definition",
+        "field": "attributes",
+        "texts": [
+          "[Some()]"
+        ]
+      },
+      {
+        "node": "configuration_definition",
+        "field": "name",
+        "texts": [
+          "Example"
+        ]
+      },
+      {
+        "node": "configuration_definition",
+        "field": "body",
+        "texts": [
+          "{}"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "parallel body field captures the complete block",
+    "source": "parallel {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ],
+    "fields": [
+      {
+        "node": "parallel_statement",
+        "field": "body",
+        "texts": [
+          "{}"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sequence body field captures the complete block",
+    "source": "sequence {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedKeyword"
+    ],
+    "fields": [
+      {
+        "node": "sequence_statement",
+        "field": "body",
+        "texts": [
+          "{}"
+        ]
+      }
+    ]
   }
 ]

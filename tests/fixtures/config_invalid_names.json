@@ -1,0 +1,464 @@
+[
+  {
+    "name": "configuration name 22 separator ' '",
+    "source": "configuration [string]::Empty {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "[string]::Empty",
+    "name_extent": {
+      "start": 14,
+      "end": 29
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 22 separator '\\n'",
+    "source": "configuration\n[string]::Empty {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "[string]::Empty",
+    "name_extent": {
+      "start": 14,
+      "end": 29
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 23 separator ' '",
+    "source": "configuration 1 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "1",
+    "name_extent": {
+      "start": 14,
+      "end": 15
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 23 separator '\\n'",
+    "source": "configuration\n1 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "1",
+    "name_extent": {
+      "start": 14,
+      "end": 15
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 24 separator ' '",
+    "source": "configuration 1.2 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "1.2",
+    "name_extent": {
+      "start": 14,
+      "end": 17
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 24 separator '\\n'",
+    "source": "configuration\n1.2 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "1.2",
+    "name_extent": {
+      "start": 14,
+      "end": 17
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 25 separator ' '",
+    "source": "configuration -Example {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "-Example",
+    "name_extent": {
+      "start": 14,
+      "end": 22
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 25 separator '\\n'",
+    "source": "configuration\n-Example {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "-Example",
+    "name_extent": {
+      "start": 14,
+      "end": 22
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 26 separator ' '",
+    "source": "configuration -Example: {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "-Example:",
+    "name_extent": {
+      "start": 14,
+      "end": 23
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 26 separator '\\n'",
+    "source": "configuration\n-Example: {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "-Example:",
+    "name_extent": {
+      "start": 14,
+      "end": 23
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 28 separator ' '",
+    "source": "configuration --% {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "--%",
+    "name_extent": {
+      "start": 14,
+      "end": 17
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 28 separator '\\n'",
+    "source": "configuration\n--% {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "--%",
+    "name_extent": {
+      "start": 14,
+      "end": 17
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 34 separator ' '",
+    "source": "configuration +1 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "+1",
+    "name_extent": {
+      "start": 14,
+      "end": 16
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 34 separator '\\n'",
+    "source": "configuration\n+1 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "+1",
+    "name_extent": {
+      "start": 14,
+      "end": 16
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 35 separator ' '",
+    "source": "configuration -1 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "-1",
+    "name_extent": {
+      "start": 14,
+      "end": 16
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 35 separator '\\n'",
+    "source": "configuration\n-1 {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "-1",
+    "name_extent": {
+      "start": 14,
+      "end": 16
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 37 separator ' '",
+    "source": "configuration @args/path {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "@args/path",
+    "name_extent": {
+      "start": 14,
+      "end": 24
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "configuration name 37 separator '\\n'",
+    "source": "configuration\n@args/path {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "@args/path",
+    "name_extent": {
+      "start": 14,
+      "end": 24
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "escaped name brace",
+    "source": "configuration `{Example {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "`{Example",
+    "name_extent": {
+      "start": 14,
+      "end": 23
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "comment before body",
+    "source": "configuration Example<#comment#>{}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "Example<#comment#>",
+    "name_extent": {
+      "start": 14,
+      "end": 32
+    },
+    "configuration_body": "{}"
+  },
+  {
+    "name": "generic comment argument",
+    "source": "configuration Example<#comment#> {}",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidConfigurationName"
+    ],
+    "configuration_name": "Example<#comment#>",
+    "name_extent": {
+      "start": 14,
+      "end": 32
+    },
+    "configuration_body": "{}"
+  }
+]

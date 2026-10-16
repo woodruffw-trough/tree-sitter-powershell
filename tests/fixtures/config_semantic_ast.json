@@ -1,0 +1,50 @@
+[
+  {
+    "name": "configuration name 36 separator ' '",
+    "source": "configuration @args {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "configuration name 36 separator '\\n'",
+    "source": "configuration\n@args {}\nWrite-Output after",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "configuration Example { param($x) process { command } }",
+    "source": "configuration Example { param($x) process { command } }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnsupportedNamedBlockInConfiguration"
+    ]
+  }
+]
