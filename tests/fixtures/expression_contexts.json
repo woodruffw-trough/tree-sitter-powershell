@@ -408,5 +408,145 @@
     "name": "hashtable accepts trailing semicolon",
     "source": "@{a=1;}",
     "valid": true
+  },
+  {
+    "name": "type member owns following property",
+    "source": "$obj.[int].Name",
+    "valid": true
+  },
+  {
+    "name": "type member owns following static call and property",
+    "source": "$obj.[int]::Parse('1').Length",
+    "valid": true
+  },
+  {
+    "name": "type member owns following script block conversion",
+    "source": "$obj.[int]{1}",
+    "valid": true
+  },
+  {
+    "name": "type member owns following parenthesized conversion",
+    "source": "$obj.[int](1)",
+    "valid": true
+  },
+  {
+    "name": "cast member owns following property",
+    "source": "$obj.[int]$name.Length",
+    "valid": true
+  },
+  {
+    "name": "signed numeric member",
+    "source": "$obj.-1",
+    "valid": true
+  },
+  {
+    "name": "parenthesized unary member can be invoked",
+    "source": "$obj.(-$name)()",
+    "valid": true
+  },
+  {
+    "name": "unparenthesized unary member cannot be invoked",
+    "source": "$obj.-$name()",
+    "valid": false
+  },
+  {
+    "name": "signed numeric member cannot be invoked",
+    "source": "$obj.-1()",
+    "valid": false
+  },
+  {
+    "name": "type member empty cast rejected",
+    "source": "$obj.[int]()",
+    "valid": false
+  },
+  {
+    "name": "type member invalid attribute is not an outer index",
+    "source": "$obj.[int][0]",
+    "valid": false
+  },
+  {
+    "name": "type member owns following type conversion",
+    "source": "$obj.[int][int]",
+    "valid": true
+  },
+  {
+    "name": "adjacent parentheses after unary command member are another argument",
+    "source": "Write-Output $obj.- $name(1)",
+    "valid": true
+  },
+  {
+    "name": "adjacent script block after unary command member is another argument",
+    "source": "Write-Output $obj.- $name{1}",
+    "valid": true
+  },
+  {
+    "name": "type-shaped command member does not enter expression type mode",
+    "source": "Write-Output $obj.[int].Name",
+    "valid": false
+  },
+  {
+    "name": "method argument type member owns following property",
+    "source": "$obj.F($obj.[int].Name)",
+    "valid": true
+  },
+  {
+    "name": "parameter default type member owns following property",
+    "source": "param($x = $obj.[int].Name)",
+    "valid": true
+  },
+  {
+    "name": "hashtable type member owns following property",
+    "source": "@{ Name = $obj.[int].Name }",
+    "valid": true
+  },
+  {
+    "name": "collected interpolation type member owns following property",
+    "source": "\"$(1).[int].Name\"",
+    "valid": true
+  },
+  {
+    "name": "command collected interpolation type member owns following property",
+    "source": "Write-Output \"$(1).[int].Name\"",
+    "valid": true
+  },
+  {
+    "name": "type member opener permits newline",
+    "source": "$obj.[\nint].Name",
+    "valid": true
+  },
+  {
+    "name": "unary member owns following method invocation",
+    "source": "$obj.-$name.F()",
+    "valid": true
+  },
+  {
+    "name": "null conditional type member owns following property",
+    "source": "${obj}?.[int].Name",
+    "valid": true
+  },
+  {
+    "name": "comma-suppressed unary command member keeps adjacent argument",
+    "source": "@{ Name = Write-Output $obj.- $name(1) }",
+    "valid": true
+  },
+  {
+    "name": "method argument unary member cannot be invoked",
+    "source": "$obj.F($obj.-$name(1))",
+    "valid": false
+  },
+  {
+    "name": "method argument type member invalid index rejected",
+    "source": "$obj.F($obj.[int][0])",
+    "valid": false
+  },
+  {
+    "name": "hashtable type member empty cast rejected",
+    "source": "@{ Name = $obj.[int]() }",
+    "valid": false
+  },
+  {
+    "name": "parameter default type member empty cast rejected",
+    "source": "param($x = $obj.[int]())",
+    "valid": false
   }
 ]

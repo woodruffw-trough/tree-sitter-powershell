@@ -351,22 +351,12 @@ const grammarDefinition = {
   word: $ => $.identifier,
 
   conflicts: $ => [
-    [$._interpolation_primary_expression, $._interpolation_invocation_expression],
-    [$._command_interpolation_primary_expression, $._command_interpolation_invocation_expression],
+    [$._assignable_expression, $._primary_expression],
+    [$._argument_assignable_expression, $._argument_primary_expression],
+    [$._command_assignable_expression, $._command_primary_expression],
+    [$._interpolation_postfix_primary_expression, $._interpolation_invocation_expression],
     [$._value_primary_expression, $.invocation_expression],
     [$._argument_value_primary_expression, $._argument_invocation_expression],
-    [$._command_value_primary_expression, $._command_invocation_expression],
-    [$._assignable_expression, $._value_primary_expression, $.invocation_expression],
-    [
-      $._argument_assignable_expression,
-      $._argument_value_primary_expression,
-      $._argument_invocation_expression,
-    ],
-    [
-      $._command_assignable_expression,
-      $._command_value_primary_expression,
-      $._command_invocation_expression,
-    ],
     [$.pipeline],
     [$._simple_statement, $.pipeline_chain],
     [$._pipeline_entry, $.pipeline_chain],
@@ -886,7 +876,12 @@ const grammarDefinition = {
       $._data_command_primary_expression,
     ),
 
-    _data_command_primary_expression: $ => prec(PREC.member, choice(
+    _data_command_primary_expression: $ => choice(
+      $._data_command_postfix_primary_expression,
+      alias($._data_command_computed_member_access, $.member_access),
+    ),
+
+    _data_command_postfix_primary_expression: $ => prec(PREC.member, choice(
       primaryValue($, false, true),
       $.splat_expression,
       alias($._data_command_member_access, $.member_access),
@@ -895,10 +890,16 @@ const grammarDefinition = {
     )),
 
     _data_command_member_access: $ => memberAccess(
-      $, $._data_command_primary_expression, $._command_member_name, $._command_member_start,
+      $, $._data_command_postfix_primary_expression, $._command_member_name, $._command_member_start,
     ),
 
-    _data_command_element_access: $ => elementAccess($, $._data_command_primary_expression),
+    _data_command_computed_member_access: $ => memberAccess(
+      $,
+      $._data_command_postfix_primary_expression, $._command_computed_member_name,
+      $._command_member_start,
+    ),
+
+    _data_command_element_access: $ => elementAccess($, $._data_command_postfix_primary_expression),
 
     _data_command_invocation_expression: $ => invocationExpression(
       $, alias($._data_command_member_access, $.member_access), false,
@@ -1421,6 +1422,7 @@ const grammarDefinition = {
 
     _assignable_expression: $ => choice(
       $.variable,
+      alias($._computed_member_access, $.member_access),
       $.member_access,
       $.element_access,
       $.invocation_expression,
@@ -1429,6 +1431,7 @@ const grammarDefinition = {
 
     _argument_assignable_expression: $ => choice(
       $.variable,
+      alias($._argument_computed_member_access, $.member_access),
       alias($._argument_member_access, $.member_access),
       alias($._argument_element_access, $.element_access),
       alias($._argument_invocation_expression, $.invocation_expression),
@@ -1443,6 +1446,7 @@ const grammarDefinition = {
 
     _command_assignable_expression: $ => choice(
       $.variable,
+      alias($._command_computed_member_access, $.member_access),
       alias($._command_member_access, $.member_access),
       alias($._command_element_access, $.element_access),
       alias($._command_invocation_expression, $.invocation_expression),
@@ -1498,7 +1502,11 @@ const grammarDefinition = {
       alias($._cast_unary_expression, $.unary_expression),
     ),
 
-    _primary_expression: $ => choice($._value_primary_expression, $.type_literal),
+    _primary_expression: $ => choice(
+      $._value_primary_expression,
+      $.type_literal,
+      alias($._computed_member_access, $.member_access),
+    ),
 
     _value_primary_expression: $ => valuePrimaryExpression(
       $, $.member_access, $.element_access, $.invocation_expression,
@@ -1507,6 +1515,7 @@ const grammarDefinition = {
     _argument_primary_expression: $ => choice(
       $._argument_value_primary_expression,
       $.type_literal,
+      alias($._argument_computed_member_access, $.member_access),
     ),
 
     _argument_value_primary_expression: $ => valuePrimaryExpression(
@@ -1519,6 +1528,7 @@ const grammarDefinition = {
     _command_primary_expression: $ => choice(
       $._command_value_primary_expression,
       $.type_literal,
+      alias($._command_computed_member_access, $.member_access),
     ),
 
     _command_value_primary_expression: $ => valuePrimaryExpression(
@@ -1555,7 +1565,12 @@ const grammarDefinition = {
       alias($._sub_expression_end, ')'),
     ),
 
-    _interpolation_primary_expression: $ => prec(PREC.member, choice(
+    _interpolation_primary_expression: $ => choice(
+      $._interpolation_postfix_primary_expression,
+      alias($._interpolation_computed_member_access, $.member_access),
+    ),
+
+    _interpolation_postfix_primary_expression: $ => prec(PREC.member, choice(
       alias($._collected_sub_expression, $.sub_expression),
       alias($._interpolation_member_access, $.member_access),
       alias($._interpolation_element_access, $.element_access),
@@ -1563,7 +1578,7 @@ const grammarDefinition = {
     )),
 
     _interpolation_member_access: $ => prec.left(PREC.member, seq(
-      field('object', $._interpolation_primary_expression),
+      field('object', $._interpolation_postfix_primary_expression),
       optional($._postfix_context),
       field('operator', choice(
         token.immediate(prec(5, '.')),
@@ -1574,7 +1589,19 @@ const grammarDefinition = {
       field('member', $._member_name),
     )),
 
-    _interpolation_element_access: $ => elementAccess($, $._interpolation_primary_expression),
+    _interpolation_computed_member_access: $ => prec.left(PREC.member, seq(
+      field('object', $._interpolation_postfix_primary_expression),
+      optional($._postfix_context),
+      field('operator', choice(
+        token.immediate(prec(5, '.')),
+        token.immediate(prec(5, '::')),
+        token.immediate(prec(5, '?.')),
+      )),
+      repeat(NEWLINE),
+      field('member', $._computed_member_name),
+    )),
+
+    _interpolation_element_access: $ => elementAccess($, $._interpolation_postfix_primary_expression),
 
     _interpolation_invocation_expression: $ => invocationExpression(
       $, alias($._interpolation_member_access, $.member_access),
@@ -1585,7 +1612,12 @@ const grammarDefinition = {
       $._interpolation_tail,
     ),
 
-    _command_interpolation_primary_expression: $ => prec(PREC.member, choice(
+    _command_interpolation_primary_expression: $ => choice(
+      $._command_interpolation_postfix_primary_expression,
+      alias($._command_interpolation_computed_member_access, $.member_access),
+    ),
+
+    _command_interpolation_postfix_primary_expression: $ => prec(PREC.member, choice(
       alias($._collected_sub_expression, $.sub_expression),
       alias($._command_interpolation_member_access, $.member_access),
       alias($._command_interpolation_element_access, $.element_access),
@@ -1593,7 +1625,7 @@ const grammarDefinition = {
     )),
 
     _command_interpolation_member_access: $ => prec.left(PREC.member, seq(
-      field('object', $._command_interpolation_primary_expression),
+      field('object', $._command_interpolation_postfix_primary_expression),
       optional($._postfix_context),
       optional($._command_interpolation_context),
       field('operator', choice(
@@ -1605,7 +1637,22 @@ const grammarDefinition = {
       field('member', $._command_member_name),
     )),
 
-    _command_interpolation_element_access: $ => elementAccess($, $._command_interpolation_primary_expression),
+    _command_interpolation_computed_member_access: $ => prec.left(PREC.member, seq(
+      field('object', $._command_interpolation_postfix_primary_expression),
+      optional($._postfix_context),
+      optional($._command_interpolation_context),
+      field('operator', choice(
+        token.immediate(prec(5, '.')),
+        token.immediate(prec(5, '::')),
+        token.immediate(prec(5, '?.')),
+      )),
+      repeat(NEWLINE),
+      field('member', $._command_computed_member_name),
+    )),
+
+    _command_interpolation_element_access: $ => elementAccess(
+      $, $._command_interpolation_postfix_primary_expression,
+    ),
 
     _command_interpolation_invocation_expression: $ => invocationExpression(
       $, alias($._command_interpolation_member_access, $.member_access), false,
@@ -1628,27 +1675,49 @@ const grammarDefinition = {
       field('value', $._statement),
     ),
 
-    member_access: $ => memberAccess($, $._primary_expression, $._member_name),
+    member_access: $ => memberAccess(
+      $, choice($._value_primary_expression, $.type_literal), $._member_name,
+    ),
+
+    _computed_member_access: $ => memberAccess(
+      $, choice($._value_primary_expression, $.type_literal), $._computed_member_name,
+    ),
 
     _argument_member_access: $ => memberAccess(
-      $, $._argument_primary_expression, $._argument_member_name,
+      $, choice($._argument_value_primary_expression, $.type_literal), $._argument_member_name,
+    ),
+
+    _argument_computed_member_access: $ => memberAccess(
+      $, choice($._argument_value_primary_expression, $.type_literal), $._argument_computed_member_name,
     ),
 
     _command_member_access: $ => memberAccess(
-      $, $._command_primary_expression, $._command_member_name, $._command_member_start,
+      $,
+      choice($._command_value_primary_expression, $.type_literal), $._command_member_name,
+      $._command_member_start,
     ),
 
-    // Simple member values stop before the next postfix operator. Prefix
-    // operators and casts instead consume a complete recursive unary operand.
+    _command_computed_member_access: $ => memberAccess(
+      $,
+      choice($._command_value_primary_expression, $.type_literal),
+      $._command_computed_member_name,
+      $._command_member_start,
+    ),
+
+    // Only simple member values can be invoked directly. Prefix operators and
+    // type-leading operands consume their own complete unary expression.
     _member_name: $ => seq(
       $._member_expression_start,
+      choice($.identifier, primaryValue($, false)),
+    ),
+
+    _computed_member_name: $ => seq(
+      $._member_expression_start,
       choice(
-        $.identifier,
-        primaryValue($),
-        $.type_literal,
         alias($._member_name_unary_expression, $.unary_expression),
         $.cast_expression,
         $.attributed_expression,
+        $._type_member_primary_expression,
       ),
     ),
 
@@ -1658,13 +1727,16 @@ const grammarDefinition = {
 
     _argument_member_name: $ => seq(
       $._member_expression_start,
+      choice($.identifier, primaryValue($, false)),
+    ),
+
+    _argument_computed_member_name: $ => seq(
+      $._member_expression_start,
       choice(
-        $.identifier,
-        primaryValue($),
-        $.type_literal,
         alias($._argument_member_name_unary_expression, $.unary_expression),
         alias($._argument_cast_expression, $.cast_expression),
         $.attributed_expression,
+        $._argument_type_member_primary_expression,
       ),
     ),
 
@@ -1675,13 +1747,13 @@ const grammarDefinition = {
       },
     ),
 
-    _command_member_name: $ => choice(
-      $.identifier,
-      primaryValue($, true, true),
-      $.type_literal,
+    _command_member_name: $ => choice($.identifier, primaryValue($, false, true)),
+
+    _command_computed_member_name: $ => choice(
       alias($._command_member_name_unary_expression, $.unary_expression),
       alias($._command_cast_expression, $.cast_expression),
       $.attributed_expression,
+      $._command_type_member_primary_expression,
     ),
 
     _command_member_name_unary_expression: $ => unaryExpression(
@@ -1700,6 +1772,103 @@ const grammarDefinition = {
         prefixStart: $._command_unary_start,
         prefixAssignable: $._comma_free_command_prefix_assignable_expression,
       },
+    ),
+
+    // A type-leading member operand begins as a type literal or conversion.
+    // Its member accesses, calls, and indexes stay inside that operand.
+    _type_member_primary_expression: $ => choice(
+      $._type_member_postfix_primary_expression,
+      alias($._type_member_computed_access, $.member_access),
+    ),
+
+    _type_member_postfix_primary_expression: $ => choice(
+      $.type_literal,
+      alias($._type_member_access, $.member_access),
+      alias($._type_member_element_access, $.element_access),
+      alias($._type_member_invocation_expression, $.invocation_expression),
+    ),
+
+    _type_member_access: $ => memberAccess(
+      $, $._type_member_postfix_primary_expression, $._member_name,
+    ),
+
+    _type_member_computed_access: $ => memberAccess(
+      $, $._type_member_postfix_primary_expression, $._computed_member_name,
+    ),
+
+    _type_member_element_access: $ => elementAccess($, choice(
+      alias($._type_member_access, $.member_access),
+      alias($._type_member_element_access, $.element_access),
+      alias($._type_member_invocation_expression, $.invocation_expression),
+    )),
+
+    _type_member_invocation_expression: $ => invocationExpression(
+      $, alias($._type_member_access, $.member_access),
+    ),
+
+    _argument_type_member_primary_expression: $ => choice(
+      $._argument_type_member_postfix_primary_expression,
+      alias($._argument_type_member_computed_access, $.member_access),
+    ),
+
+    _argument_type_member_postfix_primary_expression: $ => choice(
+      $.type_literal,
+      alias($._argument_type_member_access, $.member_access),
+      alias($._argument_type_member_element_access, $.element_access),
+      alias($._argument_type_member_invocation_expression, $.invocation_expression),
+    ),
+
+    _argument_type_member_access: $ => memberAccess(
+      $, $._argument_type_member_postfix_primary_expression, $._argument_member_name,
+    ),
+
+    _argument_type_member_computed_access: $ => memberAccess(
+      $, $._argument_type_member_postfix_primary_expression, $._argument_computed_member_name,
+    ),
+
+    _argument_type_member_element_access: $ => elementAccess($, choice(
+      alias($._argument_type_member_access, $.member_access),
+      alias($._argument_type_member_element_access, $.element_access),
+      alias($._argument_type_member_invocation_expression, $.invocation_expression),
+    )),
+
+    _argument_type_member_invocation_expression: $ => invocationExpression(
+      $, alias($._argument_type_member_access, $.member_access),
+    ),
+
+    _command_type_member_primary_expression: $ => choice(
+      $._command_type_member_postfix_primary_expression,
+      alias($._command_type_member_computed_access, $.member_access),
+    ),
+
+    _command_type_member_postfix_primary_expression: $ => choice(
+      $.type_literal,
+      alias($._command_type_member_access, $.member_access),
+      alias($._command_type_member_element_access, $.element_access),
+      alias($._command_type_member_invocation_expression, $.invocation_expression),
+    ),
+
+    _command_type_member_access: $ => memberAccess(
+      $,
+      $._command_type_member_postfix_primary_expression, $._command_member_name,
+      $._command_member_start,
+    ),
+
+    _command_type_member_computed_access: $ => memberAccess(
+      $,
+      $._command_type_member_postfix_primary_expression,
+      $._command_computed_member_name,
+      $._command_member_start,
+    ),
+
+    _command_type_member_element_access: $ => elementAccess($, choice(
+      alias($._command_type_member_access, $.member_access),
+      alias($._command_type_member_element_access, $.element_access),
+      alias($._command_type_member_invocation_expression, $.invocation_expression),
+    )),
+
+    _command_type_member_invocation_expression: $ => invocationExpression(
+      $, alias($._command_type_member_access, $.member_access), false,
     ),
 
     element_access: $ => elementAccess($, $._value_primary_expression),
@@ -1840,7 +2009,8 @@ const COMMA_CONTEXT_RULES = new Set([
   'class_definition', 'class_body', 'class_property', 'class_method',
   'enum_definition', 'enum_body', 'enum_member', 'data_statement',
   '_data_supported_command', '_data_command_primary_expression',
-  '_data_command_member_access', '_data_command_element_access',
+  '_data_command_member_access', '_data_command_computed_member_access',
+  '_data_command_postfix_primary_expression', '_data_command_element_access',
   '_data_command_invocation_expression',
   'assignment_statement', '_completed_assignment_statement',
   '_pipeline_entry', '_completed_pipeline_entry', 'pipeline', 'pipeline_chain',
@@ -1854,7 +2024,14 @@ const COMMA_CONTEXT_RULES = new Set([
   '_command_argument_unary_expression', '_command_argument_unary_operator_expression',
   '_command_primary_expression', '_command_value_primary_expression',
   '_command_assignable_expression', '_command_prefix_assignable_expression',
-  '_command_member_access', '_command_member_name',
+  '_command_member_access', '_command_computed_member_access',
+  '_command_member_name', '_command_computed_member_name',
+  '_command_type_member_primary_expression',
+  '_command_type_member_postfix_primary_expression',
+  '_command_type_member_access',
+  '_command_type_member_computed_access',
+  '_command_type_member_element_access',
+  '_command_type_member_invocation_expression',
   '_command_element_access', '_command_invocation_expression',
 ]);
 
@@ -1867,6 +2044,14 @@ const COMMA_CONTEXT_EXPRESSIONS = {
   _prefix_assignable_expression: '_argument_prefix_assignable_expression',
   _cast_value: '_argument_unary_expression',
   _member_name: '_argument_member_name',
+  _computed_member_name: '_argument_computed_member_name',
+  _computed_member_access: '_argument_computed_member_access',
+  _type_member_primary_expression: '_argument_type_member_primary_expression',
+  _type_member_postfix_primary_expression: '_argument_type_member_postfix_primary_expression',
+  _type_member_access: '_argument_type_member_access',
+  _type_member_computed_access: '_argument_type_member_computed_access',
+  _type_member_element_access: '_argument_type_member_element_access',
+  _type_member_invocation_expression: '_argument_type_member_invocation_expression',
   member_access: '_argument_member_access',
   element_access: '_argument_element_access',
   invocation_expression: '_argument_invocation_expression',

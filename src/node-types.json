@@ -3545,6 +3545,10 @@
             "named": true
           },
           {
+            "type": "element_access",
+            "named": true
+          },
+          {
             "type": "expandable_here_string",
             "named": true
           },
@@ -3562,6 +3566,14 @@
           },
           {
             "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "invocation_expression",
+            "named": true
+          },
+          {
+            "type": "member_access",
             "named": true
           },
           {

@@ -61,6 +61,14 @@ body nodes preserve source boundaries, including empty lists and bodies.
 Member names can also be expressions. In `$obj.-$name.Length`, the member is the
 complete unary expression `-$name.Length`; in `$obj.$name.Length`, the final
 `.Length` instead accesses the result of `$obj.$name`.
+A type-leading member operand follows the same recursive rule: in
+`$obj.[int].Name`, the complete member is `[int].Name`. A following script block
+can instead be its conversion value, as in `$obj.[int]{1}`. Unary and type-leading
+member operands cannot be invoked directly. Parentheses make a computed operand
+invocable, as in `$obj.(-$name)()`. In command arguments, parentheses after an
+unparenthesized unary member start another argument: `cmd $obj.- $name(1)` has
+separate `$obj.- $name` and `(1)` arguments. These distinctions follow
+`MemberNameRule`, `UnaryExpressionRule`, and `MemberAccessRule` in the pinned parser.
 The official [C# grammar](https://github.com/tree-sitter/tree-sitter-c-sharp/blob/8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5/grammar.js)
 uses the same argument-list and declaration-body conventions.
 

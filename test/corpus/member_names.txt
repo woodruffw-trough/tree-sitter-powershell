@@ -105,3 +105,48 @@ $obj.F($obj.(,1))
                 elements: (command_expression
                   expression: (unary_expression
                     argument: (integer_literal)))))))))))
+
+================================================================================
+Type member operands own their postfixes and conversions
+================================================================================
+$obj.[int].Name
+$obj.[int]{1}
+Write-Output $obj.- $name(1)
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (member_access
+          object: (type_literal
+            (type_name
+              name: (type_identifier)))
+          member: (identifier)))))
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (cast_expression
+          type: (type_literal
+            (type_name
+              name: (type_identifier)))
+          value: (script_block
+            (pipeline
+              elements: (command_expression
+                expression: (integer_literal))))))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (variable)
+          member: (unary_expression
+            argument: (variable))))
+      (command_argument
+        (parenthesized_expression
+          (pipeline
+            elements: (command_expression
+              expression: (integer_literal))))))))

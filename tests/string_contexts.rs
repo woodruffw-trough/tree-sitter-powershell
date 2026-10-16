@@ -435,3 +435,34 @@ fn interpolation_expression_has_semantic_range_within_physical_collector() {
         assert!(captures.next().is_none(), "{source}");
     }
 }
+
+#[test]
+fn interpolation_tail_comments_survive_incremental_reparse() {
+    let source = "\"$(`(1)<#c#>..2)\"";
+    let edited = "\"$(`(1)<#c#>..2)\r\n\"";
+    let mut parser = common::parser();
+    let mut original = parser.parse(source, None).unwrap();
+    let start = source.len() - 1;
+    original.edit(&InputEdit {
+        start_byte: start,
+        old_end_byte: start,
+        new_end_byte: start + 2,
+        start_position: point(source, start),
+        old_end_position: point(source, start),
+        new_end_position: point(edited, start + 2),
+    });
+    let mut incremental_parser = common::parser();
+    let incremental = incremental_parser.parse(edited, Some(&original)).unwrap();
+    let fresh = parser.parse(edited, None).unwrap();
+    for tree in [&incremental, &fresh] {
+        assert!(!tree.root_node().has_error());
+        let comment = find_kind(tree.root_node(), "comment").unwrap();
+        assert_eq!(comment.byte_range(), 7..12);
+        assert_eq!(comment.utf8_text(edited.as_bytes()).unwrap(), "<#c#>");
+    }
+    let mut actual = String::new();
+    let mut expected = String::new();
+    fingerprint(incremental.root_node(), &mut actual);
+    fingerprint(fresh.root_node(), &mut expected);
+    assert_eq!(actual, expected);
+}

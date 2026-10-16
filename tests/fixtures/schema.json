@@ -751,5 +751,72 @@
         ]
       }
     ]
+  },
+  {
+    "name": "type member query preserves nested property",
+    "source": "$obj.[int].Name",
+    "valid": true,
+    "fields": [
+      {
+        "node": "member_access",
+        "field": "object",
+        "texts": [
+          "$obj",
+          "[int]"
+        ]
+      },
+      {
+        "node": "member_access",
+        "field": "member",
+        "texts": [
+          "[int].Name",
+          "Name"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "type member query preserves complete conversion",
+    "source": "$obj.[int]{1}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "member_access",
+        "field": "object",
+        "texts": [
+          "$obj"
+        ]
+      },
+      {
+        "node": "member_access",
+        "field": "member",
+        "texts": [
+          "[int]{1}"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "type member query preserves complete method invocation",
+    "source": "$obj.[int]::Parse('1')",
+    "valid": true,
+    "fields": [
+      {
+        "node": "member_access",
+        "field": "object",
+        "texts": [
+          "$obj",
+          "[int]"
+        ]
+      },
+      {
+        "node": "member_access",
+        "field": "member",
+        "texts": [
+          "[int]::Parse('1')",
+          "Parse"
+        ]
+      }
+    ]
   }
 ]

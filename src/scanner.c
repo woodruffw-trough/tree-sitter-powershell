@@ -2801,8 +2801,10 @@ static bool scan_interpolation_tail(Scanner *scanner, TSLexer *lexer, const bool
   if (tracked->balance >= frame.balance) {
     bool ignored = false;
     // GetMemberAccessOperator skips block comments even when no member follows.
+    // Preserve their CST extras even on a branch with no postfix continuation,
+    // so subtree reuse cannot change whether the comment remains visible.
     // Other trailing text is not reparsed after the primary expression ends.
-    if (valid[POSTFIX_CONTEXT] && lexer->lookahead == '<') {
+    if (lexer->lookahead == '<') {
       lexer->advance(lexer, false);
       if (lexer->lookahead == '#') {
         lexer->advance(lexer, false);
