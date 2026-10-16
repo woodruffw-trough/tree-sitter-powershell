@@ -132,13 +132,16 @@ const postfixExpression = ($, argument) => prec(PREC.member, seq(
 ));
 
 const prefixExpression = ($, argument, allowComma, options = {}) => {
-  const operators = ['+', op('-'), '!', op('-not'), op('-bnot'), op('-split'), op('-join')];
+  const operators = [
+    seq($._unary_sign_context, choice('+', op('-'))),
+    '!', op('-not'), op('-bnot'), op('-split'), op('-isplit'), op('-csplit'), op('-join'),
+  ];
   if (allowComma) {
-    operators.splice(3, 0, ',');
+    operators.splice(2, 0, ',');
   }
   const argumentStart = options.argumentStart ? [options.argumentStart] : [];
   const prefixStart = options.prefixStart ? [options.prefixStart] : [];
-  return prec(PREC.unary, choice(
+  return prec.right(options.precedence || PREC.unary, choice(
     seq(
       field('operator', choice(...operators)),
       repeat(NEWLINE),
@@ -297,6 +300,10 @@ const grammarDefinition = {
     $.bare_word,
     $.integer_literal,
     $.real_literal,
+    $._signed_integer_literal,
+    $._signed_real_literal,
+    $._unary_sign_context,
+    $._unsigned_plus_context,
     $._here_string_content,
     $._here_string_end,
     $._empty_expandable_here_string,
@@ -372,21 +379,6 @@ const grammarDefinition = {
   word: $ => $.identifier,
 
   conflicts: $ => [
-    [$.unary_prefix_expression, $._attributed_unary_expression],
-    [$.argument_unary_prefix_expression, $._argument_cast_unary_expression],
-    [$.unary_prefix_expression, $._member_name_unary_expression],
-    [$.argument_unary_prefix_expression, $._argument_member_name_unary_expression],
-    [$.command_unary_prefix_expression, $._command_member_name_unary_expression],
-    [$.argument_command_unary_prefix_expression, $._argument_command_member_name_unary_expression],
-
-    [$.unary_prefix_expression, $.unary_expression],
-    [$.noncomma_unary_prefix_expression, $._cast_unary_expression],
-    [$.argument_unary_prefix_expression, $._argument_unary_operator_expression],
-    [$.flow_unary_prefix_expression, $._flow_unary_operator_expression],
-    [$.command_argument_unary_prefix_expression, $._command_argument_unary_operator_expression],
-    [$.command_unary_prefix_expression, $._command_unary_operator_expression],
-    [$.argument_command_unary_prefix_expression, $._argument_command_unary_operator_expression],
-
     [$._interpolation_postfix_primary_expression, $._interpolation_invocation_expression],
     [$._value_primary_expression, $.invocation_expression],
     [$._argument_value_primary_expression, $._argument_invocation_expression],
@@ -1339,8 +1331,8 @@ const grammarDefinition = {
     // These productions are always aliased when nested. Keeping their internal
     // symbols visible prevents their fields from leaking into an enclosing
     // postfix expression through Tree-sitter's inherited field maps.
-    unary_prefix_expression: $ => prefixExpression($, $._unary_expression, true),
-    noncomma_unary_prefix_expression: $ => prefixExpression($, $._unary_expression, false),
+    unary_prefix_expression: $ => prefixExpression($, $._unary_expression, true, {precedence: PREC.member}),
+    noncomma_unary_prefix_expression: $ => prefixExpression($, $._unary_expression, false, {precedence: PREC.member}),
     unary_expression: $ => unaryExpression($, $._unary_expression, true, {
       prefixRule: $.unary_prefix_expression,
       postfixExtra: [
@@ -1356,11 +1348,8 @@ const grammarDefinition = {
       $._signed_number_start,
       field('operator', choice('+', op('-'))),
       field('argument', choice(
-        $.integer_literal,
-        $.real_literal,
-        // PowerShell accepts an empty binary prefix only with an adjacent sign
-        // and an unsigned suffix; unsigned bare 0bu remains a generic word.
-        alias(token.immediate(/0[bB][uU][lLsSyY]?(?:[kKmMgGtTpP][bB])?/), $.integer_literal),
+        alias($._signed_integer_literal, $.integer_literal),
+        alias($._signed_real_literal, $.real_literal),
       )),
     )),
 
@@ -1378,7 +1367,7 @@ const grammarDefinition = {
       alias($.argument_attributed_expression, $.attributed_expression),
     ),
 
-    argument_unary_prefix_expression: $ => prefixExpression($, $._argument_unary_expression, false),
+    argument_unary_prefix_expression: $ => prefixExpression($, $._argument_unary_expression, false, {precedence: PREC.member}),
 
     _argument_unary_operator_expression: $ => unaryExpression(
       $, $._argument_unary_expression, false, {
@@ -1401,6 +1390,7 @@ const grammarDefinition = {
     ),
 
     flow_unary_prefix_expression: $ => prefixExpression($, $._flow_unary_expression, false, {
+      precedence: PREC.member,
       argumentStart: $._flow_expression_start,
       prefixStart: $._flow_expression_start,
     }),
@@ -1449,6 +1439,7 @@ const grammarDefinition = {
     ),
 
     command_argument_unary_prefix_expression: $ => prefixExpression($, $._command_unary_expression, false, {
+      precedence: PREC.member,
       argumentStart: $._command_unary_start,
       prefixStart: $._command_unary_start,
     }),
@@ -1475,6 +1466,7 @@ const grammarDefinition = {
     ),
 
     command_unary_prefix_expression: $ => prefixExpression($, $._command_unary_expression, true, {
+      precedence: PREC.member,
       argumentStart: $._command_unary_start,
       prefixStart: $._command_unary_start,
     }),
@@ -1501,6 +1493,7 @@ const grammarDefinition = {
     ),
 
     argument_command_unary_prefix_expression: $ => prefixExpression($, $._argument_command_unary_expression, false, {
+      precedence: PREC.member,
       argumentStart: $._command_unary_start,
       prefixStart: $._command_unary_start,
     }),
@@ -1781,7 +1774,10 @@ const grammarDefinition = {
     ),
 
     hash_entry: $ => seq(
-      field('key', choice($.identifier, $._argument_unary_expression)),
+      field('key', choice(
+        $.identifier,
+        seq(optional($._unsigned_plus_context), $._argument_unary_expression),
+      )),
       '=',
       repeat(NEWLINE),
       field('value', $._statement),
@@ -1826,6 +1822,11 @@ const grammarDefinition = {
     _computed_member_name: $ => seq(
       $._member_expression_start,
       choice(
+        seq(
+          $._unary_sign_context,
+          optional($._unsigned_plus_context),
+          $._unary_expression,
+        ),
         alias($._member_name_unary_expression, $.unary_expression),
         $.cast_expression,
         $.attributed_expression,
@@ -1850,6 +1851,11 @@ const grammarDefinition = {
     _argument_computed_member_name: $ => seq(
       $._member_expression_start,
       choice(
+        seq(
+          $._unary_sign_context,
+          optional($._unsigned_plus_context),
+          $._argument_unary_expression,
+        ),
         alias($._argument_member_name_unary_expression, $.unary_expression),
         alias($._argument_cast_expression, $.cast_expression),
         alias($.argument_attributed_expression, $.attributed_expression),
@@ -1872,6 +1878,11 @@ const grammarDefinition = {
     _command_member_name: $ => choice($.identifier, primaryValue($, false, true)),
 
     _command_computed_member_name: $ => choice(
+      seq(
+        $._unary_sign_context,
+        optional($._unsigned_plus_context),
+        $._command_unary_expression,
+      ),
       alias($._command_member_name_unary_expression, $.unary_expression),
       alias($._command_cast_expression, $.cast_expression),
       alias($.command_attributed_expression, $.attributed_expression),

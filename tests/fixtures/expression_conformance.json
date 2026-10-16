@@ -1984,5 +1984,547 @@
     "diagnostics": [
       "MissingExpressionAfterOperator"
     ]
+  },
+  {
+    "name": "expression spaced recursive minus postfix",
+    "source": "- -$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument spaced recursive minus postfix",
+    "source": "[T]::M(- -$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default spaced recursive minus postfix",
+    "source": "param($arg=- -$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value spaced recursive minus postfix",
+    "source": "@{key=- -$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key spaced recursive minus postfix",
+    "source": "@{- -$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index spaced recursive minus postfix",
+    "source": "$values[- -$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation spaced recursive minus postfix",
+    "source": "\"$(- -$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression spaced recursive minus mixed postfix",
+    "source": "- -$x++--",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument spaced recursive minus mixed postfix",
+    "source": "[T]::M(- -$x++--, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default spaced recursive minus mixed postfix",
+    "source": "param($arg=- -$x++--, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value spaced recursive minus mixed postfix",
+    "source": "@{key=- -$x++--}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key spaced recursive minus mixed postfix",
+    "source": "@{- -$x++--=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index spaced recursive minus mixed postfix",
+    "source": "$values[- -$x++--]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation spaced recursive minus mixed postfix",
+    "source": "\"$(- -$x++--)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression signed member postfix",
+    "source": "$obj.-1++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument signed member postfix",
+    "source": "[T]::M($obj.-1++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default signed member postfix",
+    "source": "param($arg=$obj.-1++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value signed member postfix",
+    "source": "@{key=$obj.-1++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key signed member postfix",
+    "source": "@{$obj.-1++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index signed member postfix",
+    "source": "$values[$obj.-1++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation signed member postfix",
+    "source": "\"$($obj.-1++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression signed member inner and outer postfix",
+    "source": "$obj.-1++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument signed member inner and outer postfix",
+    "source": "[T]::M($obj.-1++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default signed member inner and outer postfix",
+    "source": "param($arg=$obj.-1++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value signed member inner and outer postfix",
+    "source": "@{key=$obj.-1++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key signed member inner and outer postfix",
+    "source": "@{$obj.-1++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index signed member inner and outer postfix",
+    "source": "$values[$obj.-1++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation signed member inner and outer postfix",
+    "source": "\"$($obj.-1++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression unsigned positive member numeric token",
+    "source": "$obj.+1uy",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument unsigned positive member numeric token",
+    "source": "[T]::M($obj.+1uy, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default unsigned positive member numeric token",
+    "source": "param($arg=$obj.+1uy, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value unsigned positive member numeric token",
+    "source": "@{key=$obj.+1uy}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key unsigned positive member numeric token",
+    "source": "@{$obj.+1uy=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index unsigned positive member numeric token",
+    "source": "$values[$obj.+1uy]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation unsigned positive member numeric token",
+    "source": "\"$($obj.+1uy)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression unsigned hash-key plus postfix",
+    "source": "@{+1++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument unsigned hash-key plus postfix",
+    "source": "[T]::M(@{+1++=1}, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default unsigned hash-key plus postfix",
+    "source": "param($arg=@{+1++=1}, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value unsigned hash-key plus postfix",
+    "source": "@{key=@{+1++=1}}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key unsigned hash-key plus postfix",
+    "source": "@{@{+1++=1}=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index unsigned hash-key plus postfix",
+    "source": "$values[@{+1++=1}]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation unsigned hash-key plus postfix",
+    "source": "\"$(@{+1++=1})\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "type tests before logical disjunction",
+    "source": "$Value -is [ValueType] -or $Value -is [string] -or $value -is [scriptblock]",
+    "valid": true
+  },
+  {
+    "name": "type test before logical conjunction",
+    "source": "$x -is [int] -and $y",
+    "valid": true
+  },
+  {
+    "name": "type literal before logical exclusive or",
+    "source": "[int] -xor $x",
+    "valid": true
+  },
+  {
+    "name": "type literal before equality",
+    "source": "[int] -eq [int]",
+    "valid": true
+  },
+  {
+    "name": "type literal before case-sensitive comparison",
+    "source": "[int] -ceq [int]",
+    "valid": true
+  },
+  {
+    "name": "type literal before bitwise and",
+    "source": "[int] -band 1",
+    "valid": true
+  },
+  {
+    "name": "type literal before bitwise or",
+    "source": "[int] -bor 1",
+    "valid": true
+  },
+  {
+    "name": "type literal before bitwise exclusive or",
+    "source": "[int] -bxor 1",
+    "valid": true
+  },
+  {
+    "name": "type literal before shift",
+    "source": "[int] -shl 1",
+    "valid": true
+  },
+  {
+    "name": "type literal before format",
+    "source": "[int] -f $x",
+    "valid": true
+  },
+  {
+    "name": "type literal before type test",
+    "source": "[int] -is [int]",
+    "valid": true
+  },
+  {
+    "name": "type literal before type conversion",
+    "source": "[int] -as [object]",
+    "valid": true
+  },
+  {
+    "name": "type literal before replace",
+    "source": "[int] -replace 'x','y'",
+    "valid": true
+  },
+  {
+    "name": "type literal before membership",
+    "source": "[int] -in @([int])",
+    "valid": true
+  },
+  {
+    "name": "type literal before containment",
+    "source": "[int] -contains [int]",
+    "valid": true
+  },
+  {
+    "name": "type cast of logical negation",
+    "source": "[int] -not $x",
+    "valid": true
+  },
+  {
+    "name": "type cast of bitwise negation",
+    "source": "[int] -bnot $x",
+    "valid": true
+  },
+  {
+    "name": "type cast of unary join",
+    "source": "[int] -join $x",
+    "valid": true
+  },
+  {
+    "name": "type cast of unary split",
+    "source": "[int] -split $x",
+    "valid": true
+  },
+  {
+    "name": "type cast of unary insensitive split",
+    "source": "[int] -isplit $x",
+    "valid": true
+  },
+  {
+    "name": "type cast of unary sensitive split",
+    "source": "[int] -csplit $x",
+    "valid": true
+  },
+  {
+    "name": "type cast unary before binary operator",
+    "source": "[int] -not $x -or $y",
+    "valid": true
+  },
+  {
+    "name": "type member before logical operator",
+    "source": "$obj.[int] -or $y",
+    "valid": true
+  },
+  {
+    "name": "command parameter retains named operator spelling",
+    "source": "cmd $x -is [int] -and $y",
+    "valid": true
+  },
+  {
+    "name": "typed binary operand inside interpolation",
+    "source": "\"$( $x -is [int] -and $y)\"",
+    "valid": true
+  },
+  {
+    "name": "literal parameter command after cast recovery changes",
+    "source": "-foo value | next",
+    "valid": true
+  },
+  {
+    "name": "ordinary unary insensitive split",
+    "source": "-isplit $x",
+    "valid": true
+  },
+  {
+    "name": "ordinary unary sensitive split",
+    "source": "-csplit $x",
+    "valid": true
+  },
+  {
+    "name": "unary split in method arguments",
+    "source": "$obj.Method(-isplit 'a b')",
+    "valid": true
+  },
+  {
+    "name": "unary split in hash key",
+    "source": "@{-csplit 'a b'=1}",
+    "valid": true
+  },
+  {
+    "name": "unary split smart dash and uppercase",
+    "source": "—CSplit$x",
+    "valid": true
+  },
+  {
+    "name": "unary split keyword before string",
+    "source": "-isplit'a b'",
+    "valid": true
+  },
+  {
+    "name": "split prefix remains literal command name",
+    "source": "-isplitfoo value | next",
+    "valid": true
+  },
+  {
+    "name": "sensitive split prefix remains literal command name",
+    "source": "-csplitfoo value | next",
+    "valid": true
+  },
+  {
+    "name": "signed unsigned cast still rejects overflow",
+    "source": "[int]-1uy",
+    "valid": false
+  },
+  {
+    "name": "signed unsigned cast before addition rejects overflow",
+    "source": "[int]-1uy+1",
+    "valid": false
+  },
+  {
+    "name": "large signed unsigned cast rejects overflow",
+    "source": "[int]-999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999uy",
+    "valid": false
   }
 ]

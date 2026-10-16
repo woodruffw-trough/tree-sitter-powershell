@@ -15,6 +15,10 @@ enum TokenType {
   BARE_WORD,
   INTEGER_LITERAL,
   REAL_LITERAL,
+  SIGNED_INTEGER_LITERAL,
+  SIGNED_REAL_LITERAL,
+  UNARY_SIGN_CONTEXT,
+  UNSIGNED_PLUS_CONTEXT,
   HERE_STRING_CONTENT,
   HERE_STRING_END,
   EMPTY_EXPANDABLE_HERE_STRING,
@@ -92,7 +96,8 @@ enum TokenType {
 static bool prepared_context_token(TSSymbol symbol) {
   return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END || symbol == LABEL_START ||
          symbol == MEMBER_ARGUMENT_END || symbol == EXPRESSION_ARGUMENT_END ||
-         symbol == SWITCH_CLAUSE_START;
+         symbol == SWITCH_CLAUSE_START || symbol == UNARY_SIGN_CONTEXT ||
+         symbol == CAST_VALUE_CONTEXT;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -606,7 +611,7 @@ static bool suffix_ok(const char *s) {
   return *s == 0;
 }
 
-static bool numeric_token(const char *s, enum TokenType *kind) {
+static bool numeric_spelling(const char *s, enum TokenType *kind, const char **suffix) {
   bool signed_number = *s == '+' || *s == '-';
   if (signed_number) {
     ++s;
@@ -668,7 +673,400 @@ static bool numeric_token(const char *s, enum TokenType *kind) {
     return false;
   }
   *kind = real ? REAL_LITERAL : INTEGER_LITERAL;
+  if (suffix != NULL) {
+    *suffix = end;
+  }
   return true;
+}
+
+// Numeric conversion follows tokenizer.TryGetNumberValue and Utils.AsBigInt.
+// Keep enough significant decimal digits for the largest conversion boundary
+// (Double.MaxValue), retaining a sticky bit for arbitrarily long inputs.
+#define NUMERIC_DECIMAL_DIGITS 400
+
+typedef struct {
+  unsigned char digits[NUMERIC_DECIMAL_DIGITS];
+  unsigned length;
+  // Exponent of the first significant digit plus one; omitted digits retain
+  // their position in this count and contribute to the sticky tail.
+  int64_t order;
+  bool tail;
+} NumericDecimal;
+
+static void numeric_decimal_push(NumericDecimal *value, unsigned digit) {
+  if (value->length == 0 && digit == 0) {
+    return;
+  }
+  if (value->length < NUMERIC_DECIMAL_DIGITS) {
+    value->digits[value->length++] = (unsigned char)digit;
+  } else if (digit != 0) {
+    value->tail = true;
+  }
+  if (value->order < INT64_MAX / 2) {
+    ++value->order;
+  }
+}
+
+static NumericDecimal numeric_decimal_integer(uint64_t number) {
+  NumericDecimal value = {0};
+  while (number != 0) {
+    value.digits[value.length++] = (unsigned char)(number % 10);
+    number /= 10;
+  }
+  for (unsigned i = 0; i < value.length / 2; ++i) {
+    unsigned char digit = value.digits[i];
+    value.digits[i] = value.digits[value.length - i - 1];
+    value.digits[value.length - i - 1] = digit;
+  }
+  value.order = value.length;
+  return value;
+}
+
+static void numeric_decimal_multiply(NumericDecimal *value, unsigned multiplier) {
+  unsigned carry = 0;
+  for (unsigned i = value->length; i > 0; --i) {
+    unsigned digit = value->digits[i - 1] * multiplier + carry;
+    value->digits[i - 1] = (unsigned char)(digit % 10);
+    carry = digit / 10;
+  }
+  while (carry != 0) {
+    assert(value->length < NUMERIC_DECIMAL_DIGITS);
+    memmove(value->digits + 1, value->digits, value->length);
+    value->digits[0] = (unsigned char)(carry % 10);
+    ++value->length;
+    ++value->order;
+    carry /= 10;
+  }
+}
+
+static void numeric_decimal_add(NumericDecimal *value, unsigned addition) {
+  unsigned carry = addition;
+  for (unsigned i = value->length; i > 0 && carry != 0; --i) {
+    unsigned digit = value->digits[i - 1] + carry;
+    value->digits[i - 1] = (unsigned char)(digit % 10);
+    carry = digit / 10;
+  }
+  while (carry != 0) {
+    assert(value->length < NUMERIC_DECIMAL_DIGITS);
+    memmove(value->digits + 1, value->digits, value->length);
+    value->digits[0] = (unsigned char)(carry % 10);
+    ++value->length;
+    ++value->order;
+    carry /= 10;
+  }
+}
+
+static void numeric_decimal_subtract_one(NumericDecimal *value) {
+  for (unsigned i = value->length; i > 0; --i) {
+    if (value->digits[i - 1] != 0) {
+      --value->digits[i - 1];
+      return;
+    }
+    value->digits[i - 1] = 9;
+  }
+}
+
+static NumericDecimal numeric_decimal_power_two(unsigned exponent) {
+  NumericDecimal value = numeric_decimal_integer(1);
+  for (unsigned i = 0; i < exponent; ++i) {
+    numeric_decimal_multiply(&value, 2);
+  }
+  return value;
+}
+
+static void numeric_decimal_scale_two(NumericDecimal *value, int exponent) {
+  unsigned multiplier = exponent < 0 ? 5 : 2;
+  unsigned count = (unsigned)(exponent < 0 ? -exponent : exponent);
+  for (unsigned i = 0; i < count; ++i) {
+    numeric_decimal_multiply(value, multiplier);
+    if (exponent < 0) {
+      --value->order;
+    }
+  }
+}
+
+static int numeric_decimal_compare(const NumericDecimal *left, const NumericDecimal *right) {
+  if (left->length == 0 || right->length == 0) {
+    return (left->length != 0) - (right->length != 0);
+  }
+  if (left->order != right->order) {
+    return left->order > right->order ? 1 : -1;
+  }
+  unsigned length = left->length > right->length ? left->length : right->length;
+  for (unsigned i = 0; i < length; ++i) {
+    unsigned a = i < left->length ? left->digits[i] : 0;
+    unsigned b = i < right->length ? right->digits[i] : 0;
+    if (a != b) {
+      return a > b ? 1 : -1;
+    }
+  }
+  return (int)left->tail - (int)right->tail;
+}
+
+static NumericDecimal numeric_decimal_parse(const char *text, const char *end) {
+  NumericDecimal value = {0};
+  bool fraction = false;
+  int64_t fractional_digits = 0;
+  while (text < end && *text != 'e') {
+    if (*text == '.') {
+      fraction = true;
+    } else {
+      numeric_decimal_push(&value, (unsigned)(*text - '0'));
+      if (fraction && fractional_digits < INT64_MAX / 4) {
+        ++fractional_digits;
+      }
+    }
+    ++text;
+  }
+  int64_t exponent = 0;
+  bool negative = false;
+  if (text < end) {
+    ++text;
+    if (*text == '+' || *text == '-') {
+      negative = *text++ == '-';
+    }
+    while (text < end) {
+      if (exponent < INT64_MAX / 40) {
+        exponent = exponent * 10 + (*text - '0');
+      }
+      ++text;
+    }
+  }
+  value.order -= fractional_digits;
+  value.order += negative ? -exponent : exponent;
+  return value;
+}
+
+static NumericDecimal numeric_decimal_round(const NumericDecimal *value, unsigned scale) {
+  NumericDecimal rounded = {0};
+  int64_t precision = value->order + scale;
+  if (value->length == 0 || precision < 0) {
+    return rounded;
+  }
+  if (precision > 29) {
+    rounded.order = 30;
+    rounded.length = 1;
+    rounded.digits[0] = 1;
+    return rounded;
+  }
+  for (unsigned i = 0; i < (unsigned)precision; ++i) {
+    numeric_decimal_push(&rounded, i < value->length ? value->digits[i] : 0);
+  }
+  unsigned next = (unsigned)precision < value->length ? value->digits[precision] : 0;
+  bool more = value->tail;
+  for (unsigned i = (unsigned)precision + 1; i < value->length; ++i) {
+    more |= value->digits[i] != 0;
+  }
+  bool odd = rounded.length != 0 && (rounded.digits[rounded.length - 1] & 1) != 0;
+  if (next > 5 || (next == 5 && (more || odd))) {
+    numeric_decimal_add(&rounded, 1);
+  }
+  rounded.order -= scale;
+  return rounded;
+}
+
+static bool numeric_decimal_valid(const NumericDecimal *value, unsigned multiplier) {
+  NumericDecimal maximum = numeric_decimal_power_two(96);
+  // 2^96 - 1 is Decimal.MaxValue.
+  for (unsigned i = maximum.length; i > 0; --i) {
+    if (maximum.digits[i - 1] != 0) {
+      --maximum.digits[i - 1];
+      break;
+    }
+    maximum.digits[i - 1] = 9;
+  }
+  unsigned scale = value->order >= 29 ? 0 : value->order <= 1 ? 28 : (unsigned)(29 - value->order);
+  NumericDecimal rounded;
+  for (;;) {
+    rounded = numeric_decimal_round(value, scale);
+    NumericDecimal coefficient = rounded;
+    coefficient.order += scale;
+    if (numeric_decimal_compare(&coefficient, &maximum) <= 0) {
+      break;
+    }
+    if (scale == 0) {
+      return false;
+    }
+    --scale;
+  }
+  // Decimal multiplication rounds to fit its coefficient, but cannot round
+  // Decimal.MaxValue + 0.5 down because its last integer digit is odd.
+  numeric_decimal_multiply(&maximum, 10);
+  numeric_decimal_add(&maximum, 5);
+  --maximum.order;
+  numeric_decimal_scale_two(&maximum, -(int)multiplier);
+  return numeric_decimal_compare(&rounded, &maximum) < 0;
+}
+
+static NumericDecimal numeric_binary_value(const char *start, const char *end, unsigned base,
+                                           bool negative) {
+  NumericDecimal value = {0};
+  if (!negative) {
+    for (const char *p = start; p < end; ++p) {
+      unsigned digit = *p <= '9' ? (unsigned)(*p - '0') : (unsigned)(*p - 'a' + 10);
+      // A value above every finite conversion boundary cannot return to range.
+      if (value.order > 310) {
+        continue;
+      }
+      numeric_decimal_multiply(&value, base);
+      numeric_decimal_add(&value, digit);
+    }
+    return value;
+  }
+  // Take the two's complement magnitude. Leading sign-extension digits do
+  // not impose a size limit, including arbitrarily wide binary literals.
+  const char *last_nonzero = end;
+  while (last_nonzero > start && last_nonzero[-1] == '0') {
+    --last_nonzero;
+  }
+  for (const char *p = start; p < end; ++p) {
+    unsigned digit = *p <= '9' ? (unsigned)(*p - '0') : (unsigned)(*p - 'a' + 10);
+    digit = p >= last_nonzero ? 0 : base - 1 - digit + (p + 1 == last_nonzero);
+    if (value.order <= 310) {
+      numeric_decimal_multiply(&value, base);
+      numeric_decimal_add(&value, digit);
+    }
+  }
+  return value;
+}
+
+static bool numeric_value_valid(const char *text, const char *end, bool real) {
+  bool negative = *text == '-';
+  if (*text == '-' || *text == '+') {
+    ++text;
+  }
+  const char *suffix = end;
+  bool unsigned_suffix = *suffix == 'u';
+  if (unsigned_suffix) {
+    ++suffix;
+  }
+  char type = *suffix;
+  if (strchr("lsynd", type) != NULL && type != 0) {
+    ++suffix;
+  } else {
+    type = unsigned_suffix ? 'u' : 0;
+  }
+  unsigned multiplier = 0;
+  const char *multipliers = "kmgtp";
+  const char *position = strchr(multipliers, *suffix);
+  if (*suffix != 0 && position != NULL) {
+    multiplier = (unsigned)(position - multipliers + 1) * 10;
+  }
+  bool hexadecimal = text[0] == '0' && text[1] == 'x';
+  bool binary = text[0] == '0' && text[1] == 'b';
+  NumericDecimal value;
+  if (hexadecimal || binary) {
+    text += 2;
+    size_t length = (size_t)(end - text);
+    bool signed_base = false;
+    if (!unsigned_suffix && hexadecimal) {
+      size_t width = type == 'y' ? 2 : type == 's' ? 4 : type == 'l' ? 16 : length < 15 ? 8 : 16;
+      signed_base = length == width && length != 0 && text[0] >= '8';
+    } else if (!unsigned_suffix && binary && length != 0 && text[0] == '1') {
+      signed_base = length == 8 || length == 16 || length == 32 || length == 64 || length == 96 ||
+                    (length >= 128 && length % 8 == 0);
+    }
+    value = numeric_binary_value(text, end, hexadecimal ? 16 : 2, signed_base);
+    negative ^= signed_base;
+  } else {
+    value = numeric_decimal_parse(text, end);
+  }
+  if (value.length == 0) {
+    return true;
+  }
+  if (type == 'n' && !real) {
+    return true;
+  }
+  if (type == 'd') {
+    return numeric_decimal_valid(&value, multiplier);
+  }
+  if (type == 0 && real) {
+    return true;
+  }
+  if (type == 0 && !hexadecimal && !binary) {
+    if (value.order < 293) {
+      return true;
+    }
+    if (value.order > 309) {
+      return false;
+    }
+    NumericDecimal maximum = numeric_decimal_power_two(53);
+    // Double.MaxValue = (2^53 - 1) * 2^971.
+    --maximum.digits[maximum.length - 1];
+    numeric_decimal_scale_two(&maximum, 971 - (int)multiplier);
+    return numeric_decimal_compare(&value, &maximum) <= 0;
+  }
+  if (type == 'n') {
+    if (value.order < 293) {
+      return true;
+    }
+    if (value.order > 309) {
+      return false;
+    }
+    NumericDecimal threshold = numeric_decimal_power_two(54);
+    --threshold.digits[threshold.length - 1];
+    numeric_decimal_scale_two(&threshold, 970 - (int)multiplier);
+    return numeric_decimal_compare(&value, &threshold) < 0;
+  }
+  unsigned bits = type == 'y' ? 8 : type == 's' ? 16 : 64;
+  bool is_unsigned = unsigned_suffix || type == 'u';
+  NumericDecimal limit;
+  if (real) {
+    if (negative && is_unsigned) {
+      // -0.5 rounds to zero; include the midpoint with its next binary64 value.
+      limit = numeric_decimal_power_two(53);
+      numeric_decimal_add(&limit, 1);
+      numeric_decimal_scale_two(&limit, -54 - (int)multiplier);
+    } else if (bits == 64) {
+      unsigned exponent = is_unsigned ? 64 : 63;
+      limit = numeric_decimal_power_two(54);
+      if (negative) {
+        numeric_decimal_add(&limit, 2);
+      } else {
+        numeric_decimal_subtract_one(&limit);
+      }
+      numeric_decimal_scale_two(&limit, (int)exponent - 54 - (int)multiplier);
+    } else {
+      unsigned exponent = is_unsigned ? bits : bits - 1;
+      uint64_t integral = UINT64_C(1) << exponent;
+      // The boundary is halfway between the last permitted binary64 value
+      // and its neighbor, with Math.Round's ties-to-even behavior preserved.
+      if (negative) {
+        limit = numeric_decimal_integer(integral * 2 + 1);
+        numeric_decimal_scale_two(&limit, 52 - (int)exponent);
+        numeric_decimal_add(&limit, 1);
+        numeric_decimal_scale_two(&limit, (int)exponent - 53 - (int)multiplier);
+      } else {
+        limit = numeric_decimal_integer(integral * 2 - 1);
+        numeric_decimal_scale_two(&limit, 53 - (int)exponent);
+        numeric_decimal_subtract_one(&limit);
+        numeric_decimal_scale_two(&limit, (int)exponent - 54 - (int)multiplier);
+      }
+    }
+    int comparison = numeric_decimal_compare(&value, &limit);
+    return negative ? comparison <= 0 : comparison < 0;
+  }
+  if (negative && is_unsigned) {
+    return value.length == 0;
+  }
+  limit = numeric_decimal_power_two(is_unsigned ? bits : bits - 1);
+  if (!negative || is_unsigned) {
+    for (unsigned i = limit.length; i > 0; --i) {
+      if (limit.digits[i - 1] != 0) {
+        --limit.digits[i - 1];
+        break;
+      }
+      limit.digits[i - 1] = 9;
+    }
+  }
+  numeric_decimal_scale_two(&limit, -(int)multiplier);
+  return numeric_decimal_compare(&value, &limit) <= 0;
+}
+
+static bool numeric_token(const char *s, enum TokenType *kind) {
+  const char *suffix;
+  return numeric_spelling(s, kind, &suffix) &&
+         numeric_value_valid(s, suffix, *kind == REAL_LITERAL);
 }
 
 static bool numeric_word(const char *s) {
@@ -1822,7 +2220,7 @@ static bool command_mode_number_follows(TSLexer *lexer, int32_t sign) {
   return result;
 }
 
-static bool generic_numeric_pending(GenericWord *word) {
+static bool generic_numeric_pending(GenericWord *word, bool spelling_only) {
   size_t n = word->length;
   if ((n == 1 && word->data[0] == '.') ||
       (n == 2 && (word->data[0] == '+' || word->data[0] == '-') && word->data[1] == '.') ||
@@ -1841,7 +2239,9 @@ static bool generic_numeric_pending(GenericWord *word) {
   }
   char saved = word->data[n - pending];
   word->data[n - pending] = 0;
-  bool possible = numeric_word(word->data);
+  enum TokenType kind;
+  bool possible =
+      spelling_only ? numeric_spelling(word->data, &kind, NULL) : numeric_word(word->data);
   word->data[n - pending] = saved;
   return possible;
 }
@@ -1852,7 +2252,8 @@ static bool generic_numeric_boundary(int32_t c) {
 
 static bool generic_unary_operator(const char *word) {
   return strcmp(word, "-") == 0 || strcmp(word, "--") == 0 || strcmp(word, "-not") == 0 ||
-         strcmp(word, "-bnot") == 0 || strcmp(word, "-split") == 0 || strcmp(word, "-join") == 0;
+         strcmp(word, "-bnot") == 0 || strcmp(word, "-split") == 0 ||
+         strcmp(word, "-isplit") == 0 || strcmp(word, "-csplit") == 0 || strcmp(word, "-join") == 0;
 }
 
 // ParamBlockRule commits when the next token is '(', even when the
@@ -1899,21 +2300,23 @@ static bool parameter_list_follows(TSLexer *lexer) {
 }
 
 static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
-                              GenericWord *buffer, bool continuation) {
+                              GenericWord *buffer, bool continuation, bool signed_prefix) {
   bool data_name = valid[DATA_COMMAND_NAME] && !immediate;
-  int32_t first = lexer->lookahead;
+  int32_t first = signed_prefix ? buffer->data[0] : lexer->lookahead;
   bool signed_start = valid[SIGNED_NUMBER_START] && !immediate && !continuation && !data_name &&
                       (!valid[BARE_WORD] || valid[COMMAND_NAME]) &&
-                      (generic_dash(first) || (first == '+' && !valid[CAST_VALUE_CONTEXT]));
+                      (generic_dash(first) || (first == '+' && !valid[CAST_VALUE_CONTEXT] &&
+                                               !valid[UNSIGNED_PLUS_CONTEXT]));
   bool name =
       !immediate && (valid[COMMAND_NAME] || data_name || (signed_start && !valid[BARE_WORD]));
   enum TokenType kind = data_name ? DATA_COMMAND_NAME : name ? COMMAND_NAME : BARE_WORD;
   // Preserve the initial position when classifying an adjacent signed primary.
   // A failed probe must still be able to return a generic command name.
-  if (signed_start) {
+  if (signed_start && !signed_prefix) {
     lexer->mark_end(lexer);
   }
-  if (!continuation && !data_name && first == '+' && valid[CAST_VALUE_CONTEXT]) {
+  if (!continuation && !data_name && first == '+' &&
+      (valid[CAST_VALUE_CONTEXT] || valid[UNSIGNED_PLUS_CONTEXT])) {
     return false;
   }
   // NextToken first tests '!' as a potential decimal number when a digit or
@@ -1931,7 +2334,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       return false;
     }
   }
-  if (!continuation && !data_name && name && first == '+') {
+  if (!continuation && !data_name && name && first == '+' && !signed_prefix) {
     if (!generic_word_append(buffer, '+')) {
       return false;
     }
@@ -1974,10 +2377,12 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   }
   bool leading_dash = !continuation && !immediate && generic_dash(first);
   if (leading_dash) {
-    if (!generic_word_append(buffer, '-')) {
-      return false;
+    if (!signed_prefix) {
+      if (!generic_word_append(buffer, '-')) {
+        return false;
+      }
+      lexer->advance(lexer, false);
     }
-    lexer->advance(lexer, false);
     int32_t next = lexer->lookahead;
     if (name && !data_name &&
         !((next >= 'a' && next <= 'z') || (next >= 'A' && next <= 'Z') || decimal_character(next) ||
@@ -2096,6 +2501,10 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       continue;
     }
     if (name && quote(c)) {
+      if ((signed_start || signed_prefix) && !data_name && numeric_start && numeric_prefix != 0 &&
+          numeric_prefix < n && word[numeric_prefix] == '#') {
+        break;
+      }
       if (!data_name && n == 1 && word[0] == '.') {
         return false;
       }
@@ -2113,7 +2522,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     if (c == '<' || c == '>') {
       enum TokenType candidate_kind = numeric_kind;
-      bool numeric = !any_escape && numeric_live && numeric_token(word, &candidate_kind);
+      bool numeric = !any_escape && numeric_live &&
+                     (exclamation_number ? numeric_spelling(word, &candidate_kind, NULL)
+                                         : numeric_token(word, &candidate_kind));
       if (name && n > 0 && numeric && c == '>') {
         if (exclamation_number) {
           return false;
@@ -2196,14 +2607,15 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       // Probe only at boundaries where a number may end. Once a prefix cannot
       // become numeric, stop probing: large malformed words stay linear too.
       enum TokenType candidate_kind = numeric_kind;
-      if (numeric_token(word, &candidate_kind)) {
+      if (exclamation_number ? numeric_spelling(word, &candidate_kind, NULL)
+                             : numeric_token(word, &candidate_kind)) {
         numeric_kind = candidate_kind;
         numeric_prefix = n;
         if (!signed_start) {
           lexer->mark_end(lexer);
         }
       } else {
-        numeric_live = generic_numeric_pending(buffer);
+        numeric_live = generic_numeric_pending(buffer, exclamation_number);
       }
     }
   }
@@ -2248,7 +2660,8 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       return valid[BARE_WORD];
     }
     if (!any_escape && (!data_name || (!leading_dash && first != '+')) &&
-        numeric_token(word, &full_kind)) {
+        (exclamation_number ? numeric_spelling(word, &full_kind, NULL)
+                            : numeric_token(word, &full_kind))) {
       if (exclamation_number) {
         return false;
       }
@@ -2266,6 +2679,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       lexer->mark_end(lexer);
       lexer->result_symbol = full_kind;
       return true;
+    }
+    if (name && !data_name && !any_escape && numeric_spelling(word, &full_kind, NULL)) {
+      return false;
     }
     if (data_name && !any_escape && strcmp(word, "--") == 0) {
       return false;
@@ -2319,7 +2735,7 @@ static bool scan_generic(TSLexer *lexer, const bool *valid, bool immediate) {
   GenericWord word = {0};
   word.data = word.inline_data;
   word.capacity = sizeof(word.inline_data);
-  bool result = scan_generic_word(lexer, valid, immediate, &word, false);
+  bool result = scan_generic_word(lexer, valid, immediate, &word, false, false);
   if (word.data != word.inline_data) {
     free(word.data);
   }
@@ -2333,7 +2749,7 @@ static bool scan_generic_after_prefix(TSLexer *lexer, const bool *valid, int32_t
   if (!generic_word_append(&word, prefix)) {
     return false;
   }
-  bool result = scan_generic_word(lexer, valid, false, &word, true);
+  bool result = scan_generic_word(lexer, valid, false, &word, true, false);
   if (word.data != word.inline_data) {
     free(word.data);
   }
@@ -2379,16 +2795,29 @@ typedef struct {
   bool end_on_ternary;
   bool mark_end;
   bool allow_empty_binary;
+  bool signed_value;
+  bool negative;
 } NumberContext;
 
 // ScanNumberHelper accepts an expression-mode number only when its suffix
 // ends at a token boundary. A fresh argument does not yet force '?' or ':'
 // to terminate a number; recursive unary/binary/ternary operands do.
-static bool scan_number(TSLexer *lexer, const bool *valid, NumberContext context) {
+static bool numeric_number_advance(TSLexer *lexer, GenericWord *word) {
+  if (!generic_word_append(word, lexer->lookahead)) {
+    return false;
+  }
+  lexer->advance(lexer, false);
+  return true;
+}
+
+static bool scan_number_spelling(TSLexer *lexer, const bool *valid, NumberContext context,
+                                 GenericWord *word) {
   bool real = false, digit = false;
   int32_t c = lexer->lookahead;
   if (c == '.') {
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
     if (!ascii_digit(lexer->lookahead)) {
       return false;
     }
@@ -2397,17 +2826,23 @@ static bool scan_number(TSLexer *lexer, const bool *valid, NumberContext context
     return false;
   }
   if (lexer->lookahead == '0' && !real) {
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
     digit = true;
     c = lexer->lookahead;
     if (c == 'x' || c == 'X' || c == 'b' || c == 'B') {
       bool hex = c == 'x' || c == 'X';
-      lexer->advance(lexer, false);
+      if (!numeric_number_advance(lexer, word)) {
+        return false;
+      }
       digit = false;
       while ((hex && ascii_hex(lexer->lookahead)) ||
              (!hex && (lexer->lookahead == '0' || lexer->lookahead == '1'))) {
         digit = true;
-        lexer->advance(lexer, false);
+        if (!numeric_number_advance(lexer, word)) {
+          return false;
+        }
       }
       if (!digit && !hex && !(context.allow_empty_binary && ascii_lower(lexer->lookahead) == 'u')) {
         return false;
@@ -2417,7 +2852,9 @@ static bool scan_number(TSLexer *lexer, const bool *valid, NumberContext context
   }
   while (ascii_digit(lexer->lookahead)) {
     digit = true;
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
   }
   if (!digit) {
     return false;
@@ -2426,7 +2863,9 @@ static bool scan_number(TSLexer *lexer, const bool *valid, NumberContext context
     lexer->mark_end(lexer);
   }
   if (!real && lexer->lookahead == '.') {
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
     if (lexer->lookahead == '.') {
       if (!valid[INTEGER_LITERAL]) {
         return false;
@@ -2436,43 +2875,61 @@ static bool scan_number(TSLexer *lexer, const bool *valid, NumberContext context
     }
     real = true;
     while (ascii_digit(lexer->lookahead)) {
-      lexer->advance(lexer, false);
+      if (!numeric_number_advance(lexer, word)) {
+        return false;
+      }
     }
   }
   if (lexer->lookahead == 'e' || lexer->lookahead == 'E') {
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
     if (lexer->lookahead == '+' || generic_dash(lexer->lookahead)) {
-      lexer->advance(lexer, false);
+      if (!numeric_number_advance(lexer, word)) {
+        return false;
+      }
     }
     if (!ascii_digit(lexer->lookahead)) {
       return false;
     }
     while (ascii_digit(lexer->lookahead)) {
-      lexer->advance(lexer, false);
+      if (!numeric_number_advance(lexer, word)) {
+        return false;
+      }
     }
     real = true;
   }
 suffix:
   c = ascii_lower(lexer->lookahead);
   if (c == 'u') {
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
     c = ascii_lower(lexer->lookahead);
     if (c == 'l' || c == 's' || c == 'y') {
-      lexer->advance(lexer, false);
+      if (!numeric_number_advance(lexer, word)) {
+        return false;
+      }
     }
   } else if (c == 'l' || c == 's' || c == 'y' || c == 'n' || c == 'd') {
     if (c == 'd') {
       real = true;
     }
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
   }
   c = ascii_lower(lexer->lookahead);
   if (c == 'k' || c == 'm' || c == 'g' || c == 't' || c == 'p') {
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
     if (ascii_lower(lexer->lookahead) != 'b') {
       return false;
     }
-    lexer->advance(lexer, false);
+    if (!numeric_number_advance(lexer, word)) {
+      return false;
+    }
   }
   c = lexer->lookahead;
   bool boundary = (generic_end(c) && !quote(c)) || generic_dash(c) ||
@@ -2490,6 +2947,42 @@ suffix:
   }
   lexer->result_symbol = kind;
   return true;
+}
+
+static bool scan_number(TSLexer *lexer, const bool *valid, NumberContext context) {
+  GenericWord word = {0};
+  word.data = word.inline_data;
+  word.capacity = sizeof(word.inline_data);
+  // The complete sign and value were validated before SIGNED_NUMBER_START.
+  // Rechecking its unsigned child would reject valid minima such as -128y.
+  bool signed_literal =
+      !valid[HERE_STRING_CONTENT] && (valid[SIGNED_INTEGER_LITERAL] || valid[SIGNED_REAL_LITERAL]);
+  bool numeric[EXTERNAL_TOKEN_COUNT] = {0};
+  numeric[INTEGER_LITERAL] = valid[INTEGER_LITERAL] || valid[SIGNED_INTEGER_LITERAL];
+  numeric[REAL_LITERAL] = valid[REAL_LITERAL] || valid[SIGNED_REAL_LITERAL];
+  if (signed_literal) {
+    context.allow_empty_binary = true;
+  }
+  bool result = !context.signed_value || generic_word_append(&word, context.negative ? '-' : '+');
+  if (result) {
+    result = scan_number_spelling(lexer, numeric, context, &word);
+  }
+  if (result && !signed_literal) {
+    if (lexer->result_symbol == INTEGER_LITERAL && lexer->lookahead == '.' && word.length != 0 &&
+        word.data[word.length - 1] == '.') {
+      word.data[--word.length] = 0;
+    }
+    enum TokenType kind;
+    result = numeric_token(word.data, &kind);
+  }
+  if (result && signed_literal) {
+    lexer->result_symbol =
+        lexer->result_symbol == INTEGER_LITERAL ? SIGNED_INTEGER_LITERAL : SIGNED_REAL_LITERAL;
+  }
+  if (word.data != word.inline_data) {
+    free(word.data);
+  }
+  return result;
 }
 
 // Arguments and defaults begin with a token peek before recursive expression
@@ -2522,7 +3015,9 @@ static bool scan_expression_start(TSLexer *lexer, enum TokenType kind) {
     bool numeric[EXTERNAL_TOKEN_COUNT] = {0};
     numeric[INTEGER_LITERAL] = true;
     numeric[REAL_LITERAL] = true;
-    NumberContext context = {.allow_empty_binary = signed_number};
+    NumberContext context = {.allow_empty_binary = signed_number,
+                             .signed_value = signed_number,
+                             .negative = signed_number && generic_dash(first)};
     if (!scan_number(lexer, numeric, context)) {
       return false;
     }
@@ -2769,7 +3264,8 @@ static bool scan_fragment(TSLexer *lexer, const bool *valid) {
 }
 
 // GetAssemblyNameSpec uses commas between metadata properties and allows one
-// equals sign within each property. Opening brackets are ordinary assembly text.
+// equals sign within each property. Opening brackets are ordinary assembly
+// text.
 static bool assembly_word(int32_t c) {
   return c != 0 && !horizontal(c) && !newline(c) && c != ',' && c != '=' && c != ']';
 }
@@ -3411,6 +3907,63 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     }
     return scan_splat_after_at(lexer, valid);
   }
+  if (valid[UNARY_SIGN_CONTEXT] && !valid[HERE_STRING_CONTENT] &&
+      (!valid[BARE_WORD] || valid[COMMAND_NAME]) && !valid[DATA_COMMAND_NAME] &&
+      (lexer->lookahead == '+' || generic_dash(lexer->lookahead))) {
+    int32_t sign = lexer->lookahead == '+' ? '+' : '-';
+    lexer->mark_end(lexer);
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == '+' || generic_dash(lexer->lookahead)) {
+      if ((sign == '+' && lexer->lookahead == '+') ||
+          (sign == '-' && generic_dash(lexer->lookahead))) {
+        return false;
+      }
+    }
+    if ((!ascii_digit(lexer->lookahead) && lexer->lookahead != '.' &&
+         !(sign == '-' && variable_character(lexer->lookahead) &&
+           !decimal_character(lexer->lookahead))) ||
+        (sign == '+' && (valid[CAST_VALUE_CONTEXT] || valid[UNSIGNED_PLUS_CONTEXT]))) {
+      lexer->result_symbol = UNARY_SIGN_CONTEXT;
+      return true;
+    }
+    if (!valid[COMMAND_NAME] && !valid[BARE_WORD] &&
+        (ascii_digit(lexer->lookahead) || lexer->lookahead == '.')) {
+      bool numeric[EXTERNAL_TOKEN_COUNT] = {0};
+      numeric[INTEGER_LITERAL] = true;
+      numeric[REAL_LITERAL] = true;
+      NumberContext context = {.end_on_ternary = true,
+                               .allow_empty_binary = true,
+                               .signed_value = true,
+                               .negative = sign == '-'};
+      if (!scan_number(lexer, numeric, context)) {
+        if (valid[CAST_VALUE_CONTEXT]) {
+          lexer->result_symbol = CAST_VALUE_CONTEXT;
+          return true;
+        }
+        return false;
+      }
+      lexer->result_symbol = valid[SIGNED_NUMBER_START] ? SIGNED_NUMBER_START : UNARY_SIGN_CONTEXT;
+      return true;
+    }
+    GenericWord word = {0};
+    word.data = word.inline_data;
+    word.capacity = sizeof(word.inline_data);
+    bool result = generic_word_append(&word, sign) &&
+                  scan_generic_word(lexer, valid, false, &word, false, true);
+    // Named operators after a type literal must remain available to the
+    // internal lexer. Only a numeric conversion failure commits this cast.
+    enum TokenType kind;
+    bool invalid_numeric_cast =
+        !result && valid[CAST_VALUE_CONTEXT] && numeric_spelling(word.data, &kind, NULL);
+    if (word.data != word.inline_data) {
+      free(word.data);
+    }
+    if (invalid_numeric_cast) {
+      lexer->result_symbol = CAST_VALUE_CONTEXT;
+      return true;
+    }
+    return result;
+  }
   if (valid[COMMAND_NAME] || valid[BARE_WORD] || valid[DATA_COMMAND_NAME] ||
       valid[PARAM_BLOCK_KEYWORD] || valid[PARAM_COMMAND_NAME] ||
       (valid[SIGNED_NUMBER_START] && (lexer->lookahead == '+' || generic_dash(lexer->lookahead)))) {
@@ -3424,7 +3977,8 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
       return scan_generic(lexer, valid, false);
     }
   }
-  if (valid[INTEGER_LITERAL] || valid[REAL_LITERAL]) {
+  if (valid[INTEGER_LITERAL] || valid[REAL_LITERAL] || valid[SIGNED_INTEGER_LITERAL] ||
+      valid[SIGNED_REAL_LITERAL]) {
     NumberContext context = {.end_on_ternary = true, .mark_end = true};
     return scan_number(lexer, valid, context);
   }

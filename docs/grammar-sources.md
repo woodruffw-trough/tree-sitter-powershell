@@ -257,6 +257,18 @@ is considered. Attributed operands retain their complete expression, including
 `[A()]$x.Name`; `SemanticChecks.VisitAttributedExpression` validates the target
 after the AST has been constructed.
 
+Numeric conversion limits also determine tokenization. For example, `128y` is
+an invalid signed-byte literal in an expression, while `cmd 128y` has a literal
+text argument. The scanner checks integer ranges, binary and hexadecimal sign
+extension, decimal bounds, multipliers, and the round-to-even conversion of real
+values to integer suffixes. These follow `tokenizer.TryGetNumberValue` and
+[`Utils.AsBigInt`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/Utils.cs).
+An adjacent sign participates in numeric conversion, so `-128y` is valid while
+`- 128y` retains an invalid positive literal. Member names and hashtable keys
+use the parser's distinct initial lookahead for unary plus and minus.
+Named operators remain available after type literals: `[int] -or $x` is binary,
+while `[int] -not $x` and `[int] -csplit $x` are casts over unary expressions.
+
 Operator grouping follows the pinned parser. For example,
 `$true -or $false -and $false` groups as `($true -or $false) -and $false`, and
 `1 -eq 2 -shl 3` groups as `(1 -eq 2) -shl 3`. Null coalescing binds above comparison

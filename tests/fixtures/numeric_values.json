@@ -1,0 +1,912 @@
+[
+  {
+    "name": "byte upper boundary as expression",
+    "source": "127y",
+    "valid": true
+  },
+  {
+    "name": "byte upper boundary as command argument",
+    "source": "cmd 127y tail | next",
+    "valid": true
+  },
+  {
+    "name": "byte upper boundary as cast operand",
+    "source": "[int]127y",
+    "valid": true
+  },
+  {
+    "name": "byte upper boundary as member operand",
+    "source": "$obj.127y",
+    "valid": true
+  },
+  {
+    "name": "overflowing byte as expression",
+    "source": "128y",
+    "valid": false
+  },
+  {
+    "name": "overflowing byte as command argument",
+    "source": "cmd 128y tail | next",
+    "valid": true
+  },
+  {
+    "name": "overflowing byte as cast operand",
+    "source": "[int]128y",
+    "valid": false
+  },
+  {
+    "name": "overflowing byte as member operand",
+    "source": "$obj.128y",
+    "valid": false
+  },
+  {
+    "name": "byte signed minimum as expression",
+    "source": "-128y",
+    "valid": true
+  },
+  {
+    "name": "byte signed minimum as command argument",
+    "source": "cmd -128y tail | next",
+    "valid": true
+  },
+  {
+    "name": "byte signed minimum as cast operand",
+    "source": "[int]-128y",
+    "valid": true
+  },
+  {
+    "name": "byte signed minimum as member operand",
+    "source": "$obj.-128y",
+    "valid": true
+  },
+  {
+    "name": "below byte minimum as expression",
+    "source": "-129y",
+    "valid": false
+  },
+  {
+    "name": "below byte minimum as command argument",
+    "source": "cmd -129y tail | next",
+    "valid": true
+  },
+  {
+    "name": "below byte minimum as cast operand",
+    "source": "[int]-129y",
+    "valid": false
+  },
+  {
+    "name": "below byte minimum as member operand",
+    "source": "$obj.-129y",
+    "valid": false
+  },
+  {
+    "name": "spaced byte sign as expression",
+    "source": "- 128y",
+    "valid": false
+  },
+  {
+    "name": "spaced byte sign as command argument",
+    "source": "cmd - 128y tail | next",
+    "valid": true
+  },
+  {
+    "name": "spaced byte sign as cast operand",
+    "source": "[int]- 128y",
+    "valid": false
+  },
+  {
+    "name": "spaced byte sign as member operand",
+    "source": "$obj.- 128y",
+    "valid": false
+  },
+  {
+    "name": "unsigned byte maximum as expression",
+    "source": "255uy",
+    "valid": true
+  },
+  {
+    "name": "unsigned byte maximum as command argument",
+    "source": "cmd 255uy tail | next",
+    "valid": true
+  },
+  {
+    "name": "unsigned byte maximum as cast operand",
+    "source": "[int]255uy",
+    "valid": true
+  },
+  {
+    "name": "unsigned byte maximum as member operand",
+    "source": "$obj.255uy",
+    "valid": true
+  },
+  {
+    "name": "overflowing unsigned byte as expression",
+    "source": "256uy",
+    "valid": false
+  },
+  {
+    "name": "overflowing unsigned byte as command argument",
+    "source": "cmd 256uy tail | next",
+    "valid": true
+  },
+  {
+    "name": "overflowing unsigned byte as cast operand",
+    "source": "[int]256uy",
+    "valid": false
+  },
+  {
+    "name": "overflowing unsigned byte as member operand",
+    "source": "$obj.256uy",
+    "valid": false
+  },
+  {
+    "name": "negative unsigned byte as expression",
+    "source": "-1uy",
+    "valid": false
+  },
+  {
+    "name": "negative unsigned byte as command argument",
+    "source": "cmd -1uy tail | next",
+    "valid": true
+  },
+  {
+    "name": "negative unsigned byte as cast operand",
+    "source": "[int]-1uy",
+    "valid": false
+  },
+  {
+    "name": "negative unsigned byte as member operand",
+    "source": "$obj.-1uy",
+    "valid": false
+  },
+  {
+    "name": "unsigned negative zero as expression",
+    "source": "-0uy",
+    "valid": true
+  },
+  {
+    "name": "unsigned negative zero as command argument",
+    "source": "cmd -0uy tail | next",
+    "valid": true
+  },
+  {
+    "name": "unsigned negative zero as cast operand",
+    "source": "[int]-0uy",
+    "valid": true
+  },
+  {
+    "name": "unsigned negative zero as member operand",
+    "source": "$obj.-0uy",
+    "valid": true
+  },
+  {
+    "name": "spaced unsigned negation as expression",
+    "source": "- 1uy",
+    "valid": true
+  },
+  {
+    "name": "spaced unsigned negation as command argument",
+    "source": "cmd - 1uy tail | next",
+    "valid": true
+  },
+  {
+    "name": "spaced unsigned negation as cast operand",
+    "source": "[int]- 1uy",
+    "valid": true
+  },
+  {
+    "name": "spaced unsigned negation as member operand",
+    "source": "$obj.- 1uy",
+    "valid": true
+  },
+  {
+    "name": "short minimum as expression",
+    "source": "-32768s",
+    "valid": true
+  },
+  {
+    "name": "short minimum as command argument",
+    "source": "cmd -32768s tail | next",
+    "valid": true
+  },
+  {
+    "name": "short minimum as cast operand",
+    "source": "[int]-32768s",
+    "valid": true
+  },
+  {
+    "name": "short minimum as member operand",
+    "source": "$obj.-32768s",
+    "valid": true
+  },
+  {
+    "name": "overflowing short as expression",
+    "source": "32768s",
+    "valid": false
+  },
+  {
+    "name": "overflowing short as command argument",
+    "source": "cmd 32768s tail | next",
+    "valid": true
+  },
+  {
+    "name": "overflowing short as cast operand",
+    "source": "[int]32768s",
+    "valid": false
+  },
+  {
+    "name": "overflowing short as member operand",
+    "source": "$obj.32768s",
+    "valid": false
+  },
+  {
+    "name": "overflowing unsigned short as expression",
+    "source": "65536us",
+    "valid": false
+  },
+  {
+    "name": "overflowing unsigned short as command argument",
+    "source": "cmd 65536us tail | next",
+    "valid": true
+  },
+  {
+    "name": "overflowing unsigned short as cast operand",
+    "source": "[int]65536us",
+    "valid": false
+  },
+  {
+    "name": "overflowing unsigned short as member operand",
+    "source": "$obj.65536us",
+    "valid": false
+  },
+  {
+    "name": "long minimum as expression",
+    "source": "-9223372036854775808l",
+    "valid": true
+  },
+  {
+    "name": "long minimum as command argument",
+    "source": "cmd -9223372036854775808l tail | next",
+    "valid": true
+  },
+  {
+    "name": "long minimum as cast operand",
+    "source": "[int]-9223372036854775808l",
+    "valid": true
+  },
+  {
+    "name": "long minimum as member operand",
+    "source": "$obj.-9223372036854775808l",
+    "valid": true
+  },
+  {
+    "name": "overflowing long as expression",
+    "source": "9223372036854775808l",
+    "valid": false
+  },
+  {
+    "name": "overflowing long as command argument",
+    "source": "cmd 9223372036854775808l tail | next",
+    "valid": true
+  },
+  {
+    "name": "overflowing long as cast operand",
+    "source": "[int]9223372036854775808l",
+    "valid": false
+  },
+  {
+    "name": "overflowing long as member operand",
+    "source": "$obj.9223372036854775808l",
+    "valid": false
+  },
+  {
+    "name": "unsigned maximum as expression",
+    "source": "18446744073709551615ul",
+    "valid": true
+  },
+  {
+    "name": "unsigned maximum as command argument",
+    "source": "cmd 18446744073709551615ul tail | next",
+    "valid": true
+  },
+  {
+    "name": "unsigned maximum as cast operand",
+    "source": "[int]18446744073709551615ul",
+    "valid": true
+  },
+  {
+    "name": "unsigned maximum as member operand",
+    "source": "$obj.18446744073709551615ul",
+    "valid": true
+  },
+  {
+    "name": "overflowing unsigned long as expression",
+    "source": "18446744073709551616ul",
+    "valid": false
+  },
+  {
+    "name": "overflowing unsigned long as command argument",
+    "source": "cmd 18446744073709551616ul tail | next",
+    "valid": true
+  },
+  {
+    "name": "overflowing unsigned long as cast operand",
+    "source": "[int]18446744073709551616ul",
+    "valid": false
+  },
+  {
+    "name": "overflowing unsigned long as member operand",
+    "source": "$obj.18446744073709551616ul",
+    "valid": false
+  },
+  {
+    "name": "signed hexadecimal byte as expression",
+    "source": "0xffy",
+    "valid": true
+  },
+  {
+    "name": "signed hexadecimal byte as command argument",
+    "source": "cmd 0xffy tail | next",
+    "valid": true
+  },
+  {
+    "name": "signed hexadecimal byte as cast operand",
+    "source": "[int]0xffy",
+    "valid": true
+  },
+  {
+    "name": "signed hexadecimal byte as member operand",
+    "source": "$obj.0xffy",
+    "valid": true
+  },
+  {
+    "name": "wide hexadecimal byte as expression",
+    "source": "0xffffy",
+    "valid": false
+  },
+  {
+    "name": "wide hexadecimal byte as command argument",
+    "source": "cmd 0xffffy tail | next",
+    "valid": true
+  },
+  {
+    "name": "wide hexadecimal byte as cast operand",
+    "source": "[int]0xffffy",
+    "valid": false
+  },
+  {
+    "name": "wide hexadecimal byte as member operand",
+    "source": "$obj.0xffffy",
+    "valid": false
+  },
+  {
+    "name": "negated hexadecimal minimum as expression",
+    "source": "-0x80y",
+    "valid": false
+  },
+  {
+    "name": "negated hexadecimal minimum as command argument",
+    "source": "cmd -0x80y tail | next",
+    "valid": true
+  },
+  {
+    "name": "negated hexadecimal minimum as cast operand",
+    "source": "[int]-0x80y",
+    "valid": false
+  },
+  {
+    "name": "negated hexadecimal minimum as member operand",
+    "source": "$obj.-0x80y",
+    "valid": false
+  },
+  {
+    "name": "leading-zero hexadecimal long as expression",
+    "source": "0x0FFFFFFFFFFFFFFFFl",
+    "valid": false
+  },
+  {
+    "name": "leading-zero hexadecimal long as command argument",
+    "source": "cmd 0x0FFFFFFFFFFFFFFFFl tail | next",
+    "valid": true
+  },
+  {
+    "name": "leading-zero hexadecimal long as cast operand",
+    "source": "[int]0x0FFFFFFFFFFFFFFFFl",
+    "valid": false
+  },
+  {
+    "name": "leading-zero hexadecimal long as member operand",
+    "source": "$obj.0x0FFFFFFFFFFFFFFFFl",
+    "valid": false
+  },
+  {
+    "name": "overflowing hexadecimal integer as expression",
+    "source": "0x10000000000000000",
+    "valid": false
+  },
+  {
+    "name": "overflowing hexadecimal integer as command argument",
+    "source": "cmd 0x10000000000000000 tail | next",
+    "valid": true
+  },
+  {
+    "name": "overflowing hexadecimal integer as cast operand",
+    "source": "[int]0x10000000000000000",
+    "valid": false
+  },
+  {
+    "name": "overflowing hexadecimal integer as member operand",
+    "source": "$obj.0x10000000000000000",
+    "valid": false
+  },
+  {
+    "name": "wide hexadecimal big integer as expression",
+    "source": "0x10000000000000000n",
+    "valid": true
+  },
+  {
+    "name": "wide hexadecimal big integer as command argument",
+    "source": "cmd 0x10000000000000000n tail | next",
+    "valid": true
+  },
+  {
+    "name": "wide hexadecimal big integer as cast operand",
+    "source": "[int]0x10000000000000000n",
+    "valid": true
+  },
+  {
+    "name": "wide hexadecimal big integer as member operand",
+    "source": "$obj.0x10000000000000000n",
+    "valid": true
+  },
+  {
+    "name": "signed wide binary as expression",
+    "source": "0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "valid": true
+  },
+  {
+    "name": "signed wide binary as command argument",
+    "source": "cmd 0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 tail | next",
+    "valid": true
+  },
+  {
+    "name": "signed wide binary as cast operand",
+    "source": "[int]0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "valid": true
+  },
+  {
+    "name": "signed wide binary as member operand",
+    "source": "$obj.0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "valid": true
+  },
+  {
+    "name": "wide binary byte as expression",
+    "source": "0b11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y",
+    "valid": true
+  },
+  {
+    "name": "wide binary byte as command argument",
+    "source": "cmd 0b11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y tail | next",
+    "valid": true
+  },
+  {
+    "name": "wide binary byte as cast operand",
+    "source": "[int]0b11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y",
+    "valid": true
+  },
+  {
+    "name": "wide binary byte as member operand",
+    "source": "$obj.0b11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y",
+    "valid": true
+  },
+  {
+    "name": "non-byte-aligned binary as expression",
+    "source": "0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y",
+    "valid": false
+  },
+  {
+    "name": "non-byte-aligned binary as command argument",
+    "source": "cmd 0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y tail | next",
+    "valid": true
+  },
+  {
+    "name": "non-byte-aligned binary as cast operand",
+    "source": "[int]0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y",
+    "valid": false
+  },
+  {
+    "name": "non-byte-aligned binary as member operand",
+    "source": "$obj.0b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111y",
+    "valid": false
+  },
+  {
+    "name": "multiplier overflow as expression",
+    "source": "1uykb",
+    "valid": false
+  },
+  {
+    "name": "multiplier overflow as command argument",
+    "source": "cmd 1uykb tail | next",
+    "valid": true
+  },
+  {
+    "name": "multiplier overflow as cast operand",
+    "source": "[int]1uykb",
+    "valid": false
+  },
+  {
+    "name": "multiplier overflow as member operand",
+    "source": "$obj.1uykb",
+    "valid": false
+  },
+  {
+    "name": "fractional multiplier tie as expression",
+    "source": "0.12451171875ykb",
+    "valid": false
+  },
+  {
+    "name": "fractional multiplier tie as command argument",
+    "source": "cmd 0.12451171875ykb tail | next",
+    "valid": true
+  },
+  {
+    "name": "fractional multiplier tie as cast operand",
+    "source": "[int]0.12451171875ykb",
+    "valid": false
+  },
+  {
+    "name": "fractional multiplier tie as member operand",
+    "source": "$obj.0.12451171875ykb",
+    "valid": false
+  },
+  {
+    "name": "fractional multiplier fit as expression",
+    "source": "0.1240234375ykb",
+    "valid": true
+  },
+  {
+    "name": "fractional multiplier fit as command argument",
+    "source": "cmd 0.1240234375ykb tail | next",
+    "valid": true
+  },
+  {
+    "name": "fractional multiplier fit as cast operand",
+    "source": "[int]0.1240234375ykb",
+    "valid": true
+  },
+  {
+    "name": "fractional multiplier fit as member operand",
+    "source": "$obj.0.1240234375ykb",
+    "valid": true
+  },
+  {
+    "name": "positive byte tie as expression",
+    "source": "127.5y",
+    "valid": false
+  },
+  {
+    "name": "positive byte tie as command argument",
+    "source": "cmd 127.5y tail | next",
+    "valid": true
+  },
+  {
+    "name": "positive byte tie as cast operand",
+    "source": "[int]127.5y",
+    "valid": false
+  },
+  {
+    "name": "positive byte tie as member operand",
+    "source": "$obj.127.5y",
+    "valid": false
+  },
+  {
+    "name": "negative byte tie as expression",
+    "source": "-128.5y",
+    "valid": true
+  },
+  {
+    "name": "negative byte tie as command argument",
+    "source": "cmd -128.5y tail | next",
+    "valid": true
+  },
+  {
+    "name": "negative byte tie as cast operand",
+    "source": "[int]-128.5y",
+    "valid": true
+  },
+  {
+    "name": "negative byte tie as member operand",
+    "source": "$obj.-128.5y",
+    "valid": true
+  },
+  {
+    "name": "negative unsigned tie as expression",
+    "source": "-0.5uy",
+    "valid": true
+  },
+  {
+    "name": "negative unsigned tie as command argument",
+    "source": "cmd -0.5uy tail | next",
+    "valid": true
+  },
+  {
+    "name": "negative unsigned tie as cast operand",
+    "source": "[int]-0.5uy",
+    "valid": true
+  },
+  {
+    "name": "negative unsigned tie as member operand",
+    "source": "$obj.-0.5uy",
+    "valid": true
+  },
+  {
+    "name": "below unsigned tie as expression",
+    "source": "-0.5000000000000001uy",
+    "valid": false
+  },
+  {
+    "name": "below unsigned tie as command argument",
+    "source": "cmd -0.5000000000000001uy tail | next",
+    "valid": true
+  },
+  {
+    "name": "below unsigned tie as cast operand",
+    "source": "[int]-0.5000000000000001uy",
+    "valid": false
+  },
+  {
+    "name": "below unsigned tie as member operand",
+    "source": "$obj.-0.5000000000000001uy",
+    "valid": false
+  },
+  {
+    "name": "floating long boundary as expression",
+    "source": "9223372036854775296.0l",
+    "valid": false
+  },
+  {
+    "name": "floating long boundary as command argument",
+    "source": "cmd 9223372036854775296.0l tail | next",
+    "valid": true
+  },
+  {
+    "name": "floating long boundary as cast operand",
+    "source": "[int]9223372036854775296.0l",
+    "valid": false
+  },
+  {
+    "name": "floating long boundary as member operand",
+    "source": "$obj.9223372036854775296.0l",
+    "valid": false
+  },
+  {
+    "name": "floating long below boundary as expression",
+    "source": "9223372036854775295.0l",
+    "valid": true
+  },
+  {
+    "name": "floating long below boundary as command argument",
+    "source": "cmd 9223372036854775295.0l tail | next",
+    "valid": true
+  },
+  {
+    "name": "floating long below boundary as cast operand",
+    "source": "[int]9223372036854775295.0l",
+    "valid": true
+  },
+  {
+    "name": "floating long below boundary as member operand",
+    "source": "$obj.9223372036854775295.0l",
+    "valid": true
+  },
+  {
+    "name": "decimal maximum as expression",
+    "source": "79228162514264337593543950335d",
+    "valid": true
+  },
+  {
+    "name": "decimal maximum as command argument",
+    "source": "cmd 79228162514264337593543950335d tail | next",
+    "valid": true
+  },
+  {
+    "name": "decimal maximum as cast operand",
+    "source": "[int]79228162514264337593543950335d",
+    "valid": true
+  },
+  {
+    "name": "decimal maximum as member operand",
+    "source": "$obj.79228162514264337593543950335d",
+    "valid": true
+  },
+  {
+    "name": "decimal rounded maximum as expression",
+    "source": "79228162514264337593543950335.1d",
+    "valid": true
+  },
+  {
+    "name": "decimal rounded maximum as command argument",
+    "source": "cmd 79228162514264337593543950335.1d tail | next",
+    "valid": true
+  },
+  {
+    "name": "decimal rounded maximum as cast operand",
+    "source": "[int]79228162514264337593543950335.1d",
+    "valid": true
+  },
+  {
+    "name": "decimal rounded maximum as member operand",
+    "source": "$obj.79228162514264337593543950335.1d",
+    "valid": true
+  },
+  {
+    "name": "decimal overflow tie as expression",
+    "source": "79228162514264337593543950335.5d",
+    "valid": false
+  },
+  {
+    "name": "decimal overflow tie as command argument",
+    "source": "cmd 79228162514264337593543950335.5d tail | next",
+    "valid": true
+  },
+  {
+    "name": "decimal overflow tie as cast operand",
+    "source": "[int]79228162514264337593543950335.5d",
+    "valid": false
+  },
+  {
+    "name": "decimal overflow tie as member operand",
+    "source": "$obj.79228162514264337593543950335.5d",
+    "valid": false
+  },
+  {
+    "name": "decimal scale underflow as expression",
+    "source": "0.00000000000000000000000000001d",
+    "valid": true
+  },
+  {
+    "name": "decimal scale underflow as command argument",
+    "source": "cmd 0.00000000000000000000000000001d tail | next",
+    "valid": true
+  },
+  {
+    "name": "decimal scale underflow as cast operand",
+    "source": "[int]0.00000000000000000000000000001d",
+    "valid": true
+  },
+  {
+    "name": "decimal scale underflow as member operand",
+    "source": "$obj.0.00000000000000000000000000001d",
+    "valid": true
+  },
+  {
+    "name": "double infinity as expression",
+    "source": "1e1000",
+    "valid": true
+  },
+  {
+    "name": "double infinity as command argument",
+    "source": "cmd 1e1000 tail | next",
+    "valid": true
+  },
+  {
+    "name": "double infinity as cast operand",
+    "source": "[int]1e1000",
+    "valid": true
+  },
+  {
+    "name": "double infinity as member operand",
+    "source": "$obj.1e1000",
+    "valid": true
+  },
+  {
+    "name": "floating big integer overflow as expression",
+    "source": "1e1000n",
+    "valid": false
+  },
+  {
+    "name": "floating big integer overflow as command argument",
+    "source": "cmd 1e1000n tail | next",
+    "valid": true
+  },
+  {
+    "name": "floating big integer overflow as cast operand",
+    "source": "[int]1e1000n",
+    "valid": false
+  },
+  {
+    "name": "floating big integer overflow as member operand",
+    "source": "$obj.1e1000n",
+    "valid": false
+  },
+  {
+    "name": "floating zero with huge exponent as expression",
+    "source": "0e999999999999999999999n",
+    "valid": true
+  },
+  {
+    "name": "floating zero with huge exponent as command argument",
+    "source": "cmd 0e999999999999999999999n tail | next",
+    "valid": true
+  },
+  {
+    "name": "floating zero with huge exponent as cast operand",
+    "source": "[int]0e999999999999999999999n",
+    "valid": true
+  },
+  {
+    "name": "floating zero with huge exponent as member operand",
+    "source": "$obj.0e999999999999999999999n",
+    "valid": true
+  },
+  {
+    "name": "floating underflow as expression",
+    "source": "1e-1000l",
+    "valid": true
+  },
+  {
+    "name": "floating underflow as command argument",
+    "source": "cmd 1e-1000l tail | next",
+    "valid": true
+  },
+  {
+    "name": "floating underflow as cast operand",
+    "source": "[int]1e-1000l",
+    "valid": true
+  },
+  {
+    "name": "floating underflow as member operand",
+    "source": "$obj.1e-1000l",
+    "valid": true
+  },
+  {
+    "name": "signed empty binary as expression",
+    "source": "-0bu",
+    "valid": true
+  },
+  {
+    "name": "signed empty binary as command argument",
+    "source": "cmd -0bu tail | next",
+    "valid": true
+  },
+  {
+    "name": "signed empty binary as cast operand",
+    "source": "[int]-0bu",
+    "valid": true
+  },
+  {
+    "name": "signed empty binary as member operand",
+    "source": "$obj.-0bu",
+    "valid": true
+  },
+  {
+    "name": "unsigned byte overflow inside interpolation",
+    "source": "\"$(256uy)\"",
+    "valid": false
+  },
+  {
+    "name": "signed minimum inside interpolation",
+    "source": "\"$(-128y)\"",
+    "valid": true
+  },
+  {
+    "name": "short minimum inside method arguments",
+    "source": "$obj.Method(-32768s)",
+    "valid": true
+  },
+  {
+    "name": "unsigned maximum inside method arguments",
+    "source": "$obj.Method(18446744073709551615ul)",
+    "valid": true
+  },
+  {
+    "name": "huge unsuffixed decimal integer",
+    "source": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+    "valid": false
+  },
+  {
+    "name": "huge explicit big integer",
+    "source": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999n",
+    "valid": true
+  }
+]

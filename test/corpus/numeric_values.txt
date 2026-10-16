@@ -1,0 +1,33 @@
+==================
+Overflowing numeric arguments remain text while signed minima remain numbers
+==================
+cmd 128y 256uy 32768s 65536us | next
+-128y
+-32768s
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (integer_literal))))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (integer_literal)))))

@@ -3232,7 +3232,7 @@
     "named": true,
     "fields": {
       "key": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -5216,7 +5216,7 @@
         ]
       },
       "operator": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -5245,6 +5245,14 @@
           },
           {
             "type": "-bnot",
+            "named": false
+          },
+          {
+            "type": "-csplit",
+            "named": false
+          },
+          {
+            "type": "-isplit",
             "named": false
           },
           {

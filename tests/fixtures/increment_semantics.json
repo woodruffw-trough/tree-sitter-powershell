@@ -93,5 +93,25 @@
     "name": "decimal minus spaced unary minus",
     "source": "1. - -$x",
     "valid": true
+  },
+  {
+    "name": "signed member postfix minus folds numeric primary",
+    "source": "$obj.-1++",
+    "valid": false
+  },
+  {
+    "name": "signed member postfix plus retains unary operator",
+    "source": "$obj.+1++",
+    "valid": false
+  },
+  {
+    "name": "signed hash key postfix minus folds numeric primary",
+    "source": "@{-1++=1}",
+    "valid": false
+  },
+  {
+    "name": "signed hash key postfix plus retains unary operator",
+    "source": "@{+1++=1}",
+    "valid": false
   }
 ]

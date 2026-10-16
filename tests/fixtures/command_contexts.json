@@ -3058,5 +3058,35 @@
     "name": "reserved keyword statement after background",
     "source": "cmd & from",
     "valid": false
+  },
+  {
+    "name": "exclamation before overflowing signed byte",
+    "source": "!128y",
+    "valid": false
+  },
+  {
+    "name": "exclamation before overflowing unsigned byte",
+    "source": "!256uy",
+    "valid": false
+  },
+  {
+    "name": "exclamation numeric prefix before addition",
+    "source": "!128y+1",
+    "valid": false
+  },
+  {
+    "name": "exclamation before overflowing multiplier",
+    "source": "!1uykb",
+    "valid": false
+  },
+  {
+    "name": "exclamation before floating big integer overflow",
+    "source": "!1e1000n",
+    "valid": false
+  },
+  {
+    "name": "exclamation before malformed suffixed command name",
+    "source": "!128yfoo",
+    "valid": true
   }
 ]
