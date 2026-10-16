@@ -1,0 +1,136 @@
+==================
+Missing braced-variable close preserves the string and pipeline command
+==================
+echo "${oops" | Out-File $env:GITHUB_ENV
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (expandable_string
+          (ERROR
+            (argument_fragment)
+            (type_identifier)))))
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable)))))
+
+==================
+Malformed interpolation preserves subsequent arguments and pipeline commands
+==================
+echo "${oops" after "$env:VALUE" | Out-File $env:GITHUB_ENV | Write-Output
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (expandable_string
+          (ERROR
+            (argument_fragment)
+            (type_identifier))))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (expandable_string
+          (variable))))
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+GitHub expression in a string preserves a following argument and pipeline
+==================
+echo "prefix ${{ github.ref }} suffix" tail | Out-File $env:GITHUB_ENV
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (expandable_string
+          (string_content)
+          (ERROR
+            (argument_fragment)
+            (bare_word)
+            (type_identifier))))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable)))))
+
+==================
+A hash inside malformed interpolation cannot consume the closing quote or pipe
+==================
+echo "${oops#tail" after | Out-File $env:GITHUB_ENV
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (expandable_string
+          (ERROR
+            (argument_fragment)
+            (type_identifier))))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable)))))
+
+==================
+GitHub expression preserves a following parameter and multiple pipeline commands
+==================
+echo "value=${{ steps.build.outputs.value }}" -Encoding utf8 | Out-File $env:GITHUB_ENV | Write-Output
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (expandable_string
+          (string_content)
+          (ERROR
+            (argument_fragment)
+            (bare_word))))
+      (command_parameter
+        name: (command_parameter_name))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

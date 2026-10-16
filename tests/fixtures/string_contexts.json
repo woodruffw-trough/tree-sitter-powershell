@@ -2518,5 +2518,30 @@
     "name": "interpolation_composite_comment_before_member",
     "source": "cmd prefix$(`(1).M<#c#>.N)",
     "valid": true
+  },
+  {
+    "name": "recovery_missing_brace_pipeline",
+    "source": "echo \"${oops\" | Out-File $env:GITHUB_ENV\n",
+    "valid": false
+  },
+  {
+    "name": "recovery_missing_brace_arguments_and_pipeline",
+    "source": "echo \"${oops\" after \"$env:VALUE\" | Out-File $env:GITHUB_ENV | Write-Output\n",
+    "valid": false
+  },
+  {
+    "name": "recovery_github_expression_pipeline",
+    "source": "echo \"prefix ${{ github.ref }} suffix\" tail | Out-File $env:GITHUB_ENV\n",
+    "valid": false
+  },
+  {
+    "name": "recovery_github_expression_parameter_and_pipeline",
+    "source": "echo \"value=${{ steps.build.outputs.value }}\" -Encoding utf8 | Out-File $env:GITHUB_ENV | Write-Output\n",
+    "valid": false
+  },
+  {
+    "name": "recovery_missing_brace_hash_pipeline",
+    "source": "echo \"${oops#tail\" after | Out-File $env:GITHUB_ENV\n",
+    "valid": false
   }
 ]

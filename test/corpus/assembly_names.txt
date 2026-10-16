@@ -30,3 +30,18 @@ Opening brackets remain part of assembly-name text
         (type_name
           name: (type_identifier))
         (assembly_name)))))
+
+==================
+Assembly names still consume quotes and pipes outside recovery
+==================
+[int, "Library|Name", Version=1.2.3.4]
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (type_literal
+        (type_name
+          name: (type_identifier))
+        (assembly_name)))))

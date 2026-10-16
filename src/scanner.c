@@ -3139,7 +3139,8 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     lexer->result_symbol = RIGHT_PAREN;
     return true;
   }
-  if (valid[ASSEMBLY_NAME_CONTENT]) {
+  // Do not scan permissive assembly text in the all-token recovery state.
+  if (valid[ASSEMBLY_NAME_CONTENT] && !valid[HERE_STRING_CONTENT]) {
     return scan_assembly_name(lexer);
   }
   if (valid[DOUBLE_QUOTE] &&
@@ -3172,7 +3173,9 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     }
     return scan_line_continuation_after_tick(lexer, valid);
   }
-  if (valid[COMMENT] && (lexer->lookahead == '#' || lexer->lookahead == '<')) {
+  // Do not let a recovery comment swallow quotes or bypass a required boundary.
+  if (valid[COMMENT] && !valid[HERE_STRING_CONTENT] &&
+      (lexer->lookahead == '#' || lexer->lookahead == '<')) {
     return scan_comment(lexer, valid);
   }
   if (generic_dash(lexer->lookahead) &&
