@@ -1,0 +1,71 @@
+================================================================================
+Computed member postfix completes its inner unary operand
+================================================================================
+$obj.[int].Name++
+$obj.[int].Name++++
+$obj.-$x++++
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (unary_expression
+          argument: (member_access
+            object: (type_literal
+              (type_name
+                name: (type_identifier)))
+            member: (identifier))))))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (member_access
+          object: (variable)
+          member: (unary_expression
+            argument: (member_access
+              object: (type_literal
+                (type_name
+                  name: (type_identifier)))
+              member: (identifier)))))))
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (unary_expression
+          argument: (unary_expression
+            argument: (unary_expression
+              argument: (variable))))))))
+
+================================================================================
+Attributed target syntax survives semantic diagnostics
+================================================================================
+[A()]$x.Name
+[int][A()]$x++++
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (attributed_expression
+        attribute: (attribute
+          name: (type_name
+            name: (type_identifier))
+          arguments: (argument_list))
+        value: (member_access
+          object: (variable)
+          member: (identifier)))))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (cast_expression
+          type: (type_literal
+            (type_name
+              name: (type_identifier)))
+          value: (attributed_expression
+            attribute: (attribute
+              name: (type_name
+                name: (type_identifier))
+              arguments: (argument_list))
+            value: (unary_expression
+              argument: (variable))))))))

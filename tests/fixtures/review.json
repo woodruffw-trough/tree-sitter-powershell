@@ -242,7 +242,11 @@
   {
     "name": "review script attribute no param",
     "source": "{ [CmdletBinding()] 1 }",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "review begin adjacent command",

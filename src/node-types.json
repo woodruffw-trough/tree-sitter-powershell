@@ -762,11 +762,75 @@
         "required": true,
         "types": [
           {
+            "type": "array_expression",
+            "named": true
+          },
+          {
             "type": "attributed_expression",
             "named": true
           },
           {
             "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "element_access",
+            "named": true
+          },
+          {
+            "type": "expandable_here_string",
+            "named": true
+          },
+          {
+            "type": "expandable_string",
+            "named": true
+          },
+          {
+            "type": "hashtable_expression",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "invocation_expression",
+            "named": true
+          },
+          {
+            "type": "member_access",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "real_literal",
+            "named": true
+          },
+          {
+            "type": "script_block",
+            "named": true
+          },
+          {
+            "type": "single_quoted_here_string",
+            "named": true
+          },
+          {
+            "type": "single_quoted_string",
+            "named": true
+          },
+          {
+            "type": "sub_expression",
+            "named": true
+          },
+          {
+            "type": "type_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
             "named": true
           },
           {

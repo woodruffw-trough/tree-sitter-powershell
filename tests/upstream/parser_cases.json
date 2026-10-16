@@ -2328,7 +2328,8 @@
     "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L328",
     "diagnostics": [
       "UnexpectedAttribute"
-    ]
+    ],
+    "syntax_valid": true
   },
   {
     "name": "Parsing.Tests.ps1:329 ShouldBeParseError",
@@ -2337,7 +2338,8 @@
     "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L329",
     "diagnostics": [
       "UnexpectedAttribute"
-    ]
+    ],
+    "syntax_valid": true
   },
   {
     "name": "Parsing.Tests.ps1:330 ShouldBeParseError",

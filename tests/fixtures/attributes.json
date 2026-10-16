@@ -47,7 +47,11 @@
   {
     "name": "attribute increment",
     "source": "[A()]$x++",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "prefix attributed increment",
@@ -57,7 +61,11 @@
   {
     "name": "cast attributed increment",
     "source": "[int][A()]$x++",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute ending scope variable",
@@ -67,7 +75,11 @@
   {
     "name": "type newline terminates attributed expression",
     "source": "[A()][int]\n$x",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute multiline before cast",
@@ -82,47 +94,83 @@
   {
     "name": "attribute before standalone type",
     "source": "[ValidateNotNull()][string]",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before number",
     "source": "[A()]1",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before member",
     "source": "[A()]$x.P",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before index",
     "source": "[A()]$x[0]",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before parenthesized variable",
     "source": "[A()]($x)",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before array",
     "source": "[A()]@(1)",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before cast number",
     "source": "[A()][int]1",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before prefix increment",
     "source": "[A()]++$x",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "attribute before cast parentheses",
     "source": "[A()][int]($x)",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
   },
   {
     "name": "prefix typed variable",

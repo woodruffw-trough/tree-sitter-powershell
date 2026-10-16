@@ -818,5 +818,79 @@
         ]
       }
     ]
+  },
+  {
+    "name": "expression type member inner and outer increment",
+    "source": "$obj.[int].Name++++",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "member_access",
+        "field": "member",
+        "texts": [
+          "[int].Name++",
+          "Name"
+        ]
+      },
+      {
+        "node": "unary_expression",
+        "field": "argument",
+        "texts": [
+          "$obj.[int].Name++",
+          "[int].Name"
+        ]
+      },
+      {
+        "node": "unary_expression",
+        "field": "operator",
+        "texts": [
+          "++",
+          "++"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "expression interleaved attribute outer postfix",
+    "source": "[int][A()]$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true,
+    "fields": [
+      {
+        "node": "cast_expression",
+        "field": "value",
+        "texts": [
+          "[A()]$x++"
+        ]
+      },
+      {
+        "node": "attributed_expression",
+        "field": "value",
+        "texts": [
+          "$x++"
+        ]
+      },
+      {
+        "node": "unary_expression",
+        "field": "argument",
+        "texts": [
+          "[int][A()]$x++",
+          "$x"
+        ]
+      },
+      {
+        "node": "unary_expression",
+        "field": "operator",
+        "texts": [
+          "++",
+          "++"
+        ]
+      }
+    ]
   }
 ]

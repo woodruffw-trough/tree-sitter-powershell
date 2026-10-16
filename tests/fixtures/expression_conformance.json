@@ -1,0 +1,1988 @@
+[
+  {
+    "name": "expression type member increment",
+    "source": "$obj.[int].Name++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member increment",
+    "source": "[T]::M($obj.[int].Name++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member increment",
+    "source": "param($arg=$obj.[int].Name++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member increment",
+    "source": "@{key=$obj.[int].Name++}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member increment",
+    "source": "@{$obj.[int].Name++=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member increment",
+    "source": "$values[$obj.[int].Name++]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member increment",
+    "source": "\"$($obj.[int].Name++)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member decrement",
+    "source": "$obj.[int].Name--",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member decrement",
+    "source": "[T]::M($obj.[int].Name--, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member decrement",
+    "source": "param($arg=$obj.[int].Name--, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member decrement",
+    "source": "@{key=$obj.[int].Name--}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member decrement",
+    "source": "@{$obj.[int].Name--=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member decrement",
+    "source": "$values[$obj.[int].Name--]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member decrement",
+    "source": "\"$($obj.[int].Name--)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member inner and outer increment",
+    "source": "$obj.[int].Name++++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member inner and outer increment",
+    "source": "[T]::M($obj.[int].Name++++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member inner and outer increment",
+    "source": "param($arg=$obj.[int].Name++++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member inner and outer increment",
+    "source": "@{key=$obj.[int].Name++++}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member inner and outer increment",
+    "source": "@{$obj.[int].Name++++=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member inner and outer increment",
+    "source": "$values[$obj.[int].Name++++]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member inner and outer increment",
+    "source": "\"$($obj.[int].Name++++)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member mixed increments",
+    "source": "$obj.[int].Name++--",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member mixed increments",
+    "source": "[T]::M($obj.[int].Name++--, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member mixed increments",
+    "source": "param($arg=$obj.[int].Name++--, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member mixed increments",
+    "source": "@{key=$obj.[int].Name++--}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member mixed increments",
+    "source": "@{$obj.[int].Name++--=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member mixed increments",
+    "source": "$values[$obj.[int].Name++--]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member mixed increments",
+    "source": "\"$($obj.[int].Name++--)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member variable increment",
+    "source": "$obj.[int].$name++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member variable increment",
+    "source": "[T]::M($obj.[int].$name++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member variable increment",
+    "source": "param($arg=$obj.[int].$name++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member variable increment",
+    "source": "@{key=$obj.[int].$name++}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member variable increment",
+    "source": "@{$obj.[int].$name++=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member variable increment",
+    "source": "$values[$obj.[int].$name++]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member variable increment",
+    "source": "\"$($obj.[int].$name++)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member indexed increment",
+    "source": "$obj.[int].Name[0]++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member indexed increment",
+    "source": "[T]::M($obj.[int].Name[0]++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member indexed increment",
+    "source": "param($arg=$obj.[int].Name[0]++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member indexed increment",
+    "source": "@{key=$obj.[int].Name[0]++}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member indexed increment",
+    "source": "@{$obj.[int].Name[0]++=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member indexed increment",
+    "source": "$values[$obj.[int].Name[0]++]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member indexed increment",
+    "source": "\"$($obj.[int].Name[0]++)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member invoked increment",
+    "source": "$obj.[int].GetName()++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member invoked increment",
+    "source": "[T]::M($obj.[int].GetName()++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member invoked increment",
+    "source": "param($arg=$obj.[int].GetName()++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member invoked increment",
+    "source": "@{key=$obj.[int].GetName()++}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member invoked increment",
+    "source": "@{$obj.[int].GetName()++=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member invoked increment",
+    "source": "$values[$obj.[int].GetName()++]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member invoked increment",
+    "source": "\"$($obj.[int].GetName()++)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member increment after comment",
+    "source": "$obj.[int].Name<#comment#>++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member increment after comment",
+    "source": "[T]::M($obj.[int].Name<#comment#>++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member increment after comment",
+    "source": "param($arg=$obj.[int].Name<#comment#>++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member increment after comment",
+    "source": "@{key=$obj.[int].Name<#comment#>++}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member increment after comment",
+    "source": "@{$obj.[int].Name<#comment#>++=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member increment after comment",
+    "source": "$values[$obj.[int].Name<#comment#>++]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member increment after comment",
+    "source": "\"$($obj.[int].Name<#comment#>++)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression type member increment after continuation",
+    "source": "$obj.[int].Name`\n++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method argument type member increment after continuation",
+    "source": "[T]::M($obj.[int].Name`\n++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter default type member increment after continuation",
+    "source": "param($arg=$obj.[int].Name`\n++, $other)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value type member increment after continuation",
+    "source": "@{key=$obj.[int].Name`\n++}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash key type member increment after continuation",
+    "source": "@{$obj.[int].Name`\n++=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "index type member increment after continuation",
+    "source": "$values[$obj.[int].Name`\n++]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "interpolation type member increment after continuation",
+    "source": "\"$($obj.[int].Name`\n++)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "expression prefix nested postfix",
+    "source": "-$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument prefix nested postfix",
+    "source": "[T]::M(-$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default prefix nested postfix",
+    "source": "param($arg=-$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value prefix nested postfix",
+    "source": "@{key=-$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key prefix nested postfix",
+    "source": "@{-$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index prefix nested postfix",
+    "source": "$values[-$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation prefix nested postfix",
+    "source": "\"$(-$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression recursive prefix nested postfix",
+    "source": "!-$x++++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument recursive prefix nested postfix",
+    "source": "[T]::M(!-$x++++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default recursive prefix nested postfix",
+    "source": "param($arg=!-$x++++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value recursive prefix nested postfix",
+    "source": "@{key=!-$x++++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key recursive prefix nested postfix",
+    "source": "@{!-$x++++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index recursive prefix nested postfix",
+    "source": "$values[!-$x++++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation recursive prefix nested postfix",
+    "source": "\"$(!-$x++++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression prefix increment nested postfix",
+    "source": "++$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument prefix increment nested postfix",
+    "source": "[T]::M(++$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default prefix increment nested postfix",
+    "source": "param($arg=++$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value prefix increment nested postfix",
+    "source": "@{key=++$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key prefix increment nested postfix",
+    "source": "@{++$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index prefix increment nested postfix",
+    "source": "$values[++$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation prefix increment nested postfix",
+    "source": "\"$(++$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression cast nested postfix",
+    "source": "[int]$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument cast nested postfix",
+    "source": "[T]::M([int]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default cast nested postfix",
+    "source": "param($arg=[int]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value cast nested postfix",
+    "source": "@{key=[int]$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key cast nested postfix",
+    "source": "@{[int]$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index cast nested postfix",
+    "source": "$values[[int]$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation cast nested postfix",
+    "source": "\"$([int]$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression cast sequence postfix",
+    "source": "[int][long]$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument cast sequence postfix",
+    "source": "[T]::M([int][long]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default cast sequence postfix",
+    "source": "param($arg=[int][long]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value cast sequence postfix",
+    "source": "@{key=[int][long]$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key cast sequence postfix",
+    "source": "@{[int][long]$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index cast sequence postfix",
+    "source": "$values[[int][long]$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation cast sequence postfix",
+    "source": "\"$([int][long]$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute literal target",
+    "source": "[A()]1",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute literal target",
+    "source": "[T]::M([A()]1, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute literal target",
+    "source": "param($arg=[A()]1, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute literal target",
+    "source": "@{key=[A()]1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute literal target",
+    "source": "@{[A()]1=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute literal target",
+    "source": "$values[[A()]1]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute literal target",
+    "source": "\"$([A()]1)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute member target",
+    "source": "[A()]$x.Name",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute member target",
+    "source": "[T]::M([A()]$x.Name, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute member target",
+    "source": "param($arg=[A()]$x.Name, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute member target",
+    "source": "@{key=[A()]$x.Name}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute member target",
+    "source": "@{[A()]$x.Name=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute member target",
+    "source": "$values[[A()]$x.Name]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute member target",
+    "source": "\"$([A()]$x.Name)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute index target",
+    "source": "[A()]$x[0]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute index target",
+    "source": "[T]::M([A()]$x[0], $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute index target",
+    "source": "param($arg=[A()]$x[0], $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute index target",
+    "source": "@{key=[A()]$x[0]}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute index target",
+    "source": "@{[A()]$x[0]=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute index target",
+    "source": "$values[[A()]$x[0]]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute index target",
+    "source": "\"$([A()]$x[0])\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute invocation target",
+    "source": "[A()]$x.F()",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute invocation target",
+    "source": "[T]::M([A()]$x.F(), $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute invocation target",
+    "source": "param($arg=[A()]$x.F(), $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute invocation target",
+    "source": "@{key=[A()]$x.F()}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute invocation target",
+    "source": "@{[A()]$x.F()=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute invocation target",
+    "source": "$values[[A()]$x.F()]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute invocation target",
+    "source": "\"$([A()]$x.F())\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute parenthesized target",
+    "source": "[A()]($x)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute parenthesized target",
+    "source": "[T]::M([A()]($x), $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute parenthesized target",
+    "source": "param($arg=[A()]($x), $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute parenthesized target",
+    "source": "@{key=[A()]($x)}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute parenthesized target",
+    "source": "@{[A()]($x)=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute parenthesized target",
+    "source": "$values[[A()]($x)]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute parenthesized target",
+    "source": "\"$([A()]($x))\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute unary target",
+    "source": "[A()]!$x",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute unary target",
+    "source": "[T]::M([A()]!$x, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute unary target",
+    "source": "param($arg=[A()]!$x, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute unary target",
+    "source": "@{key=[A()]!$x}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute unary target",
+    "source": "@{[A()]!$x=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute unary target",
+    "source": "$values[[A()]!$x]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute unary target",
+    "source": "\"$([A()]!$x)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute postfix target",
+    "source": "[A()]$x++",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute postfix target",
+    "source": "[T]::M([A()]$x++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute postfix target",
+    "source": "param($arg=[A()]$x++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute postfix target",
+    "source": "@{key=[A()]$x++}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute postfix target",
+    "source": "@{[A()]$x++=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute postfix target",
+    "source": "$values[[A()]$x++]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute postfix target",
+    "source": "\"$([A()]$x++)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute outer postfix",
+    "source": "[A()]$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute outer postfix",
+    "source": "[T]::M([A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute outer postfix",
+    "source": "param($arg=[A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute outer postfix",
+    "source": "@{key=[A()]$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute outer postfix",
+    "source": "@{[A()]$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute outer postfix",
+    "source": "$values[[A()]$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute outer postfix",
+    "source": "\"$([A()]$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute comma target",
+    "source": "[A()],1",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute comma target",
+    "source": "[T]::M([A()],1, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "parameter default attribute comma target",
+    "source": "param($arg=[A()],1, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "MissingExpressionAfterToken",
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "hash value attribute comma target",
+    "source": "@{key=[A()],1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute comma target",
+    "source": "@{[A()],1=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "MissingEqualsInHashLiteral"
+    ]
+  },
+  {
+    "name": "index attribute comma target",
+    "source": "$values[[A()],1]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute comma target",
+    "source": "\"$([A()],1)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute type target",
+    "source": "[A()][int]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute type target",
+    "source": "[T]::M([A()][int], $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute type target",
+    "source": "param($arg=[A()][int], $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute type target",
+    "source": "@{key=[A()][int]}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute type target",
+    "source": "@{[A()][int]=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute type target",
+    "source": "$values[[A()][int]]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute type target",
+    "source": "\"$([A()][int])\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression attribute cast literal target",
+    "source": "[A()][int]1",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument attribute cast literal target",
+    "source": "[T]::M([A()][int]1, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default attribute cast literal target",
+    "source": "param($arg=[A()][int]1, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value attribute cast literal target",
+    "source": "@{key=[A()][int]1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key attribute cast literal target",
+    "source": "@{[A()][int]1=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index attribute cast literal target",
+    "source": "$values[[A()][int]1]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation attribute cast literal target",
+    "source": "\"$([A()][int]1)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression interleaved attribute target",
+    "source": "[int][A()]$x++",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument interleaved attribute target",
+    "source": "[T]::M([int][A()]$x++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default interleaved attribute target",
+    "source": "param($arg=[int][A()]$x++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value interleaved attribute target",
+    "source": "@{key=[int][A()]$x++}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key interleaved attribute target",
+    "source": "@{[int][A()]$x++=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index interleaved attribute target",
+    "source": "$values[[int][A()]$x++]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation interleaved attribute target",
+    "source": "\"$([int][A()]$x++)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression interleaved attribute outer postfix",
+    "source": "[int][A()]$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument interleaved attribute outer postfix",
+    "source": "[T]::M([int][A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default interleaved attribute outer postfix",
+    "source": "param($arg=[int][A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value interleaved attribute outer postfix",
+    "source": "@{key=[int][A()]$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key interleaved attribute outer postfix",
+    "source": "@{[int][A()]$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index interleaved attribute outer postfix",
+    "source": "$values[[int][A()]$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation interleaved attribute outer postfix",
+    "source": "\"$([int][A()]$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression recursive prefix member postfix",
+    "source": "$obj.-$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument recursive prefix member postfix",
+    "source": "[T]::M($obj.-$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default recursive prefix member postfix",
+    "source": "param($arg=$obj.-$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value recursive prefix member postfix",
+    "source": "@{key=$obj.-$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key recursive prefix member postfix",
+    "source": "@{$obj.-$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index recursive prefix member postfix",
+    "source": "$values[$obj.-$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation recursive prefix member postfix",
+    "source": "\"$($obj.-$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression recursive attributed member postfix",
+    "source": "$obj.[A()]$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument recursive attributed member postfix",
+    "source": "[T]::M($obj.[A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default recursive attributed member postfix",
+    "source": "param($arg=$obj.[A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value recursive attributed member postfix",
+    "source": "@{key=$obj.[A()]$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key recursive attributed member postfix",
+    "source": "@{$obj.[A()]$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index recursive attributed member postfix",
+    "source": "$values[$obj.[A()]$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation recursive attributed member postfix",
+    "source": "\"$($obj.[A()]$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression recursive attributed type member postfix",
+    "source": "$obj.[int][A()]$x++++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method argument recursive attributed type member postfix",
+    "source": "[T]::M($obj.[int][A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter default recursive attributed type member postfix",
+    "source": "param($arg=$obj.[int][A()]$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value recursive attributed type member postfix",
+    "source": "@{key=$obj.[int][A()]$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash key recursive attributed type member postfix",
+    "source": "@{$obj.[int][A()]$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "index recursive attributed type member postfix",
+    "source": "$values[$obj.[int][A()]$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation recursive attributed type member postfix",
+    "source": "\"$($obj.[int][A()]$x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty",
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "expression unary postfix boundary",
+    "source": "$x++++",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "method argument unary postfix boundary",
+    "source": "[T]::M($x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInMethodCall",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "parameter default unary postfix boundary",
+    "source": "param($arg=$x++++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "hash value unary postfix boundary",
+    "source": "@{key=$x++++}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "hash key unary postfix boundary",
+    "source": "@{$x++++=1}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInHashLiteral"
+    ]
+  },
+  {
+    "name": "index unary postfix boundary",
+    "source": "$values[$x++++]",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndSquareBracket",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "interpolation unary postfix boundary",
+    "source": "\"$($x++++)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "expression mixed postfix boundary",
+    "source": "$x++--",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "method argument mixed postfix boundary",
+    "source": "[T]::M($x++--, $other)",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInMethodCall",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "parameter default mixed postfix boundary",
+    "source": "param($arg=$x++--, $other)",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "hash value mixed postfix boundary",
+    "source": "@{key=$x++--}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "hash key mixed postfix boundary",
+    "source": "@{$x++--=1}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInHashLiteral"
+    ]
+  },
+  {
+    "name": "index mixed postfix boundary",
+    "source": "$values[$x++--]",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndSquareBracket",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "interpolation mixed postfix boundary",
+    "source": "\"$($x++--)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "expression missing attribute target",
+    "source": "[A()]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "method argument missing attribute target",
+    "source": "[T]::M([A()], $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "parameter default missing attribute target",
+    "source": "param($arg=[A()], $other)",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "hash value missing attribute target",
+    "source": "@{key=[A()]}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "hash key missing attribute target",
+    "source": "@{[A()]=1}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "index missing attribute target",
+    "source": "$values[[A()]]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "interpolation missing attribute target",
+    "source": "\"$([A()])\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "expression missing typed prefix target",
+    "source": "[int]++",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "method argument missing typed prefix target",
+    "source": "[T]::M([int]++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "parameter default missing typed prefix target",
+    "source": "param($arg=[int]++, $other)",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "hash value missing typed prefix target",
+    "source": "@{key=[int]++}",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "hash key missing typed prefix target",
+    "source": "@{[int]++=1}",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "index missing typed prefix target",
+    "source": "$values[[int]++]",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "interpolation missing typed prefix target",
+    "source": "\"$([int]++)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  }
+]

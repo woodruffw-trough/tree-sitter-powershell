@@ -249,6 +249,14 @@ after parsing. Thus `1.++` has a complete tree and reports
 `OperatorRequiresVariableOrProperty`; `1.++$x` is a syntax error because another
 expression follows without a statement separator.
 
+`UnaryExpressionRule` applies one optional postfix operator after each recursive
+unary parse. In `$obj.[int].Name++++`, the first increment belongs to the complete
+member operand `[int].Name`, and the second increments `$obj.[int].Name++`.
+Contiguous type and attribute prefixes form one list before that optional postfix
+is considered. Attributed operands retain their complete expression, including
+`[A()]$x.Name`; `SemanticChecks.VisitAttributedExpression` validates the target
+after the AST has been constructed.
+
 Operator grouping follows the pinned parser. For example,
 `$true -or $false -and $false` groups as `($true -or $false) -and $false`, and
 `1 -eq 2 -shl 3` groups as `(1 -eq 2) -shl 3`. Null coalescing binds above comparison
