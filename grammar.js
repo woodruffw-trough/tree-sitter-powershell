@@ -302,6 +302,24 @@ const resourceBody = ($, context = null) => seq(
   ...(context ? [$._context_end] : []),
 );
 
+const functionDefinition = ($, words, body) => seq(
+  field('keyword', choice(...words.map(keyword))),
+  repeat(NEWLINE),
+  field('name', $.function_name),
+  repeat(NEWLINE),
+  optional(seq(field('parameters', $.parameter_list), repeat(NEWLINE))),
+  field('body', alias(body, $.script_block)),
+);
+
+const commandElements = $ => seq(
+  repeat(choice($.command_argument, $.command_parameter, $.redirection)),
+  optional(seq(
+    alias($._end_of_parameters, $.command_parameter),
+    repeat($._command_element_after_end_of_parameters),
+  )),
+  optional($.verbatim_arguments),
+);
+
 const grammarDefinition = {
   name: 'powershell',
 
@@ -752,14 +770,14 @@ const grammarDefinition = {
     _completed_exit_statement: $ => prec.dynamic(1,
       flowControlStatement($, 'exit', $._completed_pipeline_entry, true)),
 
-    function_definition: $ => seq(
-      field('keyword', choice(keyword('function'), keyword('filter'), keyword('workflow'))),
-      repeat(NEWLINE),
-      field('name', $.function_name),
-      repeat(NEWLINE),
-      optional(seq(field('parameters', $.parameter_list), repeat(NEWLINE))),
-      field('body', $.script_block),
+    function_definition: $ => choice(
+      functionDefinition($, ['function', 'filter'], $._function_body),
+      functionDefinition($, ['workflow'], $._workflow_body),
     ),
+
+    _function_body: $ => scriptBlock($, '{', $._function_context_start),
+
+    _workflow_body: $ => scriptBlock($, '{', $._workflow_context_start),
 
     parameter_list: $ => seq(
       '(',
@@ -1223,13 +1241,14 @@ const grammarDefinition = {
 
     command: $ => choice(
       seq(
+        field('name', alias($._inline_script_name, $.command_name)),
+        repeat(NEWLINE),
+        alias($._inline_script_argument, $.command_argument),
+        commandElements($),
+      ),
+      seq(
         field('name', choice($.command_name, $.invocation_operator_command)),
-        repeat(choice($.command_argument, $.command_parameter, $.redirection)),
-        optional(seq(
-          alias($._end_of_parameters, $.command_parameter),
-          repeat($._command_element_after_end_of_parameters),
-        )),
-        optional($.verbatim_arguments),
+        commandElements($),
       ),
       seq(
         field('name', alias(
@@ -1243,6 +1262,10 @@ const grammarDefinition = {
         optional(alias($._verbatim_command_argument, $.command_argument)),
       ),
     ),
+
+    _inline_script_name: $ => alias($._workflow_inline_script, $.bare_word),
+
+    _inline_script_argument: $ => $.script_block,
 
     _command_element_after_end_of_parameters: $ => choice(
       $.command_argument,
@@ -2383,7 +2406,7 @@ const COMMA_CONTEXT_RULES = new Set([
   'import_dsc_resource_statement',
   'return_statement', 'throw_statement', 'exit_statement',
   '_completed_return_statement', '_completed_throw_statement', '_completed_exit_statement',
-  'function_definition', 'script_block', 'named_block',
+  'function_definition', '_function_body', '_workflow_body', 'script_block', 'named_block',
   'class_definition', 'class_body', 'class_property', 'class_method', '_class_method_body',
   'enum_definition', 'enum_body', 'enum_member', 'data_statement',
   '_data_supported_command', '_data_command_primary_expression',

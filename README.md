@@ -7,7 +7,9 @@ The grammar covers commands, expressions, pipelines, redirection, control flow,
 functions, classes, enums, types, and string interpolation. PowerShell 7 features
 include pipeline chains, ternary and null-coalescing operators, null-conditional
 access, generic method calls, and `clean` blocks. Tests use PowerShell 7.5.4 as the
-reference parser.
+reference parser. Standard DSC resources and legacy workflow syntax are also
+represented. [Parser conformance](docs/conformance.md) describes the test coverage,
+semantic boundaries, and known differences.
 
 ## Rust usage
 

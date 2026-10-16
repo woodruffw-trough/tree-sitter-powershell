@@ -2952,6 +2952,13 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     TrackedLexer *tracked = (TrackedLexer *)lexer;
     if (name && !data_name && !any_escape && !valid[HERE_STRING_CONTENT] &&
+        valid[WORKFLOW_INLINE_SCRIPT] && (tracked->scanner->context_mode & CONTEXT_WORKFLOW) &&
+        strcmp(word, "inlinescript") == 0) {
+      lexer->mark_end(lexer);
+      lexer->result_symbol = WORKFLOW_INLINE_SCRIPT;
+      return true;
+    }
+    if (name && !data_name && !any_escape && !valid[HERE_STRING_CONTENT] &&
         (tracked->scanner->context_mode & CONTEXT_DSC) && scan_dsc_keyword(lexer, valid, word)) {
       return true;
     }

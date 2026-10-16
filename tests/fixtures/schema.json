@@ -1029,5 +1029,39 @@
         ]
       }
     ]
+  },
+  {
+    "name": "workflow InlineScript retains complete body and trailing arguments",
+    "source": "workflow w { InlineScript\n{ inner } tail }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "fields": [
+      {
+        "node": "command",
+        "field": "name",
+        "texts": [
+          "InlineScript",
+          "inner"
+        ]
+      },
+      {
+        "node": "command",
+        "field": "",
+        "texts": [
+          "{ inner }",
+          "tail"
+        ]
+      },
+      {
+        "node": "function_definition",
+        "field": "body",
+        "texts": [
+          "{ InlineScript\n{ inner } tail }"
+        ]
+      }
+    ]
   }
 ]

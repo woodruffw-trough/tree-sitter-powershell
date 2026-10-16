@@ -1,0 +1,3551 @@
+[
+  {
+    "name": "ordinary InlineScript body and arguments",
+    "source": "InlineScript\n{ inner } tail | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript case folding",
+    "source": "InLiNeScRiPt\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript comment before body",
+    "source": "InlineScript\n<#c#>\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript line comment before body",
+    "source": "InlineScript\n# c\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript continued line",
+    "source": "InlineScript`\n{ inner } tail",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript escaped name",
+    "source": "Inline`Script\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript quoted name fragment",
+    "source": "Inline\"Script\"\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript single quoted name",
+    "source": "'InlineScript'\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript quoted invocation target",
+    "source": "& \"InlineScript\"\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript ordinary invocation target",
+    "source": "& InlineScript\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript dot invocation target",
+    "source": ". InlineScript\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript ordinary argument",
+    "source": "cmd InlineScript\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript pipeline name",
+    "source": "cmd | InlineScript\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript chain name",
+    "source": "cmd && InlineScript\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript flow operand",
+    "source": "return InlineScript\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript body script block inherits",
+    "source": "InlineScript\n{ InlineScript\n{ nested } nestedTail } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript body index-like suffix",
+    "source": "InlineScript{ inner }[0] tail",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript body member-like suffix",
+    "source": "InlineScript{ inner }.Name tail",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript body invocation-like suffix",
+    "source": "InlineScript{ inner }.Name(1) tail",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript body redirection",
+    "source": "InlineScript\n{ inner } >out | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript body parameter",
+    "source": "InlineScript\n{ inner } -Name:value | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript body parameter end",
+    "source": "InlineScript\n{ inner } -- -Name:value | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "ordinary InlineScript missing body",
+    "source": "InlineScript",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript missing body before parameter",
+    "source": "InlineScript -Name:x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript missing body before semicolon",
+    "source": "InlineScript; next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript missing body before operator",
+    "source": "InlineScript | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript wrong body token",
+    "source": "InlineScript (1)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript line break without body",
+    "source": "InlineScript\nnext",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "ordinary InlineScript composite name comment",
+    "source": "InlineScript<#c#>\n{ inner } tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow InlineScript body and arguments",
+    "source": "workflow w { InlineScript\n{ inner } tail | next }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript case folding",
+    "source": "workflow w { InLiNeScRiPt\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript comment before body",
+    "source": "workflow w { InlineScript\n<#c#>\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript line comment before body",
+    "source": "workflow w { InlineScript\n# c\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript continued line",
+    "source": "workflow w { InlineScript`\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript escaped name",
+    "source": "workflow w { Inline`Script\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript quoted name fragment",
+    "source": "workflow w { Inline\"Script\"\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript single quoted name",
+    "source": "workflow w { 'InlineScript'\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript quoted invocation target",
+    "source": "workflow w { & \"InlineScript\"\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript ordinary invocation target",
+    "source": "workflow w { & InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript dot invocation target",
+    "source": "workflow w { . InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript ordinary argument",
+    "source": "workflow w { cmd InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript pipeline name",
+    "source": "workflow w { cmd | InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript chain name",
+    "source": "workflow w { cmd && InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript flow operand",
+    "source": "workflow w { return InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript body script block inherits",
+    "source": "workflow w { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript body index-like suffix",
+    "source": "workflow w { InlineScript{ inner }[0] tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript body member-like suffix",
+    "source": "workflow w { InlineScript{ inner }.Name tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript body invocation-like suffix",
+    "source": "workflow w { InlineScript{ inner }.Name(1) tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript body redirection",
+    "source": "workflow w { InlineScript\n{ inner } >out | next }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript body parameter",
+    "source": "workflow w { InlineScript\n{ inner } -Name:value | next }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript body parameter end",
+    "source": "workflow w { InlineScript\n{ inner } -- -Name:value | next }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow InlineScript missing body",
+    "source": "workflow w { InlineScript }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript missing body before parameter",
+    "source": "workflow w { InlineScript -Name:x }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript missing body before semicolon",
+    "source": "workflow w { InlineScript; next }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript missing body before operator",
+    "source": "workflow w { InlineScript | next }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript wrong body token",
+    "source": "workflow w { InlineScript (1) }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript line break without body",
+    "source": "workflow w { InlineScript\nnext }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow InlineScript composite name comment",
+    "source": "workflow w { InlineScript<#c#>\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function InlineScript body and arguments",
+    "source": "function f { InlineScript\n{ inner } tail | next }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript case folding",
+    "source": "function f { InLiNeScRiPt\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript comment before body",
+    "source": "function f { InlineScript\n<#c#>\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript line comment before body",
+    "source": "function f { InlineScript\n# c\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript continued line",
+    "source": "function f { InlineScript`\n{ inner } tail }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript escaped name",
+    "source": "function f { Inline`Script\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript quoted name fragment",
+    "source": "function f { Inline\"Script\"\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript single quoted name",
+    "source": "function f { 'InlineScript'\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript quoted invocation target",
+    "source": "function f { & \"InlineScript\"\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript ordinary invocation target",
+    "source": "function f { & InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript dot invocation target",
+    "source": "function f { . InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript ordinary argument",
+    "source": "function f { cmd InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript pipeline name",
+    "source": "function f { cmd | InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript chain name",
+    "source": "function f { cmd && InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript flow operand",
+    "source": "function f { return InlineScript\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript body script block inherits",
+    "source": "function f { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript body index-like suffix",
+    "source": "function f { InlineScript{ inner }[0] tail }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript body member-like suffix",
+    "source": "function f { InlineScript{ inner }.Name tail }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript body invocation-like suffix",
+    "source": "function f { InlineScript{ inner }.Name(1) tail }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript body redirection",
+    "source": "function f { InlineScript\n{ inner } >out | next }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript body parameter",
+    "source": "function f { InlineScript\n{ inner } -Name:value | next }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function InlineScript body parameter end",
+    "source": "function f { InlineScript\n{ inner } -- -Name:value | next }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "function InlineScript missing body",
+    "source": "function f { InlineScript }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript missing body before parameter",
+    "source": "function f { InlineScript -Name:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript missing body before semicolon",
+    "source": "function f { InlineScript; next }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript missing body before operator",
+    "source": "function f { InlineScript | next }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript wrong body token",
+    "source": "function f { InlineScript (1) }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript line break without body",
+    "source": "function f { InlineScript\nnext }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function InlineScript composite name comment",
+    "source": "function f { InlineScript<#c#>\n{ inner } tail }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript body and arguments",
+    "source": "workflow w { function f { InlineScript\n{ inner } tail | next } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript case folding",
+    "source": "workflow w { function f { InLiNeScRiPt\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript comment before body",
+    "source": "workflow w { function f { InlineScript\n<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript line comment before body",
+    "source": "workflow w { function f { InlineScript\n# c\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript continued line",
+    "source": "workflow w { function f { InlineScript`\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript escaped name",
+    "source": "workflow w { function f { Inline`Script\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript quoted name fragment",
+    "source": "workflow w { function f { Inline\"Script\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript single quoted name",
+    "source": "workflow w { function f { 'InlineScript'\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript quoted invocation target",
+    "source": "workflow w { function f { & \"InlineScript\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript ordinary invocation target",
+    "source": "workflow w { function f { & InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript dot invocation target",
+    "source": "workflow w { function f { . InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript ordinary argument",
+    "source": "workflow w { function f { cmd InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript pipeline name",
+    "source": "workflow w { function f { cmd | InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript chain name",
+    "source": "workflow w { function f { cmd && InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript flow operand",
+    "source": "workflow w { function f { return InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript body script block inherits",
+    "source": "workflow w { function f { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript body index-like suffix",
+    "source": "workflow w { function f { InlineScript{ inner }[0] tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript body member-like suffix",
+    "source": "workflow w { function f { InlineScript{ inner }.Name tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript body invocation-like suffix",
+    "source": "workflow w { function f { InlineScript{ inner }.Name(1) tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript body redirection",
+    "source": "workflow w { function f { InlineScript\n{ inner } >out | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript body parameter",
+    "source": "workflow w { function f { InlineScript\n{ inner } -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript body parameter end",
+    "source": "workflow w { function f { InlineScript\n{ inner } -- -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "workflow ordinary function InlineScript missing body",
+    "source": "workflow w { function f { InlineScript } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript missing body before parameter",
+    "source": "workflow w { function f { InlineScript -Name:x } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript missing body before semicolon",
+    "source": "workflow w { function f { InlineScript; next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript missing body before operator",
+    "source": "workflow w { function f { InlineScript | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript wrong body token",
+    "source": "workflow w { function f { InlineScript (1) } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript line break without body",
+    "source": "workflow w { function f { InlineScript\nnext } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow ordinary function InlineScript composite name comment",
+    "source": "workflow w { function f { InlineScript<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript body and arguments",
+    "source": "workflow w { filter f { InlineScript\n{ inner } tail | next } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript case folding",
+    "source": "workflow w { filter f { InLiNeScRiPt\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript comment before body",
+    "source": "workflow w { filter f { InlineScript\n<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript line comment before body",
+    "source": "workflow w { filter f { InlineScript\n# c\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript continued line",
+    "source": "workflow w { filter f { InlineScript`\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript escaped name",
+    "source": "workflow w { filter f { Inline`Script\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript quoted name fragment",
+    "source": "workflow w { filter f { Inline\"Script\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript single quoted name",
+    "source": "workflow w { filter f { 'InlineScript'\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript quoted invocation target",
+    "source": "workflow w { filter f { & \"InlineScript\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript ordinary invocation target",
+    "source": "workflow w { filter f { & InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript dot invocation target",
+    "source": "workflow w { filter f { . InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript ordinary argument",
+    "source": "workflow w { filter f { cmd InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript pipeline name",
+    "source": "workflow w { filter f { cmd | InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript chain name",
+    "source": "workflow w { filter f { cmd && InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript flow operand",
+    "source": "workflow w { filter f { return InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript body script block inherits",
+    "source": "workflow w { filter f { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript body index-like suffix",
+    "source": "workflow w { filter f { InlineScript{ inner }[0] tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript body member-like suffix",
+    "source": "workflow w { filter f { InlineScript{ inner }.Name tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript body invocation-like suffix",
+    "source": "workflow w { filter f { InlineScript{ inner }.Name(1) tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript body redirection",
+    "source": "workflow w { filter f { InlineScript\n{ inner } >out | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript body parameter",
+    "source": "workflow w { filter f { InlineScript\n{ inner } -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript body parameter end",
+    "source": "workflow w { filter f { InlineScript\n{ inner } -- -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "workflow filter InlineScript missing body",
+    "source": "workflow w { filter f { InlineScript } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript missing body before parameter",
+    "source": "workflow w { filter f { InlineScript -Name:x } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript missing body before semicolon",
+    "source": "workflow w { filter f { InlineScript; next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript missing body before operator",
+    "source": "workflow w { filter f { InlineScript | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript wrong body token",
+    "source": "workflow w { filter f { InlineScript (1) } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript line break without body",
+    "source": "workflow w { filter f { InlineScript\nnext } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow filter InlineScript composite name comment",
+    "source": "workflow w { filter f { InlineScript<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript body and arguments",
+    "source": "workflow w { workflow n { InlineScript\n{ inner } tail | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript case folding",
+    "source": "workflow w { workflow n { InLiNeScRiPt\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript comment before body",
+    "source": "workflow w { workflow n { InlineScript\n<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript line comment before body",
+    "source": "workflow w { workflow n { InlineScript\n# c\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript continued line",
+    "source": "workflow w { workflow n { InlineScript`\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript escaped name",
+    "source": "workflow w { workflow n { Inline`Script\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript quoted name fragment",
+    "source": "workflow w { workflow n { Inline\"Script\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript single quoted name",
+    "source": "workflow w { workflow n { 'InlineScript'\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript quoted invocation target",
+    "source": "workflow w { workflow n { & \"InlineScript\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript ordinary invocation target",
+    "source": "workflow w { workflow n { & InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript dot invocation target",
+    "source": "workflow w { workflow n { . InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript ordinary argument",
+    "source": "workflow w { workflow n { cmd InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript pipeline name",
+    "source": "workflow w { workflow n { cmd | InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript chain name",
+    "source": "workflow w { workflow n { cmd && InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript flow operand",
+    "source": "workflow w { workflow n { return InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript body script block inherits",
+    "source": "workflow w { workflow n { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript body index-like suffix",
+    "source": "workflow w { workflow n { InlineScript{ inner }[0] tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript body member-like suffix",
+    "source": "workflow w { workflow n { InlineScript{ inner }.Name tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript body invocation-like suffix",
+    "source": "workflow w { workflow n { InlineScript{ inner }.Name(1) tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript body redirection",
+    "source": "workflow w { workflow n { InlineScript\n{ inner } >out | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript body parameter",
+    "source": "workflow w { workflow n { InlineScript\n{ inner } -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript body parameter end",
+    "source": "workflow w { workflow n { InlineScript\n{ inner } -- -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested workflow InlineScript missing body",
+    "source": "workflow w { workflow n { InlineScript } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript missing body before parameter",
+    "source": "workflow w { workflow n { InlineScript -Name:x } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript missing body before semicolon",
+    "source": "workflow w { workflow n { InlineScript; next } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript missing body before operator",
+    "source": "workflow w { workflow n { InlineScript | next } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript wrong body token",
+    "source": "workflow w { workflow n { InlineScript (1) } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript line break without body",
+    "source": "workflow w { workflow n { InlineScript\nnext } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow InlineScript composite name comment",
+    "source": "workflow w { workflow n { InlineScript<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript body and arguments",
+    "source": "function f { workflow w { InlineScript\n{ inner } tail | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript case folding",
+    "source": "function f { workflow w { InLiNeScRiPt\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript comment before body",
+    "source": "function f { workflow w { InlineScript\n<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript line comment before body",
+    "source": "function f { workflow w { InlineScript\n# c\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript continued line",
+    "source": "function f { workflow w { InlineScript`\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript escaped name",
+    "source": "function f { workflow w { Inline`Script\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript quoted name fragment",
+    "source": "function f { workflow w { Inline\"Script\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript single quoted name",
+    "source": "function f { workflow w { 'InlineScript'\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript quoted invocation target",
+    "source": "function f { workflow w { & \"InlineScript\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript ordinary invocation target",
+    "source": "function f { workflow w { & InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript dot invocation target",
+    "source": "function f { workflow w { . InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript ordinary argument",
+    "source": "function f { workflow w { cmd InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript pipeline name",
+    "source": "function f { workflow w { cmd | InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript chain name",
+    "source": "function f { workflow w { cmd && InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript flow operand",
+    "source": "function f { workflow w { return InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript body script block inherits",
+    "source": "function f { workflow w { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript body index-like suffix",
+    "source": "function f { workflow w { InlineScript{ inner }[0] tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript body member-like suffix",
+    "source": "function f { workflow w { InlineScript{ inner }.Name tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript body invocation-like suffix",
+    "source": "function f { workflow w { InlineScript{ inner }.Name(1) tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript body redirection",
+    "source": "function f { workflow w { InlineScript\n{ inner } >out | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript body parameter",
+    "source": "function f { workflow w { InlineScript\n{ inner } -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript body parameter end",
+    "source": "function f { workflow w { InlineScript\n{ inner } -- -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function nested workflow InlineScript missing body",
+    "source": "function f { workflow w { InlineScript } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript missing body before parameter",
+    "source": "function f { workflow w { InlineScript -Name:x } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript missing body before semicolon",
+    "source": "function f { workflow w { InlineScript; next } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript missing body before operator",
+    "source": "function f { workflow w { InlineScript | next } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript wrong body token",
+    "source": "function f { workflow w { InlineScript (1) } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript line break without body",
+    "source": "function f { workflow w { InlineScript\nnext } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "function nested workflow InlineScript composite name comment",
+    "source": "function f { workflow w { InlineScript<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript body and arguments",
+    "source": "workflow w { & { InlineScript\n{ inner } tail | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript case folding",
+    "source": "workflow w { & { InLiNeScRiPt\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript comment before body",
+    "source": "workflow w { & { InlineScript\n<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript line comment before body",
+    "source": "workflow w { & { InlineScript\n# c\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript continued line",
+    "source": "workflow w { & { InlineScript`\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript escaped name",
+    "source": "workflow w { & { Inline`Script\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript quoted name fragment",
+    "source": "workflow w { & { Inline\"Script\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript single quoted name",
+    "source": "workflow w { & { 'InlineScript'\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript quoted invocation target",
+    "source": "workflow w { & { & \"InlineScript\"\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript ordinary invocation target",
+    "source": "workflow w { & { & InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript dot invocation target",
+    "source": "workflow w { & { . InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript ordinary argument",
+    "source": "workflow w { & { cmd InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript pipeline name",
+    "source": "workflow w { & { cmd | InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript chain name",
+    "source": "workflow w { & { cmd && InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript flow operand",
+    "source": "workflow w { & { return InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript body script block inherits",
+    "source": "workflow w { & { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript body index-like suffix",
+    "source": "workflow w { & { InlineScript{ inner }[0] tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript body member-like suffix",
+    "source": "workflow w { & { InlineScript{ inner }.Name tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript body invocation-like suffix",
+    "source": "workflow w { & { InlineScript{ inner }.Name(1) tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript body redirection",
+    "source": "workflow w { & { InlineScript\n{ inner } >out | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript body parameter",
+    "source": "workflow w { & { InlineScript\n{ inner } -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript body parameter end",
+    "source": "workflow w { & { InlineScript\n{ inner } -- -Name:value | next } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited script block InlineScript missing body",
+    "source": "workflow w { & { InlineScript } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript missing body before parameter",
+    "source": "workflow w { & { InlineScript -Name:x } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript missing body before semicolon",
+    "source": "workflow w { & { InlineScript; next } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript missing body before operator",
+    "source": "workflow w { & { InlineScript | next } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript wrong body token",
+    "source": "workflow w { & { InlineScript (1) } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript line break without body",
+    "source": "workflow w { & { InlineScript\nnext } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited script block InlineScript composite name comment",
+    "source": "workflow w { & { InlineScript<#c#>\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript body and arguments",
+    "source": "workflow w { $( InlineScript\n{ inner } tail | next ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript case folding",
+    "source": "workflow w { $( InLiNeScRiPt\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript comment before body",
+    "source": "workflow w { $( InlineScript\n<#c#>\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript line comment before body",
+    "source": "workflow w { $( InlineScript\n# c\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript continued line",
+    "source": "workflow w { $( InlineScript`\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript escaped name",
+    "source": "workflow w { $( Inline`Script\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript quoted name fragment",
+    "source": "workflow w { $( Inline\"Script\"\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript single quoted name",
+    "source": "workflow w { $( 'InlineScript'\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript quoted invocation target",
+    "source": "workflow w { $( & \"InlineScript\"\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript ordinary invocation target",
+    "source": "workflow w { $( & InlineScript\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript dot invocation target",
+    "source": "workflow w { $( . InlineScript\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript ordinary argument",
+    "source": "workflow w { $( cmd InlineScript\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript pipeline name",
+    "source": "workflow w { $( cmd | InlineScript\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript chain name",
+    "source": "workflow w { $( cmd && InlineScript\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript flow operand",
+    "source": "workflow w { $( return InlineScript\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript body script block inherits",
+    "source": "workflow w { $( InlineScript\n{ InlineScript\n{ nested } nestedTail } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript body index-like suffix",
+    "source": "workflow w { $( InlineScript{ inner }[0] tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript body member-like suffix",
+    "source": "workflow w { $( InlineScript{ inner }.Name tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript body invocation-like suffix",
+    "source": "workflow w { $( InlineScript{ inner }.Name(1) tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript body redirection",
+    "source": "workflow w { $( InlineScript\n{ inner } >out | next ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript body parameter",
+    "source": "workflow w { $( InlineScript\n{ inner } -Name:value | next ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript body parameter end",
+    "source": "workflow w { $( InlineScript\n{ inner } -- -Name:value | next ) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited subexpression InlineScript missing body",
+    "source": "workflow w { $( InlineScript ) }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript missing body before parameter",
+    "source": "workflow w { $( InlineScript -Name:x ) }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript missing body before semicolon",
+    "source": "workflow w { $( InlineScript; next ) }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript missing body before operator",
+    "source": "workflow w { $( InlineScript | next ) }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript wrong body token",
+    "source": "workflow w { $( InlineScript (1) ) }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript line break without body",
+    "source": "workflow w { $( InlineScript\nnext ) }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited subexpression InlineScript composite name comment",
+    "source": "workflow w { $( InlineScript<#c#>\n{ inner } tail ) }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript body and arguments",
+    "source": "workflow w { class C { [object] M() { InlineScript\n{ inner } tail | next } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript case folding",
+    "source": "workflow w { class C { [object] M() { InLiNeScRiPt\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript comment before body",
+    "source": "workflow w { class C { [object] M() { InlineScript\n<#c#>\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript line comment before body",
+    "source": "workflow w { class C { [object] M() { InlineScript\n# c\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript continued line",
+    "source": "workflow w { class C { [object] M() { InlineScript`\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript escaped name",
+    "source": "workflow w { class C { [object] M() { Inline`Script\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript quoted name fragment",
+    "source": "workflow w { class C { [object] M() { Inline\"Script\"\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript single quoted name",
+    "source": "workflow w { class C { [object] M() { 'InlineScript'\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript quoted invocation target",
+    "source": "workflow w { class C { [object] M() { & \"InlineScript\"\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript ordinary invocation target",
+    "source": "workflow w { class C { [object] M() { & InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript dot invocation target",
+    "source": "workflow w { class C { [object] M() { . InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript ordinary argument",
+    "source": "workflow w { class C { [object] M() { cmd InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript pipeline name",
+    "source": "workflow w { class C { [object] M() { cmd | InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript chain name",
+    "source": "workflow w { class C { [object] M() { cmd && InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript flow operand",
+    "source": "workflow w { class C { [object] M() { return InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript body script block inherits",
+    "source": "workflow w { class C { [object] M() { InlineScript\n{ InlineScript\n{ nested } nestedTail } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript body index-like suffix",
+    "source": "workflow w { class C { [object] M() { InlineScript{ inner }[0] tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript body member-like suffix",
+    "source": "workflow w { class C { [object] M() { InlineScript{ inner }.Name tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript body invocation-like suffix",
+    "source": "workflow w { class C { [object] M() { InlineScript{ inner }.Name(1) tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript body redirection",
+    "source": "workflow w { class C { [object] M() { InlineScript\n{ inner } >out | next } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript body parameter",
+    "source": "workflow w { class C { [object] M() { InlineScript\n{ inner } -Name:value | next } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript body parameter end",
+    "source": "workflow w { class C { [object] M() { InlineScript\n{ inner } -- -Name:value | next } } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "inherited method InlineScript missing body",
+    "source": "workflow w { class C { [object] M() { InlineScript } } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript missing body before parameter",
+    "source": "workflow w { class C { [object] M() { InlineScript -Name:x } } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript missing body before semicolon",
+    "source": "workflow w { class C { [object] M() { InlineScript; next } } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript missing body before operator",
+    "source": "workflow w { class C { [object] M() { InlineScript | next } } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript wrong body token",
+    "source": "workflow w { class C { [object] M() { InlineScript (1) } } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript line break without body",
+    "source": "workflow w { class C { [object] M() { InlineScript\nnext } } }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementAfterKeyword",
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "inherited method InlineScript composite name comment",
+    "source": "workflow w { class C { [object] M() { InlineScript<#c#>\n{ inner } tail } } }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore",
+      "MethodHasCodePathNotReturn"
+    ]
+  },
+  {
+    "name": "function header inherits",
+    "source": "workflow w { function f($x={ InlineScript\n{} tail }) {} }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow header outside workflow",
+    "source": "workflow w($x={ InlineScript\n{} tail }) {}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "nested workflow header inherits",
+    "source": "workflow w { workflow n($x={ InlineScript\n{} tail }) {} }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "restored workflow after function",
+    "source": "workflow w { function f { InlineScript }; InlineScript\n{} tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "restored ordinary after workflow",
+    "source": "workflow w { InlineScript\n{} tail }; InlineScript\n{} tail",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "same workflow scope nesting",
+    "source": "workflow w { workflow n { InlineScript\n{} tail }; InlineScript\n{} tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "hash value under comma suppression",
+    "source": "workflow w { $obj.M(@{ Key = InlineScript\n{ inner } tail }) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested hash value",
+    "source": "workflow w { $obj.M(@{ Key = @{ Nested = InlineScript\n{ inner } tail } }) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method script block",
+    "source": "workflow w { $obj.M{ InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parenthesized expression",
+    "source": "workflow w { (InlineScript\n{ inner } tail) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "array expression",
+    "source": "workflow w { @(InlineScript\n{ inner } tail) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression",
+    "source": "workflow w { $(InlineScript\n{ inner } tail) }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "interpolation",
+    "source": "workflow w { \"$(InlineScript\n{ inner } tail)\" }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested interpolation",
+    "source": "workflow w { \"$(\"$(InlineScript\n{ inner } tail)\")\" }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "here string interpolation",
+    "source": "workflow w { @\"\n$(InlineScript\n{ inner } tail)\n\"@\n }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "cast script block",
+    "source": "workflow w { [scriptblock]{ InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "script block array element",
+    "source": "workflow w { $x = { InlineScript\n{ inner } tail }, { InlineScript\n{ inner } tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "restored after nested ordinary function",
+    "source": "workflow w { & { function f { InlineScript }; InlineScript\n{} tail } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "ordinary filter header inherits",
+    "source": "workflow w { filter f($x={ InlineScript\n{} tail }) {} }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "sequential workflow contexts",
+    "source": "workflow a { InlineScript\n{} tail }; workflow b { InlineScript\n{} tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function shadow nesting",
+    "source": "workflow a { function b { workflow c { function d { InlineScript }; InlineScript\n{} tail }; InlineScript }; InlineScript\n{} tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "scope exit before next declaration",
+    "source": "workflow a { InlineScript\n{} tail } function b { InlineScript }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "scope exit after method",
+    "source": "workflow w { class C { [void] M() { InlineScript\n{} tail } }; InlineScript\n{} tail }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "ordinary after workflow interpolated",
+    "source": "\"$(workflow a { InlineScript\n{} tail }; InlineScript\n{} tail)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "WorkflowNotSupportedInPowerShellCore"
+    ]
+  },
+  {
+    "name": "workflow inside interpolation",
+    "source": "\"$(workflow a { InlineScript\n{} tail })\"",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested function inside interpolation",
+    "source": "workflow a { \"$(function f { InlineScript }; InlineScript\n{} tail)\" }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "configuration nodes inherit an enclosing workflow InlineScript context",
+    "source": "workflow w { configuration C { Node localhost { InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "a workflow inside a configuration retains DSC keywords",
+    "source": "configuration C { workflow w { Node localhost { InlineScript\n{ inner } tail } } }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "a workflow inside a Script resource enables InlineScript",
+    "source": "configuration C { Script s { GetScript = { workflow w { InlineScript\n{} tail } } } }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Script resources restore DSC context while preserving workflow context",
+    "source": "workflow w { configuration C { Script s { GetScript = { InlineScript\n{} tail } }; Node localhost { File f { Ensure = \"Present\" } } } }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "ordinary functions clear InlineScript context through nested configurations",
+    "source": "workflow w { function f { configuration C { Script s { GetScript = { InlineScript } } } }; InlineScript\n{} tail }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "configurations in string interpolation inherit workflow context",
+    "source": "workflow w { \"$(configuration C { Node localhost { InlineScript\n{} tail } })\" }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "ordinary functions restore workflow context inside DSC nodes",
+    "source": "configuration C { Node localhost { workflow w { function f { InlineScript }; InlineScript\n{} tail } } }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "DSC property subexpressions inherit workflow context",
+    "source": "workflow w { configuration C { File f { Ensure = $(InlineScript\n{} tail) } } }",
+    "valid": false,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      },
+      {
+        "keyword": "Node",
+        "body_mode": "ScriptBlock",
+        "name_mode": "NameRequired"
+      },
+      {
+        "keyword": "Import-DscResource",
+        "body_mode": "Command",
+        "name_mode": "NoName",
+        "meta_statement": true
+      },
+      {
+        "keyword": "File",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "Ensure",
+          "DestinationPath",
+          "SourcePath",
+          "Contents",
+          "Type",
+          "Attributes",
+          "Recurse",
+          "Force",
+          "MatchSource",
+          "Checksum",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Script",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "properties": [
+          "GetScript",
+          "SetScript",
+          "TestScript",
+          "Credential",
+          "DependsOn",
+          "PsDscRunAsCredential"
+        ]
+      },
+      {
+        "keyword": "Settings",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "RefreshMode",
+          "ConfigurationMode",
+          "RebootNodeIfNeeded",
+          "RefreshFrequencyMins",
+          "ConfigurationModeFrequencyMins",
+          "ActionAfterReboot",
+          "CertificateID",
+          "DebugMode"
+        ]
+      },
+      {
+        "keyword": "ConfigurationRepositoryWeb",
+        "body_mode": "Hashtable",
+        "name_mode": "NameRequired",
+        "implementing_module": "PSDesiredStateConfigurationEngine",
+        "properties": [
+          "ServerURL",
+          "RegistrationKey",
+          "ConfigurationNames",
+          "AllowUnsecureConnection",
+          "CertificateID"
+        ]
+      }
+    ],
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  }
+]

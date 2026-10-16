@@ -117,6 +117,15 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "cmd !name !1x !1+$v\n",
         "fromsuffix | define | var\n",
         ";param($x)\n",
+        "workflow w { InlineScript\n{ inner } tail | next }",
+        "workflow w { function f { InlineScript }; InlineScript\n{} tail }",
+        "function f { workflow w { InlineScript\n{} tail } }",
+        "workflow w { class C { [void] M() { InlineScript\n{} tail } } }",
+        "workflow w { $obj.M(@{ Key = InlineScript\n{ inner } tail }) }",
+        "workflow w { \"$(InlineScript\n{ inner } tail)\" }",
+        "workflow w($x={ InlineScript }) { InlineScript\n{} tail }",
+        "workflow w { function f($x={ InlineScript\n{} tail }) {} }",
+        "workflow w { InlineScript\n{ InlineScript\n{} innerTail } outerTail }",
         "configuration Example { Node localhost { File Asset { Ensure = 'Present' } } }\nFile outside {}\n",
         "configuration C { Script S { GetScript = { File ordinary {} } } }\nNode outside {}\n",
         "[Some()]\nconfiguration\nExample\n{}\n",
@@ -192,6 +201,7 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
             "$x +\nWrite-Output after | next\n",
             "$x[\nWrite-Output after | next\n",
             "[A()] +\nWrite-Output after | next\n",
+            "workflow w { InlineScript -Name:x }; next",
         ]
         .map(|source| (source, false)),
     ) {
@@ -285,5 +295,80 @@ fn splat_edits_preserve_contextual_classification_and_recovery() {
         let fresh = parser.parse(&edited, None).unwrap();
         assert_eq!(!fresh.root_node().has_error(), valid, "{edited}");
         assert_same_tree(incremental.root_node(), fresh.root_node(), &edited);
+    }
+}
+
+#[test]
+fn deep_scopes_restore_modes_after_incremental_edits() {
+    for (open, close, depth, innermost_kind) in [
+        ("configuration C { ", " }", 1024, "resource_statement"),
+        (
+            "configuration C { Script S { GetScript = { ",
+            " } } }",
+            1024,
+            "command",
+        ),
+        (
+            "workflow w { configuration C { Script S { GetScript = { function f { ",
+            " } } } } }",
+            64,
+            "command",
+        ),
+    ] {
+        let body = "File deepest {}";
+        let source = format!(
+            "{}{}{}\nFile outside {{}}\nNode outside {{}}\nInlineScript outside",
+            open.repeat(depth),
+            body,
+            close.repeat(depth)
+        );
+        let mut parser = parser();
+        let mut original = parser.parse(&source, None).unwrap();
+        assert!(!original.root_node().has_error(), "depth {depth}");
+        let start = source.find(body).unwrap();
+        let inner = original
+            .root_node()
+            .named_descendant_for_byte_range(start, start + body.len())
+            .unwrap();
+        assert_eq!(inner.kind(), innermost_kind);
+        let replacement = "Script";
+        let end = start + "File".len();
+        let edited = format!("{}{}{}", &source[..start], replacement, &source[end..]);
+        original.edit(&InputEdit {
+            start_byte: start,
+            old_end_byte: end,
+            new_end_byte: start + replacement.len(),
+            start_position: point(&source, start),
+            old_end_position: point(&source, end),
+            new_end_position: point(&edited, start + replacement.len()),
+        });
+        let incremental = parser.parse(&edited, Some(&original)).unwrap();
+        let fresh = parser.parse(&edited, None).unwrap();
+        assert!(!fresh.root_node().has_error(), "depth {depth}");
+        let (actual, expected) = (incremental.root_node(), fresh.root_node());
+        assert_eq!(actual.to_sexp(), expected.to_sexp());
+        assert_eq!(actual.range(), expected.range());
+        let inner_end = start + body.len() + replacement.len() - "File".len();
+        assert_same_tree(
+            actual
+                .named_descendant_for_byte_range(start, inner_end)
+                .unwrap(),
+            expected
+                .named_descendant_for_byte_range(start, inner_end)
+                .unwrap(),
+            &edited,
+        );
+        for (offset, name) in ["File", "Node", "InlineScript"].into_iter().enumerate() {
+            let index = (actual.named_child_count() - 3 + offset)
+                .try_into()
+                .unwrap();
+            let tail = actual.named_child(index).unwrap();
+            assert_eq!(tail.kind(), "pipeline");
+            let command = tail.child_by_field_name("elements").unwrap();
+            assert_eq!(command.kind(), "command");
+            let command_name = command.child_by_field_name("name").unwrap();
+            assert_eq!(&edited[command_name.byte_range()], name);
+            assert_same_tree(tail, expected.named_child(index).unwrap(), &edited);
+        }
     }
 }

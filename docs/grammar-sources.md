@@ -29,6 +29,8 @@ and [LineContinuance.Tests.ps1](https://github.com/PowerShell/PowerShell/blob/v7
 provide regression examples. When historical prose and the pinned implementation
 differ, tests follow the pinned parser. The speculative numeric-comment diagnostic
 described below is checked separately from syntax acceptance.
+[Parser conformance](conformance.md) lists the test scope, known limits, and
+explicit compatibility decisions.
 
 ## Concrete syntax tree
 
@@ -131,6 +133,13 @@ running their parsing hooks. The registry construction is defined by
 Legacy `parallel_statement` and `sequence_statement` nodes each expose a
 `statement_block` as their `body`. Tests distinguish their syntax from
 PowerShell Core's workflow-support diagnostics.
+Within a workflow, `InlineScript` is a command with a required script-block
+argument; a newline may precede that block and later arguments remain part of
+the same command. It is an ordinary command name outside workflows. Nested
+functions and filters clear the workflow context for their bodies and restore
+it on exit; ordinary script blocks inherit their enclosing context. These
+boundaries follow `InlineScriptRule` and `FunctionDeclarationRule`.
+
 
 
 Assembly-qualified types keep the assembly spelling in one `assembly_name`.
@@ -322,8 +331,9 @@ Braced variables can contain supplementary Unicode characters:
 `${𐐀}` is a variable, while `$𐐀` is a command token.
 
 Postfix `++` and `--` can follow whitespace or comments after their operand.
-Ordinary parentheses contain one pipeline, with optional surrounding newlines;
-semicolons belong in statement-list constructs such as `$()` instead.
+Ordinary parentheses can contain a pipeline, pipeline chain, or assignment, with
+optional surrounding newlines. Semicolons belong in statement-list constructs
+such as `$()` instead.
 These rules follow
 [`PrimaryExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7194-L7220)
 and [`ParenthesizedExpressionRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L7573-L7618).
