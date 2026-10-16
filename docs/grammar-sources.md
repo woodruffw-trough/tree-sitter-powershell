@@ -58,6 +58,13 @@ instead has one `script_block` as its `arguments`. Functions and methods expose
 `parameters` and `body`. Classes and enums have a `class_body` or `enum_body`, whose
 `members` fields identify the declarations between their braces. These list and
 body nodes preserve source boundaries, including empty lists and bodies.
+Class method bodies retain parameter blocks and named blocks in their
+`statement_block`, even when PowerShell reports that those constructs are not
+allowed in a method. Parameters likewise retain splatted variable syntax before
+PowerShell reports `SplattingNotPermitted`. Static methods cannot have a
+`base_constructor_call`. Enum bodies allow newlines before the first member;
+semicolons separate members after the first.
+
 Member names can also be expressions. In `$obj.-$name.Length`, the member is the
 complete unary expression `-$name.Length`; in `$obj.$name.Length`, the final
 `.Length` instead accesses the result of `$obj.$name`.
@@ -296,6 +303,14 @@ acceptance, command elements and parameter classification, expression grouping,
 and corresponding declaration or control-flow ranges. PowerShell reports UTF-16
 code-unit offsets; the Rust harness converts tree-sitter's UTF-8 byte offsets before
 comparing them.
+
+Focused fixtures can record exact diagnostic identifiers separately from syntax
+acceptance. This checks the complete syntax that PowerShell retains when it
+reports a semantic error, including invalid assignment targets and method
+parameter blocks. Individual inputs copied from Microsoft's class and enum
+tests retain their original file and line in the fixture's `upstream` field;
+their Microsoft copyright and MIT license are retained in
+[`tests/upstream`](../tests/upstream).
 
 Corpus tests assert explicit trees. Focused fixtures and generated token matrices
 cover context-dependent syntax, and complete project files exercise interactions

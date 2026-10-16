@@ -590,7 +590,7 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
         (_, "attributes" | "types") => extents(field_children(node, field), source),
         ("FunctionMemberAst", "returnType") => source.field(node, "return_type"),
         ("PropertyMemberAst", "propertyType") => field_children(node, "types")
-            .last()
+            .first()
             .map(|node| source.record(*node))
             .unwrap_or(Value::Null),
         ("AttributeAst", "positionalArguments" | "namedArguments") => extents(
@@ -1080,7 +1080,7 @@ pub fn assert_structure(cases: &[Value], results: &[Value]) -> usize {
     let mut failures = Vec::new();
     let mut field_checks = 0;
     for (case, result) in cases.iter().zip(results) {
-        if case["valid"] != true {
+        if !super::common::syntax_valid(case) {
             continue;
         }
         let text = case["source"].as_str().unwrap();

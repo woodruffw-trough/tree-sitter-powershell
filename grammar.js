@@ -669,7 +669,7 @@ const grammarDefinition = {
         field('attributes', $.attribute),
         field('types', $.type_literal),
       ), repeat(NEWLINE))),
-      field('name', $.variable),
+      field('name', choice($.variable, $.splat_expression)),
       optional(seq(
         repeat(NEWLINE),
         '=',
@@ -769,22 +769,35 @@ const grammarDefinition = {
     ),
 
     class_method: $ => seq(
-      repeat(
+      repeat(seq(choice(
+        field('attributes', $.attribute),
+        field('return_type', $.type_literal),
+        field('modifiers', keyword('hidden')),
+      ), repeat(NEWLINE))),
+      choice(
         seq(
-          choice(
+          field('name', $.identifier),
+          field('parameters', $.parameter_list),
+          repeat(NEWLINE),
+          optional(seq(field('base_constructor', $.base_constructor_call), repeat(NEWLINE))),
+        ),
+        seq(
+          field('modifiers', keyword('static')),
+          repeat(NEWLINE),
+          repeat(seq(choice(
             field('attributes', $.attribute),
             field('return_type', $.type_literal),
             field('modifiers', choice(keyword('hidden'), keyword('static'))),
-          ),
+          ), repeat(NEWLINE))),
+          field('name', $.identifier),
+          field('parameters', $.parameter_list),
           repeat(NEWLINE),
         ),
       ),
-      field('name', $.identifier),
-      field('parameters', $.parameter_list),
-      repeat(NEWLINE),
-      optional(seq(field('base_constructor', $.base_constructor_call), repeat(NEWLINE))),
-      field('body', $.statement_block),
+      field('body', alias($._class_method_body, $.statement_block)),
     ),
+
+    _class_method_body: $ => scriptBlock($, '{'),
 
     base_constructor_call: $ => seq(
       ':',
@@ -808,7 +821,7 @@ const grammarDefinition = {
 
     enum_body: $ => seq(
       '{',
-      repeat($._terminator),
+      repeat(NEWLINE),
       repeat(seq(field('members', $.enum_member), repeat1($._terminator))),
       optional(field('members', $.enum_member)),
       '}',
@@ -1950,7 +1963,7 @@ const COMMA_CONTEXT_RULES = new Set([
   'return_statement', 'throw_statement', 'exit_statement',
   '_completed_return_statement', '_completed_throw_statement', '_completed_exit_statement',
   'function_definition', 'script_block', 'named_block',
-  'class_definition', 'class_body', 'class_property', 'class_method',
+  'class_definition', 'class_body', 'class_property', 'class_method', '_class_method_body',
   'enum_definition', 'enum_body', 'enum_member', 'data_statement',
   '_data_supported_command', '_data_command_primary_expression',
   '_data_command_member_access', '_data_command_computed_member_access',

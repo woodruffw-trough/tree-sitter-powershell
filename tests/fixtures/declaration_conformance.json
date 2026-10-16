@@ -1,0 +1,1821 @@
+[
+  {
+    "name": "enum-leading''",
+    "source": "enum X {A}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-between''",
+    "source": "enum X { AB }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-leading' '",
+    "source": "enum X { A}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-between' '",
+    "source": "enum X { A B }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator"
+    ]
+  },
+  {
+    "name": "enum-leading'\\n'",
+    "source": "enum X {\nA}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-between'\\n'",
+    "source": "enum X { A\nB }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-leading';'",
+    "source": "enum X {;A}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "enum-between';'",
+    "source": "enum X { A;B }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-leading'\\n;'",
+    "source": "enum X {\n;A}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "enum-between'\\n;'",
+    "source": "enum X { A\n;B }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-leading';;'",
+    "source": "enum X {;;A}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "enum-between';;'",
+    "source": "enum X { A;;B }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-leading'<#c#>'",
+    "source": "enum X {<#c#>A}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-between'<#c#>'",
+    "source": "enum X { A<#c#>B }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator"
+    ]
+  },
+  {
+    "name": "enum-leading'`\\n'",
+    "source": "enum X {`\nA}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "enum-between'`\\n'",
+    "source": "enum X { A`\nB }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator"
+    ]
+  },
+  {
+    "name": "methodbodybegin{}",
+    "source": "class X { f(){begin{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodybegin{}",
+    "source": "class X { X(){begin{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbodyprocess{}",
+    "source": "class X { f(){process{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodyprocess{}",
+    "source": "class X { X(){process{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbodyend{}",
+    "source": "class X { f(){end{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodyend{}",
+    "source": "class X { X(){end{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbodyclean{}",
+    "source": "class X { f(){clean{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodyclean{}",
+    "source": "class X { X(){clean{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbodydynamicparam{}",
+    "source": "class X { f(){dynamicparam{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodydynamicparam{}",
+    "source": "class X { X(){dynamicparam{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbodyparam()",
+    "source": "class X { f(){param()} }",
+    "valid": false,
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodyparam()",
+    "source": "class X { X(){param()} }",
+    "valid": false,
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbodyparam($x) 1",
+    "source": "class X { f(){param($x) 1} }",
+    "valid": false,
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodyparam($x) 1",
+    "source": "class X { X(){param($x) 1} }",
+    "valid": false,
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbody[CmdletBinding()]param() end{}",
+    "source": "class X { f(){[CmdletBinding()]param() end{}} }",
+    "valid": false,
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod",
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbody[CmdletBinding()]param() end{}",
+    "source": "class X { X(){[CmdletBinding()]param() end{}} }",
+    "valid": false,
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod",
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbodybegin{} end{}",
+    "source": "class X { f(){begin{} end{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "constructorbodybegin{} end{}",
+    "source": "class X { X(){begin{} end{}} }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "methodbody1; end{}",
+    "source": "class X { f(){1; end{}} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "constructorbody1; end{}",
+    "source": "class X { X(){1; end{}} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "methodbodyparam() param()",
+    "source": "class X { f(){param() param()} }",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression",
+      "ParamBlockNotAllowedInMethod"
+    ]
+  },
+  {
+    "name": "constructorbodyparam() param()",
+    "source": "class X { X(){param() param()} }",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression",
+      "ParamBlockNotAllowedInMethod"
+    ]
+  },
+  {
+    "name": "methodbodyusing namespace System",
+    "source": "class X { f(){using namespace System} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "UsingMustBeAtStartOfScript"
+    ]
+  },
+  {
+    "name": "constructorbodyusing namespace System",
+    "source": "class X { X(){using namespace System} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "UsingMustBeAtStartOfScript"
+    ]
+  },
+  {
+    "name": "param @x",
+    "source": "param(@x)",
+    "valid": false,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "param [int]@x",
+    "source": "param([int]@x)",
+    "valid": false,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function f @x",
+    "source": "function f(@x) {}",
+    "valid": false,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function f [int]@x",
+    "source": "function f([int]@x) {}",
+    "valid": false,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "class X { f @x",
+    "source": "class X { f(@x) {} }",
+    "valid": false,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "class X { f [int]@x",
+    "source": "class X { f([int]@x) {} }",
+    "valid": false,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:260 ShouldBeParseError",
+    "source": "class",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L260",
+    "diagnostics": [
+      "MissingNameAfterKeyword"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:261 ShouldBeParseError",
+    "source": "class foo",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L261",
+    "diagnostics": [
+      "MissingTypeBody"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:262 ShouldBeParseError",
+    "source": "class foo {",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L262",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:263 ShouldBeParseError",
+    "source": "class foo { [int] }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L263",
+    "diagnostics": [
+      "IncompleteMemberDefinition"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:264 ShouldBeParseError",
+    "source": "class foo { $private: }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L264",
+    "diagnostics": [
+      "InvalidVariableReference"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:265 ShouldBeParseError",
+    "source": "class foo { [int]$global: }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L265",
+    "diagnostics": [
+      "InvalidVariableReference"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:266 ShouldBeParseError",
+    "source": "class foo { [Attr()] }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L266",
+    "diagnostics": [
+      "IncompleteMemberDefinition"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:267 ShouldBeParseError",
+    "source": "class foo {} class foo {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L267",
+    "diagnostics": [
+      "MemberAlreadyDefined"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:268 ShouldBeParseError",
+    "source": "class foo { $x; $x; }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L268",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:269 ShouldBeParseError",
+    "source": "class foo { [int][string]$x; }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L269",
+    "diagnostics": [
+      "TooManyTypes"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:270 ShouldBeParseError",
+    "source": "class foo { static static $x; }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L270",
+    "diagnostics": [
+      "DuplicateQualifier"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:271 ShouldBeParseError",
+    "source": "class foo { [zz]$x; }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L271",
+    "diagnostics": [
+      "TypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:272 ShouldBeParseError",
+    "source": "class foo { [zz]f() { return 0 } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L272",
+    "diagnostics": [
+      "TypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:273 ShouldBeParseError",
+    "source": "class foo { f([zz]$x) {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L273",
+    "diagnostics": [
+      "TypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:275 ShouldBeParseError",
+    "source": "class C {} class C {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L275",
+    "diagnostics": [
+      "MemberAlreadyDefined"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:276 ShouldBeParseError",
+    "source": "class C { f(){} f(){} }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L276",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:277 ShouldBeParseError",
+    "source": "class C { F(){} F($o){} [int] F($o) {return 1} }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L277",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:278 ShouldBeParseError",
+    "source": "class C { f(){} f($a){} f(){} }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L278",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:279 ShouldBeParseError",
+    "source": "class C { f([int]$a){} f([int]$b){} }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L279",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:280 ShouldBeParseError",
+    "source": "class C { $x; [int]$x; }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L280",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:281 ShouldBeParseError",
+    "source": "class C { static C($x) {} }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L281",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:282 ShouldBeParseError",
+    "source": "class C { static C([int]$x = 100) {} }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L282",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:284 ShouldBeParseError",
+    "source": "class C {f(){ return 1} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L284",
+    "diagnostics": [
+      "VoidMethodHasReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:285 ShouldBeParseError",
+    "source": "class C {[int] f(){ return } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L285",
+    "diagnostics": [
+      "NonVoidMethodMissingReturnValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:286 ShouldBeParseError",
+    "source": "class C {[int] f(){} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L286",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:287 ShouldBeParseError",
+    "source": "class C {f(){ $x=1; if($x -lt 2){ return } elseif($x -gt 0 ) {return 1} else{return 2} return 3 } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L287",
+    "diagnostics": [
+      "VoidMethodHasReturn",
+      "VoidMethodHasReturn",
+      "VoidMethodHasReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:289 ShouldBeParseError",
+    "source": "class foo { [int] bar() { $y = $z; return $y} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L289",
+    "diagnostics": [
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:290 ShouldBeParseError",
+    "source": "class foo { bar() { foreach ($zz in $yy) { } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L290",
+    "diagnostics": [
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:291 ShouldBeParseError",
+    "source": "class foo { bar() { foreach ($zz in $global:yy) { $abc = $zzzzz } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L291",
+    "diagnostics": [
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:292 ShouldBeParseError",
+    "source": "class foo { bar() { try { $zz = 42 } finally { } $zz } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L292",
+    "diagnostics": [
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:293 ShouldBeParseError",
+    "source": "class foo { bar() { try { $zz = 42 } catch { } $zz } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L293",
+    "diagnostics": [
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:294 ShouldBeParseError",
+    "source": "class foo { bar() { switch (@()) { default { $aa = 42 } } $aa } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L294",
+    "diagnostics": [
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:295 ShouldBeParseError",
+    "source": "class C { $x; static bar() { $this.x = 1 } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L295",
+    "diagnostics": [
+      "NonStaticMemberAccessInStaticMember"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:296 ShouldBeParseError",
+    "source": "class C { $x; static $y = $this.x }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L296",
+    "diagnostics": [
+      "NonStaticMemberAccessInStaticMember"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:298 ShouldBeParseError",
+    "source": "class C { [void]foo() { try { throw \"foo\"} finally { return } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L298",
+    "diagnostics": [
+      "ControlLeavingFinally"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:299 ShouldBeParseError",
+    "source": "class C { [int]foo() { return; return 1 } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L299",
+    "diagnostics": [
+      "NonVoidMethodMissingReturnValue"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:300 ShouldBeParseError",
+    "source": "class C { [int]foo() { try { throw \"foo\"} catch { } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L300",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:301 ShouldBeParseError",
+    "source": "class C { [int]foo() { try { throw \"foo\"} catch [ArgumentException] {} catch {throw $_} } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L301",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:302 ShouldBeParseError",
+    "source": "class C { [int]foo() { try { throw \"foo\"} catch [ArgumentException] {return 1} catch {} } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L302",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:303 ShouldBeParseError",
+    "source": "class C { [int]foo() { while ($false) { return 1 } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L303",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:304 ShouldBeParseError",
+    "source": "class C { [int]foo() { try { New-Item -ItemType Directory foo } finally { rm -rec foo } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L304",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:305 ShouldBeParseError",
+    "source": "class C { [int]foo() { try { New-Item -ItemType Directory foo; return 1 } catch { } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L305",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:306 ShouldBeParseError",
+    "source": "class C { [bool] Test() { if ($false) { return $true; } } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L306",
+    "diagnostics": [
+      "MethodHasCodePathNotReturn"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:308 ShouldBeParseError",
+    "source": "class C { [int]$i; [void] foo() {$i = 10} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L308",
+    "diagnostics": [
+      "MissingThis"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:309 ShouldBeParseError",
+    "source": "class C { static [int]$i; [void] foo() {$i = 10} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L309",
+    "diagnostics": [
+      "MissingTypeInStaticPropertyAssignment"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:311 ShouldBeParseError",
+    "source": "class C : B",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L311",
+    "diagnostics": [
+      "MissingTypeBody"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:313 ShouldBeParseError",
+    "source": "Class foo { q(){} w(){}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L313",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:317 ShouldBeParseError",
+    "source": "class foo { f() { param($x) } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L317",
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:318 ShouldBeParseError",
+    "source": "class foo { f() { dynamicparam {} } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L318",
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:319 ShouldBeParseError",
+    "source": "class foo { f() { begin {} } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L319",
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:320 ShouldBeParseError",
+    "source": "class foo { f() { process {} } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L320",
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:321 ShouldBeParseError",
+    "source": "class foo { f() { end {} } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L321",
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:322 ShouldBeParseError",
+    "source": "class foo { f([Parameter()]$a) {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L322",
+    "diagnostics": [
+      "AttributeNotAllowedOnDeclaration"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:323 ShouldBeParseError",
+    "source": "class foo { [int] foo() { return 1 }}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L323",
+    "diagnostics": [
+      "ConstructorCantHaveReturnType"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:324 ShouldBeParseError",
+    "source": "class foo { [void] bar($a, [string][int]$b, $c) {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L324",
+    "diagnostics": [
+      "MultipleTypeConstraintsOnMethodParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:328 ShouldBeParseError",
+    "source": "class foo { [string ]$path; f() { $path=\"\" } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L328",
+    "diagnostics": [
+      "MissingThis"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:329 ShouldBeParseError",
+    "source": "class foo { [string ]$path; f() { [string] $path=\"\" } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L329",
+    "diagnostics": [
+      "MissingThis"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:330 ShouldBeParseError",
+    "source": "class foo { [string ]$path; f() { [int] [string] $path=\"\" } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L330",
+    "diagnostics": [
+      "MissingThis"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:334 ShouldBeParseError",
+    "source": "[DscResource()]class C { [bool] Test() { return $false } [C] Get() { return $this } Set() {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L334",
+    "diagnostics": [
+      "DscResourceMissingKeyProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:337 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [C] Get() { return $this } Set() {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L337",
+    "diagnostics": [
+      "DscResourceMissingTestMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:338 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [C] Get() { return $this } Set() {} Test() { } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L338",
+    "diagnostics": [
+      "DscResourceMissingTestMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:339 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [C] Get() { return $this } Set() {} [int] Test() { return 1 } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L339",
+    "diagnostics": [
+      "DscResourceMissingTestMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:340 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [C] Get() { return $this } Set() {} [bool] Test($a) { return $false } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L340",
+    "diagnostics": [
+      "DscResourceMissingTestMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:343 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } Set() {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L343",
+    "diagnostics": [
+      "DscResourceMissingGetMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:344 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } Set() {} Get() { } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L344",
+    "diagnostics": [
+      "DscResourceInvalidGetMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:345 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } Set() {} [int] Get() { return 1 } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L345",
+    "diagnostics": [
+      "DscResourceInvalidGetMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:346 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } Set() {} [C] Get($a) { return $this } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L346",
+    "diagnostics": [
+      "DscResourceMissingGetMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:349 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } [C] Get() { return $this } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L349",
+    "diagnostics": [
+      "DscResourceMissingSetMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:350 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } [C] Get() { return $this } [int] Set() { return 1 } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L350",
+    "diagnostics": [
+      "DscResourceMissingSetMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:351 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } [C] Get() { return $this } Set($a) { } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L351",
+    "diagnostics": [
+      "DscResourceMissingSetMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:354 ShouldBeParseError",
+    "source": "[DscResource()]class C { [DscProperty(Key)][string]$Key; [bool] Test() { return $false } [C] Get() { return $this } Set() {} C($a) { } }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L354",
+    "diagnostics": [
+      "DscResourceMissingDefaultConstructor"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:359 ShouldBeParseError",
+    "source": "[Flags()]class C{}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L359",
+    "diagnostics": [
+      "AttributeNotAllowedOnDeclaration"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:360 ShouldBeParseError",
+    "source": "class C { [Flags()]$field; }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L360",
+    "diagnostics": [
+      "AttributeNotAllowedOnDeclaration"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:361 ShouldBeParseError",
+    "source": "class C { [Flags()]foo(){} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L361",
+    "diagnostics": [
+      "AttributeNotAllowedOnDeclaration"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:364 ShouldBeParseError",
+    "source": "[UnknownAttr()]class C{}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L364",
+    "diagnostics": [
+      "CustomAttributeTypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:365 ShouldBeParseError",
+    "source": "[System.Management.Automation.Cmdlet()]class C{}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L365",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:366 ShouldBeParseError",
+    "source": "[System.Management.Automation.Cmdlet(\"zz\")]class C{}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L366",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:367 ShouldBeParseError",
+    "source": "[System.Management.Automation.Cmdlet(\"Get\", \"Thing\", Prop=1)]class C{}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L367",
+    "diagnostics": [
+      "PropertyNotFoundForAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:368 ShouldBeParseError",
+    "source": "[System.Management.Automation.Cmdlet(\"Get\", \"Thing\", ConfirmImpact=\"foo\")]class C{}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L368",
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:369 ShouldBeParseError",
+    "source": "[System.Management.Automation.Cmdlet(\"Get\", \"Thing\", NounName=\"foo\")]class C{}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L369",
+    "diagnostics": [
+      "ReadOnlyProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:370 ShouldBeParseError",
+    "source": "[System.Management.Automation.Cmdlet(\"Get\", \"Thing\", ConfirmImpact=$zed)]class C{}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L370",
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstant"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting.Classes.BasicParsing.Tests.ps1:371 ShouldBeParseError",
+    "source": "class C{ [ValidateScript({})]$p; }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L371",
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstant"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:139 ShouldBeParseError",
+    "source": "class A : NonExistingClass {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L139",
+    "diagnostics": [
+      "TypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:140 ShouldBeParseError",
+    "source": "class A : {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L140",
+    "diagnostics": [
+      "TypeNameExpected"
+    ]
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:141 ShouldBeParseError",
+    "source": "class A {}; class B : A, {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L141",
+    "diagnostics": [
+      "TypeNameExpected"
+    ]
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:142 ShouldBeParseError",
+    "source": "class A{} ; class B : A[] {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L142",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:143 ShouldBeParseError",
+    "source": "class A : System.Collections.Generic.List`1 {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L143",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:145 ShouldBeParseError",
+    "source": "class A {}; class B : A, NonExistingInterface {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L145",
+    "diagnostics": [
+      "TypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:146 ShouldBeParseError",
+    "source": "class A {} ; class B {}; class C : A, B {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L146",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:147 ShouldBeParseError",
+    "source": "class A{} ; class B : A, System.IDisposable[] {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L147",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:155 ShouldBeParseError",
+    "source": "class A { A($a){} } ; class B : A { B() : bas {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L155",
+    "diagnostics": [
+      "MissingBaseCtorCall"
+    ]
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:156 ShouldBeParseError",
+    "source": "class A { A($a){} } ; class B : A { B() : base( {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L156",
+    "diagnostics": [
+      "MissingEndParenthesisInMethodCall",
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:157 ShouldBeParseError",
+    "source": "class A { A($a){} } ; class B : A { B() : base {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L157",
+    "diagnostics": [
+      "MissingMethodParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:160 ShouldBeParseError",
+    "source": "class baz : string {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L160",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:162 ShouldBeParseError",
+    "source": "class bar {}; class baz : bar, Non.Existing.Interface {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L162",
+    "diagnostics": [
+      "TypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:165 ShouldBeParseError",
+    "source": "class MyType : Type {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L165",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:168 ShouldBeParseError",
+    "source": "class A : B {}; class B {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L168",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:171 ShouldBeParseError",
+    "source": "class A : B {}; class B : A {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L171",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:172 ShouldBeParseError",
+    "source": "class A : C {}; class B : A {}; class C : B {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L172",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:488 ShouldBeParseError",
+    "source": "class MyComparable : system.IComparable {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L488",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:491 ShouldBeParseError",
+    "source": "class MyComparable : system.IComparable { [void] CompareTo([object]$obj) {} }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L491",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:494 ShouldBeParseError",
+    "source": "class MyCollection : System.Collections.ObjectModel.ReadOnlyCollection[int] {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L494",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:497 ShouldBeParseError",
+    "source": "class A { A([int]$a) {} }; class B : A {}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L497",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:110 ShouldBeParseError",
+    "source": "enum",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L110",
+    "diagnostics": [
+      "MissingNameAfterKeyword"
+    ]
+  },
+  {
+    "name": "scripting.enums.tests.ps1:111 ShouldBeParseError",
+    "source": "enum foo",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L111",
+    "diagnostics": [
+      "MissingTypeBody"
+    ]
+  },
+  {
+    "name": "scripting.enums.tests.ps1:112 ShouldBeParseError",
+    "source": "enum foo {",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L112",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "scripting.enums.tests.ps1:113 ShouldBeParseError",
+    "source": "enum foo { x = }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L113",
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "scripting.enums.tests.ps1:114 ShouldBeParseError",
+    "source": "enum foo { x =",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L114",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "scripting.enums.tests.ps1:115 ShouldBeParseError",
+    "source": "enum foo {} enum foo {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L115",
+    "diagnostics": [
+      "MemberAlreadyDefined"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "scripting.enums.tests.ps1:116 ShouldBeParseError",
+    "source": "enum foo { x; x }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L116",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:117 ShouldBeParseError",
+    "source": "enum foo { X; x }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L117",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:118 ShouldBeParseError",
+    "source": "enum foo1 { x = [foo2]::x } enum foo2 { x = [foo1]::x }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L118",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:119 ShouldBeParseError",
+    "source": "enum foo { e = [int]::MaxValue;  e2 }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L119",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:120 ShouldBeParseError",
+    "source": "enum foo { e = [int]::MaxValue + 1 }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L120",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:121 ShouldBeParseError",
+    "source": "enum foo : byte { e = -1 }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L121",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:122 ShouldBeParseError",
+    "source": "enum foo { e = $foo }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L122",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:123 ShouldBeParseError",
+    "source": "enum foo { e = \"hello\" }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L123",
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.enums.tests.ps1:124 ShouldBeParseError",
+    "source": "enum foo { a;b;c;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L124",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "scripting.enums.tests.ps1:125 ShouldBeParseError",
+    "source": "enum foo : string { a }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.enums.tests.ps1#L125",
+    "diagnostics": [
+      "InvalidUnderlyingType"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "static method C without base initializer",
+    "source": "class C { static C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static method C with base initializer",
+    "source": "class C { static C():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static method c without base initializer",
+    "source": "class C { static c() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static method c with base initializer",
+    "source": "class C { static c():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static method F without base initializer",
+    "source": "class C { static F() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static method F with base initializer",
+    "source": "class C { static F():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "hidden static method C without base initializer",
+    "source": "class C { hidden static C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hidden static method C with base initializer",
+    "source": "class C { hidden static C():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "hidden static method c without base initializer",
+    "source": "class C { hidden static c() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hidden static method c with base initializer",
+    "source": "class C { hidden static c():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "hidden static method F without base initializer",
+    "source": "class C { hidden static F() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hidden static method F with base initializer",
+    "source": "class C { hidden static F():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static hidden method C without base initializer",
+    "source": "class C { static hidden C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static hidden method C with base initializer",
+    "source": "class C { static hidden C():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static hidden method c without base initializer",
+    "source": "class C { static hidden c() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static hidden method c with base initializer",
+    "source": "class C { static hidden c():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static hidden method F without base initializer",
+    "source": "class C { static hidden F() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static hidden method F with base initializer",
+    "source": "class C { static hidden F():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "[void] static method C without base initializer",
+    "source": "class C { [void] static C() {} }",
+    "valid": false,
+    "diagnostics": [
+      "ConstructorCantHaveReturnType"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "[void] static method C with base initializer",
+    "source": "class C { [void] static C():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "[void] static method c without base initializer",
+    "source": "class C { [void] static c() {} }",
+    "valid": false,
+    "diagnostics": [
+      "ConstructorCantHaveReturnType"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "[void] static method c with base initializer",
+    "source": "class C { [void] static c():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "[void] static method F without base initializer",
+    "source": "class C { [void] static F() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "[void] static method F with base initializer",
+    "source": "class C { [void] static F():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static [void] method C without base initializer",
+    "source": "class C { static [void] C() {} }",
+    "valid": false,
+    "diagnostics": [
+      "ConstructorCantHaveReturnType"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "static [void] method C with base initializer",
+    "source": "class C { static [void] C():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static [void] method c without base initializer",
+    "source": "class C { static [void] c() {} }",
+    "valid": false,
+    "diagnostics": [
+      "ConstructorCantHaveReturnType"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "static [void] method c with base initializer",
+    "source": "class C { static [void] c():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static [void] method F without base initializer",
+    "source": "class C { static [void] F() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static [void] method F with base initializer",
+    "source": "class C { static [void] F():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static static method C without base initializer",
+    "source": "class C { static static C() {} }",
+    "valid": false,
+    "diagnostics": [
+      "DuplicateQualifier"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "static static method C with base initializer",
+    "source": "class C { static static C():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "DuplicateQualifier",
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static static method c without base initializer",
+    "source": "class C { static static c() {} }",
+    "valid": false,
+    "diagnostics": [
+      "DuplicateQualifier"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "static static method c with base initializer",
+    "source": "class C { static static c():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "DuplicateQualifier",
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "static static method F without base initializer",
+    "source": "class C { static static F() {} }",
+    "valid": false,
+    "diagnostics": [
+      "DuplicateQualifier"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "static static method F with base initializer",
+    "source": "class C { static static F():base() {} }",
+    "valid": false,
+    "diagnostics": [
+      "DuplicateQualifier",
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "qualifier keyword static as method name",
+    "source": "class C { static(){} }",
+    "valid": false,
+    "diagnostics": [
+      "IncompleteMemberDefinition",
+      "MissingEndCurlyBrace",
+      "ExpectedExpression",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "qualifier keyword hidden as method name",
+    "source": "class C { hidden(){} }",
+    "valid": false,
+    "diagnostics": [
+      "IncompleteMemberDefinition",
+      "MissingEndCurlyBrace",
+      "ExpectedExpression",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "qualifier keyword Static as method name",
+    "source": "class C { Static(){} }",
+    "valid": false,
+    "diagnostics": [
+      "IncompleteMemberDefinition",
+      "MissingEndCurlyBrace",
+      "ExpectedExpression",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "qualifier keyword HIDDEN as method name",
+    "source": "class C { HIDDEN(){} }",
+    "valid": false,
+    "diagnostics": [
+      "IncompleteMemberDefinition",
+      "MissingEndCurlyBrace",
+      "ExpectedExpression",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "qualifier keyword class as method name",
+    "source": "class C { class(){} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "qualifier keyword param as method name",
+    "source": "class C { param(){} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "qualifier keyword begin as method name",
+    "source": "class C { begin(){} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "qualifier keyword return as method name",
+    "source": "class C { return(){} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "qualifier keyword base as method name",
+    "source": "class C { base(){} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "scripting.Classes.inheritance.tests.ps1:152 ShouldBeParseError",
+    "source": "class A { static A() {} }; class B { static B() : base() {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L152",
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  }
+]

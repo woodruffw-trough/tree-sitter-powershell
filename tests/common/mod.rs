@@ -36,14 +36,15 @@ pub fn assert_syntax(cases: &[Value]) {
         let source = case["source"].as_str().unwrap();
         let tree = parser.parse(source, None).unwrap();
         let valid = !tree.root_node().has_error();
-        if valid != case["valid"].as_bool().unwrap() {
+        let expected = syntax_valid(case);
+        if valid != expected {
             if source.len() > 4096 {
                 let mut errors = Vec::new();
                 syntax_errors(tree.root_node(), source, &mut errors);
                 failures.push(format!(
                     "{}: expected valid={}, got valid={} ({} bytes)\n{}",
                     case["name"],
-                    case["valid"],
+                    expected,
                     valid,
                     source.len(),
                     failure_summary(&errors)
@@ -53,7 +54,7 @@ pub fn assert_syntax(cases: &[Value]) {
             failures.push(format!(
                 "{}: expected valid={}, got valid={}\n{}\n{}",
                 case["name"],
-                case["valid"],
+                expected,
                 valid,
                 source,
                 tree.root_node().to_sexp()
@@ -61,6 +62,12 @@ pub fn assert_syntax(cases: &[Value]) {
         }
     }
     assert!(failures.is_empty(), "{}", failure_summary(&failures));
+}
+
+pub fn syntax_valid(case: &Value) -> bool {
+    case["syntax_valid"]
+        .as_bool()
+        .unwrap_or_else(|| case["valid"].as_bool().unwrap())
 }
 
 fn syntax_errors(node: Node<'_>, source: &str, result: &mut Vec<String>) {
@@ -107,6 +114,15 @@ pub fn oracle(cases: &[Value], fixture_path: &str) -> Vec<Value> {
                 "{}: oracle expectation is stale\n{}\n{}",
                 case["name"], case["source"], result["errors"]
             ));
+        }
+        if let Some(expected) = case["diagnostics"].as_array() {
+            let actual: Vec<_> = result["errors"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|error| error["id"].clone())
+                .collect();
+            assert_eq!(&actual, expected, "{}: diagnostics differ", case["name"]);
         }
     }
     assert!(failures.is_empty(), "{}", failure_summary(&failures));
@@ -224,7 +240,7 @@ pub fn assert_commands(cases: &[Value], results: &[Value]) {
     let mut parser = parser();
     let mut failures = Vec::new();
     for (case, result) in cases.iter().zip(results) {
-        if case["valid"] != true {
+        if !syntax_valid(case) {
             continue;
         }
         let source = case["source"].as_str().unwrap();
