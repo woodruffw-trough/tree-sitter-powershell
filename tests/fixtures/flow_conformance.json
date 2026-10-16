@@ -1,0 +1,2306 @@
+[
+  {
+    "name": "return leading-pipe two-command pipeline ends with EOF",
+    "source": "return\n| echo x | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with EOF",
+    "source": "return\n| 1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with EOF",
+    "source": "return\n| 1 | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with EOF",
+    "source": "return\n| echo x && next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return newline leading pipe echo x & echo after",
+    "source": "return\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "return newline leading pipe $x = 1",
+    "source": "return\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return newline leading pipe return 1",
+    "source": "return\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "return newline leading pipe break",
+    "source": "return\n| break",
+    "valid": true
+  },
+  {
+    "name": "return newline leading pipe if (1) {}",
+    "source": "return\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe echo x | next",
+    "source": "return\r| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe 1",
+    "source": "return\r| 1",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe 1 | next",
+    "source": "return\r| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe echo x && next",
+    "source": "return\r| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe echo x & echo after",
+    "source": "return\r| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe $x = 1",
+    "source": "return\r| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return carriage return leading pipe return 1",
+    "source": "return\r| return 1",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe break",
+    "source": "return\r| break",
+    "valid": true
+  },
+  {
+    "name": "return carriage return leading pipe if (1) {}",
+    "source": "return\r| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe echo x | next",
+    "source": "return\r\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe 1",
+    "source": "return\r\n| 1",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe 1 | next",
+    "source": "return\r\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe echo x && next",
+    "source": "return\r\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe echo x & echo after",
+    "source": "return\r\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe $x = 1",
+    "source": "return\r\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return CRLF leading pipe return 1",
+    "source": "return\r\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe break",
+    "source": "return\r\n| break",
+    "valid": true
+  },
+  {
+    "name": "return CRLF leading pipe if (1) {}",
+    "source": "return\r\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe echo x | next",
+    "source": "return\n<#c#>| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe 1",
+    "source": "return\n<#c#>| 1",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe 1 | next",
+    "source": "return\n<#c#>| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe echo x && next",
+    "source": "return\n<#c#>| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe echo x & echo after",
+    "source": "return\n<#c#>| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe $x = 1",
+    "source": "return\n<#c#>| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return block comment leading pipe return 1",
+    "source": "return\n<#c#>| return 1",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe break",
+    "source": "return\n<#c#>| break",
+    "valid": true
+  },
+  {
+    "name": "return block comment leading pipe if (1) {}",
+    "source": "return\n<#c#>| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe echo x | next",
+    "source": "return\n#c\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe 1",
+    "source": "return\n#c\n| 1",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe 1 | next",
+    "source": "return\n#c\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe echo x && next",
+    "source": "return\n#c\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe echo x & echo after",
+    "source": "return\n#c\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe $x = 1",
+    "source": "return\n#c\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return line comment leading pipe return 1",
+    "source": "return\n#c\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe break",
+    "source": "return\n#c\n| break",
+    "valid": true
+  },
+  {
+    "name": "return line comment leading pipe if (1) {}",
+    "source": "return\n#c\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe echo x | next",
+    "source": "return\n<#c#>\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe 1",
+    "source": "return\n<#c#>\n| 1",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe 1 | next",
+    "source": "return\n<#c#>\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe echo x && next",
+    "source": "return\n<#c#>\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe echo x & echo after",
+    "source": "return\n<#c#>\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe $x = 1",
+    "source": "return\n<#c#>\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return block comment line leading pipe return 1",
+    "source": "return\n<#c#>\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe break",
+    "source": "return\n<#c#>\n| break",
+    "valid": true
+  },
+  {
+    "name": "return block comment line leading pipe if (1) {}",
+    "source": "return\n<#c#>\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe echo x | next",
+    "source": "return\n#c\n<#d#>\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe 1",
+    "source": "return\n#c\n<#d#>\n| 1",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe 1 | next",
+    "source": "return\n#c\n<#d#>\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe echo x && next",
+    "source": "return\n#c\n<#d#>\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe echo x & echo after",
+    "source": "return\n#c\n<#d#>\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe $x = 1",
+    "source": "return\n#c\n<#d#>\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return multiple comment lines leading pipe return 1",
+    "source": "return\n#c\n<#d#>\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe break",
+    "source": "return\n#c\n<#d#>\n| break",
+    "valid": true
+  },
+  {
+    "name": "return multiple comment lines leading pipe if (1) {}",
+    "source": "return\n#c\n<#d#>\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "return blank line leading pipe echo x | next",
+    "source": "return\n\n| echo x | next",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe 1",
+    "source": "return\n\n| 1",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe 1 | next",
+    "source": "return\n\n| 1 | next",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe echo x && next",
+    "source": "return\n\n| echo x && next",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe echo x & echo after",
+    "source": "return\n\n| echo x & echo after",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe $x = 1",
+    "source": "return\n\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe return 1",
+    "source": "return\n\n| return 1",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe break",
+    "source": "return\n\n| break",
+    "valid": false
+  },
+  {
+    "name": "return blank line leading pipe if (1) {}",
+    "source": "return\n\n| if (1) {}",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe echo x | next",
+    "source": "return\n#c\n\n| echo x | next",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe 1",
+    "source": "return\n#c\n\n| 1",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe 1 | next",
+    "source": "return\n#c\n\n| 1 | next",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe echo x && next",
+    "source": "return\n#c\n\n| echo x && next",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe echo x & echo after",
+    "source": "return\n#c\n\n| echo x & echo after",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe $x = 1",
+    "source": "return\n#c\n\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe return 1",
+    "source": "return\n#c\n\n| return 1",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe break",
+    "source": "return\n#c\n\n| break",
+    "valid": false
+  },
+  {
+    "name": "return comment then blank line leading pipe if (1) {}",
+    "source": "return\n#c\n\n| if (1) {}",
+    "valid": false
+  },
+  {
+    "name": "return newline leading chain echo x",
+    "source": "return\n|| echo x",
+    "valid": false
+  },
+  {
+    "name": "return newline leading chain 1",
+    "source": "return\n|| 1",
+    "valid": false
+  },
+  {
+    "name": "return newline leading chain $x = 1",
+    "source": "return\n|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return block comment leading chain echo x",
+    "source": "return\n<#c#>|| echo x",
+    "valid": false
+  },
+  {
+    "name": "return block comment leading chain 1",
+    "source": "return\n<#c#>|| 1",
+    "valid": false
+  },
+  {
+    "name": "return block comment leading chain $x = 1",
+    "source": "return\n<#c#>|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return line comment leading chain echo x",
+    "source": "return\n#c\n|| echo x",
+    "valid": false
+  },
+  {
+    "name": "return line comment leading chain 1",
+    "source": "return\n#c\n|| 1",
+    "valid": false
+  },
+  {
+    "name": "return line comment leading chain $x = 1",
+    "source": "return\n#c\n|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "return trailing comment #c|",
+    "source": "return\n#c|",
+    "valid": true
+  },
+  {
+    "name": "return trailing comment #c||",
+    "source": "return\n#c||",
+    "valid": true
+  },
+  {
+    "name": "return trailing comment #c&&",
+    "source": "return\n#c&&",
+    "valid": true
+  },
+  {
+    "name": "return trailing comment <#c#>",
+    "source": "return\n<#c#>",
+    "valid": true
+  },
+  {
+    "name": "return trailing comment <#c#>\n",
+    "source": "return\n<#c#>\n",
+    "valid": true
+  },
+  {
+    "name": "return trailing comment <#c#>\n<#d#>",
+    "source": "return\n<#c#>\n<#d#>",
+    "valid": true
+  },
+  {
+    "name": "return trailing comment <#c#>\n\n",
+    "source": "return\n<#c#>\n\n",
+    "valid": true
+  },
+  {
+    "name": "return leading pipe context function f {{ {} }}",
+    "source": "function f { return\n| echo x | next }",
+    "valid": true
+  },
+  {
+    "name": "return leading pipe context if (1) {{ {} }}",
+    "source": "if (1) { return\n| echo x | next }",
+    "valid": true
+  },
+  {
+    "name": "return leading pipe context @{{a={}}}",
+    "source": "@{a=return\n| echo x | next}",
+    "valid": true
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with EOF",
+    "source": "throw\n| echo x | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with EOF",
+    "source": "throw\n| 1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with EOF",
+    "source": "throw\n| 1 | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with EOF",
+    "source": "throw\n| echo x && next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw newline leading pipe echo x & echo after",
+    "source": "throw\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "throw newline leading pipe $x = 1",
+    "source": "throw\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw newline leading pipe return 1",
+    "source": "throw\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "throw newline leading pipe break",
+    "source": "throw\n| break",
+    "valid": true
+  },
+  {
+    "name": "throw newline leading pipe if (1) {}",
+    "source": "throw\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe echo x | next",
+    "source": "throw\r| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe 1",
+    "source": "throw\r| 1",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe 1 | next",
+    "source": "throw\r| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe echo x && next",
+    "source": "throw\r| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe echo x & echo after",
+    "source": "throw\r| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe $x = 1",
+    "source": "throw\r| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw carriage return leading pipe return 1",
+    "source": "throw\r| return 1",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe break",
+    "source": "throw\r| break",
+    "valid": true
+  },
+  {
+    "name": "throw carriage return leading pipe if (1) {}",
+    "source": "throw\r| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe echo x | next",
+    "source": "throw\r\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe 1",
+    "source": "throw\r\n| 1",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe 1 | next",
+    "source": "throw\r\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe echo x && next",
+    "source": "throw\r\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe echo x & echo after",
+    "source": "throw\r\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe $x = 1",
+    "source": "throw\r\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw CRLF leading pipe return 1",
+    "source": "throw\r\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe break",
+    "source": "throw\r\n| break",
+    "valid": true
+  },
+  {
+    "name": "throw CRLF leading pipe if (1) {}",
+    "source": "throw\r\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe echo x | next",
+    "source": "throw\n<#c#>| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe 1",
+    "source": "throw\n<#c#>| 1",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe 1 | next",
+    "source": "throw\n<#c#>| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe echo x && next",
+    "source": "throw\n<#c#>| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe echo x & echo after",
+    "source": "throw\n<#c#>| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe $x = 1",
+    "source": "throw\n<#c#>| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw block comment leading pipe return 1",
+    "source": "throw\n<#c#>| return 1",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe break",
+    "source": "throw\n<#c#>| break",
+    "valid": true
+  },
+  {
+    "name": "throw block comment leading pipe if (1) {}",
+    "source": "throw\n<#c#>| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe echo x | next",
+    "source": "throw\n#c\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe 1",
+    "source": "throw\n#c\n| 1",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe 1 | next",
+    "source": "throw\n#c\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe echo x && next",
+    "source": "throw\n#c\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe echo x & echo after",
+    "source": "throw\n#c\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe $x = 1",
+    "source": "throw\n#c\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw line comment leading pipe return 1",
+    "source": "throw\n#c\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe break",
+    "source": "throw\n#c\n| break",
+    "valid": true
+  },
+  {
+    "name": "throw line comment leading pipe if (1) {}",
+    "source": "throw\n#c\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe echo x | next",
+    "source": "throw\n<#c#>\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe 1",
+    "source": "throw\n<#c#>\n| 1",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe 1 | next",
+    "source": "throw\n<#c#>\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe echo x && next",
+    "source": "throw\n<#c#>\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe echo x & echo after",
+    "source": "throw\n<#c#>\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe $x = 1",
+    "source": "throw\n<#c#>\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw block comment line leading pipe return 1",
+    "source": "throw\n<#c#>\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe break",
+    "source": "throw\n<#c#>\n| break",
+    "valid": true
+  },
+  {
+    "name": "throw block comment line leading pipe if (1) {}",
+    "source": "throw\n<#c#>\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe echo x | next",
+    "source": "throw\n#c\n<#d#>\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe 1",
+    "source": "throw\n#c\n<#d#>\n| 1",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe 1 | next",
+    "source": "throw\n#c\n<#d#>\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe echo x && next",
+    "source": "throw\n#c\n<#d#>\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe echo x & echo after",
+    "source": "throw\n#c\n<#d#>\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe $x = 1",
+    "source": "throw\n#c\n<#d#>\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw multiple comment lines leading pipe return 1",
+    "source": "throw\n#c\n<#d#>\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe break",
+    "source": "throw\n#c\n<#d#>\n| break",
+    "valid": true
+  },
+  {
+    "name": "throw multiple comment lines leading pipe if (1) {}",
+    "source": "throw\n#c\n<#d#>\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "throw blank line leading pipe echo x | next",
+    "source": "throw\n\n| echo x | next",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe 1",
+    "source": "throw\n\n| 1",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe 1 | next",
+    "source": "throw\n\n| 1 | next",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe echo x && next",
+    "source": "throw\n\n| echo x && next",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe echo x & echo after",
+    "source": "throw\n\n| echo x & echo after",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe $x = 1",
+    "source": "throw\n\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe return 1",
+    "source": "throw\n\n| return 1",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe break",
+    "source": "throw\n\n| break",
+    "valid": false
+  },
+  {
+    "name": "throw blank line leading pipe if (1) {}",
+    "source": "throw\n\n| if (1) {}",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe echo x | next",
+    "source": "throw\n#c\n\n| echo x | next",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe 1",
+    "source": "throw\n#c\n\n| 1",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe 1 | next",
+    "source": "throw\n#c\n\n| 1 | next",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe echo x && next",
+    "source": "throw\n#c\n\n| echo x && next",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe echo x & echo after",
+    "source": "throw\n#c\n\n| echo x & echo after",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe $x = 1",
+    "source": "throw\n#c\n\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe return 1",
+    "source": "throw\n#c\n\n| return 1",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe break",
+    "source": "throw\n#c\n\n| break",
+    "valid": false
+  },
+  {
+    "name": "throw comment then blank line leading pipe if (1) {}",
+    "source": "throw\n#c\n\n| if (1) {}",
+    "valid": false
+  },
+  {
+    "name": "throw newline leading chain echo x",
+    "source": "throw\n|| echo x",
+    "valid": false
+  },
+  {
+    "name": "throw newline leading chain 1",
+    "source": "throw\n|| 1",
+    "valid": false
+  },
+  {
+    "name": "throw newline leading chain $x = 1",
+    "source": "throw\n|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw block comment leading chain echo x",
+    "source": "throw\n<#c#>|| echo x",
+    "valid": false
+  },
+  {
+    "name": "throw block comment leading chain 1",
+    "source": "throw\n<#c#>|| 1",
+    "valid": false
+  },
+  {
+    "name": "throw block comment leading chain $x = 1",
+    "source": "throw\n<#c#>|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw line comment leading chain echo x",
+    "source": "throw\n#c\n|| echo x",
+    "valid": false
+  },
+  {
+    "name": "throw line comment leading chain 1",
+    "source": "throw\n#c\n|| 1",
+    "valid": false
+  },
+  {
+    "name": "throw line comment leading chain $x = 1",
+    "source": "throw\n#c\n|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "throw trailing comment #c|",
+    "source": "throw\n#c|",
+    "valid": true
+  },
+  {
+    "name": "throw trailing comment #c||",
+    "source": "throw\n#c||",
+    "valid": true
+  },
+  {
+    "name": "throw trailing comment #c&&",
+    "source": "throw\n#c&&",
+    "valid": true
+  },
+  {
+    "name": "throw trailing comment <#c#>",
+    "source": "throw\n<#c#>",
+    "valid": true
+  },
+  {
+    "name": "throw trailing comment <#c#>\n",
+    "source": "throw\n<#c#>\n",
+    "valid": true
+  },
+  {
+    "name": "throw trailing comment <#c#>\n<#d#>",
+    "source": "throw\n<#c#>\n<#d#>",
+    "valid": true
+  },
+  {
+    "name": "throw trailing comment <#c#>\n\n",
+    "source": "throw\n<#c#>\n\n",
+    "valid": true
+  },
+  {
+    "name": "throw leading pipe context function f {{ {} }}",
+    "source": "function f { throw\n| echo x | next }",
+    "valid": true
+  },
+  {
+    "name": "throw leading pipe context if (1) {{ {} }}",
+    "source": "if (1) { throw\n| echo x | next }",
+    "valid": true
+  },
+  {
+    "name": "throw leading pipe context @{{a={}}}",
+    "source": "@{a=throw\n| echo x | next}",
+    "valid": true
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with EOF",
+    "source": "exit\n| echo x | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with EOF",
+    "source": "exit\n| 1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with EOF",
+    "source": "exit\n| 1 | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with EOF",
+    "source": "exit\n| echo x && next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit newline leading pipe echo x & echo after",
+    "source": "exit\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "exit newline leading pipe $x = 1",
+    "source": "exit\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit newline leading pipe return 1",
+    "source": "exit\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "exit newline leading pipe break",
+    "source": "exit\n| break",
+    "valid": true
+  },
+  {
+    "name": "exit newline leading pipe if (1) {}",
+    "source": "exit\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe echo x | next",
+    "source": "exit\r| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe 1",
+    "source": "exit\r| 1",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe 1 | next",
+    "source": "exit\r| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe echo x && next",
+    "source": "exit\r| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe echo x & echo after",
+    "source": "exit\r| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe $x = 1",
+    "source": "exit\r| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit carriage return leading pipe return 1",
+    "source": "exit\r| return 1",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe break",
+    "source": "exit\r| break",
+    "valid": true
+  },
+  {
+    "name": "exit carriage return leading pipe if (1) {}",
+    "source": "exit\r| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe echo x | next",
+    "source": "exit\r\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe 1",
+    "source": "exit\r\n| 1",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe 1 | next",
+    "source": "exit\r\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe echo x && next",
+    "source": "exit\r\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe echo x & echo after",
+    "source": "exit\r\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe $x = 1",
+    "source": "exit\r\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit CRLF leading pipe return 1",
+    "source": "exit\r\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe break",
+    "source": "exit\r\n| break",
+    "valid": true
+  },
+  {
+    "name": "exit CRLF leading pipe if (1) {}",
+    "source": "exit\r\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe echo x | next",
+    "source": "exit\n<#c#>| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe 1",
+    "source": "exit\n<#c#>| 1",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe 1 | next",
+    "source": "exit\n<#c#>| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe echo x && next",
+    "source": "exit\n<#c#>| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe echo x & echo after",
+    "source": "exit\n<#c#>| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe $x = 1",
+    "source": "exit\n<#c#>| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit block comment leading pipe return 1",
+    "source": "exit\n<#c#>| return 1",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe break",
+    "source": "exit\n<#c#>| break",
+    "valid": true
+  },
+  {
+    "name": "exit block comment leading pipe if (1) {}",
+    "source": "exit\n<#c#>| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe echo x | next",
+    "source": "exit\n#c\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe 1",
+    "source": "exit\n#c\n| 1",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe 1 | next",
+    "source": "exit\n#c\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe echo x && next",
+    "source": "exit\n#c\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe echo x & echo after",
+    "source": "exit\n#c\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe $x = 1",
+    "source": "exit\n#c\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit line comment leading pipe return 1",
+    "source": "exit\n#c\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe break",
+    "source": "exit\n#c\n| break",
+    "valid": true
+  },
+  {
+    "name": "exit line comment leading pipe if (1) {}",
+    "source": "exit\n#c\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe echo x | next",
+    "source": "exit\n<#c#>\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe 1",
+    "source": "exit\n<#c#>\n| 1",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe 1 | next",
+    "source": "exit\n<#c#>\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe echo x && next",
+    "source": "exit\n<#c#>\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe echo x & echo after",
+    "source": "exit\n<#c#>\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe $x = 1",
+    "source": "exit\n<#c#>\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit block comment line leading pipe return 1",
+    "source": "exit\n<#c#>\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe break",
+    "source": "exit\n<#c#>\n| break",
+    "valid": true
+  },
+  {
+    "name": "exit block comment line leading pipe if (1) {}",
+    "source": "exit\n<#c#>\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe echo x | next",
+    "source": "exit\n#c\n<#d#>\n| echo x | next",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe 1",
+    "source": "exit\n#c\n<#d#>\n| 1",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe 1 | next",
+    "source": "exit\n#c\n<#d#>\n| 1 | next",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe echo x && next",
+    "source": "exit\n#c\n<#d#>\n| echo x && next",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe echo x & echo after",
+    "source": "exit\n#c\n<#d#>\n| echo x & echo after",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe $x = 1",
+    "source": "exit\n#c\n<#d#>\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit multiple comment lines leading pipe return 1",
+    "source": "exit\n#c\n<#d#>\n| return 1",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe break",
+    "source": "exit\n#c\n<#d#>\n| break",
+    "valid": true
+  },
+  {
+    "name": "exit multiple comment lines leading pipe if (1) {}",
+    "source": "exit\n#c\n<#d#>\n| if (1) {}",
+    "valid": true
+  },
+  {
+    "name": "exit blank line leading pipe echo x | next",
+    "source": "exit\n\n| echo x | next",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe 1",
+    "source": "exit\n\n| 1",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe 1 | next",
+    "source": "exit\n\n| 1 | next",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe echo x && next",
+    "source": "exit\n\n| echo x && next",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe echo x & echo after",
+    "source": "exit\n\n| echo x & echo after",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe $x = 1",
+    "source": "exit\n\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe return 1",
+    "source": "exit\n\n| return 1",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe break",
+    "source": "exit\n\n| break",
+    "valid": false
+  },
+  {
+    "name": "exit blank line leading pipe if (1) {}",
+    "source": "exit\n\n| if (1) {}",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe echo x | next",
+    "source": "exit\n#c\n\n| echo x | next",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe 1",
+    "source": "exit\n#c\n\n| 1",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe 1 | next",
+    "source": "exit\n#c\n\n| 1 | next",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe echo x && next",
+    "source": "exit\n#c\n\n| echo x && next",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe echo x & echo after",
+    "source": "exit\n#c\n\n| echo x & echo after",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe $x = 1",
+    "source": "exit\n#c\n\n| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe return 1",
+    "source": "exit\n#c\n\n| return 1",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe break",
+    "source": "exit\n#c\n\n| break",
+    "valid": false
+  },
+  {
+    "name": "exit comment then blank line leading pipe if (1) {}",
+    "source": "exit\n#c\n\n| if (1) {}",
+    "valid": false
+  },
+  {
+    "name": "exit newline leading chain echo x",
+    "source": "exit\n|| echo x",
+    "valid": false
+  },
+  {
+    "name": "exit newline leading chain 1",
+    "source": "exit\n|| 1",
+    "valid": false
+  },
+  {
+    "name": "exit newline leading chain $x = 1",
+    "source": "exit\n|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit block comment leading chain echo x",
+    "source": "exit\n<#c#>|| echo x",
+    "valid": false
+  },
+  {
+    "name": "exit block comment leading chain 1",
+    "source": "exit\n<#c#>|| 1",
+    "valid": false
+  },
+  {
+    "name": "exit block comment leading chain $x = 1",
+    "source": "exit\n<#c#>|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit line comment leading chain echo x",
+    "source": "exit\n#c\n|| echo x",
+    "valid": false
+  },
+  {
+    "name": "exit line comment leading chain 1",
+    "source": "exit\n#c\n|| 1",
+    "valid": false
+  },
+  {
+    "name": "exit line comment leading chain $x = 1",
+    "source": "exit\n#c\n|| $x = 1",
+    "valid": false
+  },
+  {
+    "name": "exit trailing comment #c|",
+    "source": "exit\n#c|",
+    "valid": true
+  },
+  {
+    "name": "exit trailing comment #c||",
+    "source": "exit\n#c||",
+    "valid": true
+  },
+  {
+    "name": "exit trailing comment #c&&",
+    "source": "exit\n#c&&",
+    "valid": true
+  },
+  {
+    "name": "exit trailing comment <#c#>",
+    "source": "exit\n<#c#>",
+    "valid": true
+  },
+  {
+    "name": "exit trailing comment <#c#>\n",
+    "source": "exit\n<#c#>\n",
+    "valid": true
+  },
+  {
+    "name": "exit trailing comment <#c#>\n<#d#>",
+    "source": "exit\n<#c#>\n<#d#>",
+    "valid": true
+  },
+  {
+    "name": "exit trailing comment <#c#>\n\n",
+    "source": "exit\n<#c#>\n\n",
+    "valid": true
+  },
+  {
+    "name": "exit leading pipe context function f {{ {} }}",
+    "source": "function f { exit\n| echo x | next }",
+    "valid": true
+  },
+  {
+    "name": "exit leading pipe context if (1) {{ {} }}",
+    "source": "if (1) { exit\n| echo x | next }",
+    "valid": true
+  },
+  {
+    "name": "exit leading pipe context @{{a={}}}",
+    "source": "@{a=exit\n| echo x | next}",
+    "valid": true
+  },
+  {
+    "name": "return leading-pipe single command ends with EOF",
+    "source": "return\n| echo x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe single command ends with LF",
+    "source": "return\n| echo x\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe single command ends with CR",
+    "source": "return\n| echo x\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe single command ends with CRLF",
+    "source": "return\n| echo x\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe single command ends with blank line",
+    "source": "return\n| echo x\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe single command ends with semicolon",
+    "source": "return\n| echo x;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe single command ends with line comment at EOF",
+    "source": "return\n| echo x\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe single command ends with line comment and newline",
+    "source": "return\n| echo x\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe two-command pipeline ends with LF",
+    "source": "return\n| echo x | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe two-command pipeline ends with CR",
+    "source": "return\n| echo x | next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe two-command pipeline ends with CRLF",
+    "source": "return\n| echo x | next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe two-command pipeline ends with blank line",
+    "source": "return\n| echo x | next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe two-command pipeline ends with semicolon",
+    "source": "return\n| echo x | next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe two-command pipeline ends with line comment at EOF",
+    "source": "return\n| echo x | next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe two-command pipeline ends with line comment and newline",
+    "source": "return\n| echo x | next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with LF",
+    "source": "return\n| echo x && next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with CR",
+    "source": "return\n| echo x && next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with CRLF",
+    "source": "return\n| echo x && next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with blank line",
+    "source": "return\n| echo x && next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with semicolon",
+    "source": "return\n| echo x && next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with line comment at EOF",
+    "source": "return\n| echo x && next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe pipeline chain ends with line comment and newline",
+    "source": "return\n| echo x && next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with EOF",
+    "source": "return\n| echo x &",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with LF",
+    "source": "return\n| echo x &\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with CR",
+    "source": "return\n| echo x &\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with CRLF",
+    "source": "return\n| echo x &\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with blank line",
+    "source": "return\n| echo x &\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with semicolon",
+    "source": "return\n| echo x &;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with line comment at EOF",
+    "source": "return\n| echo x &\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe background pipeline ends with line comment and newline",
+    "source": "return\n| echo x &\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with LF",
+    "source": "return\n| 1\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with CR",
+    "source": "return\n| 1\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with CRLF",
+    "source": "return\n| 1\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with blank line",
+    "source": "return\n| 1\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with semicolon",
+    "source": "return\n| 1;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with line comment at EOF",
+    "source": "return\n| 1\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric expression ends with line comment and newline",
+    "source": "return\n| 1\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with LF",
+    "source": "return\n| 1 | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with CR",
+    "source": "return\n| 1 | next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with CRLF",
+    "source": "return\n| 1 | next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with blank line",
+    "source": "return\n| 1 | next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with semicolon",
+    "source": "return\n| 1 | next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with line comment at EOF",
+    "source": "return\n| 1 | next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return leading-pipe numeric pipeline ends with line comment and newline",
+    "source": "return\n| 1 | next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with EOF",
+    "source": "throw\n| echo x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with LF",
+    "source": "throw\n| echo x\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with CR",
+    "source": "throw\n| echo x\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with CRLF",
+    "source": "throw\n| echo x\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with blank line",
+    "source": "throw\n| echo x\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with semicolon",
+    "source": "throw\n| echo x;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with line comment at EOF",
+    "source": "throw\n| echo x\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe single command ends with line comment and newline",
+    "source": "throw\n| echo x\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with LF",
+    "source": "throw\n| echo x | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with CR",
+    "source": "throw\n| echo x | next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with CRLF",
+    "source": "throw\n| echo x | next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with blank line",
+    "source": "throw\n| echo x | next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with semicolon",
+    "source": "throw\n| echo x | next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with line comment at EOF",
+    "source": "throw\n| echo x | next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe two-command pipeline ends with line comment and newline",
+    "source": "throw\n| echo x | next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with LF",
+    "source": "throw\n| echo x && next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with CR",
+    "source": "throw\n| echo x && next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with CRLF",
+    "source": "throw\n| echo x && next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with blank line",
+    "source": "throw\n| echo x && next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with semicolon",
+    "source": "throw\n| echo x && next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with line comment at EOF",
+    "source": "throw\n| echo x && next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe pipeline chain ends with line comment and newline",
+    "source": "throw\n| echo x && next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with EOF",
+    "source": "throw\n| echo x &",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with LF",
+    "source": "throw\n| echo x &\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with CR",
+    "source": "throw\n| echo x &\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with CRLF",
+    "source": "throw\n| echo x &\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with blank line",
+    "source": "throw\n| echo x &\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with semicolon",
+    "source": "throw\n| echo x &;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with line comment at EOF",
+    "source": "throw\n| echo x &\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe background pipeline ends with line comment and newline",
+    "source": "throw\n| echo x &\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with LF",
+    "source": "throw\n| 1\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with CR",
+    "source": "throw\n| 1\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with CRLF",
+    "source": "throw\n| 1\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with blank line",
+    "source": "throw\n| 1\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with semicolon",
+    "source": "throw\n| 1;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with line comment at EOF",
+    "source": "throw\n| 1\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric expression ends with line comment and newline",
+    "source": "throw\n| 1\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with LF",
+    "source": "throw\n| 1 | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with CR",
+    "source": "throw\n| 1 | next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with CRLF",
+    "source": "throw\n| 1 | next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with blank line",
+    "source": "throw\n| 1 | next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with semicolon",
+    "source": "throw\n| 1 | next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with line comment at EOF",
+    "source": "throw\n| 1 | next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "throw leading-pipe numeric pipeline ends with line comment and newline",
+    "source": "throw\n| 1 | next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with EOF",
+    "source": "exit\n| echo x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with LF",
+    "source": "exit\n| echo x\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with CR",
+    "source": "exit\n| echo x\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with CRLF",
+    "source": "exit\n| echo x\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with blank line",
+    "source": "exit\n| echo x\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with semicolon",
+    "source": "exit\n| echo x;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with line comment at EOF",
+    "source": "exit\n| echo x\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe single command ends with line comment and newline",
+    "source": "exit\n| echo x\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with LF",
+    "source": "exit\n| echo x | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with CR",
+    "source": "exit\n| echo x | next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with CRLF",
+    "source": "exit\n| echo x | next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with blank line",
+    "source": "exit\n| echo x | next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with semicolon",
+    "source": "exit\n| echo x | next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with line comment at EOF",
+    "source": "exit\n| echo x | next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe two-command pipeline ends with line comment and newline",
+    "source": "exit\n| echo x | next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with LF",
+    "source": "exit\n| echo x && next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with CR",
+    "source": "exit\n| echo x && next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with CRLF",
+    "source": "exit\n| echo x && next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with blank line",
+    "source": "exit\n| echo x && next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with semicolon",
+    "source": "exit\n| echo x && next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with line comment at EOF",
+    "source": "exit\n| echo x && next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe pipeline chain ends with line comment and newline",
+    "source": "exit\n| echo x && next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with EOF",
+    "source": "exit\n| echo x &",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with LF",
+    "source": "exit\n| echo x &\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with CR",
+    "source": "exit\n| echo x &\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with CRLF",
+    "source": "exit\n| echo x &\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with blank line",
+    "source": "exit\n| echo x &\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with semicolon",
+    "source": "exit\n| echo x &;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with line comment at EOF",
+    "source": "exit\n| echo x &\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe background pipeline ends with line comment and newline",
+    "source": "exit\n| echo x &\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with LF",
+    "source": "exit\n| 1\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with CR",
+    "source": "exit\n| 1\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with CRLF",
+    "source": "exit\n| 1\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with blank line",
+    "source": "exit\n| 1\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with semicolon",
+    "source": "exit\n| 1;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with line comment at EOF",
+    "source": "exit\n| 1\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric expression ends with line comment and newline",
+    "source": "exit\n| 1\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with LF",
+    "source": "exit\n| 1 | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with CR",
+    "source": "exit\n| 1 | next\r",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with CRLF",
+    "source": "exit\n| 1 | next\r\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with blank line",
+    "source": "exit\n| 1 | next\n\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with semicolon",
+    "source": "exit\n| 1 | next;",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with line comment at EOF",
+    "source": "exit\n| 1 | next\n#c",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "exit leading-pipe numeric pipeline ends with line comment and newline",
+    "source": "exit\n| 1 | next\n#c\n",
+    "valid": true,
+    "diagnostics": []
+  }
+]

@@ -1,0 +1,18 @@
+==================
+A leading-pipe return value ends at the final newline
+==================
+return
+| echo x | next
+
+---
+(source_file
+  (return_statement
+    value: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))
+        (command_argument
+          (bare_word)))
+      elements: (command
+        name: (command_name
+          (bare_word))))))

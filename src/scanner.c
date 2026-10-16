@@ -40,6 +40,8 @@ enum TokenType {
                              // '{'.
   LINE_CONTINUATION,
   POSTFIX_CONTEXT, // Reject continuations before adjacent member/index access.
+  ATTRIBUTE_CONTINUATION,
+  EXPRESSION_CONTINUATION, // Leave an invalid operand for statement recovery.
   ARGUMENT_SEPARATOR,
   SPLAT_EXPRESSION,
   VERBATIM_ARGUMENTS_START,
@@ -47,6 +49,7 @@ enum TokenType {
   BRACED_ARGUMENT_VARIABLE,
   FLOW_EXPRESSION_START,
   FLOW_LABEL_END,
+  FLOW_PIPE_START,
   COMMAND_MEMBER_START,
   COMMAND_UNARY_START,
   DATA_COMMAND_NAME,
@@ -97,7 +100,8 @@ static bool prepared_context_token(TSSymbol symbol) {
   return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END || symbol == LABEL_START ||
          symbol == MEMBER_ARGUMENT_END || symbol == EXPRESSION_ARGUMENT_END ||
          symbol == SWITCH_CLAUSE_START || symbol == UNARY_SIGN_CONTEXT ||
-         symbol == CAST_VALUE_CONTEXT;
+         symbol == CAST_VALUE_CONTEXT || symbol == FLOW_PIPE_START ||
+         symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -1161,6 +1165,65 @@ static bool skip_block_comment_body(TSLexer *lexer) {
       lexer->advance(lexer, false);
       return true;
     }
+  }
+  return false;
+}
+
+// PipelineRule may begin with a newline and pipe after return, throw, or exit.
+// Assert the complete continuation before the grammar consumes its newline, so
+// an ordinary trailing comment stays an extra when no pipe follows.
+static bool scan_flow_pipe_start(TSLexer *lexer) {
+  lexer->mark_end(lexer);
+  int32_t first = lexer->lookahead;
+  lexer->advance(lexer, false);
+  if (first == '\r' && lexer->lookahead == '\n') {
+    lexer->advance(lexer, false);
+  }
+  bool after_newline = true;
+  while (!lexer->eof(lexer)) {
+    if (horizontal(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+      continue;
+    }
+    if (newline(lexer->lookahead)) {
+      if (after_newline) {
+        return false;
+      }
+      int32_t c = lexer->lookahead;
+      lexer->advance(lexer, false);
+      if (c == '\r' && lexer->lookahead == '\n') {
+        lexer->advance(lexer, false);
+      }
+      after_newline = true;
+      continue;
+    }
+    after_newline = false;
+    if (lexer->lookahead == '#') {
+      while (!lexer->eof(lexer) && !newline(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      }
+      continue;
+    }
+    if (lexer->lookahead == '<') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead != '#') {
+        return false;
+      }
+      lexer->advance(lexer, false);
+      if (!skip_block_comment_body(lexer)) {
+        return false;
+      }
+      continue;
+    }
+    if (lexer->lookahead != '|') {
+      return false;
+    }
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == '|') {
+      return false;
+    }
+    lexer->result_symbol = FLOW_PIPE_START;
+    return true;
   }
   return false;
 }
@@ -3552,6 +3615,128 @@ static bool scan_interpolation_tail(Scanner *scanner, TSLexer *lexer, const bool
   return true;
 }
 
+// Attribute lists can prefix declarations or expressions. Decide that shared
+// boundary before consuming a newline, preserving both branches until a real
+// declaration keyword or expression token selects their role.
+static bool scan_attribute_continuation(TSLexer *lexer) {
+  lexer->mark_end(lexer);
+  bool unary = false;
+  for (;;) {
+    if (!skip_postfix_trivia(lexer, true)) {
+      return false;
+    }
+    int32_t c = lexer->lookahead;
+    if (c == '+' || c == '!' || c == ',') {
+      unary = true;
+      lexer->advance(lexer, false);
+      if (c == '+' && lexer->lookahead == '+') {
+        lexer->advance(lexer, false);
+      }
+      continue;
+    }
+    if (!generic_dash(c)) {
+      break;
+    }
+    unary = true;
+    lexer->advance(lexer, false);
+    if (generic_dash(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+      continue;
+    }
+    char operator[16] = "-";
+    size_t length = 1;
+    while (ascii_lower(lexer->lookahead) >= 'a' && ascii_lower(lexer->lookahead) <= 'z') {
+      if (length + 1 == sizeof(operator)) {
+        return false;
+      }
+      operator[length++] = (char)ascii_lower(lexer->lookahead);
+      lexer->advance(lexer, false);
+    }
+    operator[length] = 0;
+    if (length > 1 && !generic_unary_operator(operator)) {
+      return false;
+    }
+  }
+  int32_t c = lexer->lookahead;
+  if (c == '$' || c == '@' || c == '[' || c == '(' || c == '{' || quote(c) || ascii_digit(c) ||
+      c == '.' || c == '|') {
+    lexer->result_symbol = ATTRIBUTE_CONTINUATION;
+    return true;
+  }
+  if (unary) {
+    return false;
+  }
+  char word[16];
+  size_t length = 0;
+  while (ascii_lower(lexer->lookahead) >= 'a' && ascii_lower(lexer->lookahead) <= 'z') {
+    if (length + 1 == sizeof(word)) {
+      return false;
+    }
+    word[length++] = (char)ascii_lower(lexer->lookahead);
+    lexer->advance(lexer, false);
+  }
+  word[length] = 0;
+  if (!generic_end(lexer->lookahead) || quote(lexer->lookahead) ||
+      (strcmp(word, "class") != 0 && strcmp(word, "enum") != 0 && strcmp(word, "param") != 0 &&
+       strcmp(word, "configuration") != 0)) {
+    return false;
+  }
+  lexer->result_symbol = ATTRIBUTE_CONTINUATION;
+  return true;
+}
+
+// UnaryExpressionRule leaves an invalid following token for StatementRule.
+// Keep a newline available for the same recovery when no operand can begin
+// after it. A leading pipe retains PipelineRule's existing recovery path.
+static bool scan_expression_continuation(TSLexer *lexer) {
+  lexer->mark_end(lexer);
+  bool continued = false;
+  while (!lexer->eof(lexer)) {
+    if (horizontal(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+    } else if (newline(lexer->lookahead)) {
+      continued = true;
+      consume_newline(lexer);
+    } else if (lexer->lookahead == '#') {
+      while (!lexer->eof(lexer) && !newline(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      }
+    } else if (lexer->lookahead == '<') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead != '#') {
+        return false;
+      }
+      lexer->advance(lexer, false);
+      if (!skip_block_comment_body(lexer)) {
+        return false;
+      }
+    } else if (lexer->lookahead == '`') {
+      lexer->advance(lexer, false);
+      if (newline(lexer->lookahead)) {
+        consume_newline(lexer);
+      } else if (horizontal(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      } else {
+        if (continued) {
+          return false;
+        }
+        lexer->result_symbol = EXPRESSION_CONTINUATION;
+        return true;
+      }
+    } else {
+      break;
+    }
+  }
+  int32_t c = lexer->lookahead;
+  if (!(c == '$' || c == '@' || c == '[' || c == '(' || c == '{' || quote(c) || ascii_digit(c) ||
+        c == '.' || c == '!' || c == '+' || c == '-' || c == 0x2013 || c == 0x2014 || c == 0x2015 ||
+        c == ',' || c == '|')) {
+    return false;
+  }
+  lexer->result_symbol = EXPRESSION_CONTINUATION;
+  return true;
+}
+
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if (valid[INTERPOLATION_TAIL] && !valid[EXPANDABLE_HERE_STRING_START] && scanner->depth &&
       scanner->top.closed) {
@@ -3751,6 +3936,17 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   while (horizontal(lexer->lookahead)) {
     skipped_trivia = true;
     lexer->advance(lexer, true);
+  }
+  if (valid[ATTRIBUTE_CONTINUATION] && !valid[HERE_STRING_CONTENT]) {
+    return preparing ? request_preparation(scanner, lexer, valid)
+                     : scan_attribute_continuation(lexer);
+  }
+  if (valid[EXPRESSION_CONTINUATION] && !valid[HERE_STRING_CONTENT]) {
+    return preparing ? request_preparation(scanner, lexer, valid)
+                     : scan_expression_continuation(lexer);
+  }
+  if (valid[FLOW_PIPE_START] && !valid[HERE_STRING_CONTENT] && newline(lexer->lookahead)) {
+    return preparing ? request_preparation(scanner, lexer, valid) : scan_flow_pipe_start(lexer);
   }
   if (valid[SWITCH_CLAUSE_START] && !valid[HERE_STRING_CONTENT] && !newline(lexer->lookahead) &&
       !lexer->eof(lexer) && lexer->lookahead != '#' && lexer->lookahead != '<' &&

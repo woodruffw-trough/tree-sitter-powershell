@@ -1,0 +1,79 @@
+==================
+Malformed repeated postfix preserves a later pipeline
+==================
+$x++++
+Write-Output after | next
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (variable))))
+  (ERROR)
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Missing binary operand preserves a later pipeline
+==================
+$x +
+Write-Output after | next
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (variable)))
+  (ERROR)
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Missing index expression preserves a later pipeline
+==================
+$x[
+Write-Output after | next
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (variable)))
+  (ERROR)
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A valid operand continues across the newline
+==================
+$x +
+1 | next
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (binary_expression
+        left: (variable)
+        right: (integer_literal)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

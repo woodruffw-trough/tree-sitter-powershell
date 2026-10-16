@@ -1,0 +1,1421 @@
+[
+  {
+    "name": "$x++++ newline recovery",
+    "source": "$x++++\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++++ CRLF recovery",
+    "source": "$x++++\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++++ comment line recovery",
+    "source": "$x++++\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++++ block comment line recovery",
+    "source": "$x++++<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++-- newline recovery",
+    "source": "$x++--\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++-- CRLF recovery",
+    "source": "$x++--\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++-- comment line recovery",
+    "source": "$x++--\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++-- block comment line recovery",
+    "source": "$x++--<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x--++ newline recovery",
+    "source": "$x--++\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x--++ CRLF recovery",
+    "source": "$x--++\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x--++ comment line recovery",
+    "source": "$x--++\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x--++ block comment line recovery",
+    "source": "$x--++<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x------ newline recovery",
+    "source": "$x------\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "$x------ CRLF recovery",
+    "source": "$x------\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "$x------ comment line recovery",
+    "source": "$x------\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "$x------ block comment line recovery",
+    "source": "$x------<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "$x++—— newline recovery",
+    "source": "$x++——\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++—— CRLF recovery",
+    "source": "$x++——\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++—— comment line recovery",
+    "source": "$x++——\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++—— block comment line recovery",
+    "source": "$x++——<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "($x)++++ newline recovery",
+    "source": "($x)++++\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "($x)++++ CRLF recovery",
+    "source": "($x)++++\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "($x)++++ comment line recovery",
+    "source": "($x)++++\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "($x)++++ block comment line recovery",
+    "source": "($x)++++<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x + newline recovery",
+    "source": "$x +\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x + CRLF recovery",
+    "source": "$x +\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x + comment line recovery",
+    "source": "$x +\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x + block comment line recovery",
+    "source": "$x +<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x - newline recovery",
+    "source": "$x -\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x - CRLF recovery",
+    "source": "$x -\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x - comment line recovery",
+    "source": "$x -\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x - block comment line recovery",
+    "source": "$x -<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x * newline recovery",
+    "source": "$x *\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x * CRLF recovery",
+    "source": "$x *\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x * comment line recovery",
+    "source": "$x *\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x * block comment line recovery",
+    "source": "$x *<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x / newline recovery",
+    "source": "$x /\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x / CRLF recovery",
+    "source": "$x /\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x / comment line recovery",
+    "source": "$x /\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x / block comment line recovery",
+    "source": "$x /<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x % newline recovery",
+    "source": "$x %\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x % CRLF recovery",
+    "source": "$x %\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x % comment line recovery",
+    "source": "$x %\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x % block comment line recovery",
+    "source": "$x %<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -eq newline recovery",
+    "source": "$x -eq\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -eq CRLF recovery",
+    "source": "$x -eq\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -eq comment line recovery",
+    "source": "$x -eq\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -eq block comment line recovery",
+    "source": "$x -eq<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -and newline recovery",
+    "source": "$x -and\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -and CRLF recovery",
+    "source": "$x -and\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -and comment line recovery",
+    "source": "$x -and\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -and block comment line recovery",
+    "source": "$x -and<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -f newline recovery",
+    "source": "$x -f\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -f CRLF recovery",
+    "source": "$x -f\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -f comment line recovery",
+    "source": "$x -f\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x -f block comment line recovery",
+    "source": "$x -f<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x .. newline recovery",
+    "source": "$x ..\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x .. CRLF recovery",
+    "source": "$x ..\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x .. comment line recovery",
+    "source": "$x ..\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x .. block comment line recovery",
+    "source": "$x ..<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ newline recovery",
+    "source": "++\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ CRLF recovery",
+    "source": "++\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ comment line recovery",
+    "source": "++\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ block comment line recovery",
+    "source": "++<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-- newline recovery",
+    "source": "--\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-- CRLF recovery",
+    "source": "--\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-- comment line recovery",
+    "source": "--\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-- block comment line recovery",
+    "source": "--<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-not newline recovery",
+    "source": "-not\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-not CRLF recovery",
+    "source": "-not\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-not comment line recovery",
+    "source": "-not\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-not block comment line recovery",
+    "source": "-not<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-split newline recovery",
+    "source": "-split\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-split CRLF recovery",
+    "source": "-split\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-split comment line recovery",
+    "source": "-split\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "-split block comment line recovery",
+    "source": "-split<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "! newline recovery",
+    "source": "!\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "! CRLF recovery",
+    "source": "!\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "! comment line recovery",
+    "source": "!\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "! block comment line recovery",
+    "source": "!<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x[ newline recovery",
+    "source": "$x[\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x[ CRLF recovery",
+    "source": "$x[\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x[ comment line recovery",
+    "source": "$x[\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x[ block comment line recovery",
+    "source": "$x[<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x?[ newline recovery",
+    "source": "$x?[\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x?[ CRLF recovery",
+    "source": "$x?[\r\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x?[ comment line recovery",
+    "source": "$x?[\n#c\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x?[ block comment line recovery",
+    "source": "$x?[<#c#>\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "1 + valid continuation 1",
+    "source": "1 +\n1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation $x",
+    "source": "1 +\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation \"text\"",
+    "source": "1 +\n\"text\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation [int]1",
+    "source": "1 +\n[int]1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation @(1)",
+    "source": "1 +\n@(1)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation @{a=1}",
+    "source": "1 +\n@{a=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation (1)",
+    "source": "1 +\n(1)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation !$x",
+    "source": "1 +\n!$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "1 + valid continuation ,1",
+    "source": "1 +\n,1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation 1",
+    "source": "-not\n1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation $x",
+    "source": "-not\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation \"text\"",
+    "source": "-not\n\"text\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation [int]1",
+    "source": "-not\n[int]1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation @(1)",
+    "source": "-not\n@(1)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation @{a=1}",
+    "source": "-not\n@{a=1}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation (1)",
+    "source": "-not\n(1)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation !$x",
+    "source": "-not\n!$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "-not valid continuation ,1",
+    "source": "-not\n,1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "++ valid continuation 1",
+    "source": "++\n1",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "++ valid continuation $x",
+    "source": "++\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "++ valid continuation \"text\"",
+    "source": "++\n\"text\"",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "++ valid continuation [int]1",
+    "source": "++\n[int]1",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "++ valid continuation @(1)",
+    "source": "++\n@(1)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "++ valid continuation @{a=1}",
+    "source": "++\n@{a=1}",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "++ valid continuation (1)",
+    "source": "++\n(1)",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "++ valid continuation !$x",
+    "source": "++\n!$x",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "++ valid continuation ,1",
+    "source": "++\n,1",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "$x[ valid continuation 1",
+    "source": "$x[\n1]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation $x",
+    "source": "$x[\n$x]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation \"text\"",
+    "source": "$x[\n\"text\"]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation [int]1",
+    "source": "$x[\n[int]1]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation @(1)",
+    "source": "$x[\n@(1)]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation @{a=1}",
+    "source": "$x[\n@{a=1}]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation (1)",
+    "source": "$x[\n(1)]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation !$x",
+    "source": "$x[\n!$x]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x[ valid continuation ,1",
+    "source": "$x[\n,1]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "$x++++ recovery in function f {{ {} }}",
+    "source": "function f { $x++++\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++++ recovery in if(1){{ {} }}",
+    "source": "if(1){ $x++++\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x++++ recovery in @{{a={}}}",
+    "source": "@{a=$x++++\nWrite-Output after | next}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "$x++++ recovery in \"$({})\"",
+    "source": "\"$($x++++\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x + recovery in function f {{ {} }}",
+    "source": "function f { $x +\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x + recovery in if(1){{ {} }}",
+    "source": "if(1){ $x +\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x + recovery in \"$({})\"",
+    "source": "\"$($x +\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ recovery in function f {{ {} }}",
+    "source": "function f { ++\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ recovery in if(1){{ {} }}",
+    "source": "if(1){ ++\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ recovery in @{{a={}}}",
+    "source": "@{a=++\nWrite-Output after | next}",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "++ recovery in \"$({})\"",
+    "source": "\"$(++\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x[ recovery in function f {{ {} }}",
+    "source": "function f { $x[\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x[ recovery in if(1){{ {} }}",
+    "source": "if(1){ $x[\nWrite-Output after | next }",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "$x[ recovery in \"$({})\"",
+    "source": "\"$($x[\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "attribute missing target preserves Write-Output after",
+    "source": "[A()] \nWrite-Output after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "attribute missing target preserves Write-Output after | next",
+    "source": "[A()] \nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "attribute + target preserves Write-Output after",
+    "source": "[A()] +\nWrite-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute + target preserves Write-Output after | next",
+    "source": "[A()] +\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute ++ target preserves Write-Output after",
+    "source": "[A()] ++\nWrite-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute ++ target preserves Write-Output after | next",
+    "source": "[A()] ++\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute -not target preserves Write-Output after",
+    "source": "[A()] -not\nWrite-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute -not target preserves Write-Output after | next",
+    "source": "[A()] -not\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute ! target preserves Write-Output after",
+    "source": "[A()] !\nWrite-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute ! target preserves Write-Output after | next",
+    "source": "[A()] !\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute without target before leading pipe",
+    "source": "[A()]\n| Out-File x",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute without target before same-line pipe",
+    "source": "[A()] | Out-File x",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "attribute before multiline parameter block",
+    "source": "[A()]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "multiple attributes before multiline parameter block",
+    "source": "[A()]\n[B()]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute immediately before class",
+    "source": "[A()]class C {}",
+    "valid": false,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "multiple attributes before multiline class",
+    "source": "[A()]\n[B()]\nclass C {}",
+    "valid": false,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attribute immediately before enum",
+    "source": "[A()]enum E {A}",
+    "valid": false,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "parameter attribute separated by newline",
+    "source": "[CmdletBinding()]\nparam([Parameter()]\n$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "multiple function attributes before parameter block",
+    "source": "function f {[CmdletBinding()]\n[OutputType([int])]\nparam([Parameter()]\n$x)}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed variable operand",
+    "source": "[A()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed constant operand",
+    "source": "[A()]1",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attributed increment operand",
+    "source": "[A()] ++$x",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attributed logical negation across newline",
+    "source": "[A()] -not\n$x",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attributed unary plus across newline",
+    "source": "[A()] +\n1",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "nested attributed variable across newlines",
+    "source": "[A()]\n[B()]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed operand in command grouping",
+    "source": "f ([A()]\n$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed operand in interpolation",
+    "source": "\"$([A()]\n$x)\"",
+    "valid": true,
+    "diagnostics": []
+  }
+]

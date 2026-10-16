@@ -1,0 +1,91 @@
+[
+  {
+    "name": "ordinary interpolation pipeline",
+    "source": "\"$(echo before\n| next)\"",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ],
+    "flow": null,
+    "intended_commands": [
+      "echo before",
+      "next"
+    ]
+  },
+  {
+    "name": "return interpolation leading pipe",
+    "source": "\"$(return\n| echo after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ],
+    "flow": "return_statement",
+    "intended_commands": [
+      "echo after",
+      "next"
+    ]
+  },
+  {
+    "name": "throw interpolation leading pipe",
+    "source": "\"$(throw\n| echo after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ],
+    "flow": "throw_statement",
+    "intended_commands": [
+      "echo after",
+      "next"
+    ]
+  },
+  {
+    "name": "exit interpolation leading pipe",
+    "source": "\"$(exit\n| echo after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ],
+    "flow": "exit_statement",
+    "intended_commands": [
+      "echo after",
+      "next"
+    ]
+  },
+  {
+    "name": "here string interpolation pipeline",
+    "source": "@\"\n$(echo before\n| next)\n\"@",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ],
+    "flow": null,
+    "intended_commands": [
+      "echo before",
+      "next"
+    ]
+  },
+  {
+    "name": "here string source offset accepts comment continuation",
+    "source": "@\"\n$(echo before\n#c\n| next)\n\"@",
+    "valid": true,
+    "diagnostics": [],
+    "flow": null,
+    "intended_commands": [
+      "echo before",
+      "next"
+    ]
+  },
+  {
+    "name": "here string prefix changes native continuation result",
+    "source": "@\"\nx$(echo before\n#c\n| next)\n\"@",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ],
+    "flow": null,
+    "intended_commands": [
+      "echo before",
+      "next"
+    ]
+  }
+]

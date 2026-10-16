@@ -68,10 +68,18 @@ const assignmentStatement = ($, right) => prec.right(seq(
   field('right', right),
 ));
 
-const flowControlStatement = (word, value, required = false) => prec.right(seq(
-  field('keyword', keyword(word)),
-  required ? field('value', value) : optional(field('value', value)),
-));
+const flowControlStatement = ($, word, value, required = false) => {
+  const operand = choice(
+    field('value', value),
+    seq($._flow_pipe_start, $._leading_pipe, field('value', required
+      ? $.background_pipeline
+      : choice($.pipeline, $.pipeline_chain, $.background_pipeline))),
+  );
+  return seq(
+    field('keyword', keyword(word)),
+    required ? operand : optional(operand),
+  );
+};
 
 const breakContinueStatement = ($, word) => prec.right(seq(
   field('keyword', keyword(word)),
@@ -144,12 +152,14 @@ const prefixExpression = ($, argument, allowComma, options = {}) => {
   return prec.right(options.precedence || PREC.unary, choice(
     seq(
       field('operator', choice(...operators)),
+      $._expression_continuation,
       repeat(NEWLINE),
       ...argumentStart,
       field('argument', argument),
     ),
     seq(
       field('operator', choice('++', op('--'))),
+      $._expression_continuation,
       repeat(NEWLINE),
       ...prefixStart,
       field('argument', argument),
@@ -226,6 +236,7 @@ const elementAccess = ($, primary) => prec.left(
     field('object', primary),
     optional($._postfix_context),
     choice(token.immediate(prec(5, '[')), token.immediate(prec(5, '?['))),
+    $._expression_continuation,
     repeat(NEWLINE),
     field('index', $._expression_head),
     repeat(NEWLINE),
@@ -246,7 +257,7 @@ const invocationExpression = ($, member, generic = true) => prec.left(
   ),
 );
 
-const binaryExpression = (expression, newlines) => choice(
+const binaryExpression = ($, expression, newlines) => choice(
   ...BINARY_OPERATORS.map(([precedence, operators]) => {
     const alternatives = operators.map(operator => {
       if (operator.startsWith('-')) {
@@ -261,6 +272,7 @@ const binaryExpression = (expression, newlines) => choice(
     return prec.left(precedence, seq(
       field('left', expression),
       field('operator', operator),
+      $._expression_continuation,
       newlines,
       field('right', expression),
     ));
@@ -324,6 +336,8 @@ const grammarDefinition = {
     $._method_invocation_context,
     $.line_continuation,
     $._postfix_context,
+    $._attribute_continuation,
+    $._expression_continuation,
     $._argument_separator,
     $.splat_expression,
     $._verbatim_arguments_start,
@@ -331,6 +345,7 @@ const grammarDefinition = {
     $._braced_argument_variable,
     $._flow_expression_start,
     $._flow_label_end,
+    $._flow_pipe_start,
     $._command_member_start,
     $._command_unary_start,
     $._data_command_name,
@@ -389,6 +404,12 @@ const grammarDefinition = {
     [$._statement, $._completed_assignment_statement],
     [$.if_statement],
     [$.try_statement],
+    [$.return_statement, $.pipeline_chain],
+    [$.throw_statement, $.pipeline_chain],
+    [$.exit_statement, $.pipeline_chain],
+    [$.return_statement, $._completed_return_statement],
+    [$.throw_statement, $._completed_throw_statement],
+    [$.exit_statement, $._completed_exit_statement],
     [$.parameter],
     [$.for_statement],
     [$._for_header_initializer],
@@ -675,20 +696,20 @@ const grammarDefinition = {
 
     continue_statement: $ => breakContinueStatement($, 'continue'),
 
-    return_statement: $ => flowControlStatement('return', $._pipeline_entry),
+    return_statement: $ => flowControlStatement($, 'return', $._pipeline_entry),
 
-    throw_statement: $ => flowControlStatement('throw', $._pipeline_entry),
+    throw_statement: $ => flowControlStatement($, 'throw', $._pipeline_entry),
 
-    exit_statement: $ => flowControlStatement('exit', $._pipeline_entry),
+    exit_statement: $ => flowControlStatement($, 'exit', $._pipeline_entry),
 
     _completed_return_statement: $ => prec.dynamic(1,
-      flowControlStatement('return', $._completed_pipeline_entry, true)),
+      flowControlStatement($, 'return', $._completed_pipeline_entry, true)),
 
     _completed_throw_statement: $ => prec.dynamic(1,
-      flowControlStatement('throw', $._completed_pipeline_entry, true)),
+      flowControlStatement($, 'throw', $._completed_pipeline_entry, true)),
 
     _completed_exit_statement: $ => prec.dynamic(1,
-      flowControlStatement('exit', $._completed_pipeline_entry, true)),
+      flowControlStatement($, 'exit', $._completed_pipeline_entry, true)),
 
     function_definition: $ => seq(
       field('keyword', choice(keyword('function'), keyword('filter'), keyword('workflow'))),
@@ -712,7 +733,7 @@ const grammarDefinition = {
     // after parsing the header.
     param_block: $ => prec.dynamic(1, seq(
       repeat(choice(
-        seq(field('attributes', $.attribute), repeat(NEWLINE)),
+        seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE)),
         prec.dynamic(1, prec(PREC.unary, seq(
           field('types', $.type_literal),
           repeat(NEWLINE),
@@ -788,7 +809,7 @@ const grammarDefinition = {
     // Class methods delimit themselves and allow only newlines before the next
     // member. Properties accept semicolons too, or the final closing brace.
     class_definition: $ => seq(
-      repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
+      repeat(seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE))),
       keyword('class'),
       repeat(NEWLINE),
       field('name', $.identifier),
@@ -869,7 +890,7 @@ const grammarDefinition = {
     _base_argument_list: $ => argumentList('(', $._argument_expression_head),
 
     enum_definition: $ => seq(
-      repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
+      repeat(seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE))),
       keyword('enum'),
       repeat(NEWLINE),
       field('name', $.identifier),
@@ -1355,7 +1376,7 @@ const grammarDefinition = {
       seq($._unary_expression, repeat1(seq(',', repeat(NEWLINE), $._unary_expression))),
     ),
 
-    binary_expression: $ => binaryExpression($._expression, repeat(NEWLINE)),
+    binary_expression: $ => binaryExpression($, $._expression, repeat(NEWLINE)),
 
     ternary_expression: $ => prec.right(
       PREC.ternary,
@@ -1389,7 +1410,7 @@ const grammarDefinition = {
       alias($._argument_ternary_expression, $.ternary_expression),
     ),
 
-    _argument_binary_expression: $ => binaryExpression($._argument_expression, repeat(NEWLINE)),
+    _argument_binary_expression: $ => binaryExpression($, $._argument_expression, repeat(NEWLINE)),
 
     _argument_ternary_expression: $ => prec.right(
       PREC.ternary,
@@ -1635,18 +1656,21 @@ const grammarDefinition = {
     // are diagnosed later by Microsoft's semantic checks.
     attributed_expression: $ => seq(
       field('attribute', $.attribute),
+      $._attribute_continuation,
       repeat(NEWLINE),
       field('value', $._attributed_value),
     ),
 
     argument_attributed_expression: $ => seq(
       field('attribute', $.attribute),
+      $._attribute_continuation,
       repeat(NEWLINE),
       field('value', $._argument_cast_value),
     ),
 
     command_attributed_expression: $ => seq(
       field('attribute', $.attribute),
+      $._attribute_continuation,
       repeat(NEWLINE),
       $._command_unary_start,
       field('value', $._command_unary_expression),
@@ -1654,6 +1678,7 @@ const grammarDefinition = {
 
     argument_command_attributed_expression: $ => seq(
       field('attribute', $.attribute),
+      $._attribute_continuation,
       repeat(NEWLINE),
       $._command_unary_start,
       field('value', $._argument_command_unary_expression),

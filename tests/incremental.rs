@@ -86,7 +86,7 @@ fn edited_trees_match_fresh_parses() {
 
 #[test]
 fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
-    for source in [
+    for (source, valid) in [
         "$x = @'\nhello\n'@\nWrite-Output $x\n",
         "$x = @\"\n世界 $name $(1 + 2)\n\"@\n",
         "Write-Output \"$($obj.Name):`n$name\"\n",
@@ -117,6 +117,10 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "cmd !name !1x !1+$v\n",
         "fromsuffix | define | var\n",
         ";param($x)\n",
+        "return\n| echo x | next\n",
+        "throw\n# comment\n| echo x\n",
+        "exit\r\n| 1 | next\n",
+        "\"$(return\n| echo x | next)\"\n",
         "function f { ;param($x) }\n",
         "using namespace System;param($x) $x\n",
         "switch (1) { default {} 'default' {} }\n",
@@ -173,10 +177,21 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "[int, x, y = z]\n[List[[string, a[b, Culture = neutral]]]\n",
         "param([int, x, y = z]$x)\n$x\n",
         "function \0f {}\nfilter \0\"name\" {}\n",
-    ] {
+    ]
+    .into_iter()
+    .map(|source| (source, true))
+    .chain(
+        [
+            "$x++++\nWrite-Output after | next\n",
+            "$x +\nWrite-Output after | next\n",
+            "$x[\nWrite-Output after | next\n",
+            "[A()] +\nWrite-Output after | next\n",
+        ]
+        .map(|source| (source, false)),
+    ) {
         let mut parser = parser();
         let original = parser.parse(source, None).unwrap();
-        assert!(!original.root_node().has_error(), "{source}");
+        assert_eq!(!original.root_node().has_error(), valid, "{source}");
         for start in source
             .char_indices()
             .map(|(index, _)| index)

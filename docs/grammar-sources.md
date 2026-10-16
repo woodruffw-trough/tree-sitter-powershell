@@ -358,3 +358,23 @@ across larger scripts. Imported sources carry their provenance and hashes with t
 fixture collection; see the [PowerShell fixtures](https://github.com/woodruffw-trough/tree-sitter-powershell/blob/main/tests/upstream/README.md) and
 [external project fixtures](https://github.com/woodruffw-trough/tree-sitter-powershell/blob/main/tests/projects/README.md).
 Contributor commands are in [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+Leading-pipe continuation is accepted inside interpolated subexpressions, including
+values of `return`, `throw`, and `exit`. This deliberately differs from PowerShell
+7.5.4: `"$(echo before` followed by a newline and `| next)"` produces
+`EmptyPipeElement` there, while this grammar retains one pipeline. In the pinned
+[`StartNestedScan`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L799-L819),
+the tokenizer switches to the collected subexpression text but keeps absolute
+source extents.
+[`IsPipeContinuation`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L1360-L1434)
+uses those offsets to index the shorter collected text. Consequently, inserting
+text before `$(` can change whether an otherwise identical pipeline is accepted.
+The grammar follows the intended continuation syntax consistently; dedicated
+compatibility tests preserve the exact native diagnostics separately from
+conformance checks.
+
+Malformed operators leave following statement boundaries available for recovery.
+For example, `$x++++` retains the valid `$x++` postfix expression and an `ERROR`
+for the extra operator; commands on the next line keep their names, arguments,
+and pipeline positions. Attribute-prefix lookahead preserves the same boundary
+while allowing complete multiline expression and declaration prefixes.

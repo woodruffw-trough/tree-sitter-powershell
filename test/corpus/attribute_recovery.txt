@@ -1,0 +1,43 @@
+==================
+A missing attribute target preserves the next pipeline
+==================
+[A()]
+Write-Output after | next
+---
+(source_file
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+An incomplete attributed unary operand preserves the next pipeline
+==================
+[A()] +
+Write-Output after | next
+---
+(source_file
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
