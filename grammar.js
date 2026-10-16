@@ -1728,24 +1728,29 @@ const grammarDefinition = {
 
     type_name: $ => seq(
       field('name', $.type_identifier),
-      optional(
-        seq(
-          '[',
-          repeat(NEWLINE),
-          choice($.type_name, alias($._generic_type_literal, $.type_literal)),
-          repeat(NEWLINE),
-          repeat(
-            seq(
-              ',',
-              repeat(NEWLINE),
-              choice($.type_name, alias($._generic_type_literal, $.type_literal)),
-              repeat(NEWLINE),
+      optional(seq(
+        choice(
+          seq(
+            '[',
+            repeat(NEWLINE),
+            choice($.type_name, alias($._generic_type_literal, $.type_literal)),
+            repeat(NEWLINE),
+            repeat(
+              seq(
+                ',',
+                repeat(NEWLINE),
+                choice($.type_name, alias($._generic_type_literal, $.type_literal)),
+                repeat(NEWLINE),
+              ),
             ),
+            ']',
           ),
-          ']',
+          seq('[', repeat(NEWLINE), repeat(','), ']'),
         ),
-      ),
-      repeat(seq('[', repeat(NEWLINE), repeat(','), ']')),
+        // Only the first plain-array opener skips newlines. Generic array
+        // suffixes and later jagged dimensions read their next token directly.
+        repeat(seq('[', repeat(','), ']')),
+      )),
     ),
 
     // PowerShell scans type names using .NET UTF-16 Char.IsLetter/IsDigit,

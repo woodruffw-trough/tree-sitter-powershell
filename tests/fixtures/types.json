@@ -368,5 +368,55 @@
     "name": "pinned Unicode classification U+A7DC class continuation",
     "source": "class AꟜ {}",
     "valid": false
+  },
+  {
+    "name": "first array opener newline before jagged suffix",
+    "source": "[int[\n][]]",
+    "valid": true
+  },
+  {
+    "name": "first multidimensional opener newline before jagged suffix",
+    "source": "[int[\n,][]]",
+    "valid": true
+  },
+  {
+    "name": "later jagged array opener newline rejected",
+    "source": "[int[][\n]]",
+    "valid": false
+  },
+  {
+    "name": "generic array suffix opener newline rejected",
+    "source": "[List[int][\n]]",
+    "valid": false
+  },
+  {
+    "name": "generic multidimensional suffix opener newline rejected",
+    "source": "[List[int][\n,]]",
+    "valid": false
+  },
+  {
+    "name": "generic argument first array opener newline",
+    "source": "[List[int[\n]]]",
+    "valid": true
+  },
+  {
+    "name": "generic argument later array opener newline rejected",
+    "source": "[List[int[] [\n]]]",
+    "valid": false
+  },
+  {
+    "name": "generic method array suffix opener newline rejected",
+    "source": "$x.F[System.Collections.Generic.List[int][\n]]()",
+    "valid": false
+  },
+  {
+    "name": "cast later array opener newline rejected",
+    "source": "[int[][\n]]$x",
+    "valid": false
+  },
+  {
+    "name": "parameter later array opener newline rejected",
+    "source": "param([int[][\n]]$x)",
+    "valid": false
   }
 ]

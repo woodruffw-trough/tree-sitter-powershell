@@ -1,4 +1,6 @@
 mod common;
+#[path = "common/cst.rs"]
+mod cst;
 
 use serde_json::Value;
 
@@ -12,4 +14,5 @@ fn type_name_boundaries_match_powershell() {
     common::assert_syntax(&cases);
     let results = common::oracle(&cases, "tests/fixtures/types.json");
     common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
 }
