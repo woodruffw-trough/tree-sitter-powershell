@@ -249,9 +249,12 @@ const binaryExpression = (expression, newlines) => choice(
 
 const scriptBlock = ($, open) => seq(
   open,
-  repeat($._terminator),
-  optional(seq($.param_block, repeat($._terminator))),
-  optional($._script_block_body),
+  repeat(NEWLINE),
+  optional(choice(
+    seq($.param_block, repeat($._terminator), optional($._script_block_body)),
+    seq(';', repeat($._terminator), optional($._script_block_body)),
+    $._script_block_body,
+  )),
   '}',
 );
 
@@ -287,6 +290,7 @@ const grammarDefinition = {
     $._argument_end,
     $._flow_label,
     $._switch_default,
+    $._switch_clause_start,
     $._label_start,
     $._expression_argument_end,
     $._member_argument_end,
@@ -376,11 +380,12 @@ const grammarDefinition = {
 
   rules: {
     source_file: $ => seq(
-      repeat($._terminator),
-      repeat(seq($.using_statement, repeat1($._terminator))),
+      repeat(NEWLINE),
+      repeat(prec.right(seq($.using_statement, repeat1($._terminator)))),
       optional(choice(
         $.using_statement,
         seq($.param_block, repeat($._terminator), optional($._script_block_body)),
+        seq(';', repeat($._terminator), optional($._script_block_body)),
         $._script_block_body,
       )),
     ),
@@ -486,8 +491,21 @@ const grammarDefinition = {
       repeat(NEWLINE),
       '{',
       repeat(NEWLINE),
-      repeat1(seq(field('clauses', $.switch_clause), repeat($._terminator))),
+      $._switch_clauses,
       '}',
+    ),
+
+    _switch_clauses: $ => choice(
+      seq(
+        field('clauses', $.switch_clause),
+        repeat($._terminator),
+        optional($._switch_clauses),
+      ),
+      seq(
+        field('clauses', alias($._switch_default_clause, $.switch_clause)),
+        repeat($._terminator),
+        repeat(seq(field('clauses', $.switch_clause), repeat($._terminator))),
+      ),
     ),
 
     _switch_file_parameter: $ => seq(
@@ -504,10 +522,14 @@ const grammarDefinition = {
     ),
 
     switch_clause: $ => seq(
-      field('condition', choice(
-        alias($._switch_default, 'default'),
-        alias($._single_command_argument_value, $.command_argument),
-      )),
+      $._switch_clause_start,
+      field('condition', alias($._single_command_argument_value, $.command_argument)),
+      repeat(NEWLINE),
+      field('body', $.statement_block),
+    ),
+
+    _switch_default_clause: $ => seq(
+      field('condition', alias($._switch_default, 'default')),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
@@ -521,7 +543,7 @@ const grammarDefinition = {
       repeat(seq(field('parameters', $.foreach_parameter), repeat(NEWLINE))),
       '(',
       repeat(NEWLINE),
-      field('variable', $.variable),
+      field('variable', choice($.variable, $.splat_expression)),
       repeat(NEWLINE),
       keyword('in'),
       repeat(NEWLINE),
@@ -1955,7 +1977,7 @@ const COMMA_CONTEXT_RULES = new Set([
   '_script_block_body', '_statement_list', '_terminated_statement',
   '_statement', '_block_statement', '_simple_statement', 'statement_block',
   'if_statement', 'elseif_clause', 'else_clause', 'condition',
-  'switch_statement', '_switch_file_parameter', 'switch_clause',
+  'switch_statement', '_switch_clauses', '_switch_file_parameter', 'switch_clause', '_switch_default_clause',
   'foreach_statement', 'foreach_parameter', 'for_statement',
   '_for_header_initializer', '_for_header_condition',
   'while_statement', 'do_statement',

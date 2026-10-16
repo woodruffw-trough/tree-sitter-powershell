@@ -1,0 +1,2475 @@
+[
+  {
+    "name": "Parser.Tests.ps1:139 ExecuteCommand",
+    "source": "\"This is a test",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L139",
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:143 ExecuteCommand",
+    "source": "(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L143",
+    "diagnostics": [
+      "ExpectedExpression",
+      "MissingEndParenthesisInExpression"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:147 ExecuteCommand",
+    "source": "| Get-Location",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L147",
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:158 ExecuteCommand",
+    "source": "testcmd-parserbvt | 3",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L158",
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:162 ExecuteCommand",
+    "source": "testcmd-parserbvt | 'abc'",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L162",
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:176 ExecuteCommand",
+    "source": "(1+ 1),",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L176",
+    "diagnostics": [
+      "MissingExpressionAfterToken"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:214 ExecuteCommand",
+    "source": "\"foo` bar\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L214",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:219 ExecuteCommand",
+    "source": "\"`e\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L219",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:225 ExecuteCommand",
+    "source": "\"`u{0}\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L225",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:230 ExecuteCommand",
+    "source": "\"`u{10FFFF}\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L230",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:236 ExecuteCommand",
+    "source": "\"`u{a9}\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L236",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:241 ExecuteCommand",
+    "source": "\"foo`u{2195}abc\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L241",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:246 ExecuteCommand",
+    "source": "\"`u{1f44d}\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L246",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:256 ExecuteCommand",
+    "source": "'foo`u{2195}abc'",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L256",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:261 ExecuteCommand",
+    "source": "@'\n\nfoo`u{2195}abc\n\n'@",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L261",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:272 ExecuteCommand",
+    "source": "\"`u{007b}`u{007d}\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L272",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:298 ExecuteCommand",
+    "source": "\"fo`odbar\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L298",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:327 ExecuteCommand",
+    "source": "$MyArray = \"a\",\"b\"; \"Hello $MyArray\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L327",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:332 ExecuteCommand",
+    "source": "$Variable:vtbl1:vtbl2:b=@(5,6); $Variable:vtbl1:vtbl2:b",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L332",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:339 ExecuteCommand",
+    "source": "$one, $two = 1, 2, 3; \"One = $one\"; \"Two = $two\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L339",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:358 ExecuteCommand",
+    "source": "$var = \"global\"",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L358",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:606 ExecuteCommand",
+    "source": "if (\"true\")",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L606",
+    "diagnostics": [
+      "MissingStatementBlock"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:610 ExecuteCommand",
+    "source": "if (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L610",
+    "diagnostics": [
+      "IfStatementMissingCondition"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:614 ExecuteCommand",
+    "source": "if \"true\" { 1} else {2}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L614",
+    "diagnostics": [
+      "MissingOpenParenthesisInIfStatement",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:618 ExecuteCommand",
+    "source": "if (\"true\"  { 1};",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L618",
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:622 ExecuteCommand",
+    "source": "if (\"true\") {1} else",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L622",
+    "diagnostics": [
+      "MissingStatementBlockAfterElse"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:626 ExecuteCommand",
+    "source": "$count=0; $files = $(Get-ChildItem / -Filter *.txt ); foreach ($i ; $count",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L626",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:630 ExecuteCommand",
+    "source": "$count=0; $files = $(Get-ChildItem / -Filter *.txt ); foreach ($i in ;$count",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L630",
+    "diagnostics": [
+      "MissingForeachExpression"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:634 ExecuteCommand",
+    "source": "$count=0; $files = $(Get-ChildItem / -Filter *.txt ); foreach ($i in $files ;$count",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L634",
+    "diagnostics": [
+      "MissingEndParenthesisAfterForeach"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:638 ExecuteCommand",
+    "source": "\n            try {\n                try { throw [ArgumentException]::new() }\n                catch [System.DivideByZeroException] { }\n                finally { \"Finally\" }\n            }\n            catch { $_.Exception.GetType().FullName }\n        ",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L638",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:650 ExecuteCommand",
+    "source": "try {} finally { break }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L650",
+    "syntax_valid": true,
+    "diagnostics": [
+      "ControlLeavingFinally"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:654 ExecuteCommand",
+    "source": "try {\"success\"} finally {switch (1) {foo  {break}}}",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L654",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:658 ExecuteCommand",
+    "source": "$test = \"String\"; $test.CompareTo($())",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L658",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:663 ExecuteCommand",
+    "source": "$test = \"String\"; $test.SubString($(\"hello\" | foreach-object { $_.length - 2 } ))",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L663",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:668 ExecuteCommand",
+    "source": "testcmd-parserbvt `&Get-ChildItem",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L668",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:670 ExecuteCommand",
+    "source": "testcmd-parserbvt `&*",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L670",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:675 ExecuteCommand",
+    "source": "testcmd-parserBVT -Property1 set",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L675",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:680 ExecuteCommand",
+    "source": "3",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L680",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:692 ExecuteCommand",
+    "source": "set-alias parserInvokeTest testcmd-parserBVT;function parserInvokeTest { 3 };parserInvokeTest",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L692",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:698 ExecuteCommand",
+    "source": "function test-parserfunc { \"func\" };test-parserfunc",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L698",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:822 ExecuteCommand",
+    "source": "trap [InvalidCastException] { continue;  }; [int] 'abc'",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L822",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:826 ExecuteCommand",
+    "source": "$input = 1,2,3;4,-5,6 | & { $input }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L826",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1191 ExecuteCommand",
+    "source": "1,2,3 + 4,5,6",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1191",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1196 ExecuteCommand",
+    "source": "1,2,",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1196",
+    "diagnostics": [
+      "MissingExpressionAfterToken"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:1200 ExecuteCommand",
+    "source": "write-output 2,,1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1200",
+    "diagnostics": [
+      "MissingExpression",
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:1204 ExecuteCommand",
+    "source": "\"$var:\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1204",
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:1208 ExecuteCommand",
+    "source": "$A=$(testcmd-parserBVT -returntype array); $A.rank =5;$A.rank",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1208",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1214 ExecuteCommand",
+    "source": "$A=$(testcmd-parserBVT -returntype array); $A[$NONEXISTING_VARIABLE];",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1214",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1220 ExecuteCommand",
+    "source": "$A=$(testcmd-parserBVT -returntype array); $A[ ;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1220",
+    "diagnostics": [
+      "MissingArrayIndexExpression"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:1224 ExecuteCommand",
+    "source": "$A=$(testcmd-parserBVT -returntype array); $A[] ;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1224",
+    "diagnostics": [
+      "MissingArrayIndexExpression"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:1236 ExecuteCommand",
+    "source": "func",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1236",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1241 ExecuteCommand",
+    "source": "$script = { $input }; $results = @(0, 0), -1 | & $script",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1241",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1242 ExecuteCommand",
+    "source": "$results[0][0]",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1242",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1244 ExecuteCommand",
+    "source": "$results[0][1]",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1244",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1246 ExecuteCommand",
+    "source": "$results[1]",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1246",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1251 ExecuteCommand",
+    "source": "$() | & { $count = 0; foreach ($i in $input) { $count++ }; $count }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1251",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1253 ExecuteCommand",
+    "source": "$() | & { $input }",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1253",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1258 ExecuteCommand",
+    "source": "[   System.IO.FileInfo]",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1258",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1291 ExecuteCommand",
+    "source": "$list=$(testcmd-parserBVT -ReturnType \"array\"); $list = $list + $list;$list.length",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1291",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1296 ExecuteCommand",
+    "source": "@\"\"@",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1296",
+    "diagnostics": [
+      "UnexpectedCharactersAfterHereStringHeader"
+    ]
+  },
+  {
+    "name": "Parser.Tests.ps1:1301 ExecuteCommand",
+    "source": "$herestr=@\"\n'\"'\n\"@",
+    "valid": true,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1301",
+    "diagnostics": []
+  },
+  {
+    "name": "Parser.Tests.ps1:1317 ExecuteCommand",
+    "source": "Function foo { [CmdletBinding()] param() DynamicParam {} ",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1317",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:6 ShouldBeParseError",
+    "source": "for",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L6",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:7 ShouldBeParseError",
+    "source": "for(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L7",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:8 ShouldBeParseError",
+    "source": "for(;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L8",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:9 ShouldBeParseError",
+    "source": "for(;;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L9",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:10 ShouldBeParseError",
+    "source": "for($a",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L10",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:11 ShouldBeParseError",
+    "source": "for($a;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L11",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:12 ShouldBeParseError",
+    "source": "for($a;$b",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L12",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:13 ShouldBeParseError",
+    "source": "for($a;$b;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L13",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:14 ShouldBeParseError",
+    "source": "for($a;$b;$c",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L14",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:15 ShouldBeParseError",
+    "source": "for($a;$b;$c)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L15",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:16 ShouldBeParseError",
+    "source": ":lab for",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L16",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:17 ShouldBeParseError",
+    "source": ":lab for(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L17",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:18 ShouldBeParseError",
+    "source": ":lab for(;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L18",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:19 ShouldBeParseError",
+    "source": ":lab for(;;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L19",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:20 ShouldBeParseError",
+    "source": ":lab for($a",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L20",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:21 ShouldBeParseError",
+    "source": ":lab for($a;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L21",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:22 ShouldBeParseError",
+    "source": ":lab for($a;$b",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L22",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:23 ShouldBeParseError",
+    "source": ":lab for($a;$b;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L23",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:24 ShouldBeParseError",
+    "source": ":lab for($a;$b;$c",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L24",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:25 ShouldBeParseError",
+    "source": ":lab for($a;$b;$c)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L25",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:27 Test-ErrorStmt",
+    "source": "for z",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L27",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:28 Test-ErrorStmt",
+    "source": "for {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L28",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:29 Test-ErrorStmt",
+    "source": "for ()",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L29",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:37 Test-ErrorStmt",
+    "source": "for()zzzz",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L37",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:39 Test-ErrorStmt",
+    "source": ":lab for z",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L39",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:40 Test-ErrorStmt",
+    "source": ":lab for {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L40",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:41 Test-ErrorStmt",
+    "source": ":lab for ()",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L41",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:49 Test-ErrorStmt",
+    "source": ":lab for()zzzz",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L49",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:53 ShouldBeParseError",
+    "source": "foreach",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L53",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:54 ShouldBeParseError",
+    "source": "foreach (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L54",
+    "diagnostics": [
+      "MissingVariableNameAfterForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:55 ShouldBeParseError",
+    "source": "foreach ($a",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L55",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:56 ShouldBeParseError",
+    "source": "foreach ($a into",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L56",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:57 ShouldBeParseError",
+    "source": "foreach ($a in",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L57",
+    "diagnostics": [
+      "MissingForeachExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:58 ShouldBeParseError",
+    "source": "foreach ($a in $x",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L58",
+    "diagnostics": [
+      "MissingEndParenthesisAfterForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:59 ShouldBeParseError",
+    "source": "foreach ($a in $x)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L59",
+    "diagnostics": [
+      "MissingForeachStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:60 ShouldBeParseError",
+    "source": ":lab foreach",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L60",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:61 ShouldBeParseError",
+    "source": ":lab foreach (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L61",
+    "diagnostics": [
+      "MissingVariableNameAfterForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:62 ShouldBeParseError",
+    "source": ":lab foreach ($a",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L62",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:63 ShouldBeParseError",
+    "source": ":lab foreach ($a into",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L63",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:64 ShouldBeParseError",
+    "source": ":lab foreach ($a in",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L64",
+    "diagnostics": [
+      "MissingForeachExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:65 ShouldBeParseError",
+    "source": ":lab foreach ($a in $x",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L65",
+    "diagnostics": [
+      "MissingEndParenthesisAfterForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:66 ShouldBeParseError",
+    "source": ":lab foreach ($a in $x)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L66",
+    "diagnostics": [
+      "MissingForeachStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:69 Test-ErrorStmt",
+    "source": "foreach z",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L69",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:72 Test-ErrorStmt",
+    "source": "foreach ($a zz",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L72",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:73 Test-ErrorStmt",
+    "source": "foreach ($a # line comment",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L73",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:74 Test-ErrorStmt",
+    "source": "foreach ($a $zz",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L74",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:76 Test-ErrorStmt",
+    "source": "foreach ($a in $b",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L76",
+    "diagnostics": [
+      "MissingEndParenthesisAfterForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:77 Test-ErrorStmt",
+    "source": "foreach ($a in $b <#hmm#>)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L77",
+    "diagnostics": [
+      "MissingForeachStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:79 Test-ErrorStmt",
+    "source": ":lab foreach z",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L79",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:82 Test-ErrorStmt",
+    "source": ":lab foreach ($a zz",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L82",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:83 Test-ErrorStmt",
+    "source": ":lab foreach ($a # line comment",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L83",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:84 Test-ErrorStmt",
+    "source": ":lab foreach ($a $zz",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L84",
+    "diagnostics": [
+      "MissingInInForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:86 Test-ErrorStmt",
+    "source": ":lab foreach ($a in $b",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L86",
+    "diagnostics": [
+      "MissingEndParenthesisAfterForeach"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:87 Test-ErrorStmt",
+    "source": ":lab foreach ($a in $b <#hmm#>)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L87",
+    "diagnostics": [
+      "MissingForeachStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:91 ShouldBeParseError",
+    "source": "do",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L91",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:92 ShouldBeParseError",
+    "source": "do {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L92",
+    "diagnostics": [
+      "MissingWhileOrUntilInDoWhile"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:93 ShouldBeParseError",
+    "source": "do {} while",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L93",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:94 ShouldBeParseError",
+    "source": "do {} while (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L94",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:95 ShouldBeParseError",
+    "source": "do {} while (1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L95",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:96 ShouldBeParseError",
+    "source": ":lab do",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L96",
+    "diagnostics": [
+      "MissingLoopStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:97 ShouldBeParseError",
+    "source": ":lab do {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L97",
+    "diagnostics": [
+      "MissingWhileOrUntilInDoWhile"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:98 ShouldBeParseError",
+    "source": ":lab do {} while",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L98",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:99 ShouldBeParseError",
+    "source": ":lab do {} while (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L99",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:100 ShouldBeParseError",
+    "source": ":lab do {} while (1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L100",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:103 Test-ErrorStmt",
+    "source": "do {1}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L103",
+    "diagnostics": [
+      "MissingWhileOrUntilInDoWhile"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:104 Test-ErrorStmt",
+    "source": "do {1} while",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L104",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:105 Test-ErrorStmt",
+    "source": "do {1} while(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L105",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:106 Test-ErrorStmt",
+    "source": "do {1} while($false",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L106",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:108 Test-ErrorStmt",
+    "source": ":lab do {1}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L108",
+    "diagnostics": [
+      "MissingWhileOrUntilInDoWhile"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:109 Test-ErrorStmt",
+    "source": ":lab do {1} while",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L109",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:110 Test-ErrorStmt",
+    "source": ":lab do {1} while(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L110",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:111 Test-ErrorStmt",
+    "source": ":lab do {1} while($false",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L111",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:117 ShouldBeParseError",
+    "source": "do {} until",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L117",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:118 ShouldBeParseError",
+    "source": "do {} until (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L118",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:119 ShouldBeParseError",
+    "source": "do {} until (1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L119",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:122 ShouldBeParseError",
+    "source": ":lab do {} until",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L122",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:123 ShouldBeParseError",
+    "source": ":lab do {} until (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L123",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:124 ShouldBeParseError",
+    "source": ":lab do {} until (1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L124",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:128 Test-ErrorStmt",
+    "source": "do {1} until",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L128",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:129 Test-ErrorStmt",
+    "source": "do {1} until(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L129",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:130 Test-ErrorStmt",
+    "source": "do {1} until($false",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L130",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:133 Test-ErrorStmt",
+    "source": ":lab do {1} until",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L133",
+    "diagnostics": [
+      "MissingOpenParenthesisAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:134 Test-ErrorStmt",
+    "source": ":lab do {1} until(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L134",
+    "diagnostics": [
+      "MissingExpressionAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:135 Test-ErrorStmt",
+    "source": ":lab do {1} until($false",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L135",
+    "diagnostics": [
+      "MissingEndParenthesisAfterStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:140 ShouldBeParseError",
+    "source": "trap",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L140",
+    "diagnostics": [
+      "MissingTrapStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:141 ShouldBeParseError",
+    "source": "trap [int]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L141",
+    "diagnostics": [
+      "MissingTrapStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:148 ShouldBeParseError",
+    "source": "begin",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L148",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:149 ShouldBeParseError",
+    "source": "process",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L149",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:150 ShouldBeParseError",
+    "source": "end",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L150",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:151 ShouldBeParseError",
+    "source": "clean",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L151",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:152 ShouldBeParseError",
+    "source": "dynamicparam",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L152",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:153 ShouldBeParseError",
+    "source": "begin process {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L153",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:154 ShouldBeParseError",
+    "source": "end process {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L154",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:155 ShouldBeParseError",
+    "source": "clean process {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L155",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:156 ShouldBeParseError",
+    "source": "dynamicparam process {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L156",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:157 ShouldBeParseError",
+    "source": "process begin {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L157",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:158 ShouldBeParseError",
+    "source": "begin process end clean",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L158",
+    "diagnostics": [
+      "MissingNamedStatementBlock",
+      "MissingNamedStatementBlock",
+      "MissingNamedStatementBlock",
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:161 Test-Ast",
+    "source": "begin end",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L161",
+    "diagnostics": [
+      "MissingNamedStatementBlock",
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:162 Test-Ast",
+    "source": "begin end process",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L162",
+    "diagnostics": [
+      "MissingNamedStatementBlock",
+      "MissingNamedStatementBlock",
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:163 Test-Ast",
+    "source": "begin {} end",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L163",
+    "diagnostics": [
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:165 Test-Ast",
+    "source": "begin {} process end clean {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L165",
+    "diagnostics": [
+      "MissingNamedStatementBlock",
+      "MissingNamedStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:172 ShouldBeParseError",
+    "source": "data",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L172",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:173 ShouldBeParseError",
+    "source": "data foo",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L173",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:174 ShouldBeParseError",
+    "source": "data -abc",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L174",
+    "diagnostics": [
+      "InvalidParameterForDataSectionStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:175 ShouldBeParseError",
+    "source": "data -abc foo {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L175",
+    "diagnostics": [
+      "InvalidParameterForDataSectionStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:176 ShouldBeParseError",
+    "source": "data -abc & {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L176",
+    "diagnostics": [
+      "InvalidParameterForDataSectionStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:177 ShouldBeParseError",
+    "source": "data -s & {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L177",
+    "diagnostics": [
+      "MissingValueForSupportedCommandInDataSectionStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:178 ShouldBeParseError",
+    "source": "data -s ) {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L178",
+    "diagnostics": [
+      "MissingValueForSupportedCommandInDataSectionStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:179 ShouldBeParseError",
+    "source": "data -s } {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L179",
+    "diagnostics": [
+      "MissingValueForSupportedCommandInDataSectionStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:180 ShouldBeParseError",
+    "source": "data -s ; {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L180",
+    "diagnostics": [
+      "MissingValueForSupportedCommandInDataSectionStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:181 ShouldBeParseError",
+    "source": "data -sup a,",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L181",
+    "diagnostics": [
+      "MissingValueForSupportedCommandInDataSectionStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:182 ShouldBeParseError",
+    "source": "data -sup a,b",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L182",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:187 Test-ErrorStmt",
+    "source": "data -s abc",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L187",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:188 Test-ErrorStmt",
+    "source": "data -s abc,",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L188",
+    "diagnostics": [
+      "MissingValueForSupportedCommandInDataSectionStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:189 Test-ErrorStmt",
+    "source": "data -s a,b",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L189",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:196 ShouldBeParseError",
+    "source": "try",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L196",
+    "diagnostics": [
+      "MissingTryStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:197 ShouldBeParseError",
+    "source": "try {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L197",
+    "diagnostics": [
+      "MissingCatchOrFinally"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:198 ShouldBeParseError",
+    "source": "try {} catch",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L198",
+    "diagnostics": [
+      "MissingCatchHandlerBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:199 ShouldBeParseError",
+    "source": "try {} finally",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L199",
+    "diagnostics": [
+      "MissingFinallyStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:200 ShouldBeParseError",
+    "source": "try {} catch [int]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L200",
+    "diagnostics": [
+      "MissingCatchHandlerBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:201 ShouldBeParseError",
+    "source": "try {} catch {} finally",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L201",
+    "diagnostics": [
+      "MissingFinallyStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:202 ShouldBeParseError",
+    "source": "try {} catch {} catch",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L202",
+    "diagnostics": [
+      "MissingCatchHandlerBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:203 ShouldBeParseError",
+    "source": "try {} catch [int],",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L203",
+    "diagnostics": [
+      "MissingTypeLiteralToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:204 ShouldBeParseError",
+    "source": "try {} finally { return }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L204",
+    "syntax_valid": true,
+    "diagnostics": [
+      "ControlLeavingFinally"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:206 ShouldBeParseError",
+    "source": "try {} finally { continue }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L206",
+    "syntax_valid": true,
+    "diagnostics": [
+      "ControlLeavingFinally"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:209 Test-ErrorStmt",
+    "source": "try {1}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L209",
+    "diagnostics": [
+      "MissingCatchOrFinally"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:210 Test-ErrorStmt",
+    "source": "try {1} catch",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L210",
+    "diagnostics": [
+      "MissingCatchHandlerBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:211 Test-ErrorStmt",
+    "source": "try {1} finally",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L211",
+    "diagnostics": [
+      "MissingFinallyStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:212 Test-ErrorStmt",
+    "source": "try {1} catch [int]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L212",
+    "diagnostics": [
+      "MissingCatchHandlerBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:213 Test-ErrorStmt",
+    "source": "try {1} catch {2} finally",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L213",
+    "diagnostics": [
+      "MissingFinallyStatementBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:214 Test-ErrorStmt",
+    "source": "try {1} catch {2} catch",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L214",
+    "diagnostics": [
+      "MissingCatchHandlerBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:215 Test-ErrorStmt",
+    "source": "try {1} catch [int],[char] {2} catch",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L215",
+    "diagnostics": [
+      "MissingCatchHandlerBlock"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:216 Test-ErrorStmt",
+    "source": "try {1} catch [int],",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L216",
+    "diagnostics": [
+      "MissingTypeLiteralToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:220 ShouldBeParseError",
+    "source": "switch",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L220",
+    "diagnostics": [
+      "PipelineValueRequired"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:221 ShouldBeParseError",
+    "source": "switch -abc",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L221",
+    "diagnostics": [
+      "InvalidSwitchFlag",
+      "PipelineValueRequired"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:222 ShouldBeParseError",
+    "source": "switch -file",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L222",
+    "diagnostics": [
+      "MissingFilenameOption"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:223 ShouldBeParseError",
+    "source": "switch -file a (1)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L223",
+    "diagnostics": [
+      "PipelineValueRequired",
+      "MissingCurlyBraceInSwitchStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:224 ShouldBeParseError",
+    "source": "switch (",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L224",
+    "diagnostics": [
+      "PipelineValueRequired"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:225 ShouldBeParseError",
+    "source": "switch ()",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L225",
+    "diagnostics": [
+      "PipelineValueRequired",
+      "MissingCurlyBraceInSwitchStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:226 ShouldBeParseError",
+    "source": "switch (\"abc\")  ",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L226",
+    "diagnostics": [
+      "MissingCurlyBraceInSwitchStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:227 ShouldBeParseError",
+    "source": "switch (\"abc\")  {",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L227",
+    "diagnostics": [
+      "MissingSwitchConditionExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:228 ShouldBeParseError",
+    "source": "switch (\"abc\")  { 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L228",
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:229 ShouldBeParseError",
+    "source": "switch (\"abc\")  { 1 }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L229",
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:230 ShouldBeParseError",
+    "source": "switch (1) {default {} default {}}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L230",
+    "diagnostics": [
+      "MultipleSwitchDefaultClauses"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:237 Test-ErrorStmt",
+    "source": "switch -file a",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L237",
+    "diagnostics": [
+      "MissingCurlyBraceInSwitchStatement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:241 Test-ErrorStmt",
+    "source": "switch (1) {foo",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L241",
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:242 Test-ErrorStmt",
+    "source": "switch (1) {foo}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L242",
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:243 Test-ErrorStmt",
+    "source": "switch (1) {foo {bar}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L243",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:244 Test-ErrorStmt",
+    "source": "switch (1) {default {9} default{2}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L244",
+    "diagnostics": [
+      "MultipleSwitchDefaultClauses",
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:248 ShouldBeParseError",
+    "source": "function",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L248",
+    "diagnostics": [
+      "MissingNameAfterKeyword"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:249 ShouldBeParseError",
+    "source": "function foo",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L249",
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:250 ShouldBeParseError",
+    "source": "function foo(",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L250",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:251 ShouldBeParseError",
+    "source": "function foo {",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L251",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:252 ShouldBeParseError",
+    "source": "function foo { function bar { if (1) {} }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L252",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:253 ShouldBeParseError",
+    "source": "function f { param($a,[int]$a) }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L253",
+    "syntax_valid": true,
+    "diagnostics": [
+      "DuplicateFormalParameter"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:254 ShouldBeParseError",
+    "source": "function f($a,[int]$a){}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L254",
+    "syntax_valid": true,
+    "diagnostics": [
+      "DuplicateFormalParameter"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:255 ShouldBeParseError",
+    "source": "function foo {param(}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L255",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:257 Test-ErrorStmt",
+    "source": "function foo()",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L257",
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:258 Test-ErrorStmt",
+    "source": "function foo($a)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L258",
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:259 Test-ErrorStmt",
+    "source": "function foo($a = 1)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L259",
+    "diagnostics": [
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:260 Test-ErrorStmt",
+    "source": "function foo($a",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L260",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:261 Test-ErrorStmt",
+    "source": "function foo($a 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L261",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:262 Test-ErrorStmt",
+    "source": "function foo($a = 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L262",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:266 ShouldBeParseError",
+    "source": "$a,$b += 1,2",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L266",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:270 ShouldBeParseError",
+    "source": "1 ??= 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L270",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:271 ShouldBeParseError",
+    "source": "@() ??= 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L271",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:272 ShouldBeParseError",
+    "source": "@{} ??= 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L272",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:273 ShouldBeParseError",
+    "source": "1..2 ??= 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L273",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:274 ShouldBeParseError",
+    "source": "[int] ??= 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L274",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:275 ShouldBeParseError",
+    "source": "$cricket ?= $soccer",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L275",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:279 ShouldBeParseError",
+    "source": "$x??=",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L279",
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:280 ShouldBeParseError",
+    "source": "$x ??Get-Thing",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L280",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:281 ShouldBeParseError",
+    "source": "$??=$false",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L281",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:282 ShouldBeParseError",
+    "source": "$hello ??? $what",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L282",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "MissingColonInTernaryExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:286 ShouldBeParseError",
+    "source": "[datetime]?::now",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L286",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:287 ShouldBeParseError",
+    "source": "$x ?.name",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L287",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:288 ShouldBeParseError",
+    "source": "Get-Date ?.ToString()",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L288",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:289 ShouldBeParseError",
+    "source": "${x}?.",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L289",
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:290 ShouldBeParseError",
+    "source": "${x}?.name = \"value\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L290",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:292 ShouldBeParseError",
+    "source": "[datetime]?[0]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L292",
+    "diagnostics": [
+      "MissingTypename",
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:293 ShouldBeParseError",
+    "source": "${x} ?[1]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L293",
+    "diagnostics": [
+      "MissingTypename",
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:294 ShouldBeParseError",
+    "source": "${x}?[]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L294",
+    "diagnostics": [
+      "MissingArrayIndexExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:295 ShouldBeParseError",
+    "source": "${x}?[-]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L295",
+    "diagnostics": [
+      "MissingExpressionAfterOperator"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:296 ShouldBeParseError",
+    "source": "${x}?[             ]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L296",
+    "diagnostics": [
+      "MissingArrayIndexExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:297 ShouldBeParseError",
+    "source": "${x}?[0] = 1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L297",
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:301 ShouldBeParseError",
+    "source": "@a",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L301",
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:302 ShouldBeParseError",
+    "source": "foreach (@a in $b) {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L302",
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Parsing.Tests.ps1:303 ShouldBeParseError",
+    "source": "param(@a)",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L303",
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Parsing.Tests.ps1:304 ShouldBeParseError",
+    "source": "function foo (@a) {}",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L304",
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Parsing.Tests.ps1:308 ShouldBeParseError",
+    "source": "|gps",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L308",
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:309 ShouldBeParseError",
+    "source": "gps|",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L309",
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:310 ShouldBeParseError",
+    "source": "gps| |foreach name",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L310",
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:311 ShouldBeParseError",
+    "source": "1|1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L311",
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:312 ShouldBeParseError",
+    "source": "$a=",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L312",
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:316 ShouldBeParseError",
+    "source": "gcm -a:",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L316",
+    "diagnostics": [
+      "ParameterRequiresArgument"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:317 ShouldBeParseError",
+    "source": "gcm -a: 1,",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L317",
+    "diagnostics": [
+      "MissingExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:318 ShouldBeParseError",
+    "source": "gcm ,",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L318",
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:322 ShouldBeParseError",
+    "source": "   )",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L322",
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:323 ShouldBeParseError",
+    "source": "   }",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L323",
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:327 ShouldBeParseError",
+    "source": "1+",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L327",
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:328 ShouldBeParseError",
+    "source": "[a()][b]",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L328",
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:329 ShouldBeParseError",
+    "source": "[a()][b]2",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L329",
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:330 ShouldBeParseError",
+    "source": "[ref][ref]$x",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L330",
+    "syntax_valid": true,
+    "diagnostics": [
+      "ReferenceNeedsToBeByItselfInTypeSequence"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:331 ShouldBeParseError",
+    "source": "[int][ref]$x",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L331",
+    "syntax_valid": true,
+    "diagnostics": [
+      "ReferenceNeedsToBeLastTypeInTypeConversion"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:332 ShouldBeParseError",
+    "source": "[int][ref]$x = 42",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L332",
+    "syntax_valid": true,
+    "diagnostics": [
+      "ReferenceNeedsToBeByItselfInTypeConstraint"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:336 ShouldBeParseError",
+    "source": "@{ a=1;b=2;c=3;",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L336",
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:340 ShouldBeParseError",
+    "source": "\"`u{}\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L340",
+    "diagnostics": [
+      "InvalidUnicodeEscapeSequence"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:341 ShouldBeParseError",
+    "source": "\"`u{219z}\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L341",
+    "diagnostics": [
+      "InvalidUnicodeEscapeSequence"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:342 ShouldBeParseError",
+    "source": "\"`u{12345z}\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L342",
+    "diagnostics": [
+      "InvalidUnicodeEscapeSequence"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:343 ShouldBeParseError",
+    "source": "\"`u{1234567}\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L343",
+    "diagnostics": [
+      "TooManyDigitsInUnicodeEscapeSequence"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:344 ShouldBeParseError",
+    "source": "\"`u{110000}\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L344",
+    "diagnostics": [
+      "InvalidUnicodeEscapeSequenceValue"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:345 ShouldBeParseError",
+    "source": "\"`u2195}\"",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L345",
+    "diagnostics": [
+      "InvalidUnicodeEscapeSequence"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:346 ShouldBeParseError",
+    "source": "\"`u{",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L346",
+    "diagnostics": [
+      "InvalidUnicodeEscapeSequence",
+      "TerminatorExpectedAtEndOfString"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:347 ShouldBeParseError",
+    "source": "\"`u{1",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L347",
+    "diagnostics": [
+      "InvalidUnicodeEscapeSequence",
+      "TerminatorExpectedAtEndOfString"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:348 ShouldBeParseError",
+    "source": "\"`u{123456",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L348",
+    "diagnostics": [
+      "MissingUnicodeEscapeSequenceTerminator",
+      "TerminatorExpectedAtEndOfString"
+    ]
+  },
+  {
+    "name": "Parsing.Tests.ps1:349 ShouldBeParseError",
+    "source": "\"`u{1234567",
+    "valid": false,
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L349",
+    "diagnostics": [
+      "TooManyDigitsInUnicodeEscapeSequence",
+      "TerminatorExpectedAtEndOfString"
+    ]
+  }
+]

@@ -289,6 +289,14 @@ command word. These distinctions follow
 [`ParamBlockRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L845-L879)
 and [`ScanIdentifier`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L4402-L4458).
 
+A leading semicolon ends parameter-block and using-declaration eligibility.
+Thus `;param($x)` calls the command `param`, while `using namespace System;param($x)`
+still has a parameter block following the using declaration. A switch permits
+one exact, unescaped `default` clause; quoted and composite conditions such as
+`'default'` and `default"suffix"` remain ordinary conditions. A splatted loop
+variable is retained in the `foreach_statement.variable` field before the
+oracle reports `SplattingNotPermitted`.
+
 Method arguments, parameter defaults, attribute arguments, and hashtable keys
 disable the comma operator. That setting also applies inside hashtable statement
 values and their nested control-flow or declaration bodies. Parenthesized

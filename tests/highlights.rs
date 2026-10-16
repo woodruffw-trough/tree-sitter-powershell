@@ -155,6 +155,17 @@ fn declaration_and_member_roles_preserve_unicode_ranges() {
 }
 
 #[test]
+fn splatted_formals_retain_the_parameter_role() {
+    let source = "function f(@rest) { foreach (@item in 1) { $item } }";
+    assert_category(
+        &captures(source),
+        source,
+        "variable.parameter",
+        &[span(source, "f(@rest)", "@rest")],
+    );
+}
+
+#[test]
 fn formal_parameters_do_not_capture_body_variables() {
     let source = concat!(
         "param([string]$scriptName)\n",

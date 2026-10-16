@@ -1,0 +1,35 @@
+==================
+A leading semicolon makes param an ordinary command
+==================
+;param($x)
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (parenthesized_expression
+          (pipeline
+            elements: (command_expression
+              expression: (variable))))))))
+
+==================
+Splatted foreach variables retain their source role
+==================
+foreach (@items in 1) { $items }
+
+---
+
+(source_file
+  (foreach_statement
+    variable: (splat_expression)
+    value: (pipeline
+      elements: (command_expression
+        expression: (integer_literal)))
+    body: (statement_block
+      (pipeline
+        elements: (command_expression
+          expression: (variable))))))

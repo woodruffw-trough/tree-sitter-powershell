@@ -112,7 +112,11 @@
   {
     "name": "splat foreach variable",
     "source": "foreach (@item in $items) { $item }\n",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
   },
   {
     "name": "splat scoped symbol",

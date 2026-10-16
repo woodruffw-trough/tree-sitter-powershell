@@ -15,7 +15,7 @@
 (command_name) @function.call
 (command_parameter name: _ @variable.parameter)
 "--%" @keyword
-(parameter name: (variable) @variable.parameter)
+(parameter name: [(variable) (splat_expression)] @variable.parameter)
 (class_definition name: (identifier) @type.definition)
 (enum_definition name: (identifier) @type.definition)
 (enum_member name: (identifier) @constant)

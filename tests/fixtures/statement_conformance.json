@@ -1,0 +1,937 @@
+[
+  {
+    "name": "semicolon closes script parameter block eligibility",
+    "source": ";param($x)",
+    "valid": true
+  },
+  {
+    "name": "semicolon makes attributed script param a command",
+    "source": ";[CmdletBinding()]param($x)",
+    "valid": false
+  },
+  {
+    "name": "semicolon closes function parameter block eligibility",
+    "source": "function f { ;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "semicolon makes attributed function param a command",
+    "source": "function f { ;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "semicolon closes script block parameter block eligibility",
+    "source": "{ ;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "semicolon makes attributed script block param a command",
+    "source": "{ ;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "multiple semicolons closes script parameter block eligibility",
+    "source": ";;param($x)",
+    "valid": true
+  },
+  {
+    "name": "multiple semicolons makes attributed script param a command",
+    "source": ";;[CmdletBinding()]param($x)",
+    "valid": false
+  },
+  {
+    "name": "multiple semicolons closes function parameter block eligibility",
+    "source": "function f { ;;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "multiple semicolons makes attributed function param a command",
+    "source": "function f { ;;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "multiple semicolons closes script block parameter block eligibility",
+    "source": "{ ;;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "multiple semicolons makes attributed script block param a command",
+    "source": "{ ;;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "newline then semicolon closes script parameter block eligibility",
+    "source": "\n;param($x)",
+    "valid": true
+  },
+  {
+    "name": "newline then semicolon makes attributed script param a command",
+    "source": "\n;[CmdletBinding()]param($x)",
+    "valid": false
+  },
+  {
+    "name": "newline then semicolon closes function parameter block eligibility",
+    "source": "function f { \n;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "newline then semicolon makes attributed function param a command",
+    "source": "function f { \n;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "newline then semicolon closes script block parameter block eligibility",
+    "source": "{ \n;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "newline then semicolon makes attributed script block param a command",
+    "source": "{ \n;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "comment then semicolon closes script parameter block eligibility",
+    "source": "<#c#>;param($x)",
+    "valid": true
+  },
+  {
+    "name": "comment then semicolon makes attributed script param a command",
+    "source": "<#c#>;[CmdletBinding()]param($x)",
+    "valid": false
+  },
+  {
+    "name": "comment then semicolon closes function parameter block eligibility",
+    "source": "function f { <#c#>;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "comment then semicolon makes attributed function param a command",
+    "source": "function f { <#c#>;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "comment then semicolon closes script block parameter block eligibility",
+    "source": "{ <#c#>;param($x) }",
+    "valid": true
+  },
+  {
+    "name": "comment then semicolon makes attributed script block param a command",
+    "source": "{ <#c#>;[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "semicolon then newline closes script parameter block eligibility",
+    "source": ";\nparam($x)",
+    "valid": true
+  },
+  {
+    "name": "semicolon then newline makes attributed script param a command",
+    "source": ";\n[CmdletBinding()]param($x)",
+    "valid": false
+  },
+  {
+    "name": "semicolon then newline closes function parameter block eligibility",
+    "source": "function f { ;\nparam($x) }",
+    "valid": true
+  },
+  {
+    "name": "semicolon then newline makes attributed function param a command",
+    "source": "function f { ;\n[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "semicolon then newline closes script block parameter block eligibility",
+    "source": "{ ;\nparam($x) }",
+    "valid": true
+  },
+  {
+    "name": "semicolon then newline makes attributed script block param a command",
+    "source": "{ ;\n[CmdletBinding()]param($x) }",
+    "valid": false
+  },
+  {
+    "name": "newline before param",
+    "source": "\nparam($x)",
+    "valid": true
+  },
+  {
+    "name": "comment before param",
+    "source": "<#c#>param($x)",
+    "valid": true
+  },
+  {
+    "name": "using delimiter preserves param eligibility",
+    "source": "using namespace System;param($x)",
+    "valid": true
+  },
+  {
+    "name": "using delimiters preserve param eligibility",
+    "source": "using namespace System;;\nparam($x)",
+    "valid": true
+  },
+  {
+    "name": "leading semicolon closes using eligibility",
+    "source": ";using namespace System",
+    "valid": false
+  },
+  {
+    "name": "leading semicolon and newline close using eligibility",
+    "source": ";\nusing namespace System",
+    "valid": false
+  },
+  {
+    "name": "leading semicolon before named block",
+    "source": ";begin {}",
+    "valid": true
+  },
+  {
+    "name": "param terminators before named block",
+    "source": "param($x);\nbegin {}",
+    "valid": true
+  },
+  {
+    "name": "empty semicolon script",
+    "source": ";;\n",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 000",
+    "source": "switch(1){ default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 001",
+    "source": "switch(1){ DEFAULT {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 002",
+    "source": "switch(1){ default\"x\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 003",
+    "source": "switch(1){ default$value {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 004",
+    "source": "switch(1){ def`ault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 005",
+    "source": "switch(1){ default<#c#> {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 006",
+    "source": "switch(1){ defaultx {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 007",
+    "source": "switch(1){ \"default\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 008",
+    "source": "switch(1){ 'default' {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 009",
+    "source": "switch(1){ `default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 010",
+    "source": "switch(1){ default`\n {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 011",
+    "source": "switch(1){ `\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 012",
+    "source": "switch(1){ <#c#>default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 013",
+    "source": "switch(1){ #c\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 014",
+    "source": "switch(1){1 {} default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 015",
+    "source": "switch(1){1 {} DEFAULT {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 016",
+    "source": "switch(1){1 {} default\"x\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 017",
+    "source": "switch(1){1 {} default$value {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 018",
+    "source": "switch(1){1 {} def`ault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 019",
+    "source": "switch(1){1 {} default<#c#> {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 020",
+    "source": "switch(1){1 {} defaultx {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 021",
+    "source": "switch(1){1 {} \"default\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 022",
+    "source": "switch(1){1 {} 'default' {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 023",
+    "source": "switch(1){1 {} `default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 024",
+    "source": "switch(1){1 {} default`\n {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 025",
+    "source": "switch(1){1 {} `\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 026",
+    "source": "switch(1){1 {} <#c#>default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 027",
+    "source": "switch(1){1 {} #c\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 028",
+    "source": "switch(1){default {} default {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 029",
+    "source": "switch(1){default {} DEFAULT {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 030",
+    "source": "switch(1){default {} default\"x\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 031",
+    "source": "switch(1){default {} default$value {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 032",
+    "source": "switch(1){default {} def`ault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 033",
+    "source": "switch(1){default {} default<#c#> {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 034",
+    "source": "switch(1){default {} defaultx {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 035",
+    "source": "switch(1){default {} \"default\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 036",
+    "source": "switch(1){default {} 'default' {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 037",
+    "source": "switch(1){default {} `default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 038",
+    "source": "switch(1){default {} default`\n {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 039",
+    "source": "switch(1){default {} `\ndefault {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 040",
+    "source": "switch(1){default {} <#c#>default {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 041",
+    "source": "switch(1){default {} #c\ndefault {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 042",
+    "source": "switch(1){DeFaUlT {} default {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 043",
+    "source": "switch(1){DeFaUlT {} DEFAULT {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 044",
+    "source": "switch(1){DeFaUlT {} default\"x\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 045",
+    "source": "switch(1){DeFaUlT {} default$value {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 046",
+    "source": "switch(1){DeFaUlT {} def`ault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 047",
+    "source": "switch(1){DeFaUlT {} default<#c#> {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 048",
+    "source": "switch(1){DeFaUlT {} defaultx {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 049",
+    "source": "switch(1){DeFaUlT {} \"default\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 050",
+    "source": "switch(1){DeFaUlT {} 'default' {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 051",
+    "source": "switch(1){DeFaUlT {} `default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 052",
+    "source": "switch(1){DeFaUlT {} default`\n {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 053",
+    "source": "switch(1){DeFaUlT {} `\ndefault {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 054",
+    "source": "switch(1){DeFaUlT {} <#c#>default {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 055",
+    "source": "switch(1){DeFaUlT {} #c\ndefault {}}",
+    "valid": false
+  },
+  {
+    "name": "switch clauses 056",
+    "source": "switch(1){\"default\" {} default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 057",
+    "source": "switch(1){\"default\" {} DEFAULT {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 058",
+    "source": "switch(1){\"default\" {} default\"x\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 059",
+    "source": "switch(1){\"default\" {} default$value {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 060",
+    "source": "switch(1){\"default\" {} def`ault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 061",
+    "source": "switch(1){\"default\" {} default<#c#> {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 062",
+    "source": "switch(1){\"default\" {} defaultx {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 063",
+    "source": "switch(1){\"default\" {} \"default\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 064",
+    "source": "switch(1){\"default\" {} 'default' {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 065",
+    "source": "switch(1){\"default\" {} `default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 066",
+    "source": "switch(1){\"default\" {} default`\n {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 067",
+    "source": "switch(1){\"default\" {} `\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 068",
+    "source": "switch(1){\"default\" {} <#c#>default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 069",
+    "source": "switch(1){\"default\" {} #c\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 070",
+    "source": "switch(1){def`ault {} default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 071",
+    "source": "switch(1){def`ault {} DEFAULT {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 072",
+    "source": "switch(1){def`ault {} default\"x\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 073",
+    "source": "switch(1){def`ault {} default$value {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 074",
+    "source": "switch(1){def`ault {} def`ault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 075",
+    "source": "switch(1){def`ault {} default<#c#> {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 076",
+    "source": "switch(1){def`ault {} defaultx {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 077",
+    "source": "switch(1){def`ault {} \"default\" {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 078",
+    "source": "switch(1){def`ault {} 'default' {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 079",
+    "source": "switch(1){def`ault {} `default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 080",
+    "source": "switch(1){def`ault {} default`\n {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 081",
+    "source": "switch(1){def`ault {} `\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 082",
+    "source": "switch(1){def`ault {} <#c#>default {}}",
+    "valid": true
+  },
+  {
+    "name": "switch clauses 083",
+    "source": "switch(1){def`ault {} #c\ndefault {}}",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 084",
+    "source": "switch(1){default {} 1 {} default {} 2 {}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 085",
+    "source": "function f { switch(1){default {} 1 {} default {} 2 {}} }",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 086",
+    "source": "@{a=switch(1){default {} 1 {} default {} 2 {}}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 087",
+    "source": "\"$(switch(1){default {} 1 {} default {} 2 {}})\"",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 088",
+    "source": "switch(1){1 {} default {} 2 {} default {}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 089",
+    "source": "function f { switch(1){1 {} default {} 2 {} default {}} }",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 090",
+    "source": "@{a=switch(1){1 {} default {} 2 {} default {}}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 091",
+    "source": "\"$(switch(1){1 {} default {} 2 {} default {}})\"",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 092",
+    "source": "switch(1){default {} default {}\necho after}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 093",
+    "source": "function f { switch(1){default {} default {}\necho after} }",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 094",
+    "source": "@{a=switch(1){default {} default {}\necho after}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 095",
+    "source": "\"$(switch(1){default {} default {}\necho after})\"",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 096",
+    "source": "switch(1){default {} `\ndefault {}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 097",
+    "source": "function f { switch(1){default {} `\ndefault {}} }",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 098",
+    "source": "@{a=switch(1){default {} `\ndefault {}}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 099",
+    "source": "\"$(switch(1){default {} `\ndefault {}})\"",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 100",
+    "source": "switch(1){default {}<#c#>default {}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 101",
+    "source": "function f { switch(1){default {}<#c#>default {}} }",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 102",
+    "source": "@{a=switch(1){default {}<#c#>default {}}}",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 103",
+    "source": "\"$(switch(1){default {}<#c#>default {}})\"",
+    "valid": false
+  },
+  {
+    "name": "switch contexts 104",
+    "source": "switch(1){default {} default\"x\" {} default$value {}}",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 105",
+    "source": "function f { switch(1){default {} default\"x\" {} default$value {}} }",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 106",
+    "source": "@{a=switch(1){default {} default\"x\" {} default$value {}}}",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 107",
+    "source": "\"$(switch(1){default {} default\"x\" {} default$value {}})\"",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 108",
+    "source": "switch(1){default {} {1} {}}",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 109",
+    "source": "function f { switch(1){default {} {1} {}} }",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 110",
+    "source": "@{a=switch(1){default {} {1} {}}}",
+    "valid": true
+  },
+  {
+    "name": "switch contexts 111",
+    "source": "\"$(switch(1){default {} {1} {}})\"",
+    "valid": true
+  },
+  {
+    "name": "foreach splat 00",
+    "source": "foreach (@x in 1) {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 01",
+    "source": "function f { foreach (@x in 1) {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 02",
+    "source": "@{a=foreach (@x in 1) {}}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 03",
+    "source": "\"$(foreach (@x in 1) {})\"",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 04",
+    "source": "foreach (@env:X in 1) {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 05",
+    "source": "function f { foreach (@env:X in 1) {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 06",
+    "source": "@{a=foreach (@env:X in 1) {}}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 07",
+    "source": "\"$(foreach (@env:X in 1) {})\"",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 08",
+    "source": "foreach (@script:x in 1) {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 09",
+    "source": "function f { foreach (@script:x in 1) {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 10",
+    "source": "@{a=foreach (@script:x in 1) {}}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 11",
+    "source": "\"$(foreach (@script:x in 1) {})\"",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 16",
+    "source": "foreach (@? in 1) {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 17",
+    "source": "function f { foreach (@? in 1) {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 18",
+    "source": "@{a=foreach (@? in 1) {}}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 19",
+    "source": "\"$(foreach (@? in 1) {})\"",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 20",
+    "source": "foreach (@true in 1) {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 21",
+    "source": "function f { foreach (@true in 1) {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 22",
+    "source": "@{a=foreach (@true in 1) {}}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  },
+  {
+    "name": "foreach splat 23",
+    "source": "\"$(foreach (@true in 1) {})\"",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "SplattingNotPermitted"
+    ]
+  }
+]

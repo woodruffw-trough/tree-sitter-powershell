@@ -25,6 +25,7 @@ enum TokenType {
   ARGUMENT_END,
   FLOW_LABEL,
   SWITCH_DEFAULT,
+  SWITCH_CLAUSE_START,
   LABEL_START,
   EXPRESSION_ARGUMENT_END,
   MEMBER_ARGUMENT_END,
@@ -90,7 +91,8 @@ enum TokenType {
 
 static bool prepared_context_token(TSSymbol symbol) {
   return symbol == SIGNED_NUMBER_START || symbol == ARGUMENT_END || symbol == LABEL_START ||
-         symbol == MEMBER_ARGUMENT_END || symbol == EXPRESSION_ARGUMENT_END;
+         symbol == MEMBER_ARGUMENT_END || symbol == EXPRESSION_ARGUMENT_END ||
+         symbol == SWITCH_CLAUSE_START;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -763,6 +765,28 @@ static bool skip_block_comment_body(TSLexer *lexer) {
     }
   }
   return false;
+}
+
+// A default keyword is permitted once per switch. Ordinary conditions must
+// retain quoted, interpolated, and escaped words that only begin with it.
+static bool scan_switch_clause_start(TSLexer *lexer, const bool *valid) {
+  lexer->mark_end(lexer);
+  const char *word = "default";
+  while (*word && ascii_lower(lexer->lookahead) == *word) {
+    lexer->advance(lexer, false);
+    ++word;
+  }
+  if (!*word && generic_end(lexer->lookahead) && !quote(lexer->lookahead) &&
+      lexer->lookahead != '<' && lexer->lookahead != '>') {
+    if (!valid[SWITCH_DEFAULT]) {
+      return false;
+    }
+    lexer->mark_end(lexer);
+    lexer->result_symbol = SWITCH_DEFAULT;
+    return true;
+  }
+  lexer->result_symbol = SWITCH_CLAUSE_START;
+  return true;
 }
 
 static bool argument_boundary_context(const bool *valid) {
@@ -3231,6 +3255,24 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   while (horizontal(lexer->lookahead)) {
     skipped_trivia = true;
     lexer->advance(lexer, true);
+  }
+  if (valid[SWITCH_CLAUSE_START] && !valid[HERE_STRING_CONTENT] && !newline(lexer->lookahead) &&
+      !lexer->eof(lexer) && lexer->lookahead != '#' && lexer->lookahead != '<' &&
+      lexer->lookahead != '}' && lexer->lookahead != ')' && lexer->lookahead != ';') {
+    if (lexer->lookahead == '`') {
+      lexer->mark_end(lexer);
+      lexer->advance(lexer, false);
+      if (newline(lexer->lookahead)) {
+        return scan_line_continuation_after_tick(lexer, valid);
+      }
+      if (horizontal(lexer->lookahead)) {
+        return scan_escaped_whitespace_after_tick(lexer, valid);
+      }
+      lexer->result_symbol = SWITCH_CLAUSE_START;
+      return true;
+    }
+    return preparing ? request_preparation(scanner, lexer, valid)
+                     : scan_switch_clause_start(lexer, valid);
   }
   // The preparation extra must not hide trivia from an adjacent method opener.
   if (skipped_trivia && valid[METHOD_INVOCATION_CONTEXT] &&
