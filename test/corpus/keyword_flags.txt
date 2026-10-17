@@ -1,0 +1,65 @@
+================================================================================
+Switch mode resets retain parallel and file flags
+================================================================================
+switch -regex -wildcard -exact -casesensitive -parallel -file "input.ps1" { default {} }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (switch_statement
+    (switch_parameter)
+    (switch_parameter)
+    (switch_parameter)
+    (switch_parameter)
+    (switch_parameter)
+    (command_argument
+      (expandable_string
+        (string_content)))
+    (switch_clause
+      (statement_block))))
+
+================================================================================
+Foreach keeps parallel and its throttle limit
+================================================================================
+foreach -p -t 2 ($x in 1) {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (foreach_statement
+    (foreach_parameter)
+    (foreach_parameter
+      (command_argument
+        (integer_literal)))
+    (variable)
+    (pipeline
+      (command_expression
+        (integer_literal)))
+    (statement_block)))
+
+================================================================================
+Function filter and workflow declarations retain their own keyword roles
+================================================================================
+function ordinary {}
+filter filtered {}
+workflow flowed { function nested {} filter nested_filter {} }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (function_name)
+    (script_block))
+  (function_definition
+    (function_name)
+    (script_block))
+  (function_definition
+    (function_name)
+    (script_block
+      (function_definition
+        (function_name)
+        (script_block))
+      (function_definition
+        (function_name)
+        (script_block)))))
+

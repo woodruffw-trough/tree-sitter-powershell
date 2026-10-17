@@ -1108,5 +1108,47 @@
         ]
       }
     ]
+  },
+  {
+    "name": "switch flag abbreviations retain parameter roles",
+    "source": "switch -r -w -e -c -p (1) { default {} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "fields": [
+      {
+        "node": "switch_statement",
+        "field": "parameters",
+        "texts": [
+          "-r",
+          "-w",
+          "-e",
+          "-c",
+          "-p"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mixed-case function filter and workflow keywords retain declaration roles",
+    "source": "FuNcTiOn ordinary {}; FiLtEr filtered {}; WoRkFlOw flowed {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "fields": [
+      {
+        "node": "function_definition",
+        "field": "keyword",
+        "texts": [
+          "FuNcTiOn",
+          "FiLtEr",
+          "WoRkFlOw"
+        ]
+      }
+    ]
   }
 ]

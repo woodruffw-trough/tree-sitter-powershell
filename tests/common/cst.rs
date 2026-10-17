@@ -1039,6 +1039,49 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
         };
         result.insert("name", json!(decode_name(name)));
     }
+    if category == "FunctionDefinitionAst" {
+        let keyword = node.child_by_field_name("keyword").unwrap().kind();
+        result.insert("filter", json!(keyword == "filter"));
+        result.insert("workflow", json!(keyword == "workflow"));
+    }
+    if category == "SwitchStatementAst" {
+        // Values from System.Management.Automation.Language.SwitchFlags.
+        // Exact is a reset operation; the parser does not set its enum bit.
+        const FILE: u32 = 1;
+        const REGEX: u32 = 2;
+        const WILDCARD: u32 = 4;
+        const CASE_SENSITIVE: u32 = 16;
+        const PARALLEL: u32 = 32;
+        let mut flags = 0_u32;
+        let mut cursor = node.walk();
+        for child in node.children(&mut cursor) {
+            if child.kind() == "-file" {
+                flags |= FILE;
+            } else if child.kind() == "switch_parameter" {
+                let mut parameter_cursor = child.walk();
+                for keyword in child.children(&mut parameter_cursor) {
+                    match keyword.kind() {
+                        "-regex" => flags = (flags | REGEX) & !WILDCARD,
+                        "-wildcard" => flags = (flags | WILDCARD) & !REGEX,
+                        "-exact" => flags &= !(REGEX | WILDCARD),
+                        "-casesensitive" => flags |= CASE_SENSITIVE,
+                        "-parallel" => flags |= PARALLEL,
+                        _ => {}
+                    }
+                }
+            }
+        }
+        result.insert("flags", json!(flags));
+    }
+    if category == "ForEachStatementAst" {
+        let parallel = field_children(node, "parameters").iter().any(|parameter| {
+            let mut cursor = parameter.walk();
+            parameter
+                .children(&mut cursor)
+                .any(|keyword| keyword.kind() == "-parallel")
+        });
+        result.insert("flags", json!(u32::from(parallel)));
+    }
     if category == "UsingStatementAst" {
         let kind = node.child_by_field_name("kind").unwrap();
         let text = source.text(kind).to_ascii_lowercase();

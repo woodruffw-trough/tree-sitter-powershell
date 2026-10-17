@@ -966,6 +966,15 @@
           },
           "named": false,
           "value": "-casesensitive"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_switch_parallel_parameter"
+          },
+          "named": false,
+          "value": "-parallel"
         }
       ]
     },
@@ -35613,6 +35622,10 @@
     {
       "type": "SYMBOL",
       "name": "_switch_casesensitive_parameter"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_switch_parallel_parameter"
     },
     {
       "type": "SYMBOL",

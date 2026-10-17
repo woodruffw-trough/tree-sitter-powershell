@@ -410,6 +410,7 @@ const grammarDefinition = {
     $._switch_wildcard_parameter,
     $._switch_exact_parameter,
     $._switch_casesensitive_parameter,
+    $._switch_parallel_parameter,
     $._switch_file_parameter_token,
     $._data_supported_command_parameter,
     $._foreach_parallel_parameter,
@@ -615,6 +616,7 @@ const grammarDefinition = {
       alias($._switch_wildcard_parameter, '-wildcard'),
       alias($._switch_exact_parameter, '-exact'),
       alias($._switch_casesensitive_parameter, '-casesensitive'),
+      alias($._switch_parallel_parameter, '-parallel'),
     ),
 
     switch_clause: $ => seq(

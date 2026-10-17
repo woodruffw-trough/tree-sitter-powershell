@@ -195,6 +195,8 @@ function Get-AstRecord($Node) {
             $record.toStream = $Node.ToStream.ToString()
         }
         'FunctionDefinitionAst' {
+            $record.filter = $Node.IsFilter
+            $record.workflow = $Node.IsWorkflow
             Add-AstField $fields 'body' $Node.Body
             Add-AstField $fields 'parameters' $Node.Parameters
             $record.name = $Node.Name
@@ -245,6 +247,7 @@ function Get-AstRecord($Node) {
             Add-AstField $fields 'body' $Node.Body
             $record.label = $Node.Label
             if ($record.type -eq 'ForEachStatementAst') {
+                $record.flags = [int]$Node.Flags
                 Add-AstField $fields 'variable' $Node.Variable
                 Add-AstField $fields 'throttleLimit' $Node.ThrottleLimit
             } elseif ($record.type -eq 'ForStatementAst') {
@@ -253,6 +256,7 @@ function Get-AstRecord($Node) {
             }
         }
         'SwitchStatementAst' {
+            $record.flags = [int]$Node.Flags
             $record.label = $Node.Label
             Add-AstField $fields 'condition' $Node.Condition
             Add-AstField $fields 'default' $Node.Default

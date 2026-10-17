@@ -1215,7 +1215,11 @@
   {
     "name": "reserved switch parallel flag",
     "source": "switch -p (1) { default { 1 } }\n",
-    "valid": false
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ]
   },
   {
     "name": "data supported command abbreviated flag",

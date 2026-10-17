@@ -113,6 +113,14 @@ reporting that they are reserved; the tests check those diagnostics separately
 from the resulting syntax tree. These operands follow
 [`ForeachStatementRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L3358-L3516).
 
+Switch parameters use PowerShell's case-insensitive prefix matching, including
+`-parallel` and `-p`. Microsoft builds the switch AST before reporting
+`KeywordParameterReservedForFutureUse` for that reserved option. The CST retains
+the complete statement, following
+[`SwitchStatementRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L2543-L2640).
+Oracle comparisons check effective switch and foreach flags, including `-exact` resetting regex/wildcard matching, and distinguish
+function, filter, and workflow declaration keywords.
+
 In a `data_statement`, each `supported_commands` field contains one complete
 command name or expression. Literal names such as `foo$bar` remain `bare_word`
 nodes; quoted strings, variables, member access, and grouped expressions retain

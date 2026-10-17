@@ -1,0 +1,2218 @@
+[
+  {
+    "name": "statement switch -p",
+    "source": "switch -p (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -p",
+    "source": "function f { switch -p (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -p",
+    "source": "workflow w { switch -p (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -p",
+    "source": "$result = switch -p (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -p",
+    "source": "$(switch -p (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -p",
+    "source": "class C { [void]M() { switch -p (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -p",
+    "source": "switch -regex -p (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -p",
+    "source": "function f { switch -regex -p (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -p",
+    "source": "workflow w { switch -regex -p (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -p",
+    "source": "$result = switch -regex -p (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -p",
+    "source": "$(switch -regex -p (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -p",
+    "source": "class C { [void]M() { switch -regex -p (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -p -wildcard",
+    "source": "switch -p -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -p -wildcard",
+    "source": "function f { switch -p -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -p -wildcard",
+    "source": "workflow w { switch -p -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -p -wildcard",
+    "source": "$result = switch -p -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -p -wildcard",
+    "source": "$(switch -p -wildcard (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -p -wildcard",
+    "source": "class C { [void]M() { switch -p -wildcard (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -p -exact -wildcard -casesensitive",
+    "source": "switch -regex -p -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -p -exact -wildcard -casesensitive",
+    "source": "function f { switch -regex -p -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -p -exact -wildcard -casesensitive",
+    "source": "workflow w { switch -regex -p -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -p -exact -wildcard -casesensitive",
+    "source": "$result = switch -regex -p -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -p -exact -wildcard -casesensitive",
+    "source": "$(switch -regex -p -exact -wildcard -casesensitive (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -p -exact -wildcard -casesensitive",
+    "source": "class C { [void]M() { switch -regex -p -exact -wildcard -casesensitive (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -wildcard -casesensitive -p -regex -exact",
+    "source": "switch -wildcard -casesensitive -p -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -wildcard -casesensitive -p -regex -exact",
+    "source": "function f { switch -wildcard -casesensitive -p -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -wildcard -casesensitive -p -regex -exact",
+    "source": "workflow w { switch -wildcard -casesensitive -p -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -wildcard -casesensitive -p -regex -exact",
+    "source": "$result = switch -wildcard -casesensitive -p -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -wildcard -casesensitive -p -regex -exact",
+    "source": "$(switch -wildcard -casesensitive -p -regex -exact (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -wildcard -casesensitive -p -regex -exact",
+    "source": "class C { [void]M() { switch -wildcard -casesensitive -p -regex -exact (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -par",
+    "source": "switch -par (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -par",
+    "source": "function f { switch -par (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -par",
+    "source": "workflow w { switch -par (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -par",
+    "source": "$result = switch -par (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -par",
+    "source": "$(switch -par (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -par",
+    "source": "class C { [void]M() { switch -par (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -par",
+    "source": "switch -regex -par (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -par",
+    "source": "function f { switch -regex -par (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -par",
+    "source": "workflow w { switch -regex -par (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -par",
+    "source": "$result = switch -regex -par (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -par",
+    "source": "$(switch -regex -par (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -par",
+    "source": "class C { [void]M() { switch -regex -par (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -par -wildcard",
+    "source": "switch -par -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -par -wildcard",
+    "source": "function f { switch -par -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -par -wildcard",
+    "source": "workflow w { switch -par -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -par -wildcard",
+    "source": "$result = switch -par -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -par -wildcard",
+    "source": "$(switch -par -wildcard (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -par -wildcard",
+    "source": "class C { [void]M() { switch -par -wildcard (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -par -exact -wildcard -casesensitive",
+    "source": "switch -regex -par -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -par -exact -wildcard -casesensitive",
+    "source": "function f { switch -regex -par -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -par -exact -wildcard -casesensitive",
+    "source": "workflow w { switch -regex -par -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -par -exact -wildcard -casesensitive",
+    "source": "$result = switch -regex -par -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -par -exact -wildcard -casesensitive",
+    "source": "$(switch -regex -par -exact -wildcard -casesensitive (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -par -exact -wildcard -casesensitive",
+    "source": "class C { [void]M() { switch -regex -par -exact -wildcard -casesensitive (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -wildcard -casesensitive -par -regex -exact",
+    "source": "switch -wildcard -casesensitive -par -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -wildcard -casesensitive -par -regex -exact",
+    "source": "function f { switch -wildcard -casesensitive -par -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -wildcard -casesensitive -par -regex -exact",
+    "source": "workflow w { switch -wildcard -casesensitive -par -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -wildcard -casesensitive -par -regex -exact",
+    "source": "$result = switch -wildcard -casesensitive -par -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -wildcard -casesensitive -par -regex -exact",
+    "source": "$(switch -wildcard -casesensitive -par -regex -exact (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -wildcard -casesensitive -par -regex -exact",
+    "source": "class C { [void]M() { switch -wildcard -casesensitive -par -regex -exact (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -parallel",
+    "source": "switch -parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -parallel",
+    "source": "function f { switch -parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -parallel",
+    "source": "workflow w { switch -parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -parallel",
+    "source": "$result = switch -parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -parallel",
+    "source": "$(switch -parallel (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -parallel",
+    "source": "class C { [void]M() { switch -parallel (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -parallel",
+    "source": "switch -regex -parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -parallel",
+    "source": "function f { switch -regex -parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -parallel",
+    "source": "workflow w { switch -regex -parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -parallel",
+    "source": "$result = switch -regex -parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -parallel",
+    "source": "$(switch -regex -parallel (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -parallel",
+    "source": "class C { [void]M() { switch -regex -parallel (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -parallel -wildcard",
+    "source": "switch -parallel -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -parallel -wildcard",
+    "source": "function f { switch -parallel -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -parallel -wildcard",
+    "source": "workflow w { switch -parallel -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -parallel -wildcard",
+    "source": "$result = switch -parallel -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -parallel -wildcard",
+    "source": "$(switch -parallel -wildcard (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -parallel -wildcard",
+    "source": "class C { [void]M() { switch -parallel -wildcard (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -parallel -exact -wildcard -casesensitive",
+    "source": "switch -regex -parallel -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -parallel -exact -wildcard -casesensitive",
+    "source": "function f { switch -regex -parallel -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -parallel -exact -wildcard -casesensitive",
+    "source": "workflow w { switch -regex -parallel -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -parallel -exact -wildcard -casesensitive",
+    "source": "$result = switch -regex -parallel -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -parallel -exact -wildcard -casesensitive",
+    "source": "$(switch -regex -parallel -exact -wildcard -casesensitive (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -parallel -exact -wildcard -casesensitive",
+    "source": "class C { [void]M() { switch -regex -parallel -exact -wildcard -casesensitive (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -wildcard -casesensitive -parallel -regex -exact",
+    "source": "switch -wildcard -casesensitive -parallel -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -wildcard -casesensitive -parallel -regex -exact",
+    "source": "function f { switch -wildcard -casesensitive -parallel -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -wildcard -casesensitive -parallel -regex -exact",
+    "source": "workflow w { switch -wildcard -casesensitive -parallel -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -wildcard -casesensitive -parallel -regex -exact",
+    "source": "$result = switch -wildcard -casesensitive -parallel -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -wildcard -casesensitive -parallel -regex -exact",
+    "source": "$(switch -wildcard -casesensitive -parallel -regex -exact (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -wildcard -casesensitive -parallel -regex -exact",
+    "source": "class C { [void]M() { switch -wildcard -casesensitive -parallel -regex -exact (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -PaRaLlEl",
+    "source": "switch -PaRaLlEl (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -PaRaLlEl",
+    "source": "function f { switch -PaRaLlEl (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -PaRaLlEl",
+    "source": "workflow w { switch -PaRaLlEl (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -PaRaLlEl",
+    "source": "$result = switch -PaRaLlEl (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -PaRaLlEl",
+    "source": "$(switch -PaRaLlEl (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -PaRaLlEl",
+    "source": "class C { [void]M() { switch -PaRaLlEl (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -PaRaLlEl",
+    "source": "switch -regex -PaRaLlEl (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -PaRaLlEl",
+    "source": "function f { switch -regex -PaRaLlEl (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -PaRaLlEl",
+    "source": "workflow w { switch -regex -PaRaLlEl (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -PaRaLlEl",
+    "source": "$result = switch -regex -PaRaLlEl (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -PaRaLlEl",
+    "source": "$(switch -regex -PaRaLlEl (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -PaRaLlEl",
+    "source": "class C { [void]M() { switch -regex -PaRaLlEl (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -PaRaLlEl -wildcard",
+    "source": "switch -PaRaLlEl -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -PaRaLlEl -wildcard",
+    "source": "function f { switch -PaRaLlEl -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -PaRaLlEl -wildcard",
+    "source": "workflow w { switch -PaRaLlEl -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -PaRaLlEl -wildcard",
+    "source": "$result = switch -PaRaLlEl -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -PaRaLlEl -wildcard",
+    "source": "$(switch -PaRaLlEl -wildcard (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -PaRaLlEl -wildcard",
+    "source": "class C { [void]M() { switch -PaRaLlEl -wildcard (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -PaRaLlEl -exact -wildcard -casesensitive",
+    "source": "switch -regex -PaRaLlEl -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -PaRaLlEl -exact -wildcard -casesensitive",
+    "source": "function f { switch -regex -PaRaLlEl -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -PaRaLlEl -exact -wildcard -casesensitive",
+    "source": "workflow w { switch -regex -PaRaLlEl -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -PaRaLlEl -exact -wildcard -casesensitive",
+    "source": "$result = switch -regex -PaRaLlEl -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -PaRaLlEl -exact -wildcard -casesensitive",
+    "source": "$(switch -regex -PaRaLlEl -exact -wildcard -casesensitive (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -PaRaLlEl -exact -wildcard -casesensitive",
+    "source": "class C { [void]M() { switch -regex -PaRaLlEl -exact -wildcard -casesensitive (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -wildcard -casesensitive -PaRaLlEl -regex -exact",
+    "source": "switch -wildcard -casesensitive -PaRaLlEl -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -wildcard -casesensitive -PaRaLlEl -regex -exact",
+    "source": "function f { switch -wildcard -casesensitive -PaRaLlEl -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -wildcard -casesensitive -PaRaLlEl -regex -exact",
+    "source": "workflow w { switch -wildcard -casesensitive -PaRaLlEl -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -wildcard -casesensitive -PaRaLlEl -regex -exact",
+    "source": "$result = switch -wildcard -casesensitive -PaRaLlEl -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -wildcard -casesensitive -PaRaLlEl -regex -exact",
+    "source": "$(switch -wildcard -casesensitive -PaRaLlEl -regex -exact (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -wildcard -casesensitive -PaRaLlEl -regex -exact",
+    "source": "class C { [void]M() { switch -wildcard -casesensitive -PaRaLlEl -regex -exact (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch \u2014parallel",
+    "source": "switch \u2014parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch \u2014parallel",
+    "source": "function f { switch \u2014parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch \u2014parallel",
+    "source": "workflow w { switch \u2014parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch \u2014parallel",
+    "source": "$result = switch \u2014parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch \u2014parallel",
+    "source": "$(switch \u2014parallel (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch \u2014parallel",
+    "source": "class C { [void]M() { switch \u2014parallel (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex \u2014parallel",
+    "source": "switch -regex \u2014parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex \u2014parallel",
+    "source": "function f { switch -regex \u2014parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex \u2014parallel",
+    "source": "workflow w { switch -regex \u2014parallel (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex \u2014parallel",
+    "source": "$result = switch -regex \u2014parallel (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex \u2014parallel",
+    "source": "$(switch -regex \u2014parallel (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex \u2014parallel",
+    "source": "class C { [void]M() { switch -regex \u2014parallel (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch \u2014parallel -wildcard",
+    "source": "switch \u2014parallel -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch \u2014parallel -wildcard",
+    "source": "function f { switch \u2014parallel -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch \u2014parallel -wildcard",
+    "source": "workflow w { switch \u2014parallel -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch \u2014parallel -wildcard",
+    "source": "$result = switch \u2014parallel -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch \u2014parallel -wildcard",
+    "source": "$(switch \u2014parallel -wildcard (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch \u2014parallel -wildcard",
+    "source": "class C { [void]M() { switch \u2014parallel -wildcard (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex \u2014parallel -exact -wildcard -casesensitive",
+    "source": "switch -regex \u2014parallel -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex \u2014parallel -exact -wildcard -casesensitive",
+    "source": "function f { switch -regex \u2014parallel -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex \u2014parallel -exact -wildcard -casesensitive",
+    "source": "workflow w { switch -regex \u2014parallel -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex \u2014parallel -exact -wildcard -casesensitive",
+    "source": "$result = switch -regex \u2014parallel -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex \u2014parallel -exact -wildcard -casesensitive",
+    "source": "$(switch -regex \u2014parallel -exact -wildcard -casesensitive (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex \u2014parallel -exact -wildcard -casesensitive",
+    "source": "class C { [void]M() { switch -regex \u2014parallel -exact -wildcard -casesensitive (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -wildcard -casesensitive \u2014parallel -regex -exact",
+    "source": "switch -wildcard -casesensitive \u2014parallel -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -wildcard -casesensitive \u2014parallel -regex -exact",
+    "source": "function f { switch -wildcard -casesensitive \u2014parallel -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -wildcard -casesensitive \u2014parallel -regex -exact",
+    "source": "workflow w { switch -wildcard -casesensitive \u2014parallel -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -wildcard -casesensitive \u2014parallel -regex -exact",
+    "source": "$result = switch -wildcard -casesensitive \u2014parallel -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -wildcard -casesensitive \u2014parallel -regex -exact",
+    "source": "$(switch -wildcard -casesensitive \u2014parallel -regex -exact (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -wildcard -casesensitive \u2014parallel -regex -exact",
+    "source": "class C { [void]M() { switch -wildcard -casesensitive \u2014parallel -regex -exact (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -parallel:",
+    "source": "switch -parallel: (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -parallel:",
+    "source": "function f { switch -parallel: (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -parallel:",
+    "source": "workflow w { switch -parallel: (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -parallel:",
+    "source": "$result = switch -parallel: (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -parallel:",
+    "source": "$(switch -parallel: (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -parallel:",
+    "source": "class C { [void]M() { switch -parallel: (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -parallel:",
+    "source": "switch -regex -parallel: (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -parallel:",
+    "source": "function f { switch -regex -parallel: (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -parallel:",
+    "source": "workflow w { switch -regex -parallel: (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -parallel:",
+    "source": "$result = switch -regex -parallel: (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -parallel:",
+    "source": "$(switch -regex -parallel: (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -parallel:",
+    "source": "class C { [void]M() { switch -regex -parallel: (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -parallel: -wildcard",
+    "source": "switch -parallel: -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -parallel: -wildcard",
+    "source": "function f { switch -parallel: -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -parallel: -wildcard",
+    "source": "workflow w { switch -parallel: -wildcard (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -parallel: -wildcard",
+    "source": "$result = switch -parallel: -wildcard (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -parallel: -wildcard",
+    "source": "$(switch -parallel: -wildcard (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -parallel: -wildcard",
+    "source": "class C { [void]M() { switch -parallel: -wildcard (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -regex -parallel: -exact -wildcard -casesensitive",
+    "source": "switch -regex -parallel: -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -regex -parallel: -exact -wildcard -casesensitive",
+    "source": "function f { switch -regex -parallel: -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -regex -parallel: -exact -wildcard -casesensitive",
+    "source": "workflow w { switch -regex -parallel: -exact -wildcard -casesensitive (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -regex -parallel: -exact -wildcard -casesensitive",
+    "source": "$result = switch -regex -parallel: -exact -wildcard -casesensitive (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -regex -parallel: -exact -wildcard -casesensitive",
+    "source": "$(switch -regex -parallel: -exact -wildcard -casesensitive (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -regex -parallel: -exact -wildcard -casesensitive",
+    "source": "class C { [void]M() { switch -regex -parallel: -exact -wildcard -casesensitive (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement switch -wildcard -casesensitive -parallel: -regex -exact",
+    "source": "switch -wildcard -casesensitive -parallel: -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function switch -wildcard -casesensitive -parallel: -regex -exact",
+    "source": "function f { switch -wildcard -casesensitive -parallel: -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow switch -wildcard -casesensitive -parallel: -regex -exact",
+    "source": "workflow w { switch -wildcard -casesensitive -parallel: -regex -exact (1) { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment switch -wildcard -casesensitive -parallel: -regex -exact",
+    "source": "$result = switch -wildcard -casesensitive -parallel: -regex -exact (1) { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression switch -wildcard -casesensitive -parallel: -regex -exact",
+    "source": "$(switch -wildcard -casesensitive -parallel: -regex -exact (1) { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method switch -wildcard -casesensitive -parallel: -regex -exact",
+    "source": "class C { [void]M() { switch -wildcard -casesensitive -parallel: -regex -exact (1) { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement file switch -p",
+    "source": "switch -p -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function file switch -p",
+    "source": "function f { switch -p -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow file switch -p",
+    "source": "workflow w { switch -p -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment file switch -p",
+    "source": "$result = switch -p -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression file switch -p",
+    "source": "$(switch -p -file \"$path\" { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method file switch -p",
+    "source": "class C { [void]M() { switch -p -file \"$path\" { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse",
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement file switch -par",
+    "source": "switch -par -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function file switch -par",
+    "source": "function f { switch -par -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow file switch -par",
+    "source": "workflow w { switch -par -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment file switch -par",
+    "source": "$result = switch -par -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression file switch -par",
+    "source": "$(switch -par -file \"$path\" { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method file switch -par",
+    "source": "class C { [void]M() { switch -par -file \"$path\" { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse",
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement file switch -parallel",
+    "source": "switch -parallel -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function file switch -parallel",
+    "source": "function f { switch -parallel -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow file switch -parallel",
+    "source": "workflow w { switch -parallel -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment file switch -parallel",
+    "source": "$result = switch -parallel -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression file switch -parallel",
+    "source": "$(switch -parallel -file \"$path\" { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method file switch -parallel",
+    "source": "class C { [void]M() { switch -parallel -file \"$path\" { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse",
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement file switch -PaRaLlEl",
+    "source": "switch -PaRaLlEl -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function file switch -PaRaLlEl",
+    "source": "function f { switch -PaRaLlEl -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow file switch -PaRaLlEl",
+    "source": "workflow w { switch -PaRaLlEl -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment file switch -PaRaLlEl",
+    "source": "$result = switch -PaRaLlEl -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression file switch -PaRaLlEl",
+    "source": "$(switch -PaRaLlEl -file \"$path\" { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method file switch -PaRaLlEl",
+    "source": "class C { [void]M() { switch -PaRaLlEl -file \"$path\" { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse",
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement file switch \u2014parallel",
+    "source": "switch \u2014parallel -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function file switch \u2014parallel",
+    "source": "function f { switch \u2014parallel -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow file switch \u2014parallel",
+    "source": "workflow w { switch \u2014parallel -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment file switch \u2014parallel",
+    "source": "$result = switch \u2014parallel -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression file switch \u2014parallel",
+    "source": "$(switch \u2014parallel -file \"$path\" { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method file switch \u2014parallel",
+    "source": "class C { [void]M() { switch \u2014parallel -file \"$path\" { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse",
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "statement file switch -parallel:",
+    "source": "switch -parallel: -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function file switch -parallel:",
+    "source": "function f { switch -parallel: -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow file switch -parallel:",
+    "source": "workflow w { switch -parallel: -file \"$path\" { 1 {} } }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "assignment file switch -parallel:",
+    "source": "$result = switch -parallel: -file \"$path\" { 1 {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "subexpression file switch -parallel:",
+    "source": "$(switch -parallel: -file \"$path\" { 1 {} })",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "method file switch -parallel:",
+    "source": "class C { [void]M() { switch -parallel: -file \"$path\" { 1 {} } } }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse",
+      "VariableNotLocal"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "function header flag",
+    "source": "function f {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter header flag",
+    "source": "filter f {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow header flag",
+    "source": "workflow f {}",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach -parallel",
+    "source": "foreach -parallel ($x in 1) {}",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach -p",
+    "source": "foreach -p ($x in 1) {}",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach -parallel:",
+    "source": "foreach -parallel: ($x in 1) {}",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "switch flag state control 0",
+    "source": "switch  (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 1",
+    "source": "switch -regex (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 2",
+    "source": "switch -wildcard (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 3",
+    "source": "switch -exact (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 4",
+    "source": "switch -casesensitive (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 5",
+    "source": "switch -regex -wildcard (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 6",
+    "source": "switch -wildcard -regex (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 7",
+    "source": "switch -regex -exact (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 8",
+    "source": "switch -wildcard -exact (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 9",
+    "source": "switch -exact -regex (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 10",
+    "source": "switch -casesensitive -regex -wildcard (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch flag state control 11",
+    "source": "switch -regex -wildcard -exact -casesensitive (1) { 1 {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch file flag state control 0",
+    "source": "switch -file \"input.ps1\" { default {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch file flag state control 1",
+    "source": "switch -regex -file \"input.ps1\" -wildcard { default {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch file flag state control 2",
+    "source": "switch -file \"input.ps1\" -wildcard -regex { default {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "switch file flag state control 3",
+    "source": "switch -regex -wildcard -exact -casesensitive -parallel -file \"input.ps1\" { default {} }",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach and function keyword metadata control 0",
+    "source": "foreach ($x in 1) {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "foreach and function keyword metadata control 1",
+    "source": "foreach -t 2 ($x in 1) {}",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse",
+      "ThrottleLimitRequiresParallelFlag"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach and function keyword metadata control 2",
+    "source": "foreach -p -t 2 ($x in 1) {}",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach and function keyword metadata control 3",
+    "source": "foreach -p -p ($x in 1) {}",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach and function keyword metadata control 4",
+    "source": "function ordinary {}\nfilter filtered {}\nworkflow flowed {}",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach and function keyword metadata control 5",
+    "source": "FuNcTiOn mixed {}\nFiLtEr mixed {}\nWoRkFlOw mixed {}",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach and function keyword metadata control 6",
+    "source": "workflow outer { function nested {} filter nested_filter {} workflow nested_workflow {} }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore",
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "foreach and function keyword metadata control 7",
+    "source": "function outer { filter nested {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "foreach and function keyword metadata control 8",
+    "source": "filter outer { function nested {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "foreach and function keyword metadata control 9",
+    "source": "workflow outer { InlineScript {} }",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  }
+]

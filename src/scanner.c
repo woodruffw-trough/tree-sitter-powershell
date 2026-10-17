@@ -84,6 +84,7 @@ enum TokenType {
   SWITCH_WILDCARD_PARAMETER,
   SWITCH_EXACT_PARAMETER,
   SWITCH_CASESENSITIVE_PARAMETER,
+  SWITCH_PARALLEL_PARAMETER,
   SWITCH_FILE_PARAMETER,
   DATA_SUPPORTED_COMMAND_PARAMETER,
   FOREACH_PARALLEL_PARAMETER,
@@ -3587,6 +3588,7 @@ static bool scan_keyword_parameter(TSLexer *lexer, const bool *valid) {
       {"wildcard", SWITCH_WILDCARD_PARAMETER},
       {"exact", SWITCH_EXACT_PARAMETER},
       {"casesensitive", SWITCH_CASESENSITIVE_PARAMETER},
+      {"parallel", SWITCH_PARALLEL_PARAMETER},
       {"file", SWITCH_FILE_PARAMETER},
       {"supportedcommand", DATA_SUPPORTED_COMMAND_PARAMETER},
       {"parallel", FOREACH_PARALLEL_PARAMETER},
@@ -4316,8 +4318,9 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if (generic_dash(lexer->lookahead) &&
       (valid[SWITCH_REGEX_PARAMETER] || valid[SWITCH_WILDCARD_PARAMETER] ||
        valid[SWITCH_EXACT_PARAMETER] || valid[SWITCH_CASESENSITIVE_PARAMETER] ||
-       valid[SWITCH_FILE_PARAMETER] || valid[DATA_SUPPORTED_COMMAND_PARAMETER] ||
-       valid[FOREACH_PARALLEL_PARAMETER] || valid[FOREACH_THROTTLELIMIT_PARAMETER])) {
+       valid[SWITCH_PARALLEL_PARAMETER] || valid[SWITCH_FILE_PARAMETER] ||
+       valid[DATA_SUPPORTED_COMMAND_PARAMETER] || valid[FOREACH_PARALLEL_PARAMETER] ||
+       valid[FOREACH_THROTTLELIMIT_PARAMETER])) {
     return scan_keyword_parameter(lexer, valid);
   }
   if (valid[FUNCTION_NAME] && !valid[COMMAND_NAME]) {
