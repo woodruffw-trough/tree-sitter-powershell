@@ -50,6 +50,7 @@ enum TokenType {
   FLOW_EXPRESSION_START,
   FLOW_LABEL_END,
   FLOW_PIPE_START,
+  LEADING_PIPE_START,
   COMMAND_MEMBER_START,
   COMMAND_UNARY_START,
   DATA_COMMAND_NAME,
@@ -114,8 +115,8 @@ static bool prepared_context_token(TSSymbol symbol) {
          symbol == MEMBER_ARGUMENT_END || symbol == EXPRESSION_ARGUMENT_END ||
          symbol == CONFIGURATION_NAME_START || symbol == SWITCH_CLAUSE_START ||
          symbol == UNARY_SIGN_CONTEXT || symbol == CAST_VALUE_CONTEXT ||
-         symbol == FLOW_PIPE_START || symbol == EXPRESSION_CONTINUATION ||
-         symbol == ATTRIBUTE_CONTINUATION;
+         symbol == FLOW_PIPE_START || symbol == LEADING_PIPE_START ||
+         symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -1314,10 +1315,10 @@ static bool skip_block_comment_body(TSLexer *lexer) {
   return false;
 }
 
-// PipelineRule may begin with a newline and pipe after return, throw, or exit.
-// Assert the complete continuation before the grammar consumes its newline, so
-// an ordinary trailing comment stays an extra when no pipe follows.
-static bool scan_flow_pipe_start(TSLexer *lexer) {
+// IsPipeContinuation examines source after a newline without discarding
+// backtick continuations. Assert that boundary before extras can hide them.
+// A flow keyword can begin a value pipeline with a single pipe, but not a chain.
+static bool scan_pipe_continuation_start(TSLexer *lexer, enum TokenType kind) {
   lexer->mark_end(lexer);
   int32_t first = lexer->lookahead;
   lexer->advance(lexer, false);
@@ -1364,10 +1365,10 @@ static bool scan_flow_pipe_start(TSLexer *lexer) {
       return false;
     }
     lexer->advance(lexer, false);
-    if (lexer->lookahead == '|') {
+    if (lexer->lookahead == '|' && kind == FLOW_PIPE_START) {
       return false;
     }
-    lexer->result_symbol = FLOW_PIPE_START;
+    lexer->result_symbol = kind;
     return true;
   }
   return false;
@@ -4184,7 +4185,12 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
                      : scan_expression_continuation(lexer);
   }
   if (valid[FLOW_PIPE_START] && !valid[HERE_STRING_CONTENT] && newline(lexer->lookahead)) {
-    return preparing ? request_preparation(scanner, lexer, valid) : scan_flow_pipe_start(lexer);
+    return preparing ? request_preparation(scanner, lexer, valid)
+                     : scan_pipe_continuation_start(lexer, FLOW_PIPE_START);
+  }
+  if (valid[LEADING_PIPE_START] && !valid[HERE_STRING_CONTENT] && newline(lexer->lookahead)) {
+    return preparing ? request_preparation(scanner, lexer, valid)
+                     : scan_pipe_continuation_start(lexer, LEADING_PIPE_START);
   }
   if (valid[SWITCH_CLAUSE_START] && !valid[HERE_STRING_CONTENT] && !newline(lexer->lookahead) &&
       !lexer->eof(lexer) && lexer->lookahead != '#' && lexer->lookahead != '<' &&

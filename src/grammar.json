@@ -7447,6 +7447,10 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "SYMBOL",
+          "name": "_leading_pipe_start"
+        },
+        {
           "type": "PATTERN",
           "value": "\\r\\n|\\r|\\n"
         },
@@ -35143,14 +35147,6 @@
       "pipeline"
     ],
     [
-      "_simple_statement",
-      "pipeline_chain"
-    ],
-    [
-      "_pipeline_entry",
-      "pipeline_chain"
-    ],
-    [
       "_pipeline_entry",
       "_completed_pipeline_entry"
     ],
@@ -35163,18 +35159,6 @@
     ],
     [
       "try_statement"
-    ],
-    [
-      "return_statement",
-      "pipeline_chain"
-    ],
-    [
-      "throw_statement",
-      "pipeline_chain"
-    ],
-    [
-      "exit_statement",
-      "pipeline_chain"
     ],
     [
       "return_statement",
@@ -35237,14 +35221,6 @@
       "_comma_free_pipeline"
     ],
     [
-      "_comma_free_simple_statement",
-      "_comma_free_pipeline_chain"
-    ],
-    [
-      "_comma_free_pipeline_entry",
-      "_comma_free_pipeline_chain"
-    ],
-    [
       "_comma_free_pipeline_entry",
       "_comma_free_completed_pipeline_entry"
     ],
@@ -35257,18 +35233,6 @@
     ],
     [
       "_comma_free_try_statement"
-    ],
-    [
-      "_comma_free_return_statement",
-      "_comma_free_pipeline_chain"
-    ],
-    [
-      "_comma_free_throw_statement",
-      "_comma_free_pipeline_chain"
-    ],
-    [
-      "_comma_free_exit_statement",
-      "_comma_free_pipeline_chain"
     ],
     [
       "_comma_free_return_statement",
@@ -35486,6 +35450,10 @@
     {
       "type": "SYMBOL",
       "name": "_flow_pipe_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_leading_pipe_start"
     },
     {
       "type": "SYMBOL",

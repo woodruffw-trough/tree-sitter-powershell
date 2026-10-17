@@ -1,0 +1,65 @@
+==================
+A backtick-only intervening line does not continue a pipeline
+==================
+
+'Hello'
+    `
+    | ForEach-Object {"$_ world"}
+
+---
+
+(source_file
+  (pipeline
+    (command_expression (single_quoted_string)))
+  (line_continuation)
+  (pipeline
+    (command
+      (command_name (MISSING bare_word)))
+    (command
+      (command_name (bare_word))
+      (command_argument
+        (script_block
+          (pipeline
+            (command_expression
+              (expandable_string (variable) (string_content)))))))))
+
+==================
+An escaped newline directly after a command continues its pipeline
+==================
+
+echo before `
+| next after
+
+---
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (bare_word)))
+    (line_continuation)
+    (command
+      (command_name (bare_word))
+      (command_argument (bare_word)))))
+
+==================
+Comment lines before a pipeline chain retain its left and right pipelines
+==================
+
+echo before
+<# retained #>
+|| next after
+
+---
+
+(source_file
+  (pipeline_chain
+    (pipeline
+      (command
+        (command_name (bare_word))
+        (command_argument (bare_word))))
+    (comment)
+    (pipeline
+      (command
+        (command_name (bare_word))
+        (command_argument (bare_word))))))

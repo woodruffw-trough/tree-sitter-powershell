@@ -376,6 +376,7 @@ const grammarDefinition = {
     $._flow_expression_start,
     $._flow_label_end,
     $._flow_pipe_start,
+    $._leading_pipe_start,
     $._command_member_start,
     $._command_unary_start,
     $._data_command_name,
@@ -441,15 +442,10 @@ const grammarDefinition = {
     [$._value_primary_expression, $.invocation_expression],
     [$._argument_value_primary_expression, $._argument_invocation_expression],
     [$.pipeline],
-    [$._simple_statement, $.pipeline_chain],
-    [$._pipeline_entry, $.pipeline_chain],
     [$._pipeline_entry, $._completed_pipeline_entry],
     [$._statement, $._completed_assignment_statement],
     [$.if_statement],
     [$.try_statement],
-    [$.return_statement, $.pipeline_chain],
-    [$.throw_statement, $.pipeline_chain],
-    [$.exit_statement, $.pipeline_chain],
     [$.return_statement, $._completed_return_statement],
     [$.throw_statement, $._completed_throw_statement],
     [$.exit_statement, $._completed_exit_statement],
@@ -1231,8 +1227,12 @@ const grammarDefinition = {
     ),
 
     // IsPipeContinuation accepts a following '|' character, including '||'.
-    // Comment-only lines may intervene, but blank lines end the pipeline.
-    _leading_pipe_newline: $ => seq(NEWLINE, repeat(seq($.comment, optional(NEWLINE)))),
+    // Comment-only lines may intervene; blank and backtick-only lines end it.
+    _leading_pipe_newline: $ => seq(
+      $._leading_pipe_start,
+      NEWLINE,
+      repeat(seq($.comment, optional(NEWLINE))),
+    ),
 
     _leading_pipe: $ => seq($._leading_pipe_newline, '|'),
 

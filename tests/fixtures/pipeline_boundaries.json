@@ -1,0 +1,473 @@
+[
+  {
+    "name": "quoted expression pipe after newline at top level",
+    "source": "'Hello'\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipeline chain after newline at top level",
+    "source": "'Hello'\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipe after direct escaped newline at top level",
+    "source": "'Hello'`\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipeline chain after direct escaped newline at top level",
+    "source": "'Hello'`\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipe after backtick-only intervening line at top level",
+    "source": "'Hello'\n`\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "quoted expression pipeline chain after backtick-only intervening line at top level",
+    "source": "'Hello'\n`\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "quoted expression pipe after escaped space intervening line at top level",
+    "source": "'Hello'\n` \n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "quoted expression pipeline chain after escaped space intervening line at top level",
+    "source": "'Hello'\n` \n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "quoted expression pipe after line comment at top level",
+    "source": "'Hello'\n# c\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipeline chain after line comment at top level",
+    "source": "'Hello'\n# c\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipe after block comment at top level",
+    "source": "'Hello'\n<# c #>\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipeline chain after block comment at top level",
+    "source": "'Hello'\n<# c #>\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted expression pipe after blank line at top level",
+    "source": "'Hello'\n\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "quoted expression pipeline chain after blank line at top level",
+    "source": "'Hello'\n\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "quoted expression pipe after line comment followed by backtick-only line at top level",
+    "source": "'Hello'\n# c\n`\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "quoted expression pipeline chain after line comment followed by backtick-only line at top level",
+    "source": "'Hello'\n# c\n`\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipe after newline at top level",
+    "source": "echo before\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after newline at function",
+    "source": "function f {echo before\n| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after newline at top level",
+    "source": "echo before\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after newline at function",
+    "source": "function f {echo before\n|| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after direct escaped newline at top level",
+    "source": "echo before`\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after direct escaped newline at function",
+    "source": "function f {echo before`\n| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after direct escaped newline at top level",
+    "source": "echo before`\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after direct escaped newline at function",
+    "source": "function f {echo before`\n|| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after backtick-only intervening line at top level",
+    "source": "echo before\n`\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipe after backtick-only intervening line at function",
+    "source": "function f {echo before\n`\n| next after}",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipeline chain after backtick-only intervening line at top level",
+    "source": "echo before\n`\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipeline chain after backtick-only intervening line at function",
+    "source": "function f {echo before\n`\n|| next after}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipe after escaped space intervening line at top level",
+    "source": "echo before\n` \n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipe after escaped space intervening line at function",
+    "source": "function f {echo before\n` \n| next after}",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipeline chain after escaped space intervening line at top level",
+    "source": "echo before\n` \n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipeline chain after escaped space intervening line at function",
+    "source": "function f {echo before\n` \n|| next after}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipe after line comment at top level",
+    "source": "echo before\n# c\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after line comment at function",
+    "source": "function f {echo before\n# c\n| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after line comment at top level",
+    "source": "echo before\n# c\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after line comment at function",
+    "source": "function f {echo before\n# c\n|| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after block comment at top level",
+    "source": "echo before\n<# c #>\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after block comment at function",
+    "source": "function f {echo before\n<# c #>\n| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after block comment at top level",
+    "source": "echo before\n<# c #>\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipeline chain after block comment at function",
+    "source": "function f {echo before\n<# c #>\n|| next after}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command pipe after blank line at top level",
+    "source": "echo before\n\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipe after blank line at function",
+    "source": "function f {echo before\n\n| next after}",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipeline chain after blank line at top level",
+    "source": "echo before\n\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipeline chain after blank line at function",
+    "source": "function f {echo before\n\n|| next after}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipe after line comment followed by backtick-only line at top level",
+    "source": "echo before\n# c\n`\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipe after line comment followed by backtick-only line at function",
+    "source": "function f {echo before\n# c\n`\n| next after}",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "command pipeline chain after line comment followed by backtick-only line at top level",
+    "source": "echo before\n# c\n`\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command pipeline chain after line comment followed by backtick-only line at function",
+    "source": "function f {echo before\n# c\n`\n|| next after}",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "return pipe after newline at top level",
+    "source": "return\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return pipeline chain after newline at top level",
+    "source": "return\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "return pipe after direct escaped newline at top level",
+    "source": "return`\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return pipeline chain after direct escaped newline at top level",
+    "source": "return`\n|| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return pipe after backtick-only intervening line at top level",
+    "source": "return\n`\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "return pipeline chain after backtick-only intervening line at top level",
+    "source": "return\n`\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "return pipe after escaped space intervening line at top level",
+    "source": "return\n` \n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "return pipeline chain after escaped space intervening line at top level",
+    "source": "return\n` \n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "return pipe after line comment at top level",
+    "source": "return\n# c\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return pipeline chain after line comment at top level",
+    "source": "return\n# c\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "return pipe after block comment at top level",
+    "source": "return\n<# c #>\n| next after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return pipeline chain after block comment at top level",
+    "source": "return\n<# c #>\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "return pipe after blank line at top level",
+    "source": "return\n\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "return pipeline chain after blank line at top level",
+    "source": "return\n\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "return pipe after line comment followed by backtick-only line at top level",
+    "source": "return\n# c\n`\n| next after",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "return pipeline chain after line comment followed by backtick-only line at top level",
+    "source": "return\n# c\n`\n|| next after",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "upstream backtick-only line before leading pipe",
+    "source": "'Hello'\n    `\n    | ForEach-Object {\"$_ world\"}\n",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ],
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L281"
+  }
+]

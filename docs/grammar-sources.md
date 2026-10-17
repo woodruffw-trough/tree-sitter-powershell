@@ -403,6 +403,14 @@ fixture collection; see the [PowerShell fixtures](https://github.com/woodruffw-t
 [external project fixtures](https://github.com/woodruffw-trough/tree-sitter-powershell/blob/main/tests/projects/README.md).
 Contributor commands are in [CONTRIBUTING.md](../CONTRIBUTING.md).
 
+Leading-pipe continuation follows `IsPipeContinuation` in the pinned tokenizer.
+The check examines source after a newline before tokenizer trivia is discarded.
+A backtick on the preceding command's line can escape its newline; an intervening
+line containing only a backtick ends automatic continuation. Microsoft's
+[`LineContinuance.Tests.ps1`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/test/powershell/Language/Parser/LineContinuance.Tests.ps1#L280-L289)
+checks that the latter reports `EmptyPipeElement`. Comment-only lines may still
+precede a leading pipe or `||`; blank lines end continuation.
+
 Leading-pipe continuation is accepted inside interpolated subexpressions, including
 values of `return`, `throw`, and `exit`. This deliberately differs from PowerShell
 7.5.4: `"$(echo before` followed by a newline and `| next)"` produces

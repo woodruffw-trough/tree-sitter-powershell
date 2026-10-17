@@ -1150,5 +1150,84 @@
         ]
       }
     ]
+  },
+  {
+    "name": "commented leading pipe",
+    "source": "echo before\n# retained\n| next after",
+    "valid": true,
+    "fields": [
+      {
+        "node": "pipeline",
+        "field": "elements",
+        "texts": [
+          "echo before",
+          "next after"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "direct escaped newline pipeline",
+    "source": "echo before `\n| next after",
+    "valid": true,
+    "fields": [
+      {
+        "node": "pipeline",
+        "field": "elements",
+        "texts": [
+          "echo before",
+          "next after"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "commented chain",
+    "source": "echo before\n<# retained #>\n|| next after",
+    "valid": true,
+    "fields": [
+      {
+        "node": "pipeline_chain",
+        "field": "left",
+        "texts": [
+          "echo before"
+        ]
+      },
+      {
+        "node": "pipeline_chain",
+        "field": "right",
+        "texts": [
+          "next after"
+        ]
+      },
+      {
+        "node": "pipeline_chain",
+        "field": "operator",
+        "texts": [
+          "||"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "return leading comment",
+    "source": "return\n# retained\n| next after",
+    "valid": true,
+    "fields": [
+      {
+        "node": "return_statement",
+        "field": "value",
+        "texts": [
+          "next after"
+        ]
+      },
+      {
+        "node": "pipeline",
+        "field": "elements",
+        "texts": [
+          "next after"
+        ]
+      }
+    ]
   }
 ]

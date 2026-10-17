@@ -195,6 +195,9 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "$x.M( ); [int]::new(\t); $x.M[int](\u{a0})\n",
         "[CmdletBinding( )]param([Parameter( )]$x)\n",
         "class C { C():base( ) {} }\n",
+        "echo before `\n| next after\n",
+        "echo before\n# retained\n| next after\n",
+        "echo before\n<# retained #>\n|| next after\n",
         "switch -r -w -e -c -p (1) { default {} }\n",
         "switch -par -file \"$path\" { default {} }\n",
         "foreach -p -t 2 ($x in 1) {}\n",
@@ -206,6 +209,8 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
     .chain(
         [
             "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]; Write-Output after | next\n",
+            "'Hello'\n    `\n    | ForEach-Object {\"$_ world\"}\n",
+            "return\n`\n| next after\n",
             "$x++++\nWrite-Output after | next\n",
             "$x +\nWrite-Output after | next\n",
             "$x[\nWrite-Output after | next\n",
