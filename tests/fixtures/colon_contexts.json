@@ -1,0 +1,1266 @@
+[
+  {
+    "name": "colon initial variable: plain in command name",
+    "source": ":$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: plain in pipeline command name",
+    "source": "cmd | :$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: plain in invocation target",
+    "source": "& :$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: plain in command argument",
+    "source": "cmd :$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: comma suffix in command name",
+    "source": ":$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial variable: comma suffix in pipeline command name",
+    "source": "cmd | :$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial variable: comma suffix in invocation target",
+    "source": "& :$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial variable: comma suffix in command argument",
+    "source": "cmd :$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: empty call suffix in command name",
+    "source": ":$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial variable: empty call suffix in pipeline command name",
+    "source": "cmd | :$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial variable: empty call suffix in invocation target",
+    "source": "& :$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial variable: empty call suffix in command argument",
+    "source": "cmd :$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon simple prefix before variable: plain in command name",
+    "source": ":name$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: plain in pipeline command name",
+    "source": "cmd | :name$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: plain in invocation target",
+    "source": "& :name$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: plain in command argument",
+    "source": "cmd :name$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: comma suffix in command name",
+    "source": ":name$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon simple prefix before variable: comma suffix in pipeline command name",
+    "source": "cmd | :name$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon simple prefix before variable: comma suffix in invocation target",
+    "source": "& :name$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon simple prefix before variable: comma suffix in command argument",
+    "source": "cmd :name$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: empty call suffix in command name",
+    "source": ":name$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon simple prefix before variable: empty call suffix in pipeline command name",
+    "source": "cmd | :name$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon simple prefix before variable: empty call suffix in invocation target",
+    "source": "& :name$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon simple prefix before variable: empty call suffix in command argument",
+    "source": "cmd :name$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial braced variable: plain in command name",
+    "source": ":${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: plain in pipeline command name",
+    "source": "cmd | :${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: plain in invocation target",
+    "source": "& :${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: plain in command argument",
+    "source": "cmd :${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: comma suffix in command name",
+    "source": ":${x}[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial braced variable: comma suffix in pipeline command name",
+    "source": "cmd | :${x}[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial braced variable: comma suffix in invocation target",
+    "source": "& :${x}[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial braced variable: comma suffix in command argument",
+    "source": "cmd :${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: empty call suffix in command name",
+    "source": ":${x}.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial braced variable: empty call suffix in pipeline command name",
+    "source": "cmd | :${x}.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial braced variable: empty call suffix in invocation target",
+    "source": "& :${x}.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial braced variable: empty call suffix in command argument",
+    "source": "cmd :${x}.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon simple prefix before braced variable: plain in command name",
+    "source": ":name${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: plain in pipeline command name",
+    "source": "cmd | :name${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: plain in invocation target",
+    "source": "& :name${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: plain in command argument",
+    "source": "cmd :name${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: comma suffix in command name",
+    "source": ":name${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: comma suffix in pipeline command name",
+    "source": "cmd | :name${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: comma suffix in invocation target",
+    "source": "& :name${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: comma suffix in command argument",
+    "source": "cmd :name${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: empty call suffix in command name",
+    "source": ":name${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: empty call suffix in pipeline command name",
+    "source": "cmd | :name${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: empty call suffix in invocation target",
+    "source": "& :name${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: empty call suffix in command argument",
+    "source": "cmd :name${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial subexpression: plain in command name",
+    "source": ":$(cmd)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial subexpression: plain in pipeline command name",
+    "source": "cmd | :$(cmd)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial subexpression: plain in invocation target",
+    "source": "& :$(cmd)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial subexpression: plain in command argument",
+    "source": "cmd :$(cmd)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial subexpression: comma suffix in command name",
+    "source": ":$(cmd)[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial subexpression: comma suffix in pipeline command name",
+    "source": "cmd | :$(cmd)[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial subexpression: comma suffix in invocation target",
+    "source": "& :$(cmd)[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial subexpression: comma suffix in command argument",
+    "source": "cmd :$(cmd)[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial subexpression: empty call suffix in command name",
+    "source": ":$(cmd).Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial subexpression: empty call suffix in pipeline command name",
+    "source": "cmd | :$(cmd).Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial subexpression: empty call suffix in invocation target",
+    "source": "& :$(cmd).Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial subexpression: empty call suffix in command argument",
+    "source": "cmd :$(cmd).Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial expandable quote: plain in command name",
+    "source": ":\"$x\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial expandable quote: plain in pipeline command name",
+    "source": "cmd | :\"$x\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial expandable quote: plain in invocation target",
+    "source": "& :\"$x\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial expandable quote: plain in command argument",
+    "source": "cmd :\"$x\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial expandable quote: comma suffix in command name",
+    "source": ":\"$x\"[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial expandable quote: comma suffix in pipeline command name",
+    "source": "cmd | :\"$x\"[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial expandable quote: comma suffix in invocation target",
+    "source": "& :\"$x\"[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial expandable quote: comma suffix in command argument",
+    "source": "cmd :\"$x\"[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial expandable quote: empty call suffix in command name",
+    "source": ":\"$x\".Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial expandable quote: empty call suffix in pipeline command name",
+    "source": "cmd | :\"$x\".Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial expandable quote: empty call suffix in invocation target",
+    "source": "& :\"$x\".Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial expandable quote: empty call suffix in command argument",
+    "source": "cmd :\"$x\".Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial literal quote: plain in command name",
+    "source": ":'text'",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial literal quote: plain in pipeline command name",
+    "source": "cmd | :'text'",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial literal quote: plain in invocation target",
+    "source": "& :'text'",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial literal quote: plain in command argument",
+    "source": "cmd :'text'",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial literal quote: comma suffix in command name",
+    "source": ":'text'[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial literal quote: comma suffix in pipeline command name",
+    "source": "cmd | :'text'[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial literal quote: comma suffix in invocation target",
+    "source": "& :'text'[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial literal quote: comma suffix in command argument",
+    "source": "cmd :'text'[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial literal quote: empty call suffix in command name",
+    "source": ":'text'.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial literal quote: empty call suffix in pipeline command name",
+    "source": "cmd | :'text'.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial literal quote: empty call suffix in invocation target",
+    "source": "& :'text'.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial literal quote: empty call suffix in command argument",
+    "source": "cmd :'text'.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial escaped dollar: plain in command name",
+    "source": ":`$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial escaped dollar: plain in pipeline command name",
+    "source": "cmd | :`$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial escaped dollar: plain in invocation target",
+    "source": "& :`$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial escaped dollar: plain in command argument",
+    "source": "cmd :`$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial escaped dollar: comma suffix in command name",
+    "source": ":`$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial escaped dollar: comma suffix in pipeline command name",
+    "source": "cmd | :`$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial escaped dollar: comma suffix in invocation target",
+    "source": "& :`$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon initial escaped dollar: comma suffix in command argument",
+    "source": "cmd :`$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial escaped dollar: empty call suffix in command name",
+    "source": ":`$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial escaped dollar: empty call suffix in pipeline command name",
+    "source": "cmd | :`$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial escaped dollar: empty call suffix in invocation target",
+    "source": "& :`$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial escaped dollar: empty call suffix in command argument",
+    "source": "cmd :`$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon Greek prefix before braced variable: plain in command name",
+    "source": ":α${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: plain in pipeline command name",
+    "source": "cmd | :α${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: plain in invocation target",
+    "source": "& :α${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: plain in command argument",
+    "source": "cmd :α${x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: comma suffix in command name",
+    "source": ":α${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: comma suffix in pipeline command name",
+    "source": "cmd | :α${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: comma suffix in invocation target",
+    "source": "& :α${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: comma suffix in command argument",
+    "source": "cmd :α${x}[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: empty call suffix in command name",
+    "source": ":α${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: empty call suffix in pipeline command name",
+    "source": "cmd | :α${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: empty call suffix in invocation target",
+    "source": "& :α${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon Greek prefix before braced variable: empty call suffix in command argument",
+    "source": "cmd :α${x}.Foo()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon CJK prefix before variable: plain in command name",
+    "source": ":名$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon CJK prefix before variable: plain in pipeline command name",
+    "source": "cmd | :名$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon CJK prefix before variable: plain in invocation target",
+    "source": "& :名$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon CJK prefix before variable: plain in command argument",
+    "source": "cmd :名$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon CJK prefix before variable: comma suffix in command name",
+    "source": ":名$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon CJK prefix before variable: comma suffix in pipeline command name",
+    "source": "cmd | :名$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon CJK prefix before variable: comma suffix in invocation target",
+    "source": "& :名$x[1,2]",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon CJK prefix before variable: comma suffix in command argument",
+    "source": "cmd :名$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon CJK prefix before variable: empty call suffix in command name",
+    "source": ":名$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon CJK prefix before variable: empty call suffix in pipeline command name",
+    "source": "cmd | :名$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon CJK prefix before variable: empty call suffix in invocation target",
+    "source": "& :名$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon CJK prefix before variable: empty call suffix in command argument",
+    "source": "cmd :名$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon NUL after simple name: plain in command name",
+    "source": ":name\u0000$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: plain in pipeline command name",
+    "source": "cmd | :name\u0000$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: plain in invocation target",
+    "source": "& :name\u0000$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: plain in command argument",
+    "source": "cmd :name\u0000$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: comma suffix in command name",
+    "source": ":name\u0000$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: comma suffix in pipeline command name",
+    "source": "cmd | :name\u0000$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: comma suffix in invocation target",
+    "source": "& :name\u0000$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: comma suffix in command argument",
+    "source": "cmd :name\u0000$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon NUL after simple name: empty call suffix in command name",
+    "source": ":name\u0000$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon NUL after simple name: empty call suffix in pipeline command name",
+    "source": "cmd | :name\u0000$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon NUL after simple name: empty call suffix in invocation target",
+    "source": "& :name\u0000$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon NUL after simple name: empty call suffix in command argument",
+    "source": "cmd :name\u0000$x.Foo()",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "colon initial variable: bracket suffix in command name",
+    "source": ":$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: bracket suffix in pipeline command name",
+    "source": "cmd | :$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: bracket suffix in invocation target",
+    "source": "& :$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial variable: bracket suffix in command argument",
+    "source": "cmd :$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: bracket suffix in command name",
+    "source": ":name$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: bracket suffix in pipeline command name",
+    "source": "cmd | :name$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: bracket suffix in invocation target",
+    "source": "& :name$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before variable: bracket suffix in command argument",
+    "source": "cmd :name$x[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: bracket suffix in command name",
+    "source": ":${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: bracket suffix in pipeline command name",
+    "source": "cmd | :${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: bracket suffix in invocation target",
+    "source": "& :${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon initial braced variable: bracket suffix in command argument",
+    "source": "cmd :${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: bracket suffix in command name",
+    "source": ":name${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: bracket suffix in pipeline command name",
+    "source": "cmd | :name${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: bracket suffix in invocation target",
+    "source": "& :name${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon simple prefix before braced variable: bracket suffix in command argument",
+    "source": "cmd :name${x}[0]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: space before while",
+    "source": ":outer while(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: space before foreach",
+    "source": ":outer foreach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: space before switch",
+    "source": ":outer switch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: newline before while",
+    "source": ":outer\nwhile(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: newline before foreach",
+    "source": ":outer\nforeach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: newline before switch",
+    "source": ":outer\nswitch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: comment before while",
+    "source": ":outer<#c#>while(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: comment before foreach",
+    "source": ":outer<#c#>foreach($x in 1) {continue}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "colon label outer: comment before switch",
+    "source": ":outer<#c#>switch(1) {1 {break}}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "colon label outer: continuation before while",
+    "source": ":outer`\nwhile(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: continuation before foreach",
+    "source": ":outer`\nforeach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label outer: continuation before switch",
+    "source": ":outer`\nswitch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: space before while",
+    "source": ":α while(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: space before foreach",
+    "source": ":α foreach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: space before switch",
+    "source": ":α switch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: newline before while",
+    "source": ":α\nwhile(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: newline before foreach",
+    "source": ":α\nforeach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: newline before switch",
+    "source": ":α\nswitch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: comment before while",
+    "source": ":α<#c#>while(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: comment before foreach",
+    "source": ":α<#c#>foreach($x in 1) {continue}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "colon label α: comment before switch",
+    "source": ":α<#c#>switch(1) {1 {break}}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "colon label α: continuation before while",
+    "source": ":α`\nwhile(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: continuation before foreach",
+    "source": ":α`\nforeach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label α: continuation before switch",
+    "source": ":α`\nswitch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: space before while",
+    "source": ":名 while(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: space before foreach",
+    "source": ":名 foreach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: space before switch",
+    "source": ":名 switch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: newline before while",
+    "source": ":名\nwhile(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: newline before foreach",
+    "source": ":名\nforeach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: newline before switch",
+    "source": ":名\nswitch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: comment before while",
+    "source": ":名<#c#>while(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: comment before foreach",
+    "source": ":名<#c#>foreach($x in 1) {continue}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "colon label 名: comment before switch",
+    "source": ":名<#c#>switch(1) {1 {break}}",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "colon label 名: continuation before while",
+    "source": ":名`\nwhile(1) {break}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: continuation before foreach",
+    "source": ":名`\nforeach($x in 1) {continue}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon label 名: continuation before switch",
+    "source": ":名`\nswitch(1) {1 {break}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter colon retains its value",
+    "source": "cmd -flag::$x[1,2]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "colon name comma rejection retains next pipeline",
+    "source": ":$x[1,2]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingArgument"
+    ]
+  },
+  {
+    "name": "colon name call rejection retains next pipeline",
+    "source": ":$x[0].Foo()\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  }
+]

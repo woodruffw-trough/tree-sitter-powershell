@@ -1,0 +1,68 @@
+================================================================================
+Colon command names retain literal variables while simple loop labels remain labels
+================================================================================
+:$x[0] argument | next
+:outer <#c#> while(1) {break outer}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (bare_word)))
+    (command
+      (command_name (bare_word))))
+  (while_statement
+    (label (identifier))
+    (comment)
+    (condition
+      (pipeline
+        (command_expression (integer_literal))))
+    (statement_block
+      (break_statement (identifier)))))
+
+================================================================================
+A simple-name prefix before a dollar ends before a script-block argument
+================================================================================
+cmd :name${x}.Foo(1)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (bare_word))
+      (command_argument
+        (invocation_expression
+          (member_access
+            (script_block
+              (pipeline
+                (command
+                  (command_name (bare_word)))))
+            (identifier))
+          (argument_list
+            (integer_literal)))))))
+
+================================================================================
+A colon command name comma remains an error without absorbing the following pipeline
+================================================================================
+:$x[1,2]
+Write-Output after | next
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))))
+  (ERROR
+    (bare_word))
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (bare_word)))
+    (command
+      (command_name (bare_word)))))
+

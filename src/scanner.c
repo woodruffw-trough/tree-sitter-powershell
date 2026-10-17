@@ -1746,18 +1746,26 @@ static bool label_statement_follows(TSLexer *lexer) {
           strcmp(word, "do") == 0 || strcmp(word, "switch") == 0);
 }
 
-static bool scan_label_start(TSLexer *lexer) {
+static bool scan_generic_after_prefix(TSLexer *lexer, const bool *valid, int32_t prefix);
+
+static bool scan_label_start(TSLexer *lexer, const bool *valid) {
   lexer->mark_end(lexer);
   lexer->advance(lexer, false); // Colon, followed by an entire simple name.
   int32_t c = lexer->lookahead;
   if (!variable_character(c) || c == '?' || decimal_character(c)) {
-    return false;
+    return valid[COMMAND_NAME] && scan_generic_after_prefix(lexer, valid, ':');
   }
   do {
     lexer->advance(lexer, false);
     c = lexer->lookahead;
   } while (variable_character(c) && c != '?');
-  if (!generic_end(c) || !label_statement_follows(lexer)) {
+  if (!generic_end(c) || quote(c) || c == '<' || c == '>') {
+    // ScanLabel appends its first nonidentifier character literally before
+    // continuing the generic token; a quote or dollar here is not processed.
+    lexer->advance(lexer, false);
+    return valid[COMMAND_NAME] && scan_generic_after_prefix(lexer, valid, ':');
+  }
+  if (!label_statement_follows(lexer)) {
     return false;
   }
   lexer->result_symbol = LABEL_START;
@@ -1922,7 +1930,7 @@ static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum T
   if (!valid[kind] || !scan_variable_name(lexer, true)) {
     return false;
   }
-  if (kind == BRACED_ARGUMENT_VARIABLE && lexer->lookahead != '=') {
+  if (kind == BRACED_ARGUMENT_VARIABLE && lexer->lookahead != '=' && lexer->lookahead != ':') {
     if (!valid[VARIABLE]) {
       return false;
     }
@@ -1963,10 +1971,15 @@ static bool command_mode_expression_follows(TSLexer *lexer, bool allow_signed_nu
       }
     } else if (lexer->lookahead == '`') {
       lexer->advance(lexer, false);
-      if (!newline(lexer->lookahead)) {
+      if (newline(lexer->lookahead)) {
+        consume_newline(lexer);
+      } else if (horizontal(lexer->lookahead)) {
+        do {
+          lexer->advance(lexer, false);
+        } while (horizontal(lexer->lookahead));
+      } else {
         return false;
       }
-      consume_newline(lexer);
     } else {
       break;
     }
@@ -2052,6 +2065,18 @@ static bool scan_splat_after_at(TSLexer *lexer, const bool *valid) {
   }
   bool generic = false, qualified = false;
   size_t length = 0, colon = 0;
+  if (first == '$') {
+    // A special splat falls back to a generic word when its next character
+    // continues that word. Its dollar then starts ordinary interpolation.
+    // Keep the literal '@' separate so the argument scanner sees that dollar.
+    lexer->mark_end(lexer);
+    lexer->advance(lexer, false);
+    if (lexer->lookahead != '{' && variable_start(lexer->lookahead)) {
+      lexer->result_symbol = BARE_WORD;
+      return valid[BARE_WORD];
+    }
+    length = 1;
+  }
   while (!lexer->eof(lexer)) {
     int32_t c = lexer->lookahead;
     if (length != 0 && (c == '$' || quote(c))) {
@@ -2602,7 +2627,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   }
   if (!continuation &&
       ((generic_end(first) && !(first == 0 && !lexer->eof(lexer))) || first == '#' ||
-       first == '@' || (!immediate && !data_name && first == ':') ||
+       first == '@' || (!immediate && !data_name && !name && first == ':') ||
        ((first == '[' || first == ']') && name && !data_name))) {
     return false;
   }
@@ -2615,6 +2640,31 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     if (!generic_word_append(buffer, '*')) {
       return false;
+    }
+  }
+  if (!continuation && name && first == ':') {
+    lexer->advance(lexer, false);
+    if (!generic_word_append(buffer, ':')) {
+      return false;
+    }
+    int32_t c = lexer->lookahead;
+    if (variable_character(c) && c != '?' && !decimal_character(c)) {
+      do {
+        if (!generic_word_append(buffer, c)) {
+          return false;
+        }
+        lexer->advance(lexer, false);
+        c = lexer->lookahead;
+      } while (variable_character(c) && c != '?');
+      // ScanLabel places this character in its buffer before ScanGenericToken
+      // processes the remaining input. Dollars, quotes, and backticks in this
+      // position therefore remain literal.
+      if (!generic_end(c) || quote(c) || c == '<' || c == '>') {
+        if (!generic_word_append(buffer, c)) {
+          return false;
+        }
+        lexer->advance(lexer, false);
+      }
     }
   }
   bool dollar_prefix = false;
@@ -3476,10 +3526,21 @@ static bool scan_fragment(TSLexer *lexer, const bool *valid) {
   bool variable = valid[VARIABLE_ARGUMENT_FRAGMENT];
   int32_t first = lexer->lookahead;
   bool content = false;
+  // GetMemberAccessOperator leaves spaced command-mode operators as text.
+  if (variable && first == '.' && valid[ARGUMENT_END]) {
+    lexer->mark_end(lexer);
+    lexer->advance(lexer, false);
+    if (horizontal(lexer->lookahead) || newline(lexer->lookahead) ||
+        (lexer->eof(lexer) && !at_collector_end(lexer))) {
+      lexer->result_symbol = ARGUMENT_END;
+      return true;
+    }
+    return false;
+  }
   if (variable && (first == '=' || first == '.' || first == '[')) {
     return false;
   }
-  if (first == ':' && valid[ARGUMENT_END]) {
+  if (variable && first == ':' && valid[ARGUMENT_END]) {
     lexer->mark_end(lexer);
     lexer->advance(lexer, false);
     if (lexer->lookahead == ':') {
@@ -4336,7 +4397,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     return scan_data_variable_name(lexer, valid);
   }
   if (valid[LABEL_START] && !valid[HERE_STRING_CONTENT] && lexer->lookahead == ':') {
-    return scan_label_start(lexer);
+    return scan_label_start(lexer, valid);
   }
   if (valid[FLOW_LABEL] && !valid[HERE_STRING_CONTENT] && variable_character(lexer->lookahead) &&
       lexer->lookahead != '?' && !decimal_character(lexer->lookahead)) {

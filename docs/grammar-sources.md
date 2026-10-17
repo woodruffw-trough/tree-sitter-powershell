@@ -85,6 +85,15 @@ Each array type suffix accepts at most 32 dimensions, matching
 [`CompleteArrayTypeName`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L1523-L1575).
 The bound applies independently to plain, jagged, and generic array suffixes.
 
+In command mode, whitespace or EOF immediately after `.` or `::` makes the
+operator literal argument text. In `cmd $x.` followed by a newline and `foo`,
+the dot is a literal argument and `foo` begins another command. Expression mode
+permits the member name on the next line. Braced-variable suffixes follow generic-token rules instead:
+`cmd ${x}:: value` keeps `${x}::` as one expandable argument. Token-leading
+backticks followed by horizontal whitespace are skipped before computed member
+names. These boundaries follow `GetMemberAccessOperator`, `ScanVariable`, and
+`MemberNameRule` in the pinned parser.
+
 Generic method type arguments accept intervening whitespace and comments, as in
 `$obj.Method [int](1)`. The call opener must touch the method name or closing
 type bracket. Block comments preserve member/index adjacency but separate a
@@ -430,3 +439,15 @@ For example, `$x++++` retains the valid `$x++` postfix expression and an `ERROR`
 for the extra operator; commands on the next line keep their names, arguments,
 and pipeline positions. Attribute-prefix lookahead preserves the same boundary
 while allowing complete multiline expression and declaration prefixes.
+
+Colon-prefixed command words first follow
+[`ScanLabel`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L4574-L4610).
+A simple name can label a loop or switch; other command names retain their
+literal colon prefix. `:$x[0]` is one command name. After an identifier prefix,
+ScanLabel copies its first continuation character literally, so `:name${x}`
+contains command name `:name$` followed by a script-block argument. Parameter
+colons retain their own boundary.
+
+A special splat can fall back to an expandable generic argument. For example,
+`cmd @$foo::bar` contains literal `@`, variable `$foo`, and literal `::bar` in
+one argument. Splat tests compare those interpolated values with the native AST.

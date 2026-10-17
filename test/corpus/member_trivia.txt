@@ -109,3 +109,84 @@ Write-Output after
         (bare_word))
       (command_argument
         (bare_word)))))
+
+================================================================================
+Command dots followed by a newline remain separate arguments
+================================================================================
+cmd $x.
+foo tail | next
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (variable))
+      (command_argument (bare_word))))
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (bare_word)))
+    (command
+      (command_name (bare_word)))))
+
+================================================================================
+Command dots before spaced comments preserve literal type arguments
+================================================================================
+cmd $x. <#c#>[int] tail | next
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (variable))
+      (command_argument (bare_word))
+      (comment)
+      (command_argument (bare_word))
+      (command_argument (bare_word)))
+    (command
+      (command_name (bare_word)))))
+
+================================================================================
+Escaped whitespace before a computed command member
+================================================================================
+cmd $x::` (cmd) tail | next
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument
+        (member_access
+          (variable)
+          (parenthesized_expression
+            (pipeline
+              (command
+                (command_name (bare_word)))))))
+      (command_argument (bare_word)))
+    (command
+      (command_name (bare_word)))))
+
+================================================================================
+Braced variables retain literal static separators in one argument
+================================================================================
+cmd ${x}:: foo tail | next
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument
+        (variable)
+        (argument_fragment))
+      (command_argument (bare_word))
+      (command_argument (bare_word)))
+    (command
+      (command_name (bare_word)))))

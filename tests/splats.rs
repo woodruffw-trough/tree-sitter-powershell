@@ -1,5 +1,7 @@
 //! Context-sensitive splatting versus ordinary generic command arguments.
 mod common;
+#[path = "common/cst.rs"]
+mod cst;
 
 use serde_json::Value;
 use std::collections::BTreeSet;
@@ -67,4 +69,5 @@ fn splat_token_classification_matches_powershell() {
         common::failure_summary(&failures)
     );
     common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
 }

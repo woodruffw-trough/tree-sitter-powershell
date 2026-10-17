@@ -1,0 +1,817 @@
+[
+  {
+    "name": "member trivia: cmd $x.\\nfoo tail | next",
+    "source": "cmd $x.\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>foo tail | next",
+    "source": "cmd $x. <#c#>foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\nfo`o tail | next",
+    "source": "cmd $x.\nfo`o tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>fo`o tail | next",
+    "source": "cmd $x. <#c#>fo`o tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\nf`n tail | next",
+    "source": "cmd $x.\nf`n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>f`n tail | next",
+    "source": "cmd $x. <#c#>f`n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>if tail | next",
+    "source": "cmd $x. <#c#>if tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\ndefault tail | next",
+    "source": "cmd $x.\ndefault tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>default tail | next",
+    "source": "cmd $x. <#c#>default tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>0 tail | next",
+    "source": "cmd $x. <#c#>0 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\n1abc tail | next",
+    "source": "cmd $x.\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>1abc tail | next",
+    "source": "cmd $x. <#c#>1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>0x1 tail | next",
+    "source": "cmd $x. <#c#>0x1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>0b1 tail | next",
+    "source": "cmd $x. <#c#>0b1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>$n tail | next",
+    "source": "cmd $x. <#c#>$n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>'foo' tail | next",
+    "source": "cmd $x. <#c#>'foo' tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>\"foo\" tail | next",
+    "source": "cmd $x. <#c#>\"foo\" tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>${n} tail | next",
+    "source": "cmd $x. <#c#>${n} tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>@n tail | next",
+    "source": "cmd $x. <#c#>@n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>@{a=1} tail | next",
+    "source": "cmd $x. <#c#>@{a=1} tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>$(cmd) tail | next",
+    "source": "cmd $x. <#c#>$(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>(cmd) tail | next",
+    "source": "cmd $x. <#c#>(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.` (cmd) tail | next",
+    "source": "cmd $x.` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>[int] tail | next",
+    "source": "cmd $x. <#c#>[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>[int]$n tail | next",
+    "source": "cmd $x. <#c#>[int]$n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>-1 tail | next",
+    "source": "cmd $x. <#c#>-1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>-not$n tail | next",
+    "source": "cmd $x. <#c#>-not$n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>,-1 tail | next",
+    "source": "cmd $x. <#c#>,-1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. <#c#>[int].Name tail | next",
+    "source": "cmd $x. <#c#>[int].Name tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x::` (cmd) tail | next",
+    "source": "cmd $x::` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\nfoo tail | next",
+    "source": "cmd $x?.\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>foo tail | next",
+    "source": "cmd $x?. <#c#>foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\nfo`o tail | next",
+    "source": "cmd $x?.\nfo`o tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>fo`o tail | next",
+    "source": "cmd $x?. <#c#>fo`o tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\nf`n tail | next",
+    "source": "cmd $x?.\nf`n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>f`n tail | next",
+    "source": "cmd $x?. <#c#>f`n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>if tail | next",
+    "source": "cmd $x?. <#c#>if tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\ndefault tail | next",
+    "source": "cmd $x?.\ndefault tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>default tail | next",
+    "source": "cmd $x?. <#c#>default tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>0 tail | next",
+    "source": "cmd $x?. <#c#>0 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\n1abc tail | next",
+    "source": "cmd $x?.\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>1abc tail | next",
+    "source": "cmd $x?. <#c#>1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>0x1 tail | next",
+    "source": "cmd $x?. <#c#>0x1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>0b1 tail | next",
+    "source": "cmd $x?. <#c#>0b1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>$n tail | next",
+    "source": "cmd $x?. <#c#>$n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>'foo' tail | next",
+    "source": "cmd $x?. <#c#>'foo' tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>\"foo\" tail | next",
+    "source": "cmd $x?. <#c#>\"foo\" tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>${n} tail | next",
+    "source": "cmd $x?. <#c#>${n} tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>@n tail | next",
+    "source": "cmd $x?. <#c#>@n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>@{a=1} tail | next",
+    "source": "cmd $x?. <#c#>@{a=1} tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>$(cmd) tail | next",
+    "source": "cmd $x?. <#c#>$(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>(cmd) tail | next",
+    "source": "cmd $x?. <#c#>(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.` (cmd) tail | next",
+    "source": "cmd $x?.` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>[int] tail | next",
+    "source": "cmd $x?. <#c#>[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>[int]$n tail | next",
+    "source": "cmd $x?. <#c#>[int]$n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>-1 tail | next",
+    "source": "cmd $x?. <#c#>-1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>-not$n tail | next",
+    "source": "cmd $x?. <#c#>-not$n tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>,-1 tail | next",
+    "source": "cmd $x?. <#c#>,-1 tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. <#c#>[int].Name tail | next",
+    "source": "cmd $x?. <#c#>[int].Name tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd (1).` (cmd) tail | next",
+    "source": "cmd (1).` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd (1)::` (cmd) tail | next",
+    "source": "cmd (1)::` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd (1)?.` (cmd) tail | next",
+    "source": "cmd (1)?.` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. foo tail | next",
+    "source": "cmd $x. foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. 1abc tail | next",
+    "source": "cmd $x. 1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. (cmd) tail | next",
+    "source": "cmd $x. (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x. [int] tail | next",
+    "source": "cmd $x. [int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\tfoo tail | next",
+    "source": "cmd $x.\tfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\t1abc tail | next",
+    "source": "cmd $x.\t1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\t(cmd) tail | next",
+    "source": "cmd $x.\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\t[int] tail | next",
+    "source": "cmd $x.\t[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\r\\nfoo tail | next",
+    "source": "cmd $x.\r\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.\\r\\n1abc tail | next",
+    "source": "cmd $x.\r\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.`\\t(cmd) tail | next",
+    "source": "cmd $x.`\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x::`\\t(cmd) tail | next",
+    "source": "cmd $x::`\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. foo tail | next",
+    "source": "cmd $x?. foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. 1abc tail | next",
+    "source": "cmd $x?. 1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. (cmd) tail | next",
+    "source": "cmd $x?. (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?. [int] tail | next",
+    "source": "cmd $x?. [int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\tfoo tail | next",
+    "source": "cmd $x?.\tfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\t1abc tail | next",
+    "source": "cmd $x?.\t1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\t(cmd) tail | next",
+    "source": "cmd $x?.\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\t[int] tail | next",
+    "source": "cmd $x?.\t[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\r\\nfoo tail | next",
+    "source": "cmd $x?.\r\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.\\r\\n1abc tail | next",
+    "source": "cmd $x?.\r\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?.`\\t(cmd) tail | next",
+    "source": "cmd $x?.`\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. foo tail | next",
+    "source": "cmd ${x}. foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. 1abc tail | next",
+    "source": "cmd ${x}. 1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. (cmd) tail | next",
+    "source": "cmd ${x}. (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. [int] tail | next",
+    "source": "cmd ${x}. [int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.\\tfoo tail | next",
+    "source": "cmd ${x}.\tfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.\\t1abc tail | next",
+    "source": "cmd ${x}.\t1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.\\t(cmd) tail | next",
+    "source": "cmd ${x}.\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.\\t[int] tail | next",
+    "source": "cmd ${x}.\t[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.\\r\\nfoo tail | next",
+    "source": "cmd ${x}.\r\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.\\r\\n1abc tail | next",
+    "source": "cmd ${x}.\r\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. <#c#>foo tail | next",
+    "source": "cmd ${x}. <#c#>foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. <#c#>1abc tail | next",
+    "source": "cmd ${x}. <#c#>1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. <#c#>(cmd) tail | next",
+    "source": "cmd ${x}. <#c#>(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}. <#c#>[int] tail | next",
+    "source": "cmd ${x}. <#c#>[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.` (cmd) tail | next",
+    "source": "cmd ${x}.` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}.`\\t(cmd) tail | next",
+    "source": "cmd ${x}.`\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: foo tail | next",
+    "source": "cmd ${x}:: foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: 1abc tail | next",
+    "source": "cmd ${x}:: 1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: (cmd) tail | next",
+    "source": "cmd ${x}:: (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: [int] tail | next",
+    "source": "cmd ${x}:: [int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::\\tfoo tail | next",
+    "source": "cmd ${x}::\tfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::\\t1abc tail | next",
+    "source": "cmd ${x}::\t1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::\\t(cmd) tail | next",
+    "source": "cmd ${x}::\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::\\t[int] tail | next",
+    "source": "cmd ${x}::\t[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::\\r\\nfoo tail | next",
+    "source": "cmd ${x}::\r\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::\\r\\n1abc tail | next",
+    "source": "cmd ${x}::\r\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: <#c#>foo tail | next",
+    "source": "cmd ${x}:: <#c#>foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: <#c#>1abc tail | next",
+    "source": "cmd ${x}:: <#c#>1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: <#c#>(cmd) tail | next",
+    "source": "cmd ${x}:: <#c#>(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}:: <#c#>[int] tail | next",
+    "source": "cmd ${x}:: <#c#>[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::` foo tail | next",
+    "source": "cmd ${x}::` foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::` 1abc tail | next",
+    "source": "cmd ${x}::` 1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::` (cmd) tail | next",
+    "source": "cmd ${x}::` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::` [int] tail | next",
+    "source": "cmd ${x}::` [int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\tfoo tail | next",
+    "source": "cmd ${x}::`\tfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\t1abc tail | next",
+    "source": "cmd ${x}::`\t1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\t(cmd) tail | next",
+    "source": "cmd ${x}::`\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\t[int] tail | next",
+    "source": "cmd ${x}::`\t[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\nfoo tail | next",
+    "source": "cmd ${x}::`\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\n1abc tail | next",
+    "source": "cmd ${x}::`\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\n(cmd) tail | next",
+    "source": "cmd ${x}::`\n(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd ${x}::`\\n[int] tail | next",
+    "source": "cmd ${x}::`\n[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?::` (cmd) tail | next",
+    "source": "cmd $x?::` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x?::`\\t(cmd) tail | next",
+    "source": "cmd $x?::`\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. foo tail | next",
+    "source": "cmd $x??. foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. 1abc tail | next",
+    "source": "cmd $x??. 1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. (cmd) tail | next",
+    "source": "cmd $x??. (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. [int] tail | next",
+    "source": "cmd $x??. [int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.\\tfoo tail | next",
+    "source": "cmd $x??.\tfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.\\t1abc tail | next",
+    "source": "cmd $x??.\t1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.\\t(cmd) tail | next",
+    "source": "cmd $x??.\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.\\t[int] tail | next",
+    "source": "cmd $x??.\t[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.\\r\\nfoo tail | next",
+    "source": "cmd $x??.\r\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.\\r\\n1abc tail | next",
+    "source": "cmd $x??.\r\n1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. <#c#>foo tail | next",
+    "source": "cmd $x??. <#c#>foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. <#c#>1abc tail | next",
+    "source": "cmd $x??. <#c#>1abc tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. <#c#>(cmd) tail | next",
+    "source": "cmd $x??. <#c#>(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??. <#c#>[int] tail | next",
+    "source": "cmd $x??. <#c#>[int] tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.` (cmd) tail | next",
+    "source": "cmd $x??.` (cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x??.`\\t(cmd) tail | next",
+    "source": "cmd $x??.`\t(cmd) tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: $x.foo",
+    "source": "$x.foo",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.foo tail | next",
+    "source": "cmd $x.foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: if ($x.foo) { next }",
+    "source": "if ($x.foo) { next }",
+    "valid": true
+  },
+  {
+    "name": "member trivia: \"$($x.foo)\"",
+    "source": "\"$($x.foo)\"",
+    "valid": true
+  },
+  {
+    "name": "member trivia: $x.\\nfoo",
+    "source": "$x.\nfoo",
+    "valid": true
+  },
+  {
+    "name": "member trivia: if ($x.\\nfoo) { next }",
+    "source": "if ($x.\nfoo) { next }",
+    "valid": true
+  },
+  {
+    "name": "member trivia: \"$($x.\\nfoo)\"",
+    "source": "\"$($x.\nfoo)\"",
+    "valid": true
+  },
+  {
+    "name": "member trivia: $x.` foo",
+    "source": "$x.` foo",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.` foo tail | next",
+    "source": "cmd $x.` foo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: if ($x.` foo) { next }",
+    "source": "if ($x.` foo) { next }",
+    "valid": true
+  },
+  {
+    "name": "member trivia: \"$($x.` foo)\"",
+    "source": "\"$($x.` foo)\"",
+    "valid": true
+  },
+  {
+    "name": "member trivia: $x.`\\nfoo",
+    "source": "$x.`\nfoo",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.`\\nfoo tail | next",
+    "source": "cmd $x.`\nfoo tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: if ($x.`\\nfoo) { next }",
+    "source": "if ($x.`\nfoo) { next }",
+    "valid": true
+  },
+  {
+    "name": "member trivia: \"$($x.`\\nfoo)\"",
+    "source": "\"$($x.`\nfoo)\"",
+    "valid": true
+  },
+  {
+    "name": "member trivia: $x.'foo'",
+    "source": "$x.'foo'",
+    "valid": true
+  },
+  {
+    "name": "member trivia: cmd $x.'foo' tail | next",
+    "source": "cmd $x.'foo' tail | next",
+    "valid": true
+  },
+  {
+    "name": "member trivia: if ($x.'foo') { next }",
+    "source": "if ($x.'foo') { next }",
+    "valid": true
+  }
+]

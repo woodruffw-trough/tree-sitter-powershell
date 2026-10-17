@@ -298,5 +298,233 @@
     "name": "literal at sign in expandable string",
     "source": "cmd \"literal @x\"\n",
     "valid": true
+  },
+  {
+    "name": "dollar splat fallback 0: cmd @$",
+    "source": "cmd @$ -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 1: cmd @$foo",
+    "source": "cmd @$foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 2: cmd @${foo}",
+    "source": "cmd @${foo} -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 3: cmd @$(foo)",
+    "source": "cmd @$(foo) -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 4: cmd @$$foo",
+    "source": "cmd @$$foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 5: cmd @$$",
+    "source": "cmd @$$ -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 6: cmd @$?",
+    "source": "cmd @$? -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 7: cmd @$^",
+    "source": "cmd @$^ -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 8: cmd @$?foo",
+    "source": "cmd @$?foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 9: cmd @$^foo",
+    "source": "cmd @$^foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 10: cmd @$:foo",
+    "source": "cmd @$:foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 11: cmd @$env:foo",
+    "source": "cmd @$env:foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 12: cmd @$foo.bar",
+    "source": "cmd @$foo.bar -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 13: cmd @$foo[0]",
+    "source": "cmd @$foo[0] -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 14: cmd @$foo=bar",
+    "source": "cmd @$foo=bar -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 15: cmd @$foo/name",
+    "source": "cmd @$foo/name -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 16: cmd @$foo-more",
+    "source": "cmd @$foo-more -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 17: cmd @$foo:bar",
+    "source": "cmd @$foo:bar -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 18: cmd @$`foo",
+    "source": "cmd @$`foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 19: cmd @$\"foo\"",
+    "source": "cmd @$\"foo\" -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 20: cmd @$'foo'",
+    "source": "cmd @$'foo' -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 21: cmd @$<#c#>foo",
+    "source": "cmd @$<#c#>foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 22: cmd @$ foo",
+    "source": "cmd @$ foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 23: cmd @$́foo",
+    "source": "cmd @$́foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 24: cmd @$𐐀foo",
+    "source": "cmd @$𐐀foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dollar splat fallback 25: cmd @$😀foo",
+    "source": "cmd @$😀foo -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: cmd @$foo::bar tail | next",
+    "source": "cmd @$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: cmd -Name:@$foo::bar tail | next",
+    "source": "cmd -Name:@$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: cmd -- @$foo::bar tail | next",
+    "source": "cmd -- @$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: cmd -Name:0,@$foo::bar tail | next",
+    "source": "cmd -Name:0,@$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: & @$foo::bar tail | next",
+    "source": "& @$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: . @$foo::bar tail | next",
+    "source": ". @$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: switch -file @$foo::bar { default { next } }",
+    "source": "switch -file @$foo::bar { default { next } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: if (1) { cmd @$foo::bar tail }",
+    "source": "if (1) { cmd @$foo::bar tail }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: \"$(cmd @$foo::bar tail)\"",
+    "source": "\"$(cmd @$foo::bar tail)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: cmd a@$foo::bar tail | next",
+    "source": "cmd a@$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: cmd @$foo::bar\"lit\" tail | next",
+    "source": "cmd @$foo::bar\"lit\" tail | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "at-prefix generic separator: cmd $x@$foo::bar tail | next",
+    "source": "cmd $x@$foo::bar tail | next",
+    "valid": true,
+    "diagnostics": []
   }
 ]

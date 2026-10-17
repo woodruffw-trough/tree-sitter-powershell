@@ -1,0 +1,68 @@
+================================================================================
+Generic fallback exposes dollar interpolation and following pipeline commands
+================================================================================
+cmd @$foo @$?tail @$$suffix @$foo::bar -After | next
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (variable))
+      (command_argument
+        (bare_word)
+        (variable)
+        (argument_fragment))
+      (command_argument
+        (bare_word)
+        (variable)
+        (argument_fragment))
+      (command_argument
+        (bare_word)
+        (variable)
+        (argument_fragment))
+      (command_parameter
+        name: (command_parameter_name)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+================================================================================
+Automatic dollar splats retain separate script and parenthesized arguments
+================================================================================
+cmd @$ @${name} @$(Get-Item .) -After | next
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (splat_expression))
+      (command_argument
+        (splat_expression))
+      (command_argument
+        (script_block
+          (pipeline
+            elements: (command
+              name: (command_name
+                (bare_word))))))
+      (command_argument
+        (splat_expression))
+      (command_argument
+        (parenthesized_expression
+          (pipeline
+            elements: (command
+              name: (command_name
+                (bare_word))
+              (command_argument
+                (bare_word))))))
+      (command_parameter
+        name: (command_parameter_name)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

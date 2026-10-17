@@ -1404,7 +1404,16 @@ const grammarDefinition = {
       ),
     ),
 
-    _bare_colon_word: _ => token(prec(0, /:[^\s;|&()<>{},$'"‘’‚‛“”„]*/)),
+    // ScanLabel appends its first nonidentifier character literally before
+    // continuing a generic token. Preserve a dollar, quote, or backtick after
+    // a simple-name prefix instead of treating that character as interpolation.
+    _bare_colon_word: _ => token(prec(0, choice(
+      /:[^\x00\s;|&()<>{},$'"‘’‚‛“”„`]*/,
+      new RegExp(
+        ':' + IDENTIFIER_START + IDENTIFIER_CONTINUE + '*' +
+        "[$'\"‘’‚‛“”„`]" + "[^\\x00\\s;|&()<>{},$'\"‘’‚‛“”„`]*",
+      ),
+    ))),
 
     _variable_argument_continuation: $ => choice(
       alias($._argument_continuation, $.line_continuation),

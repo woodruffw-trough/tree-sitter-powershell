@@ -1229,5 +1229,38 @@
         ]
       }
     ]
+  },
+  {
+    "name": "command member dot before newline preserves both commands",
+    "source": "cmd $x.\nfoo tail | next",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "command",
+        "field": "name",
+        "texts": [
+          "cmd",
+          "foo",
+          "next"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "braced variable static suffix remains one command argument",
+    "source": "cmd ${x}:: foo tail | next",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "command",
+        "field": "name",
+        "texts": [
+          "cmd",
+          "next"
+        ]
+      }
+    ]
   }
 ]
