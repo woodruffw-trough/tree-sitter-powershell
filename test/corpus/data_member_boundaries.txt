@@ -1,0 +1,34 @@
+======================================================================
+data adjacent member comment before newline
+======================================================================
+data X -s $x.<##>
+M {}
+
+---
+
+(source_file
+  (data_statement
+    name: (identifier)
+    supported_commands: (member_access
+      object: (variable)
+      (comment)
+      member: (identifier))
+    body: (statement_block)))
+
+======================================================================
+data method invocation supported command
+======================================================================
+data X -s $x.M() {}
+
+---
+
+(source_file
+  (data_statement
+    name: (identifier)
+    supported_commands: (invocation_expression
+      function: (member_access
+        object: (variable)
+        member: (identifier))
+      arguments: (argument_list))
+    body: (statement_block)))
+

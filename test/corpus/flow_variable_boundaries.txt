@@ -1,0 +1,110 @@
+==================
+Special variable generic fallback leaves break without a label
+==================
+break $$.M
+---
+(source_file
+  (break_statement)
+  (pipeline
+    elements: (command_expression
+      expression: (member_access
+        object: (variable)
+        member: (identifier)))))
+
+==================
+Range punctuation begins a command after a flow label
+==================
+break $x..M
+---
+(source_file
+  (break_statement
+    label: (variable))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Static invocation remains a complete flow label
+==================
+break $x::M()
+---
+(source_file
+  (break_statement
+    label: (invocation_expression
+      function: (member_access
+        object: (variable)
+        member: (identifier))
+      arguments: (argument_list))))
+
+==================
+A spaced dot retains a missing target and the following pipeline
+==================
+break $x.
+Write-Output after | next
+---
+(source_file
+  (break_statement
+    label: (variable))
+  (pipeline
+    elements: (command
+      name: (invocation_operator_command
+        command: (command_argument
+          (MISSING bare_word)))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Block comments preserve a grouped flow label member
+==================
+continue ($x)<# retained #>.M
+---
+(source_file
+  (continue_statement
+    label: (member_access
+      object: (parenthesized_expression
+        (pipeline
+          elements: (command_expression
+            expression: (variable))))
+      (comment)
+      member: (identifier))))
+
+==================
+Simple flow labels stop before member punctuation
+==================
+break foo.M
+---
+(source_file
+  (break_statement
+    label: (identifier))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Postfix flow labels retain their complete operand
+==================
+break ($x)++
+continue ($x)--
+---
+(source_file
+  (break_statement
+    label: (unary_expression
+      argument: (parenthesized_expression
+        (pipeline
+          elements: (command_expression
+            expression: (variable))))))
+  (continue_statement
+    label: (unary_expression
+      argument: (parenthesized_expression
+        (pipeline
+          elements: (command_expression
+            expression: (variable)))))))

@@ -1548,10 +1548,6 @@
             "named": true
           },
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
             "type": "integer_literal",
             "named": true
           },
@@ -5637,10 +5633,6 @@
           },
           {
             "type": "hashtable_expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {

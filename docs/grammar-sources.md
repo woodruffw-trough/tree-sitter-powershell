@@ -204,6 +204,11 @@ Flow control uses distinct `return_statement`, `throw_statement`, `exit_statemen
 `break_statement`, and `continue_statement` nodes. The first three expose an
 optional `value`; `break` and `continue` expose an optional `label`. Queries can
 select each statement's operand by role.
+[`LabelOrKeyRule`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L2192)
+tries a simple name before a unary expression. In `break foo.M`, the label is
+`foo` and `.M` starts a command. In `break $x::M()`, the complete invocation is
+the label. Bare identifiers cannot appear as recursive cast or unary operands.
+
 Command parameters consistently expose their complete spelling in `name`,
 including the `--` marker that ends parameter recognition.
 In `& -- arg`, the invocation's `command` field is that `command_parameter`.
@@ -270,6 +275,11 @@ argument: `Write-Output 1"$name"` contains one composite `command_argument`.
 At command position, `1.${name}` is one literal `command_name`, with the braced
 spelling inside its `bare_word`. `1+${name}` remains arithmetic; `cmd 1.${name}`
 contains an interpolated argument.
+At statement entry, numeric tokens also end before `=` and `]`. Thus
+`1='value'` is an assignment with a numeric left operand, even though PowerShell
+reports `InvalidLeftHandSide`. `cmd 1=1` and `& 1=1` retain literal generic text.
+After a pipeline operator, `cmd | 1=1` retains an error because a numeric
+expression cannot occupy that command position.
 Argument mode treats `<` and `>` as literal characters after a generic word,
 simple variable, or parameter name. Thus `native $name>out` has one argument,
 while `native $name.Length>out` has a member-access argument and a redirection.

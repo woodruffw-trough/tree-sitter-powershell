@@ -1,0 +1,82 @@
+======================================================================
+Numeric assignment keeps a quoted value
+======================================================================
+1='value'
+
+---
+
+(source_file
+  (assignment_statement
+    left: (integer_literal)
+    right: (pipeline
+      elements: (command_expression
+        expression: (single_quoted_string)))))
+
+======================================================================
+Numeric compound assignment keeps a quoted command name
+======================================================================
+0x1+=Get-'Item'
+
+---
+
+(source_file
+  (assignment_statement
+    left: (integer_literal)
+    right: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))))))
+
+======================================================================
+Closing bracket terminates an initial numeric token
+======================================================================
+1]
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (integer_literal)))
+  (ERROR))
+
+======================================================================
+Numeric assignment cannot name a pipeline command
+======================================================================
+cmd | 1=1 | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))
+    (ERROR
+      (bare_word))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+======================================================================
+Pipeline invocation target retains numeric generic text
+======================================================================
+cmd | & 1=1 tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))
+    elements: (command
+      name: (invocation_operator_command
+        command: (command_argument
+          (bare_word)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+

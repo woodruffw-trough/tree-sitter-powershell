@@ -853,5 +853,171 @@
     "valid": true,
     "name": "special splat command boundary 'data X -s @^::M {}'",
     "diagnostics": []
+  },
+  {
+    "name": "data dot separated by space before comment newline",
+    "source": "data X -s $x. <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data static separator followed by space",
+    "source": "data X -s $x:: M {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "data static separator followed by newline",
+    "source": "data X -s $x::\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "data static separator followed by tab",
+    "source": "data X -s $x::\tM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "data static separator followed by CRLF",
+    "source": "data X -s $x::\r\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "data static separator followed by space and comment newline",
+    "source": "data X -s $x:: <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "data variable question suffix dot separated before comment newline",
+    "source": "data X -s $x?. <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data braced variable dot separated before comment newline",
+    "source": "data X -s ${x}. <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data grouped variable dot separated before comment newline",
+    "source": "data X -s ($x). <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data grouped variable static separator before comment newline",
+    "source": "data X -s ($x):: <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "data nested member dot separated before comment newline",
+    "source": "data X -s $x.M. <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data nested member static separator before comment newline",
+    "source": "data X -s $x.M:: <##>\nM {}",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "name": "data adjacent ordinary member",
+    "source": "data X -s $x.M {}",
+    "valid": true
+  },
+  {
+    "name": "data adjacent static member",
+    "source": "data X -s $x::M {}",
+    "valid": true
+  },
+  {
+    "name": "data adjacent member comment before newline",
+    "source": "data X -s $x.<##>\nM {}",
+    "valid": true
+  },
+  {
+    "name": "data adjacent static comment before newline",
+    "source": "data X -s $x::<##>\nM {}",
+    "valid": true
+  },
+  {
+    "name": "data method invocation supported command",
+    "source": "data X -s $x.M() {}",
+    "valid": true
+  },
+  {
+    "name": "data script block method invocation supported command",
+    "source": "data X -s $x.M{} {}",
+    "valid": true
+  },
+  {
+    "name": "data variable before adjacent body",
+    "source": "data X -s $x{}",
+    "valid": true
+  },
+  {
+    "name": "data grouped variable before adjacent body",
+    "source": "data X -s ($x){}",
+    "valid": true
+  },
+  {
+    "name": "data indexed variable before adjacent body",
+    "source": "data X -s $x[0]{}",
+    "valid": true
+  },
+  {
+    "name": "data quoted command before adjacent body",
+    "source": "data X -s 'name'{}",
+    "valid": true
+  },
+  {
+    "name": "data numeric generic supported command",
+    "source": "data X -s 1=1 {}",
+    "valid": true
+  },
+  {
+    "name": "data member supported command list",
+    "source": "data X -s $x.M(), $y.Name {}",
+    "valid": true
   }
 ]

@@ -70,5 +70,1125 @@
     "diagnostics": [
       "MissingPropertyName"
     ]
+  },
+  {
+    "name": "malformed drive variable after escaped member 1",
+    "source": "cmd $x.`\n<# multi\nline #>\n$y: | Variable-RecoveryPipeline item\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "malformed drive variable after escaped member 2",
+    "source": "cmd $x::`\n<# multi\nline #>\n$y: | Variable-RecoveryPipeline item\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "malformed drive variable after escaped member 3",
+    "source": "cmd $x?.`\n<# multi\nline #>\n$y: | Variable-RecoveryPipeline item\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "malformed drive variable after escaped member 4",
+    "source": "cmd (1).`\n<# multi\nline #>\n$y: | Variable-RecoveryPipeline item\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "malformed drive variable after escaped member 5",
+    "source": "cmd {}.`\n<# multi\nline #>\n$y: | Variable-RecoveryPipeline item\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "malformed drive variable after escaped member 6",
+    "source": "cmd {}::`\n<# multi\nline #>\n$y: | Variable-RecoveryPipeline item\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "malformed drive variable after escaped member 7",
+    "source": "cmd {}?.`\n<# multi\nline #>\n$y: | Variable-RecoveryPipeline item\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 1",
+    "source": "cmd $x.`\n <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 2",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 3",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 4",
+    "source": "cmd $x.` <# ignored #> # ignored\n${y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 5",
+    "source": "cmd $x.` <# ignored #> # ignored\n${y}--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 6",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 7",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 8",
+    "source": "cmd $x.` <# ignored #> # ignored\n${y}+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 9",
+    "source": "cmd $x.` <# ignored #> # ignored\n${y}-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 10",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y!\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 11",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y/foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 12",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y\\foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 13",
+    "source": "cmd $x.` <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 14",
+    "source": "cmd $x.` <# ignored #> # ignored\n$$++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 15",
+    "source": "cmd $x.` <# ignored #> # ignored\n$?++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 16",
+    "source": "cmd $x.` <# ignored #> # ignored\n$^++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 17",
+    "source": "cmd $x.` <# ignored #> # ignored\n${using:y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 18",
+    "source": "cmd $x.` <# ignored #> # ignored\n$env:y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 19",
+    "source": "cmd $x.`\n<# multi\nline #>\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 20",
+    "source": "cmd $x::`\n <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 21",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 22",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 23",
+    "source": "cmd $x::` <# ignored #> # ignored\n${y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 24",
+    "source": "cmd $x::` <# ignored #> # ignored\n${y}--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 25",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 26",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 27",
+    "source": "cmd $x::` <# ignored #> # ignored\n${y}+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 28",
+    "source": "cmd $x::` <# ignored #> # ignored\n${y}-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 29",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y!\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 30",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y/foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 31",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y\\foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 32",
+    "source": "cmd $x::` <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 33",
+    "source": "cmd $x::` <# ignored #> # ignored\n$$++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 34",
+    "source": "cmd $x::` <# ignored #> # ignored\n$?++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 35",
+    "source": "cmd $x::` <# ignored #> # ignored\n$^++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 36",
+    "source": "cmd $x::` <# ignored #> # ignored\n${using:y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 37",
+    "source": "cmd $x::` <# ignored #> # ignored\n$env:y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 38",
+    "source": "cmd $x::`\n<# multi\nline #>\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 39",
+    "source": "cmd $x?.`\n <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 40",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 41",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 42",
+    "source": "cmd $x?.` <# ignored #> # ignored\n${y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 43",
+    "source": "cmd $x?.` <# ignored #> # ignored\n${y}--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 44",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 45",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 46",
+    "source": "cmd $x?.` <# ignored #> # ignored\n${y}+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 47",
+    "source": "cmd $x?.` <# ignored #> # ignored\n${y}-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 48",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y!\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 49",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y/foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 50",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y\\foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 51",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 52",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$$++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 53",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$?++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 54",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$^++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 55",
+    "source": "cmd $x?.` <# ignored #> # ignored\n${using:y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 56",
+    "source": "cmd $x?.` <# ignored #> # ignored\n$env:y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 57",
+    "source": "cmd $x?.`\n<# multi\nline #>\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 58",
+    "source": "cmd (1).`\n <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 59",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 60",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 61",
+    "source": "cmd (1).` <# ignored #> # ignored\n${y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 62",
+    "source": "cmd (1).` <# ignored #> # ignored\n${y}--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 63",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 64",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 65",
+    "source": "cmd (1).` <# ignored #> # ignored\n${y}+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 66",
+    "source": "cmd (1).` <# ignored #> # ignored\n${y}-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 67",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y!\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 68",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y/foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 69",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y\\foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 70",
+    "source": "cmd (1).` <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 71",
+    "source": "cmd (1).` <# ignored #> # ignored\n$$++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 72",
+    "source": "cmd (1).` <# ignored #> # ignored\n$?++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 73",
+    "source": "cmd (1).` <# ignored #> # ignored\n$^++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 74",
+    "source": "cmd (1).` <# ignored #> # ignored\n${using:y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 75",
+    "source": "cmd (1).` <# ignored #> # ignored\n$env:y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 76",
+    "source": "cmd (1).`\n<# multi\nline #>\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 77",
+    "source": "cmd {}.`\n <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 78",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 79",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 80",
+    "source": "cmd {}.` <# ignored #> # ignored\n${y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 81",
+    "source": "cmd {}.` <# ignored #> # ignored\n${y}--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 82",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 83",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 84",
+    "source": "cmd {}.` <# ignored #> # ignored\n${y}+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 85",
+    "source": "cmd {}.` <# ignored #> # ignored\n${y}-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 86",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y!\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 87",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y/foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 88",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y\\foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 89",
+    "source": "cmd {}.` <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 90",
+    "source": "cmd {}.` <# ignored #> # ignored\n$$++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 91",
+    "source": "cmd {}.` <# ignored #> # ignored\n$?++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 92",
+    "source": "cmd {}.` <# ignored #> # ignored\n$^++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 93",
+    "source": "cmd {}.` <# ignored #> # ignored\n${using:y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 94",
+    "source": "cmd {}.` <# ignored #> # ignored\n$env:y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 95",
+    "source": "cmd {}.`\n<# multi\nline #>\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 96",
+    "source": "cmd {}::`\n <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 97",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 98",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 99",
+    "source": "cmd {}::` <# ignored #> # ignored\n${y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 100",
+    "source": "cmd {}::` <# ignored #> # ignored\n${y}--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 101",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 102",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 103",
+    "source": "cmd {}::` <# ignored #> # ignored\n${y}+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 104",
+    "source": "cmd {}::` <# ignored #> # ignored\n${y}-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 105",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y!\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 106",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y/foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 107",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y\\foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 108",
+    "source": "cmd {}::` <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 109",
+    "source": "cmd {}::` <# ignored #> # ignored\n$$++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 110",
+    "source": "cmd {}::` <# ignored #> # ignored\n$?++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 111",
+    "source": "cmd {}::` <# ignored #> # ignored\n$^++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 112",
+    "source": "cmd {}::` <# ignored #> # ignored\n${using:y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 113",
+    "source": "cmd {}::` <# ignored #> # ignored\n$env:y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 114",
+    "source": "cmd {}::`\n<# multi\nline #>\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 115",
+    "source": "cmd {}?.`\n <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 116",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 117",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 118",
+    "source": "cmd {}?.` <# ignored #> # ignored\n${y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 119",
+    "source": "cmd {}?.` <# ignored #> # ignored\n${y}--\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 120",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 121",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 122",
+    "source": "cmd {}?.` <# ignored #> # ignored\n${y}+1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 123",
+    "source": "cmd {}?.` <# ignored #> # ignored\n${y}-1\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 124",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y!\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 125",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y/foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 126",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y\\foo\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 127",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 128",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$$++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 129",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$?++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 130",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$^++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 131",
+    "source": "cmd {}?.` <# ignored #> # ignored\n${using:y}++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 132",
+    "source": "cmd {}?.` <# ignored #> # ignored\n$env:y++\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "escaped member trivia retains newline commands 133",
+    "source": "cmd {}?.`\n<# multi\nline #>\n$y:\nVariable-RecoveryNewline item | Variable-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
   }
 ]

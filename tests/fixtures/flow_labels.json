@@ -698,5 +698,1434 @@
     "name": "label keyword generic boundary less than",
     "source": ":outer for<in",
     "valid": true
+  },
+  {
+    "name": "flow label boundary 'break $$.M'",
+    "source": "break $$.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $$::M'",
+    "source": "break $$::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $$::M()'",
+    "source": "break $$::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $$..M'",
+    "source": "break $$..M",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $$='",
+    "source": "break $$=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $$==1'",
+    "source": "break $$==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $?.M'",
+    "source": "break $?.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $?::M'",
+    "source": "break $?::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $?::M()'",
+    "source": "break $?::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $?..M'",
+    "source": "break $?..M",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $?='",
+    "source": "break $?=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $?==1'",
+    "source": "break $?==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $^.M'",
+    "source": "break $^.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $^::M'",
+    "source": "break $^::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $^::M()'",
+    "source": "break $^::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $^..M'",
+    "source": "break $^..M",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $^='",
+    "source": "break $^=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $^==1'",
+    "source": "break $^==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${?}.M'",
+    "source": "break ${?}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${?}::M'",
+    "source": "break ${?}::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${?}::M()'",
+    "source": "break ${?}::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${?}..M'",
+    "source": "break ${?}..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${?}='",
+    "source": "break ${?}=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break ${?}==1'",
+    "source": "break ${?}==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x.M'",
+    "source": "break $x.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x::M'",
+    "source": "break $x::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x::M()'",
+    "source": "break $x::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x..M'",
+    "source": "break $x..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x='",
+    "source": "break $x=",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x==1'",
+    "source": "break $x==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${x}.M'",
+    "source": "break ${x}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${x}::M'",
+    "source": "break ${x}::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${x}::M()'",
+    "source": "break ${x}::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${x}..M'",
+    "source": "break ${x}..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${x}='",
+    "source": "break ${x}=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break ${x}==1'",
+    "source": "break ${x}==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}.M'",
+    "source": "break ${a`u{7d}b}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}::M'",
+    "source": "break ${a`u{7d}b}::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}::M()'",
+    "source": "break ${a`u{7d}b}::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}..M'",
+    "source": "break ${a`u{7d}b}..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}='",
+    "source": "break ${a`u{7d}b}=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}==1'",
+    "source": "break ${a`u{7d}b}==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $env:PATH.M'",
+    "source": "break $env:PATH.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $env:PATH::M'",
+    "source": "break $env:PATH::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $env:PATH::M()'",
+    "source": "break $env:PATH::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $env:PATH..M'",
+    "source": "break $env:PATH..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $env:PATH='",
+    "source": "break $env:PATH=",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $env:PATH==1'",
+    "source": "break $env:PATH==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $$.M'",
+    "source": "continue $$.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $$::M'",
+    "source": "continue $$::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $$::M()'",
+    "source": "continue $$::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $$..M'",
+    "source": "continue $$..M",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $$='",
+    "source": "continue $$=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $$==1'",
+    "source": "continue $$==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $?.M'",
+    "source": "continue $?.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $?::M'",
+    "source": "continue $?::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $?::M()'",
+    "source": "continue $?::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $?..M'",
+    "source": "continue $?..M",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $?='",
+    "source": "continue $?=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $?==1'",
+    "source": "continue $?==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $^.M'",
+    "source": "continue $^.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $^::M'",
+    "source": "continue $^::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $^::M()'",
+    "source": "continue $^::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $^..M'",
+    "source": "continue $^..M",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $^='",
+    "source": "continue $^=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $^==1'",
+    "source": "continue $^==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${?}.M'",
+    "source": "continue ${?}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${?}::M'",
+    "source": "continue ${?}::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${?}::M()'",
+    "source": "continue ${?}::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${?}..M'",
+    "source": "continue ${?}..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${?}='",
+    "source": "continue ${?}=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue ${?}==1'",
+    "source": "continue ${?}==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x.M'",
+    "source": "continue $x.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x::M'",
+    "source": "continue $x::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x::M()'",
+    "source": "continue $x::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x..M'",
+    "source": "continue $x..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x='",
+    "source": "continue $x=",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x==1'",
+    "source": "continue $x==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${x}.M'",
+    "source": "continue ${x}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${x}::M'",
+    "source": "continue ${x}::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${x}::M()'",
+    "source": "continue ${x}::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${x}..M'",
+    "source": "continue ${x}..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${x}='",
+    "source": "continue ${x}=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue ${x}==1'",
+    "source": "continue ${x}==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}.M'",
+    "source": "continue ${a`u{7d}b}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}::M'",
+    "source": "continue ${a`u{7d}b}::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}::M()'",
+    "source": "continue ${a`u{7d}b}::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}..M'",
+    "source": "continue ${a`u{7d}b}..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}='",
+    "source": "continue ${a`u{7d}b}=",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}==1'",
+    "source": "continue ${a`u{7d}b}==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $env:PATH.M'",
+    "source": "continue $env:PATH.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $env:PATH::M'",
+    "source": "continue $env:PATH::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $env:PATH::M()'",
+    "source": "continue $env:PATH::M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $env:PATH..M'",
+    "source": "continue $env:PATH..M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $env:PATH='",
+    "source": "continue $env:PATH=",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $env:PATH==1'",
+    "source": "continue $env:PATH==1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { break $$.M }'",
+    "source": "function f { break $$.M }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { break $$::M() }'",
+    "source": "function f { break $$::M() }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { break ${a`u{7d}b}.M }'",
+    "source": "function f { break ${a`u{7d}b}.M }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { break ${a`u{7d}b}::M() }'",
+    "source": "function f { break ${a`u{7d}b}::M() }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { continue $$.M }'",
+    "source": "function f { continue $$.M }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { continue $$::M() }'",
+    "source": "function f { continue $$::M() }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { continue ${a`u{7d}b}.M }'",
+    "source": "function f { continue ${a`u{7d}b}.M }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'function f { continue ${a`u{7d}b}::M() }'",
+    "source": "function f { continue ${a`u{7d}b}::M() }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $using:x::M()'",
+    "source": "break $using:x::M()",
+    "valid": false,
+    "diagnostics": [
+      "InvalidUsingExpression"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'function f { break $using:x::M() }'",
+    "source": "function f { break $using:x::M() }",
+    "valid": false,
+    "diagnostics": [
+      "InvalidUsingExpression"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'continue $using:x::M()'",
+    "source": "continue $using:x::M()",
+    "valid": false,
+    "diagnostics": [
+      "InvalidUsingExpression"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'function f { continue $using:x::M() }'",
+    "source": "function f { continue $using:x::M() }",
+    "valid": false,
+    "diagnostics": [
+      "InvalidUsingExpression"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'break foo.M'",
+    "source": "break foo.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break foo::M'",
+    "source": "break foo::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break foo[1]'",
+    "source": "break foo[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break begin.M'",
+    "source": "break begin.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break begin::M'",
+    "source": "break begin::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break begin[1]'",
+    "source": "break begin[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break é.M'",
+    "source": "break é.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break é::M'",
+    "source": "break é::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break é[1]'",
+    "source": "break é[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break 名.M'",
+    "source": "break 名.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break 名::M'",
+    "source": "break 名::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break 名[1]'",
+    "source": "break 名[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue foo.M'",
+    "source": "continue foo.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue foo::M'",
+    "source": "continue foo::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue foo[1]'",
+    "source": "continue foo[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue begin.M'",
+    "source": "continue begin.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue begin::M'",
+    "source": "continue begin::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue begin[1]'",
+    "source": "continue begin[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue é.M'",
+    "source": "continue é.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue é::M'",
+    "source": "continue é::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue é[1]'",
+    "source": "continue é[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue 名.M'",
+    "source": "continue 名.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue 名::M'",
+    "source": "continue 名::M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue 名[1]'",
+    "source": "continue 名[1]",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break ($x)++'",
+    "source": "break ($x)++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ($x)--'",
+    "source": "break ($x)--",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x.M++'",
+    "source": "break $x.M++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x.M--'",
+    "source": "break $x.M--",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break (1)++'",
+    "source": "break (1)++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'break (1)--'",
+    "source": "break (1)--",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'continue ($x)++'",
+    "source": "continue ($x)++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ($x)--'",
+    "source": "continue ($x)--",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x.M++'",
+    "source": "continue $x.M++",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x.M--'",
+    "source": "continue $x.M--",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue (1)++'",
+    "source": "continue (1)++",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'continue (1)--'",
+    "source": "continue (1)--",
+    "valid": false,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "flow label boundary 'break $x. M'",
+    "source": "break $x. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x.\\nM'",
+    "source": "break $x.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $x<##>.M'",
+    "source": "break $x<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x <##>.M'",
+    "source": "break $x <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}. M'",
+    "source": "break ${a`u{7d}b}. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}.\\nM'",
+    "source": "break ${a`u{7d}b}.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}<##>.M'",
+    "source": "break ${a`u{7d}b}<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b} <##>.M'",
+    "source": "break ${a`u{7d}b} <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break (1).M'",
+    "source": "break (1).M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break (1). M'",
+    "source": "break (1). M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break (1).\\nM'",
+    "source": "break (1).\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break (1)<##>.M'",
+    "source": "break (1)<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break (1) <##>.M'",
+    "source": "break (1) <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @(1).M'",
+    "source": "break @(1).M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @(1). M'",
+    "source": "break @(1). M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @(1).\\nM'",
+    "source": "break @(1).\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break @(1)<##>.M'",
+    "source": "break @(1)<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @(1) <##>.M'",
+    "source": "break @(1) <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @{}.M'",
+    "source": "break @{}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @{}. M'",
+    "source": "break @{}. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @{}.\\nM'",
+    "source": "break @{}.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break @{}<##>.M'",
+    "source": "break @{}<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break @{} <##>.M'",
+    "source": "break @{} <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"break 'a'.M\"",
+    "source": "break 'a'.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"break 'a'. M\"",
+    "source": "break 'a'. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"break 'a'.\\nM\"",
+    "source": "break 'a'.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary \"break 'a'<##>.M\"",
+    "source": "break 'a'<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"break 'a' <##>.M\"",
+    "source": "break 'a' <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x. M'",
+    "source": "continue $x. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x.\\nM'",
+    "source": "continue $x.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $x<##>.M'",
+    "source": "continue $x<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x <##>.M'",
+    "source": "continue $x <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}. M'",
+    "source": "continue ${a`u{7d}b}. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}.\\nM'",
+    "source": "continue ${a`u{7d}b}.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}<##>.M'",
+    "source": "continue ${a`u{7d}b}<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b} <##>.M'",
+    "source": "continue ${a`u{7d}b} <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue (1).M'",
+    "source": "continue (1).M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue (1). M'",
+    "source": "continue (1). M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue (1).\\nM'",
+    "source": "continue (1).\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue (1)<##>.M'",
+    "source": "continue (1)<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue (1) <##>.M'",
+    "source": "continue (1) <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @(1).M'",
+    "source": "continue @(1).M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @(1). M'",
+    "source": "continue @(1). M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @(1).\\nM'",
+    "source": "continue @(1).\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue @(1)<##>.M'",
+    "source": "continue @(1)<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @(1) <##>.M'",
+    "source": "continue @(1) <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @{}.M'",
+    "source": "continue @{}.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @{}. M'",
+    "source": "continue @{}. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @{}.\\nM'",
+    "source": "continue @{}.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue @{}<##>.M'",
+    "source": "continue @{}<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue @{} <##>.M'",
+    "source": "continue @{} <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"continue 'a'.M\"",
+    "source": "continue 'a'.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"continue 'a'. M\"",
+    "source": "continue 'a'. M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"continue 'a'.\\nM\"",
+    "source": "continue 'a'.\nM",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary \"continue 'a'<##>.M\"",
+    "source": "continue 'a'<##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary \"continue 'a' <##>.M\"",
+    "source": "continue 'a' <##>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break ${a`u{7d}b}.\\nWrite-Output after | next'",
+    "source": "break ${a`u{7d}b}.\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary '\"$(break ${a`u{7d}b}.\\nWrite-Output after | next)\"'",
+    "source": "\"$(break ${a`u{7d}b}.\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "MissingEndParenthesisInSubexpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'break $x.M{}; next'",
+    "source": "break $x.M{}; next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'break $x.M(1); next'",
+    "source": "break $x.M(1); next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue ${a`u{7d}b}.\\nWrite-Output after | next'",
+    "source": "continue ${a`u{7d}b}.\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "flow label boundary '\"$(continue ${a`u{7d}b}.\\nWrite-Output after | next)\"'",
+    "source": "\"$(continue ${a`u{7d}b}.\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "MissingEndParenthesisInSubexpression"
+    ]
+  },
+  {
+    "name": "flow label boundary 'continue $x.M{}; next'",
+    "source": "continue $x.M{}; next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow label boundary 'continue $x.M(1); next'",
+    "source": "continue $x.M(1); next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "A spaced dot retains a missing target and the following pipeline",
+    "source": "break $x.\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Block comments preserve a grouped flow label member",
+    "source": "continue ($x)<# retained #>.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Simple flow labels stop before member punctuation",
+    "source": "break foo.M",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "break label before a new variable prefix increment",
+    "source": "break ($x)++$x",
+    "valid": true
+  },
+  {
+    "name": "break label before a new prefix increment and binary expression",
+    "source": "break ($x)++$x+1",
+    "valid": true
+  },
+  {
+    "name": "break label before a new member prefix decrement",
+    "source": "break ($x)--${x}.M",
+    "valid": true
+  },
+  {
+    "name": "continue label before a new variable prefix increment",
+    "source": "continue ($x)++$x",
+    "valid": true
+  },
+  {
+    "name": "continue label before a new prefix increment and binary expression",
+    "source": "continue ($x)++$x+1",
+    "valid": true
+  },
+  {
+    "name": "continue label before a new member prefix decrement",
+    "source": "continue ($x)--${x}.M",
+    "valid": true
   }
 ]

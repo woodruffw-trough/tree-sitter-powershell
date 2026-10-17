@@ -81,10 +81,14 @@ const flowControlStatement = ($, word, value, required = false) => {
   );
 };
 
+// LabelOrKeyRule tries a simple name before entering UnaryExpressionRule.
 const breakContinueStatement = ($, word) => prec.right(seq(
   field('keyword', keyword(word)),
   choice(
-    seq($._flow_expression_start, field('label', $._flow_unary_expression)),
+    seq($._flow_expression_start, choice(
+      field('label', alias($._flow_label, $.identifier)),
+      seq(field('label', $._flow_unary_expression), $._flow_label_end),
+    )),
     $._flow_label_end,
   ),
 ));
@@ -1111,7 +1115,8 @@ const grammarDefinition = {
     // expression. Unary operators are literal names in this context too.
     _data_supported_command: $ => choice(
       alias($._data_command_name, $.bare_word),
-      $._data_command_primary_expression,
+      seq($._data_command_primary_expression, $._expression_argument_end),
+      seq(alias($._data_command_member_access, $.member_access), $._member_argument_end),
     ),
 
     _data_command_primary_expression: $ => choice(
@@ -1639,7 +1644,6 @@ const grammarDefinition = {
     ),
 
     _flow_unary_expression: $ => choice(
-      alias($._flow_label, $.identifier),
       $._comma_free_command_primary_expression,
       alias($._flow_unary_operator_expression, $.unary_expression),
       alias($._flow_cast_expression, $.cast_expression),

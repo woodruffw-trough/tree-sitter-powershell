@@ -118,7 +118,7 @@ static bool prepared_context_token(TSSymbol symbol) {
          symbol == UNARY_SIGN_CONTEXT || symbol == CAST_VALUE_CONTEXT ||
          symbol == FLOW_PIPE_START || symbol == LEADING_PIPE_START ||
          symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION ||
-         symbol == ATTRIBUTE_RECOVERY_CONTINUATION;
+         symbol == ATTRIBUTE_RECOVERY_CONTINUATION || symbol == FLOW_LABEL_END;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -1399,7 +1399,8 @@ static bool scan_switch_clause_start(TSLexer *lexer, const bool *valid) {
 }
 
 static bool argument_boundary_context(const bool *valid) {
-  return (valid[MEMBER_ARGUMENT_END] || (valid[EXPRESSION_ARGUMENT_END] && !valid[ARGUMENT_END])) &&
+  return (valid[MEMBER_ARGUMENT_END] || (valid[EXPRESSION_ARGUMENT_END] && !valid[ARGUMENT_END]) ||
+          (valid[FLOW_LABEL_END] && !valid[FLOW_EXPRESSION_START])) &&
          !valid[HERE_STRING_CONTENT];
 }
 
@@ -1951,11 +1952,16 @@ static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum T
 
 static bool command_mode_number_follows(TSLexer *lexer, int32_t sign);
 
+enum VariableValidation {
+  ALLOW_MALFORMED_VARIABLE,
+  REQUIRE_VALID_VARIABLE,
+};
+
 // LabelOrKeyRule first peeks in command mode, before UnaryExpressionRule can
 // enable signed numbers. Glued operator/variable fragments are generic text in
 // that mode, so they begin the next statement rather than becoming a label.
 static bool command_mode_expression_follows(TSLexer *lexer, bool allow_signed_numbers,
-                                            bool allow_comma) {
+                                            bool flow_label, enum VariableValidation validation) {
   while (!lexer->eof(lexer)) {
     if (horizontal(lexer->lookahead)) {
       lexer->advance(lexer, false);
@@ -1998,7 +2004,7 @@ static bool command_mode_expression_follows(TSLexer *lexer, bool allow_signed_nu
     return true;
   }
   if (c == ',') {
-    return allow_comma;
+    return !flow_label;
   }
   if (c == '+' || c == '-' || c == 0x2013 || c == 0x2014 || c == 0x2015 || c == '!') {
     lexer->advance(lexer, false);
@@ -2023,35 +2029,23 @@ static bool command_mode_expression_follows(TSLexer *lexer, bool allow_signed_nu
     if (c == '(') {
       return true;
     }
-    if (c == '{') {
-      lexer->advance(lexer, false);
-      while (!lexer->eof(lexer) && lexer->lookahead != '}') {
-        if (lexer->lookahead == '`') {
-          lexer->advance(lexer, false);
-          if (lexer->eof(lexer)) {
-            return false;
-          }
-        }
-        lexer->advance(lexer, false);
-      }
-      if (lexer->lookahead != '}') {
-        return false;
-      }
-      lexer->advance(lexer, false);
-    } else if (c == '$' || c == '?' || c == '^') {
-      lexer->advance(lexer, false);
-    } else {
-      while (variable_character(lexer->lookahead) || lexer->lookahead == ':') {
-        c = lexer->lookahead;
-        lexer->advance(lexer, false);
-        if (c == ':' && lexer->lookahead == ':') {
-          return true;
-        }
-      }
+    bool braced = c == '{';
+    bool special = c == '$' || c == '?' || c == '^';
+    if (!variable_start(c)) {
+      return false;
+    }
+    if (!scan_variable_name(lexer, false)) {
+      // Ordinary command recovery still needs to see malformed variable text.
+      // Flow labels and trivia lookahead require a complete variable token.
+      return !flow_label && validation == ALLOW_MALFORMED_VARIABLE;
     }
     c = lexer->lookahead;
-    return (generic_end(c) && !quote(c) && c != '<' && c != '>') || c == '.' || c == '[' ||
-           c == '=';
+    bool boundary = generic_end(c) && !quote(c) && c != '<' && c != '>';
+    if (flow_label && special) {
+      return boundary;
+    }
+    return boundary || c == '.' || c == '[' || ((!flow_label || !braced) && c == '=') ||
+           (!braced && !special && c == ':');
   }
   if (c == '@') {
     lexer->advance(lexer, false);
@@ -2061,6 +2055,18 @@ static bool command_mode_expression_follows(TSLexer *lexer, bool allow_signed_nu
     return command_mode_number_follows(lexer, 0);
   }
   return c == '(' || c == '{' || quote(c);
+}
+
+// A pipeline bounds recovery after an invalid member variable. Keep trivia
+// visible at that boundary so the following command survives.
+static bool command_member_variable_follows(TSLexer *lexer) {
+  if (command_mode_expression_follows(lexer, false, false, REQUIRE_VALID_VARIABLE)) {
+    return true;
+  }
+  while (horizontal(lexer->lookahead)) {
+    lexer->advance(lexer, false);
+  }
+  return lexer->lookahead == '|';
 }
 
 // The caller consumed '@'. A splat uses the same UTF-16 name characters as
@@ -2616,6 +2622,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   bool name =
       !immediate && (valid[COMMAND_NAME] || data_name || (signed_start && !valid[BARE_WORD]));
   enum TokenType kind = data_name ? DATA_COMMAND_NAME : name ? COMMAND_NAME : BARE_WORD;
+  // Bare command positions recognize expression-mode numbers first. Invocation
+  // targets, supported-command names, and arguments retain generic text.
+  bool expression_number_context = name && !data_name && !valid[HERE_STRING_CONTENT];
   // Preserve the initial position when classifying an adjacent signed primary.
   // A failed probe must still be able to return a generic command name.
   if (signed_start && !signed_prefix) {
@@ -2806,6 +2815,8 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
                          (ascii_digit(lexer->lookahead) || lexer->lookahead == '.')));
   bool numeric_live = numeric_start;
   size_t numeric_prefix = 0;
+  const char *numeric_boundaries =
+      exclamation_number || expression_number_context ? "!+-*/%.#=]" : "!+-*/%.#";
   while (!lexer->eof(lexer)) {
     int32_t c = lexer->lookahead;
     if (name && !data_name && leading_dash && n > 1 && !any_escape &&
@@ -2819,7 +2830,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       // A numeric/operator prefix is reparsed as an expression. Preserve its
       // saved boundary before validating the following variable.
       if (!data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
-          strchr(exclamation_number ? "!+-*/%.#=]" : "!+-*/%.#", word[numeric_prefix]) != NULL) {
+          strchr(numeric_boundaries, word[numeric_prefix]) != NULL) {
         break;
       }
       lexer->advance(lexer, false);
@@ -2832,6 +2843,12 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       continue;
     }
     if (name && quote(c)) {
+      // Quotes after an operator belong to its next operand. A '#' prefix
+      // still probes quoted text because PowerShell retains those diagnostics.
+      if (expression_number_context && numeric_prefix != 0 && numeric_prefix < n &&
+          word[numeric_prefix] != '#' && strchr(numeric_boundaries, word[numeric_prefix]) != NULL) {
+        break;
+      }
       if ((signed_start || signed_prefix) && !data_name && numeric_start && numeric_prefix != 0 &&
           numeric_prefix < n && word[numeric_prefix] == '#') {
         break;
@@ -2938,7 +2955,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     if (numeric_live && !(c == '.' && lexer->lookahead == '.') &&
         (generic_numeric_boundary(c) || generic_numeric_boundary(lexer->lookahead) ||
-         (exclamation_number &&
+         ((exclamation_number || expression_number_context) &&
           (c == '=' || c == ']' || lexer->lookahead == '=' || lexer->lookahead == ']')))) {
       // Probe only at boundaries where a number may end. Once a prefix cannot
       // become numeric, stop probing: large malformed words stay linear too.
@@ -3056,7 +3073,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     // A prefix is recorded before any escape changes numeric classification.
     // Later escaping cannot remove an earlier numeric/operator boundary.
     if (name && !data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
-        strchr(exclamation_number ? "!+-*/%.#=]" : "!+-*/%.#", word[numeric_prefix]) != NULL) {
+        strchr(numeric_boundaries, word[numeric_prefix]) != NULL) {
       if (signed_start) {
         lexer->result_symbol = SIGNED_NUMBER_START;
         return true;
@@ -4138,6 +4155,39 @@ static bool scan_attribute_continuation(TSLexer *lexer, const bool *valid) {
   return true;
 }
 
+// A fresh prefix increment/decrement statement can start after a completed
+// flow label. Probe its operand without moving the label's marked end.
+static bool flow_prefix_operand_follows(TSLexer *lexer) {
+  for (;;) {
+    if (!skip_postfix_trivia(lexer, true)) {
+      return false;
+    }
+    int32_t c = lexer->lookahead;
+    if (c == '+' || generic_dash(c) || c == '!' || c == ',') {
+      lexer->advance(lexer, false);
+      continue;
+    }
+    if (c == '$') {
+      lexer->advance(lexer, false);
+      return lexer->lookahead == '(' ||
+             (variable_start(lexer->lookahead) && scan_variable_name(lexer, false));
+    }
+    if (c == '[') {
+      bool attribute;
+      bool invalid;
+      return lookahead_attribute_prefix(lexer, &attribute, &invalid);
+    }
+    if (ascii_digit(c) || c == '.') {
+      bool numeric[EXTERNAL_TOKEN_COUNT] = {0};
+      numeric[INTEGER_LITERAL] = true;
+      numeric[REAL_LITERAL] = true;
+      NumberContext context = {.end_on_ternary = true};
+      return scan_number(lexer, numeric, context);
+    }
+    return command_mode_expression_follows(lexer, true, false, ALLOW_MALFORMED_VARIABLE);
+  }
+}
+
 // UnaryExpressionRule leaves an invalid following token for StatementRule.
 // Keep a newline available for the same recovery when no operand can begin
 // after it. A leading pipe retains PipelineRule's existing recovery path.
@@ -4343,18 +4393,46 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
       leading_whitespace = true;
       lexer->advance(lexer, true);
     }
+    // Committing trivia before an invalid variable can let recovery take a
+    // following command as the member. Probe without changing the token end.
     if (valid[COMMENT] && (lexer->lookahead == '#' || lexer->lookahead == '<')) {
-      return scan_comment(lexer, valid, leading_whitespace);
+      if (!scan_comment(lexer, valid, leading_whitespace)) {
+        return false;
+      }
+      if (lexer->result_symbol == COMMENT && valid[COMMAND_MEMBER_START] &&
+          skip_postfix_trivia(lexer, true) && lexer->lookahead == '$') {
+        return command_member_variable_follows(lexer);
+      }
+      return true;
     }
     if (valid[LINE_CONTINUATION] && lexer->lookahead == '`') {
       lexer->advance(lexer, false);
-      if (horizontal(lexer->lookahead)) {
-        return scan_escaped_whitespace_after_tick(lexer, valid);
+      if (!valid[COMMAND_MEMBER_START]) {
+        if (horizontal(lexer->lookahead)) {
+          return scan_escaped_whitespace_after_tick(lexer, valid);
+        }
+        return scan_line_continuation_after_tick(lexer, valid);
       }
-      return scan_line_continuation_after_tick(lexer, valid);
+      if (horizontal(lexer->lookahead)) {
+        do {
+          lexer->advance(lexer, false);
+        } while (horizontal(lexer->lookahead));
+        lexer->result_symbol = ESCAPED_WHITESPACE;
+      } else if (newline(lexer->lookahead)) {
+        consume_newline(lexer);
+        lexer->result_symbol = LINE_CONTINUATION;
+      } else {
+        return false;
+      }
+      lexer->mark_end(lexer);
+      if (!skip_postfix_trivia(lexer, true) || lexer->lookahead != '$') {
+        return true;
+      }
+      return command_member_variable_follows(lexer);
     }
     lexer->mark_end(lexer);
-    if (!command_mode_expression_follows(lexer, valid[COMMAND_UNARY_START], true)) {
+    if (!command_mode_expression_follows(lexer, valid[COMMAND_UNARY_START], false,
+                                         ALLOW_MALFORMED_VARIABLE)) {
       return false;
     }
     lexer->result_symbol = valid[COMMAND_UNARY_START] ? COMMAND_UNARY_START : COMMAND_MEMBER_START;
@@ -4362,8 +4440,43 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   }
   if ((valid[FLOW_EXPRESSION_START] || valid[FLOW_LABEL_END]) && !valid[HERE_STRING_CONTENT]) {
     lexer->mark_end(lexer);
+    if (!valid[FLOW_EXPRESSION_START] && valid[POSTFIX_CONTEXT]) {
+      if (lexer->lookahead == '<' && valid[COMMENT] && valid[PREPARED_TOKEN]) {
+        return request_preparation(scanner, lexer, valid);
+      }
+      // Keep malformed glued operands on the existing postfix recovery path;
+      // ending the label before them can absorb a following pipeline command.
+      int32_t c = lexer->lookahead;
+      if (c == '+' || generic_dash(c)) {
+        lexer->advance(lexer, false);
+        if (c == '+' ? lexer->lookahead == '+' : generic_dash(lexer->lookahead)) {
+          lexer->advance(lexer, false);
+          c = lexer->lookahead;
+          if (generic_end(c) && !quote(c) && c != '<' && c != '>') {
+            return false;
+          }
+          if (!flow_prefix_operand_follows(lexer)) {
+            return false;
+          }
+        }
+      } else if (argument_postfix_follows(lexer, valid[METHOD_INVOCATION_CONTEXT])) {
+        // MemberAccessRule keeps invalid member text on this statement.
+        // Until that recovery is represented, do not take a later statement
+        // as the name after a malformed static separator.
+        if (c != ':') {
+          return false;
+        }
+        if (skip_postfix_trivia(lexer, true) &&
+            command_mode_expression_follows(
+                lexer, lexer->lookahead == '+' || generic_dash(lexer->lookahead), false,
+                ALLOW_MALFORMED_VARIABLE)) {
+          return false;
+        }
+      }
+    }
     if (valid[FLOW_EXPRESSION_START] &&
-        command_mode_expression_follows(lexer, !valid[FLOW_LABEL_END], false)) {
+        command_mode_expression_follows(lexer, !valid[FLOW_LABEL_END], true,
+                                        ALLOW_MALFORMED_VARIABLE)) {
       lexer->result_symbol = FLOW_EXPRESSION_START;
       return true;
     }
@@ -4795,7 +4908,9 @@ static size_t preparation_transform(PreparationCharacter *characters, size_t len
 static bool prepare_argument_comment(PreparationLexer *source, const bool *valid) {
   TSLexer *lexer = &source->lexer;
   size_t first_end = 0;
-  lexer->result_symbol = valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END : EXPRESSION_ARGUMENT_END;
+  lexer->result_symbol = valid[FLOW_LABEL_END] && !valid[FLOW_EXPRESSION_START] ? FLOW_LABEL_END
+                         : valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END
+                                                      : EXPRESSION_ARGUMENT_END;
   while (lexer->lookahead == '<') {
     lexer->advance(lexer, false);
     if (lexer->lookahead != '#') {

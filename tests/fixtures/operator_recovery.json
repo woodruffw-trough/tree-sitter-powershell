@@ -1417,5 +1417,61 @@
     "source": "\"$([A()]\n$x)\"",
     "valid": true,
     "diagnostics": []
+  },
+  {
+    "name": "variable instance member before escaped newline and glued increment",
+    "source": "cmd $x.`\n$y++\nTest-RecoveryNewline item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "variable static member before escaped newline and glued increment",
+    "source": "cmd $x::`\n$y++\nTest-RecoveryNewline item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "variable null conditional member before escaped newline and glued increment",
+    "source": "cmd $x?.`\n$y++\nTest-RecoveryNewline item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "parenthesized instance member before escaped newline and glued increment",
+    "source": "cmd (1).`\n$y++\nTest-RecoveryNewline item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "script block instance member before escaped newline and glued increment",
+    "source": "cmd {}.`\n$y++\nTest-RecoveryNewline item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "script block static member before escaped newline and glued increment",
+    "source": "cmd {}::`\n$y++\nTest-RecoveryNewline item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "script block null conditional member before escaped newline and glued increment",
+    "source": "cmd {}?.`\n$y++\nTest-RecoveryNewline item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
   }
 ]

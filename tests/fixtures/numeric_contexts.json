@@ -7420,5 +7420,484 @@
       "ExpectedValueExpression",
       "UnexpectedToken"
     ]
+  },
+  {
+    "name": "numeric assignment 1=1",
+    "source": "1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 1='value'",
+    "source": "1='value'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 1+=Get-'Item'",
+    "source": "1+=Get-'Item'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 1.5=1",
+    "source": "1.5=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 1.5='value'",
+    "source": "1.5='value'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 1.5+=Get-'Item'",
+    "source": "1.5+=Get-'Item'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 0x1=1",
+    "source": "0x1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 0x1='value'",
+    "source": "0x1='value'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment 0x1+=Get-'Item'",
+    "source": "0x1+=Get-'Item'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment -1=1",
+    "source": "-1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment -1='value'",
+    "source": "-1='value'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment -1+=Get-'Item'",
+    "source": "-1+=Get-'Item'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment +1=1",
+    "source": "+1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment +1='value'",
+    "source": "+1='value'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment +1+=Get-'Item'",
+    "source": "+1+=Get-'Item'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment –1=1",
+    "source": "–1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment –1='value'",
+    "source": "–1='value'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment –1+=Get-'Item'",
+    "source": "–1+=Get-'Item'\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric incomplete assignment 1",
+    "source": "1=\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "numeric unmatched bracket 1]",
+    "source": "1]\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric unmatched bracket 1]foo",
+    "source": "1]foo\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric incomplete assignment 1.",
+    "source": "1.=\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "numeric unmatched bracket 1.]",
+    "source": "1.]\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric unmatched bracket 1.]foo",
+    "source": "1.]foo\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric incomplete assignment +1",
+    "source": "+1=\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "numeric unmatched bracket +1]",
+    "source": "+1]\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric unmatched bracket +1]foo",
+    "source": "+1]foo\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric assignment context return",
+    "source": "return 0x1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment context throw",
+    "source": "throw 0x1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment context exit",
+    "source": "exit 0x1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment context break",
+    "source": "break 0x1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment context continue",
+    "source": "continue 0x1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment context $answer =",
+    "source": "$answer = 0x1=1\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric assignment context @{key=",
+    "source": "@{key=0x1=1}\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric command boundary cmd 1=1",
+    "source": "cmd 1=1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric command boundary cmd 1]foo",
+    "source": "cmd 1]foo tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric command boundary & 1=1",
+    "source": "& 1=1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric command boundary & 1]foo",
+    "source": "& 1]foo tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric command boundary . 1=1",
+    "source": ". 1=1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric command boundary . 1]foo",
+    "source": ". 1]foo tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric command boundary cmd | 1=1",
+    "source": "cmd | 1=1 tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric command boundary cmd | 1]foo",
+    "source": "cmd | 1]foo tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric command boundary cmd && 1=1",
+    "source": "cmd && 1=1 tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric command boundary cmd && 1]foo",
+    "source": "cmd && 1]foo tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric data supported name",
+    "source": "data -SupportedCommand 1=1 {}\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escaped assignment name",
+    "source": "1`=1\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escaped bracket name",
+    "source": "1`]foo\n",
+    "valid": true
+  },
+  {
+    "name": "numeric generic suffix before assignment",
+    "source": "1foo=1\n",
+    "valid": true
+  },
+  {
+    "name": "numeric generic question marks before assignment",
+    "source": "1??='value'\n",
+    "valid": true
+  },
+  {
+    "name": "numeric method argument assignment",
+    "source": "$x.M(1=1)\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInMethodCall",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric attribute argument assignment",
+    "source": "[A(1=1)]$x\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute",
+      "UnexpectedToken",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "numeric interpolation assignment",
+    "source": "\"$(1=1)\"\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric quoted command on assignment right",
+    "source": "1=foo'bar' tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidLeftHandSide"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "numeric quote after binary operator",
+    "source": "1+'value'\n",
+    "valid": true
+  },
+  {
+    "name": "numeric quote after multiplication operator",
+    "source": "1*'value'\n",
+    "valid": true
+  },
+  {
+    "name": "numeric quoted unmatched bracket",
+    "source": "1]foo'bar'\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric comment unterminated quote",
+    "source": "1#\"",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString"
+    ]
+  },
+  {
+    "name": "numeric pipeline invocation target remains literal",
+    "source": "cmd | & 1=1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric pipeline dot target remains literal",
+    "source": "cmd | . 1]foo tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric pipeline binary expression remains invalid",
+    "source": "cmd | 1+2 | next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline"
+    ]
+  },
+  {
+    "name": "numeric pipeline constant remains invalid",
+    "source": "cmd | 1 | next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline"
+    ]
   }
 ]

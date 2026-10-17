@@ -51,7 +51,7 @@ valid, malformed, and context-dependent variants.
 | `ScanNumber`, `TryGetNumberValue`, variable and string scanners | Numeric ranges and suffixes, adjacent signs, Unicode variables, quoting, here-strings, collected interpolation | [numeric_contexts](../tests/numeric_contexts.rs), [variables](../tests/variables.rs), [string_contexts](../tests/string_contexts.rs), [here_strings](../tests/here_strings.rs) |
 | `CommandRule`, `GetCommandArgument`, `ScanParameter`, `ScanGenericToken` | Command/expression dispatch, composite arguments, parameter values, splats, contextual names and invocation targets | [command_contexts](../tests/command_contexts.rs), [names](../tests/names.rs), [splats](../tests/splats.rs) |
 | `PipelineRule`, `PipelineChainRule`, `RedirectionRule`, `GetVerbatimCommandArgument` | Leading pipes, chains, backgrounding, file/stream boundaries and `--%` text | [pipelines](../tests/pipelines.rs), [redirections](../tests/redirections.rs), [verbatim](../tests/verbatim.rs) |
-| `StatementRule`, control-flow rules, `HashExpressionRule` | Conditions, loops, switch clauses, flow values, try/catch, assignment values and hashtable entries | [statement_conformance](../tests/statement_conformance.rs), [flow_conformance](../tests/flow_conformance.rs), [hash_contexts](../tests/hash_contexts.rs) |
+| `StatementRule`, `LabelOrKeyRule`, control-flow rules, `HashExpressionRule` | Conditions, loops, switch clauses, flow values and labels, try/catch, assignment values and hashtable entries | [statement_conformance](../tests/statement_conformance.rs), [flow_conformance](../tests/flow_conformance.rs), [flow_labels](../tests/flow_labels.rs), [hash_contexts](../tests/hash_contexts.rs) |
 | `ScriptBlockRule`, `NamedBlockListRule`, `ParamBlockRule`, `ParameterRule` | Header eligibility, parameter defaults and prefixes, named blocks, nested bodies and method contexts | [declaration_conformance](../tests/declaration_conformance.rs), [statement_conformance](../tests/statement_conformance.rs) |
 | `ClassDefinitionRule`, `ClassMemberRule`, `MethodDeclarationRule`, enum rules | Declaration names, modifiers, attributes, member separators, constructors and enum bodies | [class_members](../tests/class_members.rs), [declaration_conformance](../tests/declaration_conformance.rs) |
 | Type/attribute rules, `UsingStatementRule`, `DataStatementRule` | Nested generic and assembly-qualified types, attribute arguments, constant using values and aliases, data command lists | [types](../tests/types.rs), [assembly_names](../tests/assembly_names.rs), [using_statements](../tests/using_statements.rs), [data_statements](../tests/data_statements.rs) |
@@ -87,17 +87,18 @@ Core's `WorkflowNotSupportedInPowerShellCore` diagnostic.
 an `ERROR`, the enclosing string, subsequent arguments, and following pipeline
 commands. Recovery still differs for some incomplete hashtable values, member
 continuations, and malformed here-string headers in attribute arguments.
-These can still absorb later commands. Malformed colon commands retain a
-damaged suffix in a sibling `ERROR` where PowerShell includes it in the recovered
-command extent; preceding and following commands remain available. Tree-sitter's
-recovery tree does not promise Microsoft's diagnostic sequence or recovered AST
+These can still absorb later commands. Some damaged command extents also differ:
+malformed colon commands and empty groups after generic arguments such as
+`cmd $$.M()` retain a suffix outside the command node, where PowerShell includes
+it in the recovered command extent. Tree-sitter's recovery tree does not promise
+Microsoft's diagnostic sequence or recovered AST
 for every input. Long runs of invalid attribute prefixes can require quadratic
 lookahead during recovery.
-Some malformed computed member names, including `cmd $x.<#c#>$$.M`, remain
-accepted. Tests separately require the commands after their damaged arguments
-to remain available.
-[Operator recovery tests](../tests/operator_recovery.rs)
-check the command boundaries preserved by supported recovery cases.
+Some malformed computed member names and flow labels, including
+`cmd $x.<#c#>$$.M`, `break $x::.`, and `break ($x)++suffix`, remain accepted.
+[Operator](../tests/operator_recovery.rs), [member](../tests/member_trivia.rs),
+and [flow-label](../tests/flow_labels.rs) recovery tests compare following command
+boundaries independently of the damaged argument and label nodes.
 
 **Leading pipes in collected interpolation.** The grammar consistently accepts
 leading-pipe continuation within interpolated subexpressions. In 7.5.4,

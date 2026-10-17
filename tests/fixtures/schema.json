@@ -1629,5 +1629,80 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Special variable member starts a statement after break",
+    "source": "break $$.M",
+    "valid": true,
+    "fields": [
+      {
+        "node": "break_statement",
+        "field": "label",
+        "texts": []
+      },
+      {
+        "node": "member_access",
+        "field": "object",
+        "texts": [
+          "$$"
+        ]
+      },
+      {
+        "node": "member_access",
+        "field": "member",
+        "texts": [
+          "M"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Range text starts a command after the flow label",
+    "source": "break $x..M",
+    "valid": true,
+    "fields": [
+      {
+        "node": "break_statement",
+        "field": "label",
+        "texts": [
+          "$x"
+        ]
+      },
+      {
+        "node": "command",
+        "field": "name",
+        "texts": [
+          "..M"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "A static invocation stays in one flow label",
+    "source": "break $x::M()",
+    "valid": true,
+    "fields": [
+      {
+        "node": "break_statement",
+        "field": "label",
+        "texts": [
+          "$x::M()"
+        ]
+      },
+      {
+        "node": "invocation_expression",
+        "field": "function",
+        "texts": [
+          "$x::M"
+        ]
+      },
+      {
+        "node": "invocation_expression",
+        "field": "arguments",
+        "texts": [
+          "()"
+        ]
+      }
+    ]
   }
 ]
