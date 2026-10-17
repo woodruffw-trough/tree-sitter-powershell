@@ -1,0 +1,55 @@
+==================
+Consecutive incomplete attributes preserve the following pipeline
+==================
+[A()]
+[B()]
+Write-Output after | next
+---
+(source_file
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list)))
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A terminal type remains the target of a preceding attribute
+==================
+[A()]
+[B]
+Write-Output after | next
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (attributed_expression
+        attribute: (attribute
+          name: (type_name
+            name: (type_identifier))
+          arguments: (argument_list))
+        value: (type_literal
+          (type_name
+            name: (type_identifier))))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

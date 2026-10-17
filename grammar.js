@@ -367,6 +367,7 @@ const grammarDefinition = {
     $.line_continuation,
     $._postfix_context,
     $._attribute_continuation,
+    $._attribute_recovery_continuation,
     $._expression_continuation,
     $._argument_separator,
     $.splat_expression,
@@ -789,12 +790,21 @@ const grammarDefinition = {
     // param keyword selects the declaration. PowerShell diagnoses these prefixes
     // after parsing the header.
     param_block: $ => prec.dynamic(1, seq(
-      repeat(choice(
-        seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE)),
-        prec.dynamic(1, prec(PREC.unary, seq(
-          field('types', $.type_literal),
-          repeat(NEWLINE),
-        ))),
+      repeat(prec.dynamic(1, prec(PREC.unary, seq(
+        field('types', $.type_literal),
+        repeat(NEWLINE),
+      )))),
+      optional(seq(
+        field('attributes', $.attribute),
+        $._attribute_continuation,
+        repeat(NEWLINE),
+        repeat(choice(
+          seq(field('attributes', $.attribute), repeat(NEWLINE)),
+          prec.dynamic(1, prec(PREC.unary, seq(
+            field('types', $.type_literal),
+            repeat(NEWLINE),
+          ))),
+        )),
       )),
       alias($._param_block_keyword, 'param'),
       repeat(NEWLINE),
@@ -866,7 +876,12 @@ const grammarDefinition = {
     // Class methods delimit themselves and allow only newlines before the next
     // member. Properties accept semicolons too, or the final closing brace.
     class_definition: $ => seq(
-      repeat(seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE))),
+      optional(seq(
+        field('attributes', $.attribute),
+        $._attribute_continuation,
+        repeat(NEWLINE),
+        repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
+      )),
       keyword('class'),
       repeat(NEWLINE),
       field('name', $.identifier),
@@ -947,7 +962,12 @@ const grammarDefinition = {
     _base_argument_list: $ => argumentList('(', $._argument_expression_head),
 
     enum_definition: $ => seq(
-      repeat(seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE))),
+      optional(seq(
+        field('attributes', $.attribute),
+        $._attribute_continuation,
+        repeat(NEWLINE),
+        repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
+      )),
       keyword('enum'),
       repeat(NEWLINE),
       field('name', $.identifier),
@@ -1124,7 +1144,12 @@ const grammarDefinition = {
     ),
 
     configuration_definition: $ => seq(
-      repeat(seq(field('attributes', $.attribute), $._attribute_continuation, repeat(NEWLINE))),
+      optional(seq(
+        field('attributes', $.attribute),
+        $._attribute_continuation,
+        repeat(NEWLINE),
+        repeat(seq(field('attributes', $.attribute), repeat(NEWLINE))),
+      )),
       keyword('configuration'),
       repeat(NEWLINE),
       $._configuration_name_start,
@@ -1783,32 +1808,32 @@ const grammarDefinition = {
     // are diagnosed later by Microsoft's semantic checks.
     attributed_expression: $ => seq(
       field('attribute', $.attribute),
-      $._attribute_continuation,
+      choice($._attribute_continuation, $._attribute_recovery_continuation),
       repeat(NEWLINE),
-      field('value', $._attributed_value),
+      field('value', $._attribute_prefix_attributed_value),
     ),
 
     argument_attributed_expression: $ => seq(
       field('attribute', $.attribute),
-      $._attribute_continuation,
+      choice($._attribute_continuation, $._attribute_recovery_continuation),
       repeat(NEWLINE),
-      field('value', $._argument_cast_value),
+      field('value', $._attribute_prefix_argument_cast_value),
     ),
 
     command_attributed_expression: $ => seq(
       field('attribute', $.attribute),
-      $._attribute_continuation,
+      choice($._attribute_continuation, $._attribute_recovery_continuation),
       repeat(NEWLINE),
       $._command_unary_start,
-      field('value', $._command_unary_expression),
+      field('value', $._attribute_prefix_command_unary_expression),
     ),
 
     argument_command_attributed_expression: $ => seq(
       field('attribute', $.attribute),
-      $._attribute_continuation,
+      choice($._attribute_continuation, $._attribute_recovery_continuation),
       repeat(NEWLINE),
       $._command_unary_start,
-      field('value', $._argument_command_unary_expression),
+      field('value', $._attribute_prefix_argument_command_unary_expression),
     ),
 
     _attributed_value: $ => choice(
@@ -2598,5 +2623,74 @@ const parenthesisTokens = ($, rule) => {
 for (const [name, builder] of Object.entries(grammarDefinition.rules)) {
   grammarDefinition.rules[name] = $ => parenthesisTokens($, builder($));
 }
+
+// The first attribute checks whether the complete prefix chain has a target.
+// Recursive operands keep the same concrete nodes without repeating lookahead.
+const ATTRIBUTE_PREFIX_RULES = new Set([
+  '_unary_expression', 'unary_expression', 'unary_prefix_expression',
+  'noncomma_unary_prefix_expression', '_cast_unary_expression',
+  'cast_expression', '_cast_value', 'attributed_expression',
+  '_attributed_value', '_attributed_unary_expression',
+  '_argument_unary_expression', 'argument_unary_prefix_expression',
+  '_argument_unary_operator_expression', '_argument_cast_expression',
+  '_argument_cast_value', '_argument_cast_unary_expression',
+  'argument_attributed_expression',
+  '_command_argument_unary_expression', 'command_argument_unary_prefix_expression',
+  '_command_argument_unary_operator_expression',
+  '_command_unary_expression', 'command_unary_prefix_expression',
+  '_command_unary_operator_expression', '_command_cast_expression',
+  '_command_cast_value', 'command_attributed_expression',
+  '_argument_command_unary_expression', 'argument_command_unary_prefix_expression',
+  '_argument_command_unary_operator_expression', '_argument_command_cast_expression',
+  'argument_command_attributed_expression',
+]);
+
+const attributePrefixName = name => name.startsWith('_')
+  ? `_attribute_prefix_${name.slice(1)}`
+  : `attribute_prefix_${name}`;
+
+const isAttributeContinuation = rule => rule.type === 'SYMBOL' && (
+  rule.name === '_attribute_continuation' || rule.name === '_attribute_recovery_continuation'
+);
+
+const attributePrefix = ($, rule) => {
+  if (rule.type === 'SYMBOL' && ATTRIBUTE_PREFIX_RULES.has(rule.name)) {
+    const name = attributePrefixName(rule.name);
+    return rule.name.startsWith('_') ? $[name] : alias($[name], $[rule.name]);
+  }
+  if (rule.type === 'ALIAS' && rule.content.type === 'SYMBOL' &&
+      ATTRIBUTE_PREFIX_RULES.has(rule.content.name)) {
+    return {...rule, content: $[attributePrefixName(rule.content.name)]};
+  }
+  if (rule.content) {
+    return {...rule, content: attributePrefix($, rule.content)};
+  }
+  if (rule.members) {
+    return {...rule, members: rule.members
+      .filter(member => !(member.type === 'CHOICE' &&
+        member.members.every(isAttributeContinuation)))
+      .map(member => attributePrefix($, member))};
+  }
+  return rule;
+};
+
+for (const name of ATTRIBUTE_PREFIX_RULES) {
+  const builder = grammarDefinition.rules[name];
+  grammarDefinition.rules[attributePrefixName(name)] = $ => attributePrefix($, builder($));
+}
+
+const prefixConflicts = grammarDefinition.conflicts;
+grammarDefinition.conflicts = $ => {
+  const conflicts = prefixConflicts($);
+  const declarations = ['class_definition', '_comma_free_class_definition'];
+  const expressions = ['attributed_expression', 'argument_attributed_expression'];
+  const obsoleteDeclarationConflict = conflict =>
+    conflict.some(rule => declarations.includes(rule.name)) &&
+    conflict.some(rule => expressions.includes(rule.name));
+  const derived = conflicts.map(conflict => conflict.map(rule =>
+    ATTRIBUTE_PREFIX_RULES.has(rule.name) ? $[attributePrefixName(rule.name)] : rule,
+  ));
+  return [...conflicts, ...derived].filter(conflict => !obsoleteDeclarationConflict(conflict));
+};
 
 module.exports = grammar(grammarDefinition);

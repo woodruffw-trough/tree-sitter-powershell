@@ -82,8 +82,12 @@ Core's `WorkflowNotSupportedInPowerShellCore` diagnostic.
 **Malformed-input recovery.** Tests check that malformed interpolation retains
 an `ERROR`, the enclosing string, subsequent arguments, and following pipeline
 commands. Recovery still differs for some incomplete hashtable values, member
-continuations, and consecutive attribute prefixes, which can absorb later commands. Tree-sitter's recovery tree does
-not promise Microsoft's diagnostic sequence or recovered AST for every input.
+continuations, and attribute prefixes containing here-string arguments.
+These can still absorb later commands. Malformed colon commands retain a
+damaged suffix in a sibling `ERROR` where PowerShell includes it in the recovered
+command extent; preceding and following commands remain available. Tree-sitter's
+recovery tree does not promise Microsoft's diagnostic sequence or recovered AST
+for every input.
 For example, `"$([int] .. $other)"` and related typed-range interpolations produce
 an overlapping type/command recovery AST in Microsoft; this grammar accepts the
 range expression. [Operator recovery tests](../tests/operator_recovery.rs)

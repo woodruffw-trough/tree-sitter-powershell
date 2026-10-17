@@ -41,6 +41,7 @@ enum TokenType {
   LINE_CONTINUATION,
   POSTFIX_CONTEXT, // Reject continuations before adjacent member/index access.
   ATTRIBUTE_CONTINUATION,
+  ATTRIBUTE_RECOVERY_CONTINUATION,
   EXPRESSION_CONTINUATION, // Leave an invalid operand for statement recovery.
   ARGUMENT_SEPARATOR,
   SPLAT_EXPRESSION,
@@ -116,7 +117,8 @@ static bool prepared_context_token(TSSymbol symbol) {
          symbol == CONFIGURATION_NAME_START || symbol == SWITCH_CLAUSE_START ||
          symbol == UNARY_SIGN_CONTEXT || symbol == CAST_VALUE_CONTEXT ||
          symbol == FLOW_PIPE_START || symbol == LEADING_PIPE_START ||
-         symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION;
+         symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION ||
+         symbol == ATTRIBUTE_RECOVERY_CONTINUATION;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -3883,10 +3885,81 @@ static bool scan_interpolation_tail(Scanner *scanner, TSLexer *lexer, const bool
   return true;
 }
 
+// Look through an attribute prefix without consuming its following target.
+// Square brackets inside argument strings and comments do not end the prefix.
+static bool lookahead_attribute_prefix(TSLexer *lexer, bool *attribute, bool *invalid) {
+  unsigned depth = 0;
+  bool assembly = false;
+  bool type_started = false;
+  *attribute = false;
+  *invalid = false;
+  do {
+    int32_t c = lexer->lookahead;
+    if (depth == 1 && !*attribute && type_started && newline(c)) {
+      *invalid = true;
+      return false;
+    }
+    if (depth == 1 && !horizontal(c) && !newline(c) && c != '<' && c != '#' && c != '`') {
+      type_started = true;
+    }
+    if (quote(c)) {
+      if (!scan_name_quoted_piece(lexer)) {
+        return false;
+      }
+      continue;
+    }
+    if (c == '@') {
+      lexer->advance(lexer, false);
+      if (quote(lexer->lookahead)) {
+        return false;
+      }
+      continue;
+    }
+    if (c == '`') {
+      lexer->advance(lexer, false);
+      if (newline(lexer->lookahead)) {
+        *invalid = !*attribute && type_started;
+        return false;
+      }
+      if (*attribute && !lexer->eof(lexer)) {
+        lexer->advance(lexer, false);
+      }
+      continue;
+    }
+    if (c == '#' && (*attribute || !type_started)) {
+      while (!lexer->eof(lexer) && !newline(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      }
+      continue;
+    }
+    if (c == '<') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '#') {
+        lexer->advance(lexer, false);
+        if (!skip_block_comment_body(lexer)) {
+          return false;
+        }
+      }
+      continue;
+    }
+    if (c == '[' && !(depth == 1 && assembly)) {
+      ++depth;
+    } else if (c == ']') {
+      --depth;
+    } else if (depth == 1 && c == ',' && !*attribute) {
+      assembly = true;
+    } else if (depth == 1 && c == '(' && !assembly) {
+      *attribute = true;
+    }
+    lexer->advance(lexer, false);
+  } while (depth != 0 && !lexer->eof(lexer));
+  return depth == 0;
+}
+
 // Attribute lists can prefix declarations or expressions. Decide that shared
 // boundary before consuming a newline, preserving both branches until a real
 // declaration keyword or expression token selects their role.
-static bool scan_attribute_continuation(TSLexer *lexer) {
+static bool scan_attribute_continuation(TSLexer *lexer, const bool *valid) {
   lexer->mark_end(lexer);
   bool unary = false;
   for (;;) {
@@ -3894,6 +3967,43 @@ static bool scan_attribute_continuation(TSLexer *lexer) {
       return false;
     }
     int32_t c = lexer->lookahead;
+    if (c == '[') {
+      bool attribute;
+      bool invalid;
+      if (!lookahead_attribute_prefix(lexer, &attribute, &invalid)) {
+        if (invalid) {
+          lexer->result_symbol = ATTRIBUTE_RECOVERY_CONTINUATION;
+          return valid[ATTRIBUTE_RECOVERY_CONTINUATION];
+        }
+        // Incomplete and context-dependent prefixes keep ordinary recovery.
+        lexer->result_symbol = ATTRIBUTE_CONTINUATION;
+        return true;
+      }
+      if (attribute) {
+        continue;
+      }
+      if (!skip_postfix_trivia(lexer, false)) {
+        lexer->result_symbol = ATTRIBUTE_RECOVERY_CONTINUATION;
+        return valid[ATTRIBUTE_RECOVERY_CONTINUATION];
+      }
+      if (lexer->lookahead != '[') {
+        // A terminal type is an expression; only a following param keyword can
+        // select a declaration header that still contains type constraints.
+        if (!skip_postfix_trivia(lexer, true)) {
+          lexer->result_symbol = ATTRIBUTE_RECOVERY_CONTINUATION;
+          return valid[ATTRIBUTE_RECOVERY_CONTINUATION];
+        }
+        const char *word = "param";
+        while (*word && ascii_lower(lexer->lookahead) == *word) {
+          ++word;
+          lexer->advance(lexer, false);
+        }
+        bool header = !*word && generic_end(lexer->lookahead) && !quote(lexer->lookahead);
+        lexer->result_symbol = header ? ATTRIBUTE_CONTINUATION : ATTRIBUTE_RECOVERY_CONTINUATION;
+        return header ? valid[ATTRIBUTE_CONTINUATION] : valid[ATTRIBUTE_RECOVERY_CONTINUATION];
+      }
+      continue;
+    }
     if (c == '+' || c == '!' || c == ',') {
       unary = true;
       lexer->advance(lexer, false);
@@ -4237,9 +4347,10 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     skipped_trivia = true;
     lexer->advance(lexer, true);
   }
-  if (valid[ATTRIBUTE_CONTINUATION] && !valid[HERE_STRING_CONTENT]) {
+  if ((valid[ATTRIBUTE_CONTINUATION] || valid[ATTRIBUTE_RECOVERY_CONTINUATION]) &&
+      !valid[HERE_STRING_CONTENT]) {
     return preparing ? request_preparation(scanner, lexer, valid)
-                     : scan_attribute_continuation(lexer);
+                     : scan_attribute_continuation(lexer, valid);
   }
   if (valid[EXPRESSION_CONTINUATION] && !valid[HERE_STRING_CONTENT]) {
     return preparing ? request_preparation(scanner, lexer, valid)

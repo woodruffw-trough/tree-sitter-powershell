@@ -1,0 +1,557 @@
+[
+  {
+    "name": "Newline-separated attributes retain a following pipeline",
+    "source": "[A()]\n[B()]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Newline-separated attributes retain following commands",
+    "source": "[A()]\n[B()]\nWrite-Output after\nnext",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Newline-separated attributes retain a semicolon boundary",
+    "source": "[A()]\n[B()] ; Write-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Newline-separated attributes retain a pipeline after an incomplete plus",
+    "source": "[A()]\n[B()]\n+\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Newline-separated attributes retain a pipeline after an incomplete not",
+    "source": "[A()]\n[B()]\n-not\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "UnexpectedAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Adjacent attributes retain a following pipeline",
+    "source": "[A()][B()]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Three crlf-separated attributes retain a following pipeline",
+    "source": "[A()]\r\n[B()]\r\n[C()]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Attributes separated by a block comment retain a following pipeline",
+    "source": "[A()]<#before#>\n[B()]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Attributes separated by a line comment retain a following pipeline",
+    "source": "[A()]\n# comment\n[B()]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "An attribute with a quoted closing bracket retain a following pipeline",
+    "source": "[A()]\n[B(\"]\")]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "An attribute with a literal closing bracket retain a following pipeline",
+    "source": "[A()]\n[B(']')]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "An attribute with a type argument retain a following pipeline",
+    "source": "[A()]\n[B([int])]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "An attribute with a generic type argument retain a following pipeline",
+    "source": "[A()]\n[B([Collections.Generic.List[int]])]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "An attribute with a named argument retain a following pipeline",
+    "source": "[A()]\n[B(Name=\"]\")]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "An attribute with a bracket in a comment retain a following pipeline",
+    "source": "[A()]\n[B(<# ] #>)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Mixed attribute and type prefixes retain a following pipeline",
+    "source": "[A()][int][B()]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Mixed attribute and type prefixes retain following commands",
+    "source": "[A()][int][B()]\nWrite-Output after\nnext",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Newline-separated attributes retain a variable target",
+    "source": "[A()]\n[B()]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Newline-separated attributes retain a terminal type target",
+    "source": "[A()]\n[B()]\n[int]\nWrite-Output after | next",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Newline-separated attributes retain a parameter block",
+    "source": "[A()]\n[B()]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Newline-separated attributes retain a class declaration",
+    "source": "[A()]\n[B()]\nclass C {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Newline-separated attributes retain an enum declaration",
+    "source": "[A()]\n[B()]\nenum E {A}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Adjacent attributes retain a variable target",
+    "source": "[A()][B()]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Adjacent attributes retain a terminal type target",
+    "source": "[A()][B()]\n[int]\nWrite-Output after | next",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Adjacent attributes retain a parameter block",
+    "source": "[A()][B()]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Adjacent attributes retain a class declaration",
+    "source": "[A()][B()]\nclass C {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Adjacent attributes retain an enum declaration",
+    "source": "[A()][B()]\nenum E {A}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Three crlf-separated attributes retain a variable target",
+    "source": "[A()]\r\n[B()]\r\n[C()]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Three crlf-separated attributes retain a terminal type target",
+    "source": "[A()]\r\n[B()]\r\n[C()]\n[int]\nWrite-Output after | next",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Three crlf-separated attributes retain a parameter block",
+    "source": "[A()]\r\n[B()]\r\n[C()]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Three crlf-separated attributes retain a class declaration",
+    "source": "[A()]\r\n[B()]\r\n[C()]\nclass C {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Three crlf-separated attributes retain an enum declaration",
+    "source": "[A()]\r\n[B()]\r\n[C()]\nenum E {A}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "An attribute with a bracket in a comment retain a variable target",
+    "source": "[A()]\n[B(<# ] #>)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "An attribute with a bracket in a comment retain a terminal type target",
+    "source": "[A()]\n[B(<# ] #>)]\n[int]\nWrite-Output after | next",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "An attribute with a bracket in a comment retain a parameter block",
+    "source": "[A()]\n[B(<# ] #>)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "An attribute with a bracket in a comment retain a class declaration",
+    "source": "[A()]\n[B(<# ] #>)]\nclass C {}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "An attribute with a bracket in a comment retain an enum declaration",
+    "source": "[A()]\n[B(<# ] #>)]\nenum E {A}",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Attributes in a function retain its parameter block",
+    "source": "function f { [A()]\n[B()]\nparam($x)\n$x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Property attributes retain their type and variable",
+    "source": "class C { [A()]\n[B()]\n[int]$x }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Method attributes retain their type and body",
+    "source": "class C { [A()]\n[B()]\n[int] M() {return 1} }",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ]
+  },
+  {
+    "name": "Parameter attributes retain their type and variable",
+    "source": "param([A()]\n[B()]\n[int]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "An attributed type ends before a newline command",
+    "source": "[A()]\n[B]\nWrite-Output after | next",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "An adjacent attributed type ends before a newline command",
+    "source": "[A()][B]\nWrite-Output after | next",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A generic type remains an attributed expression target",
+    "source": "[A()]\n[B()]\n[Collections.Generic.List[int]]\nWrite-Output after | next",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "Consecutive attributes retain a configuration declaration",
+    "source": "[A()]\n[B()]\nconfiguration Example {}\nWrite-Output after | next",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "Commented attribute arguments retain a configuration declaration",
+    "source": "[A()]\n[B(<# ] #>)]\nconfiguration Example {}\nWrite-Output after | next",
+    "valid": true,
+    "dynamic_keywords": [
+      {
+        "keyword": "OMI_ConfigurationDocument",
+        "body_mode": "Hashtable",
+        "name_mode": "NoName"
+      }
+    ],
+    "diagnostics": []
+  },
+  {
+    "name": "An interpolated attribute argument preserves its target",
+    "source": "[A()]\n[B(\"$(Write-Output ']')\")]\n$x",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ]
+  },
+  {
+    "name": "A nested type and method call remain inside an attribute argument",
+    "source": "[A()]\n[B(\"$([string]::Format('{0}]', 'x'))\")]\n$x",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ]
+  },
+  {
+    "name": "A hash argument remains inside its attribute",
+    "source": "[A()]\n[B(@{a=']'})]\n$x",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ]
+  },
+  {
+    "name": "An expandable here-string attribute retains its target",
+    "source": "[A()]\n[B(@\"\n] [ ( ) \" ' \n\"@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "A quote and bracket in a literal here-string retain the attribute target",
+    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "A quote and bracket in a literal here-string retain the parameter header",
+    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "A quote and bracket in a literal here-string retain the class header",
+    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\nclass C {}",
+    "valid": false,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "A hash in an attribute type name retains the parameter header",
+    "source": "[A()]\n[B#C()]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "A hash in an attribute type name retains the class header",
+    "source": "[A()]\n[B#C()]\nclass C {}",
+    "valid": false,
+    "diagnostics": [
+      "CustomAttributeTypeNotFound",
+      "CustomAttributeTypeNotFound"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "A hash in a type constraint retains the parameter header",
+    "source": "[A()]\n[B#C]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "A split type name preserves the later param command",
+    "source": "[A()]\n[B`\nC(1)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A split type name preserves the intervening command before a class",
+    "source": "[A()]\n[B`\nC(1)]\nclass C {}",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A newline inside a type name preserves the later param command",
+    "source": "[A()]\n[B\nC(1)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A CRLF inside a type name preserves the intervening command before a class",
+    "source": "[A()]\n[B\r\nC(1)]\nclass C {}",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfAttribute",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A leading type-name line continuation retains the target",
+    "source": "[A()]\n[`\nB()]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "A leading CRLF type-name continuation retains the target",
+    "source": "[A()]\n[`\r\nB()]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Newlines in a generic attribute type retain the target",
+    "source": "[A()]\n[B[\nint\n]()]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "An opening bracket in an assembly name retains the parameter header",
+    "source": "[A()]\n[B, Assembly[x]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "TypeNotAllowedBeforeParam"
+    ],
+    "syntax_valid": true
+  }
+]

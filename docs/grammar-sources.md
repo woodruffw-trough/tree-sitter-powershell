@@ -451,3 +451,12 @@ colons retain their own boundary.
 A special splat can fall back to an expandable generic argument. For example,
 `cmd @$foo::bar` contains literal `@`, variable `$foo`, and literal `::bar` in
 one argument. Splat tests compare those interpolated values with the native AST.
+
+Consecutive attribute prefixes require an eventual expression or declaration
+target. The first attribute checks that boundary once; recursive attribute, cast,
+and unary prefixes retain the same public nodes without repeating lookahead.
+Separate internal recovery and declaration assertions keep a malformed type
+prefix from turning a later `param(...)` command into a parameter block.
+These boundaries follow `AttributeListRule` and `UnaryExpressionRule` in the
+pinned parser. Here-string arguments use the ordinary grammar; recovery through
+incomplete attribute chains containing them remains limited.
