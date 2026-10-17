@@ -3885,6 +3885,52 @@ static bool scan_interpolation_tail(Scanner *scanner, TSLexer *lexer, const bool
   return true;
 }
 
+// Lookahead for an attribute argument's here-string. Keep the caller's token
+// end unchanged, and follow the raw collector used by ScanSubExpression(true)
+// rather than interpreting quotes or brackets inside the collected expression.
+static bool lookahead_attribute_here_string(TSLexer *lexer) {
+  bool single = single_quote(lexer->lookahead);
+  lexer->advance(lexer, false);
+  while (here_header_space(lexer->lookahead)) {
+    lexer->advance(lexer, false);
+  }
+  if (!newline(lexer->lookahead)) {
+    return false;
+  }
+  consume_newline(lexer);
+  bool line_start = true;
+  while (!lexer->eof(lexer)) {
+    int32_t c = lexer->lookahead;
+    if (line_start && (single ? single_quote(c) : double_quote(c))) {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '@') {
+        lexer->advance(lexer, false);
+        return true;
+      }
+      line_start = false;
+    } else if (newline(c)) {
+      consume_newline(lexer);
+      line_start = true;
+    } else if (!single && c == '$') {
+      lexer->advance(lexer, false);
+      if (!scan_name_dollar(lexer)) {
+        return false;
+      }
+      line_start = false;
+    } else if (!single && c == '`') {
+      int32_t decoded;
+      if (!scan_backtick_escape(lexer, &decoded, NULL)) {
+        return false;
+      }
+      line_start = false;
+    } else {
+      lexer->advance(lexer, false);
+      line_start = false;
+    }
+  }
+  return false;
+}
+
 // Look through an attribute prefix without consuming its following target.
 // Square brackets inside argument strings and comments do not end the prefix.
 static bool lookahead_attribute_prefix(TSLexer *lexer, bool *attribute, bool *invalid) {
@@ -3910,7 +3956,7 @@ static bool lookahead_attribute_prefix(TSLexer *lexer, bool *attribute, bool *in
     }
     if (c == '@') {
       lexer->advance(lexer, false);
-      if (quote(lexer->lookahead)) {
+      if (quote(lexer->lookahead) && !lookahead_attribute_here_string(lexer)) {
         return false;
       }
       continue;

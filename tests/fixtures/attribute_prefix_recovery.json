@@ -553,5 +553,524 @@
       "TypeNotAllowedBeforeParam"
     ],
     "syntax_valid": true
+  },
+  {
+    "name": "Here-string literal brackets preserves variable",
+    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal brackets preserves parameter block",
+    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal brackets preserves following pipeline",
+    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string literal interpolation text preserves variable",
+    "source": "[A()]\n[B(@'\n${unclosed ] $(\n'@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal interpolation text preserves parameter block",
+    "source": "[A()]\n[B(@'\n${unclosed ] $(\n'@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal interpolation text preserves following pipeline",
+    "source": "[A()]\n[B(@'\n${unclosed ] $(\n'@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string literal opposite footer preserves variable",
+    "source": "[A()]\n[B(@'\n\"@ ] body\n'@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal opposite footer preserves parameter block",
+    "source": "[A()]\n[B(@'\n\"@ ] body\n'@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal opposite footer preserves following pipeline",
+    "source": "[A()]\n[B(@'\n\"@ ] body\n'@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string literal indented false footer preserves variable",
+    "source": "[A()]\n[B(@'\n  '@ ] body\n'@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal indented false footer preserves parameter block",
+    "source": "[A()]\n[B(@'\n  '@ ] body\n'@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string literal indented false footer preserves following pipeline",
+    "source": "[A()]\n[B(@'\n  '@ ] body\n'@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string empty literal preserves variable",
+    "source": "[A()]\n[B(@'\n'@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string empty literal preserves parameter block",
+    "source": "[A()]\n[B(@'\n'@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string empty literal preserves following pipeline",
+    "source": "[A()]\n[B(@'\n'@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string smart literal quotes preserves variable",
+    "source": "[A()]\n[B(@‘\n’ ] body\n’@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string smart literal quotes preserves parameter block",
+    "source": "[A()]\n[B(@‘\n’ ] body\n’@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string smart literal quotes preserves following pipeline",
+    "source": "[A()]\n[B(@‘\n’ ] body\n’@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable brackets preserves variable",
+    "source": "[A()]\n[B(@\"\n\" ]foo\n\"@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable brackets preserves parameter block",
+    "source": "[A()]\n[B(@\"\n\" ]foo\n\"@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable brackets preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n\" ]foo\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable variable preserves variable",
+    "source": "[A()]\n[B(@\"\n$x ] $env:PATH\n\"@)]\n$x",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable variable preserves parameter block",
+    "source": "[A()]\n[B(@\"\n$x ] $env:PATH\n\"@)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable variable preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n$x ] $env:PATH\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable braced variable preserves variable",
+    "source": "[A()]\n[B(@\"\n${a\"b} ] body\n\"@)]\n$x",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable braced variable preserves parameter block",
+    "source": "[A()]\n[B(@\"\n${a\"b} ] body\n\"@)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable braced variable preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n${a\"b} ] body\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable multiline variable preserves variable",
+    "source": "[A()]\n[B(@\"\n${a\n\"@\nb}\n\"@)]\n$x",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable multiline variable preserves parameter block",
+    "source": "[A()]\n[B(@\"\n${a\n\"@\nb}\n\"@)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable multiline variable preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n${a\n\"@\nb}\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable subexpression preserves variable",
+    "source": "[A()]\n[B(@\"\n$(\"]\") ] body\n\"@)]\n$x",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable subexpression preserves parameter block",
+    "source": "[A()]\n[B(@\"\n$(\"]\") ] body\n\"@)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable subexpression preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n$(\"]\") ] body\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable collector footer preserves variable",
+    "source": "[A()]\n[B(@\"\n$(\n\"@\n) body\n\"@)]\n$x",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingEndParenthesisInSubexpression",
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ]
+  },
+  {
+    "name": "Here-string expandable collector footer preserves parameter block",
+    "source": "[A()]\n[B(@\"\n$(\n\"@\n) body\n\"@)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingEndParenthesisInSubexpression",
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ]
+  },
+  {
+    "name": "Here-string expandable collector footer preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n$(\n\"@\n) body\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingEndParenthesisInSubexpression",
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable raw parentheses preserves variable",
+    "source": "[A()]\n[B(@\"\n$(\"(\")\") ] body\n\"@)]\n$x",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable raw parentheses preserves parameter block",
+    "source": "[A()]\n[B(@\"\n$(\"(\")\") ] body\n\"@)]\nparam($x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Here-string expandable raw parentheses preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n$(\"(\")\") ] body\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable escaped lf preserves variable",
+    "source": "[A()]\n[B(@\"\n`\n\"@notfooter\nbody\n\"@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable escaped lf preserves parameter block",
+    "source": "[A()]\n[B(@\"\n`\n\"@notfooter\nbody\n\"@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable escaped lf preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n`\n\"@notfooter\nbody\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable escaped crlf preserves variable",
+    "source": "[A()]\n[B(@\"\r\n`\r\n\"@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable escaped crlf preserves parameter block",
+    "source": "[A()]\n[B(@\"\r\n`\r\n\"@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable escaped crlf preserves following pipeline",
+    "source": "[A()]\n[B(@\"\r\n`\r\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable unicode escape preserves variable",
+    "source": "[A()]\n[B(@\"\n`u{5d} body\n\"@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable unicode escape preserves parameter block",
+    "source": "[A()]\n[B(@\"\n`u{5d} body\n\"@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable unicode escape preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n`u{5d} body\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string expandable indented false footer preserves variable",
+    "source": "[A()]\n[B(@\"\n  \"@ ] body\n\"@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable indented false footer preserves parameter block",
+    "source": "[A()]\n[B(@\"\n  \"@ ] body\n\"@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string expandable indented false footer preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n  \"@ ] body\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string empty expandable preserves variable",
+    "source": "[A()]\n[B(@\"\n\"@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string empty expandable preserves parameter block",
+    "source": "[A()]\n[B(@\"\n\"@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string empty expandable preserves following pipeline",
+    "source": "[A()]\n[B(@\"\n\"@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Here-string smart expandable quotes preserves variable",
+    "source": "[A()]\n[B(@“\n” ] body\n”@)]\n$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string smart expandable quotes preserves parameter block",
+    "source": "[A()]\n[B(@“\n” ] body\n”@)]\nparam($x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Here-string smart expandable quotes preserves following pipeline",
+    "source": "[A()]\n[B(@“\n” ] body\n”@)]\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedAttribute",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "A truncated literal here-string header retains an error",
+    "source": "[A()]\n[B(@'",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A truncated literal here-string footer retains an error",
+    "source": "[A()]\n[B(@'\nbody\n'",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "An indented literal here-string footer retains an error",
+    "source": "[A()]\n[B(@'\nbody\n '@",
+    "valid": false,
+    "diagnostics": [
+      "WhitespaceBeforeHereStringFooter",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A literal here-string header with trailing text retains an error",
+    "source": "[A()]\n[B(@'bad",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedCharactersAfterHereStringHeader",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A truncated expandable here-string header retains an error",
+    "source": "[A()]\n[B(@\"",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "A truncated expandable here-string footer retains an error",
+    "source": "[A()]\n[B(@\"\nbody\n\"",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "An indented expandable here-string footer retains an error",
+    "source": "[A()]\n[B(@\"\nbody\n \"@",
+    "valid": false,
+    "diagnostics": [
+      "WhitespaceBeforeHereStringFooter",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
+  },
+  {
+    "name": "An expandable here-string header with trailing text retains an error",
+    "source": "[A()]\n[B(@\"bad",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedCharactersAfterHereStringHeader",
+      "MissingEndParenthesisInExpression",
+      "UnexpectedAttribute"
+    ]
   }
 ]

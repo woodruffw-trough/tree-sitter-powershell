@@ -1,0 +1,97 @@
+==================
+Here-string contents do not absorb a later pipeline
+==================
+[A()]
+[B(@'
+hello ] body
+'@)]
+Write-Output after | next
+---
+(source_file
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list)))
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list
+        (attribute_argument
+          (single_quoted_here_string)))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Expandable interpolation remains inside an attribute during recovery
+==================
+[A()]
+[B(@"
+hello ] $("foo") body
+"@)]
+Write-Output after | next
+---
+(source_file
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list)))
+  (ERROR
+    (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list
+        (attribute_argument
+          (expandable_here_string
+            (string_content)
+            (interpolation
+              expression: (sub_expression
+                (pipeline
+                  elements: (command_expression
+                    expression: (expandable_string
+                      (string_content))))))
+            (string_content))))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A quoted bracket in a literal here-string preserves the attribute target
+==================
+[A()]
+[B(@'
+' ]foo
+'@)]
+$x
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (attributed_expression
+        attribute: (attribute
+          name: (type_name
+            name: (type_identifier))
+          arguments: (argument_list))
+        value: (attributed_expression
+          attribute: (attribute
+            name: (type_name
+              name: (type_identifier))
+            arguments: (argument_list
+              (attribute_argument
+                (single_quoted_here_string))))
+          value: (variable))))))
