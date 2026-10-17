@@ -3088,5 +3088,818 @@
     "name": "exclamation before malformed suffixed command name",
     "source": "!128yfoo",
     "valid": true
+  },
+  {
+    "source": "cmd $$.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $$.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$$.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$$.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $$.M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd $$.M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd -p:$$.M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd -p:$$.M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd $$[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd $$[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$$[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$$[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $$::M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $$::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$$::M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$$::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $$::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd $$::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd -p:$$::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd -p:$$::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd $$=",
+    "valid": true,
+    "name": "variable command boundary 'cmd $$='",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$$=",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$$='",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $$..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $$..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$$..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$$..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $$.(\"M\")",
+    "valid": true,
+    "name": "variable command boundary 'cmd $$.(\"M\")'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$$.(\"M\")",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$$.(\"M\")'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $?.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $?.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$?.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$?.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $?.M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd $?.M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd -p:$?.M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd -p:$?.M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd $?[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd $?[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$?[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$?[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $?::M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $?::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$?::M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$?::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $?::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd $?::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd -p:$?::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd -p:$?::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd $?=",
+    "valid": true,
+    "name": "variable command boundary 'cmd $?='",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$?=",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$?='",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $?..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $?..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$?..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$?..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $?.(\"M\")",
+    "valid": true,
+    "name": "variable command boundary 'cmd $?.(\"M\")'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$?.(\"M\")",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$?.(\"M\")'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $^.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $^.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$^.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$^.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $^.M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd $^.M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd -p:$^.M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd -p:$^.M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd $^[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd $^[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$^[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$^[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $^::M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $^::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$^::M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$^::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $^::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd $^::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd -p:$^::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd -p:$^::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "cmd $^=",
+    "valid": true,
+    "name": "variable command boundary 'cmd $^='",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$^=",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$^='",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $^..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $^..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$^..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$^..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $^.(\"M\")",
+    "valid": true,
+    "name": "variable command boundary 'cmd $^.(\"M\")'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$^.(\"M\")",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$^.(\"M\")'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$$.M)",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$$.M)'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $$.M",
+    "valid": true,
+    "name": "variable command boundary '& $$.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$$[1])",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$$[1])'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $$[1]",
+    "valid": true,
+    "name": "variable command boundary '& $$[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$$::M())",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$$::M())'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $$::M()",
+    "valid": false,
+    "name": "variable command boundary '& $$::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "param($p=$$=)",
+    "valid": false,
+    "name": "variable command boundary 'param($p=$$=)'",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "& $$=",
+    "valid": true,
+    "name": "variable command boundary '& $$='",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$?.M)",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$?.M)'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $?.M",
+    "valid": true,
+    "name": "variable command boundary '& $?.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$?[1])",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$?[1])'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $?[1]",
+    "valid": true,
+    "name": "variable command boundary '& $?[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$?::M())",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$?::M())'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $?::M()",
+    "valid": false,
+    "name": "variable command boundary '& $?::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "param($p=$?=)",
+    "valid": false,
+    "name": "variable command boundary 'param($p=$?=)'",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "& $?=",
+    "valid": true,
+    "name": "variable command boundary '& $?='",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$^.M)",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$^.M)'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $^.M",
+    "valid": true,
+    "name": "variable command boundary '& $^.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$^[1])",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$^[1])'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $^[1]",
+    "valid": true,
+    "name": "variable command boundary '& $^[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=$^::M())",
+    "valid": true,
+    "name": "variable command boundary 'param($p=$^::M())'",
+    "diagnostics": []
+  },
+  {
+    "source": "& $^::M()",
+    "valid": false,
+    "name": "variable command boundary '& $^::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "param($p=$^=)",
+    "valid": false,
+    "name": "variable command boundary 'param($p=$^=)'",
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "& $^=",
+    "valid": true,
+    "name": "variable command boundary '& $^='",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${$}.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${$}.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${$}.M)",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${$}.M)'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${$}[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${$}[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${$}[1])",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${$}[1])'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${$}::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd ${$}::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "param($p=${$}::M())",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${$}::M())'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${$}..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${$}..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${$}..M)",
+    "valid": false,
+    "name": "variable command boundary 'param($p=${$}..M)'",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "cmd ${?}.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${?}.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${?}.M)",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${?}.M)'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${?}[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${?}[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${?}[1])",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${?}[1])'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${?}::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd ${?}::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "param($p=${?}::M())",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${?}::M())'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${?}..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${?}..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${?}..M)",
+    "valid": false,
+    "name": "variable command boundary 'param($p=${?}..M)'",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "cmd ${^}.M",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${^}.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${^}.M)",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${^}.M)'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${^}[1]",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${^}[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${^}[1])",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${^}[1])'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${^}::M()",
+    "valid": false,
+    "name": "variable command boundary 'cmd ${^}::M()'",
+    "diagnostics": [
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "source": "param($p=${^}::M())",
+    "valid": true,
+    "name": "variable command boundary 'param($p=${^}::M())'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd ${^}..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd ${^}..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "param($p=${^}..M)",
+    "valid": false,
+    "name": "variable command boundary 'param($p=${^}..M)'",
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "cmd $x..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $x..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$x..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$x..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $x::M()",
+    "valid": true,
+    "name": "variable command boundary 'cmd $x::M()'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$x::M()",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$x::M()'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $x::",
+    "valid": true,
+    "name": "variable command boundary 'cmd $x::'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$x::",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$x::'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $x?..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd $x?..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$x?..M",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$x?..M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $x?::M()",
+    "valid": true,
+    "name": "variable command boundary 'cmd $x?::M()'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$x?::M()",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$x?::M()'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd $x?::",
+    "valid": true,
+    "name": "variable command boundary 'cmd $x?::'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd -p:$x?::",
+    "valid": true,
+    "name": "variable command boundary 'cmd -p:$x?::'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @$.M",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @$.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @$.M",
+    "valid": true,
+    "name": "special splat command boundary '& @$.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @$[1]",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @$[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @$[1]",
+    "valid": true,
+    "name": "special splat command boundary '& @$[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @$::M",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @$::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @$::M",
+    "valid": true,
+    "name": "special splat command boundary '& @$::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @?.M",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @?.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @?.M",
+    "valid": true,
+    "name": "special splat command boundary '& @?.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @?[1]",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @?[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @?[1]",
+    "valid": true,
+    "name": "special splat command boundary '& @?[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @?::M",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @?::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @?::M",
+    "valid": true,
+    "name": "special splat command boundary '& @?::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @^.M",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @^.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @^.M",
+    "valid": true,
+    "name": "special splat command boundary '& @^.M'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @^[1]",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @^[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @^[1]",
+    "valid": true,
+    "name": "special splat command boundary '& @^[1]'",
+    "diagnostics": []
+  },
+  {
+    "source": "cmd @^::M",
+    "valid": true,
+    "name": "special splat command boundary 'cmd @^::M'",
+    "diagnostics": []
+  },
+  {
+    "source": "& @^::M",
+    "valid": true,
+    "name": "special splat command boundary '& @^::M'",
+    "diagnostics": []
   }
 ]

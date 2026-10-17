@@ -7098,5 +7098,327 @@
     "name": "fractional member accepts a unary member name",
     "source": ".1.!$y",
     "valid": true
+  },
+  {
+    "name": "numeric escape literal command 1",
+    "source": "1.`\n-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 2",
+    "source": "1.`\n.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 3",
+    "source": "1.`\n-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 4",
+    "source": "1.`\r\n-1 tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric escape literal command 5",
+    "source": "1.`\r\n.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 6",
+    "source": "1.`\r\n-$x tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric escape literal command 7",
+    "source": "1.`u{002d}-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 8",
+    "source": "1.`u{002d}.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 9",
+    "source": "1.`u{002d}-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 10",
+    "source": "1.`+-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 11",
+    "source": "1.`+.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 12",
+    "source": "1.`+-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 13",
+    "source": "-1.`\n-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 14",
+    "source": "-1.`\n.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 15",
+    "source": "-1.`\n-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 16",
+    "source": "-1.`\r\n-1 tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric escape literal command 17",
+    "source": "-1.`\r\n.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 18",
+    "source": "-1.`\r\n-$x tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric escape literal command 19",
+    "source": "-1.`u{002d}-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 20",
+    "source": "-1.`u{002d}.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 21",
+    "source": "-1.`u{002d}-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 22",
+    "source": "-1.`+-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 23",
+    "source": "-1.`+.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 24",
+    "source": "-1.`+-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 25",
+    "source": "+1.`\n-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 26",
+    "source": "+1.`\n.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 27",
+    "source": "+1.`\n-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 28",
+    "source": "+1.`\r\n-1 tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric escape literal command 29",
+    "source": "+1.`\r\n.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 30",
+    "source": "+1.`\r\n-$x tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "numeric escape literal command 31",
+    "source": "+1.`u{002d}-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 32",
+    "source": "+1.`u{002d}.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 33",
+    "source": "+1.`u{002d}-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 34",
+    "source": "+1.`+-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 35",
+    "source": "+1.`+.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape literal command 36",
+    "source": "+1.`+-$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 37",
+    "source": "$answer = 1.`\n+1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 38",
+    "source": "$answer = 1.`\n!$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 39",
+    "source": "$answer = 1.`u{002b}+1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 40",
+    "source": "$answer = 1.`u{002b}!$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 41",
+    "source": "$answer = -1.`\n+1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 42",
+    "source": "$answer = -1.`\n!$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 43",
+    "source": "$answer = -1.`u{002b}+1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape assignment command 44",
+    "source": "$answer = -1.`u{002b}!$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 45",
+    "source": "1+`\n2\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 46",
+    "source": "1-`\n2\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 47",
+    "source": "1..`\n3\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 48",
+    "source": "-1+`\n2\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 49",
+    "source": "-1-`\n2\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 50",
+    "source": "-1..`\n3\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 51",
+    "source": "1.`\nfoo\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 52",
+    "source": "-1.`\nfoo\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 53",
+    "source": "1.`\n\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 54",
+    "source": "-1.`\n\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 55",
+    "source": "cmd 1.`\n-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "numeric escape expression control 56",
+    "source": "cmd -1.`\n-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "exclamation numeric escape remains command name",
+    "source": "!1.`\n-1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "assignment exclamation numeric escape remains command name",
+    "source": "$answer = !1.`u{002d}+1 tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "exclamation numeric operator precedes continuation",
+    "source": "!1+`\n2\n",
+    "valid": true
+  },
+  {
+    "name": "signed numeric range operator precedes escaped digit",
+    "source": "-1..`u{0033}\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
   }
 ]

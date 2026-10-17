@@ -1,0 +1,58 @@
+==================
+Special variable index text remains a composite argument
+==================
+cmd $$[1] tail | next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable)
+        (argument_fragment))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Double dot after a variable starts a literal argument
+==================
+cmd $x..M tail | next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (variable))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Data names distinguish generic suffixes from static invocation
+==================
+data X -s $x::M() {}
+data Y -s $$.M {}
+---
+(source_file
+  (data_statement
+    name: (identifier)
+    supported_commands: (invocation_expression
+      function: (member_access
+        object: (variable)
+        member: (identifier))
+      arguments: (argument_list))
+    body: (statement_block))
+  (data_statement
+    name: (identifier)
+    supported_commands: (bare_word)
+    body: (statement_block)))

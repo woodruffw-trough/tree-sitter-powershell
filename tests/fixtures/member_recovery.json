@@ -1,0 +1,74 @@
+[
+  {
+    "name": "special dollar member before newline",
+    "source": "cmd $x.<# member #>$$.M\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "special question static member before newline",
+    "source": "cmd $x::<# member #>$?.M\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "special caret null-conditional member before newline",
+    "source": "cmd $x?.<# member #>$^.M\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "collected special dollar member before newline",
+    "source": "\"$(cmd $x.<# member #>$$.M\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "collected special question static member before newline",
+    "source": "\"$(cmd $x::<# member #>$?.M\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "collected special caret null-conditional member before newline",
+    "source": "\"$(cmd $x?.<# member #>$^.M\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic malformed member before pipeline",
+    "source": "cmd $x.<# member #>$$.M extra | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic malformed member before semicolon",
+    "source": "cmd $x::<# member #>$?.M extra; Write-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "collected generic malformed member before semicolon",
+    "source": "\"$(cmd $x?.<# member #>$^.M extra; Write-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  }
+]

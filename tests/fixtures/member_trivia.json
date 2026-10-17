@@ -813,5 +813,441 @@
     "name": "member trivia: if ($x.'foo') { next }",
     "source": "if ($x.'foo') { next }",
     "valid": true
+  },
+  {
+    "name": "command member comments 1",
+    "source": "cmd ($x)?.\n<# comment #>\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 2",
+    "source": "cmd ($x)?.\n<# comment #>\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 3",
+    "source": "cmd ($x)?.\n<# comment #>\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 4",
+    "source": "cmd ($x)?.\n# comment\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 5",
+    "source": "cmd ($x)?.\n# comment\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 6",
+    "source": "cmd ($x)?.\n# comment\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 7",
+    "source": "cmd ($x)?.\r\n<# first #>\r\n<# second #>\r\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 8",
+    "source": "cmd ($x)?.\r\n<# first #>\r\n<# second #>\r\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 9",
+    "source": "cmd ($x)?.\r\n<# first #>\r\n<# second #>\r\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 10",
+    "source": "cmd @{key=1}?.\n<# comment #>\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 11",
+    "source": "cmd @{key=1}?.\n<# comment #>\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 12",
+    "source": "cmd @{key=1}?.\n<# comment #>\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 13",
+    "source": "cmd @{key=1}?.\n# comment\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 14",
+    "source": "cmd @{key=1}?.\n# comment\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 15",
+    "source": "cmd @{key=1}?.\n# comment\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 16",
+    "source": "cmd @{key=1}?.\r\n<# first #>\r\n<# second #>\r\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 17",
+    "source": "cmd @{key=1}?.\r\n<# first #>\r\n<# second #>\r\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 18",
+    "source": "cmd @{key=1}?.\r\n<# first #>\r\n<# second #>\r\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 19",
+    "source": "cmd $x.foo?.\n<# comment #>\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 20",
+    "source": "cmd $x.foo?.\n<# comment #>\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 21",
+    "source": "cmd $x.foo?.\n<# comment #>\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 22",
+    "source": "cmd $x.foo?.\n# comment\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 23",
+    "source": "cmd $x.foo?.\n# comment\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 24",
+    "source": "cmd $x.foo?.\n# comment\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 25",
+    "source": "cmd $x.foo?.\r\n<# first #>\r\n<# second #>\r\nName tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 26",
+    "source": "cmd $x.foo?.\r\n<# first #>\r\n<# second #>\r\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comments 27",
+    "source": "cmd $x.foo?.\r\n<# first #>\r\n<# second #>\r\n$(Get-Item foo) tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment control 28",
+    "source": "cmd ($x)?.<# comment #>Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment control 29",
+    "source": "cmd ($x)?. <# comment #> Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment control 30",
+    "source": "cmd ($x)?.`\n<# comment #>Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment control 31",
+    "source": "cmd $x.foo?.<# comment #>Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment control 32",
+    "source": "cmd $x.foo?. <# comment #> Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member comment control 33",
+    "source": "cmd $x.foo?.`\n<# comment #>Name tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "command member incomplete comment 34",
+    "source": "cmd ($x)?.\n<# comment #>\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "command member incomplete comment 35",
+    "source": "cmd ($x)?.\n# comment\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "command member incomplete comment 36",
+    "source": "cmd ($x)?.\n<# unterminated",
+    "valid": false,
+    "diagnostics": [
+      "MissingTerminatorMultiLineComment",
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "command member incomplete comment 37",
+    "source": "cmd ($x)?.\n<# comment #>\n-not $y tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "command member incomplete comment 38",
+    "source": "cmd ($x)?.\n<# comment #>\n[int] tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "null conditional name with block then line comments after spaces",
+    "source": "cmd ($x)?. <# one #> # line\nName tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "computed member with block then line comments after spaces",
+    "source": "cmd ($x)?. <# one #> # line\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with block then line comments after spaces",
+    "source": "cmd ($x):: <# one #> # line\n(1+2) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command negation with block then line comments after spaces",
+    "source": "cmd -not  <# one #> # line\n($x) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with first block close then line comment",
+    "source": "cmd ($x)?. <# outer <# inner #> #>\nName tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "computed member with first block close then line comment",
+    "source": "cmd ($x)?. <# outer <# inner #> #>\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with first block close then line comment",
+    "source": "cmd ($x):: <# outer <# inner #> #>\n(1+2) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command negation with first block close then line comment",
+    "source": "cmd -not  <# outer <# inner #> #>\n($x) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with multiple comments with tabs and carriage return",
+    "source": "cmd ($x)?. \t<# one #> \t <# two #> # line\r\nName tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "computed member with multiple comments with tabs and carriage return",
+    "source": "cmd ($x)?. \t<# one #> \t <# two #> # line\r\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with multiple comments with tabs and carriage return",
+    "source": "cmd ($x):: \t<# one #> \t <# two #> # line\r\n(1+2) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "command negation with multiple comments with tabs and carriage return",
+    "source": "cmd -not  \t<# one #> \t <# two #> # line\r\n($x) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with escaped newline before comments",
+    "source": "cmd ($x)?.`\n<# one #> # line\nName tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "computed member with escaped newline before comments",
+    "source": "cmd ($x)?.`\n<# one #> # line\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with escaped newline before comments",
+    "source": "cmd ($x)::`\n<# one #> # line\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command negation with escaped newline before comments",
+    "source": "cmd -not `\n<# one #> # line\n($x) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with escaped horizontal space before comments",
+    "source": "cmd ($x)?.` \t<# one #> # line\nName tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "computed member with escaped horizontal space before comments",
+    "source": "cmd ($x)?.` \t<# one #> # line\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with escaped horizontal space before comments",
+    "source": "cmd ($x)::` \t<# one #> # line\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command negation with escaped horizontal space before comments",
+    "source": "cmd -not ` \t<# one #> # line\n($x) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with escaped newline between comments",
+    "source": "cmd ($x)?.<# one #> `\n # line\nName tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "computed member with escaped newline between comments",
+    "source": "cmd ($x)?.<# one #> `\n # line\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with escaped newline between comments",
+    "source": "cmd ($x)::<# one #> `\n # line\n(1+2) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "command negation with escaped newline between comments",
+    "source": "cmd -not <# one #> `\n # line\n($x) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with block then line comments after spaces in collected interpolation",
+    "source": "\"prefix $(cmd ($x)?. <# one #> # line\nName tail | next\n) suffix\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with block then line comments after spaces in collected interpolation",
+    "source": "\"prefix $(cmd ($x):: <# one #> # line\n(1+2) tail | next\n) suffix\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with first block close then line comment in collected interpolation",
+    "source": "\"prefix $(cmd ($x)?. <# outer <# inner #> #>\nName tail | next\n) suffix\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with first block close then line comment in collected interpolation",
+    "source": "\"prefix $(cmd ($x):: <# outer <# inner #> #>\n(1+2) tail | next\n) suffix\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "null conditional name with multiple comments with tabs and carriage return in collected interpolation",
+    "source": "\"prefix $(cmd ($x)?. \t<# one #> \t <# two #> # line\r\nName tail | next\n) suffix\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static computed member with multiple comments with tabs and carriage return in collected interpolation",
+    "source": "\"prefix $(cmd ($x):: \t<# one #> \t <# two #> # line\r\n(1+2) tail | next\n) suffix\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "method comment adjacency control 30",
+    "source": "cmd ($x).Name <#one#>(1) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method comment adjacency control 31",
+    "source": "cmd ($x).Name<#one#>(1) tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "method comment adjacency control 32",
+    "source": "cmd ($x).Name <#one#> # line\n(1) tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "method comment adjacency control 33",
+    "source": "cmd ($x)?. <#one#> # line\nName() tail | next\n",
+    "valid": true,
+    "diagnostics": []
   }
 ]

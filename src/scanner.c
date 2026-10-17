@@ -47,7 +47,7 @@ enum TokenType {
   SPLAT_EXPRESSION,
   VERBATIM_ARGUMENTS_START,
   VERBATIM_ARGUMENT_TEXT,
-  BRACED_ARGUMENT_VARIABLE,
+  GENERIC_ARGUMENT_VARIABLE,
   FLOW_EXPRESSION_START,
   FLOW_LABEL_END,
   FLOW_PIPE_START,
@@ -1929,10 +1929,17 @@ static bool scan_variable_name(TSLexer *lexer, bool mark_end) {
 }
 
 static bool scan_variable_after_dollar(TSLexer *lexer, const bool *valid, enum TokenType kind) {
+  // In command mode, punctuation after $$, $?, or $^ is generic text rather
+  // than member/index access. Keep that suffix in the same expandable argument.
+  bool special = lexer->lookahead == '$' || lexer->lookahead == '?' || lexer->lookahead == '^';
+  if (special && kind == VARIABLE && valid[GENERIC_ARGUMENT_VARIABLE]) {
+    kind = GENERIC_ARGUMENT_VARIABLE;
+  }
   if (!valid[kind] || !scan_variable_name(lexer, true)) {
     return false;
   }
-  if (kind == BRACED_ARGUMENT_VARIABLE && lexer->lookahead != '=' && lexer->lookahead != ':') {
+  if (kind == GENERIC_ARGUMENT_VARIABLE && !special && lexer->lookahead != '=' &&
+      lexer->lookahead != ':') {
     if (!valid[VARIABLE]) {
       return false;
     }
@@ -2688,8 +2695,8 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   if (!continuation && first == '$') {
     lexer->advance(lexer, false);
     if (variable_start(lexer->lookahead)) {
-      if (lexer->lookahead == '{' && valid[BRACED_ARGUMENT_VARIABLE]) {
-        return scan_variable_after_dollar(lexer, valid, BRACED_ARGUMENT_VARIABLE);
+      if (lexer->lookahead == '{' && valid[GENERIC_ARGUMENT_VARIABLE]) {
+        return scan_variable_after_dollar(lexer, valid, GENERIC_ARGUMENT_VARIABLE);
       }
       return scan_variable_after_dollar(lexer, valid,
                                         valid[VARIABLE] ? VARIABLE : ADJACENT_VARIABLE);
@@ -2908,6 +2915,11 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       }
       any_escape = true;
       numeric_live = false;
+      // An escape invalidates a number ending here. An operator before the
+      // escape can still terminate an earlier numeric prefix.
+      if (numeric_prefix == n) {
+        numeric_prefix = 0;
+      }
       // Backtick escapes one physical character. For CRLF only CR is joined;
       // the LF remains a statement terminator. Cooked `n is token content.
       if (physical_newline) {
@@ -3106,13 +3118,15 @@ static bool scan_data_variable_name_after_prefix(TSLexer *lexer, const bool *val
     return false;
   }
   bool braced = !splat && first == '{';
+  bool special = first == '$' || first == '?' || first == '^';
   if (variable_start(first)) {
     if (!scan_variable_after_dollar(lexer, valid, splat ? SPLAT_EXPRESSION : VARIABLE)) {
       return false;
     }
     int32_t next = lexer->lookahead;
-    if ((generic_end(next) && !quote(next) && next != '<' && next != '>') || next == '.' ||
-        next == '[' || (!braced && next == '=')) {
+    bool primary_suffix =
+        !special && (next == '.' || next == '[' || (!braced && (next == '=' || next == ':')));
+    if ((generic_end(next) && !quote(next) && next != '<' && next != '>') || primary_suffix) {
       return true;
     }
   }
@@ -3543,11 +3557,11 @@ static bool scan_fragment(TSLexer *lexer, const bool *valid) {
   bool variable = valid[VARIABLE_ARGUMENT_FRAGMENT];
   int32_t first = lexer->lookahead;
   bool content = false;
-  // GetMemberAccessOperator leaves spaced command-mode operators as text.
+  // GetMemberAccessOperator leaves spaced dots and ranges as separate literal arguments.
   if (variable && first == '.' && valid[ARGUMENT_END]) {
     lexer->mark_end(lexer);
     lexer->advance(lexer, false);
-    if (horizontal(lexer->lookahead) || newline(lexer->lookahead) ||
+    if (lexer->lookahead == '.' || horizontal(lexer->lookahead) || newline(lexer->lookahead) ||
         (lexer->eof(lexer) && !at_collector_end(lexer))) {
       lexer->result_symbol = ARGUMENT_END;
       return true;
@@ -3775,8 +3789,8 @@ static bool scan_subexpression_start(Scanner *scanner, TSLexer *lexer, const boo
     }
     if (variable_start(lexer->lookahead)) {
       return scan_variable_after_dollar(lexer, valid,
-                                        lexer->lookahead == '{' && valid[BRACED_ARGUMENT_VARIABLE]
-                                            ? BRACED_ARGUMENT_VARIABLE
+                                        lexer->lookahead == '{' && valid[GENERIC_ARGUMENT_VARIABLE]
+                                            ? GENERIC_ARGUMENT_VARIABLE
                                         : valid[VARIABLE] ? VARIABLE
                                                           : ADJACENT_VARIABLE);
     }
@@ -4324,6 +4338,21 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     return false;
   }
   if ((valid[COMMAND_MEMBER_START] || valid[COMMAND_UNARY_START]) && !valid[HERE_STRING_CONTENT]) {
+    bool leading_whitespace = false;
+    while (horizontal(lexer->lookahead)) {
+      leading_whitespace = true;
+      lexer->advance(lexer, true);
+    }
+    if (valid[COMMENT] && (lexer->lookahead == '#' || lexer->lookahead == '<')) {
+      return scan_comment(lexer, valid, leading_whitespace);
+    }
+    if (valid[LINE_CONTINUATION] && lexer->lookahead == '`') {
+      lexer->advance(lexer, false);
+      if (horizontal(lexer->lookahead)) {
+        return scan_escaped_whitespace_after_tick(lexer, valid);
+      }
+      return scan_line_continuation_after_tick(lexer, valid);
+    }
     lexer->mark_end(lexer);
     if (!command_mode_expression_follows(lexer, valid[COMMAND_UNARY_START], true)) {
       return false;
@@ -4575,11 +4604,11 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
       lexer->lookahead != '?' && !decimal_character(lexer->lookahead)) {
     return scan_flow_label(lexer);
   }
-  if ((valid[VARIABLE] || valid[BRACED_ARGUMENT_VARIABLE]) && !valid[COMMAND_NAME] &&
+  if ((valid[VARIABLE] || valid[GENERIC_ARGUMENT_VARIABLE]) && !valid[COMMAND_NAME] &&
       !valid[BARE_WORD] && lexer->lookahead == '$') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == '{' && valid[BRACED_ARGUMENT_VARIABLE]) {
-      return scan_variable_after_dollar(lexer, valid, BRACED_ARGUMENT_VARIABLE);
+    if (lexer->lookahead == '{' && valid[GENERIC_ARGUMENT_VARIABLE]) {
+      return scan_variable_after_dollar(lexer, valid, GENERIC_ARGUMENT_VARIABLE);
     }
     return scan_variable_after_dollar(lexer, valid, VARIABLE);
   }

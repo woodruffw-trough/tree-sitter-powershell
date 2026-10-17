@@ -91,7 +91,11 @@ These can still absorb later commands. Malformed colon commands retain a
 damaged suffix in a sibling `ERROR` where PowerShell includes it in the recovered
 command extent; preceding and following commands remain available. Tree-sitter's
 recovery tree does not promise Microsoft's diagnostic sequence or recovered AST
-for every input.
+for every input. Long runs of invalid attribute prefixes can require quadratic
+lookahead during recovery.
+Some malformed computed member names, including `cmd $x.<#c#>$$.M`, remain
+accepted. Tests separately require the commands after their damaged arguments
+to remain available.
 [Operator recovery tests](../tests/operator_recovery.rs)
 check the command boundaries preserved by supported recovery cases.
 

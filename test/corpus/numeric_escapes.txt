@@ -1,0 +1,39 @@
+======================================================================
+Escaped newline keeps numeric prefix in command name
+======================================================================
+1.`
+-1 tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+======================================================================
+Escaped operator keeps signed numeric prefix in command name
+======================================================================
+$answer = -1.`u{002d}+1 tail | next
+
+---
+
+(source_file
+  (assignment_statement
+    left: (variable)
+    right: (pipeline
+      elements: (command
+        name: (command_name
+          (bare_word))
+        (command_argument
+          (bare_word)))
+      elements: (command
+        name: (command_name
+          (bare_word))))))
+

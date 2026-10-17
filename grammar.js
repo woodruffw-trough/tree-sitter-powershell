@@ -373,7 +373,7 @@ const grammarDefinition = {
     $.splat_expression,
     $._verbatim_arguments_start,
     $._verbatim_argument_text,
-    $._braced_argument_variable,
+    $._generic_argument_variable,
     $._flow_expression_start,
     $._flow_label_end,
     $._flow_pipe_start,
@@ -1415,10 +1415,10 @@ const grammarDefinition = {
         )),
         $._argument_end,
       )),
-      // A braced variable followed immediately by '=' continues a generic
-      // argument. An unbraced variable ends before that character instead.
+      // Braced variables before '=' or ':' and special variables such as $$
+      // retain their following generic text inside the same argument.
       prec.right(1, seq(
-        alias($._braced_argument_variable, $.variable),
+        alias($._generic_argument_variable, $.variable),
         repeat($._generic_argument_continuation),
         $._argument_end,
       )),

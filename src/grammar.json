@@ -8517,7 +8517,7 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_braced_argument_variable"
+                  "name": "_generic_argument_variable"
                 },
                 "named": true,
                 "value": "variable"
@@ -33388,7 +33388,7 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_braced_argument_variable"
+                  "name": "_generic_argument_variable"
                 },
                 "named": true,
                 "value": "variable"
@@ -40565,7 +40565,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_braced_argument_variable"
+      "name": "_generic_argument_variable"
     },
     {
       "type": "SYMBOL",

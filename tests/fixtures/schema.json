@@ -1480,5 +1480,154 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Special variable suffix stays in a complete parameter value",
+    "source": "cmd -Value:$$[1]",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command_parameter",
+        "field": "value",
+        "texts": [
+          "$$[1]"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Special variable suffix stays in a complete redirection destination",
+    "source": "cmd >$$.M",
+    "valid": true,
+    "fields": [
+      {
+        "node": "redirection",
+        "field": "destination",
+        "texts": [
+          "$$.M"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ordinary variable range text starts a separate argument",
+    "source": "cmd $x..M",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command",
+        "field": "",
+        "texts": [
+          "$x",
+          "..M"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Special variable index text stays in one argument",
+    "source": "cmd $$[1]",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command",
+        "field": "",
+        "texts": [
+          "$$[1]"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Data static invocation remains an expression",
+    "source": "data X -s $x::M() {}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "data_statement",
+        "field": "supported_commands",
+        "texts": [
+          "$x::M()"
+        ]
+      },
+      {
+        "node": "invocation_expression",
+        "field": "function",
+        "texts": [
+          "$x::M"
+        ]
+      },
+      {
+        "node": "invocation_expression",
+        "field": "arguments",
+        "texts": [
+          "()"
+        ]
+      },
+      {
+        "node": "member_access",
+        "field": "object",
+        "texts": [
+          "$x"
+        ]
+      },
+      {
+        "node": "member_access",
+        "field": "member",
+        "texts": [
+          "M"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Data special variable suffix remains a literal command name",
+    "source": "data X -s $$.M {}",
+    "valid": true,
+    "fields": [
+      {
+        "node": "data_statement",
+        "field": "supported_commands",
+        "texts": [
+          "$$.M"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Comment extras preserve a complete computed receiver",
+    "source": "cmd ($x)?. <#first#> #second\nName tail",
+    "valid": true,
+    "fields": [
+      {
+        "node": "member_access",
+        "field": "object",
+        "texts": [
+          "($x)"
+        ]
+      },
+      {
+        "node": "member_access",
+        "field": "member",
+        "texts": [
+          "Name"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Numeric escape retains the complete command name",
+    "source": "1.`\n-1 tail | next",
+    "valid": true,
+    "fields": [
+      {
+        "node": "command",
+        "field": "name",
+        "texts": [
+          "1.`\n-1",
+          "next"
+        ]
+      }
+    ]
   }
 ]

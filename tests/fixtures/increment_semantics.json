@@ -113,5 +113,65 @@
     "name": "signed hash key postfix plus retains unary operator",
     "source": "@{+1++=1}",
     "valid": false
+  },
+  {
+    "name": "postfix null conditional named member increment",
+    "source": "($x)?.Name++",
+    "valid": false
+  },
+  {
+    "name": "prefix null conditional computed member increment",
+    "source": "++($x)?.$member",
+    "valid": false
+  },
+  {
+    "name": "postfix null conditional index decrement",
+    "source": "($x)?[0]--",
+    "valid": false
+  },
+  {
+    "name": "prefix null conditional index decrement",
+    "source": "--($x)?[0]",
+    "valid": false
+  },
+  {
+    "name": "assignment null conditional member increment",
+    "source": "$answer = ($x)?.$member++",
+    "valid": false
+  },
+  {
+    "name": "assignment null conditional index decrement",
+    "source": "$answer = ($x)?[0]--",
+    "valid": false
+  },
+  {
+    "name": "command grouped null conditional member increment",
+    "source": "cmd (($x)?.Name++) tail | next",
+    "valid": false
+  },
+  {
+    "name": "command grouped null conditional index decrement",
+    "source": "cmd (($x)?[0]--) tail | next",
+    "valid": false
+  },
+  {
+    "name": "postfix ordinary named member increment",
+    "source": "($x).Name++",
+    "valid": true
+  },
+  {
+    "name": "prefix ordinary computed member increment",
+    "source": "++($x).$member",
+    "valid": true
+  },
+  {
+    "name": "postfix ordinary index decrement",
+    "source": "($x)[0]--",
+    "valid": true
+  },
+  {
+    "name": "command computed member increment operand",
+    "source": "cmd ($x)?.($member++) tail | next",
+    "valid": true
   }
 ]

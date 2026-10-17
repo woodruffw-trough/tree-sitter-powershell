@@ -1,0 +1,81 @@
+======================================================================
+Command member after block comment and newline
+======================================================================
+cmd ($x)?.
+<# comment #>
+Name tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (parenthesized_expression
+            (pipeline
+              elements: (command_expression
+                expression: (variable))))
+          (comment)
+          member: (identifier)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+======================================================================
+Command member after line comment and newline
+======================================================================
+cmd $x.foo?.
+# comment
+$y tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (member_access
+            object: (variable)
+            member: (identifier))
+          (comment)
+          member: (variable)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+
+==================
+Apparent nested block comments end with a separate line comment
+==================
+cmd ($x)?. <# outer <# inner #> #>
+Name tail | next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (parenthesized_expression
+            (pipeline
+              elements: (command_expression
+                expression: (variable))))
+          (comment)
+          (comment)
+          member: (identifier)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

@@ -488,5 +488,370 @@
     "name": "data comma reset 101",
     "source": "param($x=@{a=data -supportedcommand $items[0,1] { (1,2) }})",
     "valid": true
+  },
+  {
+    "source": "data X -s $$.M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $$.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $$.M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $$.M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $$[1] {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $$[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $$::M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $$::M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $$::M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $$::M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $$= {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $$= {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $$..M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $$..M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $$.(\"M\") {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $$.(\"M\") {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $?.M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $?.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $?.M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $?.M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $?[1] {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $?[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $?::M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $?::M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $?::M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $?::M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $?= {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $?= {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $?..M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $?..M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $?.(\"M\") {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $?.(\"M\") {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $^.M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $^.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $^.M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $^.M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $^[1] {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $^[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $^::M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $^::M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $^::M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $^::M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s $^= {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $^= {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $^..M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $^..M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $^.(\"M\") {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $^.(\"M\") {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s ${$}.M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s ${$}.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s ${$}[1] {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s ${$}[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s ${$}::M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s ${$}::M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s ${$}..M {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s ${$}..M {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "source": "data X -s ${?}.M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s ${?}.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s ${?}[1] {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s ${?}[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s ${?}::M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s ${?}::M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s ${?}..M {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s ${?}..M {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "source": "data X -s ${^}.M {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s ${^}.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s ${^}[1] {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s ${^}[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s ${^}::M() {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s ${^}::M() {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "source": "data X -s ${^}..M {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s ${^}..M {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "source": "data X -s $x..M {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $x..M {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "source": "data X -s $x::M() {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $x::M() {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $x:: {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $x:: {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "source": "data X -s $x?..M {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $x?..M {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "source": "data X -s $x?::M() {}",
+    "valid": true,
+    "name": "variable command boundary 'data X -s $x?::M() {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s $x?:: {}",
+    "valid": false,
+    "name": "variable command boundary 'data X -s $x?:: {}'",
+    "diagnostics": [
+      "MissingStatementBlockForDataSection"
+    ]
+  },
+  {
+    "source": "data X -s @$.M {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @$.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @$[1] {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @$[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @$::M {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @$::M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @?.M {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @?.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @?[1] {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @?[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @?::M {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @?::M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @^.M {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @^.M {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @^[1] {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @^[1] {}'",
+    "diagnostics": []
+  },
+  {
+    "source": "data X -s @^::M {}",
+    "valid": true,
+    "name": "special splat command boundary 'data X -s @^::M {}'",
+    "diagnostics": []
   }
 ]
