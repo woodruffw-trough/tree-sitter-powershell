@@ -2473,5 +2473,1349 @@
       "TooManyDigitsInUnicodeEscapeSequence",
       "TerminatorExpectedAtEndOfString"
     ]
+  },
+  {
+    "name": "Scripting/CleanBlockErrorHandling.Tests.ps1:1346 table Script",
+    "source": "test-1 -EmitException | test-2 | test-3",
+    "upstream": "test/powershell/Language/Scripting/CleanBlockErrorHandling.Tests.ps1#L1346",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CleanBlockErrorHandling.Tests.ps1:1347 table Script",
+    "source": "test-1 | test-2 -EmitException | test-3",
+    "upstream": "test/powershell/Language/Scripting/CleanBlockErrorHandling.Tests.ps1#L1347",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CleanBlockErrorHandling.Tests.ps1:1348 table Script",
+    "source": "test-1 | test-2 | test-3 -EmitException",
+    "upstream": "test/powershell/Language/Scripting/CleanBlockErrorHandling.Tests.ps1#L1348",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:6 table Script",
+    "source": "\n                function foo\n                {\n                    [CmdletBinding()]\n                    param()\n\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L6",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:24 table Script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding()]\n                    param()\n\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L24",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:33 table Script",
+    "source": "\n                {\n                    [CmdletBinding()]\n                    param()\n\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L33",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:42 table Script",
+    "source": "\n                function get-foo\n                {\n                    param([Parameter(mandatory=$true)]$a)\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L42",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:50 table Script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true)]\n                    param([Parameter(mandatory=$true)]$a)\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L50",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:59 table Script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact=\"low\")]\n                    param([Parameter(mandatory=$true)]$a)\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L59",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:68 table Script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact=\"low\", defaultparametersetname=\"set1\")]\n                    param([Parameter(mandatory=$true)]$a)\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L68",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:77 table Script",
+    "source": "\n                function get-foo {\n                    [CmdletBinding()]\n                    param()\n\n\t            function get-bar\n                    {\n                        param([Parameter(mandatory=$true)]$a)\n                        $a\n                    }\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L77",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:90 table Script",
+    "source": "\n                {\n                    param([Parameter(mandatory=$true)]$a)\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L90",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CmdletDeclaration.Tests.ps1:104 table Script",
+    "source": "\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true)]\n                    param([Parameter(mandatory=$true)]$a)\n                    $a\n                }",
+    "upstream": "test/powershell/Language/Scripting/CmdletDeclaration.Tests.ps1#L104",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:18 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding()]\n                    param()\n\n                    write-output 'output foo'\n                    write-debug  'debug foo'\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L18",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:53 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding()]\n                    param()\n\n                    write-output 'output foo'\n                    write-verbose  'verbose foo'\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L53",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:89 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding()]\n                    param()\n\n                    write-error  'error foo'\n                    write-output 'output foo'\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L89",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:151 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true)]\n                    param()\n\n                    if($PSCmdlet.shouldprocess(\"foo\", \"foo action\"))\n                    {\n                        write-output \"foo action\"\n                    }\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L151",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:202 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(supportsshouldprocess=$true, ConfirmImpact=\"none\")]\n                    param()\n\n                    if($PSCmdlet.shouldprocess(\"foo\", \"foo action\"))\n                    {\n                        write-output \"foo action\"\n                    }\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L202",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:236 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact=\"low\")]\n                    param()\n\n                    if($PSCmdlet.shouldprocess(\"foo\", \"foo action\"))\n                    {\n                        write-output \"foo action\"\n                    }\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L236",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:271 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact=\"medium\")]\n                    param()\n\n                    if($PSCmdlet.shouldprocess(\"foo\", \"foo action\"))\n                    {\n                        write-output \"foo action\"\n                    }\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L271",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:307 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact=\"high\")]\n                    param()\n\n                    if($PSCmdlet.shouldprocess(\"foo\", \"foo action\"))\n                    {\n                        write-output \"foo action\"\n                    }\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L307",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/CommonParameters.Tests.ps1:343 assignment $script",
+    "source": "\n                function get-foo\n                {\n                    [CmdletBinding()]\n                    param()\n\n                    if($PSCmdlet.shouldcontinue(\"foo\", \"foo action\"))\n                    {\n                        write-output \"foo action\"\n                    }\n                }",
+    "upstream": "test/powershell/Language/Scripting/CommonParameters.Tests.ps1#L343",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:23 table Script",
+    "source": "Write-Output \"Hi\"; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L23",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:24 table Script",
+    "source": "Write-Error \"Bad\"; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L24",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:25 table Script",
+    "source": "Write-Error \"Bad\"; Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L25",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:28 table Script",
+    "source": "testexe -returncode 0; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L28",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:29 table Script",
+    "source": "testexe -returncode 1; Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L29",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:32 table Script",
+    "source": "\"Hi\"; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L32",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:33 table Script",
+    "source": "Write-Error \"Bad\"; \"Hi\"; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L33",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:36 table Script",
+    "source": "(Write-Output \"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L36",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:37 table Script",
+    "source": "Write-Error \"Bad\"; (\"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L37",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:38 table Script",
+    "source": "(Write-Error \"Bad\"); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L38",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:39 table Script",
+    "source": "(testexe -returncode 0); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L39",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:40 table Script",
+    "source": "(testexe -returncode 1); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L40",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:43 table Script",
+    "source": "$(\"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L43",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:44 table Script",
+    "source": "Write-Error \"Bad\"; $(\"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L44",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:45 table Script",
+    "source": "$(); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L45",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:46 table Script",
+    "source": "Write-Error \"Bad\"; $(); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L46",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:47 table Script",
+    "source": "$(Write-Error \"Bad\"); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L47",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:48 table Script",
+    "source": "$(testexe -returncode 1); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L48",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:49 table Script",
+    "source": "Write-Error \"Bad\"; $(trap { continue }); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L49",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:50 table Script",
+    "source": "Write-Error \"Bad\"; $(trap { continue } \"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L50",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:53 table Script",
+    "source": "@(\"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L53",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:54 table Script",
+    "source": "@(); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L54",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:55 table Script",
+    "source": "Write-Error \"Bad\"; @(\"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L55",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:56 table Script",
+    "source": "Write-Error \"Bad\"; @(); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L56",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:57 table Script",
+    "source": "Write-Error \"Bad\"; @(\"Hi\", \"There\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L57",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:58 table Script",
+    "source": "Write-Error \"Bad\"; @(\"Hi\"; \"There\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L58",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:59 table Script",
+    "source": "Write-Error \"Bad\"; @(trap { continue }); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L59",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:60 table Script",
+    "source": "Write-Error \"Bad\"; @(trap { continue } \"Hi\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L60",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:61 table Script",
+    "source": "Write-Error \"Bad\"; @(trap { continue } \"Hi\", \"There\"); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L61",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:62 table Script",
+    "source": "@(Write-Error \"Bad\"); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L62",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:63 table Script",
+    "source": "@(Write-Error \"Bad\"; \"Hi\"); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L63",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:64 table Script",
+    "source": "@(\"Hi\"; Write-Error \"Bad\"); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L64",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:65 table Script",
+    "source": "@(Write-Error \"Bad\"; Write-Output \"Hi\"); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L65",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:66 table Script",
+    "source": "@(Write-Output \"Hi\"; Write-Error \"Bad\"); Hook $?; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L66",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:77 table Expression",
+    "source": "\"Hi $(\"Good\")\"; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L77",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:78 table Expression",
+    "source": "\"Hi $(Write-Error \"Bad\")\"; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L78",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:79 table Expression",
+    "source": "\"Hi $(Write-Output \"Good\")\"; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L79",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:90 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" > $null; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L90",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:91 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" >> $null; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L91",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:92 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" > TESTDRIVE:\\out.txt; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L92",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:93 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" >> TESTDRIVE:\\out.txt; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L93",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:94 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" 2> $null; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L94",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:95 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" 2>> $null; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L95",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:96 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" 2> TESTDRIVE:\\out.txt; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L96",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:97 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" 2>> TESTDRIVE:\\out.txt; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L97",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:98 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" 2>&1; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L98",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:100 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" 2>&1 > $null; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L100",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:101 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; \"b\" 2>&1 > TESTDRIVE:\\out.txt; Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L101",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:103 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" > $null); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L103",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:104 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" >> $null); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L104",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:105 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" > TESTDRIVE:\\out.txt); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L105",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:106 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" >> TESTDRIVE:\\out.txt); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L106",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:107 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" 2> $null); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L107",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:108 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" 2>> $null); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L108",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:109 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" 2> TESTDRIVE:\\out.txt); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L109",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:110 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" 2>> TESTDRIVE:\\out.txt); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L110",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:111 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" 2>&1); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L111",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:112 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" 2>&1 > $null); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L112",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:113 table Expression",
+    "source": "Write-Error \"Bad\"; Hook $?; (\"b\" 2>&1 > TESTDRIVE:\\out.txt); Hook $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L113",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:151 table Expression",
+    "source": "1/0 > $null; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L151",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:152 table Expression",
+    "source": "1/0 >> $null; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L152",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:153 table Expression",
+    "source": "1/0 > TESTDRIVE:\\out.txt; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L153",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:154 table Expression",
+    "source": "1/0 >> TESTDRIVE:\\out.txt; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L154",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:155 table Expression",
+    "source": "1/0 2>&1; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L155",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:156 table Expression",
+    "source": "1/0 2>&1 > $null; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L156",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:157 table Expression",
+    "source": "1/0 2>&1 > TESTDRIVE:\\out.txt; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L157",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:159 table Expression",
+    "source": "\"b\" > NonExistDrive:\\nowhere.txt; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L159",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:160 table Expression",
+    "source": "\"b\" >> NonExistDrive:\\nowhere.txt; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L160",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/DollarHook.Tests.ps1:161 table Expression",
+    "source": "\"b\" 2>&1 > NonExistDrive:\\nowhere.txt; $?",
+    "upstream": "test/powershell/Language/Scripting/DollarHook.Tests.ps1#L161",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/PipelineBehaviour.Tests.ps1:555 assignment $script",
+    "source": "    function test {\n        process { Start-Sleep -Seconds 10 }\n        clean { Write-Information \"CLEAN\" }\n    }",
+    "upstream": "test/powershell/Language/Scripting/PipelineBehaviour.Tests.ps1#L555",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/ScriptHelp.Tests.ps1:286 assignment $script",
+    "source": "            <#\n            .SYNOPSIS\n                This is script help\n            #>\n\n            <#\n            .SYNOPSIS\n                This is function help for helpFunc2\n            #>\n            function helpFunc2 {}\n\n            get-help helpFunc2",
+    "upstream": "test/powershell/Language/Scripting/ScriptHelp.Tests.ps1#L286",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/ScriptHelp.Tests.ps1:310 assignment $script",
+    "source": "        #\n        # .SYNOPSIS\n        #    This is script help\n        #\n\n        #\n        # .SYNOPSIS\n        #    This is function help for helpFunc2\n        #\n        function helpFunc2 {}\n\n        get-help helpFunc2",
+    "upstream": "test/powershell/Language/Scripting/ScriptHelp.Tests.ps1#L310",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/ScriptHelp.Tests.ps1:335 assignment $script",
+    "source": "        ###########################################\n        #\n        # Psuedo-Copyright header comment\n        #\n        ###########################################\n\n        #requires -version 2.0\n\n        #\n        # .Synopsis\n        #\tChanges Admin passwords across all KDE servers.\n        #\n        [CmdletBinding(DefaultParameterSetName=\"Live\")]\n        param(\n        [Parameter(\n\t        ParameterSetName=\"Live\",\n\t        Mandatory=$true)]\n        $live,\n        [Parameter(\n\t        ParameterSetName=\"Test\",\n\t        Mandatory=$true)]\n        $test)",
+    "upstream": "test/powershell/Language/Scripting/ScriptHelp.Tests.ps1#L335",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/Debugging/Debugging.Tests.ps1:57 assignment $script",
+    "source": "'aaa'.ToString() > $null\n'aa' > $null\n\"a\" 2> $null | ForEach-Object { $_ }\n'bb' > $null\n'bb'.ToSTring() > $null\n'bbb'",
+    "upstream": "test/powershell/Language/Scripting/Debugging/Debugging.Tests.ps1#L57",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/Debugging/Debugging.Tests.ps1:83 assignment $script",
+    "source": "$test = 1..2\nswitch ($test)\n{\n    default {}\n}",
+    "upstream": "test/powershell/Language/Scripting/Debugging/Debugging.Tests.ps1#L83",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/Debugging/Debugging.Tests.ps1:382 assignment $script",
+    "source": "\"line 1\"\n\"line 2\"\n\"line 3\"",
+    "upstream": "test/powershell/Language/Scripting/Debugging/Debugging.Tests.ps1#L382",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Scripting/Debugging/DebuggingInHost.Tests.ps1:51 assignment $script",
+    "source": "            $rs = Get-Runspace -Id 1\n            if ($null -eq $rs) { throw 'Runspace not found' }\n            return $rs.Debugger.GetCallStack()",
+    "upstream": "test/powershell/Language/Scripting/Debugging/DebuggingInHost.Tests.ps1#L51",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Classes/Scripting.Classes.BasicParsing.Tests.ps1:449 assignment $TestScript",
+    "source": "            class TestMethodNames : IDisposable {\n                [string] Begin() { return \"Begin\" }\n\n                [string] Process() { return \"Process\" }\n\n                [string] End() { return \"End\" }\n\n                hidden $Data = \"Secrets\"\n\n                Dispose() {\n                    $this.Data = [string]::Empty\n                }\n            }\n            $Object = [TestMethodNames]::new()\n            [PSCustomObject]@{\n                BeginTest   = $Object.Begin()\n                ProcessTest = $Object.Process()\n                EndTest     = $Object.End()\n                CheckData1  = $Object.Data\n                CheckData2  = $( $Object.Dispose(); $Object.Data )\n            }",
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L449",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Classes/Scripting.Classes.BasicParsing.Tests.ps1:516 assignment $TestScript",
+    "source": "            $Object = [Test]::new()\n            $Object.GetData()",
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L516",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Classes/Scripting.Classes.BasicParsing.Tests.ps1:774 [scriptblock]::Create",
+    "source": "enum EE {one = 1}\nfunction test-it([EE]$ee){$ee}",
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L774",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Classes/Scripting.Classes.BasicParsing.Tests.ps1:801 [scriptblock]::Create",
+    "source": "class A {static [int] $a }; [A]::new()",
+    "upstream": "test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1#L801",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Classes/scripting.Classes.inheritance.tests.ps1:614 [scriptblock]::Create",
+    "source": "class Base\n{\n    [int] foo() { return 100 }\n}\n\nclass Derived : Base\n{\n    [int] foo() { return 2 * ([Base]$this).foo() }\n}\n\n[Derived]::new().foo()",
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L614",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Classes/scripting.Classes.inheritance.tests.ps1:662 [scriptblock]::Create",
+    "source": "class WillFail : System.IO.FileSystemInfo { [string] $Name }",
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1#L662",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Classes/scripting.Classes.using.tests.ps1:188 [scriptblock]::Create",
+    "source": "class Foo {}\nNew-Object Foo",
+    "upstream": "test/powershell/Language/Classes/scripting.Classes.using.tests.ps1#L188",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LanguageAndParser.TestFollowup.Tests.ps1:86 assignment $script",
+    "source": "    # First create a hashtable wrapped in PSObject\n    $hash = New-Object hashtable\n    $key = [ConsoleColor]::Red\n    $null = $hash.$key\n    $hash = @{}\n    $hash.$key = 'Hello'\n    # works in PS 2,3,4. Fails in PS 5:\n    $hash.$key",
+    "upstream": "test/powershell/Language/Parser/LanguageAndParser.TestFollowup.Tests.ps1#L86",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:16 assignment $script",
+    "source": "'Hello' + `\n    ' world'",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L16",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:24 assignment $script",
+    "source": "'Hello' + `\r' world'",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L24",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:40 assignment $script",
+    "source": "'Hello' + ` # You can place comments after whitespace following backticks\n    ' world'",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L40",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:48 assignment $script",
+    "source": "'Hello' + `\n# You can place comments in the middle of a continued line\n    ' world'",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L48",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:79 assignment $script",
+    "source": "'Hello' |\n    ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L79",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:87 assignment $script",
+    "source": "'Hello' |\r    ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L87",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:103 assignment $script",
+    "source": "'Hello' |# You can place comments after whitespace following pipes\n    ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L103",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:111 assignment $script",
+    "source": "'Hello' |\n# You can place comments in the middle of a continued pipeline\n    ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L111",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:143 assignment $script",
+    "source": "'Hello'\n    | ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L143",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:151 assignment $script",
+    "source": "'Hello'\r    | ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L151",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:156 assignment $script",
+    "source": "1..10\n    | ForEach-Object {($_ -shl 1) + $_}\n    | Where-Object {$_ % 2 -eq 0}\n    | Sort-Object -Descending",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L156",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:166 assignment $script",
+    "source": "'Hello'\n    # You can place comments before continued pipelines\n    | ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L166",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:175 assignment $script",
+    "source": "1..10\n    # Times three\n    | ForEach-Object {($_ -shl 1) + $_}\n    # Even only\n    | Where-Object {$_ % 2 -eq 0}\n    # Reverse order\n    | Sort-Object -Descending",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L175",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:188 assignment $script",
+    "source": "'Hello'\n    |\n    ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L188",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:198 assignment $script",
+    "source": "1..10\n    |\n    ForEach-Object {($_ -shl 1) + $_}\n    |\n    Where-Object {$_ % 2 -eq 0}\n    |\n    Sort-Object -Descending",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L198",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:211 assignment $script",
+    "source": "'Hello'\n    |\n    # You can place comments before continued pipelines\n    ForEach-Object {\"$_ world\"}",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L211",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:221 assignment $script",
+    "source": "1..10\n    |\n    # Times three\n    ForEach-Object {($_ -shl 1) + $_}\n    |\n    # Even only\n    Where-Object {$_ % 2 -eq 0}\n    |\n    # Reverse order\n    Sort-Object -Descending",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L221",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:9 table Script",
+    "source": "[Array]::Empty[string]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L9",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:13 table Script",
+    "source": "[Array]::Empty[System.Collections.Generic.Dictionary[System.Numerics.BigInteger, System.Collections.Generic.List[string[,]]]]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L13",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:20 table Script",
+    "source": "[object]::Property[[type]]",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L20",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:25 table Script",
+    "source": "$object.IPSubnet[[Array]::IndexOf($_.IPAddress, $_.IPAddress[0])]",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L25",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:30 table Script",
+    "source": "                    [IPAddress]::Parse(\n                        $_.IPSubnet[\n                            [Array]::IndexOf($_.IPAddress, $_.IPAddress[0])\n                        ]\n                    )",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L30",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:41 table Script",
+    "source": "                    [IPAddress]::Parse(\n                        $_.IPSubnet[\n                            ([Array]::IndexOf($_.IPAddress, $_.IPAddress[0]))\n                        ]\n                    )",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L41",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:720 table Script",
+    "source": "if (\"A\") { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L720",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:721 table Script",
+    "source": "if (\" \") { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L721",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:722 table Script",
+    "source": "if (\"String with spaces\") { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L722",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:723 table Script",
+    "source": "if (\"DoubleQuoted\") { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L723",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:724 table Script",
+    "source": "if (\"StringWithNullVar$aEmbedded\") { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L724",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:725 table Script",
+    "source": "if (0) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L725",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:726 table Script",
+    "source": "$a = $(0);if ($a) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L726",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:727 table Script",
+    "source": "$obj = testcmd-parserBVT -ReturnType object;if ($obj) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L727",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:737 table Script",
+    "source": "if (1 -and 1) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L737",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:738 table Script",
+    "source": "if (1 -and 0) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L738",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:739 table Script",
+    "source": "if (0 -and 1) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L739",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:740 table Script",
+    "source": "if (0 -and 0) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L740",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:741 table Script",
+    "source": "if (1 -or 1) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L741",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:742 table Script",
+    "source": "if (1 -or 0) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L742",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:743 table Script",
+    "source": "if (0 -or 1) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L743",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:744 table Script",
+    "source": "if (0 -or 0) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L744",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:746 table Script",
+    "source": "if ($false -eq $true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L746",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:747 table Script",
+    "source": "if ($false -and $true -eq $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L747",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:749 table Script",
+    "source": "if ($false -ieq $true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L749",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:750 table Script",
+    "source": "if ($false -and $true -ieq $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L750",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:752 table Script",
+    "source": "if ($false -le $true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L752",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:753 table Script",
+    "source": "if ($false -and $true -le $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L753",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:755 table Script",
+    "source": "if ($false -ile $true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L755",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:756 table Script",
+    "source": "if ($false -and $true -ile $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L756",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:758 table Script",
+    "source": "if ($false -ge $true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L758",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:759 table Script",
+    "source": "if ($false -and $true -ge $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L759",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:761 table Script",
+    "source": "if ($false -ige $true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L761",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:762 table Script",
+    "source": "if ($false -and $true -ige $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L762",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:764 table Script",
+    "source": "if ($false -like $true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L764",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:765 table Script",
+    "source": "if ($false -and $true -like $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L765",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:767 table Script",
+    "source": "if (!$true -and $false) { $true } else { $false }",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L767",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:777 table Script",
+    "source": "$a=10; if( !$a -eq 10) { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L777",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:779 table Script",
+    "source": "$a=10; if($a -lt 15) { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L779",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:783 table Script",
+    "source": "$a=10; if($a -gt 15) { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L783",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:787 table Script",
+    "source": "$a=10; if($a -ge 10) { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L787",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:789 table Script",
+    "source": "$a=10; if($a -ne 10) { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L789",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:793 table Script",
+    "source": "$a=\"abc\"; if($a -ieq \"ABC\") { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L793",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:795 table Script",
+    "source": "$a=\"abc\"; if($a -igt \"bbc\") { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L795",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:797 table Script",
+    "source": "$a=\"abc\"; if($a -ile \"bbc\") { $a=1 } else {$a=2};$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L797",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:808 table Script",
+    "source": "@(3) -eq 3",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L808",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:809 table Script",
+    "source": "@(4) -eq 3",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L809",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:810 table Script",
+    "source": "@() -eq 3",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L810",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:811 table Script",
+    "source": "$test = 1,2,@(3,4);$test -eq 3",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L811",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:812 table Script",
+    "source": "$test = 1,2,@(3,4);$test -eq 2",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L812",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:813 table Script",
+    "source": "$test = 1,2,@(3,4);$test -eq 0",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L813",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1265 table Script",
+    "source": "$a=6; $a -= 2;$a",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1265",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1269 table Script",
+    "source": "20 %\n                    6",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1269",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1274 table Script",
+    "source": "(20 %\n                    6 *\n                    4  +\n                    2 ) /\n                    2 -\n                    3",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1274",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1339 table script",
+    "source": "#requires -Version 5.0\n10",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1339",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1340 table script",
+    "source": "Write-Host 'Hello'\n#requires -Version 5.0\n7",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1340",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1341 table script",
+    "source": "Write-Host 'Hello'\n#requires -Version 5.0",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1341",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:355 table Script",
+    "source": "$true?2:3",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L355",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:356 table Script",
+    "source": "$false?",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L356",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:357 table Script",
+    "source": "$:abc",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L357",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:358 table Script",
+    "source": "$env:abc",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L358",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:359 table Script",
+    "source": "$env:123",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L359",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:472 table Script",
+    "source": "switch (1) {default {0} 1 {1}}",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L472",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:482 table Script",
+    "source": "switch (1) {\"default\" {0} 1 {1}}",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L482",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:492 table Script",
+    "source": "switch (1) {adefault {0} 1 {1}}",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L492",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:502 table Script",
+    "source": "foreach ($i in 1..2) {$i}",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L502",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:672 assignment $Script",
+    "source": "[string]::join(\" \", (0, 1, 2)[0, 1])",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L672",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:681 assignment $Script",
+    "source": "[System.Tuple[System.String[],System.Int32[]]]",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L681",
+    "valid": true,
+    "diagnostics": []
   }
 ]

@@ -28,5 +28,10 @@
     "name": "PowerShell v7.5.4 tools/packaging/packaging.psm1",
     "path": "powershell-7.5.4/tools/packaging/packaging.psm1",
     "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1",
+    "valid": true
   }
 ]

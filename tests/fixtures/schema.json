@@ -1063,5 +1063,50 @@
         ]
       }
     ]
+  },
+  {
+    "name": "empty method arguments retain list field with whitespace",
+    "source": "$x.M( ); [int]::new(\t); $x.M[int]( )",
+    "valid": true,
+    "fields": [
+      {
+        "node": "invocation_expression",
+        "field": "arguments",
+        "texts": [
+          "( )",
+          "(\t)",
+          "( )"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "empty script and parameter attributes retain list field",
+    "source": "[CmdletBinding( )]param([Parameter(\t)]$x)",
+    "valid": true,
+    "fields": [
+      {
+        "node": "attribute",
+        "field": "arguments",
+        "texts": [
+          "( )",
+          "(\t)"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "empty base constructor arguments retain list field",
+    "source": "class C { C():base( ) {} }",
+    "valid": true,
+    "fields": [
+      {
+        "node": "base_constructor_call",
+        "field": "arguments",
+        "texts": [
+          "( )"
+        ]
+      }
+    ]
   }
 ]

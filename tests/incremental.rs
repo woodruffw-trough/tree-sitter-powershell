@@ -192,6 +192,9 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "[int, x, y = z]\n[List[[string, a[b, Culture = neutral]]]\n",
         "param([int, x, y = z]$x)\n$x\n",
         "function \0f {}\nfilter \0\"name\" {}\n",
+        "$x.M( ); [int]::new(\t); $x.M[int](\u{a0})\n",
+        "[CmdletBinding( )]param([Parameter( )]$x)\n",
+        "class C { C():base( ) {} }\n",
     ]
     .into_iter()
     .map(|source| (source, true))

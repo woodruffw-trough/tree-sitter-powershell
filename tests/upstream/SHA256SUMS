@@ -4,3 +4,4 @@ b5b33850766c31dc5592c5cca49e8f99a12d22edd72126d0e43f446113d44397  tests/upstream
 e3aded519b0118d3b8053aa3d8b0fd218744a2e3dde2091e0a5058a9ea27049a  tests/upstream/powershell-7.5.4/test/powershell/Modules/Microsoft.PowerShell.Core/Get-Command.Tests.ps1
 09ce2c5603af140136019db4f0d9e0fafea7bc4c10d0663960ff89c8fd30d1d4  tests/upstream/powershell-7.5.4/tools/install-powershell.ps1
 a645f8be44ff02a1cf6197ae7083cdae79219daaf545abafe13d8b22f69b68cf  tests/upstream/powershell-7.5.4/tools/packaging/packaging.psm1
+cb5f3eaa806f778d6fb6d4b0e22f4dea17cd54cb9af037a52614048df69fbe1d  tests/upstream/powershell-7.5.4/test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1

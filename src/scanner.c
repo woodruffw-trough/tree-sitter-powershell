@@ -4227,6 +4227,15 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     lexer->result_symbol = CONFIGURATION_NAME_START;
     return true;
   }
+  if (lexer->lookahead == ')' && valid[RIGHT_PAREN]) {
+    if (lexer->eof(lexer)) {
+      return false;
+    }
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = RIGHT_PAREN;
+    return true;
+  }
   // Let extras consume trivia before classifying the following expression.
   if (!valid[HERE_STRING_CONTENT] && lexer->lookahead != '#' && lexer->lookahead != '<' &&
       lexer->lookahead != '`' &&
@@ -4263,15 +4272,6 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     lexer->advance(lexer, false);
     lexer->mark_end(lexer);
     lexer->result_symbol = LEFT_PAREN;
-    return true;
-  }
-  if (lexer->lookahead == ')' && valid[RIGHT_PAREN]) {
-    if (lexer->eof(lexer)) {
-      return false;
-    }
-    lexer->advance(lexer, false);
-    lexer->mark_end(lexer);
-    lexer->result_symbol = RIGHT_PAREN;
     return true;
   }
   // Do not scan permissive assembly text in the all-token recovery state.

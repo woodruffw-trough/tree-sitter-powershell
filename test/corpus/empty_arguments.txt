@@ -1,0 +1,67 @@
+================================================================================
+Empty method arguments preserve following command elements
+================================================================================
+cmd $x.M( ) -After | next
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (invocation_expression
+          function: (member_access
+            object: (variable)
+            member: (identifier))
+          arguments: (argument_list)))
+      (command_parameter
+        name: (command_parameter_name)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+================================================================================
+Whitespace inside attribute argument lists
+================================================================================
+[CmdletBinding( )]
+param([Parameter( )]$x)
+--------------------------------------------------------------------------------
+
+(source_file
+  (param_block
+    attributes: (attribute
+      name: (type_name
+        name: (type_identifier))
+      arguments: (argument_list))
+    parameters: (parameter_list
+      (parameter
+        attributes: (attribute
+          name: (type_name
+            name: (type_identifier))
+          arguments: (argument_list))
+        name: (variable)))))
+
+================================================================================
+Base constructor empty arguments allow horizontal and vertical whitespace
+================================================================================
+class C {
+    C()
+        :
+        base
+        (
+           )
+        {}
+}
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    name: (identifier)
+    body: (class_body
+      members: (class_method
+        name: (identifier)
+        parameters: (parameter_list)
+        base_constructor: (base_constructor_call
+          arguments: (argument_list))
+        body: (statement_block)))))

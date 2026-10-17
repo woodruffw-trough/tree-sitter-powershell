@@ -1,0 +1,416 @@
+[
+  {
+    "name": "instance invocation empty arguments with space",
+    "source": "$x.M( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with space",
+    "source": "[int]::new( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with space",
+    "source": "$x.M[int]( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with space",
+    "source": "param([Parameter( )]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with space",
+    "source": "[CmdletBinding( )]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with space",
+    "source": "class C {[Obsolete( )]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with space",
+    "source": "class C {C():base( ){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with tab",
+    "source": "$x.M(\t)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with tab",
+    "source": "[int]::new(\t)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with tab",
+    "source": "$x.M[int](\t)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with tab",
+    "source": "param([Parameter(\t)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with tab",
+    "source": "[CmdletBinding(\t)]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with tab",
+    "source": "class C {[Obsolete(\t)]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with tab",
+    "source": "class C {C():base(\t){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with mixed",
+    "source": "$x.M( \t  )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with mixed",
+    "source": "[int]::new( \t  )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with mixed",
+    "source": "$x.M[int]( \t  )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with mixed",
+    "source": "param([Parameter( \t  )]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with mixed",
+    "source": "[CmdletBinding( \t  )]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with mixed",
+    "source": "class C {[Obsolete( \t  )]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with mixed",
+    "source": "class C {C():base( \t  ){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with nonbreaking space",
+    "source": "$x.M( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with nonbreaking space",
+    "source": "[int]::new( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with nonbreaking space",
+    "source": "$x.M[int]( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with nonbreaking space",
+    "source": "param([Parameter( )]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with nonbreaking space",
+    "source": "[CmdletBinding( )]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with nonbreaking space",
+    "source": "class C {[Obsolete( )]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with nonbreaking space",
+    "source": "class C {C():base( ){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with unicode space",
+    "source": "$x.M( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with unicode space",
+    "source": "[int]::new( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with unicode space",
+    "source": "$x.M[int]( )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with unicode space",
+    "source": "param([Parameter( )]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with unicode space",
+    "source": "[CmdletBinding( )]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with unicode space",
+    "source": "class C {[Obsolete( )]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with unicode space",
+    "source": "class C {C():base( ){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with newline",
+    "source": "$x.M(\n)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with newline",
+    "source": "[int]::new(\n)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with newline",
+    "source": "$x.M[int](\n)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with newline",
+    "source": "param([Parameter(\n)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with newline",
+    "source": "[CmdletBinding(\n)]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with newline",
+    "source": "class C {[Obsolete(\n)]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with newline",
+    "source": "class C {C():base(\n){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with block comment",
+    "source": "$x.M(<#c#>)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with block comment",
+    "source": "[int]::new(<#c#>)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with block comment",
+    "source": "$x.M[int](<#c#>)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with block comment",
+    "source": "param([Parameter(<#c#>)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with block comment",
+    "source": "[CmdletBinding(<#c#>)]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with block comment",
+    "source": "class C {[Obsolete(<#c#>)]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with block comment",
+    "source": "class C {C():base(<#c#>){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with line comment",
+    "source": "$x.M( #c\n )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with line comment",
+    "source": "[int]::new( #c\n )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with line comment",
+    "source": "$x.M[int]( #c\n )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with line comment",
+    "source": "param([Parameter( #c\n )]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with line comment",
+    "source": "[CmdletBinding( #c\n )]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with line comment",
+    "source": "class C {[Obsolete( #c\n )]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with line comment",
+    "source": "class C {C():base( #c\n ){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "instance invocation empty arguments with continuation",
+    "source": "$x.M(`\n )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static invocation empty arguments with continuation",
+    "source": "[int]::new(`\n )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic invocation empty arguments with continuation",
+    "source": "$x.M[int](`\n )",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "parameter attribute empty arguments with continuation",
+    "source": "param([Parameter(`\n )]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "script attribute empty arguments with continuation",
+    "source": "[CmdletBinding(`\n )]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "property attribute empty arguments with continuation",
+    "source": "class C {[Obsolete(`\n )]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "base constructor empty arguments with continuation",
+    "source": "class C {C():base(`\n ){}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "empty arguments in command argument",
+    "source": "cmd $x.M( ) -After | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "empty arguments in hashtable value",
+    "source": "@{a=$x.M( );b=2}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "empty arguments in interpolation",
+    "source": "\"$($x.M( ))\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "empty arguments in following member",
+    "source": "$x.M( ).Name",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "empty arguments in parameter value",
+    "source": "cmd -Value:$x.M( ) -After",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "empty arguments in attributed expression",
+    "source": "[Obsolete( )]$x",
+    "valid": true,
+    "diagnostics": []
+  }
+]

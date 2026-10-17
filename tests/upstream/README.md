@@ -1,6 +1,6 @@
 # Upstream integration fixtures
 
-These six files are unmodified sources from Microsoft's
+These seven files are unmodified sources from Microsoft's
 [PowerShell v7.5.4](https://github.com/PowerShell/PowerShell/tree/v7.5.4).
 Paths below `powershell-7.5.4/` match their original repository paths.
 They are distributed under the upstream [MIT license](LICENSE.txt), and retain
@@ -12,9 +12,10 @@ tree-sitter and the pinned PowerShell oracle. It compares command elements and
 mapped AST/CST fields, source ranges, and operator metadata. It never executes
 the upstream scripts.
 
-`parser_cases.json` also contains individual literal inputs from the parser
-test helpers in `Parser.Tests.ps1` and `Parsing.Tests.ps1`. Each record identifies
-its original file, line, and helper. These inputs retain Microsoft's MIT license
+`parser_cases.json` also contains individual literal inputs from the Language
+tests: parser test helpers, `Parser.ParseInput`, `ScriptBlock.Create`, and explicit
+script/code test data. Each record identifies its original file, line, and input
+role. These inputs retain Microsoft's MIT license
 and copyright notice above. The tests check syntax, exact diagnostic identifiers,
 command boundaries, and mapped tree structure for complete syntax.
 
