@@ -338,5 +338,572 @@
     "name": "leading variable assignment name",
     "source": "function $name=value {}",
     "valid": false
+  },
+  {
+    "name": "function colon boundary f$(1)",
+    "source": "function f$(1) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary f$($p)",
+    "source": "function f$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary f$(${a)b})",
+    "source": "function f$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary f\"$(1)\"",
+    "source": "function f\"$(1)\" {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary f`(1)",
+    "source": "function f`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary f${a b}",
+    "source": "function f${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :f$(1)",
+    "source": "function :f$(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary :f$($p)",
+    "source": "function :f$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :f$(${a)b})",
+    "source": "function :f$(${a)b}) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :f\"$(1)\"",
+    "source": "function :f\"$(1)\" {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "function colon boundary :f`(1)",
+    "source": "function :f`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary :f${a b}",
+    "source": "function :f${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :1$(1)",
+    "source": "function :1$(1) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :1$($p)",
+    "source": "function :1$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :1$(${a)b})",
+    "source": "function :1$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary :1\"$(1)\"",
+    "source": "function :1\"$(1)\" {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :1`(1)",
+    "source": "function :1`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary :1${a b}",
+    "source": "function :1${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :?$(1)",
+    "source": "function :?$(1) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :?$($p)",
+    "source": "function :?$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :?$(${a)b})",
+    "source": "function :?$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary :?\"$(1)\"",
+    "source": "function :?\"$(1)\" {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "function colon boundary :?`(1)",
+    "source": "function :?`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "function colon boundary :?${a b}",
+    "source": "function :?${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary f$(1)",
+    "source": "filter f$(1) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary f$($p)",
+    "source": "filter f$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary f$(${a)b})",
+    "source": "filter f$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary f\"$(1)\"",
+    "source": "filter f\"$(1)\" {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary f`(1)",
+    "source": "filter f`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary f${a b}",
+    "source": "filter f${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :f$(1)",
+    "source": "filter :f$(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary :f$($p)",
+    "source": "filter :f$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :f$(${a)b})",
+    "source": "filter :f$(${a)b}) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :f\"$(1)\"",
+    "source": "filter :f\"$(1)\" {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "filter colon boundary :f`(1)",
+    "source": "filter :f`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary :f${a b}",
+    "source": "filter :f${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :1$(1)",
+    "source": "filter :1$(1) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :1$($p)",
+    "source": "filter :1$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :1$(${a)b})",
+    "source": "filter :1$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary :1\"$(1)\"",
+    "source": "filter :1\"$(1)\" {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :1`(1)",
+    "source": "filter :1`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary :1${a b}",
+    "source": "filter :1${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :?$(1)",
+    "source": "filter :?$(1) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :?$($p)",
+    "source": "filter :?$($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :?$(${a)b})",
+    "source": "filter :?$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary :?\"$(1)\"",
+    "source": "filter :?\"$(1)\" {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "filter colon boundary :?`(1)",
+    "source": "filter :?`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "filter colon boundary :?${a b}",
+    "source": "filter :?${a b} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "workflow colon boundary f$(1)",
+    "source": "workflow f$(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary f$($p)",
+    "source": "workflow f$($p) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary f$(${a)b})",
+    "source": "workflow f$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary f\"$(1)\"",
+    "source": "workflow f\"$(1)\" {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary f`(1)",
+    "source": "workflow f`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary f${a b}",
+    "source": "workflow f${a b} {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :f$(1)",
+    "source": "workflow :f$(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary :f$($p)",
+    "source": "workflow :f$($p) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :f$(${a)b})",
+    "source": "workflow :f$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :f\"$(1)\"",
+    "source": "workflow :f\"$(1)\" {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "TerminatorExpectedAtEndOfString",
+      "MissingFunctionBody"
+    ]
+  },
+  {
+    "name": "workflow colon boundary :f`(1)",
+    "source": "workflow :f`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInFunctionParameterList",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary :f${a b}",
+    "source": "workflow :f${a b} {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :1$(1)",
+    "source": "workflow :1$(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :1$($p)",
+    "source": "workflow :1$($p) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :1$(${a)b})",
+    "source": "workflow :1$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary :1\"$(1)\"",
+    "source": "workflow :1\"$(1)\" {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :1`(1)",
+    "source": "workflow :1`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary :1${a b}",
+    "source": "workflow :1${a b} {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :?$(1)",
+    "source": "workflow :?$(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :?$($p)",
+    "source": "workflow :?$($p) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :?$(${a)b})",
+    "source": "workflow :?$(${a)b}) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary :?\"$(1)\"",
+    "source": "workflow :?\"$(1)\" {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "workflow colon boundary :?`(1)",
+    "source": "workflow :?`(1) {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "MissingFunctionBody",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "workflow colon boundary :?${a b}",
+    "source": "workflow :?${a b} {}; Write-Output after",
+    "valid": false,
+    "diagnostics": [
+      "WorkflowNotSupportedInPowerShellCore"
+    ],
+    "syntax_valid": true
   }
 ]

@@ -128,5 +128,795 @@
     "name": "property CRLF continuation before semicolon",
     "source": "class C {$x=1 `\r\n; $y=2}",
     "valid": true
+  },
+  {
+    "name": "plain class property $plain",
+    "source": "class C { $plain = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $plain",
+    "source": "class C { static $plain }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $plain",
+    "source": "class C { [string] $plain = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $plain",
+    "source": "class C { [Obsolete()] hidden $plain = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $script:x",
+    "source": "class C { $script:x = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $script:x",
+    "source": "class C { static $script:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $script:x",
+    "source": "class C { [string] $script:x = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $script:x",
+    "source": "class C { [Obsolete()] hidden $script:x = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $global:x",
+    "source": "class C { $global:x = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $global:x",
+    "source": "class C { static $global:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $global:x",
+    "source": "class C { [string] $global:x = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $global:x",
+    "source": "class C { [Obsolete()] hidden $global:x = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $local:x",
+    "source": "class C { $local:x = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $local:x",
+    "source": "class C { static $local:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $local:x",
+    "source": "class C { [string] $local:x = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $local:x",
+    "source": "class C { [Obsolete()] hidden $local:x = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $private:x",
+    "source": "class C { $private:x = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $private:x",
+    "source": "class C { static $private:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $private:x",
+    "source": "class C { [string] $private:x = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $private:x",
+    "source": "class C { [Obsolete()] hidden $private:x = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $env:NAME",
+    "source": "class C { $env:NAME = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $env:NAME",
+    "source": "class C { static $env:NAME }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $env:NAME",
+    "source": "class C { [string] $env:NAME = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $env:NAME",
+    "source": "class C { [Obsolete()] hidden $env:NAME = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $using:x",
+    "source": "class C { $using:x = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $using:x",
+    "source": "class C { static $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $using:x",
+    "source": "class C { [string] $using:x = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $using:x",
+    "source": "class C { [Obsolete()] hidden $using:x = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${plain}",
+    "source": "class C { ${plain} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${plain}",
+    "source": "class C { static ${plain} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${plain}",
+    "source": "class C { [string] ${plain} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${plain}",
+    "source": "class C { [Obsolete()] hidden ${plain} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x-y}",
+    "source": "class C { ${x-y} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x-y}",
+    "source": "class C { static ${x-y} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x-y}",
+    "source": "class C { [string] ${x-y} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x-y}",
+    "source": "class C { [Obsolete()] hidden ${x-y} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x:y}",
+    "source": "class C { ${x:y} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x:y}",
+    "source": "class C { static ${x:y} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x:y}",
+    "source": "class C { [string] ${x:y} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x:y}",
+    "source": "class C { [Obsolete()] hidden ${x:y} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x:y:z}",
+    "source": "class C { ${x:y:z} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x:y:z}",
+    "source": "class C { static ${x:y:z} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x:y:z}",
+    "source": "class C { [string] ${x:y:z} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x:y:z}",
+    "source": "class C { [Obsolete()] hidden ${x:y:z} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${scope`u{3a}x}",
+    "source": "class C { ${scope`u{3a}x} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${scope`u{3a}x}",
+    "source": "class C { static ${scope`u{3a}x} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${scope`u{3a}x}",
+    "source": "class C { [string] ${scope`u{3a}x} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${scope`u{3a}x}",
+    "source": "class C { [Obsolete()] hidden ${scope`u{3a}x} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${scope`:x}",
+    "source": "class C { ${scope`:x} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${scope`:x}",
+    "source": "class C { static ${scope`:x} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${scope`:x}",
+    "source": "class C { [string] ${scope`:x} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${scope`:x}",
+    "source": "class C { [Obsolete()] hidden ${scope`:x} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x`u{61}}",
+    "source": "class C { ${x`u{61}} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x`u{61}}",
+    "source": "class C { static ${x`u{61}} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x`u{61}}",
+    "source": "class C { [string] ${x`u{61}} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x`u{61}}",
+    "source": "class C { [Obsolete()] hidden ${x`u{61}} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x`ny}",
+    "source": "class C { ${x`ny} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x`ny}",
+    "source": "class C { static ${x`ny} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x`ny}",
+    "source": "class C { [string] ${x`ny} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x`ny}",
+    "source": "class C { [Obsolete()] hidden ${x`ny} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x`ty}",
+    "source": "class C { ${x`ty} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x`ty}",
+    "source": "class C { static ${x`ty} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x`ty}",
+    "source": "class C { [string] ${x`ty} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x`ty}",
+    "source": "class C { [Obsolete()] hidden ${x`ty} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x`}}",
+    "source": "class C { ${x`}} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x`}}",
+    "source": "class C { static ${x`}} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x`}}",
+    "source": "class C { [string] ${x`}} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x`}}",
+    "source": "class C { [Obsolete()] hidden ${x`}} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${x`$y}",
+    "source": "class C { ${x`$y} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${x`$y}",
+    "source": "class C { static ${x`$y} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${x`$y}",
+    "source": "class C { [string] ${x`$y} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${x`$y}",
+    "source": "class C { [Obsolete()] hidden ${x`$y} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${`u{03A3}}",
+    "source": "class C { ${`u{03A3}} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${`u{03A3}}",
+    "source": "class C { static ${`u{03A3}} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${`u{03A3}}",
+    "source": "class C { [string] ${`u{03A3}} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${`u{03A3}}",
+    "source": "class C { [Obsolete()] hidden ${`u{03A3}} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $Σ",
+    "source": "class C { $Σ = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $Σ",
+    "source": "class C { static $Σ }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $Σ",
+    "source": "class C { [string] $Σ = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $Σ",
+    "source": "class C { [Obsolete()] hidden $Σ = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $中文",
+    "source": "class C { $中文 = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property $中文",
+    "source": "class C { static $中文 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property $中文",
+    "source": "class C { [string] $中文 = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property $中文",
+    "source": "class C { [Obsolete()] hidden $中文 = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${env:C:\\x}",
+    "source": "class C { ${env:C:\\x} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${env:C:\\x}",
+    "source": "class C { static ${env:C:\\x} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${env:C:\\x}",
+    "source": "class C { [string] ${env:C:\\x} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${env:C:\\x}",
+    "source": "class C { [Obsolete()] hidden ${env:C:\\x} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property ${:x}",
+    "source": "class C { ${:x} = 1 }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static class property ${:x}",
+    "source": "class C { static ${:x} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "typed class property ${:x}",
+    "source": "class C { [string] ${:x} = 'value'; C() {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attributed class property ${:x}",
+    "source": "class C { [Obsolete()] hidden ${:x} = 1\n[int] F(){return 1} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "plain class property $na`u{6d}e",
+    "source": "class C { $na`u{6d}e = 1 }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "static class property $na`u{6d}e",
+    "source": "class C { static $na`u{6d}e }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "typed class property $na`u{6d}e",
+    "source": "class C { [string] $na`u{6d}e = 'value'; C() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "attributed class property $na`u{6d}e",
+    "source": "class C { [Obsolete()] hidden $na`u{6d}e = 1\n[int] F(){return 1} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "plain class property $n`ame",
+    "source": "class C { $n`ame = 1 }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "static class property $n`ame",
+    "source": "class C { static $n`ame }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "typed class property $n`ame",
+    "source": "class C { [string] $n`ame = 'value'; C() {} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "attributed class property $n`ame",
+    "source": "class C { [Obsolete()] hidden $n`ame = 1\n[int] F(){return 1} }",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyTerminator",
+      "MissingEndCurlyBrace",
+      "UnexpectedToken",
+      "ExpectedExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "plain class property ${x:}",
+    "source": "class C { ${x:} = 1 }",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "static class property ${x:}",
+    "source": "class C { static ${x:} }",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "typed class property ${x:}",
+    "source": "class C { [string] ${x:} = 'value'; C() {} }",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "attributed class property ${x:}",
+    "source": "class C { [Obsolete()] hidden ${x:} = 1\n[int] F(){return 1} }",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "using declaration 104 $using:x",
+    "source": "param($using:x)\n$using:x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 105 $using:x",
+    "source": "function F($using:x) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 106 $using:x",
+    "source": "class C { F($using:x) { $using:x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 107 $using:x",
+    "source": "foreach($using:x in 1) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 108 ${using:x}",
+    "source": "param(${using:x})\n$using:x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 109 ${using:x}",
+    "source": "function F(${using:x}) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 110 ${using:x}",
+    "source": "class C { F(${using:x}) { $using:x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 111 ${using:x}",
+    "source": "foreach(${using:x} in 1) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 112 ${UsInG:x}",
+    "source": "param(${UsInG:x})\n$using:x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 113 ${UsInG:x}",
+    "source": "function F(${UsInG:x}) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 114 ${UsInG:x}",
+    "source": "class C { F(${UsInG:x}) { $using:x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 115 ${UsInG:x}",
+    "source": "foreach(${UsInG:x} in 1) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 116 ${using`u{3a}x}",
+    "source": "param(${using`u{3a}x})\n$using:x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 117 ${using`u{3a}x}",
+    "source": "function F(${using`u{3a}x}) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 118 ${using`u{3a}x}",
+    "source": "class C { F(${using`u{3a}x}) { $using:x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 119 ${using`u{3a}x}",
+    "source": "foreach(${using`u{3a}x} in 1) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 120 ${using:x:y}",
+    "source": "param(${using:x:y})\n$using:x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 121 ${using:x:y}",
+    "source": "function F(${using:x:y}) { $using:x }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 122 ${using:x:y}",
+    "source": "class C { F(${using:x:y}) { $using:x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using declaration 123 ${using:x:y}",
+    "source": "foreach(${using:x:y} in 1) { $using:x }",
+    "valid": true,
+    "diagnostics": []
   }
 ]

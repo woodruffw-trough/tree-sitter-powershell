@@ -2273,6 +2273,21 @@ static bool scan_function_name(TSLexer *lexer, const bool *valid) {
       }
     }
   }
+  if (c == ':') {
+    lexer->advance(lexer, false);
+    c = lexer->lookahead;
+    if (variable_character(c) && c != '?' && !decimal_character(c)) {
+      do {
+        lexer->advance(lexer, false);
+        c = lexer->lookahead;
+      } while (variable_character(c) && c != '?');
+      // ScanLabel consumes its first nonidentifier literally before handing
+      // the remaining text to ScanGenericToken, even in a function name.
+      if (!generic_end(c) || quote(c) || c == '<' || c == '>') {
+        lexer->advance(lexer, false);
+      }
+    }
+  }
   while (!lexer->eof(lexer)) {
     c = lexer->lookahead;
     if (c == '`') {

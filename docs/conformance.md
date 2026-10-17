@@ -18,7 +18,8 @@ specified, command elements, and mapped AST relationships and source extents.
 The harness converts tree-sitter byte offsets to PowerShell's UTF-16 offsets.
 Comparisons include effective switch/foreach flags, function/filter/workflow
 keywords, invocation operators, explicit named-block roles, and named attribute
-values and shorthand flags. Corpus snapshots independently assert concrete
+values and shorthand flags. Declaration comparisons include variable paths and
+unqualified property names. Corpus snapshots independently assert concrete
 nodes, fields, and grouping.
 
 PowerShell sometimes constructs a complete AST before reporting a semantic

@@ -1029,9 +1029,15 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
             .and_then(|name| name.strip_suffix('}'))
             .unwrap_or(&text[1..]);
         let name = decode_backticks(name);
-        let name = if name
-            .get(..6)
-            .is_some_and(|prefix| prefix.eq_ignore_ascii_case("using:"))
+        let declaration_name = node.parent().is_some_and(|parent| {
+            (parent.kind() == "parameter" && parent.child_by_field_name("name") == Some(node))
+                || (parent.kind() == "foreach_statement"
+                    && parent.child_by_field_name("variable") == Some(node))
+        });
+        let name = if !declaration_name
+            && name
+                .get(..6)
+                .is_some_and(|prefix| prefix.eq_ignore_ascii_case("using:"))
         {
             &name[6..]
         } else {
@@ -1045,11 +1051,20 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
     ) {
         let name = source.collected_text(node.child_by_field_name("name").unwrap());
         let name = if category == "PropertyMemberAst" {
-            name.strip_prefix('$').unwrap_or(&name)
+            let name = name.strip_prefix('$').unwrap_or(&name);
+            let name = name
+                .strip_prefix('{')
+                .and_then(|name| name.strip_suffix('}'))
+                .unwrap_or(name);
+            let decoded = decode_backticks(name);
+            decoded
+                .split_once(':')
+                .map(|(_, name)| name.to_owned())
+                .unwrap_or(decoded)
         } else {
-            &name
+            decode_name(&name)
         };
-        result.insert("name", json!(decode_name(name)));
+        result.insert("name", json!(name));
     }
     if category == "FunctionDefinitionAst" {
         let keyword = node.child_by_field_name("keyword").unwrap().kind();

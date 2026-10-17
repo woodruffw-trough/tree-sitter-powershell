@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Literal colon function name :f\"x",
+    "source": "function :f\"x {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f'x",
+    "source": "filter :f'x {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f“x",
+    "source": "function :f“x {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f‘x",
+    "source": "filter :f‘x {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f`x",
+    "source": "function :f`x {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f`$x",
+    "source": "filter :f`$x {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f`u{41}",
+    "source": "function :f`u{41} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f`u{zz}",
+    "source": "filter :f`u{zz} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :é`u{41}",
+    "source": "function :é`u{41} {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :名\"x",
+    "source": "function :名\"x {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f\"word($p)",
+    "source": "function :f\"word($p) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "Literal colon function name :f`($p,$q)",
+    "source": "filter :f`($p,$q) {}; Write-Output after",
+    "valid": true,
+    "diagnostics": []
+  }
+]
