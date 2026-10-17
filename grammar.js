@@ -2323,13 +2323,24 @@ const grammarDefinition = {
             ),
             ']',
           ),
-          seq('[', repeat(NEWLINE), repeat(','), ']'),
+          seq('[', repeat(NEWLINE), optional($._array_dimensions), ']'),
         ),
         // Only the first plain-array opener skips newlines. Generic array
         // suffixes and later jagged dimensions read their next token directly.
-        repeat(seq('[', repeat(','), ']')),
+        repeat(seq('[', optional($._array_dimensions), ']')),
       )),
     ),
+
+    // CompleteArrayTypeName accepts at most 32 dimensions per array suffix.
+    // Commas remain separate tokens so whitespace and comments retain their
+    // normal behavior between dimensions.
+    _array_dimensions: _ => {
+      const dimensions = [','];
+      for (let commas = 2; commas <= 31; commas++) {
+        dimensions.push(seq(...Array(commas).fill(',')));
+      }
+      return choice(...dimensions);
+    },
 
     // PowerShell scans type names using .NET UTF-16 Char.IsLetter/IsDigit,
     // with punctuation accepted only after the initial letter or underscore.

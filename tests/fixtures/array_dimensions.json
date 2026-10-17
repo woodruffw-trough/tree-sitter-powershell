@@ -1,0 +1,471 @@
+[
+  {
+    "name": "array rank 1 in type literal",
+    "source": "[int[]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 1 in cast operand",
+    "source": "[int[]]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 1 in parameter constraint",
+    "source": "param([int[]]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 1 in class property",
+    "source": "class C {[int[]]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 1 in generic argument",
+    "source": "[List[int[]]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 1 in method generic argument",
+    "source": "[array]::Empty[int[]]()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 1 in attribute type",
+    "source": "[int[]()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 1 in class base",
+    "source": "class C : int[] {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in type literal",
+    "source": "[int[,]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in cast operand",
+    "source": "[int[,]]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in parameter constraint",
+    "source": "param([int[,]]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in class property",
+    "source": "class C {[int[,]]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in generic argument",
+    "source": "[List[int[,]]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in method generic argument",
+    "source": "[array]::Empty[int[,]]()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in attribute type",
+    "source": "[int[,]()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 2 in class base",
+    "source": "class C : int[,] {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in type literal",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in cast operand",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in parameter constraint",
+    "source": "param([int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in class property",
+    "source": "class C {[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in generic argument",
+    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in method generic argument",
+    "source": "[array]::Empty[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in attribute type",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 31 in class base",
+    "source": "class C : int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,] {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in type literal",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in cast operand",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in parameter constraint",
+    "source": "param([int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in class property",
+    "source": "class C {[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in generic argument",
+    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in method generic argument",
+    "source": "[array]::Empty[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in attribute type",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]()]$x",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 32 in class base",
+    "source": "class C : int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,] {}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "array rank 33 in type literal",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 33 in cast operand",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 33 in parameter constraint",
+    "source": "param([int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x)",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 33 in class property",
+    "source": "class C {[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x}",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 33 in generic argument",
+    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 33 in method generic argument",
+    "source": "[array]::Empty[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]()",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 33 in attribute type",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]()]$x",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 33 in class base",
+    "source": "class C : int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,] {}",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in type literal",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in cast operand",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in parameter constraint",
+    "source": "param([int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x)",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in class property",
+    "source": "class C {[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x}",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in generic argument",
+    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in method generic argument",
+    "source": "[array]::Empty[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]()",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in attribute type",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]()]$x",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 34 in class base",
+    "source": "class C : int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,] {}",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in type literal",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in cast operand",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in parameter constraint",
+    "source": "param([int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x)",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in class property",
+    "source": "class C {[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]$x}",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in generic argument",
+    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in method generic argument",
+    "source": "[array]::Empty[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]()",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in attribute type",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]()]$x",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "array rank 64 in class base",
+    "source": "class C : int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,] {}",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "dimension separators retain whitespace and comments",
+    "source": "[int[ , <#dim#> , ]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "newline between dimensions is rejected",
+    "source": "[int[ ,\n, ]]",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfAttribute",
+      "EndSquareBracketExpectedAtEndOfAttribute",
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "opening newline before dimensions",
+    "source": "[int[\n, , ]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "jagged one-dimensional suffix",
+    "source": "[int[ , , ][]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "multidimensional jagged suffix",
+    "source": "[int[ , , ][ , ]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "newline in later jagged suffix is rejected",
+    "source": "[int[ , , ][\n, ]]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "generic multidimensional array suffix",
+    "source": "[List[int][ , , ]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "newline after generic array opener is rejected",
+    "source": "[List[int][\n, , ]]",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "each jagged suffix permits rank32",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,][,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "later jagged suffix rejects rank33",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,][,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  },
+  {
+    "name": "generic argument permits rank32",
+    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "generic argument rejects rank33",
+    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions"
+    ]
+  }
+]

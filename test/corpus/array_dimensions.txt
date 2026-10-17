@@ -1,0 +1,43 @@
+================================================================================
+Array ranks retain valid 32-dimensional and generic suffixes
+================================================================================
+[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]
+[List[int[ , <#dimension#> , ]]]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command_expression
+      (type_literal
+        (type_name
+          (type_identifier)))))
+  (pipeline
+    (command_expression
+      (type_literal
+        (type_name
+          (type_identifier)
+          (type_name
+            (type_identifier)
+            (comment)))))))
+
+================================================================================
+A rank above 32 retains an error and the following pipeline
+================================================================================
+[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]; Write-Output after | next
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pipeline
+    (command_expression
+      (type_literal
+        (type_name
+          (type_identifier)
+          (ERROR)))))
+  (pipeline
+    (command
+      (command_name (bare_word))
+      (command_argument (bare_word)))
+    (command
+      (command_name (bare_word)))))

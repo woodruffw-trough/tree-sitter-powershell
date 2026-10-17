@@ -195,11 +195,13 @@ fn insertions_and_deletions_preserve_tree_positions_and_recovery() {
         "$x.M( ); [int]::new(\t); $x.M[int](\u{a0})\n",
         "[CmdletBinding( )]param([Parameter( )]$x)\n",
         "class C { C():base( ) {} }\n",
+        "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]\n",
     ]
     .into_iter()
     .map(|source| (source, true))
     .chain(
         [
+            "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]; Write-Output after | next\n",
             "$x++++\nWrite-Output after | next\n",
             "$x +\nWrite-Output after | next\n",
             "$x[\nWrite-Output after | next\n",

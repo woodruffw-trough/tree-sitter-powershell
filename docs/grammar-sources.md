@@ -81,6 +81,10 @@ invocable, as in `$obj.(-$name)()`. In command arguments, parentheses after an
 unparenthesized unary member start another argument: `cmd $obj.- $name(1)` has
 separate `$obj.- $name` and `(1)` arguments. These distinctions follow
 `MemberNameRule`, `UnaryExpressionRule`, and `MemberAccessRule` in the pinned parser.
+Each array type suffix accepts at most 32 dimensions, matching
+[`CompleteArrayTypeName`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/Parser.cs#L1523-L1575).
+The bound applies independently to plain, jagged, and generic array suffixes.
+
 Generic method type arguments accept intervening whitespace and comments, as in
 `$obj.Method [int](1)`. The call opener must touch the method name or closing
 type bracket. Block comments preserve member/index adjacency but separate a
