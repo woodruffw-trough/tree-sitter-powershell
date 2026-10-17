@@ -1,7 +1,7 @@
 # Upstream integration fixtures
 
-These seven files are unmodified sources from Microsoft's
-[PowerShell v7.5.4](https://github.com/PowerShell/PowerShell/tree/v7.5.4).
+The files under `powershell-7.5.4/` are unmodified sources from Microsoft's
+[PowerShell v7.5.4](https://github.com/PowerShell/PowerShell/tree/7c8d9e7e0ed2fc1f2caf50746fe9fef720ca2a0a).
 Paths below `powershell-7.5.4/` match their original repository paths.
 They are distributed under the upstream [MIT license](LICENSE.txt), and retain
 Microsoft's copyright notices. `SHA256SUMS` records the downloaded bytes;
@@ -15,8 +15,7 @@ the upstream scripts.
 `parser_cases.json` also contains individual literal inputs from the Language
 tests: parser test helpers, `Parser.ParseInput`, `ScriptBlock.Create`, and explicit
 script/code test data. Each record identifies its original file, line, and input
-role. These inputs retain Microsoft's MIT license
-and copyright notice above. The tests check syntax, exact diagnostic identifiers,
+role. These inputs retain Microsoft's MIT license and copyright notice above. The tests check syntax, exact diagnostic identifiers,
 command boundaries, and mapped tree structure for complete syntax.
 
 `valid` records whether `ParseInput` reports any errors. An explicit

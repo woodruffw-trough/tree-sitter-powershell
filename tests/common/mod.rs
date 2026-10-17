@@ -4,7 +4,12 @@ use std::{path::Path, process::Command};
 use tree_sitter::{Node, Parser};
 
 pub type Extent = (usize, usize);
-type CommandExtents = (Extent, Vec<(bool, Extent)>);
+#[derive(Debug, PartialEq, Eq)]
+struct CommandRecord {
+    extent: Extent,
+    invocation_operator: String,
+    elements: Vec<(bool, Extent)>,
+}
 const POWERSHELL_VERSION: &str = "7.5.4";
 
 pub fn parser() -> Parser {
@@ -167,15 +172,23 @@ pub fn discarded_switch_file(node: Node<'_>) -> bool {
     files.contains(&node) && files.last().is_some_and(|last| *last != node)
 }
 
-fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<CommandExtents>) {
+fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<CommandRecord>) {
     if discarded_switch_file(node) {
         return;
     }
     if node.kind() == "command" {
         let mut name = node.child_by_field_name("name").unwrap();
-        if name.kind() == "invocation_operator_command" {
+        let invocation_operator = if name.kind() == "invocation_operator_command" {
+            let operator = match name.child_by_field_name("operator").unwrap().kind() {
+                "&" => "Ampersand",
+                "." => "Dot",
+                _ => unreachable!("unknown command invocation operator"),
+            };
             name = name.child_by_field_name("command").unwrap();
-        }
+            operator
+        } else {
+            "Unknown"
+        };
         let verbatim_name = name.child(0).is_some_and(|marker| marker.kind() == "--%");
         let mut elements = vec![(
             name.kind() == "command_parameter",
@@ -228,7 +241,11 @@ fn commands(node: Node<'_>, source: &str, offsets: &[usize], result: &mut Vec<Co
             elements.push((false, (offset, offset)));
             command_extent.1 = offset;
         }
-        result.push((command_extent, elements));
+        result.push(CommandRecord {
+            extent: command_extent,
+            invocation_operator: invocation_operator.to_owned(),
+            elements,
+        });
     }
     let mut cursor = node.walk();
     for child in node.named_children(&mut cursor) {
@@ -275,14 +292,18 @@ pub fn assert_commands(cases: &[Value], results: &[Value]) {
                         )
                     })
                     .collect::<Vec<_>>();
-                (extent, elements)
+                CommandRecord {
+                    extent,
+                    invocation_operator: command["invocationOperator"].as_str().unwrap().to_owned(),
+                    elements,
+                }
             })
             .collect();
         // PowerShell visits traps before the surrounding statement list,
         // regardless of their source position. Compare commands in source
         // order while preserving every command's direct element order.
-        actual.sort_by_key(|(extent, _)| *extent);
-        expected.sort_by_key(|(extent, _)| *extent);
+        actual.sort_by_key(|command| command.extent);
+        expected.sort_by_key(|command| command.extent);
         if actual != expected {
             if source.len() > 4096 {
                 let first_differences = expected
@@ -293,13 +314,13 @@ pub fn assert_commands(cases: &[Value], results: &[Value]) {
                     .take(10)
                     .collect::<Vec<_>>();
                 failures.push(format!(
-                    "{}: command grouping or parameter classification differs; expected {} commands, got {}\nfirst differences (index, (expected, actual)): {first_differences:?}",
+                    "{}: command grouping, invocation operator, or parameter classification differs; expected {} commands, got {}\nfirst differences (index, (expected, actual)): {first_differences:?}",
                     case["name"], expected.len(), actual.len(),
                 ));
                 continue;
             }
             failures.push(format!(
-                "{}: command grouping or parameter classification differs (true denotes a parameter)\n{}\nexpected: {:?}\nactual: {:?}\n{}",
+                "{}: command grouping, invocation operator, or parameter classification differs (true denotes a parameter)\n{}\nexpected: {:?}\nactual: {:?}\n{}",
                 case["name"],
                 source,
                 expected,

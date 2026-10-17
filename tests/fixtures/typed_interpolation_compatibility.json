@@ -1,0 +1,86 @@
+[
+  {
+    "name": "type before spaced interpolation range",
+    "source": "\"$([int] .. $other)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ],
+    "native_overlap": true,
+    "intended_type": "[int]",
+    "intended_right": "$other"
+  },
+  {
+    "name": "adjacent interpolation range control",
+    "source": "\"$([int]..$other)\"",
+    "valid": true,
+    "diagnostics": [],
+    "native_overlap": false,
+    "intended_type": "[int]",
+    "intended_right": "$other"
+  },
+  {
+    "name": "block comment before adjacent range control",
+    "source": "\"$([int] <#c#>.. $other)\"",
+    "valid": true,
+    "diagnostics": [],
+    "native_overlap": false,
+    "intended_type": "[int]",
+    "intended_right": "$other"
+  },
+  {
+    "name": "space after block comment triggers native resynchronization",
+    "source": "\"$([int]<#c#> .. $other)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ],
+    "native_overlap": true,
+    "intended_type": "[int]",
+    "intended_right": "$other"
+  },
+  {
+    "name": "array type before interpolation range",
+    "source": "\"$([int[]] .. $other)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ],
+    "native_overlap": true,
+    "intended_type": "[int[]]",
+    "intended_right": "$other"
+  },
+  {
+    "name": "generic type before interpolation range",
+    "source": "\"$([List[int]] .. $other)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ],
+    "native_overlap": true,
+    "intended_type": "[List[int]]",
+    "intended_right": "$other"
+  },
+  {
+    "name": "typed range inside comparison and multiline operand",
+    "source": "\"$($value -is [int] ..\n$other)\"",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ],
+    "native_overlap": true,
+    "intended_type": "[int]",
+    "intended_right": "$other"
+  },
+  {
+    "name": "here-string interpolation range",
+    "source": "@\"\n$([int] .. $other)\n\"@",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken"
+    ],
+    "native_overlap": true,
+    "intended_type": "[int]",
+    "intended_right": "$other"
+  }
+]

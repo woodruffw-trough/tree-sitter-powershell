@@ -1,0 +1,468 @@
+[
+  {
+    "name": "named blocks in function 0",
+    "source": "function f { dynamicparam { . discover } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in filter 1",
+    "source": "filter f { dynamicparam { . discover } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in script expression 2",
+    "source": "{ dynamicparam { . discover } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in command script argument 3",
+    "source": "cmd { dynamicparam { . discover } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in method argument 4",
+    "source": "$obj.M({ dynamicparam { . discover } })",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in class method 5",
+    "source": "class C { f() { dynamicparam { . discover } } }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "named blocks in function 6",
+    "source": "function f { begin { & prepare } process { emit } end { . finish } clean { & cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in filter 7",
+    "source": "filter f { begin { & prepare } process { emit } end { . finish } clean { & cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in script expression 8",
+    "source": "{ begin { & prepare } process { emit } end { . finish } clean { & cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in command script argument 9",
+    "source": "cmd { begin { & prepare } process { emit } end { . finish } clean { & cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in method argument 10",
+    "source": "$obj.M({ begin { & prepare } process { emit } end { . finish } clean { & cleanup } })",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in class method 11",
+    "source": "class C { f() { begin { & prepare } process { emit } end { . finish } clean { & cleanup } } }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "named blocks in function 12",
+    "source": "function f { end { . finish } begin { & prepare } dynamicparam { discover } process { emit } clean { cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in filter 13",
+    "source": "filter f { end { . finish } begin { & prepare } dynamicparam { discover } process { emit } clean { cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in script expression 14",
+    "source": "{ end { . finish } begin { & prepare } dynamicparam { discover } process { emit } clean { cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in command script argument 15",
+    "source": "cmd { end { . finish } begin { & prepare } dynamicparam { discover } process { emit } clean { cleanup } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in method argument 16",
+    "source": "$obj.M({ end { . finish } begin { & prepare } dynamicparam { discover } process { emit } clean { cleanup } })",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in class method 17",
+    "source": "class C { f() { end { . finish } begin { & prepare } dynamicparam { discover } process { emit } clean { cleanup } } }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "named blocks in function 18",
+    "source": "function f { BeGiN\n{trap { continue }; & prepare; . finish}\nEnD {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in filter 19",
+    "source": "filter f { BeGiN\n{trap { continue }; & prepare; . finish}\nEnD {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in script expression 20",
+    "source": "{ BeGiN\n{trap { continue }; & prepare; . finish}\nEnD {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in command script argument 21",
+    "source": "cmd { BeGiN\n{trap { continue }; & prepare; . finish}\nEnD {} }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in method argument 22",
+    "source": "$obj.M({ BeGiN\n{trap { continue }; & prepare; . finish}\nEnD {} })",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in class method 23",
+    "source": "class C { f() { BeGiN\n{trap { continue }; & prepare; . finish}\nEnD {} } }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "named blocks in function 24",
+    "source": "function f { process { trap [Exception] { continue }; cmd; trap { break }; & next } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in filter 25",
+    "source": "filter f { process { trap [Exception] { continue }; cmd; trap { break }; & next } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in script expression 26",
+    "source": "{ process { trap [Exception] { continue }; cmd; trap { break }; & next } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in command script argument 27",
+    "source": "cmd { process { trap [Exception] { continue }; cmd; trap { break }; & next } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in method argument 28",
+    "source": "$obj.M({ process { trap [Exception] { continue }; cmd; trap { break }; & next } })",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in class method 29",
+    "source": "class C { f() { process { trap [Exception] { continue }; cmd; trap { break }; & next } } }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "named blocks in function 30",
+    "source": "function f { [CmdletBinding()]param($x) process { emit $x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in filter 31",
+    "source": "filter f { [CmdletBinding()]param($x) process { emit $x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in script expression 32",
+    "source": "{ [CmdletBinding()]param($x) process { emit $x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in command script argument 33",
+    "source": "cmd { [CmdletBinding()]param($x) process { emit $x } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in method argument 34",
+    "source": "$obj.M({ [CmdletBinding()]param($x) process { emit $x } })",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in class method 35",
+    "source": "class C { f() { [CmdletBinding()]param($x) process { emit $x } } }",
+    "valid": false,
+    "diagnostics": [
+      "ParamBlockNotAllowedInMethod",
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "named blocks in function 36",
+    "source": "function f { begin { function nested { process { . inner } }; & outer } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in filter 37",
+    "source": "filter f { begin { function nested { process { . inner } }; & outer } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in script expression 38",
+    "source": "{ begin { function nested { process { . inner } }; & outer } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in command script argument 39",
+    "source": "cmd { begin { function nested { process { . inner } }; & outer } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in method argument 40",
+    "source": "$obj.M({ begin { function nested { process { . inner } }; & outer } })",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named blocks in class method 41",
+    "source": "class C { f() { begin { function nested { process { . inner } }; & outer } } }",
+    "valid": false,
+    "diagnostics": [
+      "NamedBlockNotAllowedInMethod"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "named block context 42",
+    "source": "begin {cmd}; end {next}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named block context 43",
+    "source": "if(1){begin{cmd}; . next}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named block context 44",
+    "source": "@{a=function f {begin{cmd};end{&next}}}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named block context 45",
+    "source": "\"$(& {begin{cmd};end{. next}})\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named block context 46",
+    "source": "function f {1;trap {continue}; 2}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named block context 47",
+    "source": "filter f { & cmd }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "named block context 48",
+    "source": "function f { begin { cmd & } end { cmd && next & } }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 49",
+    "source": "cmd arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 50",
+    "source": "& cmd arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 51",
+    "source": ". cmd arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 52",
+    "source": "& '.\\script.ps1' arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 53",
+    "source": ". '.\\script.ps1' arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 54",
+    "source": "& $target -Arg:1 | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 55",
+    "source": ". $target -Arg:1 | next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 56",
+    "source": "& ($target) arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 57",
+    "source": ". ([scriptblock]::Create(\"cmd\")) arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 58",
+    "source": "& {param($p) . inner $p} arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 59",
+    "source": ". { & inner }",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 60",
+    "source": "& --% raw | opaque",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 61",
+    "source": ". --% raw | opaque",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 62",
+    "source": "& -- -foo",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 63",
+    "source": "cmd | & next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 64",
+    "source": "cmd && . next",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 65",
+    "source": ".\\script.ps1 arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 66",
+    "source": "./script.ps1 arg",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 67",
+    "source": "\"$(& cmd)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 68",
+    "source": "@{a = & cmd}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 69",
+    "source": "return & cmd",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 70",
+    "source": "& $obj.M()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 71",
+    "source": ". (& first)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 72",
+    "source": "cmd &",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation operator context 73",
+    "source": "cmd && next &",
+    "valid": true,
+    "diagnostics": []
+  }
+]

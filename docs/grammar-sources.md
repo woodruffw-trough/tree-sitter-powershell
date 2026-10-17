@@ -460,3 +460,19 @@ prefix from turning a later `param(...)` command into a parameter block.
 These boundaries follow `AttributeListRule` and `UnaryExpressionRule` in the
 pinned parser. Here-string arguments use the ordinary grammar; recovery through
 incomplete attribute chains containing them remains limited.
+
+Explicit `named_block` nodes expose their keyword as `name` and their statement
+block as `body`. Oracle checks compare the block kind and its direct statements
+and traps. Command comparisons distinguish ordinary invocation, `&`, and dot
+sourcing. Attribute comparisons check the type name, each named value, and
+whether a shorthand flag omits its expression.
+
+Typed-range interpolation follows the intended syntax despite a PowerShell
+7.5.4 resynchronization defect. In
+[`GetLBracket`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L4285-L4345),
+the saved offset is relative to collected subexpression text, while
+[`Resync`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L1039-L1050)
+expects an absolute source offset. Rewinding can replay a closing type bracket;
+a short source prefix can also produce `ScriptTooComplicated` without an AST.
+Compatibility tests retain those native diagnostics while checking the intended
+type and right operand of the range expression.

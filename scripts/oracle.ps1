@@ -178,8 +178,16 @@ function Get-AstRecord($Node) {
             Add-AstField $fields 'attributes' $Node.Attributes
         }
         'AttributeAst' {
+            Add-AstField $fields 'name' $Node.TypeName
             Add-AstField $fields 'positionalArguments' $Node.PositionalArguments
             Add-AstField $fields 'namedArguments' $Node.NamedArguments
+        }
+        'NamedAttributeArgumentAst' {
+            $record.name = $Node.ArgumentName
+            $record.expressionOmitted = $Node.ExpressionOmitted
+            if (-not $Node.ExpressionOmitted) {
+                Add-AstField $fields 'value' $Node.Argument
+            }
         }
         'CommandParameterAst' {
             Add-AstField $fields 'value' $Node.Argument
@@ -193,6 +201,14 @@ function Get-AstRecord($Node) {
         'MergingRedirectionAst' {
             $record.fromStream = $Node.FromStream.ToString()
             $record.toStream = $Node.ToStream.ToString()
+        }
+        'NamedBlockAst' {
+            $record.kind = $Node.BlockKind.ToString()
+            $record.unnamed = $Node.Unnamed
+            if (-not $Node.Unnamed) {
+                Add-AstField $fields 'statements' $Node.Statements
+                Add-AstField $fields 'traps' $Node.Traps
+            }
         }
         'FunctionDefinitionAst' {
             $record.filter = $Node.IsFilter
@@ -449,6 +465,7 @@ foreach ($case in $cases) {
         [ordered]@{
             start = $_.Extent.StartOffset
             end = $_.Extent.EndOffset
+            invocationOperator = $_.InvocationOperator.ToString()
             elements = @($_.CommandElements | ForEach-Object {
                 [ordered]@{
                     type = $_.GetType().Name

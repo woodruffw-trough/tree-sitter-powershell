@@ -1,8 +1,49 @@
 [
   {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Classes/Scripting.Classes.Attributes.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Classes/Scripting.Classes.Attributes.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Classes/Scripting.Classes.BasicParsing.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1",
+    "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Classes/scripting.enums.tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Classes/scripting.enums.tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Operators/NullConditional.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Operators/NullConditional.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Operators/TernaryOperator.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Operators/TernaryOperator.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
     "name": "PowerShell v7.5.4 test/powershell/Language/Parser/LineContinuance.Tests.ps1",
     "path": "powershell-7.5.4/test/powershell/Language/Parser/LineContinuance.Tests.ps1",
     "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Parser/MethodInvocation.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Parser/MethodInvocation.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
   },
   {
     "name": "PowerShell v7.5.4 test/powershell/Language/Parser/Parser.Tests.ps1",
@@ -13,6 +54,42 @@
     "name": "PowerShell v7.5.4 test/powershell/Language/Parser/Parsing.Tests.ps1",
     "path": "powershell-7.5.4/test/powershell/Language/Parser/Parsing.Tests.ps1",
     "valid": true
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Parser/RedirectionOperator.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Parser/RedirectionOperator.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Scripting/Dynamicparameters.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Scripting/Dynamicparameters.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Scripting/Generics.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Scripting/Generics.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Scripting/I18n/I18n.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Scripting/I18n/I18n.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Scripting/NativeExecution/NativeCommandArguments.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Scripting/NativeExecution/NativeCommandArguments.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "PowerShell v7.5.4 test/powershell/Language/Scripting/TryCatch.Tests.ps1",
+    "path": "powershell-7.5.4/test/powershell/Language/Scripting/TryCatch.Tests.ps1",
+    "valid": true,
+    "diagnostics": []
   },
   {
     "name": "PowerShell v7.5.4 test/powershell/Modules/Microsoft.PowerShell.Core/Get-Command.Tests.ps1",
@@ -27,11 +104,6 @@
   {
     "name": "PowerShell v7.5.4 tools/packaging/packaging.psm1",
     "path": "powershell-7.5.4/tools/packaging/packaging.psm1",
-    "valid": true
-  },
-  {
-    "name": "PowerShell v7.5.4 test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1",
-    "path": "powershell-7.5.4/test/powershell/Language/Classes/scripting.Classes.inheritance.tests.ps1",
     "valid": true
   }
 ]

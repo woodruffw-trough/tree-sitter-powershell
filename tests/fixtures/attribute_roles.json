@@ -1,0 +1,293 @@
+[
+  {
+    "name": "attribute Flag omitted value",
+    "source": "param([A(Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute Flag value =$true",
+    "source": "param([A(Flag=$true)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute Flag value =\n$false",
+    "source": "param([A(Flag=\n$false)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute Flag value =(1+2)",
+    "source": "param([A(Flag=(1+2))]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute FLAG omitted value",
+    "source": "param([A(FLAG)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute FLAG value =$true",
+    "source": "param([A(FLAG=$true)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute FLAG value =\n$false",
+    "source": "param([A(FLAG=\n$false)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute FLAG value =(1+2)",
+    "source": "param([A(FLAG=(1+2))]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute flag omitted value",
+    "source": "param([A(flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute flag value =$true",
+    "source": "param([A(flag=$true)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute flag value =\n$false",
+    "source": "param([A(flag=\n$false)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute flag value =(1+2)",
+    "source": "param([A(flag=(1+2))]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute begin omitted value",
+    "source": "param([A(begin)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute begin value =$true",
+    "source": "param([A(begin=$true)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute begin value =\n$false",
+    "source": "param([A(begin=\n$false)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute begin value =(1+2)",
+    "source": "param([A(begin=(1+2))]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute é omitted value",
+    "source": "param([A(é)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute é value =$true",
+    "source": "param([A(é=$true)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute é value =\n$false",
+    "source": "param([A(é=\n$false)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute é value =(1+2)",
+    "source": "param([A(é=(1+2))]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute 名 omitted value",
+    "source": "param([A(名)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute 名 value =$true",
+    "source": "param([A(名=$true)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute 名 value =\n$false",
+    "source": "param([A(名=\n$false)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute 名 value =(1+2)",
+    "source": "param([A(名=(1+2))]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value \"\"",
+    "source": "param([A(Name=\"\", Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value 'literal'",
+    "source": "param([A(Name='literal', Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value \"hello`nworld\"",
+    "source": "param([A(Name=\"hello`nworld\", Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value $null",
+    "source": "param([A(Name=$null, Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value (1,2)",
+    "source": "param([A(Name=(1,2), Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value @(1,2)",
+    "source": "param([A(Name=@(1,2), Flag)]$x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attribute structured value [int]::MaxValue",
+    "source": "param([A(Name=[int]::MaxValue, Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value {param($p) $p.Name}",
+    "source": "param([A(Name={param($p) $p.Name}, Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute structured value @{a=1;b=2}",
+    "source": "param([A(Name=@{a=1;b=2}, Flag)]$x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attribute structured value $obj.Name",
+    "source": "param([A(Name=$obj.Name, Flag)]$x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attribute named values in parameter",
+    "source": "param([A(Name=1, Flag)]$x)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute named values in function argument",
+    "source": "function f([A(Name=1, Flag)]$x){}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute named values in script attribute",
+    "source": "[A(Name=1, Flag)]param()",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute named values in attributed assignment",
+    "source": "[A(Name=1, Flag)]$x=1",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute named values in script argument",
+    "source": "cmd {[A(Name=1, Flag)]param()}",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute named values in method argument",
+    "source": "$obj.M({param([A(Name=1, Flag)]$x)})",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute named values in string interpolation",
+    "source": "\"$([A(Name=1, Flag)]$x)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute named values in here string interpolation",
+    "source": "@\"\n$([A(Name=1, Flag)]$x)\n\"@",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute roles 42",
+    "source": "param([A( Flag , Name = 1 , Script = {param($p) $p}, Other = @(2,3))]$x)",
+    "valid": false,
+    "diagnostics": [
+      "ParameterAttributeArgumentNeedsToBeConstantOrScriptBlock"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attribute roles 43",
+    "source": "[A( )]param([B(FLAG=$false, Flag)]$x)",
+    "valid": false,
+    "diagnostics": [
+      "DuplicateNamedArgument"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "attribute roles 44",
+    "source": "param([A(Flag)]$x,[A(Flag=$true)]$y)",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "attribute roles 45",
+    "source": "param([A(Flag=$false, Other=$null, Text=\"x\")]$x)",
+    "valid": true,
+    "diagnostics": []
+  }
+]

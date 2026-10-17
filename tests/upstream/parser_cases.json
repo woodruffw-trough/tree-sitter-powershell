@@ -3817,5 +3817,388 @@
     "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L681",
     "valid": true,
     "diagnostics": []
+  },
+  {
+    "name": "Scripting/ForeachParallel.Tests.ps1:37 [System.Management.Automation.Language.Parser]::ParseInput",
+    "source": "foreach -bogus ($input in $bar) { }",
+    "upstream": "test/powershell/Language/Scripting/ForeachParallel.Tests.ps1#L37",
+    "valid": false,
+    "diagnostics": [
+      "InvalidForeachFlag"
+    ]
+  },
+  {
+    "name": "Scripting/SwitchParallel.Tests.ps1:9 [System.Management.Automation.Language.Parser]::ParseInput",
+    "source": "switch -parallel ($foo) {1 {break}}",
+    "upstream": "test/powershell/Language/Scripting/SwitchParallel.Tests.ps1#L9",
+    "valid": false,
+    "diagnostics": [
+      "KeywordParameterReservedForFutureUse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "Scripting/SwitchParallel.Tests.ps1:21 [System.Management.Automation.Language.Parser]::ParseInput",
+    "source": "switch -bogus ($foo) {1 {break}}",
+    "upstream": "test/powershell/Language/Scripting/SwitchParallel.Tests.ps1#L21",
+    "valid": false,
+    "diagnostics": [
+      "InvalidSwitchFlag"
+    ]
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:59 assignment $script",
+    "source": "'Hello' + `# This is not a valid comment\n    ' world'",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L59",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:68 assignment $script",
+    "source": "'Hello' + ``\n    ' world'",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L68",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:122 assignment $script",
+    "source": "'Hello' |\n",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L122",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:131 assignment $script",
+    "source": "'Hello' |\n    |\n",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L131",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement",
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:239 assignment $script",
+    "source": "'Hello'\n    | # Nothing to see here, move along\n",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L239",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:249 assignment $script",
+    "source": "'Hello'\n    |\n\n",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L249",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parser/LineContinuance.Tests.ps1:260 assignment $script",
+    "source": "'Hello'\n\n    | ForEach-Object {\"$_ world\"}\n",
+    "upstream": "test/powershell/Language/Parser/LineContinuance.Tests.ps1#L260",
+    "valid": false,
+    "diagnostics": [
+      "EmptyPipeElement"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:55 table Script",
+    "source": "$object.Method[incompl",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L55",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfType"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:60 table Script",
+    "source": "[type]::Member[incompl",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L60",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfType"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:65 table Script",
+    "source": "$object.Method[Type1[Type2",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L65",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfAttribute",
+      "EndSquareBracketExpectedAtEndOfType"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:70 table Script",
+    "source": "[array]::empty[type]]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L70",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken",
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:75 table Script",
+    "source": "$object.Method[type,]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L75",
+    "valid": false,
+    "diagnostics": [
+      "MissingTypename"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:80 table Script",
+    "source": "$object.Method[]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L80",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken",
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:85 table Script",
+    "source": "$object.Method[,]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L85",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:90 table Script",
+    "source": "$object.Method[,type]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L90",
+    "valid": false,
+    "diagnostics": [
+      "MissingExpressionAfterOperator",
+      "UnexpectedToken",
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:95 table Script",
+    "source": "$object.Method[type()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L95",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfType",
+      "UnexpectedToken",
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:100 table Script",
+    "source": "$object.Method[type)",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L100",
+    "valid": false,
+    "diagnostics": [
+      "EndSquareBracketExpectedAtEndOfType",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:105 table Script",
+    "source": "$object.Method[[type]]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L105",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:110 table Script",
+    "source": "[Array]::Empty[[type]]()",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L110",
+    "valid": false,
+    "diagnostics": [
+      "UnexpectedToken",
+      "ExpectedExpression"
+    ]
+  },
+  {
+    "name": "Parser/MethodInvocation.Tests.ps1:115 table Script",
+    "source": "$object.Property[type]",
+    "upstream": "test/powershell/Language/Parser/MethodInvocation.Tests.ps1#L115",
+    "valid": false,
+    "diagnostics": [
+      "MissingArrayIndexExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1305 table script",
+    "source": "Function foo { [CmdletBinding()] param() DynamicParam {} Hi",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1305",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamedBlocks"
+    ]
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1306 table script",
+    "source": "{ begin {} Hi",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1306",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamedBlocks",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "Parser/Parser.Tests.ps1:1307 table script",
+    "source": "begin {} Hi",
+    "upstream": "test/powershell/Language/Parser/Parser.Tests.ps1#L1307",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamedBlocks"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:369 table Script",
+    "source": "$true ?",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L369",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:370 table Script",
+    "source": "$true ? 3",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L370",
+    "valid": false,
+    "diagnostics": [
+      "MissingColonInTernaryExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:371 table Script",
+    "source": "$true ? 3 :",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L371",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:372 table Script",
+    "source": "$true\t?",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L372",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:373 table Script",
+    "source": "$true\t?\t3",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L373",
+    "valid": false,
+    "diagnostics": [
+      "MissingColonInTernaryExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:374 table Script",
+    "source": "$true\t?\t3\t:",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L374",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:420 [System.Management.Automation.Language.Parser]::ParseInput",
+    "source": "$true ? :",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L420",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:436 [System.Management.Automation.Language.Parser]::ParseInput",
+    "source": "$true ? : 3",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L436",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:632 table Script",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L632",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions",
+      "EndSquareBracketExpectedAtEndOfAttribute"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:633 table Script",
+    "source": "[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L633",
+    "valid": false,
+    "diagnostics": [
+      "ArrayHasTooManyDimensions",
+      "EndSquareBracketExpectedAtEndOfAttribute"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:650 table Script",
+    "source": "using namespace x =\n",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L650",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:651 table Script",
+    "source": "using namespace x = \n",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L651",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:652 table Script",
+    "source": "using namespace x = ;",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L652",
+    "valid": false,
+    "diagnostics": [
+      "MissingNamespaceAlias"
+    ]
+  },
+  {
+    "name": "Parser/Parsing.Tests.ps1:689 assignment $Script",
+    "source": "$n = 0x10000000000000000",
+    "upstream": "test/powershell/Language/Parser/Parsing.Tests.ps1#L689",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
   }
 ]

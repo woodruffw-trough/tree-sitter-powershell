@@ -16,7 +16,10 @@ with Microsoft's parser. Known differences are listed below.
 executing the input. Tests compare acceptance, exact diagnostic identifiers where
 specified, command elements, and mapped AST relationships and source extents.
 The harness converts tree-sitter byte offsets to PowerShell's UTF-16 offsets.
-Corpus snapshots independently assert the concrete nodes, fields, and grouping.
+Comparisons include effective switch/foreach flags, function/filter/workflow
+keywords, invocation operators, explicit named-block roles, and named attribute
+values and shorthand flags. Corpus snapshots independently assert concrete
+nodes, fields, and grouping.
 
 PowerShell sometimes constructs a complete AST before reporting a semantic
 diagnostic. Fixtures record that distinction explicitly: a method parameter
@@ -88,9 +91,7 @@ damaged suffix in a sibling `ERROR` where PowerShell includes it in the recovere
 command extent; preceding and following commands remain available. Tree-sitter's
 recovery tree does not promise Microsoft's diagnostic sequence or recovered AST
 for every input.
-For example, `"$([int] .. $other)"` and related typed-range interpolations produce
-an overlapping type/command recovery AST in Microsoft; this grammar accepts the
-range expression. [Operator recovery tests](../tests/operator_recovery.rs)
+[Operator recovery tests](../tests/operator_recovery.rs)
 check the command boundaries preserved by supported recovery cases.
 
 **Leading pipes in collected interpolation.** The grammar consistently accepts
@@ -100,6 +101,15 @@ indexes the shorter collected text; inserting text before `$(` can therefore
 change acceptance and produce `EmptyPipeElement`. Dedicated
 [compatibility tests](../tests/pipeline_continuation_compatibility.rs) assert the
 native diagnostics separately from the intended pipeline CST.
+
+**Typed ranges in collected interpolation.** The grammar retains the intended
+range expression in `"$([int] .. $other)"`. In 7.5.4, `GetLBracket` passes an
+offset relative to collected text to `Resync`, which expects an absolute offset.
+This can rewind into a completed type literal, producing overlapping type and
+command ASTs. Adding text before `$(` can instead produce `ScriptTooComplicated`
+with no AST. Dedicated [compatibility tests](../tests/typed_interpolation_compatibility.rs)
+check native diagnostics and overlapping extents separately from the intended
+range operands in the CST.
 
 **Unusable native oracle results.** Certain invalid numeric hash keys, including
 `@{128y = 1}`, make `ParseInput` throw before returning an AST. Registered DSC

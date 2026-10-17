@@ -332,6 +332,7 @@ fn category<'a>(node: Node<'a>, source: &Source<'_>) -> Option<&'static str> {
         "parenthesized_expression" => "ParenExpressionAst",
         "hashtable_expression" | "resource_body" => "HashtableAst",
         "parameter" => "ParameterAst",
+        "named_block" => "NamedBlockAst",
         "function_definition" => "FunctionDefinitionAst",
         "class_method" => "FunctionMemberAst",
         "class_property" | "enum_member" => "PropertyMemberAst",
@@ -493,12 +494,15 @@ fn expected_category(node: &Value) -> Option<&str> {
         // at its name. The actual class method is compared as FunctionMemberAst.
         return None;
     }
+    if category == "NamedBlockAst" && node["unnamed"] == true {
+        // Implicit end/process blocks have no source keyword or named-block node.
+        return None;
+    }
     // These AST nodes are semantic wrappers without a concrete grammar node.
     if matches!(
         category,
         "ScriptBlockAst"
             | "StatementBlockAst"
-            | "NamedBlockAst"
             | "ScriptBlockExpressionAst"
             | "CommandAst"
             | "TypeConstraintAst"
@@ -601,6 +605,12 @@ fn mapped_field(node: Node<'_>, category: &str, field: &str, source: &Source<'_>
                 extents(named_children(node), source)
             }
         }
+        ("NamedBlockAst", "statements" | "traps") => extents(
+            named_children(node.child_by_field_name("body").unwrap())
+                .into_iter()
+                .filter(|statement| (statement.kind() == "trap_statement") == (field == "traps")),
+            source,
+        ),
         ("FunctionDefinitionAst" | "FunctionMemberAst" | "ParamBlockAst", "parameters") => {
             let parameters = node
                 .child_by_field_name("parameters")
@@ -734,9 +744,11 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "ArrayLiteralAst" => &["elements"],
         "ParameterAst" => &["name", "default", "types", "attributes"],
         "ParamBlockAst" => &["parameters", "attributes"],
-        "AttributeAst" => &["positionalArguments", "namedArguments"],
+        "AttributeAst" => &["name", "positionalArguments", "namedArguments"],
+        "NamedAttributeArgumentAst" => &["value"],
         "CommandParameterAst" => &["value"],
         "FileRedirectionAst" => &["destination"],
+        "NamedBlockAst" => &["statements", "traps"],
         "FunctionDefinitionAst" => &["body", "parameters"],
         "FunctionMemberAst" => &["body", "parameters", "returnType", "attributes"],
         "TypeDefinitionAst" => &["members", "attributes", "baseTypes"],
@@ -1107,6 +1119,16 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
     if category == "CompositeStringAst" {
         result.insert("stringKind", json!("BareWord"));
     }
+    if category == "NamedAttributeArgumentAst" {
+        result.insert(
+            "name",
+            json!(source.collected_text(node.child_by_field_name("name").unwrap())),
+        );
+        result.insert(
+            "expressionOmitted",
+            json!(node.child_by_field_name("value").is_none()),
+        );
+    }
     if category == "CommandParameterAst" {
         let name = node
             .child_by_field_name("name")
@@ -1177,6 +1199,18 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
                 _ => unreachable!(),
             }),
         );
+    }
+    if category == "NamedBlockAst" {
+        let kind = match node.child_by_field_name("name").unwrap().kind() {
+            "dynamicparam" => "Dynamicparam",
+            "begin" => "Begin",
+            "process" => "Process",
+            "end" => "End",
+            "clean" => "Clean",
+            _ => unreachable!("unknown named block kind"),
+        };
+        result.insert("kind", json!(kind));
+        result.insert("unnamed", json!(false));
     }
     if category == "BlockStatementAst" {
         result.insert(

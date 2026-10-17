@@ -1262,5 +1262,223 @@
         ]
       }
     ]
+  },
+  {
+    "name": "attribute named arguments retain shorthand flags and complete structured values",
+    "source": "param([A(Flag, Name=1, Script={param($p) $p}, Other=(2,3))]$x)",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "attribute_argument",
+        "field": "name",
+        "texts": [
+          "Flag",
+          "Name",
+          "Script",
+          "Other"
+        ]
+      },
+      {
+        "node": "attribute_argument",
+        "field": "value",
+        "texts": [
+          "1",
+          "{param($p) $p}",
+          "(2,3)"
+        ]
+      },
+      {
+        "node": "attribute",
+        "field": "name",
+        "texts": [
+          "A"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "attribute named values retain casing and escapes inside command arguments",
+    "source": "cmd {param([A(FLAG=$false, OtherFlag, Text=\"hello`nworld\")]$x)}",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "attribute_argument",
+        "field": "name",
+        "texts": [
+          "FLAG",
+          "OtherFlag",
+          "Text"
+        ]
+      },
+      {
+        "node": "attribute_argument",
+        "field": "value",
+        "texts": [
+          "$false",
+          "\"hello`nworld\""
+        ]
+      },
+      {
+        "node": "attribute",
+        "field": "name",
+        "texts": [
+          "A"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "empty attribute arguments add no named argument while a following flag keeps its name",
+    "source": "[A( )]param([B(Flag)]$x)",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "attribute_argument",
+        "field": "name",
+        "texts": [
+          "Flag"
+        ]
+      },
+      {
+        "node": "attribute_argument",
+        "field": "value",
+        "texts": []
+      },
+      {
+        "node": "attribute",
+        "field": "name",
+        "texts": [
+          "A",
+          "B"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "explicit named blocks keep source order and distinct body roles",
+    "source": "function f { end { . finish } begin { & prepare } process { emit } clean { & cleanup } dynamicparam { . discover } }",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "named_block",
+        "field": "name",
+        "texts": [
+          "end",
+          "begin",
+          "process",
+          "clean",
+          "dynamicparam"
+        ]
+      },
+      {
+        "node": "named_block",
+        "field": "body",
+        "texts": [
+          "{ . finish }",
+          "{ & prepare }",
+          "{ emit }",
+          "{ & cleanup }",
+          "{ . discover }"
+        ]
+      },
+      {
+        "node": "invocation_operator_command",
+        "field": "operator",
+        "texts": [
+          ".",
+          "&",
+          "&",
+          "."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "nested script arguments keep their own named blocks and invocation operators",
+    "source": "cmd { process { & { begin { & one } end { . two } } } }",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "named_block",
+        "field": "name",
+        "texts": [
+          "process",
+          "begin",
+          "end"
+        ]
+      },
+      {
+        "node": "named_block",
+        "field": "body",
+        "texts": [
+          "{ & { begin { & one } end { . two } } }",
+          "{ & one }",
+          "{ . two }"
+        ]
+      },
+      {
+        "node": "invocation_operator_command",
+        "field": "operator",
+        "texts": [
+          "&",
+          "&",
+          "."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ordinary statement blocks retain a begin command rather than a named block",
+    "source": "if(1){ begin{one}; . two }",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "named_block",
+        "field": "name",
+        "texts": []
+      },
+      {
+        "node": "named_block",
+        "field": "body",
+        "texts": []
+      },
+      {
+        "node": "invocation_operator_command",
+        "field": "operator",
+        "texts": [
+          "."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "dot sourcing and call operators keep full targets while ordinary paths and backgrounds have no invocation operator",
+    "source": ". '.\\load.ps1' arg; & '.\\run.ps1' arg; .\\plain.ps1 arg; cmd &",
+    "valid": true,
+    "diagnostics": [],
+    "fields": [
+      {
+        "node": "invocation_operator_command",
+        "field": "operator",
+        "texts": [
+          ".",
+          "&"
+        ]
+      },
+      {
+        "node": "invocation_operator_command",
+        "field": "command",
+        "texts": [
+          "'.\\load.ps1'",
+          "'.\\run.ps1'"
+        ]
+      }
+    ]
   }
 ]
