@@ -1473,5 +1473,152 @@
     "diagnostics": [
       "MissingPropertyName"
     ]
+  },
+  {
+    "name": "overflow recovery 128y.M",
+    "source": "128y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery 128y+1",
+    "source": "128y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery 128y=1",
+    "source": "128y=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow recovery 128y>out",
+    "source": "128y>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery -129y.M",
+    "source": "-129y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery -129y+1",
+    "source": "-129y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery -129y=1",
+    "source": "-129y=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow recovery -129y>out",
+    "source": "-129y>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery 256uy.M",
+    "source": "256uy.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery 256uy+1",
+    "source": "256uy+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow recovery 256uy=1",
+    "source": "256uy=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow recovery 256uy>out",
+    "source": "256uy>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary 128y#'x'",
+    "source": "128y#'x'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary 128y#\"x\"",
+    "source": "128y#\"x\"\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary 128y#a'b'",
+    "source": "128y#a'b'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary 32768s#'x'",
+    "source": "32768s#'x'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary 32768s#\"x\"",
+    "source": "32768s#\"x\"\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary 32768s#a'b'",
+    "source": "32768s#a'b'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
   }
 ]

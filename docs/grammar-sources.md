@@ -333,6 +333,12 @@ values to integer suffixes. These follow `tokenizer.TryGetNumberValue` and
 An adjacent sign participates in numeric conversion, so `-128y` is valid while
 `- 128y` retains an invalid positive literal. Member names and hashtable keys
 use the parser's distinct initial lookahead for unary plus and minus.
+An overflowing numeric prefix also retains its error before operators, member
+access, and redirection: `128y.M` cannot become a command name. Arguments and
+explicit invocation targets retain command-mode text, as in `cmd 128y.M`.
+After `return`, `throw`, and `exit`, numeric lookahead begins in expression mode.
+In `return 127y#'text`, the number ends before `#`; the remaining text is a
+comment, including its unmatched quote.
 Named operators remain available after type literals: `[int] -or $x` is binary,
 while `[int] -not $x` and `[int] -csplit $x` are casts over unary expressions.
 

@@ -7899,5 +7899,714 @@
     "diagnostics": [
       "ExpressionsMustBeFirstInPipeline"
     ]
+  },
+  {
+    "name": "overflow prefix 128y.M",
+    "source": "128y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 128y+1",
+    "source": "128y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 128y=1",
+    "source": "128y=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow prefix 128y]",
+    "source": "128y]\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "overflow prefix 128y>out",
+    "source": "128y>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 128y#comment",
+    "source": "128y#comment\n\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix -129y.M",
+    "source": "-129y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix -129y+1",
+    "source": "-129y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix -129y=1",
+    "source": "-129y=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow prefix -129y]",
+    "source": "-129y]\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "overflow prefix -129y>out",
+    "source": "-129y>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix -129y#comment",
+    "source": "-129y#comment\n\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 32768s.M",
+    "source": "32768s.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 32768s+1",
+    "source": "32768s+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 32768s=1",
+    "source": "32768s=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow prefix 32768s]",
+    "source": "32768s]\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "overflow prefix 32768s>out",
+    "source": "32768s>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 32768s#comment",
+    "source": "32768s#comment\n\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 256uy.M",
+    "source": "256uy.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 256uy+1",
+    "source": "256uy+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 256uy=1",
+    "source": "256uy=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow prefix 256uy]",
+    "source": "256uy]\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "overflow prefix 256uy>out",
+    "source": "256uy>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 256uy#comment",
+    "source": "256uy#comment\n\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 18446744073709551616ul.M",
+    "source": "18446744073709551616ul.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 18446744073709551616ul+1",
+    "source": "18446744073709551616ul+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 18446744073709551616ul=1",
+    "source": "18446744073709551616ul=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow prefix 18446744073709551616ul]",
+    "source": "18446744073709551616ul]\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "overflow prefix 18446744073709551616ul>out",
+    "source": "18446744073709551616ul>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 18446744073709551616ul#comment",
+    "source": "18446744073709551616ul#comment\n\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 79228162514264337593543950336d.M",
+    "source": "79228162514264337593543950336d.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 79228162514264337593543950336d+1",
+    "source": "79228162514264337593543950336d+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 79228162514264337593543950336d=1",
+    "source": "79228162514264337593543950336d=1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "InvalidLeftHandSide"
+    ]
+  },
+  {
+    "name": "overflow prefix 79228162514264337593543950336d]",
+    "source": "79228162514264337593543950336d]\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "overflow prefix 79228162514264337593543950336d>out",
+    "source": "79228162514264337593543950336d>out\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix 79228162514264337593543950336d#comment",
+    "source": "79228162514264337593543950336d#comment\n\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "overflow prefix cmd 128y.M tail | next",
+    "source": "cmd 128y.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 128y.M tail | next",
+    "source": "& 128y.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 128y.M tail | next",
+    "source": ". 128y.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 128y+1 tail | next",
+    "source": "cmd 128y+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 128y+1 tail | next",
+    "source": "& 128y+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 128y+1 tail | next",
+    "source": ". 128y+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 128y=1 tail | next",
+    "source": "cmd 128y=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 128y=1 tail | next",
+    "source": "& 128y=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 128y=1 tail | next",
+    "source": ". 128y=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 128y>out tail | next",
+    "source": "cmd 128y>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 128y>out tail | next",
+    "source": "& 128y>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 128y>out tail | next",
+    "source": ". 128y>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 256uy.M tail | next",
+    "source": "cmd 256uy.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 256uy.M tail | next",
+    "source": "& 256uy.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 256uy.M tail | next",
+    "source": ". 256uy.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 256uy+1 tail | next",
+    "source": "cmd 256uy+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 256uy+1 tail | next",
+    "source": "& 256uy+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 256uy+1 tail | next",
+    "source": ". 256uy+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 256uy=1 tail | next",
+    "source": "cmd 256uy=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 256uy=1 tail | next",
+    "source": "& 256uy=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 256uy=1 tail | next",
+    "source": ". 256uy=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 256uy>out tail | next",
+    "source": "cmd 256uy>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 256uy>out tail | next",
+    "source": "& 256uy>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 256uy>out tail | next",
+    "source": ". 256uy>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 18446744073709551616ul.M tail | next",
+    "source": "cmd 18446744073709551616ul.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 18446744073709551616ul.M tail | next",
+    "source": "& 18446744073709551616ul.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 18446744073709551616ul.M tail | next",
+    "source": ". 18446744073709551616ul.M tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 18446744073709551616ul+1 tail | next",
+    "source": "cmd 18446744073709551616ul+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 18446744073709551616ul+1 tail | next",
+    "source": "& 18446744073709551616ul+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 18446744073709551616ul+1 tail | next",
+    "source": ". 18446744073709551616ul+1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 18446744073709551616ul=1 tail | next",
+    "source": "cmd 18446744073709551616ul=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 18446744073709551616ul=1 tail | next",
+    "source": "& 18446744073709551616ul=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 18446744073709551616ul=1 tail | next",
+    "source": ". 18446744073709551616ul=1 tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix cmd 18446744073709551616ul>out tail | next",
+    "source": "cmd 18446744073709551616ul>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix & 18446744073709551616ul>out tail | next",
+    "source": "& 18446744073709551616ul>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix . 18446744073709551616ul>out tail | next",
+    "source": ". 18446744073709551616ul>out tail | next\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix 127y.M",
+    "source": "127y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix 127y+1",
+    "source": "127y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix -128y.M",
+    "source": "-128y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix -128y+1",
+    "source": "-128y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix 1e9999.M",
+    "source": "1e9999.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix 1e9999+1",
+    "source": "1e9999+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix 128yfoo.M",
+    "source": "128yfoo.M\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "overflow prefix 128yfoo+1",
+    "source": "128yfoo+1\nTest-AfterOverflow item | Test-NextOverflow\n",
+    "valid": true
+  },
+  {
+    "name": "numeric comment boundary 128y#'x'",
+    "source": "128y#'x'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary cmd 128y#'x' tail | next",
+    "source": "cmd 128y#'x' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary & 128y#'x' tail | next",
+    "source": "& 128y#'x' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary 128y#\"x\"",
+    "source": "128y#\"x\"\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary cmd 128y#\"x\" tail | next",
+    "source": "cmd 128y#\"x\" tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary & 128y#\"x\" tail | next",
+    "source": "& 128y#\"x\" tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary 128y#a'b'",
+    "source": "128y#a'b'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary cmd 128y#a'b' tail | next",
+    "source": "cmd 128y#a'b' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary & 128y#a'b' tail | next",
+    "source": "& 128y#a'b' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary 32768s#'x'",
+    "source": "32768s#'x'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary cmd 32768s#'x' tail | next",
+    "source": "cmd 32768s#'x' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary & 32768s#'x' tail | next",
+    "source": "& 32768s#'x' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary 32768s#\"x\"",
+    "source": "32768s#\"x\"\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary cmd 32768s#\"x\" tail | next",
+    "source": "cmd 32768s#\"x\" tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary & 32768s#\"x\" tail | next",
+    "source": "& 32768s#\"x\" tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary 32768s#a'b'",
+    "source": "32768s#a'b'\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "numeric comment boundary cmd 32768s#a'b' tail | next",
+    "source": "cmd 32768s#a'b' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "numeric comment boundary & 32768s#a'b' tail | next",
+    "source": "& 32768s#a'b' tail | next\nCorner-After item | Corner-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "return numeric comment 127y#'unclosed",
+    "source": "return 127y#'unclosed\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "return numeric comment 1e9999#`u{ZZZZ}",
+    "source": "return 1e9999#`u{ZZZZ}\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "return numeric comment 128yfoo#'closed'",
+    "source": "return 128yfoo#'closed'\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "return numeric comment 128y#'closed'",
+    "source": "return 128y#'closed'\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "throw numeric comment 127y#'unclosed",
+    "source": "throw 127y#'unclosed\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "throw numeric comment 1e9999#`u{ZZZZ}",
+    "source": "throw 1e9999#`u{ZZZZ}\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "throw numeric comment 128yfoo#'closed'",
+    "source": "throw 128yfoo#'closed'\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "throw numeric comment 128y#'closed'",
+    "source": "throw 128y#'closed'\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
+  },
+  {
+    "name": "exit numeric comment 127y#'unclosed",
+    "source": "exit 127y#'unclosed\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "exit numeric comment 1e9999#`u{ZZZZ}",
+    "source": "exit 1e9999#`u{ZZZZ}\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "exit numeric comment 128yfoo#'closed'",
+    "source": "exit 128yfoo#'closed'\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": true
+  },
+  {
+    "name": "exit numeric comment 128y#'closed'",
+    "source": "exit 128y#'closed'\nFlow-AfterNumeric item | Flow-NextNumeric\n",
+    "valid": false,
+    "diagnostics": [
+      "BadNumericConstant"
+    ]
   }
 ]

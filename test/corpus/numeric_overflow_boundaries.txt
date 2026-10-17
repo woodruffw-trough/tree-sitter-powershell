@@ -1,0 +1,67 @@
+======================================================================
+Overflowing numeric prefix cannot become a member command
+======================================================================
+128y.M
+Test-AfterOverflow item | Test-NextOverflow
+
+---
+
+(source_file
+  (ERROR
+    (bare_word))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+======================================================================
+Overflowing signed prefix retains an error before an operator
+======================================================================
+-129y+1
+Test-AfterOverflow item | Test-NextOverflow
+
+---
+
+(source_file
+  (ERROR
+    (bare_word))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+======================================================================
+Overflowing numeric spelling remains literal in command mode
+======================================================================
+cmd 128y.M 256uy+1 | & 128y=1 tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (invocation_operator_command
+        command: (command_argument
+          (bare_word)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

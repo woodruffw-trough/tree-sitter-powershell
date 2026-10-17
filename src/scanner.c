@@ -2815,10 +2815,17 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
                          (ascii_digit(lexer->lookahead) || lexer->lookahead == '.')));
   bool numeric_live = numeric_start;
   size_t numeric_prefix = 0;
+  bool invalid_numeric_prefix = false;
   const char *numeric_boundaries =
       exclamation_number || expression_number_context ? "!+-*/%.#=]" : "!+-*/%.#";
   while (!lexer->eof(lexer)) {
     int32_t c = lexer->lookahead;
+    if (expression_number_context && valid[FLOW_PIPE_START] && !any_escape && c == '#' &&
+        numeric_prefix != 0 && numeric_prefix == n) {
+      // Return, throw, and exit enter expression mode before numeric lookahead.
+      // Their following comment text is never part of a generic-token probe.
+      break;
+    }
     if (name && !data_name && leading_dash && n > 1 && !any_escape &&
         generic_unary_operator(word) && !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
       return false;
@@ -2862,7 +2869,10 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       word = buffer->data;
       n = buffer->length;
       numeric_live = false;
-      numeric_prefix = 0;
+      // Quoted comment text cannot remove an earlier numeric conversion error.
+      if (!invalid_numeric_prefix) {
+        numeric_prefix = 0;
+      }
       continue;
     }
     if ((generic_end(c) && c != '<' && c != '>') || (!name && c == '$')) {
@@ -2873,6 +2883,10 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       bool numeric = !any_escape && numeric_live &&
                      (exclamation_number ? numeric_spelling(word, &candidate_kind, NULL)
                                          : numeric_token(word, &candidate_kind));
+      if (expression_number_context && !any_escape && numeric_live && !numeric &&
+          numeric_spelling(word, &candidate_kind, NULL)) {
+        return false;
+      }
       if (name && n > 0 && numeric && c == '>') {
         if (exclamation_number) {
           return false;
@@ -2960,8 +2974,13 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       // Probe only at boundaries where a number may end. Once a prefix cannot
       // become numeric, stop probing: large malformed words stay linear too.
       enum TokenType candidate_kind = numeric_kind;
-      if (exclamation_number ? numeric_spelling(word, &candidate_kind, NULL)
-                             : numeric_token(word, &candidate_kind)) {
+      bool converted = exclamation_number ? numeric_spelling(word, &candidate_kind, NULL)
+                                          : numeric_token(word, &candidate_kind);
+      if (converted ||
+          (expression_number_context && numeric_spelling(word, &candidate_kind, NULL))) {
+        // Expression-mode ScanNumber reports conversion failures before
+        // parsing the suffix. Do not turn an overflowing prefix into a command.
+        invalid_numeric_prefix = !converted;
         numeric_kind = candidate_kind;
         numeric_prefix = n;
         if (!signed_start) {
@@ -3074,6 +3093,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     // Later escaping cannot remove an earlier numeric/operator boundary.
     if (name && !data_name && numeric_start && numeric_prefix != 0 && numeric_prefix < n &&
         strchr(numeric_boundaries, word[numeric_prefix]) != NULL) {
+      if (invalid_numeric_prefix) {
+        return false;
+      }
       if (signed_start) {
         lexer->result_symbol = SIGNED_NUMBER_START;
         return true;
