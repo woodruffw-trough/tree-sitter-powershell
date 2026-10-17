@@ -1101,5 +1101,103 @@
       "MissingExpressionAfterOperator",
       "UnexpectedToken"
     ]
+  },
+  {
+    "name": "break rejects malformed static member 1 and retains later pipeline",
+    "source": "break $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 2 and retains later pipeline",
+    "source": "break $x::.<# ignored #>\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 3 and retains later pipeline",
+    "source": "break $x:::\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 4 and retains later pipeline",
+    "source": "break $x::=\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 5 and retains later pipeline",
+    "source": "break $x::@\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "UnrecognizedToken",
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 1 and retains later pipeline",
+    "source": "continue $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 2 and retains later pipeline",
+    "source": "continue $x::.<# ignored #>\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 3 and retains later pipeline",
+    "source": "continue $x:::\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 4 and retains later pipeline",
+    "source": "continue $x::=\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 5 and retains later pipeline",
+    "source": "continue $x::@\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "UnrecognizedToken",
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects a malformed static member inside a function",
+    "source": "function f { break $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n}",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects a malformed static member inside a function",
+    "source": "function f { continue $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n}",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
   }
 ]

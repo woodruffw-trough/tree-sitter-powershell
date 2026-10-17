@@ -1620,5 +1620,15 @@
     "diagnostics": [
       "BadNumericConstant"
     ]
+  },
+  {
+    "name": "malformed switch filename ${x:} retains recovered block commands",
+    "source": "switch -file .${x:} { default {} }",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference",
+      "MissingCurlyBraceInSwitchStatement",
+      "UnexpectedToken"
+    ]
   }
 ]

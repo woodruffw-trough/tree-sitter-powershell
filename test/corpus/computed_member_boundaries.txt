@@ -1,0 +1,50 @@
+==================
+computed generic member keeps pipeline boundaries
+==================
+cmd $x.<#member#>$$.M tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (member_access
+          object: (member_access
+            object: (variable)
+            (comment)
+            member: (variable)
+            member: (MISSING _argument_end))
+          member: (identifier)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+special variable remains a valid computed member invocation
+==================
+cmd $x.$$() tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (invocation_expression
+          function: (member_access
+            object: (variable)
+            member: (variable))
+          arguments: (argument_list)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+

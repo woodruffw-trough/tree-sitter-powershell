@@ -1,0 +1,60 @@
+======================================================================
+Malformed static label leaves later pipeline intact
+======================================================================
+break $x::.
+Test-RecoveryAfterLabel item | Test-RecoveryNext
+
+---
+
+(source_file
+  (ERROR
+    (variable)
+    (bare_word))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+======================================================================
+Collected static member reads logical quotes
+======================================================================
+"$(break $x::`"M`")"
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (interpolation
+          expression: (sub_expression
+            (break_statement
+              label: (member_access
+                object: (variable)
+                member: (expandable_string
+                  (string_content))))))))))
+
+======================================================================
+Collected closer leaves a missing static member in error
+======================================================================
+"$(cmd $name::)"
+
+---
+
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command
+                name: (command_name
+                  (bare_word))))
+            (ERROR
+              (variable))))))))

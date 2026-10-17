@@ -1249,5 +1249,117 @@
     "source": "cmd ($x)?. <#one#> # line\nName() tail | next\n",
     "valid": true,
     "diagnostics": []
+  },
+  {
+    "name": "special-dollar computed member",
+    "source": "cmd $x.$$ tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "special-question static member",
+    "source": "cmd $x::$? tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "special-caret null-conditional member",
+    "source": "cmd ($x)?.$^ tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "special member invocation",
+    "source": "cmd $x.$$() tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "ordinary computed member chain",
+    "source": "cmd $x.$y.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "braced computed member chain",
+    "source": "cmd $x.${y}.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "special computed member with comment",
+    "source": "cmd $x.<#c#>$$ tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "collected special computed member",
+    "source": "\"$(cmd $x::<#c#>$? tail | next)\"",
+    "valid": true
+  },
+  {
+    "name": "generic dollar member suffix",
+    "source": "cmd $x.$$.M tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic question member index",
+    "source": "cmd $x::$?[0] tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic caret member assignment",
+    "source": "cmd ($x)?.$^=x tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic braced member assignment",
+    "source": "cmd $x.${y}=x tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic member escaped space",
+    "source": "cmd $x.` $$.M tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic member escaped newline",
+    "source": "cmd $x.`\n$$.M tail | next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic member retains newline command",
+    "source": "cmd $x.<#c#>$$.M\nWrite-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "generic member retains semicolon command",
+    "source": "cmd $x::<#c#>$?.M extra; Write-Output after | next",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "collected generic member retains command",
+    "source": "\"$(cmd $x?.<#c#>$^.M\nWrite-Output after | next)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
   }
 ]

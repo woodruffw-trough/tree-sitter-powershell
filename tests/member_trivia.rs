@@ -21,6 +21,7 @@ fn malformed_computed_members_preserve_following_commands() {
 
     let cases: Vec<Value> =
         serde_json::from_str(include_str!("fixtures/member_recovery.json")).unwrap();
+    common::assert_syntax(&cases);
     let results = common::oracle(&cases, "tests/fixtures/member_recovery.json");
     let query = Query::new(
         &woodruffw_trough_tree_sitter_powershell::LANGUAGE.into(),

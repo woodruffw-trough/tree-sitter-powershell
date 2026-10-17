@@ -2127,5 +2127,133 @@
     "name": "continue label before a new member prefix decrement",
     "source": "continue ($x)--${x}.M",
     "valid": true
+  },
+  {
+    "name": "Static operator preserves native valid context 3",
+    "source": "cmd $x::M() tail",
+    "valid": true
+  },
+  {
+    "name": "Static operator preserves native valid context 4",
+    "source": "data X -s $x::M() {}",
+    "valid": true
+  },
+  {
+    "name": "Static operator preserves native valid context 5",
+    "source": "break $x::<# comment #>\nM",
+    "valid": true
+  },
+  {
+    "name": "Static operator preserves native valid context 6",
+    "source": "break $x::` \nM",
+    "valid": true
+  },
+  {
+    "name": "Static operator preserves native valid context 7",
+    "source": "break $x:: M",
+    "valid": true
+  },
+  {
+    "name": "Static operator preserves native valid context 8",
+    "source": "\"$(break $x::`\"M`\")\"",
+    "valid": true
+  },
+  {
+    "name": "break rejects malformed static member 1 and retains later pipeline",
+    "source": "break $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 2 and retains later pipeline",
+    "source": "break $x::.<# ignored #>\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 3 and retains later pipeline",
+    "source": "break $x:::\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 4 and retains later pipeline",
+    "source": "break $x::=\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects malformed static member 5 and retains later pipeline",
+    "source": "break $x::@\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "UnrecognizedToken",
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 1 and retains later pipeline",
+    "source": "continue $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 2 and retains later pipeline",
+    "source": "continue $x::.<# ignored #>\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 3 and retains later pipeline",
+    "source": "continue $x:::\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 4 and retains later pipeline",
+    "source": "continue $x::=\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects malformed static member 5 and retains later pipeline",
+    "source": "continue $x::@\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n",
+    "valid": false,
+    "diagnostics": [
+      "UnrecognizedToken",
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "break rejects a malformed static member inside a function",
+    "source": "function f { break $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n}",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
+  },
+  {
+    "name": "continue rejects a malformed static member inside a function",
+    "source": "function f { continue $x::.\nTest-RecoveryAfterLabel item | Test-RecoveryNext\n}",
+    "valid": false,
+    "diagnostics": [
+      "MissingPropertyName"
+    ]
   }
 ]

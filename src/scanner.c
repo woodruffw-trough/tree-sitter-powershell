@@ -108,6 +108,8 @@ enum TokenType {
   FUNCTION_CONTEXT_START,
   CONTEXT_END,
   WORKFLOW_INLINE_SCRIPT,
+  COMMAND_STATIC_OPERATOR,
+  ARGUMENT_DOT,
   EXTERNAL_TOKEN_COUNT
 };
 
@@ -118,7 +120,8 @@ static bool prepared_context_token(TSSymbol symbol) {
          symbol == UNARY_SIGN_CONTEXT || symbol == CAST_VALUE_CONTEXT ||
          symbol == FLOW_PIPE_START || symbol == LEADING_PIPE_START ||
          symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION ||
-         symbol == ATTRIBUTE_RECOVERY_CONTINUATION || symbol == FLOW_LABEL_END;
+         symbol == ATTRIBUTE_RECOVERY_CONTINUATION || symbol == FLOW_LABEL_END ||
+         symbol == COMMAND_MEMBER_START || symbol == COMMAND_UNARY_START;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -2820,6 +2823,20 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       exclamation_number || expression_number_context ? "!+-*/%.#=]" : "!+-*/%.#";
   while (!lexer->eof(lexer)) {
     int32_t c = lexer->lookahead;
+    // ScanDot leaves a complete dot token before variables and ASCII quotes.
+    if ((!name || data_name) && !continuation && !any_escape && n == 1 && word[0] == '.' &&
+        (c == '$' || c == '\'' || c == '"')) {
+      if (data_name) {
+        lexer->mark_end(lexer);
+        lexer->result_symbol = DATA_COMMAND_NAME;
+        return true;
+      }
+      if (valid[ARGUMENT_DOT] && !valid[HERE_STRING_CONTENT]) {
+        lexer->mark_end(lexer);
+        lexer->result_symbol = ARGUMENT_DOT;
+        return true;
+      }
+    }
     if (expression_number_context && valid[FLOW_PIPE_START] && !any_escape && c == '#' &&
         numeric_prefix != 0 && numeric_prefix == n) {
       // Return, throw, and exit enter expression mode before numeric lookahead.
@@ -2830,7 +2847,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
         generic_unary_operator(word) && !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
       return false;
     }
-    if (name && !data_name && n == 1 && word[0] == '.' && c == '$') {
+    if (name && !data_name && !any_escape && n == 1 && word[0] == '.' && c == '$') {
       return false;
     }
     if (name && c == '$') {
@@ -2860,7 +2877,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
           numeric_prefix < n && word[numeric_prefix] == '#') {
         break;
       }
-      if (!data_name && n == 1 && word[0] == '.') {
+      if (!data_name && !any_escape && n == 1 && word[0] == '.' && (c == '\'' || c == '"')) {
         return false;
       }
       if (!scan_name_quoted_piece(lexer) || !generic_word_append(buffer, '?')) {
@@ -3592,6 +3609,14 @@ static bool fragment_character(int32_t c) {
          c != ')' && c != '{' && c != '}' && c != ',' && c != '$' && !quote(c) && c != '`';
 }
 
+// A malformed static member must stay in a flow label's error instead of
+// becoming a new literal command. Ordinary member recovery keeps its tokens.
+static bool command_static_member_follows(TSLexer *lexer) {
+  return !horizontal(lexer->lookahead) && !newline(lexer->lookahead) && !lexer->eof(lexer) &&
+         skip_postfix_trivia(lexer, true) &&
+         command_mode_expression_follows(lexer, false, false, ALLOW_MALFORMED_VARIABLE);
+}
+
 static bool scan_fragment(TSLexer *lexer, const bool *valid) {
   bool variable = valid[VARIABLE_ARGUMENT_FRAGMENT];
   int32_t first = lexer->lookahead;
@@ -3618,6 +3643,14 @@ static bool scan_fragment(TSLexer *lexer, const bool *valid) {
       if (horizontal(lexer->lookahead) || newline(lexer->lookahead) ||
           (lexer->eof(lexer) && !at_collector_end(lexer))) {
         lexer->result_symbol = ARGUMENT_END;
+        return true;
+      }
+      if (valid[COMMAND_STATIC_OPERATOR]) {
+        lexer->mark_end(lexer);
+        if (valid[FLOW_LABEL_END] && !command_static_member_follows(lexer)) {
+          return false;
+        }
+        lexer->result_symbol = COMMAND_STATIC_OPERATOR;
         return true;
       }
       return false;
@@ -4334,6 +4367,16 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     lexer->result_symbol = RIGHT_PAREN;
     return true;
   }
+  if (valid[COMMAND_STATIC_OPERATOR] && valid[HERE_STRING_CONTENT] && lexer->lookahead == ':') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead != ':') {
+      return false;
+    }
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    lexer->result_symbol = COMMAND_STATIC_OPERATOR;
+    return true;
+  }
   bool preparing = valid[PREPARED_TOKEN] && ordinary_interpolation_layers(scanner);
   bool here_body = (valid[HERE_STRING_CONTENT] || valid[HERE_STRING_END]) &&
                    !valid[EXPANDABLE_HERE_STRING_START];
@@ -4409,7 +4452,37 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if (valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START] && !valid[ARGUMENT_END]) {
     return false;
   }
+  if (valid[COMMAND_STATIC_OPERATOR] && !valid[HERE_STRING_CONTENT] && lexer->lookahead == ':') {
+    if (preparing) {
+      return request_preparation(scanner, lexer, valid);
+    }
+    lexer->mark_end(lexer);
+    lexer->advance(lexer, false);
+    if (lexer->lookahead != ':') {
+      lexer->result_symbol = valid[FLOW_LABEL_END]        ? FLOW_LABEL_END
+                             : valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END
+                                                          : EXPRESSION_ARGUMENT_END;
+      return valid[lexer->result_symbol];
+    }
+    lexer->advance(lexer, false);
+    if (horizontal(lexer->lookahead) || newline(lexer->lookahead) ||
+        (lexer->eof(lexer) && !at_collector_end(lexer))) {
+      lexer->result_symbol = valid[FLOW_LABEL_END]        ? FLOW_LABEL_END
+                             : valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END
+                                                          : EXPRESSION_ARGUMENT_END;
+      return valid[lexer->result_symbol];
+    }
+    lexer->mark_end(lexer);
+    if (valid[FLOW_LABEL_END] && !command_static_member_follows(lexer)) {
+      return false;
+    }
+    lexer->result_symbol = COMMAND_STATIC_OPERATOR;
+    return true;
+  }
   if ((valid[COMMAND_MEMBER_START] || valid[COMMAND_UNARY_START]) && !valid[HERE_STRING_CONTENT]) {
+    if (preparing && valid[COMMAND_MEMBER_START]) {
+      return request_preparation(scanner, lexer, valid);
+    }
     bool leading_whitespace = false;
     while (horizontal(lexer->lookahead)) {
       leading_whitespace = true;
@@ -4482,18 +4555,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
           }
         }
       } else if (argument_postfix_follows(lexer, valid[METHOD_INVOCATION_CONTEXT])) {
-        // MemberAccessRule keeps invalid member text on this statement.
-        // Until that recovery is represented, do not take a later statement
-        // as the name after a malformed static separator.
-        if (c != ':') {
-          return false;
-        }
-        if (skip_postfix_trivia(lexer, true) &&
-            command_mode_expression_follows(
-                lexer, lexer->lookahead == '+' || generic_dash(lexer->lookahead), false,
-                ALLOW_MALFORMED_VARIABLE)) {
-          return false;
-        }
+        return false;
       }
     }
     if (valid[FLOW_EXPRESSION_START] &&

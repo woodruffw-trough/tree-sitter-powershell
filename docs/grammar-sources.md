@@ -94,6 +94,17 @@ backticks followed by horizontal whitespace are skipped before computed member
 names. These boundaries follow `GetMemberAccessOperator`, `ScanVariable`, and
 `MemberNameRule` in the pinned parser.
 
+`ScanDot` also separates a leading dot from an adjacent variable or ASCII quote.
+For example, `cmd .$x` has two arguments, `.` and `$x`; escaped dots and
+smart-quote fragments keep their generic-token boundaries. The same lexical
+rule applies to names in `data -SupportedCommand` lists.
+
+Special-variable member names retain those command-mode boundaries too.
+`cmd $x.$$()` invokes a computed member, while `cmd $x.$$.M` retains an error:
+the glued `$$.M` is a generic token and cannot fill a member-name slot.
+Static member names in flow labels follow the same token boundaries. A missing
+member in `break $x::.` retains an error before the following command.
+
 Generic method type arguments accept intervening whitespace and comments, as in
 `$obj.Method [int](1)`. The call opener must touch the method name or closing
 type bracket. Block comments preserve member/index adjacency but separate a

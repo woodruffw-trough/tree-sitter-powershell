@@ -1019,5 +1019,61 @@
     "name": "data member supported command list",
     "source": "data X -s $x.M(), $y.Name {}",
     "valid": true
+  },
+  {
+    "name": "data supported-command dot .$x",
+    "source": "data X -SupportedCommand .$x {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data supported-command dot .$(Get-Dot)",
+    "source": "data X -SupportedCommand .$(Get-Dot) {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data supported-command dot .\"$x\"",
+    "source": "data X -SupportedCommand .\"$x\" {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data supported-command dot .'text'",
+    "source": "data X -SupportedCommand .'text' {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementBlockForDataSection",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "data supported-command dot .“text”",
+    "source": "data X -SupportedCommand .“text” {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "data supported-command dot .`$x",
+    "source": "data X -SupportedCommand .`$x {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "data supported-command dot `.$x",
+    "source": "data X -SupportedCommand `.$x {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "data supported-command dot .",
+    "source": "data X -SupportedCommand . {}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
   }
 ]

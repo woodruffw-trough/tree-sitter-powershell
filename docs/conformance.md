@@ -86,7 +86,8 @@ Core's `WorkflowNotSupportedInPowerShellCore` diagnostic.
 **Malformed-input recovery.** Tests check that malformed interpolation retains
 an `ERROR`, the enclosing string, subsequent arguments, and following pipeline
 commands. Recovery still differs for some incomplete hashtable values, member
-continuations, and malformed here-string headers in attribute arguments.
+continuations, malformed switch headers, and malformed here-string headers in
+attribute arguments.
 These can still absorb later commands. Some damaged command extents also differ:
 malformed colon commands and empty groups after generic arguments such as
 `cmd $$.M()` retain a suffix outside the command node, where PowerShell includes
@@ -94,8 +95,9 @@ it in the recovered command extent. Tree-sitter's recovery tree does not promise
 Microsoft's diagnostic sequence or recovered AST
 for every input. Long runs of invalid attribute prefixes can require quadratic
 lookahead during recovery.
-Some malformed computed member names and flow labels, including
-`cmd $x.<#c#>$$.M`, `break $x::.`, and `break ($x)++suffix`, remain accepted.
+Some malformed postfix operands in flow labels, such as `break ($x)++suffix`,
+and switch operands beginning `.$x` remain accepted. Malformed variables in
+some generic arguments can also be consumed as literal dollar fragments.
 [Operator](../tests/operator_recovery.rs), [member](../tests/member_trivia.rs),
 and [flow-label](../tests/flow_labels.rs) recovery tests compare following command
 boundaries independently of the damaged argument and label nodes.

@@ -1,0 +1,52 @@
+======================================================================
+Leading dot separates variables and ASCII quotes into arguments
+======================================================================
+cmd .$x .'text' ."$x" tail | next
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (variable))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (single_quoted_string))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (expandable_string
+          (variable)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+======================================================================
+Smart quotes and escaped dots keep generic argument boundaries
+======================================================================
+cmd .“text” .`$x `.$x
+
+---
+
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (expandable_string
+          (string_content)))
+      (command_argument
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (variable)))))

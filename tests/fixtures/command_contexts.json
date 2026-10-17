@@ -3901,5 +3901,217 @@
     "valid": true,
     "name": "special splat command boundary '& @^::M'",
     "diagnostics": []
+  },
+  {
+    "name": "dot split argument '.$x'",
+    "source": "cmd .$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument '.$$'",
+    "source": "cmd .$$ tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument '.$(Get-Dot)'",
+    "source": "cmd .$(Get-Dot) tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument \".'text'\"",
+    "source": "cmd .'text' tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument '.\"$x\"'",
+    "source": "cmd .\"$x\" tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument '.“text”'",
+    "source": "cmd .“text” tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument '.‘text’'",
+    "source": "cmd .‘text’ tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument '.`$x'",
+    "source": "cmd .`$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split argument '`.$x'",
+    "source": "cmd `.$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split attached parameter '.$x'",
+    "source": "cmd -p:.$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split parameter value '.\"$x\"'",
+    "source": "cmd -p .\"$x\" tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split redirection '.$x'",
+    "source": "cmd >.$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split append redirection \".'text'\"",
+    "source": "cmd 2>>.'text' tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split switch condition '.‘text’'",
+    "source": "switch (.‘text’) { default {} }\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split invoked target '.$x'",
+    "source": "& .$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split dot target '.\"$x\"'",
+    "source": ". .\"$x\" tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split array head '.$x'",
+    "source": "cmd .$x,other tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split array element '.$x'",
+    "source": "cmd other,.$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split parameter array '.$x'",
+    "source": "cmd -p:other,.$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split method argument '.$x'",
+    "source": "$x.M(.$x)\nTest-DotAfter item | Test-DotNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInMethodCall",
+      "UnexpectedToken",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "dot split method subexpression '.$x'",
+    "source": "$x.M($(cmd .$x tail | next))\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split assignment '`.$x'",
+    "source": "$x = `.$x\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split return '.`\\n$x'",
+    "source": "return .`\n$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split throw '.‘text’'",
+    "source": "throw .‘text’ tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split exit '`.$x'",
+    "source": "exit `.$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split hashtable statement '.$x'",
+    "source": "@{x=cmd .$x tail | next}\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split function '.$x'",
+    "source": "function f { cmd .$x tail | next }\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "dot split using module '.$x'",
+    "source": "using module .$x\nTest-DotAfter item | Test-DotNext\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "RequiresModuleInvalid"
+    ]
+  },
+  {
+    "name": "dot split end parameters '.$x'",
+    "source": "cmd -- .$x tail | next\nTest-DotAfter item | Test-DotNext\n",
+    "valid": true
+  },
+  {
+    "name": "literal dollar in generic argument",
+    "source": "cmd pre$ tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "literal dollar before punctuation",
+    "source": "cmd pre$! tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "variable after generic prefix",
+    "source": "cmd pre$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "braced variable after generic prefix",
+    "source": "cmd pre${y}.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "special variable with literal member suffix",
+    "source": "cmd pre$$.M tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "variable after continued generic prefix",
+    "source": "cmd [int]::`\n$y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "qualified variable after escaped generic prefix",
+    "source": "cmd [int]::` $env:y tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "collected argument variable",
+    "source": "\"$(cmd pre$y tail | next)\"",
+    "valid": true
+  },
+  {
+    "name": "adjacent variable before static separator",
+    "source": "Show p$x::Member tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "scoped variable before static separator",
+    "source": "Show p$script:x::Member tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "braced variable escaped closing brace",
+    "source": "Show p${a`}b} tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
   }
 ]

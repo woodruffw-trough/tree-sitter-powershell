@@ -161,6 +161,12 @@ fn fingerprint(node: Node<'_>, output: &mut String) {
 fn command_token_boundary_edits_match_fresh_parses() {
     for source in [
         "cmd -- -foo.bar -foo$x\n",
+        "cmd .$x .'text' .\"$x\" tail | next\n",
+        "cmd .“text” .‘text’ .`$x `.$x tail | next\n",
+        "cmd -p:.$x tail | next\n",
+        "cmd prefix${name} tail | next\n",
+        "data X -SupportedCommand .“text” {}\n",
+        "data X -SupportedCommand `.$x {}\n",
         "1.++\n",
         "++[int]1\n",
         "1. + ++$y\n",

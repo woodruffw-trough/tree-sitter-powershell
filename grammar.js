@@ -222,7 +222,9 @@ const memberAccess = ($, primary, member, start = null) => prec.left(
         optional($._postfix_context),
         field('operator', choice(
           token.immediate(prec(5, '.')),
-          token.immediate(prec(5, '::')),
+          ...(start
+            ? [alias($._command_static_operator, '::')]
+            : [token.immediate(prec(5, '::'))]),
           token.immediate(prec(5, '?.')),
         )),
       ),
@@ -438,6 +440,8 @@ const grammarDefinition = {
     $._function_context_start,
     $._context_end,
     $._workflow_inline_script,
+    $._command_static_operator,
+    $._argument_dot,
   ],
 
   word: $ => $.identifier,
@@ -609,7 +613,7 @@ const grammarDefinition = {
     _switch_file_parameter: $ => seq(
       alias($._switch_file_parameter_token, '-file'),
       repeat(NEWLINE),
-      field('file', alias($._single_command_argument_value, $.command_argument)),
+      field('file', alias($._switch_command_argument_value, $.command_argument)),
     ),
 
     switch_parameter: $ => choice(
@@ -622,7 +626,7 @@ const grammarDefinition = {
 
     switch_clause: $ => seq(
       $._switch_clause_start,
-      field('condition', alias($._single_command_argument_value, $.command_argument)),
+      field('condition', alias($._switch_command_argument_value, $.command_argument)),
       repeat(NEWLINE),
       field('body', $.statement_block),
     ),
@@ -1409,6 +1413,16 @@ const grammarDefinition = {
     // Member access ends a variable's expandable suffix: $HOME-more is one
     // argument, whereas $HOME.Length-more has a member value and a parameter.
     _command_argument_value: $ => choice(
+      alias($._argument_dot, $.bare_word),
+      $._non_dot_command_argument_value,
+    ),
+
+    _switch_command_argument_value: $ => choice(
+      $._non_dot_command_argument_value,
+      $._literal_parameter_value,
+    ),
+
+    _non_dot_command_argument_value: $ => choice(
       seq($.splat_expression, $._expression_argument_end),
       seq($._command_argument_unary_expression, $._expression_argument_end),
       seq(alias($._command_member_access, $.member_access), $._member_argument_end),
@@ -2140,7 +2154,13 @@ const grammarDefinition = {
       },
     ),
 
-    _command_member_name: $ => choice($.identifier, primaryValue($, false, true)),
+    // Command-mode special variables with glued suffixes are generic tokens.
+    // Require their argument boundary before completing a computed member.
+    _command_member_name: $ => choice(
+      $.identifier,
+      primaryValue($, false, true),
+      seq(alias($._generic_argument_variable, $.variable), $._argument_end),
+    ),
 
     _command_computed_member_name: $ => choice(
       seq(
@@ -2472,6 +2492,7 @@ const COMMA_CONTEXT_RULES = new Set([
   '_command_element_after_end_of_parameters', '_invocation_end_of_parameters_command',
   '_invocation_verbatim_command',
   'command_argument', '_command_argument_array', '_command_argument_value',
+  '_non_dot_command_argument_value', '_switch_command_argument_value',
   'redirection', 'hashtable_expression', 'hash_entry',
   '_command_argument_unary_expression', '_command_argument_unary_operator_expression',
   '_command_primary_expression', '_command_value_primary_expression',

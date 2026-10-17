@@ -920,7 +920,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "_single_command_argument_value"
+              "name": "_switch_command_argument_value"
             },
             "named": true,
             "value": "command_argument"
@@ -992,7 +992,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "_single_command_argument_value"
+              "name": "_switch_command_argument_value"
             },
             "named": true,
             "value": "command_argument"
@@ -6175,15 +6175,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -6296,15 +6294,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -8501,6 +8497,37 @@
       ]
     },
     "_command_argument_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_argument_dot"
+          },
+          "named": true,
+          "value": "bare_word"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_non_dot_command_argument_value"
+        }
+      ]
+    },
+    "_switch_command_argument_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_non_dot_command_argument_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_literal_parameter_value"
+        }
+      ]
+    },
+    "_non_dot_command_argument_value": {
       "type": "CHOICE",
       "members": [
         {
@@ -19536,15 +19563,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -19666,15 +19691,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -20745,6 +20768,24 @@
             {
               "type": "SYMBOL",
               "name": "script_block"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_generic_argument_variable"
+              },
+              "named": true,
+              "value": "variable"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_argument_end"
             }
           ]
         }
@@ -22918,15 +22959,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -23039,15 +23078,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -27486,7 +27523,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "_comma_free_single_command_argument_value"
+              "name": "_comma_free_switch_command_argument_value"
             },
             "named": true,
             "value": "command_argument"
@@ -27508,7 +27545,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "_comma_free_single_command_argument_value"
+              "name": "_comma_free_switch_command_argument_value"
             },
             "named": true,
             "value": "command_argument"
@@ -31679,15 +31716,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -31800,15 +31835,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -33393,6 +33426,24 @@
       "type": "CHOICE",
       "members": [
         {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_argument_dot"
+          },
+          "named": true,
+          "value": "bare_word"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_comma_free_non_dot_command_argument_value"
+        }
+      ]
+    },
+    "_comma_free_non_dot_command_argument_value": {
+      "type": "CHOICE",
+      "members": [
+        {
           "type": "SEQ",
           "members": [
             {
@@ -33539,6 +33590,19 @@
               "name": "_argument_end"
             }
           ]
+        }
+      ]
+    },
+    "_comma_free_switch_command_argument_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_comma_free_non_dot_command_argument_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_literal_parameter_value"
         }
       ]
     },
@@ -34311,15 +34375,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -34441,15 +34503,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -34584,6 +34644,24 @@
             {
               "type": "SYMBOL",
               "name": "script_block"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_generic_argument_variable"
+              },
+              "named": true,
+              "value": "variable"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_argument_end"
             }
           ]
         }
@@ -34918,15 +34996,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -35039,15 +35115,13 @@
                           }
                         },
                         {
-                          "type": "IMMEDIATE_TOKEN",
+                          "type": "ALIAS",
                           "content": {
-                            "type": "PREC",
-                            "value": 5,
-                            "content": {
-                              "type": "STRING",
-                              "value": "::"
-                            }
-                          }
+                            "type": "SYMBOL",
+                            "name": "_command_static_operator"
+                          },
+                          "named": false,
+                          "value": "::"
                         },
                         {
                           "type": "IMMEDIATE_TOKEN",
@@ -40905,6 +40979,14 @@
     {
       "type": "SYMBOL",
       "name": "_workflow_inline_script"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_command_static_operator"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_argument_dot"
     }
   ],
   "inline": [],
