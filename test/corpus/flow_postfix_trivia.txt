@@ -1,0 +1,108 @@
+==================
+A block comment stays inside a flow-label postfix expression
+==================
+break $x[0]<# c #>-- suffix
+Postfix-After item | Postfix-Next
+---
+(source_file
+  (break_statement
+    label: (unary_expression
+      argument: (element_access
+        object: (variable)
+        index: (integer_literal))
+      (comment)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+An escaped newline stays inside a flow-label postfix expression
+==================
+continue $x.M`
+-- suffix
+Postfix-After item | Postfix-Next
+---
+(source_file
+  (continue_statement
+    label: (unary_expression
+      argument: (member_access
+        object: (variable)
+        member: (identifier))
+      (line_continuation)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A glued variable keeps the following increment in the next statement
+==================
+break ($x)<# c #>++$y
+Postfix-After item | Postfix-Next
+---
+(source_file
+  (break_statement
+    label: (parenthesized_expression
+      (pipeline
+        elements: (command_expression
+          expression: (variable)))))
+  (comment)
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (variable))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+An escaped space before an increment keeps the postfix label
+==================
+break ($x)` ++ suffix
+Postfix-After item | Postfix-Next
+---
+(source_file
+  (break_statement
+    label: (unary_expression
+      argument: (parenthesized_expression
+        (pipeline
+          elements: (command_expression
+            expression: (variable))))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

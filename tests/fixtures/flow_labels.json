@@ -2255,5 +2255,158 @@
     "diagnostics": [
       "MissingPropertyName"
     ]
+  },
+  {
+    "name": "space before flow-label postfix",
+    "source": "break ($x) ++ suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "tab before mixed-dash flow postfix",
+    "source": "continue $x.M\t–— suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "block comment before indexed-label postfix",
+    "source": "break $x[0]<# c #>-- suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "adjacent comments before flow postfix",
+    "source": "continue ($x)<# first #><# second #>++ suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "spaces around flow-label comment",
+    "source": "break ($x) <# c #> ++ suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped newline before member-label postfix",
+    "source": "continue $x.M`\n-- suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped CRLF before indexed-label postfix",
+    "source": "break $x[0] `\r\n++ suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "comment then escaped newline before postfix",
+    "source": "continue ($x)<# c #>`\n–— suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped newline then comment before postfix",
+    "source": "break ($x)`\n<# c #>++ suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "multiline comment before flow postfix",
+    "source": "break ($x)<# first\nsecond #>++ suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "collected escaped-newline flow postfix",
+    "source": "\"$(continue $x.M`\n-- suffix\nPostfix-After item | Postfix-Next\n)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "here-string collected flow postfix",
+    "source": "@\"\n$(break ($x)<# c #>++ suffix\nPostfix-After item | Postfix-Next)\n\"@",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "glued variable after comment starts next prefix expression",
+    "source": "break ($x)<# c #>++$y\nPostfix-After item | Postfix-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow postfix target validation follows parsing",
+    "source": "break 'label' <# c #>++ suffix\nPostfix-After item | Postfix-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "escaped space before flow-label postfix",
+    "source": "break ($x)` ++ suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped tab before member-label postfix",
+    "source": "continue $x.M`\t-- suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "repeated escaped spaces before indexed-label postfix",
+    "source": "break $x[0]` ` –— suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "mixed escaped horizontal runs before postfix",
+    "source": "continue ($x) ` \t` \t++ suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped horizontal trivia around a comment",
+    "source": "break ($x)` <# c #>`\t++ suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "comment before escaped horizontal trivia",
+    "source": "continue $x.M<# c #>` -- suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped space and CRLF before postfix",
+    "source": "break $x[0]` `\r\n` ++ suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "continuation comment and escaped tab before postfix",
+    "source": "continue ($x)`\n<# c #>`\t–— suffix\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "collected escaped-space postfix",
+    "source": "\"$(break ($x)` ++ suffix\nHorizontal-After item | Horizontal-Next\n)\"",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "here-string collected escaped-space postfix",
+    "source": "@\"\n$(break ($x)` <# c #>++ suffix\nHorizontal-After item | Horizontal-Next)\n\"@",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped space before next prefix increment",
+    "source": "break ($x)` ++$y\nHorizontal-After item | Horizontal-Next\n",
+    "valid": true,
+    "diagnostics": []
   }
 ]

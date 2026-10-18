@@ -219,6 +219,10 @@ select each statement's operand by role.
 tries a simple name before a unary expression. In `break foo.M`, the label is
 `foo` and `.M` starts a command. In `break $x::M()`, the complete invocation is
 the label. Bare identifiers cannot appear as recursive cast or unary operands.
+Spaces, tabs, block comments, and escaped whitespace can precede a flow label's
+postfix operator. In `break ($x)<# c #>++$y`, `++$y` starts the next prefix
+expression. These token boundaries follow
+[`CheckOperatorInCommandMode`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L3340-L3360).
 
 Command parameters consistently expose their complete spelling in `name`,
 including the `--` marker that ends parameter recognition.

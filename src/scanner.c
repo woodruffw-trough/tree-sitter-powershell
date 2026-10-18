@@ -4223,6 +4223,25 @@ static bool scan_attribute_continuation(TSLexer *lexer, const bool *valid) {
   return true;
 }
 
+// Command-mode doubled signs are postfix operators only when the following
+// character starts a new token. Trivia before the operator does not end a label.
+static bool flow_postfix_increment_follows(TSLexer *lexer) {
+  if (!skip_postfix_trivia(lexer, false)) {
+    return false;
+  }
+  int32_t c = lexer->lookahead;
+  if (c != '+' && !generic_dash(c)) {
+    return false;
+  }
+  lexer->advance(lexer, false);
+  if (c == '+' ? lexer->lookahead != '+' : !generic_dash(lexer->lookahead)) {
+    return false;
+  }
+  lexer->advance(lexer, false);
+  c = lexer->lookahead;
+  return generic_end(c) && !quote(c) && c != '<' && c != '>';
+}
+
 // A fresh prefix increment/decrement statement can start after a completed
 // flow label. Probe its operand without moving the label's marked end.
 static bool flow_prefix_operand_follows(TSLexer *lexer) {
@@ -4549,6 +4568,9 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if ((valid[FLOW_EXPRESSION_START] || valid[FLOW_LABEL_END]) && !valid[HERE_STRING_CONTENT]) {
     lexer->mark_end(lexer);
     if (!valid[FLOW_EXPRESSION_START] && valid[POSTFIX_CONTEXT]) {
+      if ((horizontal(lexer->lookahead) || lexer->lookahead == '`') && valid[PREPARED_TOKEN]) {
+        return request_preparation(scanner, lexer, valid);
+      }
       if (lexer->lookahead == '<' && valid[COMMENT] && valid[PREPARED_TOKEN]) {
         return request_preparation(scanner, lexer, valid);
       }
@@ -5002,13 +5024,35 @@ static size_t preparation_transform(PreparationCharacter *characters, size_t len
   return length;
 }
 
-static bool prepare_argument_comment(PreparationLexer *source, const bool *valid) {
+// Keep real trivia as extras when it continues an argument or flow label;
+// otherwise retain the boundary before any lookahead was consumed.
+static bool prepare_argument_trivia(PreparationLexer *source, const bool *valid, bool flow_trivia) {
   TSLexer *lexer = &source->lexer;
   size_t first_end = 0;
   lexer->result_symbol = valid[FLOW_LABEL_END] && !valid[FLOW_EXPRESSION_START] ? FLOW_LABEL_END
                          : valid[MEMBER_ARGUMENT_END] ? MEMBER_ARGUMENT_END
                                                       : EXPRESSION_ARGUMENT_END;
-  while (lexer->lookahead == '<') {
+  while (flow_trivia && horizontal(lexer->lookahead)) {
+    lexer->advance(lexer, false);
+  }
+  size_t first_start = source->position;
+  enum TokenType kind = COMMENT;
+  if (flow_trivia && lexer->lookahead == '`') {
+    lexer->advance(lexer, false);
+    if (newline(lexer->lookahead)) {
+      consume_newline(lexer);
+      kind = LINE_CONTINUATION;
+    } else if (horizontal(lexer->lookahead)) {
+      do {
+        lexer->advance(lexer, false);
+      } while (horizontal(lexer->lookahead));
+      kind = ESCAPED_WHITESPACE;
+    } else {
+      return true;
+    }
+    first_end = source->position;
+  }
+  while (kind == COMMENT && lexer->lookahead == '<') {
     lexer->advance(lexer, false);
     if (lexer->lookahead != '#') {
       return true;
@@ -5021,9 +5065,18 @@ static bool prepare_argument_comment(PreparationLexer *source, const bool *valid
       first_end = source->position;
     }
   }
-  if (first_end && argument_postfix_follows(lexer, false)) {
+  bool increment_trivia = valid[FLOW_LABEL_END] && valid[POSTFIX_CONTEXT] &&
+                          (flow_trivia || horizontal(lexer->lookahead) || lexer->lookahead == '`' ||
+                           lexer->lookahead == '+' || generic_dash(lexer->lookahead));
+  bool postfix = increment_trivia ? flow_postfix_increment_follows(lexer)
+                                  : argument_postfix_follows(lexer, false);
+  if (postfix) {
+    if (!first_end) {
+      return !flow_trivia;
+    }
+    source->start = first_start;
     source->marked = first_end;
-    lexer->result_symbol = COMMENT;
+    lexer->result_symbol = kind;
   }
   return true;
 }
@@ -5035,8 +5088,12 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
   if (valid_count <= SUB_EXPRESSION_OPEN || valid_count <= SUB_EXPRESSION_END) {
     return false;
   }
-  bool argument_comment = argument_boundary_context(valid) && lexer->lookahead == '<';
-  if (!layers && !argument_comment) {
+  bool flow_trivia = valid[FLOW_LABEL_END] && !valid[FLOW_EXPRESSION_START] &&
+                     valid[POSTFIX_CONTEXT] && !valid[HERE_STRING_CONTENT] &&
+                     (horizontal(lexer->lookahead) || lexer->lookahead == '`');
+  bool argument_trivia =
+      flow_trivia || (argument_boundary_context(valid) && lexer->lookahead == '<');
+  if (!layers && !argument_trivia) {
     return false;
   }
   PreparedToken prepared = {0};
@@ -5139,9 +5196,9 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
         .base = &source.lexer,
         .scanner = &virtual_scanner,
     };
-    bool accepted = argument_comment ? prepare_argument_comment(&source, virtual_valid)
-                                     : scan(&virtual_scanner, &virtual_lexer.lexer, virtual_valid);
-    if (argument_comment) {
+    bool accepted = argument_trivia ? prepare_argument_trivia(&source, virtual_valid, flow_trivia)
+                                    : scan(&virtual_scanner, &virtual_lexer.lexer, virtual_valid);
+    if (argument_trivia) {
       virtual_lexer.lexer.result_symbol = source.lexer.result_symbol;
     }
     if (complete || source.position < virtual_length) {
