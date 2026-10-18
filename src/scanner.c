@@ -1717,17 +1717,7 @@ static bool label_statement_follows(TSLexer *lexer) {
         return false;
       }
       lexer->advance(lexer, false);
-      bool closed = false;
-      while (!lexer->eof(lexer)) {
-        int32_t c = lexer->lookahead;
-        lexer->advance(lexer, false);
-        if (c == '#' && lexer->lookahead == '>') {
-          lexer->advance(lexer, false);
-          closed = true;
-          break;
-        }
-      }
-      if (!closed) {
+      if (!skip_block_comment_body(lexer)) {
         return false;
       }
     } else if (lexer->lookahead == '`') {
@@ -1977,17 +1967,7 @@ static bool command_mode_expression_follows(TSLexer *lexer, bool allow_signed_nu
         return false;
       }
       lexer->advance(lexer, false);
-      bool closed = false;
-      while (!lexer->eof(lexer)) {
-        int32_t c = lexer->lookahead;
-        lexer->advance(lexer, false);
-        if (c == '#' && lexer->lookahead == '>') {
-          lexer->advance(lexer, false);
-          closed = true;
-          break;
-        }
-      }
-      if (!closed) {
+      if (!skip_block_comment_body(lexer)) {
         return false;
       }
     } else if (lexer->lookahead == '`') {
@@ -2543,17 +2523,7 @@ static bool parameter_list_follows(TSLexer *lexer) {
         return false;
       }
       lexer->advance(lexer, false);
-      bool closed = false;
-      while (!lexer->eof(lexer)) {
-        int32_t c = lexer->lookahead;
-        lexer->advance(lexer, false);
-        if (c == '#' && lexer->lookahead == '>') {
-          lexer->advance(lexer, false);
-          closed = true;
-          break;
-        }
-      }
-      if (!closed) {
+      if (!skip_block_comment_body(lexer)) {
         return false;
       }
     } else if (lexer->lookahead == '`') {
@@ -3806,13 +3776,11 @@ static bool scan_keyword_parameter(TSLexer *lexer, const bool *valid) {
   return false;
 }
 
-static bool prepare_transformed_token(Scanner *, TSLexer *, const bool *, size_t, PreparedToken *,
-                                      bool);
-static bool emit_prepared_token(TSLexer *, const bool *, size_t, PreparedToken *);
+static bool prepare_transformed_token(Scanner *, TSLexer *, const bool *, PreparedToken *, bool);
+static bool emit_prepared_token(TSLexer *, const bool *, PreparedToken *);
 
 static bool request_preparation(Scanner *scanner, TSLexer *lexer, const bool *valid) {
-  if (!prepare_transformed_token(scanner, lexer, valid, EXTERNAL_TOKEN_COUNT, &scanner->prepared,
-                                 false)) {
+  if (!prepare_transformed_token(scanner, lexer, valid, &scanner->prepared, false)) {
     return false;
   }
   lexer->result_symbol = PREPARED_TOKEN;
@@ -3868,8 +3836,7 @@ static bool scan_subexpression_start(Scanner *scanner, TSLexer *lexer, const boo
     // command name. Preparation starts before the already-consumed dollar.
     if (valid[PREPARED_TOKEN] && ordinary_interpolation_layers(scanner) &&
         (valid[COMMAND_NAME] || valid[BARE_WORD] || valid[DATA_COMMAND_NAME])) {
-      if (!prepare_transformed_token(scanner, lexer, valid, EXTERNAL_TOKEN_COUNT,
-                                     &scanner->prepared, true)) {
+      if (!prepare_transformed_token(scanner, lexer, valid, &scanner->prepared, true)) {
         return false;
       }
       lexer->result_symbol = PREPARED_TOKEN;
@@ -3934,17 +3901,7 @@ static bool scan_interpolation_tail(Scanner *scanner, TSLexer *lexer, const bool
       lexer->advance(lexer, false);
       if (lexer->lookahead == '#') {
         lexer->advance(lexer, false);
-        bool closed = false;
-        while (!lexer->eof(lexer)) {
-          int32_t c = lexer->lookahead;
-          lexer->advance(lexer, false);
-          if (c == '#' && lexer->lookahead == '>') {
-            lexer->advance(lexer, false);
-            closed = true;
-            break;
-          }
-        }
-        if (!closed) {
+        if (!skip_block_comment_body(lexer)) {
           return false;
         }
         lexer->mark_end(lexer);
@@ -4432,16 +4389,13 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     lexer->result_symbol = ADJACENT_SINGLE_QUOTED_STRING;
     return true;
   }
-  if ((valid[VARIABLE_ARGUMENT_FRAGMENT] || valid[GENERIC_ARGUMENT_FRAGMENT]) &&
-      !valid[COMMAND_NAME] && !valid[HERE_STRING_CONTENT] &&
-      (valid[GENERIC_ARGUMENT_FRAGMENT] || lexer->lookahead != '=') &&
-      (fragment_character(lexer->lookahead) || lexer->lookahead == '`')) {
+  if (fragments) {
     return scan_fragment(lexer, valid);
   }
 
   // During error recovery tree-sitter enables every external token. Do not
   // reinterpret arbitrary malformed source as a here-string body in that state.
-  if (valid[VERBATIM_ARGUMENT_TEXT] && !valid[VERBATIM_ARGUMENTS_START]) {
+  if (verbatim) {
     return scan_verbatim_argument_text(lexer);
   }
   if (valid[STRING_ESCAPE] && lexer->lookahead == '`' && !valid[EXPANDABLE_HERE_STRING_START]) {
@@ -4450,8 +4404,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
   if (valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START] && lexer->lookahead == '$') {
     return scan_string_dollar(lexer, valid);
   }
-  if ((valid[HERE_STRING_CONTENT] || valid[HERE_STRING_END]) &&
-      !valid[EXPANDABLE_HERE_STRING_START]) {
+  if (here_body) {
     return scan_here_string_content(lexer, valid);
   }
   if (valid[LITERAL_DOLLAR] && !valid[EXPANDABLE_HERE_STRING_START] && !valid[ARGUMENT_END]) {
@@ -5073,12 +5026,8 @@ static bool prepare_argument_trivia(PreparationLexer *source, const bool *valid,
 }
 
 static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bool *valid,
-                                      size_t valid_count, PreparedToken *result,
-                                      bool dollar_prefix) {
+                                      PreparedToken *result, bool dollar_prefix) {
   uint32_t layers = ordinary_interpolation_layers(scanner);
-  if (valid_count <= SUB_EXPRESSION_OPEN || valid_count <= SUB_EXPRESSION_END) {
-    return false;
-  }
   bool flow_trivia = valid[FLOW_LABEL_END] && !valid[FLOW_EXPRESSION_START] &&
                      valid[POSTFIX_CONTEXT] && !valid[HERE_STRING_CONTENT] &&
                      (horizontal(lexer->lookahead) || lexer->lookahead == '`');
@@ -5094,11 +5043,8 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
   }
   PreparationCharacter *raw = NULL;
   PreparationCharacter *transformed = NULL;
-  bool *virtual_valid = malloc(valid_count * sizeof(*virtual_valid));
-  if (!virtual_valid) {
-    return false;
-  }
-  memcpy(virtual_valid, valid, valid_count * sizeof(*virtual_valid));
+  bool virtual_valid[EXTERNAL_TOKEN_COUNT];
+  memcpy(virtual_valid, valid, sizeof(virtual_valid));
   virtual_valid[SUB_EXPRESSION_OPEN] = false;
   virtual_valid[ADJACENT_SUB_EXPRESSION_OPEN] = false;
   virtual_valid[SUB_EXPRESSION_END] = false;
@@ -5197,7 +5143,8 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
           (source.marked > source.start ||
            (source.marked == source.start &&
             prepared_context_token(virtual_lexer.lexer.result_symbol))) &&
-          source.marked <= virtual_length && virtual_lexer.lexer.result_symbol < valid_count &&
+          source.marked <= virtual_length &&
+          virtual_lexer.lexer.result_symbol < EXTERNAL_TOKEN_COUNT &&
           valid[virtual_lexer.lexer.result_symbol]) {
         prepared.start = source.start ? transformed[source.start - 1].end : 0;
         prepared.end = source.marked ? transformed[source.marked - 1].end : 0;
@@ -5214,15 +5161,13 @@ static bool prepare_transformed_token(Scanner *scanner, TSLexer *lexer, const bo
     target *= 2;
   }
 cleanup:
-  free(virtual_valid);
   free(transformed);
   free(raw);
   return success;
 }
 
-static bool emit_prepared_token(TSLexer *lexer, const bool *valid, size_t valid_count,
-                                PreparedToken *prepared) {
-  if (!prepared->active || prepared->symbol >= valid_count || !valid[prepared->symbol] ||
+static bool emit_prepared_token(TSLexer *lexer, const bool *valid, PreparedToken *prepared) {
+  if (!prepared->active || prepared->symbol >= EXTERNAL_TOKEN_COUNT || !valid[prepared->symbol] ||
       (prepared->start > prepared->end ||
        (prepared->start == prepared->end && !prepared_context_token(prepared->symbol)))) {
     return false;
@@ -5259,8 +5204,7 @@ bool tree_sitter_powershell_external_scanner_scan(void *payload, TSLexer *lexer,
                           .marked_balance = candidate.balance};
   bool accepted;
   if (candidate.prepared.active) {
-    accepted =
-        emit_prepared_token(&tracked.lexer, valid, EXTERNAL_TOKEN_COUNT, &candidate.prepared);
+    accepted = emit_prepared_token(&tracked.lexer, valid, &candidate.prepared);
   } else {
     accepted = scan(&candidate, &tracked.lexer, valid);
   }

@@ -226,13 +226,6 @@
         }
       ]
     },
-    "_newlines": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "PATTERN",
-        "value": "\\r\\n|\\r|\\n"
-      }
-    },
     "_statement": {
       "type": "CHOICE",
       "members": [
@@ -30270,99 +30263,6 @@
         }
       ]
     },
-    "_comma_free_script_block": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "{"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "PATTERN",
-            "value": "\\r\\n|\\r|\\n"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "param_block"
-                    },
-                    {
-                      "type": "REPEAT",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "_terminator"
-                      }
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_comma_free_script_block_body"
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": ";"
-                    },
-                    {
-                      "type": "REPEAT",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "_terminator"
-                      }
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_comma_free_script_block_body"
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_comma_free_script_block_body"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "}"
-        }
-      ]
-    },
     "_comma_free_named_block": {
       "type": "SEQ",
       "members": [
@@ -38246,42 +38146,6 @@
             "type": "SYMBOL",
             "name": "_attribute_prefix_argument_cast_value"
           }
-        }
-      ]
-    },
-    "_attribute_prefix_command_argument_unary_expression": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_command_primary_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_attribute_prefix_command_argument_unary_operator_expression"
-          },
-          "named": true,
-          "value": "unary_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_attribute_prefix_command_cast_expression"
-          },
-          "named": true,
-          "value": "cast_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "attribute_prefix_command_attributed_expression"
-          },
-          "named": true,
-          "value": "attributed_expression"
         }
       ]
     },

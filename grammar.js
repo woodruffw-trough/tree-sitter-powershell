@@ -153,7 +153,6 @@ const prefixExpression = ($, argument, allowComma, options = {}) => {
     operators.splice(2, 0, ',');
   }
   const argumentStart = options.argumentStart ? [options.argumentStart] : [];
-  const prefixStart = options.prefixStart ? [options.prefixStart] : [];
   return prec.right(options.precedence || PREC.unary, choice(
     seq(
       field('operator', choice(...operators)),
@@ -166,30 +165,55 @@ const prefixExpression = ($, argument, allowComma, options = {}) => {
       field('operator', choice('++', op('--'))),
       $._expression_continuation,
       repeat(NEWLINE),
-      ...prefixStart,
+      ...argumentStart,
       field('argument', argument),
     ),
   ));
 };
 
 const unaryExpression = ($, argument, allowComma, options = {}) => {
-  const alternatives = [prefixExpression($, argument, allowComma, options)];
-  if (options.postfix !== false) {
-    const operand = choice(
-      ...(options.prefixOnly ? [] : [options.postfixArgument || $._value_primary_expression]),
-      ...(options.prefixRule ? [alias(options.prefixRule, $.unary_expression)] : []),
-      ...(options.postfixExtra || []),
-    );
-    const postfix = prec(
-      options.postfixPrecedence || PREC.member,
-      postfixExpression($, operand, options.postfixContext),
-    );
-    // A recursive member operand completes UnaryExpressionRule before the
-    // enclosing member expression can consume its own optional postfix.
-    alternatives.push(prec.dynamic(options.prefixOnly ? 1 : 0, postfix));
-  }
-  return choice(...alternatives);
+  const operand = choice(
+    ...(options.prefixOnly ? [] : [options.postfixArgument || $._value_primary_expression]),
+    ...(options.prefixRule ? [alias(options.prefixRule, $.unary_expression)] : []),
+    ...(options.postfixExtra || []),
+  );
+  const postfix = prec(
+    options.postfixPrecedence || PREC.member,
+    postfixExpression($, operand, options.postfixContext),
+  );
+  // A recursive member operand completes UnaryExpressionRule before the
+  // enclosing member expression can consume its own optional postfix.
+  return choice(
+    prefixExpression($, argument, allowComma, options),
+    prec.dynamic(options.prefixOnly ? 1 : 0, postfix),
+  );
 };
+
+const expandableString = ($, open, interpolation = null) => seq(
+  alias(open, '"'),
+  repeat(choice(
+    $.string_content,
+    alias($._literal_dollar, $.string_content),
+    alias($._string_escape, $.escape_sequence),
+    ...(interpolation ? [$.variable, interpolation] : []),
+  )),
+  alias($._double_quote, '"'),
+);
+
+// Here-string footer tokens include their preceding physical newline.
+const expandableHereString = ($, interpolation = null) => choice(
+  $._empty_expandable_here_string,
+  seq(
+    $._expandable_here_string_start,
+    repeat(choice(
+      alias($._here_string_content, $.string_content),
+      alias($._literal_dollar, $.string_content),
+      alias($._string_escape, $.escape_sequence),
+      ...(interpolation ? [$.variable, interpolation] : []),
+    )),
+    $._here_string_end,
+  ),
+);
 
 const primaryValue = ($, allowSigned = true, commandStrings = false) => choice(
   $.variable,
@@ -264,7 +288,7 @@ const invocationExpression = ($, member, generic = true) => prec.left(
   ),
 );
 
-const binaryExpression = ($, expression, newlines) => choice(
+const binaryExpression = ($, expression) => choice(
   ...BINARY_OPERATORS.map(([precedence, operators]) => {
     const alternatives = operators.map(operator => {
       if (operator.startsWith('-')) {
@@ -280,7 +304,7 @@ const binaryExpression = ($, expression, newlines) => choice(
       field('left', expression),
       field('operator', operator),
       $._expression_continuation,
-      newlines,
+      repeat(NEWLINE),
       field('right', expression),
     ));
   }),
@@ -509,8 +533,6 @@ const grammarDefinition = {
     ),
 
     _terminator: $ => choice(';', NEWLINE),
-
-    _newlines: $ => repeat1(NEWLINE),
 
     _statement: $ => choice($._block_statement, $._simple_statement),
 
@@ -789,12 +811,7 @@ const grammarDefinition = {
 
     _workflow_body: $ => scriptBlock($, '{', $._workflow_context_start),
 
-    parameter_list: $ => seq(
-      '(',
-      repeat(NEWLINE),
-      optional(seq(commaSep1($.parameter), repeat(NEWLINE))),
-      ')',
-    ),
+    parameter_list: $ => argumentList('(', $.parameter),
 
     // A complete header wins over splitting its type prefixes into casts or
     // standalone statements. Each type keeps conversion precedence until the
@@ -1067,38 +1084,11 @@ const grammarDefinition = {
       )),
     ),
 
-    _using_expandable_string: $ => seq(
-      alias($._double_quote, '"'),
-      repeat(choice(
-        $.string_content,
-        alias($._literal_dollar, $.string_content),
-        alias($._string_escape, $.escape_sequence),
-      )),
-      alias($._double_quote, '"'),
-    ),
+    _using_expandable_string: $ => expandableString($, $._double_quote),
 
-    _using_argument_expandable_string: $ => seq(
-      alias($._adjacent_double_quote, '"'),
-      repeat(choice(
-        $.string_content,
-        alias($._literal_dollar, $.string_content),
-        alias($._string_escape, $.escape_sequence),
-      )),
-      alias($._double_quote, '"'),
-    ),
+    _using_argument_expandable_string: $ => expandableString($, $._adjacent_double_quote),
 
-    _using_expandable_here_string: $ => choice(
-      $._empty_expandable_here_string,
-      seq(
-        $._expandable_here_string_start,
-        repeat(choice(
-          alias($._here_string_content, $.string_content),
-          alias($._literal_dollar, $.string_content),
-          alias($._string_escape, $.escape_sequence),
-        )),
-        $._here_string_end,
-      ),
-    ),
+    _using_expandable_here_string: $ => expandableHereString($),
 
     data_statement: $ => seq(
       keyword('data'),
@@ -1491,32 +1481,12 @@ const grammarDefinition = {
       alias($._command_interpolation, $.interpolation),
     ),
 
-    _argument_expandable_string: $ => seq(
-      alias($._adjacent_double_quote, '"'),
-      repeat(
-        choice(
-          $.string_content,
-          alias($._literal_dollar, $.string_content),
-          alias($._string_escape, $.escape_sequence),
-          $.variable,
-          alias($._command_interpolation, $.interpolation),
-        ),
-      ),
-      alias($._double_quote, '"'),
+    _argument_expandable_string: $ => expandableString(
+      $, $._adjacent_double_quote, alias($._command_interpolation, $.interpolation),
     ),
 
-    _command_expandable_string: $ => seq(
-      alias($._double_quote, '"'),
-      repeat(
-        choice(
-          $.string_content,
-          alias($._literal_dollar, $.string_content),
-          alias($._string_escape, $.escape_sequence),
-          $.variable,
-          alias($._command_interpolation, $.interpolation),
-        ),
-      ),
-      alias($._double_quote, '"'),
+    _command_expandable_string: $ => expandableString(
+      $, $._double_quote, alias($._command_interpolation, $.interpolation),
     ),
 
     verbatim_arguments: $ => seq(
@@ -1553,7 +1523,7 @@ const grammarDefinition = {
       seq($._unary_expression, repeat1(seq(',', repeat(NEWLINE), $._unary_expression))),
     ),
 
-    binary_expression: $ => binaryExpression($, $._expression, repeat(NEWLINE)),
+    binary_expression: $ => binaryExpression($, $._expression),
 
     ternary_expression: $ => prec.right(
       PREC.ternary,
@@ -1587,7 +1557,7 @@ const grammarDefinition = {
       alias($._argument_ternary_expression, $.ternary_expression),
     ),
 
-    _argument_binary_expression: $ => binaryExpression($, $._argument_expression, repeat(NEWLINE)),
+    _argument_binary_expression: $ => binaryExpression($, $._argument_expression),
 
     _argument_ternary_expression: $ => prec.right(
       PREC.ternary,
@@ -1673,7 +1643,6 @@ const grammarDefinition = {
     flow_unary_prefix_expression: $ => prefixExpression($, $._flow_unary_expression, false, {
       precedence: PREC.member,
       argumentStart: $._flow_expression_start,
-      prefixStart: $._flow_expression_start,
     }),
 
     _flow_unary_operator_expression: $ => unaryExpression(
@@ -1687,7 +1656,6 @@ const grammarDefinition = {
           alias($._flow_cast_expression, $.cast_expression),
           alias($._comma_free_command_computed_member_access, $.member_access),
         ],
-        prefixStart: $._flow_expression_start,
       },
     ),
 
@@ -1723,7 +1691,6 @@ const grammarDefinition = {
     command_argument_unary_prefix_expression: $ => prefixExpression($, $._command_unary_expression, false, {
       precedence: PREC.member,
       argumentStart: $._command_unary_start,
-      prefixStart: $._command_unary_start,
     }),
 
     _command_argument_unary_operator_expression: $ => unaryExpression(
@@ -1736,7 +1703,6 @@ const grammarDefinition = {
           alias($._command_cast_expression, $.cast_expression),
           alias($.command_computed_member_access, $.member_access),
         ],
-        prefixStart: $._command_unary_start,
       },
     ),
 
@@ -1750,7 +1716,6 @@ const grammarDefinition = {
     command_unary_prefix_expression: $ => prefixExpression($, $._command_unary_expression, true, {
       precedence: PREC.member,
       argumentStart: $._command_unary_start,
-      prefixStart: $._command_unary_start,
     }),
 
     _command_unary_operator_expression: $ => unaryExpression(
@@ -1763,7 +1728,6 @@ const grammarDefinition = {
           alias($._command_cast_expression, $.cast_expression),
           alias($.command_computed_member_access, $.member_access),
         ],
-        prefixStart: $._command_unary_start,
       },
     ),
 
@@ -1777,7 +1741,6 @@ const grammarDefinition = {
     argument_command_unary_prefix_expression: $ => prefixExpression($, $._argument_command_unary_expression, false, {
       precedence: PREC.member,
       argumentStart: $._command_unary_start,
-      prefixStart: $._command_unary_start,
     }),
 
     _argument_command_unary_operator_expression: $ => unaryExpression(
@@ -1790,7 +1753,6 @@ const grammarDefinition = {
           alias($._argument_command_cast_expression, $.cast_expression),
           alias($._comma_free_command_computed_member_access, $.member_access),
         ],
-        prefixStart: $._command_unary_start,
       },
     ),
 
@@ -2191,7 +2153,6 @@ const grammarDefinition = {
           alias($.command_attributed_expression, $.attributed_expression),
         ],
         argumentStart: $._command_unary_start,
-        prefixStart: $._command_unary_start,
       },
     ),
 
@@ -2205,7 +2166,6 @@ const grammarDefinition = {
           alias($.argument_command_attributed_expression, $.attributed_expression),
         ],
         argumentStart: $._command_unary_start,
-        prefixStart: $._command_unary_start,
       },
     ),
 
@@ -2415,55 +2375,14 @@ const grammarDefinition = {
 
     identifier: _ => new RegExp(IDENTIFIER_START + IDENTIFIER_CONTINUE + '*'),
 
-    // Here-string footer tokens include their preceding physical newline.
-    expandable_here_string: $ => choice(
-      $._empty_expandable_here_string,
-      seq(
-        $._expandable_here_string_start,
-        repeat(
-          choice(
-            alias($._here_string_content, $.string_content),
-            alias($._literal_dollar, $.string_content),
-            alias($._string_escape, $.escape_sequence),
-            $.variable,
-            $.interpolation,
-          ),
-        ),
-        $._here_string_end,
-      ),
-    ),
+    expandable_here_string: $ => expandableHereString($, $.interpolation),
 
-    _command_expandable_here_string: $ => choice(
-      $._empty_expandable_here_string,
-      seq(
-        $._expandable_here_string_start,
-        repeat(
-          choice(
-            alias($._here_string_content, $.string_content),
-            alias($._literal_dollar, $.string_content),
-            alias($._string_escape, $.escape_sequence),
-            $.variable,
-            alias($._command_interpolation, $.interpolation),
-          ),
-        ),
-        $._here_string_end,
-      ),
+    _command_expandable_here_string: $ => expandableHereString(
+      $, alias($._command_interpolation, $.interpolation),
     ),
 
     // Immediate closing delimiters keep trailing body whitespace as content.
-    expandable_string: $ => seq(
-      alias($._double_quote, '"'),
-      repeat(
-        choice(
-          $.string_content,
-          alias($._literal_dollar, $.string_content),
-          alias($._string_escape, $.escape_sequence),
-          $.variable,
-          $.interpolation,
-        ),
-      ),
-      alias($._double_quote, '"'),
-    ),
+    expandable_string: $ => expandableString($, $._double_quote, $.interpolation),
 
   },
 };
@@ -2484,7 +2403,7 @@ const COMMA_CONTEXT_RULES = new Set([
   'import_dsc_resource_statement',
   'return_statement', 'throw_statement', 'exit_statement',
   '_completed_return_statement', '_completed_throw_statement', '_completed_exit_statement',
-  'function_definition', '_function_body', '_workflow_body', 'script_block', 'named_block',
+  'function_definition', '_function_body', '_workflow_body', 'named_block',
   'class_definition', 'class_body', 'class_property', 'class_method', '_class_method_body',
   'enum_definition', 'enum_body', 'enum_member', 'data_statement',
   '_data_supported_command', '_data_command_primary_expression',
@@ -2554,12 +2473,9 @@ const COMMA_CONTEXT_EXPRESSIONS = {
 };
 
 const commaContextName = (name, owner) => {
-  // Script block expressions reset comma suppression; a function declaration's
-  // body inherits it. Parentheses, subexpressions, arrays, and indexers already
-  // use their ordinary builders at their respective reset boundaries.
-  if (name === 'script_block' && owner !== 'function_definition') {
-    return name;
-  }
+  // Script block expressions reset comma suppression, while declarations
+  // inherit it through their contextual body builders. Parentheses,
+  // subexpressions, arrays, and indexers also reset it.
   if (name === '_expression' &&
       (owner === '_command_element_access' || owner === '_data_command_element_access')) {
     return name;
@@ -2667,7 +2583,7 @@ const ATTRIBUTE_PREFIX_RULES = new Set([
   '_argument_unary_operator_expression', '_argument_cast_expression',
   '_argument_cast_value', '_argument_cast_unary_expression',
   'argument_attributed_expression',
-  '_command_argument_unary_expression', 'command_argument_unary_prefix_expression',
+  'command_argument_unary_prefix_expression',
   '_command_argument_unary_operator_expression',
   '_command_unary_expression', 'command_unary_prefix_expression',
   '_command_unary_operator_expression', '_command_cast_expression',
