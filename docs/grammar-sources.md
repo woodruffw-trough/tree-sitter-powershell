@@ -97,7 +97,7 @@ names. These boundaries follow `GetMemberAccessOperator`, `ScanVariable`, and
 `ScanDot` also separates a leading dot from an adjacent variable or ASCII quote.
 For example, `cmd .$x` has two arguments, `.` and `$x`; escaped dots and
 smart-quote fragments keep their generic-token boundaries. The same lexical
-rule applies to names in `data -SupportedCommand` lists.
+rule applies to names in `data -SupportedCommand` lists and to `using` values.
 
 Special-variable member names retain those command-mode boundaries too.
 `cmd $x.$$()` invokes a computed member, while `cmd $x.$$.M` retains an error:

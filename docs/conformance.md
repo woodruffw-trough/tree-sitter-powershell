@@ -91,10 +91,11 @@ attribute arguments.
 These can still absorb later commands. Some damaged command extents also differ:
 malformed colon commands and empty groups after generic arguments such as
 `cmd $$.M()` retain a suffix outside the command node, where PowerShell includes
-it in the recovered command extent. Tree-sitter's recovery tree does not promise
-Microsoft's diagnostic sequence or recovered AST
-for every input. Long runs of invalid attribute prefixes can require quadratic
-lookahead during recovery.
+it in the recovered command extent. Malformed `using module ."text"` can recover
+with the quoted suffix as its value, where PowerShell retains the dot.
+Tree-sitter's recovery tree does not promise Microsoft's diagnostic sequence or
+recovered AST for every input. Long runs of invalid attribute prefixes can
+require quadratic lookahead during recovery.
 Some malformed postfix operands in flow labels, such as `break ($x)++suffix`,
 and switch operands beginning `.$x` remain accepted. Malformed interpolation
 can still become literal dollar text in several argument contexts, including

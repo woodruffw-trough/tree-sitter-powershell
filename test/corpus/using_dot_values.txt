@@ -1,0 +1,43 @@
+==================
+A dot ends a using value before a bare dollar
+==================
+using module .$
+Using-After item | Using-Next
+---
+(source_file
+  (using_statement
+    value: (command_argument
+      (bare_word)))
+  (ERROR
+    (string_content))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A dot ends a using value before a single-quoted suffix
+==================
+using module .'text'
+Using-After item | Using-Next
+---
+(source_file
+  (using_statement
+    value: (command_argument
+      (bare_word)))
+  (ERROR
+    (single_quoted_string))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

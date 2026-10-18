@@ -1041,6 +1041,7 @@ const grammarDefinition = {
     // Using values begin in command-argument mode. Unquoted text can include
     // adjacent quote fragments; a quoted leading value instead ends as one string.
     _using_argument_value: $ => choice(
+      alias($._using_dot_argument, $.command_argument),
       seq(alias($._using_generic_argument_value, $.command_argument), $._argument_end),
       seq(choice(
         $.single_quoted_string,
@@ -1049,6 +1050,8 @@ const grammarDefinition = {
         alias($._using_expandable_here_string, $.expandable_here_string),
       ), $._argument_end),
     ),
+
+    _using_dot_argument: $ => alias($._argument_dot, $.bare_word),
 
     _using_generic_argument_value: $ => seq(
       choice($.bare_word, alias($._bare_colon_word, $.bare_word)),

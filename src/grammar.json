@@ -5526,6 +5526,15 @@
       "type": "CHOICE",
       "members": [
         {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_using_dot_argument"
+          },
+          "named": true,
+          "value": "command_argument"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
@@ -5584,6 +5593,15 @@
           ]
         }
       ]
+    },
+    "_using_dot_argument": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_argument_dot"
+      },
+      "named": true,
+      "value": "bare_word"
     },
     "_using_generic_argument_value": {
       "type": "SEQ",

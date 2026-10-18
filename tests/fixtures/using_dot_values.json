@@ -1,0 +1,107 @@
+[
+  {
+    "name": "using module bare dollar after dot",
+    "source": "using module .$\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "RequiresModuleInvalid"
+    ]
+  },
+  {
+    "name": "using module single quote after dot",
+    "source": "using module .'text'\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "RequiresModuleInvalid"
+    ]
+  },
+  {
+    "name": "using module double quote after dot",
+    "source": "using module .\"text\"\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "RequiresModuleInvalid"
+    ]
+  },
+  {
+    "name": "using module variable in quoted suffix retains later commands",
+    "source": "using module .\"$x\"\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "RequiresModuleInvalid"
+    ]
+  },
+  {
+    "name": "using namespace dot quote",
+    "source": "using namespace .\"text\"\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "InvalidNamespaceValue"
+    ]
+  },
+  {
+    "name": "using assembly dot quote",
+    "source": "using assembly .'text'\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ErrorLoadingAssembly",
+      "MissingStatementTerminator"
+    ]
+  },
+  {
+    "name": "using type alias dot quote",
+    "source": "using type X = .'text'\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingStatementTerminator",
+      "UsingStatementNotSupported"
+    ]
+  },
+  {
+    "name": "using module smart quote suffix remains generic",
+    "source": "using module .“text”\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module escaped dot suffix remains generic",
+    "source": "using module `.'text'\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using namespace normal quoted suffix remains generic",
+    "source": "using namespace System.\"Text\"\nUsing-After item | Using-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "using module ordinary dot remains complete",
+    "source": "using module .\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "RequiresModuleInvalid"
+    ],
+    "syntax_valid": true
+  },
+  {
+    "name": "using module escaped dollar remains generic",
+    "source": "using module .`$x\nUsing-After item | Using-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ModuleNotFoundDuringParse"
+    ],
+    "syntax_valid": true
+  }
+]
