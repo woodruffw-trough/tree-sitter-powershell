@@ -2886,8 +2886,10 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       word = buffer->data;
       n = buffer->length;
       numeric_live = false;
-      // Quoted comment text cannot remove an earlier numeric conversion error.
-      if (!invalid_numeric_prefix) {
+      // Quoted comment text cannot turn an expression-mode numeric prefix
+      // into a command name, including a prefix with a conversion error.
+      if (!invalid_numeric_prefix && !(expression_number_context && numeric_prefix != 0 &&
+                                       numeric_prefix < n && word[numeric_prefix] == '#')) {
         numeric_prefix = 0;
       }
       continue;

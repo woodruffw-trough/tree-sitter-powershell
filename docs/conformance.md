@@ -10,6 +10,11 @@ Tests cover individual parser productions, upstream regression inputs, complete
 scripts, and incremental edits. Passing them does not establish full equivalence
 with Microsoft's parser. Known differences are listed below.
 
+The grammar targets agreement on valid syntax and CST structure and rejection
+of malformed syntax. Recovery after a syntax error is best effort; damaged
+subtrees and following command boundaries can differ from PowerShell's recovered
+AST.
+
 ## What the tests compare
 
 [`scripts/oracle.ps1`](../scripts/oracle.ps1) calls `Parser.ParseInput` without
@@ -83,10 +88,9 @@ oracle supplies scoped keyword metadata without importing modules or running
 resource hooks. Legacy workflow syntax is tested separately from PowerShell
 Core's `WorkflowNotSupportedInPowerShellCore` diagnostic.
 
-**Numeric command dispatch.** The grammar misclassifies `1#'text'` as a
-command. PowerShell tokenizes it as a number followed by a line comment. Some
-fractional prefixes after a pipe, such as `cmd | .5=1 tail`, can also be parsed
-as dot invocation and accepted despite native syntax errors.
+**Numeric command dispatch.** Some fractional prefixes after a pipe, such as
+`cmd | .5=1 tail`, can be parsed as dot invocation and accepted despite native
+syntax errors.
 
 **Malformed-input recovery.** Tests check that malformed interpolation retains
 an `ERROR`, the enclosing string, subsequent arguments, and following pipeline

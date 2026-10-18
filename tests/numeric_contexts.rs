@@ -53,6 +53,16 @@ fn numeric_conversion_boundaries_match_powershell() {
 }
 
 #[test]
+fn quoted_numeric_comments_keep_expression_boundaries() {
+    let cases: Vec<Value> =
+        serde_json::from_str(include_str!("fixtures/numeric_quoted_comments.json")).unwrap();
+    common::assert_syntax(&cases);
+    let results = common::oracle(&cases, "tests/fixtures/numeric_quoted_comments.json");
+    common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
+}
+
+#[test]
 fn signed_number_comments_keep_lexical_boundaries_despite_speculative_oracle_errors() {
     let cases: Vec<Value> =
         serde_json::from_str(include_str!("fixtures/numeric_comment_diagnostics.json")).unwrap();

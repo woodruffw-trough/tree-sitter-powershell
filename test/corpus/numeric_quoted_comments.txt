@@ -1,0 +1,66 @@
+==================
+Quoted text after a numeric hash remains a line comment
+==================
+1#'quoted'
+Hash-After item | Hash-Next
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (integer_literal)))
+  (comment)
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A hash value ends before its quoted line comment
+==================
+@{x=1#'quoted'
+}
+Hash-After item | Hash-Next
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (hashtable_expression
+        (hash_entry
+          key: (identifier)
+          value: (pipeline
+            elements: (command_expression
+              expression: (integer_literal))))
+        (comment))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Quoted text still joins a numeric-looking command argument
+==================
+cmd 1#'quoted' tail | next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (single_quoted_string))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

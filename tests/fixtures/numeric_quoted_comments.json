@@ -1,0 +1,111 @@
+[
+  {
+    "name": "quoted integer comment",
+    "source": "1#'quoted'\nHash-After item | Hash-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted typed integer comment",
+    "source": "127y#\"quoted\"\nHash-After item | Hash-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted real comment",
+    "source": "1.5#“quoted”\nHash-After item | Hash-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "assignment quoted comment",
+    "source": "$number = 1#'quoted'\nHash-After item | Hash-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash value with closing brace on next line",
+    "source": "@{x=1#'quoted'\n}\nHash-After item | Hash-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "block value with closing brace on next line",
+    "source": "if ($true) {\n1#\"quoted\"\n}\nHash-After item | Hash-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quote joins command argument",
+    "source": "cmd 1#'quoted' tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quote joins invocation target",
+    "source": "& 1#'quoted' tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped hash joins generic word",
+    "source": "1`#'quoted' tail | next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "flow value quoted comment",
+    "source": "return 1#\"quoted\"\nHash-After item | Hash-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "hash closer swallowed by quoted comment",
+    "source": "@{x=1#'quoted'}\nHash-After item | Hash-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInHashLiteral",
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "block closer swallowed by quoted comment",
+    "source": "if ($true) {1#\"quoted\"}\nHash-After item | Hash-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndCurlyBrace"
+    ]
+  },
+  {
+    "name": "hash key after commented escape",
+    "source": "@{x=1#`\n'key'}\nHash-After item | Hash-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingEqualsInHashLiteral"
+    ]
+  },
+  {
+    "name": "parenthesis closer inside a quoted comment",
+    "source": "(1#'quoted')\nHash-After item | Hash-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "collected parenthesis closer inside a quoted comment",
+    "source": "\"$((1#'quoted')\nHash-After item | Hash-Next\n)\"",
+    "valid": false,
+    "diagnostics": [
+      "MissingEndParenthesisInExpression",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "collected quoted numeric comment",
+    "source": "\"$(1#'quoted'\n)\"\n",
+    "valid": true,
+    "diagnostics": []
+  }
+]
