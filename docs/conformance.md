@@ -79,6 +79,13 @@ nesting depth.
 
 ## Known limits and compatibility decisions
 
+**Initial byte-order mark.** Tree-sitter treats an initial U+FEFF as an encoding
+marker and skips it before calling the grammar scanner. PowerShell 7.5.4's
+`Parser.ParseFile` also removes the file's encoding marker, while
+`Parser.ParseInput` retains an initial U+FEFF supplied as string content. The
+grammar follows Tree-sitter's standard behavior; an interior U+FEFF remains
+source text.
+
 **Constructor-name checks.** A nonstatic `:base(...)` initializer is
 accepted after a method whose name differs from its enclosing class, such as
 `class C { F():base() {} }`. Microsoft rejects it during parsing. Static base
