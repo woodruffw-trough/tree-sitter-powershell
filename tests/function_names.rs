@@ -83,6 +83,7 @@ fn colon_function_names_keep_the_first_nonidentifier_literal() {
     common::assert_syntax(&cases);
     let results = common::oracle(&cases, "tests/fixtures/function_raw_names.json");
     common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
     let mut parser = common::parser();
     for (case, result) in cases.iter().zip(results) {
         let source = case["source"].as_str().unwrap();

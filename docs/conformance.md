@@ -23,9 +23,9 @@ specified, command elements, and mapped AST relationships and source extents.
 The harness converts tree-sitter byte offsets to PowerShell's UTF-16 offsets.
 Comparisons include effective switch/foreach flags, function/filter/workflow
 keywords, invocation operators, explicit named-block roles, and named attribute
-values and shorthand flags. Declaration comparisons include variable paths and
-unqualified property names. Corpus snapshots independently assert concrete
-nodes, fields, and grouping.
+values and shorthand flags. Declaration comparisons include variable paths,
+function name boundaries, and unqualified property names. Corpus snapshots
+independently assert concrete nodes, fields, and grouping.
 
 PowerShell sometimes constructs a complete AST before reporting a semantic
 diagnostic. Fixtures record that distinction explicitly: a method parameter
@@ -35,6 +35,11 @@ semantic validator. Module loading, command resolution, parameter binding,
 resource compilation, and execution remain PowerShell responsibilities. The
 grammar retains `#requires` directives and region markers as comments; PowerShell
 validates `#requires` metadata.
+
+Some semantic checks replace a parsed declaration with an error AST. For example,
+PowerShell validates configuration names as constant strings and rejects names
+such as `1` with `InvalidConfigurationName`. The grammar retains their name and
+body syntax; configuration tests assert those roles independently.
 
 The AST comparison covers the relationships represented by its mapping, rather
 than every AST property or evaluated value. Synthetic AST wrappers, background

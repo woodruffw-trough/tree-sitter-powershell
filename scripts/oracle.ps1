@@ -211,6 +211,13 @@ function Get-AstRecord($Node) {
             }
         }
         'FunctionDefinitionAst' {
+            $nameExtent = $functionNameExtent.GetValue($Node)
+            if ($null -ne $nameExtent) {
+                $fields.name = [ordered]@{
+                    start = $nameExtent.StartOffset
+                    end = $nameExtent.EndOffset
+                }
+            }
             $record.filter = $Node.IsFilter
             $record.workflow = $Node.IsWorkflow
             Add-AstField $fields 'body' $Node.Body
@@ -351,6 +358,14 @@ $configurationAttributes = [Management.Automation.Language.ConfigurationDefiniti
 )
 if ($null -eq $configurationAttributes) {
     throw 'The pinned parser must expose ConfigurationDefinitionAst.CustomAttributes.'
+}
+
+# Compare the physical name token rather than reimplementing literal-name decoding.
+$functionNameExtent = [Management.Automation.Language.FunctionDefinitionAst].GetProperty(
+    'NameExtent', [Reflection.BindingFlags] 'Public, NonPublic, Instance'
+)
+if ($null -eq $functionNameExtent) {
+    throw 'The pinned parser must expose FunctionDefinitionAst.NameExtent.'
 }
 
 foreach ($case in $cases) {

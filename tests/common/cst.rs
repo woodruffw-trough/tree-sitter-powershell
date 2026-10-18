@@ -749,7 +749,7 @@ fn mapped_fields(category: &str) -> &'static [&'static str] {
         "CommandParameterAst" => &["value"],
         "FileRedirectionAst" => &["destination"],
         "NamedBlockAst" => &["statements", "traps"],
-        "FunctionDefinitionAst" => &["body", "parameters"],
+        "FunctionDefinitionAst" => &["name", "body", "parameters"],
         "FunctionMemberAst" => &["body", "parameters", "returnType", "attributes"],
         "TypeDefinitionAst" => &["members", "attributes", "baseTypes"],
         "PropertyMemberAst" => &["value", "propertyType", "attributes"],
@@ -1047,7 +1047,7 @@ fn metadata(node: Node<'_>, category: &str, source: &Source<'_>) -> BTreeMap<&'s
     }
     if matches!(
         category,
-        "FunctionDefinitionAst" | "FunctionMemberAst" | "PropertyMemberAst" | "TypeDefinitionAst"
+        "FunctionMemberAst" | "PropertyMemberAst" | "TypeDefinitionAst"
     ) {
         let name = source.collected_text(node.child_by_field_name("name").unwrap());
         let name = if category == "PropertyMemberAst" {
