@@ -138,5 +138,20 @@
     "name": "PowerShell/Plaster Plaster/Public/Invoke-Plaster.ps1",
     "path": "plaster/Plaster/Public/Invoke-Plaster.ps1",
     "valid": true
+  },
+  {
+    "name": "microsoft/winget-dsc resources/Microsoft.Windows.Developer/Microsoft.Windows.Developer.psm1",
+    "path": "winget-dsc/resources/Microsoft.Windows.Developer/Microsoft.Windows.Developer.psm1",
+    "valid": true
+  },
+  {
+    "name": "microsoft/winget-dsc resources/GitDsc/GitDsc.psm1",
+    "path": "winget-dsc/resources/GitDsc/GitDsc.psm1",
+    "valid": true
+  },
+  {
+    "name": "microsoft/winget-dsc resources/Microsoft.DotNet.Dsc/Microsoft.DotNet.Dsc.psm1",
+    "path": "winget-dsc/resources/Microsoft.DotNet.Dsc/Microsoft.DotNet.Dsc.psm1",
+    "valid": true
   }
 ]

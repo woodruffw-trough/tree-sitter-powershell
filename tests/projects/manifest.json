@@ -207,6 +207,20 @@
       "notices": [
         "plaster/LICENSE"
       ]
+    },
+    {
+      "repository": "microsoft/winget-dsc",
+      "commit": "8a8387e4b21772c3f626911c370c02f702439af3",
+      "directory": "winget-dsc",
+      "license": "MIT",
+      "sources": [
+        "winget-dsc/resources/Microsoft.Windows.Developer/Microsoft.Windows.Developer.psm1",
+        "winget-dsc/resources/GitDsc/GitDsc.psm1",
+        "winget-dsc/resources/Microsoft.DotNet.Dsc/Microsoft.DotNet.Dsc.psm1"
+      ],
+      "notices": [
+        "winget-dsc/LICENSE"
+      ]
     }
   ],
   "files": [
@@ -678,6 +692,46 @@
       "gitBlob": "2c663a11523e91fcb15bfaf66cd1d1ba660cfad1",
       "sha256": "b4608a5dca452a2df204dd93f1b6c7d063930c5005240503f9bf2d1919f5f3d3",
       "bytes": 1088,
+      "kind": "notice"
+    },
+    {
+      "path": "winget-dsc/resources/Microsoft.Windows.Developer/Microsoft.Windows.Developer.psm1",
+      "repository": "microsoft/winget-dsc",
+      "upstreamPath": "resources/Microsoft.Windows.Developer/Microsoft.Windows.Developer.psm1",
+      "commit": "8a8387e4b21772c3f626911c370c02f702439af3",
+      "gitBlob": "ca2116fc69000b330d56081fb5025ecb6ddbe0d2",
+      "sha256": "d34425a60ad136b94cdbed84b27ac243c53cd8d322f6e6af25b052d73653ee92",
+      "bytes": 57023,
+      "kind": "source"
+    },
+    {
+      "path": "winget-dsc/resources/GitDsc/GitDsc.psm1",
+      "repository": "microsoft/winget-dsc",
+      "upstreamPath": "resources/GitDsc/GitDsc.psm1",
+      "commit": "8a8387e4b21772c3f626911c370c02f702439af3",
+      "gitBlob": "69c0cc25713f8ffe81152f51515f3c2140288916",
+      "sha256": "1741c61ca154b0e01b08f2a0a8ce9ff9859246e9ebafdeacaaefd95a12ee868c",
+      "bytes": 17338,
+      "kind": "source"
+    },
+    {
+      "path": "winget-dsc/resources/Microsoft.DotNet.Dsc/Microsoft.DotNet.Dsc.psm1",
+      "repository": "microsoft/winget-dsc",
+      "upstreamPath": "resources/Microsoft.DotNet.Dsc/Microsoft.DotNet.Dsc.psm1",
+      "commit": "8a8387e4b21772c3f626911c370c02f702439af3",
+      "gitBlob": "780d1566407687fb0e7e59dc0337679972139915",
+      "sha256": "d61e5e2c0e3af2d39678d5ca33cb628242ed823c8c8cef44accbb2e9b60b7a54",
+      "bytes": 16716,
+      "kind": "source"
+    },
+    {
+      "path": "winget-dsc/LICENSE",
+      "repository": "microsoft/winget-dsc",
+      "upstreamPath": "LICENSE",
+      "commit": "8a8387e4b21772c3f626911c370c02f702439af3",
+      "gitBlob": "9e841e7a26e4eb057b24511e7b92d42b257a80e5",
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+      "bytes": 1141,
       "kind": "notice"
     }
   ]

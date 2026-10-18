@@ -69,11 +69,11 @@ nesting depth.
 
 ## Known limits and compatibility decisions
 
-**Constructor-name checks.** A nonstatic `:base(...)` initializer is currently
+**Constructor-name checks.** A nonstatic `:base(...)` initializer is
 accepted after a method whose name differs from its enclosing class, such as
 `class C { F():base() {} }`. Microsoft rejects it during parsing. Static base
-initializers are rejected. The remaining check requires case-insensitive equality
-between the two arbitrary-length names and is not implemented.
+initializers are rejected. Comparing the two arbitrary-length names
+case-insensitively is a contextual check outside this grammar's scope.
 
 **Dynamically registered syntax.** DSC resource grouping covers an explicit set
 of standard Windows/PSDscResources and Local Configuration Manager keywords,

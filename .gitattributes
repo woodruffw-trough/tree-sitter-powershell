@@ -25,3 +25,4 @@ tests/projects/importexcel/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/pode/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/pswritehtml/** -text whitespace=-trailing-space,cr-at-eol
 tests/projects/plaster/** -text whitespace=-trailing-space,cr-at-eol
+tests/projects/winget-dsc/** -text whitespace=-trailing-space,cr-at-eol
