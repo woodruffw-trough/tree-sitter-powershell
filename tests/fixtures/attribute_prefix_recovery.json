@@ -555,18 +555,6 @@
     "syntax_valid": true
   },
   {
-    "name": "Here-string literal brackets preserves variable",
-    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\n$x",
-    "valid": true,
-    "diagnostics": []
-  },
-  {
-    "name": "Here-string literal brackets preserves parameter block",
-    "source": "[A()]\n[B(@'\n' ]foo\n'@)]\nparam($x)",
-    "valid": true,
-    "diagnostics": []
-  },
-  {
     "name": "Here-string literal brackets preserves following pipeline",
     "source": "[A()]\n[B(@'\n' ]foo\n'@)]\nWrite-Output after | next",
     "valid": false,

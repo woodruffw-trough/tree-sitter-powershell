@@ -1,4 +1,8 @@
-use tree_sitter::{InputEdit, Node, Parser, Point};
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
+use tree_sitter::{InputEdit, Node, Parser};
 
 fn parser() -> Parser {
     let mut parser = Parser::new();
@@ -6,38 +10,6 @@ fn parser() -> Parser {
         .set_language(&woodruffw_trough_tree_sitter_powershell::LANGUAGE.into())
         .unwrap();
     parser
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    let row = prefix.iter().filter(|&&byte| byte == b'\n').count();
-    let column = prefix
-        .iter()
-        .rposition(|&byte| byte == b'\n')
-        .map_or(offset, |position| offset - position - 1);
-    Point::new(row, column)
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for (index, child) in node.children(&mut cursor).enumerate() {
-        write!(output, "{:?}", node.field_name_for_child(index as u32)).unwrap();
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 fn assert_same_tree(incremental: Node<'_>, fresh: Node<'_>, source: &str) {

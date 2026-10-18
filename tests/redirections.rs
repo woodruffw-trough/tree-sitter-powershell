@@ -1,8 +1,12 @@
 //! Argument-mode punctuation and composite values retain their oracle boundaries.
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 mod common;
 
 use serde_json::Value;
-use tree_sitter::{InputEdit, Node, Point};
+use tree_sitter::{InputEdit, Node};
 
 fn fixtures() -> Vec<Value> {
     serde_json::from_str(include_str!("fixtures/redirections.json")).unwrap()
@@ -110,39 +114,6 @@ fn numeric_prefixes_remain_children_of_one_complete_argument() {
             .collect();
         assert_eq!(children, expected_children);
     }
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    Point::new(
-        prefix.iter().filter(|&&byte| byte == b'\n').count(),
-        prefix
-            .iter()
-            .rposition(|&byte| byte == b'\n')
-            .map_or(offset, |index| offset - index - 1),
-    )
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for (index, child) in node.children(&mut cursor).enumerate() {
-        write!(output, "{:?}", node.field_name_for_child(index as u32)).unwrap();
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 #[test]

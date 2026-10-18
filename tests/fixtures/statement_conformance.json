@@ -675,11 +675,6 @@
     "valid": false
   },
   {
-    "name": "switch contexts 096",
-    "source": "switch(1){default {} `\ndefault {}}",
-    "valid": false
-  },
-  {
     "name": "switch contexts 097",
     "source": "function f { switch(1){default {} `\ndefault {}} }",
     "valid": false

@@ -1,10 +1,14 @@
 //! Clause boundaries, keyword parameters, and parameter-block fallback.
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 mod common;
 #[path = "common/cst.rs"]
 mod cst;
 
 use serde_json::Value;
-use tree_sitter::{InputEdit, Node, Point, Query, QueryCursor, StreamingIterator};
+use tree_sitter::{InputEdit, Node, Query, QueryCursor, StreamingIterator};
 
 #[test]
 fn control_headers_and_clause_boundaries_match_powershell() {
@@ -101,39 +105,6 @@ fn keyword_parameter_fields_retain_complete_values_and_colons() {
         assert_eq!(&source[flag_node.byte_range()], flag, "{source}");
         assert!(!flag_node.is_named());
     }
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    Point::new(
-        prefix.iter().filter(|&&byte| byte == b'\n').count(),
-        prefix
-            .iter()
-            .rposition(|&byte| byte == b'\n')
-            .map_or(offset, |position| offset - position - 1),
-    )
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for (index, child) in node.children(&mut cursor).enumerate() {
-        write!(output, "{:?}", node.field_name_for_child(index as u32)).unwrap();
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 #[test]

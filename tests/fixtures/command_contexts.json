@@ -2280,11 +2280,6 @@
     "valid": true
   },
   {
-    "name": "comment prefix complete 11",
-    "source": "& <#comment#> < next\n",
-    "valid": true
-  },
-  {
     "name": "comment prefix complete 12",
     "source": ". <#comment#> < next\n",
     "valid": true

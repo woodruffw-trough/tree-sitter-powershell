@@ -1,7 +1,11 @@
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 mod common;
 
 use serde_json::Value;
-use tree_sitter::{InputEdit, Node, Point};
+use tree_sitter::InputEdit;
 
 fn fixtures() -> Vec<Value> {
     serde_json::from_str(include_str!("fixtures/long_tokens.json")).unwrap()
@@ -59,38 +63,6 @@ fn huge_numeric_looking_words_keep_their_command_extents() {
             0..source.len()
         );
     }
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    Point::new(
-        prefix.iter().filter(|&&byte| byte == b'\n').count(),
-        prefix
-            .iter()
-            .rposition(|&byte| byte == b'\n')
-            .map_or(offset, |index| offset - index - 1),
-    )
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for child in node.children(&mut cursor) {
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 #[test]

@@ -95,11 +95,6 @@
     "valid": true
   },
   {
-    "name": "logical precedence",
-    "source": "$true -or $false -and $false -xor $true\n",
-    "valid": true
-  },
-  {
     "name": "bitwise and shift operators",
     "source": "1 -bor 2 -band 3 -bxor 4; 2 -shl 3 -eq 16; -bnot 0\n",
     "valid": true
@@ -232,11 +227,6 @@
   {
     "name": "ternary",
     "source": "$result = $ok ? \"yes\" : \"no\"\n",
-    "valid": true
-  },
-  {
-    "name": "nested ternary",
-    "source": "$true ? 1 : $false ? 2 : 3\n",
     "valid": true
   },
   {

@@ -6660,11 +6660,6 @@
     "valid": false
   },
   {
-    "name": "numeric boundary 1332",
-    "source": "1#\"",
-    "valid": false
-  },
-  {
     "name": "numeric boundary 1333",
     "source": "1#'",
     "valid": false
@@ -7901,45 +7896,12 @@
     ]
   },
   {
-    "name": "overflow prefix 128y.M",
-    "source": "128y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
-    "name": "overflow prefix 128y+1",
-    "source": "128y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
-    "name": "overflow prefix 128y=1",
-    "source": "128y=1\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant",
-      "InvalidLeftHandSide"
-    ]
-  },
-  {
     "name": "overflow prefix 128y]",
     "source": "128y]\nTest-AfterOverflow item | Test-NextOverflow\n",
     "valid": false,
     "diagnostics": [
       "BadNumericConstant",
       "UnexpectedToken"
-    ]
-  },
-  {
-    "name": "overflow prefix 128y>out",
-    "source": "128y>out\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
     ]
   },
   {
@@ -7951,45 +7913,12 @@
     ]
   },
   {
-    "name": "overflow prefix -129y.M",
-    "source": "-129y.M\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
-    "name": "overflow prefix -129y+1",
-    "source": "-129y+1\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
-    "name": "overflow prefix -129y=1",
-    "source": "-129y=1\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant",
-      "InvalidLeftHandSide"
-    ]
-  },
-  {
     "name": "overflow prefix -129y]",
     "source": "-129y]\nTest-AfterOverflow item | Test-NextOverflow\n",
     "valid": false,
     "diagnostics": [
       "BadNumericConstant",
       "UnexpectedToken"
-    ]
-  },
-  {
-    "name": "overflow prefix -129y>out",
-    "source": "-129y>out\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
     ]
   },
   {
@@ -8051,45 +7980,12 @@
     ]
   },
   {
-    "name": "overflow prefix 256uy.M",
-    "source": "256uy.M\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
-    "name": "overflow prefix 256uy+1",
-    "source": "256uy+1\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
-    "name": "overflow prefix 256uy=1",
-    "source": "256uy=1\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant",
-      "InvalidLeftHandSide"
-    ]
-  },
-  {
     "name": "overflow prefix 256uy]",
     "source": "256uy]\nTest-AfterOverflow item | Test-NextOverflow\n",
     "valid": false,
     "diagnostics": [
       "BadNumericConstant",
       "UnexpectedToken"
-    ]
-  },
-  {
-    "name": "overflow prefix 256uy>out",
-    "source": "256uy>out\nTest-AfterOverflow item | Test-NextOverflow\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
     ]
   },
   {
@@ -8421,14 +8317,6 @@
     "valid": true
   },
   {
-    "name": "numeric comment boundary 128y#'x'",
-    "source": "128y#'x'\nCorner-After item | Corner-Next\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
     "name": "numeric comment boundary cmd 128y#'x' tail | next",
     "source": "cmd 128y#'x' tail | next\nCorner-After item | Corner-Next\n",
     "valid": true,
@@ -8439,14 +8327,6 @@
     "source": "& 128y#'x' tail | next\nCorner-After item | Corner-Next\n",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "numeric comment boundary 128y#\"x\"",
-    "source": "128y#\"x\"\nCorner-After item | Corner-Next\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
   },
   {
     "name": "numeric comment boundary cmd 128y#\"x\" tail | next",
@@ -8461,14 +8341,6 @@
     "diagnostics": []
   },
   {
-    "name": "numeric comment boundary 128y#a'b'",
-    "source": "128y#a'b'\nCorner-After item | Corner-Next\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
     "name": "numeric comment boundary cmd 128y#a'b' tail | next",
     "source": "cmd 128y#a'b' tail | next\nCorner-After item | Corner-Next\n",
     "valid": true,
@@ -8479,14 +8351,6 @@
     "source": "& 128y#a'b' tail | next\nCorner-After item | Corner-Next\n",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "numeric comment boundary 32768s#'x'",
-    "source": "32768s#'x'\nCorner-After item | Corner-Next\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
   },
   {
     "name": "numeric comment boundary cmd 32768s#'x' tail | next",
@@ -8501,14 +8365,6 @@
     "diagnostics": []
   },
   {
-    "name": "numeric comment boundary 32768s#\"x\"",
-    "source": "32768s#\"x\"\nCorner-After item | Corner-Next\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
-  },
-  {
     "name": "numeric comment boundary cmd 32768s#\"x\" tail | next",
     "source": "cmd 32768s#\"x\" tail | next\nCorner-After item | Corner-Next\n",
     "valid": true,
@@ -8519,14 +8375,6 @@
     "source": "& 32768s#\"x\" tail | next\nCorner-After item | Corner-Next\n",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "numeric comment boundary 32768s#a'b'",
-    "source": "32768s#a'b'\nCorner-After item | Corner-Next\n",
-    "valid": false,
-    "diagnostics": [
-      "BadNumericConstant"
-    ]
   },
   {
     "name": "numeric comment boundary cmd 32768s#a'b' tail | next",

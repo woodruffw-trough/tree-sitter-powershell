@@ -6025,46 +6025,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard Archive scoped statement",
-    "source": "configuration Example { Archive Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Archive",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard Archive scoped statement spelling outside configuration",
     "source": "Archive Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard Environment scoped statement",
-    "source": "configuration Example { Environment Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Environment",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard Environment scoped statement spelling outside configuration",
@@ -6073,46 +6037,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard File scoped statement",
-    "source": "configuration Example { File Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "File",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard File scoped statement spelling outside configuration",
     "source": "File Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard Group scoped statement",
-    "source": "configuration Example { Group Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Group",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard Group scoped statement spelling outside configuration",
@@ -6121,46 +6049,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard GroupSet scoped statement",
-    "source": "configuration Example { GroupSet Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "GroupSet",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard GroupSet scoped statement spelling outside configuration",
     "source": "GroupSet Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard Log scoped statement",
-    "source": "configuration Example { Log Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Log",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard Log scoped statement spelling outside configuration",
@@ -6169,46 +6061,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard Package scoped statement",
-    "source": "configuration Example { Package Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Package",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard Package scoped statement spelling outside configuration",
     "source": "Package Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard MsiPackage scoped statement",
-    "source": "configuration Example { MsiPackage Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "MsiPackage",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard MsiPackage scoped statement spelling outside configuration",
@@ -6217,46 +6073,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard ProcessSet scoped statement",
-    "source": "configuration Example { ProcessSet Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "ProcessSet",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard ProcessSet scoped statement spelling outside configuration",
     "source": "ProcessSet Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard Registry scoped statement",
-    "source": "configuration Example { Registry Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Registry",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard Registry scoped statement spelling outside configuration",
@@ -6265,46 +6085,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard Script scoped statement",
-    "source": "configuration Example { Script Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Script",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard Script scoped statement spelling outside configuration",
     "source": "Script Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard Service scoped statement",
-    "source": "configuration Example { Service Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "Service",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard Service scoped statement spelling outside configuration",
@@ -6313,46 +6097,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard ServiceSet scoped statement",
-    "source": "configuration Example { ServiceSet Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "ServiceSet",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard ServiceSet scoped statement spelling outside configuration",
     "source": "ServiceSet Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard User scoped statement",
-    "source": "configuration Example { User Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "User",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard User scoped statement spelling outside configuration",
@@ -6361,46 +6109,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard WaitForAll scoped statement",
-    "source": "configuration Example { WaitForAll Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WaitForAll",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard WaitForAll scoped statement spelling outside configuration",
     "source": "WaitForAll Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard WaitForAny scoped statement",
-    "source": "configuration Example { WaitForAny Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WaitForAny",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard WaitForAny scoped statement spelling outside configuration",
@@ -6409,46 +6121,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard WaitForSome scoped statement",
-    "source": "configuration Example { WaitForSome Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WaitForSome",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard WaitForSome scoped statement spelling outside configuration",
     "source": "WaitForSome Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard WindowsFeature scoped statement",
-    "source": "configuration Example { WindowsFeature Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WindowsFeature",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard WindowsFeature scoped statement spelling outside configuration",
@@ -6457,46 +6133,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard WindowsFeatureSet scoped statement",
-    "source": "configuration Example { WindowsFeatureSet Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WindowsFeatureSet",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard WindowsFeatureSet scoped statement spelling outside configuration",
     "source": "WindowsFeatureSet Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard WindowsOptionalFeature scoped statement",
-    "source": "configuration Example { WindowsOptionalFeature Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WindowsOptionalFeature",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard WindowsOptionalFeature scoped statement spelling outside configuration",
@@ -6505,70 +6145,16 @@
     "diagnostics": []
   },
   {
-    "name": "standard WindowsOptionalFeatureSet scoped statement",
-    "source": "configuration Example { WindowsOptionalFeatureSet Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WindowsOptionalFeatureSet",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard WindowsOptionalFeatureSet scoped statement spelling outside configuration",
     "source": "WindowsOptionalFeatureSet Instance {}",
     "valid": true,
     "diagnostics": []
   },
   {
-    "name": "standard WindowsPackageCab scoped statement",
-    "source": "configuration Example { WindowsPackageCab Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WindowsPackageCab",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
-  },
-  {
     "name": "standard WindowsPackageCab scoped statement spelling outside configuration",
     "source": "WindowsPackageCab Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard WindowsProcess scoped statement",
-    "source": "configuration Example { WindowsProcess Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "WindowsProcess",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired"
-      }
-    ]
   },
   {
     "name": "standard WindowsProcess scoped statement spelling outside configuration",
@@ -6602,48 +6188,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard ConfigurationRepositoryWeb scoped statement",
-    "source": "[DscLocalConfigurationManager()] configuration Example { ConfigurationRepositoryWeb Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "ConfigurationRepositoryWeb",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired",
-        "implementing_module": "PSDesiredStateConfigurationEngine"
-      }
-    ]
-  },
-  {
     "name": "standard ConfigurationRepositoryWeb scoped statement spelling outside configuration",
     "source": "ConfigurationRepositoryWeb Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard ConfigurationRepositoryShare scoped statement",
-    "source": "[DscLocalConfigurationManager()] configuration Example { ConfigurationRepositoryShare Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "ConfigurationRepositoryShare",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired",
-        "implementing_module": "PSDesiredStateConfigurationEngine"
-      }
-    ]
   },
   {
     "name": "standard ConfigurationRepositoryShare scoped statement spelling outside configuration",
@@ -6652,48 +6200,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard ResourceRepositoryWeb scoped statement",
-    "source": "[DscLocalConfigurationManager()] configuration Example { ResourceRepositoryWeb Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "ResourceRepositoryWeb",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired",
-        "implementing_module": "PSDesiredStateConfigurationEngine"
-      }
-    ]
-  },
-  {
     "name": "standard ResourceRepositoryWeb scoped statement spelling outside configuration",
     "source": "ResourceRepositoryWeb Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard ResourceRepositoryShare scoped statement",
-    "source": "[DscLocalConfigurationManager()] configuration Example { ResourceRepositoryShare Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "ResourceRepositoryShare",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired",
-        "implementing_module": "PSDesiredStateConfigurationEngine"
-      }
-    ]
   },
   {
     "name": "standard ResourceRepositoryShare scoped statement spelling outside configuration",
@@ -6702,48 +6212,10 @@
     "diagnostics": []
   },
   {
-    "name": "standard ReportServerWeb scoped statement",
-    "source": "[DscLocalConfigurationManager()] configuration Example { ReportServerWeb Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "ReportServerWeb",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired",
-        "implementing_module": "PSDesiredStateConfigurationEngine"
-      }
-    ]
-  },
-  {
     "name": "standard ReportServerWeb scoped statement spelling outside configuration",
     "source": "ReportServerWeb Instance {}",
     "valid": true,
     "diagnostics": []
-  },
-  {
-    "name": "standard PartialConfiguration scoped statement",
-    "source": "[DscLocalConfigurationManager()] configuration Example { PartialConfiguration Instance {} }",
-    "valid": true,
-    "diagnostics": [],
-    "dynamic_keywords": [
-      {
-        "keyword": "OMI_ConfigurationDocument",
-        "body_mode": "Hashtable",
-        "name_mode": "NoName"
-      },
-      {
-        "keyword": "PartialConfiguration",
-        "body_mode": "Hashtable",
-        "name_mode": "NameRequired",
-        "implementing_module": "PSDesiredStateConfigurationEngine"
-      }
-    ]
   },
   {
     "name": "standard PartialConfiguration scoped statement spelling outside configuration",

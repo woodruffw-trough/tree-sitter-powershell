@@ -1,10 +1,14 @@
 //! Numeric signs and subtraction accept the same dashes as PowerShell's tokenizer.
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 mod common;
 #[path = "common/cst.rs"]
 mod cst;
 
 use serde_json::Value;
-use tree_sitter::{InputEdit, Node, Point};
+use tree_sitter::{InputEdit, Node};
 
 fn numeric_tokens(node: Node<'_>, source: &str, tokens: &mut Vec<(String, common::Extent)>) {
     if matches!(node.kind(), "integer_literal" | "real_literal") {
@@ -58,38 +62,6 @@ fn exponent_kinds_ranges_and_grouping_match_powershell() {
             .collect();
         assert_eq!(actual, expected, "{}\n{source}", case["name"]);
     }
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    Point::new(
-        prefix.iter().filter(|&&byte| byte == b'\n').count(),
-        prefix
-            .iter()
-            .rposition(|&byte| byte == b'\n')
-            .map_or(offset, |index| offset - index - 1),
-    )
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for child in node.children(&mut cursor) {
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 #[test]

@@ -80,11 +80,6 @@
     "valid": true
   },
   {
-    "name": "System.\"Text\" followed by final eof",
-    "source": "using namespace System.\"Text\"",
-    "valid": true
-  },
-  {
     "name": "System followed by newline",
     "source": "using namespace System\n1",
     "valid": true

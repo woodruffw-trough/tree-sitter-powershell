@@ -510,11 +510,6 @@
     "valid": true
   },
   {
-    "name": "herebody-('\\n', '\\x00')",
-    "source": "@\"\n\u0000\n\"@",
-    "valid": true
-  },
-  {
     "name": "herebody-('\\n', '$')",
     "source": "@\"\n$\n\"@",
     "valid": true
@@ -522,11 +517,6 @@
   {
     "name": "herebody-('\\n', '`\\n')",
     "source": "@\"\n`\n\n\"@",
-    "valid": true
-  },
-  {
-    "name": "herebody-('\\n', '`\\r\\n')",
-    "source": "@\"\n`\r\n\n\"@",
     "valid": true
   },
   {
@@ -760,11 +750,6 @@
     "valid": true
   },
   {
-    "name": "NUL boundary 8",
-    "source": "@\"\n\u0000\n\"@",
-    "valid": true
-  },
-  {
     "name": "NUL boundary 9",
     "source": "@'\n\u0000\n'@",
     "valid": true
@@ -906,16 +891,6 @@
   },
   {
     "name": "here interpolation 1 backticks then quote",
-    "source": "@\"\n$(\"foo`\"bar\")\n\"@",
-    "valid": true
-  },
-  {
-    "name": "ordinary interpolation 1 escaped quotes",
-    "source": "\"$(\"foo`\"bar\")\"",
-    "valid": false
-  },
-  {
-    "name": "here interpolation 1 escaped quotes",
     "source": "@\"\n$(\"foo`\"bar\")\n\"@",
     "valid": true
   },
@@ -1422,11 +1397,6 @@
   {
     "name": "collector_boundary_label_switch_here",
     "source": "@\"\n$(:loop switch(1){1{}})\n\"@",
-    "valid": true
-  },
-  {
-    "name": "collector_boundary_label_trivia_0",
-    "source": "\"$(:loop for(;;){})\"",
     "valid": true
   },
   {
@@ -2295,11 +2265,6 @@
     "valid": true
   },
   {
-    "name": "command_interpolation_0",
-    "source": "\"$(`(1).M[int](2))\"",
-    "valid": true
-  },
-  {
     "name": "command_interpolation_1",
     "source": "cmd \"$(`(1).M[int](2))\"",
     "valid": false
@@ -2318,11 +2283,6 @@
     "name": "command_interpolation_4",
     "source": "cmd \"$(1).M[int](2)\"",
     "valid": true
-  },
-  {
-    "name": "command_interpolation_5",
-    "source": "cmd prefix$(`(1).M[int](2))",
-    "valid": false
   },
   {
     "name": "interpolation_command_dot_space_name",

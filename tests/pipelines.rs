@@ -1,9 +1,13 @@
 //! Pipeline precedence, public fields, and incremental parsing against PowerShell.
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 mod common;
 
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
-use tree_sitter::{InputEdit, Node, Point, Query, QueryCursor, StreamingIterator};
+use tree_sitter::{InputEdit, Node, Query, QueryCursor, StreamingIterator};
 
 type Records = BTreeMap<(String, common::Extent), Value>;
 
@@ -350,38 +354,6 @@ fn pipeline_public_fields_support_complete_range_queries() {
     })
     .collect::<BTreeMap<_, _>>();
     assert_eq!(actual, expected);
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    let row = prefix.iter().filter(|&&byte| byte == b'\n').count();
-    let column = prefix
-        .iter()
-        .rposition(|&byte| byte == b'\n')
-        .map_or(offset, |position| offset - position - 1);
-    Point::new(row, column)
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for (index, child) in node.children(&mut cursor).enumerate() {
-        write!(output, "{:?}", node.field_name_for_child(index as u32)).unwrap();
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 #[test]

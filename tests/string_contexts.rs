@@ -1,4 +1,8 @@
 //! Quoted interpolation is collected before PowerShell parses its nested script.
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 mod common;
 #[path = "common/cst.rs"]
 mod cst;
@@ -111,51 +115,6 @@ fn nested_command_keeps_physical_quote_extents() {
         &source[nested.byte_range()],
         "$(foo\"\"\"\"bar baz\"\"\"\")"
     );
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    Point::new(
-        prefix.iter().filter(|&&c| c == b'\n').count(),
-        prefix
-            .iter()
-            .rposition(|&c| c == b'\n')
-            .map_or(offset, |i| offset - i - 1),
-    )
-}
-
-fn fingerprint(node: Node<'_>, result: &mut String) {
-    use std::fmt::Write;
-    let mut cursor = node.walk();
-    loop {
-        let node = cursor.node();
-        write!(
-            result,
-            "({:?}:{}:{}..{}:{:?}..{:?}:{}:{}",
-            cursor.field_name(),
-            node.kind(),
-            node.start_byte(),
-            node.end_byte(),
-            node.start_position(),
-            node.end_position(),
-            node.is_error(),
-            node.is_missing()
-        )
-        .unwrap();
-        if cursor.goto_first_child() {
-            continue;
-        }
-        result.push(')');
-        loop {
-            if cursor.goto_next_sibling() {
-                break;
-            }
-            if !cursor.goto_parent() {
-                return;
-            }
-            result.push(')');
-        }
-    }
 }
 
 #[test]

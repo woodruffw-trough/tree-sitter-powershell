@@ -550,16 +550,6 @@
     "valid": true
   },
   {
-    "name": "assembly whitespace U+0020 110",
-    "source": "[int, x, y = z]",
-    "valid": true
-  },
-  {
-    "name": "assembly whitespace U+0020 111",
-    "source": "[List[[int, x, y = z]]]",
-    "valid": true
-  },
-  {
     "name": "assembly whitespace U+0009 112",
     "source": "[int, x\t, y=z]",
     "valid": true

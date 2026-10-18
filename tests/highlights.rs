@@ -1,23 +1,17 @@
 //! Execute the shipped editor query against independently checked PowerShell sources.
 
+#[path = "common/tree.rs"]
+#[allow(dead_code)]
+mod tree;
+use tree::point;
+
 use std::{collections::BTreeSet, ops::Range};
-use tree_sitter::{Parser, Point, Query, QueryCursor, StreamingIterator};
+use tree_sitter::{Parser, Query, QueryCursor, StreamingIterator};
 
 #[derive(Debug)]
 struct Capture {
     name: String,
     bytes: Range<usize>,
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    Point::new(
-        prefix.iter().filter(|&&byte| byte == b'\n').count(),
-        prefix
-            .iter()
-            .rposition(|&byte| byte == b'\n')
-            .map_or(offset, |newline| offset - newline - 1),
-    )
 }
 
 fn captures(source: &str) -> Vec<Capture> {

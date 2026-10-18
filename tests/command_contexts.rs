@@ -1,10 +1,14 @@
 //! Command tokens retain PowerShell's context-dependent lexical boundaries.
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 mod common;
 #[path = "common/cst.rs"]
 mod cst;
 
 use serde_json::Value;
-use tree_sitter::{InputEdit, Node, Point, Query, QueryCursor, StreamingIterator};
+use tree_sitter::{InputEdit, Node, Query, QueryCursor, StreamingIterator};
 
 fn fixtures() -> Vec<Value> {
     serde_json::from_str(include_str!("fixtures/command_contexts.json")).unwrap()
@@ -123,38 +127,6 @@ fn command_roles_keep_complete_literal_tokens() {
         targets.push(&source[matched.captures()[*index].node.byte_range()]);
     }
     assert_eq!(targets, ["2>&1", "--", "--%"]);
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    let row = prefix.iter().filter(|&&byte| byte == b'\n').count();
-    let column = prefix
-        .iter()
-        .rposition(|&byte| byte == b'\n')
-        .map_or(offset, |position| offset - position - 1);
-    Point::new(row, column)
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for (index, child) in node.children(&mut cursor).enumerate() {
-        write!(output, "{:?}", node.field_name_for_child(index as u32)).unwrap();
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 #[test]

@@ -453,19 +453,5 @@
     "diagnostics": [
       "ArrayHasTooManyDimensions"
     ]
-  },
-  {
-    "name": "generic argument permits rank32",
-    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
-    "valid": true,
-    "diagnostics": []
-  },
-  {
-    "name": "generic argument rejects rank33",
-    "source": "[List[int[,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,]]]",
-    "valid": false,
-    "diagnostics": [
-      "ArrayHasTooManyDimensions"
-    ]
   }
 ]

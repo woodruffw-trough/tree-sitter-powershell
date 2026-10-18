@@ -1,6 +1,10 @@
+#[path = "common/tree.rs"]
+mod tree;
+use tree::{fingerprint, point};
+
 use serde_json::Value;
 use std::{collections::BTreeSet, path::Path, process::Command};
-use tree_sitter::{InputEdit, Node, Parser, Point};
+use tree_sitter::{InputEdit, Node, Parser};
 
 fn parser() -> Parser {
     let mut parser = Parser::new();
@@ -137,38 +141,6 @@ fn here_string_body_preserves_whitespace_and_escapes() {
             ("escape_sequence", "`n"),
         ]
     );
-}
-
-fn point(source: &str, offset: usize) -> Point {
-    let prefix = &source.as_bytes()[..offset];
-    Point::new(
-        prefix.iter().filter(|&&byte| byte == b'\n').count(),
-        prefix
-            .iter()
-            .rposition(|&byte| byte == b'\n')
-            .map_or(offset, |index| offset - index - 1),
-    )
-}
-
-fn fingerprint(node: Node<'_>, output: &mut String) {
-    use std::fmt::Write;
-    write!(
-        output,
-        "({}:{}..{}:{:?}..{:?}:{}:{}",
-        node.kind(),
-        node.start_byte(),
-        node.end_byte(),
-        node.start_position(),
-        node.end_position(),
-        node.is_missing(),
-        node.is_error()
-    )
-    .unwrap();
-    let mut cursor = node.walk();
-    for child in node.children(&mut cursor) {
-        fingerprint(child, output);
-    }
-    output.push(')');
 }
 
 #[test]
