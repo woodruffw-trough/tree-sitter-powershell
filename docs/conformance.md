@@ -83,6 +83,11 @@ oracle supplies scoped keyword metadata without importing modules or running
 resource hooks. Legacy workflow syntax is tested separately from PowerShell
 Core's `WorkflowNotSupportedInPowerShellCore` diagnostic.
 
+**Numeric command dispatch.** The grammar misclassifies `1#'text'` as a
+command. PowerShell tokenizes it as a number followed by a line comment. Some
+fractional prefixes after a pipe, such as `cmd | .5=1 tail`, can also be parsed
+as dot invocation and accepted despite native syntax errors.
+
 **Malformed-input recovery.** Tests check that malformed interpolation retains
 an `ERROR`, the enclosing string, subsequent arguments, and following pipeline
 commands. Recovery still differs for some incomplete hashtable values, member
