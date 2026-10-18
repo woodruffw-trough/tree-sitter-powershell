@@ -1,0 +1,90 @@
+==================
+A variable remains part of its composite argument
+==================
+Show pre$x tail | Keep
+After item | Next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)
+        (variable))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+An empty variable cannot become literal argument text
+==================
+Show pre${} tail | Keep
+After item | Next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))
+    (ERROR
+      (identifier)
+      (argument_fragment)
+      (bare_word))
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Invalid interpolation in a collected command preserves later commands
+==================
+"$(Show pre$bad: tail | Keep
+After item | Next)"
+---
+(source_file
+  (pipeline
+    elements: (command_expression
+      expression: (expandable_string
+        (interpolation
+          expression: (sub_expression
+            (pipeline
+              elements: (command
+                name: (command_name
+                  (bare_word)))
+              (ERROR
+                (identifier)
+                (argument_fragment)
+                (bare_word)
+                (bare_word))
+              elements: (command
+                name: (command_name
+                  (bare_word))))
+            (pipeline
+              elements: (command
+                name: (command_name
+                  (bare_word))
+                (command_argument
+                  (bare_word)))
+              elements: (command
+                name: (command_name
+                  (bare_word))))))))))

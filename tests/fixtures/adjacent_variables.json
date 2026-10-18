@@ -1,0 +1,86 @@
+[
+  {
+    "name": "ordinary variable interpolation",
+    "source": "Show pre$x tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "braced drive interpolation",
+    "source": "Show pre${env:x} tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "static separator after adjacent variable",
+    "source": "Show pre$script:x::M tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "special variable generic suffix",
+    "source": "Show pre$$.M tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "literal dollar before dash",
+    "source": "Show pre$- tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "escaped closing brace in adjacent variable",
+    "source": "Show pre${a`}b} tail | Keep\nAfter item | Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "empty adjacent braced variable",
+    "source": "Show pre${} tail | Keep\nAfter item | Next\n",
+    "valid": false,
+    "diagnostics": [
+      "EmptyVariableReference"
+    ]
+  },
+  {
+    "name": "adjacent braced drive requires name",
+    "source": "Show pre${x:} tail | Keep\nAfter item | Next\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "adjacent unbraced drive requires name",
+    "source": "Show pre$bad: tail | Keep\nAfter item | Next\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "escaped drive colon requires name",
+    "source": "Show pre${a`:} tail | Keep\nAfter item | Next\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "collected invalid drive variable",
+    "source": "\"$(Show pre$bad: tail | Keep\nAfter item | Next)\"\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "numeric generic prefix with empty variable",
+    "source": "Show 7${} tail | Keep\nAfter item | Next\n",
+    "valid": false,
+    "diagnostics": [
+      "EmptyVariableReference"
+    ]
+  }
+]

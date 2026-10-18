@@ -1,9 +1,11 @@
 //! Variable tokenization, interpolation, and malformed variable-path coverage.
 mod common;
+#[path = "common/cst.rs"]
+mod cst;
 
 use serde_json::Value;
 use std::collections::BTreeSet;
-use tree_sitter::Node;
+use tree_sitter::{Node, Query, QueryCursor, StreamingIterator};
 
 fn fixtures() -> Vec<Value> {
     serde_json::from_str(include_str!("fixtures/variables.json")).unwrap()
@@ -12,6 +14,55 @@ fn fixtures() -> Vec<Value> {
 #[test]
 fn variable_syntax() {
     common::assert_syntax(&fixtures());
+}
+
+#[test]
+fn generic_arguments_validate_variables_and_preserve_following_commands() {
+    let cases: Vec<Value> =
+        serde_json::from_str(include_str!("fixtures/adjacent_variables.json")).unwrap();
+    common::assert_syntax(&cases);
+    let results = common::oracle(&cases, "tests/fixtures/adjacent_variables.json");
+    common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
+
+    let query = Query::new(
+        &woodruffw_trough_tree_sitter_powershell::LANGUAGE.into(),
+        "(command) @command",
+    )
+    .unwrap();
+    let mut parser = common::parser();
+    for (case, result) in cases.iter().zip(results) {
+        if case["valid"] == true {
+            continue;
+        }
+        let source = case["source"].as_str().unwrap();
+        // The damaged first command can end earlier; every successor must keep
+        // its native extent, including the command after the first pipe.
+        let expected: Vec<_> = result["commands"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .skip(1)
+            .map(|command| {
+                (
+                    command["start"].as_u64().unwrap() as usize,
+                    command["end"].as_u64().unwrap() as usize,
+                )
+            })
+            .collect();
+        let tail_offset = expected.first().unwrap().0;
+        let tree = parser.parse(source, None).unwrap();
+        let mut cursor = QueryCursor::new();
+        let mut captures = cursor.captures(&query, tree.root_node(), source.as_bytes());
+        let mut actual = Vec::new();
+        while let Some((matched, index)) = captures.next() {
+            let extent = common::utf16_extent(matched.captures()[*index].node, source);
+            if extent.0 >= tail_offset {
+                actual.push(extent);
+            }
+        }
+        assert_eq!(actual, expected, "{source}\n{}", tree.root_node().to_sexp());
+    }
 }
 
 fn variable_extents(node: Node<'_>, source: &str, result: &mut BTreeSet<common::Extent>) {

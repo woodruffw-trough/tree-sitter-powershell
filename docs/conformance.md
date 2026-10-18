@@ -96,8 +96,12 @@ Microsoft's diagnostic sequence or recovered AST
 for every input. Long runs of invalid attribute prefixes can require quadratic
 lookahead during recovery.
 Some malformed postfix operands in flow labels, such as `break ($x)++suffix`,
-and switch operands beginning `.$x` remain accepted. Malformed variables in
-some generic arguments can also be consumed as literal dollar fragments.
+and switch operands beginning `.$x` remain accepted. Malformed interpolation
+can still become literal dollar text in several argument contexts, including
+invocation targets, switch values, attached parameter values, redirection
+destinations, arguments after `--`, and leading dot or type syntax.
+[Variable tests](../tests/variables.rs) check the contexts that reject it and
+preserve following commands.
 [Operator](../tests/operator_recovery.rs), [member](../tests/member_trivia.rs),
 and [flow-label](../tests/flow_labels.rs) recovery tests compare following command
 boundaries independently of the damaged argument and label nodes.

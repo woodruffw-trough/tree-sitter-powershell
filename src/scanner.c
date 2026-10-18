@@ -2892,6 +2892,19 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       }
       continue;
     }
+    // Parameter-name validity identifies an ordinary command element. Validate
+    // interpolation before committing its bare-word prefix so a literal dollar
+    // cannot hide an invalid variable. Invocation targets, switch values, and
+    // leading type or dot syntax need their existing recovery lookahead paths.
+    if (!name && c == '$' && valid[PARAMETER_NAME] && first != '[' && first != '.') {
+      lexer->mark_end(lexer);
+      lexer->advance(lexer, false);
+      if (variable_start(lexer->lookahead) && !scan_variable_name(lexer, false)) {
+        return false;
+      }
+      lexer->result_symbol = kind;
+      return n != 0 && valid[kind];
+    }
     if ((generic_end(c) && c != '<' && c != '>') || (!name && c == '$')) {
       break;
     }
