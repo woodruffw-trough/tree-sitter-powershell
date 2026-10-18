@@ -933,5 +933,133 @@
     "diagnostics": [
       "SplattingNotPermitted"
     ]
+  },
+  {
+    "name": "file rawvariable",
+    "source": "switch -file .$x { default {} }\nDot-After item | Dot-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingCurlyBraceInSwitchStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "clause rawvariable",
+    "source": "switch ($x) { .$x {} }\nDot-After item | Dot-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "file ASCIIliteral",
+    "source": "switch -file .'x' { default {} }\nDot-After item | Dot-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingCurlyBraceInSwitchStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "clause ASCIIliteral",
+    "source": "switch ($x) { .'x' {} }\nDot-After item | Dot-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "file ASCIIexpandable",
+    "source": "switch -file .\"x\" { default {} }\nDot-After item | Dot-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingCurlyBraceInSwitchStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "clause ASCIIexpandable",
+    "source": "switch ($x) { .\"x\" {} }\nDot-After item | Dot-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "collected file dotvariable",
+    "source": "\"$(switch -file .$x { default {} }\nDot-After item | Dot-Next\n)\"\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingCurlyBraceInSwitchStatement",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "collected clause dotquote",
+    "source": "\"$(switch ($x) { .`\"x`\" {} }\nDot-After item | Dot-Next\n)\"\n",
+    "valid": false,
+    "diagnostics": [
+      "MissingSwitchStatementClause"
+    ]
+  },
+  {
+    "name": "file standalone dot",
+    "source": "switch -file . { default {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "clause standalone dot",
+    "source": "switch ($x) { . {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "file double dot variable",
+    "source": "switch -file ..$x { default {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "clause escaped dot",
+    "source": "switch ($x) { `.$x {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "file escaped dollar",
+    "source": "switch -file .`$x { default {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "clause smart quotes",
+    "source": "switch ($x) { .“x” {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "file smart apostrophe",
+    "source": "switch -file .‘x’ { default {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "clause fractional generic",
+    "source": "switch ($x) { .5=1 {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "file dotword",
+    "source": "switch -file .foo { default {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "clause relative path",
+    "source": "switch ($x) { .\\file {} }\nDot-After item | Dot-Next\n",
+    "valid": true,
+    "diagnostics": []
   }
 ]

@@ -110,6 +110,8 @@ enum TokenType {
   WORKFLOW_INLINE_SCRIPT,
   COMMAND_STATIC_OPERATOR,
   ARGUMENT_DOT,
+  DOT_INVOCATION_OPERATOR,
+  FLOW_POSTFIX_CONTEXT,
   EXTERNAL_TOKEN_COUNT
 };
 
@@ -121,7 +123,8 @@ static bool prepared_context_token(TSSymbol symbol) {
          symbol == FLOW_PIPE_START || symbol == LEADING_PIPE_START ||
          symbol == EXPRESSION_CONTINUATION || symbol == ATTRIBUTE_CONTINUATION ||
          symbol == ATTRIBUTE_RECOVERY_CONTINUATION || symbol == FLOW_LABEL_END ||
-         symbol == COMMAND_MEMBER_START || symbol == COMMAND_UNARY_START;
+         symbol == COMMAND_MEMBER_START || symbol == COMMAND_UNARY_START ||
+         symbol == FLOW_POSTFIX_CONTEXT;
 }
 
 // Offsets count included source codepoints from the preparation position. They
@@ -2628,6 +2631,10 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
   // Bare command positions recognize expression-mode numbers first. Invocation
   // targets, supported-command names, and arguments retain generic text.
   bool expression_number_context = name && !data_name && !valid[HERE_STRING_CONTENT];
+  // ScanDot commits to invocation only after excluding a numeric or generic
+  // command name beginning with a dot.
+  bool dot_invocation_operator = valid[DOT_INVOCATION_OPERATOR] && !valid[HERE_STRING_CONTENT] &&
+                                 !immediate && !continuation && !data_name && first == '.';
   // Preserve the initial position when classifying an adjacent signed primary.
   // A failed probe must still be able to return a generic command name.
   if (signed_start && !signed_prefix) {
@@ -2836,6 +2843,7 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
         lexer->result_symbol = ARGUMENT_DOT;
         return true;
       }
+      return false;
     }
     if (expression_number_context && valid[FLOW_PIPE_START] && !any_escape && c == '#' &&
         numeric_prefix != 0 && numeric_prefix == n) {
@@ -2848,7 +2856,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
       return false;
     }
     if (name && !data_name && !any_escape && n == 1 && word[0] == '.' && c == '$') {
-      return false;
+      lexer->mark_end(lexer);
+      lexer->result_symbol = DOT_INVOCATION_OPERATOR;
+      return dot_invocation_operator;
     }
     if (name && c == '$') {
       // A numeric/operator prefix is reparsed as an expression. Preserve its
@@ -2878,7 +2888,9 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
         break;
       }
       if (!data_name && !any_escape && n == 1 && word[0] == '.' && (c == '\'' || c == '"')) {
-        return false;
+        lexer->mark_end(lexer);
+        lexer->result_symbol = DOT_INVOCATION_OPERATOR;
+        return dot_invocation_operator;
       }
       if (!scan_name_quoted_piece(lexer) || !generic_word_append(buffer, '?')) {
         return false;
@@ -2893,19 +2905,6 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
         numeric_prefix = 0;
       }
       continue;
-    }
-    // Parameter-name validity identifies an ordinary command element. Validate
-    // interpolation before committing its bare-word prefix so a literal dollar
-    // cannot hide an invalid variable. Invocation targets, switch values, and
-    // leading type or dot syntax need their existing recovery lookahead paths.
-    if (!name && c == '$' && valid[PARAMETER_NAME] && first != '[' && first != '.') {
-      lexer->mark_end(lexer);
-      lexer->advance(lexer, false);
-      if (variable_start(lexer->lookahead) && !scan_variable_name(lexer, false)) {
-        return false;
-      }
-      lexer->result_symbol = kind;
-      return n != 0 && valid[kind];
     }
     if ((generic_end(c) && c != '<' && c != '>') || (!name && c == '$')) {
       break;
@@ -3109,6 +3108,11 @@ static bool scan_generic_word(TSLexer *lexer, const bool *valid, bool immediate,
     }
     if (name && !data_name && !any_escape && !valid[HERE_STRING_CONTENT] &&
         (tracked->scanner->context_mode & CONTEXT_DSC) && scan_dsc_keyword(lexer, valid, word)) {
+      return true;
+    }
+    if (dot_invocation_operator && !any_escape && strcmp(word, ".") == 0) {
+      lexer->mark_end(lexer);
+      lexer->result_symbol = DOT_INVOCATION_OPERATOR;
       return true;
     }
     // StatementRule reserves these words; CommandRule still accepts them.
@@ -4244,39 +4248,6 @@ static bool flow_postfix_increment_follows(TSLexer *lexer) {
   return generic_end(c) && !quote(c) && c != '<' && c != '>';
 }
 
-// A fresh prefix increment/decrement statement can start after a completed
-// flow label. Probe its operand without moving the label's marked end.
-static bool flow_prefix_operand_follows(TSLexer *lexer) {
-  for (;;) {
-    if (!skip_postfix_trivia(lexer, true)) {
-      return false;
-    }
-    int32_t c = lexer->lookahead;
-    if (c == '+' || generic_dash(c) || c == '!' || c == ',') {
-      lexer->advance(lexer, false);
-      continue;
-    }
-    if (c == '$') {
-      lexer->advance(lexer, false);
-      return lexer->lookahead == '(' ||
-             (variable_start(lexer->lookahead) && scan_variable_name(lexer, false));
-    }
-    if (c == '[') {
-      bool attribute;
-      bool invalid;
-      return lookahead_attribute_prefix(lexer, &attribute, &invalid);
-    }
-    if (ascii_digit(c) || c == '.') {
-      bool numeric[EXTERNAL_TOKEN_COUNT] = {0};
-      numeric[INTEGER_LITERAL] = true;
-      numeric[REAL_LITERAL] = true;
-      NumberContext context = {.end_on_ternary = true};
-      return scan_number(lexer, numeric, context);
-    }
-    return command_mode_expression_follows(lexer, true, false, ALLOW_MALFORMED_VARIABLE);
-  }
-}
-
 // UnaryExpressionRule leaves an invalid following token for StatementRule.
 // Keep a newline available for the same recovery when no operand can begin
 // after it. A leading pipe retains PipelineRule's existing recovery path.
@@ -4567,6 +4538,24 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
     lexer->result_symbol = valid[COMMAND_UNARY_START] ? COMMAND_UNARY_START : COMMAND_MEMBER_START;
     return true;
   }
+  // LabelOrKeyRule peeks in command mode: a glued suffix turns ++/-- into
+  // generic text, so the operator begins the next statement instead.
+  if (valid[FLOW_POSTFIX_CONTEXT] && !valid[HERE_STRING_CONTENT] &&
+      (lexer->lookahead == '+' || generic_dash(lexer->lookahead))) {
+    lexer->mark_end(lexer);
+    int32_t first = lexer->lookahead;
+    lexer->advance(lexer, false);
+    if (first == '+' ? lexer->lookahead == '+' : generic_dash(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+      int32_t c = lexer->lookahead;
+      if (generic_end(c) && !quote(c) && c != '<' && c != '>') {
+        lexer->result_symbol = FLOW_POSTFIX_CONTEXT;
+        return true;
+      }
+    }
+    lexer->result_symbol = FLOW_LABEL_END;
+    return valid[FLOW_LABEL_END];
+  }
   if ((valid[FLOW_EXPRESSION_START] || valid[FLOW_LABEL_END]) && !valid[HERE_STRING_CONTENT]) {
     lexer->mark_end(lexer);
     if (!valid[FLOW_EXPRESSION_START] && valid[POSTFIX_CONTEXT]) {
@@ -4576,8 +4565,7 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
       if (lexer->lookahead == '<' && valid[COMMENT] && valid[PREPARED_TOKEN]) {
         return request_preparation(scanner, lexer, valid);
       }
-      // Keep malformed glued operands on the existing postfix recovery path;
-      // ending the label before them can absorb a following pipeline command.
+      // A complete command-mode increment remains part of the label.
       int32_t c = lexer->lookahead;
       if (c == '+' || generic_dash(c)) {
         lexer->advance(lexer, false);
@@ -4585,9 +4573,6 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid) {
           lexer->advance(lexer, false);
           c = lexer->lookahead;
           if (generic_end(c) && !quote(c) && c != '<' && c != '>') {
-            return false;
-          }
-          if (!flow_prefix_operand_follows(lexer)) {
             return false;
           }
         }
@@ -5074,6 +5059,10 @@ static bool prepare_argument_trivia(PreparationLexer *source, const bool *valid,
                                   : argument_postfix_follows(lexer, false);
   if (postfix) {
     if (!first_end) {
+      if (valid[FLOW_POSTFIX_CONTEXT]) {
+        lexer->result_symbol = FLOW_POSTFIX_CONTEXT;
+        return true;
+      }
       return !flow_trivia;
     }
     source->start = first_start;

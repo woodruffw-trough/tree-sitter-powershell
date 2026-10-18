@@ -1,0 +1,142 @@
+[
+  {
+    "name": "attached parameter value rejects malformed variable",
+    "source": "Show -P:pre${} tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "EmptyVariableReference"
+    ]
+  },
+  {
+    "name": "attached parameter value preserves variable interpolation",
+    "source": "Show -P:pre${env:x} tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "redirection target rejects malformed variable",
+    "source": "Show >pre$bad: tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "redirection target preserves variable interpolation",
+    "source": "Show >pre$env:x tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "post-delimiter argument rejects malformed variable",
+    "source": "Show -- pre${bad:} tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "post-delimiter argument preserves variable interpolation",
+    "source": "Show -- pre${x} tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "invocation target rejects malformed variable",
+    "source": "& pre${} tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "EmptyVariableReference"
+    ]
+  },
+  {
+    "name": "invocation target preserves variable interpolation",
+    "source": "& pre${x} tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "dot-source target rejects malformed variable",
+    "source": ". pre$: tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReference"
+    ]
+  },
+  {
+    "name": "dot-source target preserves variable interpolation",
+    "source": ". pre$- tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "leading decimal argument rejects malformed variable",
+    "source": "Show .5${bad:} tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "leading decimal argument preserves variable interpolation",
+    "source": "Show .5$x tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "leading type argument rejects malformed variable",
+    "source": "Show [int]::$bad: tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ]
+  },
+  {
+    "name": "leading type argument preserves variable interpolation",
+    "source": "Show [int]::$env:x tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "quoted prefix argument rejects malformed variable",
+    "source": "Show \"pre\"${} tail | Next\nAfter item | Last\n",
+    "valid": false,
+    "diagnostics": [
+      "EmptyVariableReference"
+    ]
+  },
+  {
+    "name": "quoted prefix argument preserves variable interpolation",
+    "source": "Show \"pre\"${x} tail | Next\nAfter item | Last\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "collected command argument rejects malformed variable",
+    "source": "\"$(Show pre${bad:} tail | Next\nAfter item | Last)\"\n",
+    "valid": false,
+    "diagnostics": [
+      "InvalidBracedVariableReference"
+    ]
+  },
+  {
+    "name": "collected command argument preserves variable interpolation",
+    "source": "\"$(Show pre${env:x} tail | Next\nAfter item | Last)\"\n",
+    "valid": true,
+    "diagnostics": []
+  },
+  {
+    "name": "here-string command argument rejects malformed variable",
+    "source": "@\"\n$(Show pre${} tail | Next\nAfter item | Last)\n\"@",
+    "valid": false,
+    "diagnostics": [
+      "EmptyVariableReference"
+    ]
+  },
+  {
+    "name": "here-string command argument preserves variable interpolation",
+    "source": "@\"\n$(Show pre${a`}b} tail | Next\nAfter item | Last)\n\"@",
+    "valid": true,
+    "diagnostics": []
+  }
+]

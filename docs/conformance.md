@@ -88,10 +88,6 @@ oracle supplies scoped keyword metadata without importing modules or running
 resource hooks. Legacy workflow syntax is tested separately from PowerShell
 Core's `WorkflowNotSupportedInPowerShellCore` diagnostic.
 
-**Numeric command dispatch.** Some fractional prefixes after a pipe, such as
-`cmd | .5=1 tail`, can be parsed as dot invocation and accepted despite native
-syntax errors.
-
 **Malformed-input recovery.** Tests check that malformed interpolation retains
 an `ERROR`, the enclosing string, subsequent arguments, and following pipeline
 commands. Recovery still differs for some incomplete hashtable values, member
@@ -105,13 +101,8 @@ with the quoted suffix as its value, where PowerShell retains the dot.
 Tree-sitter's recovery tree does not promise Microsoft's diagnostic sequence or
 recovered AST for every input. Long runs of invalid attribute prefixes can
 require quadratic lookahead during recovery.
-Some malformed postfix operands in flow labels, such as `break ($x)++suffix`,
-and switch operands beginning `.$x` remain accepted. Malformed interpolation
-can still become literal dollar text in several argument contexts, including
-invocation targets, switch values, attached parameter values, redirection
-destinations, arguments after `--`, and leading dot or type syntax.
-[Variable tests](../tests/variables.rs) check the contexts that reject it and
-preserve following commands.
+[Variable tests](../tests/variables.rs) check malformed interpolation in command
+arguments, including cases that preserve following commands.
 [Operator](../tests/operator_recovery.rs), [member](../tests/member_trivia.rs),
 and [flow-label](../tests/flow_labels.rs) recovery tests compare following command
 boundaries independently of the damaged argument and label nodes.
@@ -138,6 +129,16 @@ range operands in the CST.
 keywords with escaped or composite spellings, such as `` `File `` and `F"ile"`,
 can trigger a caught `NullReferenceException` and discard the configuration AST.
 These inputs provide no reliable conformance tree and are excluded from ordinary
-oracle batches rather than classified as successful parses. Speculative numeric
-comment diagnostics and a collected-string offset defect have dedicated checks
-that preserve the original text and assert the usable native evidence separately.
+oracle batches rather than classified as successful parses.
+
+**Speculative numeric-comment diagnostics.** PowerShell can retain a diagnostic
+from generic-token lookahead even after restoring a valid number followed by a
+comment. Examples include `-1#'`, `127y#$bad:`, and an unfinished braced variable
+inside the comment. The grammar follows the final tokens and AST without adding
+an error. [Numeric tests](../tests/numeric_contexts.rs) assert both that structure
+and the native diagnostics.
+
+**Nested collected-string extents.** PowerShell can lose a quote-offset layer
+in nested interpolation and place AST nodes before the corresponding source text.
+[String tests](../tests/string_contexts.rs) assert physical quote boundaries
+independently for those cases.

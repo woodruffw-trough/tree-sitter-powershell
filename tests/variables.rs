@@ -17,6 +17,16 @@ fn variable_syntax() {
 }
 
 #[test]
+fn interpolation_in_command_values_matches_powershell() {
+    let cases: Vec<Value> =
+        serde_json::from_str(include_str!("fixtures/command_value_variables.json")).unwrap();
+    common::assert_syntax(&cases);
+    let results = common::oracle(&cases, "tests/fixtures/command_value_variables.json");
+    common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
+}
+
+#[test]
 fn generic_arguments_validate_variables_and_preserve_following_commands() {
     let cases: Vec<Value> =
         serde_json::from_str(include_str!("fixtures/adjacent_variables.json")).unwrap();

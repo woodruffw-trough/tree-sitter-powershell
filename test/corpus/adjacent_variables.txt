@@ -39,8 +39,8 @@ After item | Next
       name: (command_name
         (bare_word)))
     (ERROR
-      (identifier)
-      (argument_fragment)
+      (bare_word)
+      (UNEXPECTED '$')
       (bare_word))
     elements: (command
       name: (command_name
@@ -72,8 +72,8 @@ After item | Next)"
                 name: (command_name
                   (bare_word)))
               (ERROR
-                (identifier)
-                (argument_fragment)
+                (bare_word)
+                (UNEXPECTED '$')
                 (bare_word)
                 (bare_word))
               elements: (command

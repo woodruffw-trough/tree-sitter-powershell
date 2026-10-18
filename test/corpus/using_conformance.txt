@@ -76,8 +76,7 @@ Write-Output after
     value: (expandable_string
       (string_content)
       (ERROR
-        (argument_fragment)
-        (type_identifier))))
+        (variable))))
   (pipeline
     elements: (command
       name: (command_name

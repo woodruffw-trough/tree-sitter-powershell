@@ -63,6 +63,70 @@ fn quoted_numeric_comments_keep_expression_boundaries() {
 }
 
 #[test]
+fn speculative_variable_diagnostics_preserve_numeric_comment_trees() {
+    let cases: Vec<Value> =
+        serde_json::from_str(include_str!("fixtures/numeric_comment_variables.json")).unwrap();
+    common::assert_syntax(&cases);
+    let results = common::oracle(&cases, "tests/fixtures/numeric_comment_variables.json");
+    common::assert_commands(&cases, &results);
+    cst::assert_structure(&cases, &results);
+
+    let mut parser = common::parser();
+    for (case, result) in cases.iter().zip(results) {
+        let source = case["source"].as_str().unwrap();
+        let number = &case["number"];
+        let comment = &case["comment"];
+        for (kind, expected) in [("Number", number), ("Comment", comment)] {
+            let token = result["tokens"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .find(|token| token["kind"] == kind)
+                .unwrap();
+            for field in ["start", "end", "text"] {
+                assert_eq!(token[field], expected[field], "{source}");
+            }
+        }
+        let constants = result["ast"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter(|node| node["type"] == "ConstantExpressionAst")
+            .collect::<Vec<_>>();
+        assert_eq!(constants.len(), 1, "{source}");
+        assert_eq!(constants[0]["start"], number["start"], "{source}");
+        assert_eq!(constants[0]["end"], number["end"], "{source}");
+        assert_eq!(
+            constants[0]["constantType"], number["constant_type"],
+            "{source}"
+        );
+
+        // ScanGenericToken retains speculative diagnostics after Resync has
+        // restored a number followed by a comment. An unfinished braced variable
+        // can extend the diagnostic through later source, beyond the comment.
+        let start = result["errors"][0]["start"].as_u64().unwrap();
+        let comment_start = comment["start"].as_u64().unwrap();
+        let comment_end = comment["end"].as_u64().unwrap();
+        assert!((comment_start..comment_end).contains(&start), "{source}");
+        let tree = parser.parse(source, None).unwrap();
+        let mut cursor = tree.root_node().walk();
+        let node = tree
+            .root_node()
+            .named_children(&mut cursor)
+            .find(|node| node.kind() == "comment")
+            .unwrap();
+        assert_eq!(
+            common::utf16_extent(node, source),
+            (comment_start as usize, comment_end as usize)
+        );
+        assert_eq!(
+            &source[node.byte_range()],
+            comment["text"].as_str().unwrap()
+        );
+    }
+}
+
+#[test]
 fn signed_number_comments_keep_lexical_boundaries_despite_speculative_oracle_errors() {
     let cases: Vec<Value> =
         serde_json::from_str(include_str!("fixtures/numeric_comment_diagnostics.json")).unwrap();

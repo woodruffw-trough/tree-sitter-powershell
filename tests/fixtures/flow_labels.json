@@ -2408,5 +2408,41 @@
     "source": "break ($x)` ++$y\nHorizontal-After item | Horizontal-Next\n",
     "valid": true,
     "diagnostics": []
+  },
+  {
+    "name": "prefix increment applies to logical negation after a flow label",
+    "source": "break ($x)++-not $y",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "prefix decrement applies to join after a member flow label",
+    "source": "continue $x.M---join $y",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "prefix increment applies to split after a flow label",
+    "source": "break ($x)++-split $y",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ]
+  },
+  {
+    "name": "named unary operator after a flow label accepts a smart dash",
+    "source": "break ($x)++–NoT $y",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "OperatorRequiresVariableOrProperty"
+    ]
   }
 ]

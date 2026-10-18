@@ -1,0 +1,562 @@
+[
+  {
+    "name": "speculative variable diagnostic inside signed-byte maximum comment",
+    "source": "127y#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 0,
+      "end": 4,
+      "text": "127y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 4,
+      "end": 10,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside signed-byte maximum comment in assignment",
+    "source": "$x = 127y#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 5,
+      "end": 9,
+      "text": "127y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 9,
+      "end": 15,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside signed-byte minimum comment",
+    "source": "-128y#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 0,
+      "end": 5,
+      "text": "-128y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 5,
+      "end": 11,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside signed-byte minimum comment in assignment",
+    "source": "$x = -128y#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 5,
+      "end": 10,
+      "text": "-128y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 10,
+      "end": 16,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside signed-short maximum comment",
+    "source": "32767s#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 0,
+      "end": 6,
+      "text": "32767s",
+      "constant_type": "System.Int16"
+    },
+    "comment": {
+      "start": 6,
+      "end": 12,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside signed-short maximum comment in assignment",
+    "source": "$x = 32767s#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 5,
+      "end": 11,
+      "text": "32767s",
+      "constant_type": "System.Int16"
+    },
+    "comment": {
+      "start": 11,
+      "end": 17,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside unsigned-byte maximum comment",
+    "source": "255uy#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 0,
+      "end": 5,
+      "text": "255uy",
+      "constant_type": "System.Byte"
+    },
+    "comment": {
+      "start": 5,
+      "end": 11,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside unsigned-byte maximum comment in assignment",
+    "source": "$x = 255uy#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 5,
+      "end": 10,
+      "text": "255uy",
+      "constant_type": "System.Byte"
+    },
+    "comment": {
+      "start": 10,
+      "end": 16,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside unsigned-long maximum comment",
+    "source": "18446744073709551615ul#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 0,
+      "end": 22,
+      "text": "18446744073709551615ul",
+      "constant_type": "System.UInt64"
+    },
+    "comment": {
+      "start": 22,
+      "end": 28,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside unsigned-long maximum comment in assignment",
+    "source": "$x = 18446744073709551615ul#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 5,
+      "end": 27,
+      "text": "18446744073709551615ul",
+      "constant_type": "System.UInt64"
+    },
+    "comment": {
+      "start": 27,
+      "end": 33,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside decimal maximum comment",
+    "source": "79228162514264337593543950335d#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 0,
+      "end": 30,
+      "text": "79228162514264337593543950335d",
+      "constant_type": "System.Decimal"
+    },
+    "comment": {
+      "start": 30,
+      "end": 36,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside decimal maximum comment in assignment",
+    "source": "$x = 79228162514264337593543950335d#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 5,
+      "end": 35,
+      "text": "79228162514264337593543950335d",
+      "constant_type": "System.Decimal"
+    },
+    "comment": {
+      "start": 35,
+      "end": 41,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside overflowing double comment",
+    "source": "1e9999#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 0,
+      "end": 6,
+      "text": "1e9999",
+      "constant_type": "System.Double"
+    },
+    "comment": {
+      "start": 6,
+      "end": 12,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative variable diagnostic inside overflowing double comment in assignment",
+    "source": "$x = 1e9999#$bad:\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "InvalidVariableReferenceWithDrive"
+    ],
+    "number": {
+      "start": 5,
+      "end": 11,
+      "text": "1e9999",
+      "constant_type": "System.Double"
+    },
+    "comment": {
+      "start": 11,
+      "end": 17,
+      "text": "#$bad:"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside signed-byte maximum comment",
+    "source": "127y#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 0,
+      "end": 4,
+      "text": "127y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 4,
+      "end": 12,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside signed-byte maximum comment in assignment",
+    "source": "$x = 127y#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 5,
+      "end": 9,
+      "text": "127y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 9,
+      "end": 17,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside signed-byte minimum comment",
+    "source": "-128y#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 0,
+      "end": 5,
+      "text": "-128y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 5,
+      "end": 13,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside signed-byte minimum comment in assignment",
+    "source": "$x = -128y#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 5,
+      "end": 10,
+      "text": "-128y",
+      "constant_type": "System.SByte"
+    },
+    "comment": {
+      "start": 10,
+      "end": 18,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside signed-short maximum comment",
+    "source": "32767s#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 0,
+      "end": 6,
+      "text": "32767s",
+      "constant_type": "System.Int16"
+    },
+    "comment": {
+      "start": 6,
+      "end": 14,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside signed-short maximum comment in assignment",
+    "source": "$x = 32767s#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 5,
+      "end": 11,
+      "text": "32767s",
+      "constant_type": "System.Int16"
+    },
+    "comment": {
+      "start": 11,
+      "end": 19,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside unsigned-byte maximum comment",
+    "source": "255uy#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 0,
+      "end": 5,
+      "text": "255uy",
+      "constant_type": "System.Byte"
+    },
+    "comment": {
+      "start": 5,
+      "end": 13,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside unsigned-byte maximum comment in assignment",
+    "source": "$x = 255uy#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 5,
+      "end": 10,
+      "text": "255uy",
+      "constant_type": "System.Byte"
+    },
+    "comment": {
+      "start": 10,
+      "end": 18,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside unsigned-long maximum comment",
+    "source": "18446744073709551615ul#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 0,
+      "end": 22,
+      "text": "18446744073709551615ul",
+      "constant_type": "System.UInt64"
+    },
+    "comment": {
+      "start": 22,
+      "end": 30,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside unsigned-long maximum comment in assignment",
+    "source": "$x = 18446744073709551615ul#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 5,
+      "end": 27,
+      "text": "18446744073709551615ul",
+      "constant_type": "System.UInt64"
+    },
+    "comment": {
+      "start": 27,
+      "end": 35,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside decimal maximum comment",
+    "source": "79228162514264337593543950335d#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 0,
+      "end": 30,
+      "text": "79228162514264337593543950335d",
+      "constant_type": "System.Decimal"
+    },
+    "comment": {
+      "start": 30,
+      "end": 38,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside decimal maximum comment in assignment",
+    "source": "$x = 79228162514264337593543950335d#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 5,
+      "end": 35,
+      "text": "79228162514264337593543950335d",
+      "constant_type": "System.Decimal"
+    },
+    "comment": {
+      "start": 35,
+      "end": 43,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside overflowing double comment",
+    "source": "1e9999#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 0,
+      "end": 6,
+      "text": "1e9999",
+      "constant_type": "System.Double"
+    },
+    "comment": {
+      "start": 6,
+      "end": 14,
+      "text": "#${bad`}"
+    }
+  },
+  {
+    "name": "speculative incomplete-variable diagnostic inside overflowing double comment in assignment",
+    "source": "$x = 1e9999#${bad`}\nCorner-After item | Corner-Next\n",
+    "valid": false,
+    "syntax_valid": true,
+    "diagnostics": [
+      "IncompleteDollarVariableReference"
+    ],
+    "number": {
+      "start": 5,
+      "end": 11,
+      "text": "1e9999",
+      "constant_type": "System.Double"
+    },
+    "comment": {
+      "start": 11,
+      "end": 19,
+      "text": "#${bad`}"
+    }
+  }
+]

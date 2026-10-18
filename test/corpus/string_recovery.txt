@@ -13,7 +13,7 @@ echo "${oops" | Out-File $env:GITHUB_ENV
       (command_argument
         (expandable_string
           (ERROR
-            (argument_fragment)
+            (UNEXPECTED '$')
             (type_identifier)))))
     elements: (command
       name: (command_name
@@ -36,7 +36,7 @@ echo "${oops" after "$env:VALUE" | Out-File $env:GITHUB_ENV | Write-Output
       (command_argument
         (expandable_string
           (ERROR
-            (argument_fragment)
+            (UNEXPECTED '$')
             (type_identifier))))
       (command_argument
         (bare_word))
@@ -68,7 +68,7 @@ echo "prefix ${{ github.ref }} suffix" tail | Out-File $env:GITHUB_ENV
         (expandable_string
           (string_content)
           (ERROR
-            (argument_fragment)
+            (UNEXPECTED '$')
             (bare_word)
             (type_identifier))))
       (command_argument
@@ -94,7 +94,7 @@ echo "${oops#tail" after | Out-File $env:GITHUB_ENV
       (command_argument
         (expandable_string
           (ERROR
-            (argument_fragment)
+            (UNEXPECTED '$')
             (type_identifier))))
       (command_argument
         (bare_word)))
@@ -120,7 +120,7 @@ echo "value=${{ steps.build.outputs.value }}" -Encoding utf8 | Out-File $env:GIT
         (expandable_string
           (string_content)
           (ERROR
-            (argument_fragment)
+            (UNEXPECTED '$')
             (bare_word))))
       (command_parameter
         name: (command_parameter_name))

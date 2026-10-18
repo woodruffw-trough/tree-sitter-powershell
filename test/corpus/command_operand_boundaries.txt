@@ -1,0 +1,89 @@
+==================
+A fractional prefix after a pipe retains an error
+==================
+cmd | .5=1 tail
+Fraction-After item | Fraction-Next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))
+    (ERROR
+      (bare_word)
+      (bare_word))
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A spaced dot invocation retains its complete numeric target
+==================
+cmd | . .5 arg | next
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word)))
+    elements: (command
+      name: (invocation_operator_command
+        command: (command_argument
+          (real_literal)))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A glued named unary operator starts a new statement after a flow label
+==================
+break ($x)++-not $y
+---
+(source_file
+  (break_statement
+    label: (parenthesized_expression
+      (pipeline
+        elements: (command_expression
+          expression: (variable)))))
+  (pipeline
+    elements: (command_expression
+      expression: (unary_expression
+        argument: (unary_expression
+          argument: (variable))))))
+
+==================
+An empty variable in a parameter value retains an error
+==================
+Show -P:pre${} tail | Next
+After item | Last
+---
+(source_file
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_parameter
+        name: (command_parameter_name)))
+    (ERROR
+      (bare_word)
+      (UNEXPECTED '$')
+      (bare_word))
+    elements: (command
+      name: (command_name
+        (bare_word))))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

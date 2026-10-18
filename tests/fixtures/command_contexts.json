@@ -4113,5 +4113,102 @@
     "source": "Show p${a`}b} tail | Keep\nAfter item | Next\n",
     "valid": true,
     "diagnostics": []
+  },
+  {
+    "name": "fractional assignment after pipe",
+    "source": "cmd | .5=1 tail\nFraction-After item | Fraction-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "fractional quoted operator suffix after pipe",
+    "source": "cmd | .5+foo'bar' tail\nFraction-After item | Fraction-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpectedValueExpression",
+      "ExpressionsMustBeFirstInPipeline",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "fractional member after pipe",
+    "source": "cmd | .5.M tail\nFraction-After item | Fraction-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "fractional prefix after pipe newline",
+    "source": "cmd |\n.5+2 arg | next\nFraction-After item | Fraction-Next\n",
+    "valid": false,
+    "diagnostics": [
+      "ExpressionsMustBeFirstInPipeline",
+      "UnexpectedToken"
+    ]
+  },
+  {
+    "name": "fractional-looking command remains generic",
+    "source": "cmd | .5foo arg | next\n",
+    "valid": true
+  },
+  {
+    "name": "spaced integer dot invocation",
+    "source": "cmd | . 5 arg | next\n",
+    "valid": true
+  },
+  {
+    "name": "spaced real dot invocation",
+    "source": "cmd | . .5 arg | next\n",
+    "valid": true
+  },
+  {
+    "name": "adjacent variable dot invocation",
+    "source": ".$x arg | next\n",
+    "valid": true
+  },
+  {
+    "name": "adjacent quoted dot invocation",
+    "source": ".\"quoted target\" arg | next\n",
+    "valid": true
+  },
+  {
+    "name": "ordinary argument dot before variable",
+    "source": "cmd .$x tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "ordinary argument dot before quote",
+    "source": "cmd .'literal' tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "escaped dot command stays generic",
+    "source": "`.\"literal\" tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "smart quoted dot command stays generic",
+    "source": ".“smart” tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "single quoted dot invocation",
+    "source": ".'single target' tail | next\n",
+    "valid": true
+  },
+  {
+    "name": "collected dot invocation",
+    "source": "\"$(.$x arg | next)\"\n",
+    "valid": true
+  },
+  {
+    "name": "dot end marker remains complete",
+    "source": ". -- tail | next\n",
+    "valid": true
   }
 ]

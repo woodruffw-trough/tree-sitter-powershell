@@ -1,0 +1,85 @@
+==================
+Switch file values reject a raw dot followed by interpolation
+==================
+switch -file .$x { default {} }
+Dot-After item | Dot-Next
+
+---
+
+(source_file
+  (switch_statement
+    (ERROR
+      (bare_word))
+    file: (command_argument
+      (variable))
+    clauses: (switch_clause
+      body: (statement_block)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+Switch clause conditions reject a raw dot followed by an ASCII quote
+==================
+switch ($x) { ."x" {} }
+Dot-After item | Dot-Next
+
+---
+
+(source_file
+  (switch_statement
+    condition: (condition
+      (pipeline
+        elements: (command_expression
+          expression: (variable))))
+    clauses: (switch_clause
+      (ERROR)
+      condition: (command_argument
+        (expandable_string
+          (string_content)))
+      body: (statement_block)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))
+
+==================
+A smart quote suffix remains one switch condition
+==================
+switch ($x) { .“x” {} }
+Dot-After item | Dot-Next
+
+---
+
+(source_file
+  (switch_statement
+    condition: (condition
+      (pipeline
+        elements: (command_expression
+          expression: (variable))))
+    clauses: (switch_clause
+      condition: (command_argument
+        (bare_word)
+        (expandable_string
+          (string_content)))
+      body: (statement_block)))
+  (pipeline
+    elements: (command
+      name: (command_name
+        (bare_word))
+      (command_argument
+        (bare_word)))
+    elements: (command
+      name: (command_name
+        (bare_word)))))

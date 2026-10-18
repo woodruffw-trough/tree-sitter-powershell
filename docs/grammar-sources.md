@@ -221,7 +221,10 @@ tries a simple name before a unary expression. In `break foo.M`, the label is
 the label. Bare identifiers cannot appear as recursive cast or unary operands.
 Spaces, tabs, block comments, and escaped whitespace can precede a flow label's
 postfix operator. In `break ($x)<# c #>++$y`, `++$y` starts the next prefix
-expression. These token boundaries follow
+expression. In `break ($x)++-not $y`, the label is `($x)` and prefix increment
+applies to the following logical negation. PowerShell retains that complete
+AST before reporting the semantic increment-target diagnostic. These token
+boundaries follow
 [`CheckOperatorInCommandMode`](https://github.com/PowerShell/PowerShell/blob/v7.5.4/src/System.Management.Automation/engine/parser/tokenizer.cs#L3340-L3360).
 
 Command parameters consistently expose their complete spelling in `name`,
@@ -354,6 +357,13 @@ explicit invocation targets retain command-mode text, as in `cmd 128y.M`.
 After `return`, `throw`, and `exit`, numeric lookahead begins in expression mode.
 In `return 127y#'text`, the number ends before `#`; the remaining text is a
 comment, including its unmatched quote.
+
+PowerShell can retain a diagnostic from speculative generic-token lookahead
+after resetting to expression mode. In `127y#$bad:`, the final tokens and AST
+contain a number followed by a comment, but `ParseInput` still reports an invalid
+variable reference inside the comment. The grammar follows the final lexical
+structure for these cases.
+
 Named operators remain available after type literals: `[int] -or $x` is binary,
 while `[int] -not $x` and `[int] -csplit $x` are casts over unary expressions.
 

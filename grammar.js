@@ -134,9 +134,10 @@ const BINARY_OPERATORS = [
   [PREC.range, ['..']],
 ];
 
-const postfixExpression = ($, argument) => prec(PREC.member, seq(
+const postfixExpression = ($, argument, context) => prec(PREC.member, seq(
   field('argument', argument),
   optional($._postfix_context),
+  ...(context ? [context] : []),
   field('operator', choice(
     token(prec(5, '++')),
     alias(token(prec(5, /[-–—―][-–—―]/)), '--'),
@@ -181,7 +182,7 @@ const unaryExpression = ($, argument, allowComma, options = {}) => {
     );
     const postfix = prec(
       options.postfixPrecedence || PREC.member,
-      postfixExpression($, operand),
+      postfixExpression($, operand, options.postfixContext),
     );
     // A recursive member operand completes UnaryExpressionRule before the
     // enclosing member expression can consume its own optional postfix.
@@ -442,6 +443,8 @@ const grammarDefinition = {
     $._workflow_inline_script,
     $._command_static_operator,
     $._argument_dot,
+    $._dot_invocation_operator,
+    $._flow_postfix_context,
   ],
 
   word: $ => $.identifier,
@@ -1314,12 +1317,12 @@ const grammarDefinition = {
     ),
 
     _invocation_end_of_parameters_command: $ => seq(
-      field('operator', choice('&', '.')),
+      field('operator', choice('&', alias($._dot_invocation_operator, '.'))),
       field('command', alias($._end_of_parameters, $.command_parameter)),
     ),
 
     _invocation_verbatim_command: $ => seq(
-      field('operator', choice('&', '.')),
+      field('operator', choice('&', alias($._dot_invocation_operator, '.'))),
       field('command', alias($._verbatim_command_name, $.command_argument)),
     ),
 
@@ -1350,7 +1353,7 @@ const grammarDefinition = {
     ),
 
     invocation_operator_command: $ => seq(
-      field('operator', choice('&', '.')),
+      field('operator', choice('&', alias($._dot_invocation_operator, '.'))),
       // Keep the complete target in one field even when adjacent pieces expand.
       field('command', alias(choice(
         $._single_command_argument_value,
@@ -1482,7 +1485,7 @@ const grammarDefinition = {
 
     _argument_interpolation: $ => choice(
       alias($._adjacent_variable, $.variable),
-      alias(token.immediate('$'), $.argument_fragment),
+      alias($._literal_dollar, $.argument_fragment),
       alias($._argument_expandable_string, $.expandable_string),
       alias($._adjacent_single_quoted_string, $.single_quoted_string),
       alias($._command_interpolation, $.interpolation),
@@ -1675,6 +1678,7 @@ const grammarDefinition = {
 
     _flow_unary_operator_expression: $ => unaryExpression(
       $, $._flow_unary_expression, false, {
+        postfixContext: $._flow_postfix_context,
         argumentStart: $._flow_expression_start,
         postfixArgument: $._comma_free_command_value_primary_expression,
         prefixRule: $.flow_unary_prefix_expression,

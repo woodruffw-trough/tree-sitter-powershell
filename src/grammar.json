@@ -8078,7 +8078,12 @@
                 "value": "&"
               },
               {
-                "type": "STRING",
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_dot_invocation_operator"
+                },
+                "named": false,
                 "value": "."
               }
             ]
@@ -8113,7 +8118,12 @@
                 "value": "&"
               },
               {
-                "type": "STRING",
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_dot_invocation_operator"
+                },
+                "named": false,
                 "value": "."
               }
             ]
@@ -8268,7 +8278,12 @@
                 "value": "&"
               },
               {
-                "type": "STRING",
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_dot_invocation_operator"
+                },
+                "named": false,
                 "value": "."
               }
             ]
@@ -8798,11 +8813,8 @@
         {
           "type": "ALIAS",
           "content": {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "STRING",
-              "value": "$"
-            }
+            "type": "SYMBOL",
+            "name": "_literal_dollar"
           },
           "named": true,
           "value": "argument_fragment"
@@ -14456,6 +14468,10 @@
                         "type": "BLANK"
                       }
                     ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_flow_postfix_context"
                   },
                   {
                     "type": "FIELD",
@@ -33101,7 +33117,12 @@
                 "value": "&"
               },
               {
-                "type": "STRING",
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_dot_invocation_operator"
+                },
+                "named": false,
                 "value": "."
               }
             ]
@@ -33319,7 +33340,12 @@
                 "value": "&"
               },
               {
-                "type": "STRING",
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_dot_invocation_operator"
+                },
+                "named": false,
                 "value": "."
               }
             ]
@@ -33354,7 +33380,12 @@
                 "value": "&"
               },
               {
-                "type": "STRING",
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_dot_invocation_operator"
+                },
+                "named": false,
                 "value": "."
               }
             ]
@@ -41005,6 +41036,14 @@
     {
       "type": "SYMBOL",
       "name": "_argument_dot"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_dot_invocation_operator"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_flow_postfix_context"
     }
   ],
   "inline": [],
